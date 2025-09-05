@@ -534,7 +534,7 @@
                             <!-- Progress Bar -->
                             <div class="tp-register-progress mb-40">
                                 <div class="progress-steps">
-                                    <div class="step active" data-step="1">
+                                    <div class="step" data-step="1">
                                         <span>1</span>
                                         <p>Personal Info</p>
                                     </div>
@@ -546,7 +546,7 @@
                                         <span>3</span>
                                         <p>Internship Details</p>
                                     </div>
-                                    <div class="step" data-step="4">
+                                    <div class="step active" data-step="4">
                                         <span>4</span>
                                         <p>Identification & Verification</p>
                                     </div>
@@ -565,154 +565,55 @@
                                 </div>
                             </div>
                             <div class="tp-register-form">
-                                <form id="register-form" action="#" method="POST">
+                                <form id="register-form" enctype="multipart/form-data">
                                     <div class="row tp-gx-20">
 
-                                        <!-- First & Last Name -->
-                                        <div class="col-md-6">
+                                        <!-- Student ID Card -->
+                                        <div class="col-md-12 mt-20">
                                             <div class="tp-register-input">
-                                                <input id="firstName" name="firstName" type="text"
-                                                    placeholder="First Name*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="lastName" name="lastName" type="text"
-                                                    placeholder="Last Name*" required>
+                                                <label for="studentIdCard" class="form-label">
+                                                    Upload Student ID Card (PDF/JPG/PNG, max 3MB) *
+                                                </label>
+                                                <input id="studentIdCard" name="studentIdCard" type="file"
+                                                    accept=".pdf,.jpg,.jpeg,.png" required>
                                             </div>
                                         </div>
 
-                                        <!-- DOB -->
-                                        <div class="col-md-6">
+                                        <!-- Government ID Proof -->
+                                        <div class="col-md-12 mt-20">
                                             <div class="tp-register-input">
-                                                <input id="dateOfBirth" name="dateOfBirth" type="text"
-                                                    placeholder="Date of Birth*" required>
+                                                <label for="governmentIdProof" class="form-label">
+                                                    Upload Government ID Proof (PDF/JPG/PNG, max 3MB) *
+                                                </label>
+                                                <input id="governmentIdProof" name="governmentIdProof" type="file"
+                                                    accept=".pdf,.jpg,.jpeg,.png" required>
                                             </div>
                                         </div>
 
-                                        <!-- Gender -->
-                                        <div class="col-md-6">
+                                        <!-- Passport Photo -->
+                                        <div class="col-md-12 mt-20">
                                             <div class="tp-register-input">
-                                                <select id="gender" name="gender" class="tp-register-select" required>
-                                                    <option value="">Select Gender*</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Others">Others</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- Phone Numbers -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="phoneNumber" name="phoneNumber" type="text" maxlength="10"
-                                                    placeholder="Primary Phone (WhatsApp)*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="alternatePhoneNumber" name="alternatePhoneNumber" type="text"
-                                                    maxlength="10" placeholder="Alternate Phone (Optional)">
-                                            </div>
-                                        </div>
-
-                                        <!-- Email -->
-                                        <div class="col-md-12">
-                                            <div class="tp-register-input">
-                                                <input id="email" name="email" type="email" placeholder="Email Address*"
-                                                    required>
-                                            </div>
-                                        </div>
-
-                                        <!-- Address -->
-                                        <div class="col-md-12">
-                                            <div class="tp-register-input">
-                                                <textarea id="residentialAddress" name="residentialAddress"
-                                                    placeholder="Residential Address*" required></textarea>
-                                            </div>
-                                        </div>
-
-                                        <!-- Emergency Contact -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="emergencyContactName" name="emergencyContactName" type="text"
-                                                    placeholder="Emergency Contact Name*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="emergencyContactNumber" name="emergencyContactNumber"
-                                                    type="text" maxlength="10" placeholder="Emergency Contact Number*"
-                                                    required>
-                                            </div>
-                                        </div>
-
-                                        <!-- State & City -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="city" name="city" type="text" maxlength="10"
-                                                    placeholder="City*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="state" name="state" type="text" maxlength="10"
-                                                    placeholder="State*" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- Pin Code -->
-                                        <div class="col-md-12">
-                                            <div class="tp-register-input">
-                                                <input id="pinCode" name="pinCode" type="text" maxlength="6"
-                                                    placeholder="Pin Code*" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- Passwords -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input password-wrapper">
-                                                <input id="password-field" name="password" type="password"
-                                                    placeholder="Password*" required>
-                                                <button type="button" class="toggle-password"
-                                                    aria-label="Toggle password visibility">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input password-wrapper">
-                                                <input id="confirm-password-field" name="confirmPassword"
-                                                    type="password" placeholder="Confirm Password*" required>
-                                                <button type="button" class="toggle-password"
-                                                    aria-label="Toggle password visibility">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                </button>
+                                                <label for="passportPhoto" class="form-label">
+                                                    Upload Passport Photo (PDF/JPG/PNG, max 3MB) *
+                                                </label>
+                                                <input id="passportPhoto" name="passportPhoto" type="file"
+                                                    accept=".pdf,.jpg,.jpeg,.png" required>
                                             </div>
                                         </div>
 
                                         <!-- Submit -->
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 mt-20">
                                             <div class="tp-register-btn">
                                                 <button type="submit" class="tp-btn next-btn">
-                                                    Continue to Next Step
-                                                    <i class="fas fa-arrow-right"></i>
+                                                    Continue to Next Step <i class="fas fa-arrow-right"></i>
                                                 </button>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Already User -->
-                                        <div class="col-md-12">
-                                            <div class="tp-register-login text-center mt-20">
-                                                <p>Already have an account ? <a
-                                                        href="/login.html">Login here</a></p>
                                             </div>
                                         </div>
 
                                     </div>
                                 </form>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -1169,95 +1070,49 @@
 
     <script>
         $(document).ready(function () {
-            $("#dateOfBirth").flatpickr({
-                dateFormat: "Y-m-d",
-                maxDate: "today"
-            });
+            const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+            const maxSize = 3 * 1024 * 1024; // 3 MB
 
-            $(".toggle-password").on("click", function () {
-                const input = $(this).siblings("input");
-                const type = input.attr("type") === "password" ? "text" : "password";
-                input.attr("type", type);
-                $(this).find("i").toggleClass("fa-eye fa-eye-slash");
+            function validateFile(input) {
+                const file = input.files[0];
+                if (!file) return false;
+
+                if (!allowedTypes.includes(file.type)) {
+                    Swal.fire("Error", "Invalid file type. Only PDF, JPG, and PNG are allowed.", "error");
+                    input.value = "";
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    Swal.fire("Error", "File size must be less than 3 MB.", "error");
+                    input.value = "";
+                    return false;
+                }
+
+                return true;
+            }
+
+            $("#studentIdCard, #governmentIdProof, #passportPhoto").on("change", function () {
+                validateFile(this);
             });
 
             $("#register-form").on("submit", function (e) {
                 e.preventDefault();
 
-                let firstName = $("#firstName").val().trim();
-                let lastName = $("#lastName").val().trim();
-                let dateOfBirth = $("#dateOfBirth").val().trim();
-                let gender = $("#gender").val();
-                let phone = $("#phoneNumber").val().trim();
-                let altPhone = $("#alternatePhoneNumber").val().trim();
-                let email = $("#email").val().trim();
-                let residentialAddress = $("#residentialAddress").val().trim();
-                let emergencyContactName = $("#emergencyContactName").val().trim();
-                let emergencyContactNumber = $("#emergencyContactNumber").val().trim();
-                let city = $("#city").val();
-                let state = $("#state").val();
-                let pinCode = $("#pinCode").val().trim();
-                let password = $("#password-field").val().trim();
-                let confirmPassword = $("#confirm-password-field").val().trim();
+                const studentIdCard = $("#studentIdCard")[0].files[0];
+                const governmentIdProof = $("#governmentIdProof")[0].files[0];
+                const passportPhoto = $("#passportPhoto")[0].files[0];
 
-                console.log({
-                    firstName, lastName, dateOfBirth, gender, phone, altPhone,
-                    email, residentialAddress, emergencyContactName, emergencyContactNumber,
-                    city, state, pinCode, password, confirmPassword
-                });
-
-                if (!firstName) return Swal.fire("Error", "First Name is required.", "error");
-                if (!lastName) return Swal.fire("Error", "Last Name is required.", "error");
-                if (!dateOfBirth) return Swal.fire("Error", "Date of Birth is required.", "error");
-                if (!gender) return Swal.fire("Error", "Gender is required.", "error");
-                if (!phone) return Swal.fire("Error", "Phone number is required.", "error");
-                if (!email) return Swal.fire("Error", "Email is required.", "error");
-                if (!residentialAddress) return Swal.fire("Error", "Address is required.", "error");
-                if (!emergencyContactName) return Swal.fire("Error", "Emergency Contact Name is required.", "error");
-                if (!emergencyContactNumber) return Swal.fire("Error", "Emergency Contact Number is required.", "error");
-                if (!city) return Swal.fire("Error", "City is required.", "error");
-                if (!state) return Swal.fire("Error", "State is required.", "error");
-                if (!pinCode) return Swal.fire("Error", "Pin Code is required.", "error");
-                if (!password) return Swal.fire("Error", "Password is required.", "error");
-                if (!confirmPassword) return Swal.fire("Error", "Confirm Password is required.", "error");
-
-                if (!/^\d{10}$/.test(phone)) {
-                    Swal.fire("Error", "Primary phone number must be 10 digits.", "error");
-                    return;
-                }
-                if (altPhone && !/^\d{10}$/.test(altPhone)) {
-                    Swal.fire("Error", "Alternate phone number must be 10 digits.", "error");
-                    return;
-                }
-                if (!/^\d{10}$/.test(emergencyContactNumber)) {
-                    Swal.fire("Error", "Emergency contact number must be 10 digits.", "error");
-                    return;
-                }
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                    Swal.fire("Error", "Enter a valid email address.", "error");
-                    return;
-                }
-                if (password !== confirmPassword) {
-                    Swal.fire("Error", "Passwords do not match.", "error");
+                if (!studentIdCard || !governmentIdProof || !passportPhoto) {
+                    Swal.fire("Error", "All files are required.", "error");
                     return;
                 }
 
-                const payload = {
-                    firstName,
-                    lastName,
-                    dateOfBirth,
-                    gender,
-                    phoneNumber: phone,
-                    alternatePhoneNumber: altPhone,
-                    email,
-                    residentialAddress,
-                    emergencyContactName,
-                    emergencyContactNumber,
-                    city,
-                    state,
-                    pinCode,
-                    password
-                };
+                if (!validateFile($("#studentIdCard")[0]) ||
+                    !validateFile($("#governmentIdProof")[0]) ||
+                    !validateFile($("#passportPhoto")[0])) {
+                    return;
+                }
 
                 Swal.fire({
                     title: "Confirm Submission",
@@ -1269,21 +1124,27 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        const formData = new FormData();
+                        formData.append("studentIdCard", studentIdCard);
+                        formData.append("governmentIdProof", governmentIdProof);
+                        formData.append("passportPhoto", passportPhoto);
+
                         Swal.fire({
                             title: "Processing...",
-                            text: "Please wait while we save you details.",
+                            text: "Please wait while we save your details.",
                             allowOutsideClick: false,
                             didOpen: () => Swal.showLoading()
                         });
 
                         $.ajax({
-                            url: "https://eduroom.in/api/v1/user/personal-info",
+                            url: "https://your-api-url.com/api/v1/internship/upload-documents",
                             method: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify(payload),
+                            data: formData,
+                            processData: false,
+                            contentType: false,
                             success: function (res) {
-                                Swal.fire("Success", "Details saved successfully!", "success")
-                                    .then(() => window.location.href = "/register2.html");
+                                Swal.fire("Success", "Files uploaded successfully!", "success")
+                                    .then(() => window.location.href = "register5.html");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");

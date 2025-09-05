@@ -534,7 +534,7 @@
                             <!-- Progress Bar -->
                             <div class="tp-register-progress mb-40">
                                 <div class="progress-steps">
-                                    <div class="step active" data-step="1">
+                                    <div class="step" data-step="1">
                                         <span>1</span>
                                         <p>Personal Info</p>
                                     </div>
@@ -558,161 +558,108 @@
                                         <span>6</span>
                                         <p>Communication Preferences</p>
                                     </div>
-                                    <div class="step" data-step="5">
+                                    <div class="step active" data-step="5">
                                         <span>7</span>
                                         <p>Declaration & Consent</p>
                                     </div>
                                 </div>
                             </div>
+
+                            <style>
+                                .custom-checkbox {
+                                    display: flex;
+                                    align-items: flex-start;
+                                    gap: 12px;
+                                    margin-bottom: 20px;
+                                    font-size: 15px;
+                                    line-height: 1.6;
+                                    color: #333;
+                                }
+
+                                .custom-checkbox input[type="checkbox"] {
+                                    appearance: none;
+                                    width: 20px;
+                                    height: 20px;
+                                    border: 2px solid #00c6ad;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    position: relative;
+                                    transition: all 0.2s ease;
+                                    margin-top: 3px;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked {
+                                    background-color: #00c6ad;
+                                    border-color: #00c6ad;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked::after {
+                                    content: "✔";
+                                    color: #fff;
+                                    font-size: 14px;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 3px;
+                                }
+
+                                .custom-checkbox span {
+                                    flex: 1;
+                                }
+
+                                .tp-btn.next-btn {
+                                    background: linear-gradient(90deg, #00c6ad, #00e6b3);
+                                    color: #fff;
+                                    font-weight: 600;
+                                    font-size: 16px;
+                                    padding: 12px 25px;
+                                    border-radius: 8px;
+                                    border: none;
+                                    width: 100%;
+                                    cursor: pointer;
+                                    transition: 0.3s;
+                                }
+
+                                .tp-btn.next-btn:hover {
+                                    opacity: 0.9;
+                                }
+                            </style>
+
                             <div class="tp-register-form">
                                 <form id="register-form" action="#" method="POST">
                                     <div class="row tp-gx-20">
 
-                                        <!-- First & Last Name -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="firstName" name="firstName" type="text"
-                                                    placeholder="First Name*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="lastName" name="lastName" type="text"
-                                                    placeholder="Last Name*" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- DOB -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="dateOfBirth" name="dateOfBirth" type="text"
-                                                    placeholder="Date of Birth*" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- Gender -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <select id="gender" name="gender" class="tp-register-select" required>
-                                                    <option value="">Select Gender*</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Others">Others</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- Phone Numbers -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="phoneNumber" name="phoneNumber" type="text" maxlength="10"
-                                                    placeholder="Primary Phone (WhatsApp)*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="alternatePhoneNumber" name="alternatePhoneNumber" type="text"
-                                                    maxlength="10" placeholder="Alternate Phone (Optional)">
-                                            </div>
-                                        </div>
-
-                                        <!-- Email -->
+                                        <!-- Student Declaration -->
                                         <div class="col-md-12">
-                                            <div class="tp-register-input">
-                                                <input id="email" name="email" type="email" placeholder="Email Address*"
-                                                    required>
-                                            </div>
+                                            <label class="custom-checkbox">
+                                                <input id="studentDeclaration" type="checkbox"
+                                                    name="studentDeclaration">
+                                                <span>I hereby declare that all information provided is true to the best
+                                                    of my knowledge.</span>
+                                            </label>
                                         </div>
 
-                                        <!-- Address -->
+                                        <!-- Consent Agreement -->
                                         <div class="col-md-12">
-                                            <div class="tp-register-input">
-                                                <textarea id="residentialAddress" name="residentialAddress"
-                                                    placeholder="Residential Address*" required></textarea>
-                                            </div>
-                                        </div>
-
-                                        <!-- Emergency Contact -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="emergencyContactName" name="emergencyContactName" type="text"
-                                                    placeholder="Emergency Contact Name*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="emergencyContactNumber" name="emergencyContactNumber"
-                                                    type="text" maxlength="10" placeholder="Emergency Contact Number*"
-                                                    required>
-                                            </div>
-                                        </div>
-
-                                        <!-- State & City -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="city" name="city" type="text" maxlength="10"
-                                                    placeholder="City*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input">
-                                                <input id="state" name="state" type="text" maxlength="10"
-                                                    placeholder="State*" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- Pin Code -->
-                                        <div class="col-md-12">
-                                            <div class="tp-register-input">
-                                                <input id="pinCode" name="pinCode" type="text" maxlength="6"
-                                                    placeholder="Pin Code*" required>
-                                            </div>
-                                        </div>
-
-                                        <!-- Passwords -->
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input password-wrapper">
-                                                <input id="password-field" name="password" type="password"
-                                                    placeholder="Password*" required>
-                                                <button type="button" class="toggle-password"
-                                                    aria-label="Toggle password visibility">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="tp-register-input password-wrapper">
-                                                <input id="confirm-password-field" name="confirmPassword"
-                                                    type="password" placeholder="Confirm Password*" required>
-                                                <button type="button" class="toggle-password"
-                                                    aria-label="Toggle password visibility">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                </button>
-                                            </div>
+                                            <label class="custom-checkbox">
+                                                <input id="consentAgreement" type="checkbox" name="consentAgreement">
+                                                <span>I consent to the use of my details for internship and learning
+                                                    purposes as per the website's policies.</span>
+                                            </label>
                                         </div>
 
                                         <!-- Submit -->
                                         <div class="col-md-12">
                                             <div class="tp-register-btn">
                                                 <button type="submit" class="tp-btn next-btn">
-                                                    Continue to Next Step
-                                                    <i class="fas fa-arrow-right"></i>
+                                                    Final Submit <i class="fas fa-arrow-right"></i>
                                                 </button>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Already User -->
-                                        <div class="col-md-12">
-                                            <div class="tp-register-login text-center mt-20">
-                                                <p>Already have an account ? <a
-                                                        href="/login.html">Login here</a></p>
                                             </div>
                                         </div>
 
                                     </div>
                                 </form>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -1169,121 +1116,47 @@
 
     <script>
         $(document).ready(function () {
-            $("#dateOfBirth").flatpickr({
-                dateFormat: "Y-m-d",
-                maxDate: "today"
-            });
-
-            $(".toggle-password").on("click", function () {
-                const input = $(this).siblings("input");
-                const type = input.attr("type") === "password" ? "text" : "password";
-                input.attr("type", type);
-                $(this).find("i").toggleClass("fa-eye fa-eye-slash");
-            });
-
             $("#register-form").on("submit", function (e) {
                 e.preventDefault();
 
-                let firstName = $("#firstName").val().trim();
-                let lastName = $("#lastName").val().trim();
-                let dateOfBirth = $("#dateOfBirth").val().trim();
-                let gender = $("#gender").val();
-                let phone = $("#phoneNumber").val().trim();
-                let altPhone = $("#alternatePhoneNumber").val().trim();
-                let email = $("#email").val().trim();
-                let residentialAddress = $("#residentialAddress").val().trim();
-                let emergencyContactName = $("#emergencyContactName").val().trim();
-                let emergencyContactNumber = $("#emergencyContactNumber").val().trim();
-                let city = $("#city").val();
-                let state = $("#state").val();
-                let pinCode = $("#pinCode").val().trim();
-                let password = $("#password-field").val().trim();
-                let confirmPassword = $("#confirm-password-field").val().trim();
+                let studentDeclaration = $("#studentDeclaration").is(":checked");
+                let consentAgreement = $("#consentAgreement").is(":checked");
 
-                console.log({
-                    firstName, lastName, dateOfBirth, gender, phone, altPhone,
-                    email, residentialAddress, emergencyContactName, emergencyContactNumber,
-                    city, state, pinCode, password, confirmPassword
-                });
-
-                if (!firstName) return Swal.fire("Error", "First Name is required.", "error");
-                if (!lastName) return Swal.fire("Error", "Last Name is required.", "error");
-                if (!dateOfBirth) return Swal.fire("Error", "Date of Birth is required.", "error");
-                if (!gender) return Swal.fire("Error", "Gender is required.", "error");
-                if (!phone) return Swal.fire("Error", "Phone number is required.", "error");
-                if (!email) return Swal.fire("Error", "Email is required.", "error");
-                if (!residentialAddress) return Swal.fire("Error", "Address is required.", "error");
-                if (!emergencyContactName) return Swal.fire("Error", "Emergency Contact Name is required.", "error");
-                if (!emergencyContactNumber) return Swal.fire("Error", "Emergency Contact Number is required.", "error");
-                if (!city) return Swal.fire("Error", "City is required.", "error");
-                if (!state) return Swal.fire("Error", "State is required.", "error");
-                if (!pinCode) return Swal.fire("Error", "Pin Code is required.", "error");
-                if (!password) return Swal.fire("Error", "Password is required.", "error");
-                if (!confirmPassword) return Swal.fire("Error", "Confirm Password is required.", "error");
-
-                if (!/^\d{10}$/.test(phone)) {
-                    Swal.fire("Error", "Primary phone number must be 10 digits.", "error");
-                    return;
-                }
-                if (altPhone && !/^\d{10}$/.test(altPhone)) {
-                    Swal.fire("Error", "Alternate phone number must be 10 digits.", "error");
-                    return;
-                }
-                if (!/^\d{10}$/.test(emergencyContactNumber)) {
-                    Swal.fire("Error", "Emergency contact number must be 10 digits.", "error");
-                    return;
-                }
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                    Swal.fire("Error", "Enter a valid email address.", "error");
-                    return;
-                }
-                if (password !== confirmPassword) {
-                    Swal.fire("Error", "Passwords do not match.", "error");
+                if (!studentDeclaration || !consentAgreement) {
+                    Swal.fire("Error", "You must agree to both the declaration and consent before submitting.", "error");
                     return;
                 }
 
                 const payload = {
-                    firstName,
-                    lastName,
-                    dateOfBirth,
-                    gender,
-                    phoneNumber: phone,
-                    alternatePhoneNumber: altPhone,
-                    email,
-                    residentialAddress,
-                    emergencyContactName,
-                    emergencyContactNumber,
-                    city,
-                    state,
-                    pinCode,
-                    password
+                    studentDeclaration: studentDeclaration,
+                    consentAgreement: consentAgreement
                 };
 
                 Swal.fire({
-                    title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    title: "Final Confirmation",
+                    text: "After confirmation, your account will be created. Do you want to proceed?",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Yes, Confirm",
+                    confirmButtonText: "Yes, Create My Account",
                     cancelButtonText: "Cancel",
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire({
                             title: "Processing...",
-                            text: "Please wait while we save you details.",
+                            text: "Please wait while we create your account.",
                             allowOutsideClick: false,
                             didOpen: () => Swal.showLoading()
                         });
 
                         $.ajax({
-                            url: "https://eduroom.in/api/v1/user/personal-info",
-                            method: "POST",
+                            url: "https://your-api-url.com/api/v1/internship/register",
+                            method: "PUT",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
-                                Swal.fire("Success", "Details saved successfully!", "success")
-                                    .then(() => window.location.href = "/register2.html");
+                                Swal.fire("Success", "Your account has been created successfully!", "success")
+                                    .then(() => window.location.href = "index.html");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");
