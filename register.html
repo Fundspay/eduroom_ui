@@ -1277,11 +1277,12 @@
                         });
 
                         $.ajax({
-                            url: "https://eduroom.in/api/v1/user/personal-info",
+                            url: "http://localhost:3000/api/v1/user/personal-info",
                             method: "POST",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
+                                sessionStorage.setItem("userId", res.userId);
                                 Swal.fire("Success", "Details saved successfully!", "success")
                                     .then(() => window.location.href = "/register2.html");
                             },

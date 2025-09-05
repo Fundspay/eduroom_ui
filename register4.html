@@ -1070,6 +1070,10 @@
 
     <script>
         $(document).ready(function () {
+
+            const userId = sessionStorage.getItem("userId");
+            console.log(userId);
+
             const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
             const maxSize = 3 * 1024 * 1024; // 3 MB
 
@@ -1137,7 +1141,7 @@
                         });
 
                         $.ajax({
-                            url: "https://your-api-url.com/api/v1/internship/upload-documents",
+                            url: `http://localhost:3000/api/v1/user/${userId}/verification-docs`,
                             method: "POST",
                             data: formData,
                             processData: false,

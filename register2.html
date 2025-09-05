@@ -1117,6 +1117,9 @@
 
     <script>
         $(document).ready(function () {
+            const userId = sessionStorage.getItem("userId");
+            console.log(userId);
+
             $("#register-form").on("submit", function (e) {
                 e.preventDefault();
 
@@ -1181,7 +1184,7 @@
                         });
 
                         $.ajax({
-                            url: "https://your-api-url.com/api/v1/college/register",
+                            url: `http://localhost:3000/api/v1/user/${userId}/educational-details`,
                             method: "PUT",
                             contentType: "application/json",
                             data: JSON.stringify(payload),

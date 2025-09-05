@@ -1096,6 +1096,10 @@
 
     <script>
         $(document).ready(function () {
+
+            const userId = sessionStorage.getItem("userId");
+            console.log(userId);
+            
             $("#preferredStartDate").flatpickr({
                 dateFormat: "Y-m-d",
                 minDate: "today"
@@ -1147,7 +1151,7 @@
                         });
 
                         $.ajax({
-                            url: "https://your-api-url.com/api/v1/internship/register",
+                            url: `http://localhost:3000/api/v1/user/${userId}/internship-details`,
                             method: "PUT",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
