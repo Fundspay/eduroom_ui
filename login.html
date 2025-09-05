@@ -24,6 +24,23 @@
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA328xLn_K8VfCJQvYYzqFqjWY9kuhyMEo",
+            authDomain: "fundsweb-c3fa2.firebaseapp.com",
+            projectId: "fundsweb-c3fa2",
+            storageBucket: "fundsweb-c3fa2.firebasestorage.app",
+            messagingSenderId: "174402074044",
+            appId: "1:174402074044:web:da77c88ab14a33c8b167b9"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+    </script>
 </head>
 
 <body>
@@ -47,7 +64,7 @@
 
     <!--  ====== header-area-start=======================================  -->
     <header>
-        <div id="header-sticky" class="transparent-header header-area other-page-header white-color-header">
+        <div id="header-sticky" class="transparent-header header-area home2 home4 white-color-header">
             <div class="header">
                 <div class="container-wrapper">
                     <div class="row align-items-center justify-content-between position-relative">
@@ -60,9 +77,7 @@
                             <div class="main-menu">
                                 <nav id="mobile-menu">
                                     <ul class="d-block">
-                                        <li class="full-mega-menu-position"><a class="active" href="index.html">Home</a>
-
-                                        </li><!-- /Home -->
+                                        <li><a class="active" href="index.html">Home</a></li>
 
                                         <li><a href="about.html">About</a>
                                             <ul class="mega-menu mega-dropdown-menu white-bg ml-0">
@@ -400,14 +415,14 @@
                             <div class="header-right d-flex align-items-center justify-content-end">
                                 <ul class="header-login mr-15 d-none d-sm-block">
                                     <li>
-                                        <a class="d-inline-block text-uppercase" href="login.html" data-toggle="tooltip"
+                                        <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
                                             data-selector="true" data-placement="bottom" title="Login / Register">
                                             Login</a>
                                     </li>
                                 </ul><!-- /header-login -->
 
                                 <div class="my-btn d-none d-sm-block">
-                                    <a href="login.html" class="btn theme-bg">Sign Up</a>
+                                    <a href="login.html" class="btn white-bg">sign up</a>
                                 </div><!-- /Sign Up -->
 
                                 <div class="header-search ml-15 position-relative d-none d-md-block d-lg-none d-lg-block"
@@ -429,19 +444,19 @@
                                 <!-- <div class="mobile-menu"></div> -->
                                 <ul class="social-link d-none d-md-block">
                                     <li class="d-inline-block">
-                                        <a class="pr-15 d-inline-block transition-3" href="#"><i
-                                                class="fab fa-facebook-f"></i></a>
+                                        <a class="facebook-color text-center pr-15 d-inline-block transition-3"
+                                            href="#"><i class="fab fa-facebook-f"></i></a>
                                     </li>
                                     <li class="d-inline-block">
-                                        <a class="pr-15 d-inline-block transition-3" href="#"><i
-                                                class="fab fa-twitter"></i></a>
+                                        <a class="twitter-color text-center pr-15 d-inline-block transition-3"
+                                            href="#"><i class="fab fa-twitter"></i></a>
                                     </li>
                                     <li class="d-inline-block">
-                                        <a class="pr-15 d-inline-block transition-3" href="#"><i
-                                                class="fab fa-youtube"></i></a>
+                                        <a class="youtube-color text-center pr-15 d-inline-block transition-3"
+                                            href="#"><i class="fab fa-youtube"></i></a>
                                     </li>
                                     <li class="d-inline-block">
-                                        <a class="d-inline-block transition-3" href="#"><i
+                                        <a class="instagram-color text-center d-inline-block transition-3" href="#"><i
                                                 class="fab fa-instagram"></i></a>
                                     </li>
                                 </ul><!-- social-link -->
@@ -519,92 +534,224 @@
     <div class="body-overlay"></div>
 
     <main>
-        <!-- ======other-page-area-start=========================================== -->
-        <div class="other-page-area">
-            <div class="page-height  primary-overlay d-flex align-items-center position-relative">
-                <div class="other-page-bg position-absolute w-100 h-100 bg-no-repeat bg-cover z-index-1"
-                    data-background="images/about-page/about-page-hero.jpg"></div><!-- home2 slider bg -->
-
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-12 d-flex align-items-center justify-content-center">
-                            <div class="page-content text-center mt-110">
-
-                                <h1 class="text-white mb-15 text-capitalize" data-aos="fade-up" data-aos-duration="2000"
-                                    data-aos-delay="150">My <span class="f-700">account</span></h1>
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb justify-content-center bg-transparent">
-                                        <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a>
-                                        </li>
-                                        <li class="breadcrumb-item active text-capitalize text-white"
-                                            aria-current="page">My account</li>
-                                    </ol>
-                                </nav>
-
-                            </div>
-                        </div><!-- /col -->
-
-                    </div><!-- /row -->
-                </div><!-- /container -->
-            </div>
-        </div>
         <!-- slider-area-end  -->
 
         <!-- ====== login-area-start=========================================== -->
-        <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
-            <div class="col-xl-4 col-lg-4 col-md-8 col-sm-10 col-12">
-                <div class="login-area mb-60">
-                    <h4 class="text-capitalize text-center">Sign in</h4>
-                    <div class="login-form mt-40">
-                        <form id="loginForm">
-                            <div class="log-email">
-                                <input class="email w-100 primary-border2 pl-20 pt-15 pb-15 pr-10" type="email"
-                                    name="inputEmail" id="inputEmail" required
-                                    placeholder="Username or email address *">
+        <div class="tp-login-section pt-250 pb-120">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="tp-login-wrapper">
+                            <div class="tp-login-title text-center mb-40">
+                                <h3 class="tp-section-title">Welcome <span class="title-color">Back</span></h3>
+                                <p>Sign in to access your EDUROOM account</p>
                             </div>
+                            <div class="tp-login-form">
+                                <form id="loginForm" action="#" method="POST">
+                                    <div class="row tp-gx-20">
 
-                            <div class="log-pass mt-15 position-relative">
-                                <input class="email w-100 primary-border2 pl-20 pt-15 pb-15 pr-10" type="password"
-                                    name="l-pass" id="l-pass" required placeholder="Password">
-                                <span id="togglePassword"
-                                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;">
-                                    <i class="fa fa-eye"></i>
-                                </span>
-                            </div>
+                                        <!-- Email -->
+                                        <div class="col-md-12">
+                                            <div class="tp-login-input">
+                                                <input id="inputEmail" name="inputEmail" type="email"
+                                                    placeholder="Username or Email Address*" required>
+                                            </div>
+                                        </div>
 
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="save-info login-check d-flex align-items-center mt-4"></div>
-                                <div class="f-get-pass">
-                                    <a href="login.html" class="main-color d-inline-block mt-4">Forgot Password?</a>
-                                </div>
-                            </div>
+                                        <!-- Password -->
+                                        <div class="col-md-12">
+                                            <div class="tp-login-input password-wrapper">
+                                                <input id="l-pass" name="l-pass" type="password" placeholder="Password*"
+                                                    required>
+                                                <button type="button" id="togglePassword" class="toggle-password"
+                                                    aria-label="Toggle password visibility">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
 
-                            <div class="my-btn mt-4">
-                                <button class="btn w-100 theme-bg text-uppercase rounded-0" type="submit"
-                                    name="submit">Sign In</button>
-                            </div>
+                                        <!-- Remember me + Forgot password -->
+                                        <div class="col-md-12">
+                                            <div
+                                                class="tp-login-remember d-flex justify-content-between align-items-center">
+                                                <div class="tp-login-checkbox">
+                                                    <!-- <input type="checkbox" id="remember" name="remember">
+                                                    <label for="remember">Remember me</label> -->
+                                                </div>
+                                                <div class="tp-login-forgot">
+                                                    <a href="login.html">Forgot Password?</a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="col-md-12 text-center mb-3 mt-3">
-                                <span style="font-weight: 600; color: #999;">OR</span>
-                            </div>
+                                        <!-- Sign In Button -->
+                                        <div class="col-md-12">
+                                            <div class="tp-login-btn">
+                                                <button type="submit" name="submit" class="next-step-btn">
+                                                    Sign In <span class="arrow"></span>
+                                                </button>
+                                            </div>
+                                        </div>
 
-                            <div class="col-md-12 mb-3">
-                                <div class="d-flex justify-content-between gap-3 flex-wrap">
-                                    <button id="google-login-btn" type="button"
-                                        class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center"
-                                        style="height: 60px;">
-                                        <img src="https://img.icons8.com/color/20/000000/google-logo.png"
-                                            alt="Google Icon" style="margin-right: 5px;" />
-                                        Continue with Google
-                                    </button>
-                                </div>
+                                        <!-- OR Divider -->
+                                        <div class="col-md-12 text-center mb-3 mt-3">
+                                            <span style="font-weight: 600; color: #999;">OR</span>
+                                        </div>
+
+                                        <!-- Google Login -->
+                                        <div class="col-md-12 mb-3">
+                                            <div class="d-flex justify-content-between gap-3 flex-wrap">
+                                                <button id="google-login-btn" type="button"
+                                                    class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center"
+                                                    style="height: 50px;">
+                                                    <img src="https://img.icons8.com/color/20/000000/google-logo.png"
+                                                        class="me-2" alt="Google Icon" style="margin-right: 2%;"/>
+                                                    Continue with Google
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Register Link -->
+                                        <div class="col-md-12" style="margin-top: -2%;">
+                                            <div class="tp-login-register text-center mt-20">
+                                                <p>Don't have an account? <a href="register.html">Register here</a></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <style>
+            .next-step-btn {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 16px;
+                font-weight: 600;
+                border: none;
+                border-radius: 8px;
+                background: linear-gradient(90deg, #16c4bb 0%, #69d0de 100%);
+                color: #fff;
+                text-transform: none;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .next-step-btn .arrow {
+                font-size: 18px;
+                transition: transform 0.3s ease;
+            }
+
+            .next-step-btn:hover {
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px);
+            }
+
+            .next-step-btn:hover .arrow {
+                transform: translateX(4px);
+            }
+
+            .next-step-btn:active {
+                transform: translateY(0);
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .tp-login-section {
+                background: #f9f9f9;
+            }
+
+            .tp-login-wrapper {
+                background: #fff;
+                padding: 50px;
+                border-radius: 12px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .tp-login-title p {
+                font-size: 16px;
+                color: #555;
+                margin-top: 10px;
+            }
+
+            .tp-login-input {
+                margin-bottom: 20px;
+                position: relative;
+            }
+
+            .tp-login-input input {
+                width: 100%;
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                font-size: 14px;
+                transition: all 0.3s ease;
+            }
+
+            .tp-login-input input:focus {
+                border-color: var(--primary-color);
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            }
+
+            .password-wrapper button {
+                background: none;
+                border: none;
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #666;
+            }
+
+            .tp-login-remember {
+                margin: 15px 0;
+            }
+
+            .tp-login-checkbox {
+                display: flex;
+                align-items: center;
+            }
+
+            .tp-login-checkbox input {
+                margin-right: 10px;
+            }
+
+            .tp-login-checkbox label {
+                font-size: 14px;
+                color: #555;
+            }
+
+            .tp-login-forgot a {
+                color: var(--primary-color);
+                font-size: 14px;
+            }
+
+            .tp-login-register p {
+                color: #555;
+            }
+
+            .tp-login-register a {
+                color: var(--primary-color);
+                font-weight: 600;
+            }
+
+            .tp-login-btn .tp-btn {
+                width: 100%;
+                text-align: center;
+            }
+        </style>
+
     </main>
 
     <!-- ====== footer-area-start ============================================ -->
@@ -824,6 +971,59 @@
                         });
                     }
                 });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#google-login-btn').on('click', function () {
+
+                console.log("Firebase:", firebase);
+                console.log("auth:", firebase.auth());
+                console.log("signInWithPopup:", firebase.auth().signInWithPopup);
+
+                Swal.fire({
+                    title: 'Logging in with Google...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                auth.signInWithPopup(provider)
+                    .then(result => {
+                        console.log("User signed in:", result.user);
+                        return result.user.getIdToken();
+                    })
+                    .then(idToken => {
+                        console.log("Retrieved ID token:", idToken);
+                        return $.ajax({
+                            url: "https://eduroom.in/api/v1/user/google-login",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({ idToken: idToken }),
+                        });
+                    })
+                    .then(response => {
+                        console.log("Google login response:", response);
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Login Successful!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+                    .catch(error => {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Google Login Failed',
+                            text: error.message
+                        });
+                        console.error("Google login failed:", error);
+                    });
             });
         });
     </script>
