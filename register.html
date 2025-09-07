@@ -595,9 +595,9 @@
                                             <div class="tp-register-input">
                                                 <select id="gender" name="gender" class="tp-register-select" required>
                                                     <option value="">Select Gender*</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Others">Others</option>
+                                                    <option value="3">Male</option>
+                                                    <option value="4">Female</option>
+                                                    <option value="5">Others</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1277,7 +1277,7 @@
                         });
 
                         $.ajax({
-                            url: "http://localhost:3000/api/v1/user/personal-info",
+                            url: "https://eduroom.in/api/v1/user/personal-info",
                             method: "POST",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
