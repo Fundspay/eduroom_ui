@@ -417,10 +417,10 @@
 
                 let internshipModeId = 1;
 
-                if (!internshipProgram || !internshipDuration || !preferredStartDate || !referralSource || referralCode ) {
-                    Swal.fire("Error", "All required fields must be filled.", "error");
-                    return;
-                }
+                // if (!internshipProgram || !internshipDuration || !preferredStartDate || !referralSource || referralCode ) {
+                //     Swal.fire("Error", "All required fields must be filled.", "error");
+                //     return;
+                // }
 
                 const payload = {
                     internshipProgram,
@@ -431,6 +431,7 @@
                     referralLink,
                     referralSource
                 };
+                console.log(payload);
 
                 Swal.fire({
                     title: "Confirm Submission",
@@ -451,7 +452,7 @@
                         });
 
                         $.ajax({
-                            url: `http://localhost:3000/api/v1/user/${userId}/internship-details`,
+                            url: `https://eduroom.in/api/v1/user/${userId}/internship-details`,
                             method: "PUT",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
