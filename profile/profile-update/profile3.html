@@ -293,7 +293,7 @@
                                         <div class="d-flex justify-content-end mt-3">
                                             <button type="submit" class="btn px-4"
                                                 style="background-color: #36d5d5; color: #fff;">
-                                                Next
+                                                Save
                                             </button>
                                         </div>
                                     </form>
@@ -344,14 +344,36 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            const userId = sessionStorage.getItem("userId");
-            console.log("User ID:", userId);
+        // const userId = sessionStorage.getItem("user_id");
+        const userId = 2;
+        console.log("User ID:", userId);
 
-            $("#preferredStartDate").flatpickr({
-                dateFormat: "Y-m-d",
-                minDate: "today"
-            });
+        $.ajax({
+                url: `https://eduroom.in/api/v1/user/list/${userId}`,
+                method: "GET",
+                success: function (res) {
+                    console.log("Fetched details:", res);
+
+                    if (res && res.success && res.user) {
+                    const user = res.user;
+
+                    $("#internshipProgram").val(user.internshipProgram || "");
+                    $("#internshipDuration").val(user.internshipDuration || "");
+                    $("#preferredStartDate").val(user.preferredStartDate || "");
+                    $("#referralCode").val(user.referralCode || "");
+                    $("#referralLink").val(user.referralLink || "");
+                    $("#referralSource").val(user.referralSource || "");
+                }
+            },
+                error: function (xhr) {
+                    console.error("Error fetching details:", xhr);
+                }
+            
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
 
             $("#internshipProgram").on("input", function () {
                 this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
@@ -372,22 +394,6 @@
                 let referralSource = $("#referralSource").val();
                 let internshipModeId = 1;
 
-                if (!internshipProgram || !internshipDuration || !preferredStartDate || !referralSource || !referralCode || !referralLink) {
-                    return Swal.fire("Error", "All required fields must be filled.", "error");
-                }
-
-                if (!/^[a-zA-Z\s]+$/.test(internshipProgram)) {
-                    return Swal.fire("Error", "Internship Program must contain only letters.", "error");
-                }
-
-                if (referralCode && !/^[a-zA-Z0-9]+$/.test(referralCode)) {
-                    return Swal.fire("Error", "Referral Code must be alphanumeric.", "error");
-                }
-
-                if (referralLink && !/^https?:\/\/.+$/.test(referralLink)) {
-                    return Swal.fire("Error", "Please enter a valid Referral Link (http/https).", "error");
-                }
-
                 const payload = {
                     internshipProgram,
                     internshipDuration,
@@ -400,7 +406,7 @@
 
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -421,8 +427,7 @@
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
-                                Swal.fire("Success", "Details saved successfully!", "success")
-                                    .then(() => window.top.location.href = "/register4.html");
+                                Swal.fire("Success", "Details saved successfully!", "success");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");

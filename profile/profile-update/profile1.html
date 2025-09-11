@@ -389,8 +389,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        // const userId = sessionStorage.getItem("user_id");
+        const userId = 2;
+        console.log(userId);
         $.ajax({
-            url: "https://eduroom.in/api/v1/user/list/2",
+            url: `https://eduroom.in/api/v1/user/list/${userId}`,
             method: "GET",
             success: function (res) {
                 console.log("Fetched user info:", res);
@@ -551,7 +554,7 @@
                     phoneNumber: phone, alternatePhoneNumber: altPhone,
                     email, residentialAddress,
                     emergencyContactName, emergencyContactNumber,
-                    city, state, pinCode
+                    city, state, pinCode, userId
                 };
 
                 Swal.fire({
@@ -572,7 +575,7 @@
                         });
 
                         $.ajax({
-                            url: "https://eduroom.in/api/v1/user/personal-info",
+                            url: `https://eduroom.in/api/v1/user/update-info/${userId}`,
                             method: "PUT",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
