@@ -24,8 +24,6 @@
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 </head>
 
 <body>
@@ -639,25 +637,24 @@
     <main>
         <!-- ======other-page-area-start=========================================== -->
         <div class="other-page-area">
-            <div class="page-height  d-flex align-items-center position-relative">
+            <div class="page-height d-flex align-items-center position-relative">
                 <div class="other-page-bg position-absolute w-100 h-100 bg-no-repeat bg-cover z-index-1"
-                    data-background="images/about-page/about-page-hero.png"></div><!-- home2 slider bg -->
+                    style="background-image: url('images/about-page/about-page-hero.png'); background-color: transparent;">
+                </div>
+                <!-- home2 slider bg -->
 
                 <div class="container">
                     <div class="row">
-
                         <div class="col-12 d-flex align-items-center justify-content-center">
                             <div class="page-content text-center mt-110">
-
-                                <h1 id="courseHeadingMain" class="text-white mb-15 text-capitalize"  style="color: teal !important;" data-aos="fade-up"
-                                    data-aos-duration="2000" data-aos-delay="150">
+                                <h1 id="courseHeadingMain" class="text-capitalize" style="color: teal !important;"
+                                    data-aos="fade-up" data-aos-duration="2000" data-aos-delay="150">
                                     <span class="f-700"></span>
                                 </h1>
-
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center bg-transparent">
-                                        <li class="breadcrumb-item"><a class="text-white" href="index.html"
-                                                id="coursename"></a>
+                                        <li class="breadcrumb-item"><a class="text-white" href="#"
+                                                style="color: black !important;" id="coursename"></a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -682,16 +679,16 @@
                             <div class="course-details-content">
                                 <div class="pc-category z-index1 mb-10">
                                     <span class="text-white f-500 theme-bg text-uppercase d-inline-block"
-                                        id="courseCategory"></span>
+                                        id="courseCategory2"></span>
                                 </div><!-- /pc-category  -->
                                 <h2>
-                                    <a href="course-details.html" id="courseTitle"> </a>
+                                    <a href="course-details.html" id="courseTitle2"> </a>
                                 </h2>
                             </div><!-- /popular-course-content-wrapper -->
 
                             <div class="course-details-video mb-45 mr-0">
                                 <!-- Video -->
-                                <iframe id="courseVideo" width="100%" height="400" frameborder="0"
+                                <iframe id="courseVideo2" width="100%" height="400" frameborder="0"
                                     allowfullscreen></iframe>
                             </div>
 
@@ -699,12 +696,12 @@
                                 <div class="col-xl-8  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4">
                                     <!-- Description -->
                                     <h3>Description</h3>
-                                    <div class="course-description-left" id="courseDescription">
+                                    <div class="course-description-left" id="courseDescription2">
 
                                     </div>
                                 </div><!-- /col -->
 
-                                <!-- <div class="col-xl-4 col-lg-5 col-md-4 col-sm- col- pl-md-0">
+                                <div class="col-xl-4 col-lg-5 col-md-4 col-sm- col- pl-md-0">
                                     <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
                                         <h4 class="text-white text-capitalize mb-15">course-details</h4>
                                         <ul>
@@ -729,358 +726,93 @@
                                                 <span id="courseLanguage"></span>
                                             </li>
                                         </ul>
-                                    </div>
-                                </div> -->
+                                    </div><!-- /course-details-left -->
+                                </div><!-- /col -->
 
                             </div><!-- /course-describe-wrapper -->
 
+                            <div class="row course-describe-wrapper2 mt-25">
+                                <div class="col-xl-12 col-lg- col-md- col-sm- col-">
+                                    <div class="course-description-left" id="courseLearnDescription">
+                                        <h3 class="mb-20" id="courseLearnHeading">What you will learn</h3>
+                                        <p id="courseLearnIntro">
+                                        </p>
+                                    </div><!-- /course-details-left -->
+                                </div><!-- /col -->
+
+                                <div class="col-xl-12 col-lg- col-md- col-sm- col-">
+                                    <div class="course-description-list d-sm-flex mt-10">
+                                        <ul id="courseLearnList1" class="pr-lg-5 pr-md-3"></ul>
+                                        <ul id="courseLearnList2"></ul>
+                                    </div><!-- /course-details-left -->
+                                </div><!-- /col -->
+                            </div><!-- /course-describe-wrapper2 -->
                             <div class="faq-wrapper course-Curriculam-accordion mt-22">
                                 <div class="cd-faq-title d-flex align-items-sm-center justify-content-between">
-                                    <h3>MCQ Quiz</h3>
-                                    <span><span id="totalQuestions"></span> Questions <span class="pl-10">15
-                                            mins</span></span>
+                                    <h3>DAYS</h3>
+                                    <span id="curriculumSummary"></span>
                                 </div><!-- /cd-faq-title -->
 
-                                <div class="accordion mt-10" id="accordion-quiz">
-                                    <!-- Questions will be injected dynamically here -->
-                                </div>
-
-                                <!-- Submit Button -->
-                                <div class="text-center mt-4">
-                                    <button id="submitQuiz" class="btn btn-primary">Submit Answers</button>
-                                </div>
-                            </div><!-- /faq-wrapper -->
-
-
-                            <div class="course-details-ratting-area mt-65">
-                                <h3 class="mb-20">Results</h3>
-                                <div class="course-details-ratting-wrapper pt-25 pb-25 pl-40 pr-35">
-                                    <div class="row align-items-center">
-
-                                        <!-- LEFT: Average Rating -->
-                                        <div
-                                            class="col-xl-3 col-lg-3 col-md-3 col-sm-12 d-flex justify-content-center border-right">
-                                            <div class="cd-ratting-left text-center mb-3 mb-md-0">
-                                                <h6 class="text-uppercase f-600 mb-6">Average Score</h6>
-                                                <span id="averageScore"
-                                                    class="cd-ratting-number f-500 line-height-1 d-block primary-color">0/0</span>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li><span class="r-star-color"><i class="fas fa-star"></i></span>
-                                                    </li>
-                                                    <li><span class="r-star-color"><i class="fas fa-star"></i></span>
-                                                    </li>
-                                                    <li><span class="r-star-color"><i class="fas fa-star"></i></span>
-                                                    </li>
-                                                    <li><span class="r-star-color"><i class="fas fa-star"></i></span>
-                                                    </li>
-                                                    <li><span class="r-star-light-color"><i
-                                                                class="fas fa-star"></i></span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <!-- RIGHT: Quiz Stats -->
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
-                                            <div class="row justify-content-center">
-
-                                                <!-- Time -->
-                                                <div class="col-md-4 text-center mb-3">
-                                                    <h6 class="text-uppercase f-600">PERCENTAGE</h6>
-                                                    <span id="percentage"
-                                                        class="d-block f-500 primary-color">00:00</span>
-                                                </div>
-
-                                                <!-- Correct -->
-                                                <div class="col-md-4 text-center mb-3">
-                                                    <h6 class="text-uppercase f-600">Correct</h6>
-                                                    <span id="correctAnswers"
-                                                        class="d-block f-500 text-success">0</span>
-                                                </div>
-
-                                                <!-- Wrong -->
-                                                <div class="col-md-4 text-center mb-3">
-                                                    <h6 class="text-uppercase f-600">Wrong</h6>
-                                                    <span id="wrongAnswers" class="d-block f-500 text-danger">0</span>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                <div class="accordion mt-10" id="curriculumAccordion">
+                                    <!-- Dynamic content will be injected here -->
                                 </div>
                             </div>
-
-                            <!-- Case Study Section -->
-                            <div class="case-study-wrapper mt-4 border rounded p-4">
-                                <h3>Case Study</h3>
-                                <div id="caseStudyQuestion" class="mb-2 font-weight-bold"></div>
-                                <textarea id="caseStudyAnswer" rows="6" class="form-control"
-                                    placeholder="Write your answer here..."></textarea>
-                                <small class="text-muted d-block mt-1">Word Count: <span id="wordCount">0</span></small>
-                                <div style="text-align:center;">
-                                    <button id="submitCaseStudy" class="btn btn-primary mt-3">Submit Case Study</button>
-                                </div>
-
-
-                                <!-- Case Study Result (MCQ-style layout) -->
-                                <div class="course-details-ratting-area mt-4" id="caseStudyResult"
-                                    style="display:none;">
-                                    <h3 class="mb-20">Results</h3>
-                                    <div class="course-details-ratting-wrapper pt-25 pb-25 pl-40 pr-35">
-                                        <div class="row align-items-center">
-
-                                            <!-- LEFT: Stars -->
-                                            <div
-                                                class="col-xl-3 col-lg-3 col-md-3 col-sm-12 d-flex justify-content-center border-right">
-                                                <div class="cd-ratting-left text-center mb-3 mb-md-0">
-                                                    <h6 class="text-uppercase f-600 mb-6">Score (%)</h6>
-                                                    <span id="caseStudyScore"
-                                                        class="cd-ratting-number f-500 line-height-1 d-block primary-color"
-                                                        style="font-size:50px;">0%</span>
-                                                    <ul class="d-flex justify-content-center mb-2" id="caseStudyStars">
-                                                        <li><span class="r-star-light-color"><i
-                                                                    class="fas fa-star"></i></span></li>
-                                                        <li><span class="r-star-light-color"><i
-                                                                    class="fas fa-star"></i></span></li>
-                                                        <li><span class="r-star-light-color"><i
-                                                                    class="fas fa-star"></i></span></li>
-                                                        <li><span class="r-star-light-color"><i
-                                                                    class="fas fa-star"></i></span></li>
-                                                        <li><span class="r-star-light-color"><i
-                                                                    class="fas fa-star"></i></span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <!-- RIGHT: Percentage & Pass/Fail -->
-                                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-md-6 text-center mb-3">
-                                                        <h6 class="text-uppercase f-600">Percentage</h6>
-                                                        <span id="caseStudyPercentage"
-                                                            class="d-block f-500 primary-color">0%</span>
-                                                    </div>
-                                                    <div class="col-md-6 text-center mb-3">
-                                                        <h6 class="text-uppercase f-600">Status</h6>
-                                                        <span id="caseStudyStatus" class="d-block f-500"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="review-comments-area mt-65">
-                                <h3 class="mb-20">Review</h3>
-                                <div class="review-comments-are mt-20">
-                                    <div class="row">
-                                        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-4 mt-1">
-                                            <div class="client-avatar mb-30">
-                                                <img class="avatar-img rounded-circle"
-                                                    src="images/course-details/course-page-ratting-author-img1.jpg"
-                                                    alt="image">
-                                            </div>
-                                        </div><!-- /col -->
-                                        <div class="col-xl-10  col-lg-10  col-md-10  col-sm-10 col-12 pl-lg-2">
-                                            <div class="review-text mb-45">
-                                                <div
-                                                    class="review-head d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h5 class="mb-1">Tom Anderson</h5>
-                                                        <ul class="d-flex mr-2">
-                                                            <li>
-                                                                <span class="secondary-color3">- 2 days ago</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <ul class="d-flex justify-content-center">
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-light-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                        </ul>
-                                                        <span
-                                                            class="secondary-color f-500 pl-10 d-block primary-color">4.0</span>
-                                                    </div>
-                                                </div><!-- /review-head -->
-                                                <p class="dc-text1 gray-color2 mb-2 mt-15">
-                                                    Lorem ipsum dolor sit amet, consect in culpa qui officia etur
-                                                    adipisicing elit, lor sit amet, consectetur adipisicing elit,
-                                                    sed do
-                                                    eiusmod tempor incididunt uoet lab ore et dolore magna aliqua.
-                                                    Lorem
-                                                    ipsum dolor sit amet, consectetur adipisi cin g elit, sed do
-                                                    eiusmod
-                                                    tempor incididunt.
-                                                </p>
-                                            </div>
-                                        </div><!-- /col -->
-                                    </div><!-- /row -->
-                                    <div class="row">
-                                        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-4 mt-1">
-                                            <div class="client-avatar mb-30">
-                                                <img class="avatar-img rounded-circle"
-                                                    src="images/course-details/course-page-ratting-author-img2.jpg"
-                                                    alt="image">
-                                            </div>
-                                        </div><!-- /col -->
-                                        <div class="col-xl-10  col-lg-10  col-md-10  col-sm-10 col-12 pl-lg-2">
-                                            <div class="review-text mb-45">
-                                                <div
-                                                    class="review-head d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h5 class="mb-1">Tom Anderson</h5>
-                                                        <ul class="d-flex mr-2">
-                                                            <li>
-                                                                <span class="secondary-color3">- 2 days ago</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <ul class="d-flex justify-content-center">
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-light-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                        </ul>
-                                                        <span
-                                                            class="secondary-color f-500 pl-10 d-block primary-color">4.0</span>
-                                                    </div>
-                                                </div><!-- /review-head -->
-                                                <p class="dc-text1 gray-color2 mb-2 mt-15">
-                                                    Lorem ipsum dolor sit amet, consect in culpa qui officia etur
-                                                    adipisicing elit, lor sit amet, consectetur adipisicing elit,
-                                                    sed do
-                                                    eiusmod tempor incididunt uoet lab ore et dolore magna aliqua.
-                                                    Lorem
-                                                    ipsum dolor sit amet, consectetur adipisi cin g elit, sed do
-                                                    eiusmod
-                                                    tempor incididunt.
-                                                </p>
-                                            </div>
-                                        </div><!-- /col -->
-                                    </div><!-- /row -->
-                                    <div class="row">
-                                        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-4 mt-1">
-                                            <div class="client-avatar mb-30">
-                                                <img class="avatar-img rounded-circle"
-                                                    src="images/course-details/course-page-ratting-author-img3.jpg"
-                                                    alt="image">
-                                            </div>
-                                        </div><!-- /col -->
-                                        <div class="col-xl-10  col-lg-10  col-md-10  col-sm-10 col-12 pl-lg-2">
-                                            <div class="review-text mb-40">
-                                                <div
-                                                    class="review-head d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <h5 class="mb-1">Tom Anderson</h5>
-                                                        <ul class="d-flex mr-2">
-                                                            <li>
-                                                                <span class="secondary-color3">- 2 days ago</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <ul class="d-flex justify-content-center">
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                            <li><span class="r-star-light-color"><i
-                                                                        class="fas fa-star"></i></span></li>
-                                                        </ul>
-                                                        <span
-                                                            class="secondary-color f-500 pl-10 d-block primary-color">4.0</span>
-                                                    </div>
-                                                </div><!-- /review-head -->
-                                                <p class="dc-text1 gray-color2 mb-2 mt-15">
-                                                    Lorem ipsum dolor sit amet, consect in culpa qui officia etur
-                                                    adipisicing elit, lor sit amet, consectetur adipisicing elit,
-                                                    sed do
-                                                    eiusmod tempor incididunt uoet lab ore et dolore magna aliqua.
-                                                    Lorem
-                                                    ipsum dolor sit amet, consectetur adipisi cin g elit, sed do
-                                                    eiusmod
-                                                    tempor incididunt.
-                                                </p>
-                                            </div>
-                                        </div><!-- /col -->
-                                    </div><!-- /row -->
-
-                                    <div class="cd-btn d-block text-center">
-                                        <a href="course-details.html"
-                                            class="main-color d-inline-block f-500 text-capitalize"><span
-                                                class="pr-2"><i class="fa fa-plus"></i></span>load more</a>
-                                    </div>
-                                </div>
-                            </div><!-- /review-comments-area -->
-
-                        </div><!-- /course-page2-tab-wrapper -->
-                    </div><!-- /col -->
+                        </div>
+                    </div>
 
                     <div class="col-xl-4  col-lg-4  col-md-12  col-sm-12 col-12">
                         <div class="course-details-sidebar-wrapper mb-45 pl-xl-4">
                             <div class="row justify-content-center">
-                                <!-- <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
-                                    <div class="course-wish">
-                                        <a href="cart.html" class="d-block main-color text-center bg-white w-100"><span
-                                                class="primary-color pr-2"><i class="fas fa-heart"></i></span>Add to
-                                            wishlist</a>
-                                    </div>
-                                </div>/col -->
+                                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+
+                                </div>
 
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 15%;">
                                     <div class="sidebar-widget cd-sidebar business-target mt-45"
-                                        id="businessTargetWidget2">
+                                        id="businessTargetWidget">
                                         <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
                                             id="businessTargetHeading">
                                             Business Target
                                         </h4>
 
                                         <div class="about-instructor-wrapper pl-30 pr-30 pb-10 text-center">
-                                            <h2 id="achievedTargetDisplay2" class="mb-3"
+                                            <h2 id="achievedTargetDisplay" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
-                                            <p id="targetPercentageDisplay2" style="font-size: 24px; font-weight:600;">0%
-                                            </p>
+                                            <p id="targetPercentageDisplay" class="badge-percentage">0%</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 15%;">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 5%;">
                                     <div class="sidebar-widget cd-sidebar overall-status mt-45"
-                                        id="overallStatusWidget2">
+                                        id="overallStatusWidget">
                                         <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center">
                                             Overall Status
                                         </h4>
 
                                         <div class="about-instructor-wrapper pl-30 pr-30 pb-10 text-center">
-                                            <h2 id="overallSessionsDisplay2" class="mb-3"
+                                            <h2 id="overallSessionsDisplay" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
-                                            <p id="overallCompletionRate2" style="font-size: 24px; font-weight:600;">0%
-                                            </p>
+                                            <p id="overallCompletionRate" class="badge-percentage">0%</p>
                                         </div>
+
                                     </div>
                                 </div>
+                                <style>
+                                    .badge-percentage {
+                                        display: inline-block;
+                                        background: linear-gradient(135deg, #00c897, #00a884);
+                                        /* gradient like ongoing */
+                                        color: white;
+                                        padding: 6px 18px;
+                                        border-radius: 50px;
+                                        /* curved pill shape */
+                                        font-size: 24px;
+                                        font-weight: 600;
+                                        min-width: 70px;
+                                        text-align: center;
+                                    }
+                                </style>
 
 
                             </div><!-- /row -->
@@ -1123,8 +855,6 @@
                                 </li>
                             </ul>
                         </div><!-- /share-social-link -->
-
-
                     </div><!-- /col -->
                 </div><!-- /row -->
             </div><!-- /container -->
@@ -1142,7 +872,7 @@
                         <div class="col-xl-4  col-lg-4  col-md-12  col-sm-12 col-12">
                             <div class="footer-widget f-about pb-30 pr-lg-5">
                                 <div class="f-logo text-left mb-35">
-                                    <img src="images/logo/logo3.png" alt="larna">
+                                    <img src="images/logo/logo4.png" alt="larna">
                                 </div><!-- /f-logo -->
                                 <p>Aexerc itation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
                                     irure dolor in repr henderit in volu ptate velit esse cillum dolore </p>
@@ -1279,464 +1009,444 @@
     <script src="js/plugins.js"></script>
     <script src="js/jquery.meanmenu.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     <script>
-$(document).ready(function () {
-    // Helper: get query params from URL
-    function getQueryParams() {
-        var params = {};
-        var queryString = window.location.search.substring(1);
-        var pairs = queryString.split("&");
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split("=");
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-        }
-        return params;
-    }
+        $(document).ready(function () {
+            // Utility: Get query param
+            function getQueryParam(name, defaultValue) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name) || defaultValue;
+            }
 
-    var queryParams = getQueryParams();
+            // Get both IDs dynamically
+            const courseId = getQueryParam("courseId", 1);
+            const previewId = getQueryParam("coursePreviewId", 1);
 
-    //  Pull values from URL
-    var coursePreviewId = queryParams.previewId || queryParams.coursePreviewId || 1;
-    var sessionId = queryParams.Id || queryParams.session || 1;
-    var dayNumber = queryParams.day || 1;
-    var sessionNumber = queryParams.session || queryParams.sessionNumber || 1;
+            console.log("Course ID:", courseId);
+            console.log("Preview ID:", previewId);
 
-    console.log("coursePreviewId:", coursePreviewId, 
-                "sessionId:", sessionId, 
-                "day:", dayNumber, 
-                "sessionNumber:", sessionNumber);
+            // Function to format YouTube embed URL
+            function formatYouTubeEmbed(url) {
+                if (!url) return "";
+                var baseUrl = url.split("?")[0];
+                var params = "controls=1&modestbranding=1&rel=0&showinfo=0";
+                return baseUrl + "?" + params;
+            }
 
-    // Function to format YouTube embed URL
-    function formatYouTubeEmbed(url) {
-        if (!url) return "";
-        var videoId = "";
-        if (url.includes("watch?v=")) {
-            videoId = url.split("watch?v=")[1];
-        } else if (url.includes("youtu.be/")) {
-            videoId = url.split("youtu.be/")[1];
-        } else {
-            videoId = url;
-        }
-        var params = "controls=1&modestbranding=1&rel=0&showinfo=0";
-        return "https://www.youtube.com/embed/" + videoId + "?" + params;
-    }
+            // Helper: Clean up duration text
+            function formatDuration(duration) {
+                if (!duration) return "";
+                return duration
+                    .replace(/hours?/i, "hr")
+                    .replace(/minutes?/i, "min")
+                    .replace(/per day/gi, "")
+                    .trim();
+            }
 
-    // Fetch course preview data from backend
-    $.ajax({
-        url: `https://eduroom.in/api/v1/coursedetail/course-preview/${coursePreviewId}/details`,
-        method: "GET",
-        dataType: "json",
-        data: {
-            Id: sessionId,
-            day: dayNumber,
-            sessionNumber: sessionNumber
-        },
-        success: function (response) { console.log("Course Preview Response:", response);
-            if (!response.success || !response.data || response.data.length === 0) {
-                console.warn("No course data found");
+            // Fetch course preview data
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursepreview/previews/${previewId}`,
+                method: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (!response.success || !response.data || response.data.length === 0) {
+                        console.warn("No course data found");
+                        return;
+                    }
+
+                    const course = response.data[0];
+
+                    // Map backend data to UI
+                    $('#courseCategory2').text(course.Domain?.name || "");
+                    $('#courseTitle2').text(course.heading || "");
+                    $('#courseVideo2').attr("src", formatYouTubeEmbed(course.youtubeLink));
+
+                    // Description
+                    var descContainer = $('#courseDescription2');
+                    descContainer.empty();
+                    if (course.description) {
+                        descContainer.append('<p>' + course.description + '</p>');
+                    }
+
+                    // "What you will learn"
+                    $('#courseLearnIntro').text(course.whatYouWillLearn?.paragraph || "");
+
+                    // List 1
+                    var list1 = $('#courseLearnList1');
+                    list1.empty();
+                    if (course.whatYouWillLearn?.bullets?.length) {
+                        const half = Math.ceil(course.whatYouWillLearn.bullets.length / 2);
+                        course.whatYouWillLearn.bullets.slice(0, half).forEach(function (item) {
+                            list1.append('<li class="d-flex secondary-color"><span class="cd-icon primary-color pr-10"><i class="fas fa-angle-right"></i></span><p>' + item + '</p></li>');
+                        });
+                    }
+
+                    // List 2
+                    var list2 = $('#courseLearnList2');
+                    list2.empty();
+                    if (course.whatYouWillLearn?.bullets?.length) {
+                        const half = Math.ceil(course.whatYouWillLearn.bullets.length / 2);
+                        course.whatYouWillLearn.bullets.slice(half).forEach(function (item) {
+                            list2.append('<li class="d-flex secondary-color"><span class="cd-icon primary-color pr-10"><i class="fas fa-angle-right"></i></span><p>' + item + '</p></li>');
+                        });
+                    }
+
+                    // New fields
+                    $('#courseDayCount').text(course.dayCount || "");
+                    $('#courseDuration').text(formatDuration(course.duration));
+                    $('#courseLevel').text(course.level || "");
+                    $('#courseLanguage').text(course.language || "");
+                    $('#courseHeadingMain').text(course.title || "Courses");
+                    $('#coursename').text(course.Course?.name || "Courses");
+
+                    console.log("Course data loaded:", course);
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
+            });
+        });
+    </script>
+
+    <!-- Business Target -->
+    <script>
+        $(document).ready(function () {
+            // Custom function to parse your special URL
+            function getQueryParams() {
+                const url = window.location.href;
+                const queryString = url.split("?")[1]; // after first ?
+                if (!queryString) return {};
+
+                // Handle case with multiple ? by replacing them with &
+                const fixedQuery = queryString.replace(/\?/g, "&");
+                const params = new URLSearchParams(fixedQuery);
+
+                let result = {};
+                for (const [key, value] of params.entries()) {
+                    result[key] = value;
+                }
+                return result;
+            }
+
+            const params = getQueryParams();
+            const courseId = params.courseId || 1;   // fallback = 1
+            const coursePreviewId = params.coursePreviewId || null;
+            const userId = sessionStorage.getItem("user_id");
+
+            console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
+
+            if (!userId) {
+                console.warn(" No userId found in sessionStorage");
                 return;
             }
 
-            const course = response.data[0]; // first course preview
+            const achievedTargetDisplay = $("#achievedTargetDisplay");
+            const targetPercentageDisplay = $("#targetPercentageDisplay");
 
-            // Map backend data to UI
-            $('#courseCategory').text(course.Domain?.name || "");
-            $('#courseTitle').text(course.heading || "");
-            $('#courseVideo').attr("src", formatYouTubeEmbed(course.youtubeLink));
-            $('#courseHeadingMain').text(course.title || "Courses");
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/user/${userId}/business-target`,
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log("Business Target Response:", data);
 
-            // Description
-            var descContainer = $('#courseDescription');
-            descContainer.empty();
-            if (course.description) {
-                descContainer.append('<p>' + course.description + '</p>');
-            }
+                    if (data.success && data.data) {
+                        const target = parseInt(data.data.businessTarget) || 0;
+                        const achieved = parseInt(data.data.achievedCount) || 0;
 
-            // MCQ Quiz Injection
-            var quizContainer = $('#accordion-quiz');
-            quizContainer.empty();
+                        achievedTargetDisplay.text(`${achieved} / ${target}`);
 
-            if (course.QuestionModels && course.QuestionModels.length > 0) {
-                $('#totalQuestions').text(course.QuestionModels.length);
-
-                course.QuestionModels.forEach(function (q, index) {
-                    var qid = 'q' + q.id;
-
-                    var optionsHtml = '';
-                    ['optionA', 'optionB', 'optionC', 'optionD'].forEach(function (optKey, i) {
-                        if (q[optKey]) {
-                            var letter = String.fromCharCode(65 + i); // A, B, C, D
-                            optionsHtml += '<li><input type="radio" name="' + qid + '" value="' + letter + '"> ' + q[optKey] + '</li>';
+                        let percentage = 0;
+                        if (target > 0) {
+                            percentage = Math.round((achieved / target) * 100);
                         }
-                    });
 
-                    var cardHtml =
-                        '<div class="card border-0 mb-2" id="card-' + qid + '">' +
-                        '<div class="card-header border-bottom-0 p-0">' +
-                        '<h6 class="mb-0 main-color f-500">' + q.question + ' <span>1 Question</span></h6>' +
-                        '</div>' +
-                        '<div class="card-body">' +
-                        '<ul class="list-unstyled">' + optionsHtml + '</ul>' +
-                        '</div>' +
-                        '</div>';
+                        targetPercentageDisplay.text(`${percentage}%`);
 
-                    quizContainer.append(cardHtml);
-                });
-            }
-
-            console.log("Course data loaded:", course);
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-        }
-    });
-});
-</script>
-
-
-    <!-- SUBMIT QUIZE BUTTON  -->
-    <script>
-$(document).ready(function () {
-    // Parse query params
-    var queryParams = (function () {
-        var params = {};
-        var queryString = window.location.search.substring(1);
-        var pairs = queryString.split("&");
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split("=");
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-        }
-        return params;
-    })();
-
-    // Pull values from URL
-    var coursePreviewId = queryParams.previewId || queryParams.coursePreviewId || 1;
-    var courseId = queryParams.courseId || 1;
-    var sessionId = queryParams.Id || queryParams.session || 1;
-    var dayNumber = queryParams.day || 1;
-    var sessionNumber = queryParams.session || queryParams.sessionNumber || 1;
-    var userId = queryParams.userId || 2;
-
-    console.log("courseId:", courseId, 
-                "coursePreviewId:", coursePreviewId, 
-                "day:", dayNumber, 
-                "session:", sessionNumber, 
-                "userId:", userId);
-
-    $('#submitQuiz').on('click', function () {
-        var answers = [];
-
-        // Collect all MCQ answers
-        $('#accordion-quiz input[type="radio"]:checked').each(function () {
-            var mcqId = $(this).attr('name').replace('q', ''); // Remove q prefix
-            var selectedOption = $(this).val();
-            answers.push({
-                mcqId: mcqId,
-                selectedOption: selectedOption
+                        if (percentage < 40) {
+                            targetPercentageDisplay.css("background", "#ff4d4f"); // red
+                        } else if (percentage < 75) {
+                            targetPercentageDisplay.css("background", "#ffa500"); // orange
+                        } else {
+                            targetPercentageDisplay.css("background", "#00c897"); // green
+                        }
+                        targetPercentageDisplay.css({
+                            "color": "white",
+                            "padding": "6px 18px",
+                            "border-radius": "50px",
+                            "display": "inline-block",
+                            "min-width": "70px",
+                            "text-align": "center"
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
             });
         });
+    </script>
 
-        if (answers.length === 0) {
-            alert('Please select at least one answer before submitting.');
-            return;
-        }
 
-        // ✅ Dynamic API URL
-        var evaluateUrl = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/evaluate`;
-
-        $.ajax({
-            url: evaluateUrl,
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-                userId: userId,
-                answers: answers
-            }),
-            success: function (response) {
-                if (response.success) {
-                    var evalData = response.evaluation;
-
-                    // Update Results UI
-                    $('#averageScore').text(evalData.score);
-                    $('#totalAttempts').text(evalData.totalQuestions);
-                    $('#correctAnswers').text(evalData.correct);
-                    $('#wrongAnswers').text(evalData.wrong);
-
-                    var percentage = Math.round((evalData.correct / evalData.totalQuestions) * 100);
-                    $('#percentage').text(percentage + '%');
-
-                    // Stars
-                    var stars = Math.round(percentage / 20); // 5 stars max
-                    var starList = $('.cd-ratting-number').siblings('ul').find('li');
-                    starList.each(function (index) {
-                        if (index < stars) {
-                            $(this).find('span').removeClass('r-star-light-color').addClass('r-star-color');
-                        } else {
-                            $(this).find('span').removeClass('r-star-color').addClass('r-star-light-color');
-                        }
-                    });
-
-                    // Highlight correct/incorrect
-                    evalData.results.forEach(function (res) {
-                        var mcqCard = $('#card-q' + res.mcqId);
-                        if (res.isCorrect) {
-                            mcqCard.css('border', '2px solid green');
-                        } else {
-                            mcqCard.css('border', '2px solid red');
-                            mcqCard.find('.card-body').append(
-                                '<p class="text-success mt-2">Correct Answer: ' + res.correctAnswer + '</p>'
-                            );
-                        }
-                    });
-
-                } else {
-                    alert('Failed to evaluate quiz.');
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Evaluation AJAX Error:", status, error);
-                alert('Error submitting quiz. Please try again.');
-            }
-        });
-    });
-});
-</script>
-    
-    <!-- CASE STUDY RESULT  -->
+    <!-- Overall Status -->
     <script>
-$(document).ready(function () {
-    // Parse query params
-    var queryParams = (function () {
-        var params = {};
-        var queryString = window.location.search.substring(1);
-        var pairs = queryString.split("&");
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split("=");
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-        }
-        return params;
-    })();
+        $(document).ready(function () {
+            // Function to extract params safely even with multiple "?"
+            function getQueryParams() {
+                const url = window.location.href;
+                const queryString = url.split("?")[1];
+                if (!queryString) return {};
 
-    var courseId = queryParams.courseId || 1;
-    var coursePreviewId = queryParams.coursePreviewId || 1;
-    var dayNumber = queryParams.day || 1;
-    var sessionNumber = queryParams.sessionNumber || 1;
-    var userId = queryParams.userId || 2;
+                const fixedQuery = queryString.replace(/\?/g, "&");
+                const params = new URLSearchParams(fixedQuery);
 
-    // Fetch Case Study Question
-    $.ajax({
-        url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies`,
-        method: "GET",
-        data: { userId: userId },
-        success: function (response) {
-            if (response.success && response.data?.caseStudy) {
-                $('#caseStudyQuestion').text(response.data.caseStudy.caseStudy);
-            } else {
-                $('#caseStudyQuestion').text("No case study available for this session.");
+                let result = {};
+                for (const [key, value] of params.entries()) {
+                    result[key] = value;
+                }
+                return result;
             }
-        },
-        error: function () {
-            $('#caseStudyQuestion').text("Failed to load case study question.");
-        }
-    });
 
-    // Live word count
-    $('#caseStudyAnswer').on('input', function () {
-        var words = $(this).val().trim().split(/\s+/).filter(Boolean).length;
-        $('#wordCount').text(words);
-    });
+            const params = getQueryParams();
+            const courseId = params.courseId || 1;
+            const previewId = params.coursePreviewId || 1;
+            const userId = sessionStorage.getItem("user_id");
 
-    // Submit Case Study
-    $('#submitCaseStudy').on('click', function () {
-        var answer = $('#caseStudyAnswer').val().trim();
-        if (!answer) {
-            alert("Please write your answer before submitting.");
-            return;
-        }
+            console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
 
-        $.ajax({
-            url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/question/8/casestudy`,
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ userId: userId, answer: answer }),
-            success: function (response) {
-                if (response.success && response.data) {
-                    $('#caseStudyResult').show();
-                    var percent = response.data.matchPercentage || 0;
-                    $('#caseStudyScore').text(percent + '%');
-                    $('#caseStudyPercentage').text(percent + '%');
-                    $('#caseStudyStatus').text(response.data.passed ? 'Passed' : 'Failed')
-                        .removeClass('text-success text-danger')
-                        .addClass(response.data.passed ? 'text-success' : 'text-danger');
+            if (!userId) {
+                console.warn("⚠️ No userId found in sessionStorage");
+                return;
+            }
 
-                    // Keep textarea & button enabled for edits
-                    $('#caseStudyAnswer').prop('disabled', false);
-                    $('#submitCaseStudy').prop('disabled', false);
+            const sessionsDisplay = $("#overallSessionsDisplay");
+            const completionRateDisplay = $("#overallCompletionRate");
 
-                    // Update stars (5 stars based on percentage)
-                    var stars = Math.round(percent / 20);
-                    $('#caseStudyStars li').each(function (index) {
-                        if (index < stars) {
-                            $(this).find('i').removeClass('fa-star').addClass('fa-star r-star-color');
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${previewId}/user/${userId}/overallstatus`,
+                method: "GET",
+                dataType: "json",
+                success: function (res) {
+                    console.log("Overall Status Response:", res);
+
+                    if (res.success && res.overallStatus) {
+                        const totalSessions = res.overallStatus.totalSessions || 0;
+                        const completedSessions = res.overallStatus.completedSessions || 0;
+                        const completionRate = res.overallStatus.completionRate || "0%";
+
+                        sessionsDisplay.text(`${completedSessions} / ${totalSessions}`);
+                        completionRateDisplay.text(completionRate);
+
+                        const rateNum = parseFloat(completionRate.replace("%", "")) || 0;
+
+                        // Dynamic coloring
+                        if (rateNum < 40) {
+                            completionRateDisplay.css("background", "#ff4d4f"); // red
+                        } else if (rateNum < 75) {
+                            completionRateDisplay.css("background", "#ffa500"); // orange
                         } else {
-                            $(this).find('i').removeClass('r-star-color').addClass('fa-star');
+                            completionRateDisplay.css("background", "#00c897"); // green
                         }
-                    });
-                } else {
-                    alert("Failed to submit case study.");
+
+                        completionRateDisplay.css({
+                            "color": "white",
+                            "padding": "6px 18px",
+                            "border-radius": "50px",
+                            "display": "inline-block",
+                            "min-width": "70px",
+                            "text-align": "center"
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
                 }
-            },
-            error: function () {
-                alert("Error submitting case study. Please try again.");
-            }
+            });
         });
-    });
-});
-</script>
+    </script>
 
 
-    <!-- business target -->
-   <script>
-$(document).ready(function () {
-    // Parse query params
-    var queryParams = (function () {
-        var params = {};
-        var queryString = window.location.search.substring(1);
-        var pairs = queryString.split("&");
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split("=");
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-        }
-        return params;
-    })();
 
-    var courseId = queryParams.courseId || 1;   // fallback 1
-    var userId = queryParams.userId || 2;       // fallback 2
+    <!-- DAY WISE SESSIONS -->
 
-    const achievedTargetDisplay = $("#achievedTargetDisplay2");
-    const targetPercentageDisplay = $("#targetPercentageDisplay2");
-    const businessTargetWidget = $("#businessTargetWidget2");
+    <script>
+        $(document).ready(function () {
+            // Utility to read query params
+            function getQueryParams() {
+                const url = window.location.href;
+                const queryString = url.split("?")[1];
+                if (!queryString) return {};
 
-    $.ajax({
-        url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/user/${userId}/business-target`,
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            console.log("Business Target Response:", data);
+                // Fix multiple "?" → treat as "&"
+                const fixedQuery = queryString.replace(/\?/g, "&");
+                const params = new URLSearchParams(fixedQuery);
 
-            if (data.success && data.data) {
-                const target = parseInt(data.data.businessTarget) || 0;
-                const achieved = parseInt(data.data.achievedCount) || 0;
-
-                // Update achieved / target
-                achievedTargetDisplay.text(`${achieved} / ${target}`);
-
-                // Calculate percentage
-                let percentage = 0;
-                if (target > 0) {
-                    percentage = Math.round((achieved / target) * 100);
+                let result = {};
+                for (const [key, value] of params.entries()) {
+                    result[key] = value;
                 }
-
-                targetPercentageDisplay.text(`${percentage}%`);
-
-                // Dynamic coloring (with curved pill style like earlier)
-                targetPercentageDisplay.css({
-                    "color": "white",
-                    "padding": "6px 18px",
-                    "border-radius": "50px",
-                    "display": "inline-block",
-                    "min-width": "70px",
-                    "text-align": "center"
-                });
-
-                if (percentage < 40) {
-                    targetPercentageDisplay.css("background", "#ff4d4f"); // red
-                } else if (percentage < 75) {
-                    targetPercentageDisplay.css("background", "#ffa500"); // orange
-                } else {
-                    targetPercentageDisplay.css("background", "#00c897"); // green
-                }
+                return result;
             }
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-        }
-    });
-});
-</script>
 
+            const params = getQueryParams();
+            const courseId = params.courseId || 1;
+            const previewId = params.coursePreviewId || 1;
+            const userId = sessionStorage.getItem("user_id");
+            // const userId = 2;
 
-    <!-- OVER ALL STATUS -->
+            console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId,);
 
-   <script>
-$(document).ready(function () {
-    // Parse query params
-    var queryParams = (function () {
-        var params = {};
-        var queryString = window.location.search.substring(1);
-        var pairs = queryString.split("&");
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split("=");
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-        }
-        return params;
-    })();
-
-    var courseId = queryParams.courseId || 1;
-    var previewId = queryParams.previewId || 1;
-    var userId = queryParams.userId || 1;
-
-    const sessionsDisplay = $("#overallSessionsDisplay2");
-    const completionRateDisplay = $("#overallCompletionRate2");
-    const overallStatusWidget = $("#overallStatusWidget2");
-
-    $.ajax({
-        url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${previewId}/user/${userId}/overallstatus`,
-        method: "GET",
-        dataType: "json",
-        success: function (res) {
-            console.log("Overall Status Response:", res);
-
-            if (res.success && res.overallStatus) {
-                const totalSessions = res.overallStatus.totalSessions || 0;
-                const completedSessions = res.overallStatus.completedSessions || 0;
-                const completionRate = res.overallStatus.completionRate || "0%";
-
-                // Update UI
-                sessionsDisplay.text(`${completedSessions} / ${totalSessions}`);
-                completionRateDisplay.text(completionRate);
-
-                // Convert completionRate to number for styling
-                const rateNum = parseFloat(completionRate.replace("%", "")) || 0;
-
-                // Pill-style percentage
-                completionRateDisplay.css({
-                    "color": "white",
-                    "padding": "6px 18px",
-                    "border-radius": "50px",
-                    "display": "inline-block",
-                    "min-width": "70px",
-                    "text-align": "center"
-                });
-
-                if (rateNum < 40) {
-                    completionRateDisplay.css("background", "#ff4d4f"); // red
-                } else if (rateNum < 75) {
-                    completionRateDisplay.css("background", "#ffa500"); // orange
-                } else {
-                    completionRateDisplay.css("background", "#00c897"); // green
-                }
+            if (!userId) {
+                console.warn("⚠️ No userId found in sessionStorage");
+                return;
             }
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-        }
-    });
-});
-</script>
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${previewId}/user/${userId}/dailystatus`,
+                method: "GET",
+                dataType: "json",
+                success: function (response) {
+                    console.log("Response days:", response);
+                    if (!response.success || !response.dailyStatus) {
+                        console.warn("No curriculum data found");
+
+                        return;
+                    }
+
+                    // Update summary
+                    const summary = response.summary;
+                    $("#curriculumSummary").text(
+                        `${summary.totalSessions} Lessons | ${summary.overallCompletionRate}% Completed`
+                    );
+
+                    const accordion = $("#curriculumAccordion");
+                    accordion.empty();
+
+                    response.dailyStatus.forEach(function (dayData, index) {
+                        const dayId = "day-" + dayData.day;
+
+                        // Build Day Card
+                        let dayCard = `
+                    <div class="card border-0 mb-2">
+                      <div class="card-header border-bottom-0 p-0" id="${dayId}-heading">
+                        <h6 class="mb-0">
+                          <a href="#"
+                            class="btn btn-link main-color f-500 d-block text-left rounded-0 position-relative d-flex align-items-center justify-content-between ${index === 0 ? "" : "collapsed"}"
+                            data-toggle="collapse"
+                            data-target="#${dayId}-content"
+                            aria-expanded="${index === 0 ? "true" : "false"}"
+                            aria-controls="${dayId}-content">
+                            Day ${dayData.day}
+                            <span>${dayData.totalSessions} Lessons 
+                              <span class="pl-10">${dayData.dayCompletionPercentage}%</span>
+                            </span>
+                          </a>
+                        </h6>
+                      </div>
+
+                      <div class="collapse ${index === 0 ? "show" : ""}" 
+                           id="${dayId}-content" 
+                           aria-labelledby="${dayId}-heading" 
+                           data-parent="#curriculumAccordion">
+                        <div class="card-body">
+                          <!-- Header Row -->
+                          <div class="d-flex font-weight-bold border-bottom pb-2 mb-2">
+                            <div style="flex:0 0 60%;" class="text-left">Session</div>
+                            <div style="flex:0 0 20%;" class="text-center">Percentage</div>
+                            <div style="flex:0 0 20%;" class="text-right">Status</div>
+                          </div>
+                          <ul id="${dayId}-sessions" class="list-unstyled mb-0"></ul>
+                        </div>
+                      </div>
+                    </div>`;
+
+                        accordion.append(dayCard);
+
+                        // Add Sessions
+                        const sessionList = $("#" + dayId + "-sessions");
+                        dayData.sessions.forEach(function (session) {
+                            let statusLabel = "";
+                            if (session.status) {
+                                statusLabel = `<span class="badge badge-pill ${session.status === "Completed" ? "badge-success" :
+                                    session.status === "Help" ? "badge-warning" :
+                                        session.status === "On Hold" ? "badge-secondary" :
+                                            "badge-info"
+                                    }">${session.status}</span>`;
+                            }
+
+                            let sessionPercentage = `<span>${session.sessionCompletionPercentage || 0}%</span>`;
+
+                            const sessionItem = `
+                        <li class="d-flex align-items-center border-bottom py-2 session-item"
+                            data-course-id="${courseId}"
+                            data-preview-id="${previewId}"
+                            data-session-number="${session.sessionNumber}"
+                            data-day="${dayData.day}">
+                          
+                          <div style="flex:0 0 60%;" class="text-left pr-2">
+                            <span class="ab-icon primary-color pr-1"><i class="fas fa-play"></i></span>
+                            ${session.title}
+                          </div>
+                          
+                          <div style="flex:0 0 20%;" class="text-center text-muted">
+                            ${sessionPercentage}
+                          </div>
+                          
+                          <div style="flex:0 0 20%;" class="text-right">
+                            ${statusLabel}
+                          </div>
+                        </li>`;
+
+                            sessionList.append(sessionItem);
+                        });
+                    });
+
+                    console.log("Curriculum data loaded:", response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
+            });
+
+            // Handle click → redirect to course-details
+            $(document).on("click", ".session-item", function () {
+                let courseId = $(this).data("course-id");
+                let previewId = $(this).data("preview-id");
+                let day = $(this).data("day");
+                let sessionNumber = $(this).data("session-number");
+
+                // Redirect with params
+                window.location.href = `/course-details.html?courseId=${courseId}&previewId=${previewId}&day=${day}&session=${sessionNumber}&userId=${userId}`;
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.btn-link').on('click', function (e) {
+                var dayId = $(this).attr('id').replace('dayTab', ''); // 1,2,3
+                console.log('Sending day ID to backend:', dayId);
+
+                // Example AJAX call before redirect
+                /*
+                e.preventDefault(); // prevent default link temporarily
+                var url = $(this).attr('href'); // target page
+                $.ajax({
+                    url: 'https://your-backend-endpoint.com/save-day-click',
+                    method: 'POST',
+                    data: { day_id: dayId },
+                    success: function() {
+                        window.location.href = url; // redirect after successful call
+                    }
+                });
+                */
+            });
+        });
+    </script>
+
+
 
 
 </body>
