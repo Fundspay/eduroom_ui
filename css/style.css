@@ -2751,7 +2751,7 @@ a:focus,a:hover,.portfolio-cat a:hover,.footer-menu li a:hover {
 	color: var(--secondary-color);
 }
 .faq-wrapper .card-header, .total-price-bg, .your-order-bg, .payment-method-wrapper .card-body, .payment-method-wrapper .card-header{
-	background: #f3f4fa;
+	background: #fcfcfc;
 }
 .faq-wrapper .btn span {
 	font-size: 14px;
@@ -2769,7 +2769,7 @@ a:focus,a:hover,.portfolio-cat a:hover,.footer-menu li a:hover {
 	padding-left: 20px;
 	padding-right: 28px;
 	padding-bottom: 3px;
-	border: 1px solid #e5e4f4;
+	border: 1px solid #ffffff;
 	border-top: 0;
 	margin: 1px;
 }
