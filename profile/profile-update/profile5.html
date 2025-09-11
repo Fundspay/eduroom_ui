@@ -231,8 +231,7 @@
                                                 <label for="accountHolderName" class="form-label">Account Holder Name
                                                     <span class="text-danger"></span></label>
                                                 <input type="text" id="accountHolderName" name="accountHolderName"
-                                                    class="form-control" placeholder="Enter account holder name"
-                                                    >
+                                                    class="form-control" placeholder="Enter account holder name">
                                             </div>
 
                                             <div class="col-md-6 mb-3">
@@ -274,7 +273,7 @@
                                         <div class="d-flex justify-content-end mt-3">
                                             <button type="submit" class="btn px-4"
                                                 style="background-color: #36d5d5; color: #fff;">
-                                                Next
+                                                Save
                                             </button>
                                         </div>
                                     </form>
@@ -325,9 +324,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        // const userId = sessionStorage.getItem("user_id");
+        const userId = 2;
+        console.log("User ID:", userId);
+
+        $.ajax({
+            url: `https://eduroom.in/api/v1/user/list/${userId}`,
+            method: "GET",
+            success: function (res) {
+                console.log("Fetched details:", res);
+
+                if (res && res.success && res.user) {
+                    const user = res.user;
+
+                    $("#accountHolderName").val(user.accountHolderName || "");
+                    $("#bankName").val(user.bankName || "");
+                    $("#branchAddress").val(user.branchAddress || "");
+                    $("#ifscCode").val(user.ifscCode || "");
+                    $("#accountNumber").val(user.accountNumber || "");
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching details:", xhr);
+            }
+        });
+
+    </script>
+
+    <script>
         $(document).ready(function () {
-            const userId = sessionStorage.getItem("userId");
-            console.log("User ID:", userId);
 
             function validateForm() {
                 let accountHolderName = $("#accountHolderName").val().trim();
@@ -369,7 +394,7 @@
 
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -390,8 +415,7 @@
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
-                                Swal.fire("Success", "Bank details saved successfully!", "success")
-                                    .then(() => window.top.location.href = "/register6.html");
+                                Swal.fire("Success", "Bank details saved successfully!", "success");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");

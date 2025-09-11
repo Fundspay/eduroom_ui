@@ -246,15 +246,14 @@
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">Course <span
                                                         class="text-danger">*</span></label>
-                                                <select class="form-control" id="course"
-                                                    data-select2-selector="icon">
+                                                <select class="form-control" id="course" data-select2-selector="icon">
                                                     <option value="">Select Course</option>
                                                     <option value="MBA">MBA</option>
                                                     <option value="MBA + PGDM">MBA + PGDM</option>
                                                     <option value="PGDM">PGDM</option>
                                                     <option value="BBA">BBA</option>
                                                     <option value="BCOM">BCOM</option>
-                                                    
+
                                                 </select>
                                             </div>
                                             <div class="col-md-6 mb-3">
@@ -268,7 +267,7 @@
                                                     <option value="Business">Business</option>
                                                     <option value="HR">HR</option>
                                                     <option value="Others">Others</option>
-                                                    
+
                                                 </select>
                                             </div>
                                         </div>
@@ -343,65 +342,6 @@
                     </div>
                 </div>
 
-
-                <style>
-                    .progress-steps {
-                        display: flex;
-                        justify-content: space-between;
-                        position: relative;
-                    }
-
-                    .progress-steps::before {
-                        content: '';
-                        position: absolute;
-                        top: 15px;
-                        left: 0;
-                        right: 0;
-                        height: 2px;
-                        background: #ddd;
-                        z-index: 1;
-                    }
-
-                    .progress-steps .step {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        position: relative;
-                        z-index: 2;
-                    }
-
-                    .progress-steps .step span {
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background: #ddd;
-                        color: #fff;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin-bottom: 5px;
-                        font-weight: bold;
-                    }
-
-                    .progress-steps .step p {
-                        font-size: 12px;
-                        color: #777;
-                        margin: 0;
-                        text-align: center;
-                    }
-
-                    .progress-steps .step.active span {
-                        background: rgb(49, 215, 204);
-                        ;
-                    }
-
-                    .progress-steps .step.active p {
-                        color: rgb(49, 215, 204);
-                        ;
-                        font-weight: bold;
-                    }
-                </style>
-
                 <!-- [ Content Area ] end -->
             </div>
             <!-- [ Main Content ] end -->
@@ -443,9 +383,38 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        // const userId = sessionStorage.getItem("user_id");
+        const userId = 2;
+        console.log("User ID:", userId);
+
+        $.ajax({
+            url: `https://eduroom.in/api/v1/user/list/${userId}`,
+            method: "GET",
+            success: function (res) {
+                console.log("Fetched educational details:", res);
+
+                if (res && res.success && res.user) {
+                    const user = res.user;
+
+                    $("#collegeName").val(user.collegeName || "");
+                    $("#collegeRollNumber").val(user.collegeRollNumber || "");
+                    $("#course").val(user.course || "");
+                    $("#specialization").val(user.specialization || "");
+                    $("#currentYear").val(user.currentYear || "");
+                    $("#currentSemester").val(user.currentSemester || "");
+                    $("#collegeAddress").val(user.collegeAddress || "");
+                    $("#placementCoordinatorName").val(user.placementCoordinatorName || "");
+                    $("#placementCoordinatorContact").val(user.placementCoordinatorContact || "");
+                }
+            },
+            error: function (xhr) {
+                console.error("Failed to fetch educational details:", xhr);
+            }
+        });
+    </script>
+
+    <script>
         $(document).ready(function () {
-            const userId = sessionStorage.getItem("userId");
-            console.log("User ID:", userId);
 
             $("#collegeName, #course, #specialization, #placementCoordinatorName").on("input", function () {
                 this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
@@ -473,15 +442,15 @@
                 let placementCoordinatorName = $("#placementCoordinatorName").val().trim();
                 let placementCoordinatorContact = $("#placementCoordinatorContact").val().trim();
 
-                if (!collegeName || !collegeRollNumber || !course || !specialization ||
-                    !currentYear || !currentSemester || !collegeAddress ||
-                    !placementCoordinatorName || !placementCoordinatorContact) {
-                    return Swal.fire("Error", "All fields are required. Please fill out every field.", "error");
-                }
+                // if (!collegeName || !collegeRollNumber || !course || !specialization ||
+                //     !currentYear || !currentSemester || !collegeAddress ||
+                //     !placementCoordinatorName || !placementCoordinatorContact) {
+                //     return Swal.fire("Error", "All fields are required. Please fill out every field.", "error");
+                // }
 
-                if (placementCoordinatorContact.length !== 10) {
-                    return Swal.fire("Error", "Placement Coordinator contact must be exactly 10 digits.", "error");
-                }
+                // if (placementCoordinatorContact.length !== 10) {
+                //     return Swal.fire("Error", "Placement Coordinator contact must be exactly 10 digits.", "error");
+                // }
 
                 const payload = {
                     collegeName,
@@ -497,7 +466,7 @@
 
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -518,8 +487,7 @@
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
-                                Swal.fire("Success", "Details saved successfully!", "success")
-                                    .then(() => window.top.location.href = "/register3.html");
+                                Swal.fire("Success", "Details saved successfully!", "success");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");

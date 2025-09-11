@@ -228,34 +228,37 @@
                                         <!-- File Uploads -->
                                         <div class="row" style="margin-top: 2%;">
                                             <div class="col-md-12 mb-3">
-                                                <label for="studentIdCard" class="form-label">Upload Student ID Card
-                                                    <span class="text-danger"></span></label>
+                                                <label for="studentIdCard" class="form-label">Upload Student ID
+                                                    Card</label>
                                                 <input type="file" id="studentIdCard" name="studentIdCard"
-                                                    class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                                                    class="form-control" accept=".pdf,.jpg,.jpeg,.png">
                                                 <small class="text-muted">Accepted formats: PDF, JPG, PNG | Max size:
                                                     3MB</small>
+                                                <div id="studentIdCardPreview" class="mt-2"></div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <label for="governmentIdProof" class="form-label">Upload Government ID
-                                                    Proof <span class="text-danger"></span></label>
+                                                    Proof</label>
                                                 <input type="file" id="governmentIdProof" name="governmentIdProof"
-                                                    class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                                                    class="form-control" accept=".pdf,.jpg,.jpeg,.png">
                                                 <small class="text-muted">Accepted formats: PDF, JPG, PNG | Max size:
                                                     3MB</small>
+                                                <div id="governmentIdProofPreview" class="mt-2"></div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
-                                                <label for="passportPhoto" class="form-label">Upload Passport Photo
-                                                    <span class="text-danger"></span></label>
+                                                <label for="passportPhoto" class="form-label">Upload Passport
+                                                    Photo</label>
                                                 <input type="file" id="passportPhoto" name="passportPhoto"
-                                                    class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                                                    class="form-control" accept=".pdf,.jpg,.jpeg,.png">
                                                 <small class="text-muted">Accepted formats: PDF, JPG, PNG | Max size:
                                                     3MB</small>
+                                                <div id="passportPhotoPreview" class="mt-2"></div>
                                             </div>
                                         </div>
 
@@ -263,7 +266,7 @@
                                         <div class="d-flex justify-content-end mt-3">
                                             <button type="submit" class="btn px-4"
                                                 style="background-color: #36d5d5; color: #fff;">
-                                                Next
+                                                Save
                                             </button>
                                         </div>
                                     </form>
@@ -314,12 +317,51 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        // const userId = sessionStorage.getItem("user_id");
+        const userId = 2;
+        console.log("User ID:", userId);
+
+        $.ajax({
+            url: `https://eduroom.in/api/v1/user/list/${userId}`,
+            method: "GET",
+            success: function (res) {
+                console.log("Fetched details:", res);
+
+                if (res && res.success && res.user) {
+                    const user = res.user;
+
+                    function showUploadedFile(fieldId, fileName) {
+                        if (fileName) {
+                            let fileUrl = fileName.startsWith("http")
+                                ? fileName
+                                : `https://eduroom.in/uploads/${fileName}`;
+
+                            let previewHtml = `
+                                <span class="text-success fw-bold">Already uploaded: </span>
+                                <a href="${fileUrl}" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
+                                    View / Download
+                                </a>
+                            `;
+                            $(`#${fieldId}Preview`).html(previewHtml);
+                        }
+                    }
+
+                    showUploadedFile("studentIdCard", user.studentIdCard);
+                    showUploadedFile("governmentIdProof", user.governmentIdProof);
+                    showUploadedFile("passportPhoto", user.passportPhoto);
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching details:", xhr);
+            }
+        });
+    </script>
+
+    <script>
         $(document).ready(function () {
-            const userId = sessionStorage.getItem("userId");
-            console.log("User ID:", userId);
 
             const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
-            const maxSize = 3 * 1024 * 1024; // 3 MB
+            const maxSize = 3 * 1024 * 1024;
 
             function validateFile(input) {
                 const file = input.files[0];
@@ -351,20 +393,9 @@
                 const governmentIdProof = $("#governmentIdProof")[0].files[0];
                 const passportPhoto = $("#passportPhoto")[0].files[0];
 
-                if (!studentIdCard || !governmentIdProof || !passportPhoto) {
-                    Swal.fire("Error", "All files are required.", "error");
-                    return;
-                }
-
-                if (!validateFile($("#studentIdCard")[0]) ||
-                    !validateFile($("#governmentIdProof")[0]) ||
-                    !validateFile($("#passportPhoto")[0])) {
-                    return;
-                }
-
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -391,8 +422,7 @@
                             processData: false,
                             contentType: false,
                             success: function (res) {
-                                Swal.fire("Success", "Files uploaded successfully!", "success")
-                                    .then(() => window.top.location.href = "/register5.html");
+                                Swal.fire("Success", "Files uploaded successfully!", "success");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");

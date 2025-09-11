@@ -309,188 +309,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        (function ($) {
-            console.log('Register script loaded');
+        // const userId = sessionStorage.getItem("user_id");
+        const userId = 2;
+        console.log("User ID:", userId);
 
-            const nameRegex = /^[A-Za-z\s]+$/;
-            const phoneRegex = /^\d{10}$/;
-            const pinRegex = /^\d{6}$/;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        $.ajax({
+            url: `https://eduroom.in/api/v1/user/list/${userId}`,
+            method: "GET",
+            success: function (res) {
+                console.log("Fetched details:", res);
 
-            let citiesData = [];
+                if (res && res.success && res.user) {
+                    const user = res.user;
 
-            $.getJSON('/cities.json')
-                .done(function (data) {
-                    console.log('cities.json loaded', data && data.length, 'records');
-                    citiesData = data;
-                    populateStatesFromData();
-                    populateCitiesFromData();
-                })
-                .fail(function (jqxhr, status, error) {
-                    console.log('Could not load /cities.json. Using sample fallback. Error:', status, error);
-                    citiesData = [
-                        { state: 'Karnataka', name: 'Bengaluru' },
-                        { state: 'Karnataka', name: 'Mysuru' },
-                        { state: 'Maharashtra', name: 'Mumbai' },
-                        { state: 'Maharashtra', name: 'Pune' },
-                        { state: 'Delhi', name: 'New Delhi' }
-                    ];
-                    populateStatesFromData();
-                    populateCitiesFromData();
-                });
+                    $("#linkedInProfile").val(user.linkedInProfile || "");
 
-            function populateStatesFromData() {
-                const states = [...new Set(citiesData.map(i => i.state))].sort();
-                const $state = $('#state');
-                $state.empty().append('<option value="">Select State</option>');
-                states.forEach(s => $state.append(`<option value="${s}">${s}</option>`));
-            }
-
-            function populateCitiesFromData() {
-                const cities = [...new Set(citiesData.map(i => i.name))].sort();
-                const $city = $('#city');
-                $city.empty().append('<option value="">Select City</option>');
-                cities.forEach(c => $city.append(`<option value="${c}">${c}</option>`));
-            }
-
-            if (typeof flatpickr === 'function') {
-                try {
-                    flatpickr('#dateOfBirth', {
-                        dateFormat: 'Y-m-d',
-                        maxDate: 'today',
-                        allowInput: false,
-                        onReady: function (sel) { console.log('flatpickr ready for #dateOfBirth'); }
-                    });
-                } catch (err) {
-                    console.warn('flatpickr init failed:', err);
-                    $('#dateOfBirth').attr('type', 'date').prop('readonly', false);
-                }
-            } else {
-                console.warn('flatpickr not found — using native date input');
-                $('#dateOfBirth').attr('type', 'date').prop('readonly', false);
-            }
-
-            $(document).on('click', '.toggle-password', function (e) {
-                e.preventDefault();
-                const $btn = $(this);
-                const $input = $btn.closest('.input-group').find('input').first();
-                if (!$input || $input.length === 0) return;
-                const currentType = $input.attr('type');
-                const newType = currentType === 'password' ? 'text' : 'password';
-                $input.attr('type', newType);
-                $btn.find('i').toggleClass('fa-eye fa-eye-slash');
-            });
-
-            $('#firstName, #lastName, #emergencyContactName').on('input', function () {
-                const before = this.value;
-                this.value = this.value.replace(/[^A-Za-z\s]/g, '');
-                if (before !== this.value) $(this).addClass('is-invalid'); else $(this).removeClass('is-invalid');
-            });
-
-            $('#phoneNumber, #alternatePhoneNumber, #emergencyContactNumber, #pinCode').on('input', function () {
-                const max = $(this).attr('maxlength') || 100;
-                this.value = this.value.replace(/\D/g, '').slice(0, max);
-            });
-
-            function showFieldError(id, show, msg) {
-                const $err = $('#' + id);
-                if (show) {
-                    $err.text(msg).show();
-                } else {
-                    $err.hide();
-                }
-            }
-
-            $('#register-form').on('submit', function (e) {
-                e.preventDefault();
-
-                const firstName = $('#firstName').val().trim();
-                const lastName = $('#lastName').val().trim();
-                const dateOfBirth = $('#dateOfBirth').val().trim();
-                const gender = $('#gender').val();
-                const phone = $('#phoneNumber').val().trim();
-                const altPhone = $('#alternatePhoneNumber').val().trim();
-                const email = $('#email').val().trim();
-                const residentialAddress = $('#residentialAddress').val().trim();
-                const emergencyContactName = $('#emergencyContactName').val().trim();
-                const emergencyContactNumber = $('#emergencyContactNumber').val().trim();
-                const city = $('#city').val();
-                const state = $('#state').val();
-                const pinCode = $('#pinCode').val().trim();
-
-                $('.field-error').hide();
-
-                if (!firstName || !nameRegex.test(firstName)) { showFieldError('err-firstName', true, 'Valid First Name required (letters & spaces).'); return Swal.fire('Error', 'Valid First Name required (letters & spaces).', 'error'); }
-                if (!lastName || !nameRegex.test(lastName)) { showFieldError('err-lastName', true, 'Valid Last Name required (letters & spaces).'); return Swal.fire('Error', 'Valid Last Name required (letters & spaces).', 'error'); }
-                if (!dateOfBirth) { showFieldError('err-dob', true, 'Date of Birth required.'); return Swal.fire('Error', 'Date of Birth is required.', 'error'); }
-                if (!gender) { showFieldError('err-gender', true, 'Select a gender.'); return Swal.fire('Error', 'Gender is required.', 'error'); }
-                if (!phoneRegex.test(phone)) { showFieldError('err-phone', true, 'Phone must be 10 digits.'); return Swal.fire('Error', 'Primary phone must be 10 digits.', 'error'); }
-                if (altPhone && !phoneRegex.test(altPhone)) { showFieldError('err-altphone', true, 'Alternate phone must be 10 digits.'); return Swal.fire('Error', 'Alternate phone must be 10 digits.', 'error'); }
-                if (!emailRegex.test(email)) { showFieldError('err-email', true, 'Enter a valid email.'); return Swal.fire('Error', 'Enter a valid email address.', 'error'); }
-                if (!residentialAddress || residentialAddress.length < 5) { showFieldError('err-address', true, 'Address must be at least 5 chars.'); return Swal.fire('Error', 'Address must be at least 5 characters.', 'error'); }
-                if (!emergencyContactName || !nameRegex.test(emergencyContactName)) { showFieldError('err-emerName', true, 'Valid emergency name required.'); return Swal.fire('Error', 'Valid Emergency Contact Name required.', 'error'); }
-                if (!phoneRegex.test(emergencyContactNumber)) { showFieldError('err-emerPhone', true, 'Emergency contact must be 10 digits.'); return Swal.fire('Error', 'Emergency Contact Number must be 10 digits.', 'error'); }
-                if (!state) { showFieldError('err-state', true, 'Select a state.'); return Swal.fire('Error', 'State is required.', 'error'); }
-                if (!city) { showFieldError('err-city', true, 'Select a city.'); return Swal.fire('Error', 'City is required.', 'error'); }
-                if (!pinRegex.test(pinCode)) { showFieldError('err-pin', true, 'Pin code must be 6 digits.'); return Swal.fire('Error', 'Pin Code must be 6 digits.', 'error'); }
-
-                const payload = {
-                    firstName, lastName, dateOfBirth, gender,
-                    phoneNumber: phone, alternatePhoneNumber: altPhone,
-                    email, residentialAddress,
-                    emergencyContactName, emergencyContactNumber,
-                    city, state, pinCode
-                };
-
-                Swal.fire({
-                    title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, Confirm",
-                    cancelButtonText: "Cancel",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: "Processing...",
-                            text: "Please wait while we save your details.",
-                            allowOutsideClick: false,
-                            didOpen: () => Swal.showLoading()
-                        });
-
-                        $.ajax({
-                            url: "https://eduroom.in/api/v1/user/personal-info",
-                            method: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify(payload),
-                            success: function (res) {
-                                sessionStorage.setItem("userId", res.userId || '');
-                                Swal.fire("Success", "Details saved successfully!", "success").then(() => {
-                                    window.top.location.href = "/register2.html";
-                                });
-                            },
-                            error: function (xhr) {
-                                console.error('Submit error', xhr);
-                                const msg = xhr.responseJSON?.message || (xhr.responseText ? xhr.responseText : 'Something went wrong.');
-                                Swal.fire("Error", msg, "error");
-                            }
-                        });
+                    if (user.preferredCommunicationId) {
+                        $("#preferredCommunicationId").val(user.preferredCommunicationId);
                     }
-                });
-            });
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching details:", xhr);
+            }
+        });
 
-            console.log('Ready: elements present ->', {
-                dateOfBirth_exists: !!$('#dateOfBirth').length,
-                toggle_buttons: $('.toggle-password').length,
-                state_select: $('#state').length
-            });
+    </script>
 
-        })(jQuery);
-    </script><script>
+    <script>
         $(document).ready(function () {
-            const userId = sessionStorage.getItem("userId");
-            console.log("User ID:", userId);
 
             function validateForm() {
                 let preferredCommunicationId = $("#preferredCommunicationId").val();
@@ -523,7 +370,7 @@
 
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -544,8 +391,7 @@
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
-                                Swal.fire("Success", "Details saved successfully!", "success")
-                                    .then(() => window.top.location.href = "/register7.html");
+                                Swal.fire("Success", "Details saved successfully!", "success");
                             },
                             error: function (xhr) {
                                 Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong.", "error");
