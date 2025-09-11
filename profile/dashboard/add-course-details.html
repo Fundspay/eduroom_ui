@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+    <meta name="author" content="" />
+    <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
+    <!--! BEGIN: Apps Title-->
+    <title>FundsAudit || Dashboard</title>
+    <!--! END:  Apps Title-->
+    <!--! BEGIN: Favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
+    <!--! END: Favicon-->
+    <!--! BEGIN: Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
+    <!--! END: Bootstrap CSS-->
+    <!--! BEGIN: Vendors CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/vendors.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/quill.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/daterangepicker.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--! END: Vendors CSS-->
+    <!--! BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
+    <!--! END: Custom CSS-->
+    <!--! HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries !-->
+    <!--! WARNING: Respond.js doesn"t work if you view the page via file: !-->
+    <!--[if lt IE 9]>
+			<script src="https:oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https:oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+    <!--! ================================================================ !-->
+    <!--! [Start] Navigation Manu !-->
+    <!--! ================================================================ !-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <nav class="nxl-navigation">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="index.html" class="b-brand">
+                    <img src="/images/favicon.svg" alt="" class="logo logo-lg" />
+                    <img src="/images/favicon.svg" alt="" class="logo logo-sm" />
+                </a>
+            </div>
+            <div class="navbar-content">
+                <ul class="nxl-navbar">
+                    <li class="nxl-item nxl-caption">
+                        <label>Navigation</label>
+                    </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">DASHBOARD</span><span class="nxl-arrow"><i
+                                    class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
+                            </li>
+
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a>
+                            </li>
+
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            </li>
+
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                        </ul>
+                    </li>
+                    <!-- Admin Page Link (Hidden by Default) -->
+                    <!-- <li class="nxl-item nxl-hasmenu" id="adminPageLink" style="display: none;">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-settings"></i></span>
+                            <span class="nxl-mtext">Admin Page</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="admin.html">Dashboard Analysis - Edit</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="business-analysis-edit.html">Business Analysis - Edit</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="analysis-edit.html">Performance Analysis - Edit</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="feather-briefcase fs-4 text-dark"></i>
+                        <h6 class="mt-4 text-dark fw-bolder">Welcome to FundsRoom</h6>
+                        <p class="fs-11 my-3 text-dark">
+                            FundsRoom is your trusted financial partner, offering seamless solutions for managing
+                            investments, loans, and business funds with ease.
+                        </p>
+                        <!-- <a href="https://www.fundsroom.com/" class="btn btn-primary text-dark w-100" style="margin-bottom: 10%;">Fundsroom</a>
+                        <a href="https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&hl=en_IN" class="btn btn-success text-light w-100">Download FundsAudit</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--! ================================================================ !-->
+    <!--! [End]  Navigation Manu !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! [Start] Header !-->
+    <!--! ================================================================ !-->
+    <header class="nxl-header">
+        <div class="header-wrapper">
+            <!--! [Start] Header Left !-->
+            <div class="header-left d-flex align-items-center gap-4">
+                <!--! [Start] nxl-head-mobile-toggler !-->
+                <a href="javascript:void(0);" class="nxl-head-mobile-toggler" id="mobile-collapse">
+                    <div class="hamburger hamburger--arrowturn">
+                        <div class="hamburger-box">
+                            <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
+                </a>
+                <!--! [Start] nxl-head-mobile-toggler !-->
+                <!--! [Start] nxl-navigation-toggle !-->
+                <div class="nxl-navigation-toggle">
+                    <a href="javascript:void(0);" id="menu-mini-button">
+                        <i class="feather-align-left"></i>
+                    </a>
+                    <a href="javascript:void(0);" id="menu-expend-button" style="display: none">
+                        <i class="feather-arrow-right"></i>
+                    </a>
+                </div>
+                <!--! [End] nxl-navigation-toggle !-->
+                <!--! [Start] nxl-lavel-mega-menu-toggle !-->
+                <!-- <div class="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
+                    <a href="javascript:void(0);" id="nxl-lavel-mega-menu-open">
+                        <i class="feather-align-left"></i>
+                    </a>
+                </div> -->
+                <!--! [End] nxl-lavel-mega-menu-toggle !-->
+                <!--! [Start] nxl-lavel-mega-menu !-->
+                <div class="nxl-drp-link nxl-lavel-mega-menu">
+                    <div class="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
+                        <a href="javascript:void(0)" id="nxl-lavel-mega-menu-hide">
+                            <i class="feather-arrow-left me-2"></i>
+                            <span>Back</span>
+                        </a>
+                    </div>
+
+                    <!--! [End] nxl-lavel-mega-menu-wrapper !-->
+                </div>
+                <!--! [End] nxl-lavel-mega-menu !-->
+            </div>
+            <!--! [End] Header Left !-->
+            <!--! [Start] Header Right !-->
+            <div class="header-right ms-auto">
+                <div class="d-flex align-items-center">
+
+                    <!-- Full Screen Switcher -->
+                    <!-- <div class="nxl-h-item d-none d-sm-flex">
+                        <div class="full-screen-switcher">
+                            <a href="javascript:void(0);" class="nxl-head-link me-0"
+                                onclick="$('body').fullScreenHelper('toggle');">
+                                <i class="feather-maximize maximize"></i>
+                                <i class="feather-minimize minimize"></i>
+                            </a>
+                        </div>
+                    </div> -->
+
+                    <!-- Dark/Light Theme Toggle -->
+                    <div class="nxl-h-item dark-light-theme">
+                        <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
+                            <i class="feather-moon"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
+                            <i class="feather-sun"></i>
+                        </a>
+                    </div>
+
+                    <!-- User Dropdown -->
+                    <div class="dropdown nxl-h-item">
+                        <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button"
+                            data-bs-auto-close="outside">
+                            <div class="avatar-text avatar-lg bg-gray-200">
+                                <i class="feather-user"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
+                            <div class="dropdown-header">
+                                <section id="user-header">
+                                    <div id="user-section" class="user-dropdown"><i class="feather-user"></i> Fundsroom
+                                        Tech</div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--! [End] Header Right !-->
+        </div>
+    </header>
+    <!--! ================================================================ !-->
+    <!--! [End] Header !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! [Start] Main Content !-->
+    <!--! ================================================================ !-->
+    <main class="nxl-container">
+        <div class="nxl-content">
+            <!-- [ page-header ] start -->
+            <div class="page-header">
+                <div class="page-header-left d-flex align-items-center">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">DASHBOARD</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <!-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> -->
+                        <li class="breadcrumb-item">ADD COURSE DETAILS</li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- [ page-header ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="main-content" style="margin-bottom: 5%;">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+
+                                <!-- Domain Select -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Domain <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="domainSelect">
+                                        <option value="">Loading...</option>
+                                    </select>
+                                </div>
+
+                                <!-- Course Select -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Course <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="courseSelect">
+                                        <option value="">Select a domain first</option>
+                                    </select>
+                                </div>
+
+                                <!-- Title -->
+                                <div class="mb-4">
+                                    <label class="form-label">Course Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control char-limit" id="title"
+                                        placeholder="Enter course title" data-limit="100">
+                                    <small class="text-muted char-count" data-for="title">0/100 chars</small>
+                                </div>
+
+                                <!-- YouTube Link -->
+                                <div class="mb-4">
+                                    <label class="form-label">YouTube Link <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control" id="youtubeLink"
+                                        placeholder="Enter YouTube link">
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-4">
+                                    <label class="form-label">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control char-limit" id="description" rows="3"
+                                        placeholder="Enter course description" data-limit="300"></textarea>
+                                    <small class="text-muted char-count" data-for="description">0/300 chars</small>
+                                </div>
+
+                                <!-- Auto Generated Day Dropdown -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Day</label>
+                                    <select class="form-select" id="daySelect">
+                                        <option value="">Select course first</option>
+                                    </select>
+                                </div>
+
+                                <!-- Session Dropdown -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Session</label>
+                                    <select class="form-select" id="sessionSelect" data-select2-selector="icon">
+                                        <option value="">Select session</option>
+                                    </select>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <!-- Question Section -->
+                                <div id="questionSection" class="mb-4">
+                                    <h5>Add Question 1</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <!-- Question Section 2 -->
+                                <div id="questionSection2" class="mb-4">
+                                    <h5>Add Question 2</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText2"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText2">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA2"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA2">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB2"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB2">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC2"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC2">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD2"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD2">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer2" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords2"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords2">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy2" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy2">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection3" class="mb-4">
+                                    <h5>Add Question 3</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText3"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText3">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA3"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA3">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB3"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB3">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC3"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC3">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD3"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD3">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer3" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords3"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords3">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy3" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy3">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection4" class="mb-4">
+                                    <h5>Add Question 4</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText4"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText4">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA4"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA4">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB4"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB4">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC4"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC4">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD4"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD4">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer4" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords4"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords4">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy4" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy4">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection5" class="mb-4">
+                                    <h5>Add Question 5</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText5"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText5">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA5"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA5">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB5"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB5">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC5"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC5">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD5"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD5">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer5" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords5"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords5">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy5" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy5">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection6" class="mb-4">
+                                    <h5>Add Question 6</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText6"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText6">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA6"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA6">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB6"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB6">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC6"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC6">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD6"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD6">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer6" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords6"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords6">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy6" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy6">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection7" class="mb-4">
+                                    <h5>Add Question 7</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText7"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText7">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA7"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA7">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB7"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB7">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC7"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC7">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD7"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD7">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer7" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords7"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords7">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy7" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy7">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection8" class="mb-4">
+                                    <h5>Add Question 8</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText8"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText8">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA8"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA8">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB8"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB8">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC8"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC8">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD8"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD8">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer8" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords8"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords8">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy8" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy8">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection9" class="mb-4">
+                                    <h5>Add Question 9</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText9"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText9">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA9"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA9">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB9"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB9">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC9"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC9">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD9"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD9">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer9" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords9"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords9">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy9" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy9">0/400 chars</small>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <div id="questionSection10" class="mb-4">
+                                    <h5>Add Question 10</h5>
+                                    <input type="text" class="form-control mb-2 char-limit" id="questionText10"
+                                        placeholder="Enter Question" data-limit="200">
+                                    <small class="text-muted char-count" data-for="questionText10">0/200 chars</small>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionA10"
+                                                placeholder="Option A" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionA10">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionB10"
+                                                placeholder="Option B" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionB10">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionC10"
+                                                placeholder="Option C" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionC10">0/100 chars</small>
+                                        </div>
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control char-limit" id="optionD10"
+                                                placeholder="Option D" data-limit="100">
+                                            <small class="text-muted char-count" data-for="optionD10">0/100 chars</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label">Answer</label>
+                                        <select class="form-select" id="answer10" data-select2-selector="icon">
+                                            <option value="">Select Answer</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="text" class="form-control mb-2 char-limit" id="keywords10"
+                                        placeholder="Enter keywords" data-limit="150">
+                                    <small class="text-muted char-count" data-for="keywords10">0/150 chars</small>
+
+                                    <textarea class="form-control char-limit" id="caseStudy10" rows="2"
+                                        placeholder="Enter case study" data-limit="400"></textarea>
+                                    <small class="text-muted char-count" data-for="caseStudy10">0/400 chars</small>
+                                </div>
+
+                                <!-- Form Message -->
+                                <div id="formMessage" class="mb-3"></div>
+
+                                <!-- Submit -->
+                                <div class="text-end">
+                                    <button type="button" class="btn btn-primary" id="submitBtn">Add Course Details</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- [ Main Content ] end -->
+        </div>
+        <!-- [ Footer ] start -->
+        <!-- [ Footer ] end -->
+    </main>
+    <!--! ================================================================ !-->
+    <!--! [End] Main Content !-->
+    <!--! ================================================================ !-->
+
+    <!--! ================================================================ !-->
+    <!--! Footer Script !-->
+    <!--! ================================================================ !-->
+    <!--! BEGIN: Vendors JS !-->
+    <script src="./../assets/vendors/js/vendors.min.js"></script>
+    <!-- vendors.min.js {always must need to be top} -->
+    <script src="./../assets/vendors/js/daterangepicker.min.js"></script>
+    <script src="./../assets/vendors/js/apexcharts.min.js"></script>
+    <script src="./../assets/vendors/js/circle-progress.min.js"></script>
+    <script src="./../assets/vendors/js/jquery.calendar.min.js"></script>
+    <script src="./../assets/vendors/js/tagify.min.js"></script>
+    <script src="./../assets/vendors/js/tagify-data.min.js"></script>
+    <script src="./../assets/vendors/js/quill.min.js"></script>
+    <script src="./../assets/vendors/js/select2.min.js"></script>
+    <script src="./../assets/vendors/js/select2-active.min.js"></script>
+    <!--! END: Vendors JS !-->
+    <!--! BEGIN: Apps Init  !-->
+    <script src="./../assets/js/common-init.min.js"></script>
+    <!-- <script src="./../assets/js/dashboard-init.min.js"></script> -->
+    <!-- <script src="./../assets/js/reports-project-init.min.js"></script> -->
+    <!-- <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script> -->
+    <!--! END: Apps Init !-->
+    <!--! BEGIN: Theme Customizer  !-->
+    <script src="./../assets/js/theme-customizer-init.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--! END: Theme Customizer !-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let allCourses = [];
+            let selectedPreviewId = null;
+
+            function updateCharCount(el) {
+                let limit = parseInt($(el).data("limit"), 10) || 100;
+                let value = $(el).val();
+
+                if (value.length > limit) {
+                    $(el).val(value.substring(0, limit));
+                    value = $(el).val();
+                }
+
+                $(`.char-count[data-for="${$(el).attr("id")}"]`).text(value.length + "/" + limit + " chars");
+            }
+
+            $(document).on("input", ".char-limit", function () {
+                updateCharCount(this);
+            });
+
+            for (let i = 1; i <= 30; i++) {
+                $("#sessionSelect").append(`<option value="${i}">Session ${i}</option>`);
+            }
+
+            $.ajax({
+                url: "https://eduroom.in/api/v1/domain/list",
+                type: "GET",
+                success: function (res) {
+                    console.log("domain list:", res);
+                    let options = '<option value="">Select Domain</option>';
+                    if (res.success && res.data.length > 0) {
+                        res.data.forEach(domain => {
+                            let cleanName = (domain.name || "").replace(/^"(.*)"$/, "$1");
+                            options += `<option value="${domain.id}">${cleanName}</option>`;
+                        });
+                    }
+                    $("#domainSelect").html(options);
+                }
+            });
+
+            $.ajax({
+                url: "https://eduroom.in/api/v1/course/list",
+                type: "GET",
+                success: function (res) {
+                    console.log("course list:", res);
+                    if (res.success && res.data.length > 0) {
+                        allCourses = res.data;
+                    }
+                }
+            });
+
+            $("#domainSelect").change(function () {
+                let domainId = $(this).val();
+                let options = '<option value="">Select Course</option>';
+                if (domainId) {
+                    let filtered = allCourses.filter(c => c.domainId == domainId);
+                    filtered.forEach(course => {
+                        let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
+                        options += `<option value="${course.id}" data-preview='${JSON.stringify(course.CoursePreviews)}'>${cleanName}</option>`;
+                    });
+                }
+                $("#courseSelect").html(options);
+                $("#daySelect").html('<option value="">Select course first</option>');
+                $("#dayCount").val("");
+            });
+
+            $("#courseSelect").change(function () {
+                let previews = $(this).find(":selected").data("preview");
+                if (previews && previews.length > 0) {
+                    selectedPreviewId = previews[0].coursePreviewId;
+                    let dayCount = previews[0].dayCount;
+                    $("#dayCount").val(dayCount);
+
+                    let options = '<option value="">Select Day</option>';
+                    for (let i = 1; i <= dayCount; i++) {
+                        options += `<option value="${i}">Day ${i}</option>`;
+                    }
+                    $("#daySelect").html(options);
+                }
+            });
+
+            $("#submitBtn").click(function () {
+                let payload = {
+                    domainId: parseInt($("#domainSelect").val(), 10),
+                    userId: null,
+                    courseId: parseInt($("#courseSelect").val(), 10),
+                    coursePreviewId: parseInt(selectedPreviewId, 10),
+                    days: [
+                        {
+                            day: parseInt($("#daySelect").val(), 10),
+                            sessions: [
+                                {
+                                    sessionNumber: parseInt($("#sessionSelect").val(), 10),
+                                    title: $("#title").val().trim(),
+                                    description: $("#description").val().trim(),
+                                    youtubeLink: $("#youtubeLink").val().trim(),
+                                    questions: [
+                                        {
+                                            question: $("#questionText").val().trim(),
+                                            optionA: $("#optionA").val().trim(),
+                                            optionB: $("#optionB").val().trim(),
+                                            optionC: $("#optionC").val().trim(),
+                                            optionD: $("#optionD").val().trim(),
+                                            answer: $("#answer").val(),
+                                            keywords: $("#keywords").val().trim(),
+                                            caseStudy: $("#caseStudy").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText2").val().trim(),
+                                            optionA: $("#optionA2").val().trim(),
+                                            optionB: $("#optionB2").val().trim(),
+                                            optionC: $("#optionC2").val().trim(),
+                                            optionD: $("#optionD2").val().trim(),
+                                            answer: $("#answer2").val(),
+                                            keywords: $("#keywords2").val().trim(),
+                                            caseStudy: $("#caseStudy2").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText3").val().trim(),
+                                            optionA: $("#optionA3").val().trim(),
+                                            optionB: $("#optionB3").val().trim(),
+                                            optionC: $("#optionC3").val().trim(),
+                                            optionD: $("#optionD3").val().trim(),
+                                            answer: $("#answer3").val(),
+                                            keywords: $("#keywords3").val().trim(),
+                                            caseStudy: $("#caseStudy3").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText4").val().trim(),
+                                            optionA: $("#optionA4").val().trim(),
+                                            optionB: $("#optionB4").val().trim(),
+                                            optionC: $("#optionC4").val().trim(),
+                                            optionD: $("#optionD4").val().trim(),
+                                            answer: $("#answer4").val(),
+                                            keywords: $("#keywords4").val().trim(),
+                                            caseStudy: $("#caseStudy4").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText5").val().trim(),
+                                            optionA: $("#optionA5").val().trim(),
+                                            optionB: $("#optionB5").val().trim(),
+                                            optionC: $("#optionC5").val().trim(),
+                                            optionD: $("#optionD5").val().trim(),
+                                            answer: $("#answer5").val(),
+                                            keywords: $("#keywords5").val().trim(),
+                                            caseStudy: $("#caseStudy5").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText6").val().trim(),
+                                            optionA: $("#optionA6").val().trim(),
+                                            optionB: $("#optionB6").val().trim(),
+                                            optionC: $("#optionC6").val().trim(),
+                                            optionD: $("#optionD6").val().trim(),
+                                            answer: $("#answer6").val(),
+                                            keywords: $("#keywords6").val().trim(),
+                                            caseStudy: $("#caseStudy6").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText7").val().trim(),
+                                            optionA: $("#optionA7").val().trim(),
+                                            optionB: $("#optionB7").val().trim(),
+                                            optionC: $("#optionC7").val().trim(),
+                                            optionD: $("#optionD7").val().trim(),
+                                            answer: $("#answer7").val(),
+                                            keywords: $("#keywords7").val().trim(),
+                                            caseStudy: $("#caseStudy7").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText8").val().trim(),
+                                            optionA: $("#optionA8").val().trim(),
+                                            optionB: $("#optionB8").val().trim(),
+                                            optionC: $("#optionC8").val().trim(),
+                                            optionD: $("#optionD8").val().trim(),
+                                            answer: $("#answer8").val(),
+                                            keywords: $("#keywords8").val().trim(),
+                                            caseStudy: $("#caseStudy8").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText9").val().trim(),
+                                            optionA: $("#optionA9").val().trim(),
+                                            optionB: $("#optionB9").val().trim(),
+                                            optionC: $("#optionC9").val().trim(),
+                                            optionD: $("#optionD9").val().trim(),
+                                            answer: $("#answer9").val(),
+                                            keywords: $("#keywords9").val().trim(),
+                                            caseStudy: $("#caseStudy9").val().trim()
+                                        },
+                                        {
+                                            question: $("#questionText10").val().trim(),
+                                            optionA: $("#optionA10").val().trim(),
+                                            optionB: $("#optionB10").val().trim(),
+                                            optionC: $("#optionC10").val().trim(),
+                                            optionD: $("#optionD10").val().trim(),
+                                            answer: $("#answer10").val(),
+                                            keywords: $("#keywords10").val().trim(),
+                                            caseStudy: $("#caseStudy10").val().trim()
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                };
+
+                console.log("Final Payload:", payload);
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/coursedetail/course-detail",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (response) {
+                        $("#formMessage").html('<span class="text-success">✅ Course added successfully!</span>');
+                    },
+                    error: function (xhr) {
+                        $("#formMessage").html('<span class="text-danger">❌ ' + (xhr.responseText || "Error submitting") + '</span>');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
