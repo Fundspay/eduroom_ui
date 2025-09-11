@@ -450,144 +450,57 @@
     <script src="./../assets/js/theme-customizer-init.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--! END: Theme Customizer !-->
 
     <script>
-        // Dummy data for table
-        const dummyData = [
-            {
-                sr: 1,
-                lastLogin: "2025-09-01 14:32",
-                name: "Alexandra Della",
-                mobile: "+91 9876543210",
-                email: "alex.della@example.com",
-                college: "ABC Institute of Technology",
-                domain: "Web Development",
-                course: "Full-Stack Bootcamp",
-                duration: "12 Weeks",
-                startDate: "2025-08-01",
-                estEndDate: "2025-10-25",
-                offerLetter: "Issued",
-                courseStatus: "Ongoing",
-                businessStatus: "Active",
-                certificateStatus: "Pending",
-                internshipCertStatus: "Not Started",
-                walletSubs: 5,
-                internshipAction: "Assigned"
-            },
-            {
-                sr: 2,
-                lastLogin: "2025-09-02 09:10",
-                name: "Rahul Mehta",
-                mobile: "+91 9988776655",
-                email: "rahul.mehta@example.com",
-                college: "XYZ Engineering College",
-                domain: "Data Science",
-                course: "Machine Learning with Python",
-                duration: "10 Weeks",
-                startDate: "2025-07-20",
-                estEndDate: "2025-09-28",
-                offerLetter: "Issued",
-                courseStatus: "Completed",
-                businessStatus: "Inactive",
-                certificateStatus: "Issued",
-                internshipCertStatus: "Issued",
-                walletSubs: 2,
-                internshipAction: "Completed"
-            },
-            {
-                sr: 3,
-                lastLogin: "2025-09-03 17:25",
-                name: "Sneha Sharma",
-                mobile: "+91 7766554433",
-                email: "sneha.sharma@example.com",
-                college: "LMN University",
-                domain: "Cybersecurity",
-                course: "Ethical Hacking Basics",
-                duration: "8 Weeks",
-                startDate: "2025-08-10",
-                estEndDate: "2025-10-05",
-                offerLetter: "Not Issued",
-                courseStatus: "Ongoing",
-                businessStatus: "Active",
-                certificateStatus: "Pending",
-                internshipCertStatus: "Pending",
-                walletSubs: 3,
-                internshipAction: "In Progress"
+    $(document).ready(function () {
+    $.ajax({
+        url: "https://eduroom.in/api/v1/user/list", // replace with your actual endpoint
+        type: "GET",
+        success: function (res) {
+            if (res.success && res.data.length > 0) {
+                let rows = "";
+                console.log(res.data);
+                res.data.forEach((user, index) => {
+                    rows += `
+                        <tr>
+                            <td><button class="btn btn-danger btn-sm">Delete</button></td>
+                            <td>${index + 1}</td>
+                            <td>${user.lastLogin || ""}</td>
+                            <td>${user.fullName || (user.firstName + " " + user.lastName) || ""}</td>
+                            <td>${user.phoneNumber || ""}</td>
+                            <td>${user.email || ""}</td>
+                            <td>${user.collegeName || ""}</td>
+                            <td>${user.domain || ""}</td>
+                            <td>${user.course || ""}</td>
+                            <td>${user.internshipDuration || ""}</td>
+                            <td>${user.preferredStartDate || ""}</td>
+                            <td>${user.estimatedEndDate || ""}</td>
+                            <td>${user.offerLetter || ""}</td>
+                            <td>${user.courseStatus || ""}</td>
+                            <td>${user.businessStatus || ""}</td>
+                            <td>${user.certificateStatus || ""}</td>
+                            <td>${user.internshipCertificateStatus || ""}</td>
+                            <td>${user.subscriptionWallet || ""}</td>
+                            <td>${user.internshipAction || ""}</td>
+                        </tr>
+                    `;
+                });
+
+                $("#leadsTable tbody").html(rows);
+            } else {
+                $("#leadsTable tbody").html(`<tr><td colspan="19">No users found</td></tr>`);
             }
-        ];
-
-        const rowsPerPage = 5;
-        let currentPage = 1;
-
-        // Function to render table rows
-        function renderTable(page = 1) {
-            const tbody = document.querySelector("#leadsTable tbody");
-            tbody.innerHTML = "";
-
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedData = dummyData.slice(start, end);
-
-            paginatedData.forEach((item, index) => {
-                const row = `
-                <tr>
-                    <td><button class="btn btn-sm btn-danger">Delete</button></td>
-                    <td>${item.sr}</td>
-                    <td>${item.lastLogin}</td>
-                    <td>${item.name}</td>
-                    <td>${item.mobile}</td>
-                    <td>${item.email}</td>
-                    <td>${item.college}</td>
-                    <td>${item.domain}</td>
-                    <td>${item.course}</td>
-                    <td>${item.duration}</td>
-                    <td>${item.startDate}</td>
-                    <td>${item.estEndDate}</td>
-                    <td>${item.offerLetter}</td>
-                    <td>${item.courseStatus}</td>
-                    <td>${item.businessStatus}</td>
-                    <td>${item.certificateStatus}</td>
-                    <td>${item.internshipCertStatus}</td>
-                    <td>${item.walletSubs}</td>
-                    <td>${item.internshipAction}</td>
-                </tr>
-            `;
-                tbody.innerHTML += row;
-            });
-
-            document.getElementById("collegeCount").innerText = dummyData.length;
-            renderPagination();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching users:", error);
+            $("#leadsTable tbody").html(`<tr><td colspan="19">Error loading data</td></tr>`);
         }
+    });
+});
+</script>
 
-        // Function to render pagination
-        function renderPagination() {
-            const totalPages = Math.ceil(dummyData.length / rowsPerPage);
-            const pagination = document.getElementById("pagination");
-            pagination.innerHTML = "";
-
-            for (let i = 1; i <= totalPages; i++) {
-                const li = document.createElement("li");
-                li.innerHTML = `
-                <a href="javascript:void(0);" 
-                   class="page-link ${i === currentPage ? 'active' : ''}" 
-                   onclick="goToPage(${i})">${i}</a>
-            `;
-                pagination.appendChild(li);
-            }
-        }
-
-        // Function to change page
-        function goToPage(page) {
-            currentPage = page;
-            renderTable(page);
-        }
-
-        // Initial load
-        document.addEventListener("DOMContentLoaded", () => {
-            renderTable(currentPage);
-        });
-    </script>
 
     <!-- <script>
         var userData = JSON.parse(sessionStorage.getItem("user_data"));
