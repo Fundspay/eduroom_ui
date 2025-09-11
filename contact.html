@@ -779,8 +779,6 @@
                                             </div>
                                         </div>
                                     </form>
-
-                                    <p class="form-message mt-20"></p>
                                 </div><!-- /contact-form -->
                             </div><!-- /contact-wrapper -->
                         </div>
@@ -954,8 +952,12 @@
     <script src="js/main.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        // store just the hostname
         (function () {
             console.log("Binding contact form…");
             const host = new URL(location.href).hostname;
@@ -964,9 +966,8 @@
             function submitContactForm(e) {
                 e.preventDefault();
                 console.log("submitContactForm fired");
+
                 const data = {
-                    domain: sessionStorage.getItem("baseDomain") || "",
-                    // domain: "fundsmintindia.com",
                     Name: $("#username").val().trim(),
                     email: $("#email").val().trim(),
                     phone: $("#phone").val().trim(),
@@ -975,23 +976,41 @@
                 console.log("Posting data:", data);
                 console.log("Contact script loaded, jQuery version:", $.fn.jquery);
 
+                Swal.fire({
+                    title: "Sending Message...",
+                    text: "Please wait while we send your message.",
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+
                 $.ajax({
-                    url: "https://api.fundsweb.in/api/v1/contactus/add",
+                    url: "https://eduroom.in/api/v1/contactus/add",
                     method: "POST",
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     success() {
-                        alert("Message sent successfully!");
-                        $("#contact-form")[0].reset();
+                        Swal.close();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Message Sent!",
+                            text: "Thank you for contacting us. We'll get back to you soon.",
+                            confirmButtonColor: "#36d5d5"
+                        }).then(() => {
+                            $("#contact-form")[0].reset();
+                        });
                     },
                     error: function (xhr, status, err) {
-                        console.error("Error submitting form:", err);
-                        alert("There was an error sending your message.");
+                        Swal.close();
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: xhr.responseJSON?.message || "There was an error sending your message. Please try again.",
+                            confirmButtonColor: "#d33"
+                        });
                     }
                 });
             }
 
-            // wire it up
             $(function () {
                 $("#contact-form").on("submit", submitContactForm);
             });
