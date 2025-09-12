@@ -293,6 +293,12 @@
                 </div>
                 <!-- [Leads] end -->
 
+                <script>
+                    window.viewDetails = function () {
+                        window.top.location.href = "business-sales-overview.html";
+                    };
+                </script>
+
             </div>
 
             <!-- [ Content Area ] end -->
@@ -504,52 +510,52 @@
                             }
 
                             // Build card + "Get Certificate" button
-                           const card = `
-    <div class="col-xxl-4 col-md-6 mb-4" style="margin-left: 2%;">
-        <div class="card stretch stretch-full shadow-lg" 
-             style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
-            <div class="card-body">
-                <div class="hstack justify-content-between">
-                    <div>
-                        <h4 class="text-dark fw-bold">
-                            ${courseName.replace(/"/g, "")}
-                        </h4>
-                        <div class="text-muted">${courseDuration || ""}</div>
-                    </div>
-                    <div class="text-end">
-                        <i class="feather-trending-up fs-2"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ${footerColor} py-3 text-center">
-                <!-- Centered status -->
-                <p class="text-white mb-3 fw-bold">${displayStatus}</p>
+                            const card = `
+                                <div class="col-xxl-4 col-md-6 mb-4" style="margin-left: 2%;">
+                                    <div class="card stretch stretch-full shadow-lg" 
+                                        style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
+                                        <div class="card-body">
+                                            <div class="hstack justify-content-between">
+                                                <div>
+                                                    <h4 class="text-dark fw-bold">
+                                                        ${courseName.replace(/"/g, "")}
+                                                    </h4>
+                                                    <div class="text-muted">${courseDuration || ""}</div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <i class="feather-trending-up fs-2"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer ${footerColor} py-3 text-center">
+                                            <!-- Centered status -->
+                                            <p class="text-white mb-3 fw-bold">${displayStatus}</p>
 
-                <!-- Labels on left, values on right -->
-                <div class="d-flex justify-content-between text-white mb-3">
-                    <div class="text-start">
-                        <p class="mb-1">Course Completion Status:</p>
-                        <p class="mb-0">Business Target Completed:</p>
-                    </div>
-                    <div class="text-end">
-                        <p class="mb-1">${overallCompletionRate || "0"}%</p>
-                        <p class="mb-0">${subscriptionLeft || "0"}/${businessTarget || "0"}</p>
-                    </div>
-                </div>
+                                            <!-- Labels on left, values on right -->
+                                            <div class="d-flex justify-content-between text-white mb-3">
+                                                <div class="text-start">
+                                                    <p class="mb-1">Course Completion Status:</p>
+                                                    <p class="mb-0">Business Target Completed:</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <p class="mb-1">${overallCompletionRate || "0"}%</p>
+                                                    <p class="mb-0">${subscriptionLeft || "0"}/${businessTarget || "0"}</p>
+                                                </div>
+                                            </div>
 
-                <!-- Get Certificate button -->
-                <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
-                        data-courseid="${courseId}" 
-                        data-status="${overallStatus}" 
-                        data-target="${businessTarget}" 
-                        data-left="${subscriptionLeft}">
-                    Get Certificate
-                </button>
-            </div>
-        </div>
-    </div>
-`;
-const $card = $(card);
+                                            <!-- Get Certificate button -->
+                                            <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
+                                                    data-courseid="${courseId}" 
+                                                    data-status="${overallStatus}" 
+                                                    data-target="${businessTarget}" 
+                                                    data-left="${subscriptionLeft}">
+                                                Get Certificate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            const $card = $(card);
 
                             // Redirect on card click (status-based, same as before)
                             $card.find(".card-body").on("click", function () {
