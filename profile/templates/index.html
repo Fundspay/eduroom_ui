@@ -195,117 +195,11 @@
                 </div>
 
                 <!-- [Mini Card] start -->
-                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 1%;">My Internships</h3>
+                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;">My Internships</h3>
                 <div class="row" id="internshipCardsContainer">
                     <!-- Cards will be injected here -->
                 </div>
-                <div class="col-xxl-4 col-md-6">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <div class="hstack justify-content-between">
-                                <div>
-                                    <h4 class="text-warning">FINANCIAL MANAGEMENT</h4>
-                                    <div class="text-muted">DAY 10</div>
-                                </div>
-                                <div class="text-end">
-                                    <i class="feather-trending-up fs-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-warning py-3 text-center">
-                            <!-- Centered status -->
-                            <p class="text-white mb-3 fw-bold">Ongoing</p>
-
-                            <!-- Labels on left, values on right -->
-                            <div class="d-flex justify-content-between text-white">
-                                <div class="text-start">
-                                    <p class="mb-1">Course Completion Status:</p>
-                                    <p class="mb-0">Business Target Completed:</p>
-                                </div>
-                                <div class="text-end">
-                                    <p class="mb-1">0/0</p>
-                                    <p class="mb-0">0/0</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xxl-4 col-md-6">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <div class="hstack justify-content-between">
-                                <div>
-                                    <h4 class="text-success">MARKETING EXPERT</h4>
-                                    <div class="text-muted">FINISHED</div>
-                                </div>
-                                <div class="text-end">
-                                    <i class="feather-pie-chart fs-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-success py-3">
-                            <div class="hstack justify-content-between">
-                                <p class="text-white mb-0">Completed</p>
-                                <div class="text-end"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xxl-4 col-md-6">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <div class="hstack justify-content-between">
-                                <div>
-                                    <h4 class="text-dark">PROJECT ANALYSIS</h4>
-                                    <div class="text-muted">ON HOLD</div>
-                                </div>
-                                <div class="text-end">
-                                    <i class="feather-pause-circle fs-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-dark py-3">
-                            <div class="hstack justify-content-between">
-                                <p class="text-white mb-0">On Hold</p>
-                                <div class="text-end"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xxl-4 col-md-6">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <div class="hstack justify-content-between">
-                                <div>
-                                    <h4 class="text-danger">SALES STRATEGY</h4>
-                                    <div class="text-muted">TERMINATED</div>
-                                </div>
-                                <div class="text-end">
-                                    <i class="feather-x-circle fs-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-danger py-3">
-                            <div class="hstack justify-content-between">
-                                <p class="text-white mb-0">Terminated</p>
-                                <div class="text-end"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- [Mini Card] end -->
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary btn-outline-primary w-25" onclick="availCertificate()">
-                        Avail Certificate
-                    </button>
-                </div>
-
-
-
 
                 <!-- [Leads] start -->
                 <div class="col-xxl-12" style="margin-top: 2%;">
@@ -658,121 +552,186 @@
     </script>
 
     <script>
-$(document).ready(function () {
-    const container = $("#internshipCardsContainer");
+        $(document).ready(function () {
+            const container = $("#internshipCardsContainer");
+            const userId = sessionStorage.getItem("user_id"); // taking user id from session
 
-    // Fetch internships for user
-    $.ajax({
-        url: "https://eduroom.in/api/v1/user/internships", // Replace with your backend endpoint
-        method: "GET",
-        dataType: "json",
-        success: function(res) {
-            if (res.success && res.data.length > 0) {
-                container.empty();
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
+                method: "GET",
+                dataType: "json",
+                success: function (res) {
+                    console.log("Courses Response:", res);
+                    if (res.success && res.data.courses.length > 0) {
+                        container.empty();
 
-                res.data.forEach(function(item) {
-                    const {
-                        previewId,
-                        courseId,
-                        sessionId,
-                        dayNumber,
-                        sessionNumber,
-                        userId,
-                        duration,
-                        name,
-                        status,
-                        businessTargetCompleted,
-                        courseCompletionStatus
-                    } = item;
+                        res.data.courses.forEach(function (course) {
+                            const {
+                                courseId,
+                                courseName,
+                                courseDuration,   // if exists, otherwise show blank
+                                businessTarget,
+                                subscriptionLeft,
+                                overallStatus,
+                                overallCompletionRate,
+                                coursePreviews,
+                                dailyStatus
+                            } = course;
 
-                    // Set card color based on status
-                    let headerColor = "";
-                    let footerColor = "";
-                    let displayStatus = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+                            // Card colors based on status
+                            let headerColor = "";
+                            let footerColor = "";
+                            let displayStatus = overallStatus;
 
-                    switch(status.toLowerCase()) {
-                        case "ongoing":
-                            headerColor = "text-warning";
-                            footerColor = "bg-warning";
-                            break;
-                        case "completed":
-                            headerColor = "text-success";
-                            footerColor = "bg-success";
-                            break;
-                        case "onhold":
-                            headerColor = "text-dark";
-                            footerColor = "bg-dark";
-                            break;
-                        case "terminated":
-                            headerColor = "text-danger";
-                            footerColor = "bg-danger";
-                            break;
-                        default:
-                            headerColor = "text-muted";
-                            footerColor = "bg-light";
-                    }
+                            switch (overallStatus.toLowerCase()) {
+                                case "in progress":
+                                    headerColor = "text-warning";
+                                    footerColor = "bg-warning";
+                                    displayStatus = "Ongoing";
+                                    break;
+                                case "completed":
+                                    headerColor = "text-success";
+                                    footerColor = "bg-success";
+                                    displayStatus = "Completed";
+                                    break;
+                                case "onhold":
+                                    headerColor = "text-dark";
+                                    footerColor = "bg-dark";
+                                    displayStatus = "On Hold";
+                                    break;
+                                case "terminated":
+                                    headerColor = "text-danger";
+                                    footerColor = "bg-danger";
+                                    displayStatus = "Terminated";
+                                    break;
+                                default:
+                                    headerColor = "text-muted";
+                                    footerColor = "bg-light";
+                            }
 
-                    const card = `
-                    <div class="col-xxl-4 col-md-6 mb-4">
-                        <div class="card stretch stretch-full">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <h4 class="${headerColor} fw-bold">${name}</h4>
-                                    <div class="text-muted">${duration}</div>
-                                    <p class="${headerColor} fw-bold mt-2">${displayStatus}</p>
-                                </div>
-                            </div>
-                            <div class="card-footer ${footerColor} py-3 text-center">
-                                <p class="text-white mb-3 fw-bold">${displayStatus}</p>
-                                <div class="d-flex justify-content-between text-white">
-                                    <div class="text-start">
-                                        <p class="mb-1">Course Completion Status:</p>
-                                        <p class="mb-0">Business Target Completed:</p>
-                                    </div>
-                                    <div class="text-end">
-                                        <p class="mb-1">${courseCompletionStatus || "0/0"}</p>
-                                        <p class="mb-0">${businessTargetCompleted || "0/0"}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            // Build card + "Get Certificate" button
+                           const card = `
+    <div class="col-xxl-4 col-md-6 mb-4" style="margin-left: 2%;">
+        <div class="card stretch stretch-full shadow-lg" 
+             style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
+            <div class="card-body">
+                <div class="hstack justify-content-between">
+                    <div>
+                        <h4 class="text-dark fw-bold">
+                            ${courseName.replace(/"/g, "")}
+                        </h4>
+                        <div class="text-muted">${courseDuration || ""}</div>
                     </div>
-                    `;
+                    <div class="text-end">
+                        <i class="feather-trending-up fs-2"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ${footerColor} py-3 text-center">
+                <!-- Centered status -->
+                <p class="text-white mb-3 fw-bold">${displayStatus}</p>
 
-                    const $card = $(card);
+                <!-- Labels on left, values on right -->
+                <div class="d-flex justify-content-between text-white mb-3">
+                    <div class="text-start">
+                        <p class="mb-1">Course Completion Status:</p>
+                        <p class="mb-0">Business Target Completed:</p>
+                    </div>
+                    <div class="text-end">
+                        <p class="mb-1">${overallCompletionRate || "0"}%</p>
+                        <p class="mb-0">${subscriptionLeft || "0"}/${businessTarget || "0"}</p>
+                    </div>
+                </div>
 
-                    // Click handler based on status
-                    $card.on("click", function() {
-                        switch(status.toLowerCase()) {
-                            case "ongoing":
-                                window.location.href = `/course-details.html?courseId=${courseId}&previewId=${previewId}&day=${dayNumber}&session=${sessionNumber}&userId=${userId}`;
-                                break;
-                            case "completed":
-                                Swal.fire("Completed!", "You have already completed this internship.", "success");
-                                break;
-                            case "onhold":
-                                window.location.href = `/course-details.html?courseId=${courseId}&previewId=${previewId}&day=${dayNumber}&session=${sessionNumber}&userId=${userId}`;
-                                break;
-                            case "terminated":
-                                Swal.fire("Terminated", "This internship has been terminated.", "error");
-                                break;
-                        }
-                    });
+                <!-- Get Certificate button -->
+                <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
+                        data-courseid="${courseId}" 
+                        data-status="${overallStatus}" 
+                        data-target="${businessTarget}" 
+                        data-left="${subscriptionLeft}">
+                    Get Certificate
+                </button>
+            </div>
+        </div>
+    </div>
+`;
+const $card = $(card);
 
-                    container.append($card);
-                });
+                            // Redirect on card click (status-based, same as before)
+                            $card.find(".card-body").on("click", function () {
+                                switch (overallStatus.toLowerCase()) {
+                                    case "in progress":
+                                        if (coursePreviews && coursePreviews.length > 0) {
+                                            const previewId = coursePreviews[0].id;
+                                            window.top.location.href = `/course-preview.html?courseId=${courseId}&previewId=${previewId}&userId=${userId}`;
+                                        } else {
+                                            Swal.fire("Preview not available", "No preview found for this course yet.", "info");
+                                        }
+                                        break;
+                                    case "completed":
+                                        Swal.fire("Completed!", "You have already completed this course.", "success");
+                                        break;
+                                    case "onhold":
+                                        window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviews[0].id}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
+                                        break;
+                                    case "terminated":
+                                        Swal.fire("Terminated", "This course has been terminated.", "error");
+                                        break;
+                                }
+                            });
 
-            } else {
-                container.html("<p>No internships found.</p>");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-            container.html("<p>Failed to load internships.</p>");
-        }
-    });
-});
-</script>
+                            // Get Certificate button click handler
+                            $card.find(".getCertificateBtn").on("click", function (e) {
+                                e.stopPropagation(); // prevent card click
+
+                                const status = $(this).data("status").toLowerCase();
+                                const courseId = $(this).data("courseid");
+                                const businessTarget = parseInt($(this).data("target")) || 0;
+                                const subscriptionLeft = parseInt($(this).data("left")) || 0;
+
+                                if (status === "completed") {
+                                    // Call certificate API
+                                    $.ajax({
+                                        url: "https://eduroom.in/api/v1/certificate", // replace with real API
+                                        method: "POST",
+                                        contentType: "application/json",
+                                        data: JSON.stringify({ userId, courseId }),
+                                        success: function (resp) {
+                                            Swal.fire("Success", "Certificate has been sent to your registered email!", "success");
+                                        },
+                                        error: function () {
+                                            Swal.fire("Error", "Failed to generate certificate. Please try again later.", "error");
+                                        }
+                                    });
+                                }
+                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
+                                    Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
+                                }
+                                else if (status === "onhold") {
+                                    Swal.fire("On Hold", "This course is on hold. Certificate not available.", "warning");
+                                }
+                                else if (status === "terminated") {
+                                    Swal.fire("Terminated", "This course has been terminated. Certificate not available.", "error");
+                                }
+                                else {
+                                    Swal.fire("Unavailable", "Certificate not available for this course.", "info");
+                                }
+                            });
+
+                            container.append($card);
+                        });
+                    } else {
+                        container.html("<p>No courses found.</p>");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    container.html("<p>Failed to load courses.</p>");
+                }
+            });
+        });
+    </script>
+
 
 </body>
 
