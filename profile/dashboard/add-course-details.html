@@ -280,7 +280,7 @@
 
                                 <!-- Auto Generated Day Dropdown -->
                                 <div class="mb-4">
-                                    <label class="form-label">Select Day</label>
+                                    <label class="form-label">Select Session</label>
                                     <select class="form-select" id="daySelect">
                                         <option value="">Select course first</option>
                                     </select>
@@ -288,9 +288,9 @@
 
                                 <!-- Session Dropdown -->
                                 <div class="mb-4">
-                                    <label class="form-label">Select Session</label>
+                                    <label class="form-label">Select Video</label>
                                     <select class="form-select" id="sessionSelect" data-select2-selector="icon">
-                                        <option value="">Select session</option>
+                                        <option value="">Select Video</option>
                                     </select>
                                 </div>
 
@@ -767,22 +767,26 @@
                                         <div class="col-lg-6 mb-2">
                                             <input type="text" class="form-control char-limit" id="optionA10"
                                                 placeholder="Option A" data-limit="100">
-                                            <small class="text-muted char-count" data-for="optionA10">0/100 chars</small>
+                                            <small class="text-muted char-count" data-for="optionA10">0/100
+                                                chars</small>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <input type="text" class="form-control char-limit" id="optionB10"
                                                 placeholder="Option B" data-limit="100">
-                                            <small class="text-muted char-count" data-for="optionB10">0/100 chars</small>
+                                            <small class="text-muted char-count" data-for="optionB10">0/100
+                                                chars</small>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <input type="text" class="form-control char-limit" id="optionC10"
                                                 placeholder="Option C" data-limit="100">
-                                            <small class="text-muted char-count" data-for="optionC10">0/100 chars</small>
+                                            <small class="text-muted char-count" data-for="optionC10">0/100
+                                                chars</small>
                                         </div>
                                         <div class="col-lg-6 mb-2">
                                             <input type="text" class="form-control char-limit" id="optionD10"
                                                 placeholder="Option D" data-limit="100">
-                                            <small class="text-muted char-count" data-for="optionD10">0/100 chars</small>
+                                            <small class="text-muted char-count" data-for="optionD10">0/100
+                                                chars</small>
                                         </div>
                                     </div>
 
@@ -811,7 +815,8 @@
 
                                 <!-- Submit -->
                                 <div class="text-end">
-                                    <button type="button" class="btn btn-primary" id="submitBtn">Add Course Details</button>
+                                    <button type="button" class="btn btn-primary" id="submitBtn">Add Course
+                                        Details</button>
                                 </div>
 
                             </div>
@@ -882,7 +887,7 @@
             });
 
             for (let i = 1; i <= 30; i++) {
-                $("#sessionSelect").append(`<option value="${i}">Session ${i}</option>`);
+                $("#sessionSelect").append(`<option value="${i}">Video ${i}</option>`);
             }
 
             $.ajax({
@@ -902,7 +907,7 @@
             });
 
             $.ajax({
-                url: "https://eduroom.in/api/v1/course/list",
+                url: "https://eduroom.in/api/v1/course/courses?userId=2",
                 type: "GET",
                 success: function (res) {
                     console.log("course list:", res);
@@ -934,15 +939,35 @@
                     let dayCount = previews[0].dayCount;
                     $("#dayCount").val(dayCount);
 
-                    let options = '<option value="">Select Day</option>';
+                    let options = '<option value="">Select Session</option>';
                     for (let i = 1; i <= dayCount; i++) {
-                        options += `<option value="${i}">Day ${i}</option>`;
+                        options += `<option value="${i}">Session ${i}</option>`;
                     }
                     $("#daySelect").html(options);
                 }
             });
 
             $("#submitBtn").click(function () {
+                // Create an empty questions array
+                let questions = [];
+
+                // Loop through 10 possible questions
+                for (let i = 1; i <= 10; i++) {
+                    let questionText = $(`#questionText${i === 1 ? '' : i}`).val().trim();
+                    if (questionText) { // Only include if question is not empty
+                        questions.push({
+                            question: questionText,
+                            optionA: $(`#optionA${i === 1 ? '' : i}`).val().trim(),
+                            optionB: $(`#optionB${i === 1 ? '' : i}`).val().trim(),
+                            optionC: $(`#optionC${i === 1 ? '' : i}`).val().trim(),
+                            optionD: $(`#optionD${i === 1 ? '' : i}`).val().trim(),
+                            answer: $(`#answer${i === 1 ? '' : i}`).val(),
+                            keywords: $(`#keywords${i === 1 ? '' : i}`).val().trim(),
+                            caseStudy: $(`#caseStudy${i === 1 ? '' : i}`).val().trim()
+                        });
+                    }
+                }
+
                 let payload = {
                     domainId: parseInt($("#domainSelect").val(), 10),
                     userId: null,
@@ -957,112 +982,11 @@
                                     title: $("#title").val().trim(),
                                     description: $("#description").val().trim(),
                                     youtubeLink: $("#youtubeLink").val().trim(),
-                                    questions: [
-                                        {
-                                            question: $("#questionText").val().trim(),
-                                            optionA: $("#optionA").val().trim(),
-                                            optionB: $("#optionB").val().trim(),
-                                            optionC: $("#optionC").val().trim(),
-                                            optionD: $("#optionD").val().trim(),
-                                            answer: $("#answer").val(),
-                                            keywords: $("#keywords").val().trim(),
-                                            caseStudy: $("#caseStudy").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText2").val().trim(),
-                                            optionA: $("#optionA2").val().trim(),
-                                            optionB: $("#optionB2").val().trim(),
-                                            optionC: $("#optionC2").val().trim(),
-                                            optionD: $("#optionD2").val().trim(),
-                                            answer: $("#answer2").val(),
-                                            keywords: $("#keywords2").val().trim(),
-                                            caseStudy: $("#caseStudy2").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText3").val().trim(),
-                                            optionA: $("#optionA3").val().trim(),
-                                            optionB: $("#optionB3").val().trim(),
-                                            optionC: $("#optionC3").val().trim(),
-                                            optionD: $("#optionD3").val().trim(),
-                                            answer: $("#answer3").val(),
-                                            keywords: $("#keywords3").val().trim(),
-                                            caseStudy: $("#caseStudy3").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText4").val().trim(),
-                                            optionA: $("#optionA4").val().trim(),
-                                            optionB: $("#optionB4").val().trim(),
-                                            optionC: $("#optionC4").val().trim(),
-                                            optionD: $("#optionD4").val().trim(),
-                                            answer: $("#answer4").val(),
-                                            keywords: $("#keywords4").val().trim(),
-                                            caseStudy: $("#caseStudy4").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText5").val().trim(),
-                                            optionA: $("#optionA5").val().trim(),
-                                            optionB: $("#optionB5").val().trim(),
-                                            optionC: $("#optionC5").val().trim(),
-                                            optionD: $("#optionD5").val().trim(),
-                                            answer: $("#answer5").val(),
-                                            keywords: $("#keywords5").val().trim(),
-                                            caseStudy: $("#caseStudy5").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText6").val().trim(),
-                                            optionA: $("#optionA6").val().trim(),
-                                            optionB: $("#optionB6").val().trim(),
-                                            optionC: $("#optionC6").val().trim(),
-                                            optionD: $("#optionD6").val().trim(),
-                                            answer: $("#answer6").val(),
-                                            keywords: $("#keywords6").val().trim(),
-                                            caseStudy: $("#caseStudy6").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText7").val().trim(),
-                                            optionA: $("#optionA7").val().trim(),
-                                            optionB: $("#optionB7").val().trim(),
-                                            optionC: $("#optionC7").val().trim(),
-                                            optionD: $("#optionD7").val().trim(),
-                                            answer: $("#answer7").val(),
-                                            keywords: $("#keywords7").val().trim(),
-                                            caseStudy: $("#caseStudy7").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText8").val().trim(),
-                                            optionA: $("#optionA8").val().trim(),
-                                            optionB: $("#optionB8").val().trim(),
-                                            optionC: $("#optionC8").val().trim(),
-                                            optionD: $("#optionD8").val().trim(),
-                                            answer: $("#answer8").val(),
-                                            keywords: $("#keywords8").val().trim(),
-                                            caseStudy: $("#caseStudy8").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText9").val().trim(),
-                                            optionA: $("#optionA9").val().trim(),
-                                            optionB: $("#optionB9").val().trim(),
-                                            optionC: $("#optionC9").val().trim(),
-                                            optionD: $("#optionD9").val().trim(),
-                                            answer: $("#answer9").val(),
-                                            keywords: $("#keywords9").val().trim(),
-                                            caseStudy: $("#caseStudy9").val().trim()
-                                        },
-                                        {
-                                            question: $("#questionText10").val().trim(),
-                                            optionA: $("#optionA10").val().trim(),
-                                            optionB: $("#optionB10").val().trim(),
-                                            optionC: $("#optionC10").val().trim(),
-                                            optionD: $("#optionD10").val().trim(),
-                                            answer: $("#answer10").val(),
-                                            keywords: $("#keywords10").val().trim(),
-                                            caseStudy: $("#caseStudy10").val().trim()
-                                        }
-                                    ]
+                                    questions: questions // only non-empty questions included
                                 }
                             ]
                         }
-                    ],
+                    ]
                 };
 
                 console.log("Final Payload:", payload);
@@ -1080,6 +1004,7 @@
                     }
                 });
             });
+
         });
     </script>
 
