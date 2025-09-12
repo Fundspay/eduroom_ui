@@ -68,13 +68,16 @@
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
@@ -261,12 +264,14 @@
                                 <!-- Business Target -->
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
-                                        <label class="form-label">Business Target <span class="text-danger">*</span></label>
+                                        <label class="form-label">Business Target <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="businessTarget"
                                             placeholder="Enter business target">
                                     </div>
                                     <div class="col-lg-6 mb-4">
-                                        <label class="form-label">Certificate Count <span class="text-danger">*</span></label>
+                                        <label class="form-label">Certificate Count <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="certificateCount"
                                             placeholder="Enter certificate count">
                                     </div>
@@ -292,7 +297,7 @@
                                     <div id="uploadBox"
                                         class="border border-2 border-dashed rounded text-center p-5 cursor-pointer"
                                         style="border-color: #ccc;">
-                                        <p class="mb-2">Drag & Drop image here or click below to select</p>
+                                        <p class="mb-2">Click below to select</p>
                                         <input type="file" id="imageInput" class="form-control mt-2" accept="image/*">
                                     </div>
 
@@ -303,6 +308,64 @@
                                         <div>
                                             <button type="button" class="btn btn-outline-danger btn-sm"
                                                 id="removeImage">
+                                                Remove Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
+
+                                <h5 class="m-b-10 text-center" style="margin-top: 2%; margin-bottom: 2%;">CERTIFICATE
+                                    DETAILS</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Domain skills <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="domainSkills"
+                                            placeholder="ex: Power BI, SQL, Tableau, Excel and Google sheets">
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Interpersonal skills <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="interpersonalSkills"
+                                            placeholder="ex: hard working, dedicated and consistent">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Manager Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="managerName"
+                                            placeholder="ex: Arya Mehta">
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Manager Position <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="managerposition"
+                                            placeholder="ex: Sr.Business development executive">
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Upload Manager Signature <span
+                                            class="text-danger">*</span></label>
+                                    <div id="uploadBox2"
+                                        class="border border-2 border-dashed rounded text-center p-5 cursor-pointer"
+                                        style="border-color: #ccc;">
+                                        <p class="mb-2">Click below to select</p>
+                                        <input type="file" id="imageInput2" class="form-control mt-2" accept="image/*">
+                                    </div>
+
+                                    <!-- Preview Box -->
+                                    <div id="previewBox2" class="text-center mt-3" style="display:none;">
+                                        <img id="previewImage2" src="" class="img-fluid rounded mb-3"
+                                            style="max-height: 200px; object-fit: contain;" alt="Preview">
+                                        <div>
+                                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                                id="removeImage2">
                                                 Remove Image
                                             </button>
                                         </div>
@@ -365,7 +428,7 @@
 
     <script>
         $(document).ready(function () {
-            // Fetch domains from backend
+
             $.ajax({
                 url: "https://eduroom.in/api/v1/domain/list",
                 type: "GET",
@@ -377,7 +440,6 @@
                             let rawName = domain.name || "";
                             let cleanName = rawName.replace(/^"(.*)"$/, "$1");
                             if (cleanName) {
-                                // Store domain.id in value
                                 options += `<option value="${domain.id}" data-name="${cleanName}">${cleanName}</option>`;
                             }
                         });
@@ -392,12 +454,12 @@
                 }
             });
 
-            function previewFile(file) {
+            function previewFile(file, previewBox, previewImage, uploadBox) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    $("#uploadBox").hide();
-                    $("#previewImage").attr("src", e.target.result);
-                    $("#previewBox").fadeIn();
+                    uploadBox.hide();
+                    previewImage.attr("src", e.target.result);
+                    previewBox.fadeIn();
                 }
                 reader.readAsDataURL(file);
             }
@@ -405,7 +467,7 @@
             $("#imageInput").change(function () {
                 const file = this.files[0];
                 if (file) {
-                    previewFile(file);
+                    previewFile(file, $("#previewBox"), $("#previewImage"), $("#uploadBox"));
                 }
             });
 
@@ -428,7 +490,7 @@
                 let files = e.originalEvent.dataTransfer.files;
                 if (files.length > 0) {
                     $("#imageInput")[0].files = files;
-                    previewFile(files[0]);
+                    previewFile(files[0], $("#previewBox"), $("#previewImage"), $("#uploadBox"));
                 }
             });
 
@@ -437,6 +499,43 @@
                 $("#previewBox").hide();
                 $("#previewImage").attr("src", "");
                 $("#uploadBox").fadeIn();
+            });
+
+            $("#imageInput2").change(function () {
+                const file = this.files[0];
+                if (file) {
+                    previewFile(file, $("#previewBox2"), $("#previewImage2"), $("#uploadBox2"));
+                }
+            });
+
+            let uploadBox2 = $("#uploadBox2");
+
+            uploadBox2.on("dragover", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css("border-color", "#ff6a00");
+            });
+            uploadBox2.on("dragleave", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css("border-color", "#ccc");
+            });
+            uploadBox2.on("drop", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css("border-color", "#ccc");
+                let files = e.originalEvent.dataTransfer.files;
+                if (files.length > 0) {
+                    $("#imageInput2")[0].files = files;
+                    previewFile(files[0], $("#previewBox2"), $("#previewImage2"), $("#uploadBox2"));
+                }
+            });
+
+            $("#removeImage2").click(function () {
+                $("#imageInput2").val("");
+                $("#previewBox2").hide();
+                $("#previewImage2").attr("src", "");
+                $("#uploadBox2").fadeIn();
             });
 
             $("#submitBtn").click(function (e) {
@@ -449,9 +548,14 @@
                 const totalDays = $("#totalDays").val().trim();
                 const duration = $("#duration").val().trim();
                 const certificateCount = $("#certificateCount").val().trim();
+                const domainSkills = $("#domainSkills").val().trim();
+                const interpersonalSkills = $("#interpersonalSkills").val().trim();
+                const managerName = $("#managerName").val().trim();
+                const managerposition = $("#managerposition").val();
                 const imageFile = $("#imageInput")[0].files[0];
+                const imageFile2 = $("#imageInput2")[0].files[0];
 
-                if (!domainId || !courseName || !description || !businessTarget || !totalDays || !duration || !certificateCount || !imageFile) {
+                if (!domainId || !courseName || !description || !businessTarget || !totalDays || !duration || !certificateCount || !imageFile || !domainSkills || !interpersonalSkills || !managerName || !managerposition || !imageFile2) {
                     $("#formMessage").html('<span class="text-danger">⚠ Please fill all fields, select a domain and an image.</span>');
                     return;
                 }
@@ -465,6 +569,11 @@
                 formData.append("duration", duration);
                 formData.append("certificateCount", certificateCount);
                 formData.append("img", imageFile);
+                formData.append("img2", imageFile2);
+                formData.append("domainSkills", domainSkills);
+                formData.append("interpersonalSkills", interpersonalSkills);
+                formData.append("managerName", managerName);
+                formData.append("managerposition", managerposition);
 
                 $.ajax({
                     url: "https://eduroom.in/api/v1/course/add",
