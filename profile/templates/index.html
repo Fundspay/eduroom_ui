@@ -45,30 +45,48 @@
                             </div>
 
                             <div class="profile-details">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted">Name:</span>
-                                    <span class="fw-normal profile-name">--</span>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">Name:</span>
+                                    <span class="fw-normal profile-name small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted">Email:</span>
-                                    <span class="fw-normal profile-email">--</span>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">Email:</span>
+                                    <span class="fw-normal profile-email small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted">Phone Number:</span>
-                                    <span class="fw-normal profile-phone">--</span>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">Phone Number:</span>
+                                    <span class="fw-normal profile-phone small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted">College Name:</span>
-                                    <span class="fw-normal profile-college">--</span>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">College Name:</span>
+                                    <span class="fw-normal profile-college small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <span class="fw-semibold text-muted">Referral Code:</span>
+
+                                <!-- Manager Details -->
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">Manager Name:</span>
+                                    <span class="fw-normal profile-manager-name small">--</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">Manager Email:</span>
+                                    <a href="mailto:"
+                                        class="fw-normal profile-manager-email small text-decoration-none text-primary">--</a>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold text-muted small">Manager Mobile:</span>
+                                    <a href="tel:"
+                                        class="fw-normal profile-manager-mobile small text-decoration-none text-primary">--</a>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-semibold text-muted small">Referral Code:</span>
                                     <div class="d-flex align-items-center">
-                                        <span class="fw-normal me-2" id="referralCode">--</span>
+                                        <span class="fw-normal me-2 small" id="referralCode">--</span>
                                         <i class="bi bi-clipboard fs-5 text-primary" role="button"
                                             onclick="copyReferralCode()" title="Copy"></i>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
                                     <div
                                         class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
@@ -172,9 +190,18 @@
                         <div class="col-md-12" style="margin-bottom: 1%;">
                             <div class="card bg-soft-danger text-danger border-danger border-dashed">
                                 <div class="card-body">
-                                    <a href="/profile1.html" target="_top" class="fw-bold d-block text-reset">
-                                        <span class="d-block">Profile Completion</span>
-                                    </a>
+                                    <div class="d-flex align-items-center justify-content-between">
+
+                                        <a href="/profile/profile-update/profile1.html" target="_top"
+                                            class="fw-bold d-block text-reset me-2">
+                                            <span class="d-block">Profile Completion</span>
+                                        </a>
+
+                                        <a href="/profile/profile-update/profile1.html" target="_top"
+                                            class="btn btn-sm btn-outline-danger">
+                                            Edit
+                                        </a>
+                                    </div>
                                     <div class="pt-4">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div>
@@ -202,208 +229,65 @@
                 <!-- [Mini Card] end -->
 
                 <!-- [Leads] start -->
-                <div class="col-xxl-12" style="margin-top: 2%;">
-                    <div class="card stretch stretch-full">
-                        <div class="card-header">
-                            <h5 class="card-title">BUSINESS SALES OVERVIEW</h5>
-                            <div class="card-header-action">
-                                <!-- <div class="card-header-btn">
-                                    <div data-bs-toggle="tooltip" title="Delete">
-                                        <a href="javascript:void(0);" class="avatar-text avatar-xs bg-danger"
-                                            data-bs-toggle="remove"> </a>
+                <!-- [Leads] start -->
+                <div class="main-content" style="margin-top: 2%;">
+                    <div class="row">
+                        <!-- [Referral Users] start -->
+                        <div class="col-12">
+                            <div class="card stretch stretch-full">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title">Business Sales Overview</h5>
                                     </div>
-                                    <div data-bs-toggle="tooltip" title="Refresh">
-                                        <a href="javascript:void(0);" class="avatar-text avatar-xs bg-warning"
-                                            data-bs-toggle="refresh"> </a>
-                                    </div>
-                                    <div data-bs-toggle="tooltip" title="Maximize/Minimize">
-                                        <a href="javascript:void(0);" class="avatar-text avatar-xs bg-success"
-                                            data-bs-toggle="expand"> </a>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="dropdown">
-                                    <a href="javascript:void(0);" class="avatar-text avatar-sm"
-                                        data-bs-toggle="dropdown" data-bs-offset="25, 25">
-                                        <div data-bs-toggle="tooltip" title="Options">
-                                            <i class="feather-more-vertical"></i>
+                                    <div class="card-header-action">
+                                        <div class="search-bar">
+                                            <input type="text" id="searchInput" class="form-control"
+                                                placeholder="Search..." oninput="filterTable()">
                                         </div>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                                class="feather-at-sign"></i>New</a>
-                                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                                class="feather-calendar"></i>Event</a>
-                                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                                class="feather-bell"></i>Snoozed</a>
-                                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                                class="feather-trash-2"></i>Deleted</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                                class="feather-settings"></i>Settings</a>
-                                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                                class="feather-life-buoy"></i>Tips & Tricks</a>
+                                        <button class="btn btn-primary ms-2" onclick="viewDetails()">
+                                            View All Details
+                                        </button>
                                     </div>
-                                </div> -->
+
+                                </div>
+                                <div class="card-body custom-card-action p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0" id="leadsTable">
+                                            <thead>
+                                                <tr class="border-b">
+                                                    <th scope="row">S No.</th>
+                                                    <th>Name</th>
+                                                    <th>Mobile No.</th>
+                                                    <th>Email</th>
+                                                    <th>Downloaded</th>
+                                                    <th>Subscribed</th>
+                                                    <th>Raise A Query</th>
+                                                    <th>Query Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Rows will be dynamically populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
+                                            id="pagination">
+                                            <!-- Pagination links will be dynamically populated here -->
+                                        </ul>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-primary" onclick="printTable()">
+                                                <i class="bi bi-printer"></i> Print
+                                            </button>
+                                            <button class="btn btn-success" onclick="exportToExcel()">
+                                                <i class="bi bi-file-earmark-excel"></i> Excel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body custom-card-action p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr class="border-b">
-                                            <th scope="row">Users</th>
-                                            <th>Proposal</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th class="text-end">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="avatar-image">
-                                                        <img src="./../assets/images/avatar/2.png" alt=""
-                                                            class="img-fluid">
-                                                    </div>
-                                                    <a href="javascript:void(0);">
-                                                        <span class="d-block">Archie Cantones</span>
-                                                        <span
-                                                            class="fs-12 d-block fw-normal text-muted">arcie.tones@gmail.com</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-gray-200 text-dark">Sent</span>
-                                            </td>
-                                            <td>11/06/2023 10:53</td>
-                                            <td>
-                                                <span class="badge bg-soft-success text-success">Completed</span>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="avatar-image">
-                                                        <img src="./../assets/images/avatar/3.png" alt=""
-                                                            class="img-fluid">
-                                                    </div>
-                                                    <a href="javascript:void(0);">
-                                                        <span class="d-block">Holmes Cherryman</span>
-                                                        <span
-                                                            class="fs-12 d-block fw-normal text-muted">golms.chan@gmail.com</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-gray-200 text-dark">New</span>
-                                            </td>
-                                            <td>11/06/2023 10:53</td>
-                                            <td>
-                                                <span class="badge bg-soft-primary text-primary">In Progress </span>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="avatar-image">
-                                                        <img src="./../assets/images/avatar/4.png" alt=""
-                                                            class="img-fluid">
-                                                    </div>
-                                                    <a href="javascript:void(0);">
-                                                        <span class="d-block">Malanie Hanvey</span>
-                                                        <span
-                                                            class="fs-12 d-block fw-normal text-muted">lanie.nveyn@gmail.com</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-gray-200 text-dark">Sent</span>
-                                            </td>
-                                            <td>11/06/2023 10:53</td>
-                                            <td>
-                                                <span class="badge bg-soft-success text-success">Completed</span>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="avatar-image">
-                                                        <img src="./../assets/images/avatar/5.png" alt=""
-                                                            class="img-fluid">
-                                                    </div>
-                                                    <a href="javascript:void(0);">
-                                                        <span class="d-block">Kenneth Hune</span>
-                                                        <span
-                                                            class="fs-12 d-block fw-normal text-muted">nneth.une@gmail.com</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-gray-200 text-dark">Returning</span>
-                                            </td>
-                                            <td>11/06/2023 10:53</td>
-                                            <td>
-                                                <span class="badge bg-soft-warning text-warning">Not Interested</span>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="avatar-image">
-                                                        <img src="./../assets/images/avatar/6.png" alt=""
-                                                            class="img-fluid">
-                                                    </div>
-                                                    <a href="javascript:void(0);">
-                                                        <span class="d-block">Valentine Maton</span>
-                                                        <span
-                                                            class="fs-12 d-block fw-normal text-muted">alenine.aton@gmail.com</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-gray-200 text-dark">Sent</span>
-                                            </td>
-                                            <td>11/06/2023 10:53</td>
-                                            <td>
-                                                <span class="badge bg-soft-success text-success">Completed</span>
-                                            </td>
-                                            <td class="text-end">
-                                                <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style">
-                                <li>
-                                    <a href="javascript:void(0);"><i class="bi bi-arrow-left"></i></a>
-                                </li>
-                                <li><a href="javascript:void(0);" class="active">1</a></li>
-                                <li><a href="javascript:void(0);">2</a></li>
-                                <li>
-                                    <a href="javascript:void(0);"><i class="bi bi-dot"></i></a>
-                                </li>
-                                <li><a href="javascript:void(0);">8</a></li>
-                                <li><a href="javascript:void(0);">9</a></li>
-                                <li>
-                                    <a href="javascript:void(0);"><i class="bi bi-arrow-right"></i></a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -520,8 +404,10 @@
 
     <script>
         $(document).ready(function () {
-            const userId = sessionStorage.getItem("user_id");
+            // const userId = sessionStorage.getItem("user_id");
+            const userId = 2;
             console.log("user_id:", userId);
+
             $.ajax({
                 url: `https://eduroom.in/api/v1/user/profile/${userId}`,
                 method: "GET",
@@ -534,14 +420,22 @@
                         $(".profile-completion-percent").text(`(${completion}%)`);
                         $(".profile-completion-bar").css("width", `${completion}%`);
 
-                        $(".profile-name").text(user.Name);
-                        $(".profile-email").text(user.Email);
-                        $(".profile-phone").text(user.PhoneNumber);
-                        $(".profile-college").text(user.CollegeName);
+                        $(".profile-name").text(user.Name || "--");
+                        $(".profile-email").text(user.Email || "--");
+                        $(".profile-phone").text(user.PhoneNumber || "--");
+                        $(".profile-college").text(user.CollegeName || "--");
 
-                        $("#referralCode").text(user.ReferralCode);
-                        $("#referralLink").text(user.ReferralLink);
-                        $("#referralLink").attr("href", user.ReferralLink);
+                        $("#referralCode").text(user.ReferralCode || "--");
+                        $("#referralLink").text(user.ReferralLink || "--");
+                        $("#referralLink").attr("href", user.ReferralLink || "#");
+
+                        if (user.TeamManager) {
+                            $(".profile-manager-name").text(user.TeamManager.name || "--");
+                            $(".profile-manager-email").text(user.TeamManager.email || "--");
+                            $(".profile-manager-mobile").text(user.TeamManager.mobileNumber || "--");
+                            $(".profile-manager-email").attr("href", "mailto:" + email).text(email);
+                            $(".profile-manager-mobile").attr("href", "tel:" + phone).text(phone);
+                        }
                     }
                 },
                 error: function (err) {
@@ -729,6 +623,281 @@ const $card = $(card);
                     container.html("<p>Failed to load courses.</p>");
                 }
             });
+        });
+    </script>
+    <script>
+        // Logged-in user ID from sessionStorage
+        const loggedInUserId = sessionStorage.getItem("user_id") || 2;
+        console.log("Logged-in user ID:", loggedInUserId);
+
+        $(document).ready(function () {
+            const rowsPerPage = 10;
+            let currentPage = 1;
+            let tableData = [];
+
+            function fetchData() {
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/user/${loggedInUserId}/referral-payment-status`,
+                    method: "GET",
+                    success: function (response) {
+                        console.log("GET response:", response);
+                        if (response.success && response.data && Array.isArray(response.data.registered_users)) {
+                            const users = response.data.registered_users;
+
+                            tableData = users.map((user, index) => {
+                                const fullName = `${user.first_name || ""} ${user.last_name || ""}`.trim() || "--";
+                                const phone = user.phone_number || "--";
+                                const email = user.email || "--";
+                                const firstName = user.first_name || "--";
+                                const lastName = user.last_name || "--";
+
+                                const hasPaid = user.has_paid
+                                    ? '<span class="badge bg-soft-success text-success">Yes</span>'
+                                    : '<span class="badge bg-soft-danger text-danger">No</span>';
+
+                                const isDownloaded = user.isDownloaded
+                                    ? '<span class="badge bg-soft-success text-success">Yes</span>'
+                                    : '<span class="badge bg-soft-warning text-warning">No</span>';
+
+                                let statusText = user.queryStatus || "No Query";
+                                let statusBadge;
+
+                                switch (statusText.toLowerCase()) {
+                                    case "resolved":
+                                        statusBadge = '<span class="badge bg-soft-success text-success">Resolved</span>';
+                                        break;
+                                    case "not resolved":
+                                        statusBadge = '<span class="badge bg-soft-danger text-danger">Not Resolved</span>';
+                                        break;
+                                    case "in progress":
+                                        statusBadge = '<span class="badge bg-soft-warning text-warning">In Progress</span>';
+                                        break;
+                                    default:
+                                        statusBadge = '<span class="badge bg-soft-secondary text-muted">No Query</span>';
+                                }
+
+                                return {
+                                    sno: index + 1,
+                                    id: user.user_id,
+                                    name: fullName,
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    phone,
+                                    email,
+                                    hasPaid,
+                                    isDownloaded,
+                                    status: statusBadge,   // for display
+                                    statusText: statusText // for payload
+                                };
+
+                            });
+
+                            renderTable();
+                            renderPagination();
+                        } else {
+                            console.error("Invalid response format.");
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Error fetching data:", err);
+                    }
+                });
+            }
+
+            function renderTable() {
+                const tbody = $("#leadsTable tbody");
+                tbody.empty();
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const rows = tableData.slice(start, end);
+
+                rows.forEach((row) => {
+                    const tr = `<tr>
+                    <td>${row.sno}</td>
+                    <td>${row.name}</td>
+                    <td><a href="tel:${row.phone}">${row.phone}</a></td>
+                    <td><a href="mailto:${row.email}">${row.email}</a></td>
+                    <td>${row.isDownloaded}</td>
+                    <td>${row.hasPaid}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${row.id}', '${row.firstName}', '${row.lastName}', '${row.phone}', '${row.statusText}', '${row.email}')">
+                            Raise Query
+                        </button>
+                    </td>
+                    <td>${row.status}</td>
+                    </tr>`;
+                    tbody.append(tr);
+                });
+            }
+
+            function renderPagination() {
+                const totalPages = Math.ceil(tableData.length / rowsPerPage);
+                const pagination = $("#pagination");
+                pagination.empty();
+
+                const visiblePageCount = 3;
+                let startPage = Math.max(currentPage - 1, 1);
+                let endPage = startPage + visiblePageCount - 1;
+                if (endPage > totalPages) {
+                    endPage = totalPages;
+                    startPage = Math.max(endPage - visiblePageCount + 1, 1);
+                }
+
+                const prevDisabled = currentPage === 1 ? 'disabled' : '';
+                const nextDisabled = currentPage === totalPages ? 'disabled' : '';
+
+                pagination.append(`<li><a href="javascript:void(0);" class="${prevDisabled}" onclick="changePage(${currentPage - 1})">&laquo;</a></li>`);
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const active = i === currentPage ? "active" : "";
+                    pagination.append(`<li><a href="javascript:void(0);" class="${active}" onclick="changePage(${i})">${i}</a></li>`);
+                }
+
+                pagination.append(`<li><a href="javascript:void(0);" class="${nextDisabled}" onclick="changePage(${currentPage + 1})">&raquo;</a></li>`);
+            }
+
+            window.changePage = function (page) {
+                const totalPages = Math.ceil(tableData.length / rowsPerPage);
+                if (page < 1 || page > totalPages) return;
+                currentPage = page;
+                renderTable();
+                renderPagination();
+            };
+
+            window.filterTable = function () {
+                const value = $("#searchInput").val().toLowerCase().trim();
+                if (!value) {
+                    renderTable();
+                    renderPagination();
+                    return;
+                }
+
+                const filtered = tableData.filter((row) =>
+                    Object.values(row).some((field) => {
+                        const plainText = $('<div>').html(field).text().toLowerCase().trim();
+                        return plainText.includes(value);
+                    })
+                );
+
+                const tbody = $("#leadsTable tbody");
+                tbody.empty();
+                filtered.forEach((row, index) => {
+                    const tr = `<tr>
+                    <td>${row.sno}</td>
+                    <td>${row.name}</td>
+                    <td><a href="tel:${row.phone}">${row.phone}</a></td>
+                    <td><a href="mailto:${row.email}">${row.email}</a></td>
+                    <td>${row.isDownloaded}</td>
+                    <td>${row.hasPaid}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${row.id}', '${row.firstName}', '${row.lastName}', '${row.phone}', '${row.statusText}', '${row.email}')">
+                            Raise Query
+                        </button>
+                    </td>
+                    <td>${row.status}</td>
+                    </tr>`;
+                    tbody.append(tr);
+                });
+
+                $("#pagination").hide();
+            };
+
+            window.printTable = function () {
+                const printWindow = window.open('', '', 'height=600,width=800');
+                printWindow.document.write('<html><head><title>Print Table</title></head><body>');
+                printWindow.document.write($("#leadsTable")[0].outerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            };
+
+            window.exportToExcel = function () {
+                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Has Paid"];
+                const data = [headers];
+
+                tableData.forEach((row, index) => {
+                    const clean = (html) => $('<div>').html(html).text().trim();
+                    data.push([
+                        index + 1,
+                        row.name,
+                        row.phone,
+                        row.email,
+                        clean(row.isDownloaded),
+                        clean(row.hasPaid)
+                    ]);
+                });
+
+                const worksheet = XLSX.utils.aoa_to_sheet(data);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Referral Users");
+                XLSX.writeFile(workbook, "ReferralUsers.xlsx");
+            };
+
+            window.raiseQuery = function (userId, firstName, lastName, phone, status, email) {
+                console.log("Preparing to raise query for:", userId, "firstname:", firstName, "lastName:", lastName, "phone:", phone, "status:", status, "email:", email, "Logged-in user:", loggedInUserId);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you really want to raise a query?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, raise it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Swal.fire({
+                            title: 'Raising Query...',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        let payload = {
+                            fundsAuditUserId: userId,
+                            userId: loggedInUserId,
+                            first_name: firstName,
+                            last_name: lastName,
+                            queryStatus: status,
+                            phone_number: phone,
+                            email: email
+                        };
+                        console.log("payload:", payload);
+
+                        $.ajax({
+                            url: "https://eduroom.in/api/v1/raisequery/add",
+                            method: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(payload),
+                            success: function (res) {
+                                console.log("POST response:", res);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: res.message || "Query raised successfully!",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                            },
+                            error: function (err) {
+                                console.error("Error raising query:", err);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: err.responseJSON?.message || "Failed to raise query. Try again.",
+                                    timer: 2500,
+                                    showConfirmButton: false
+                                });
+                            }
+                        });
+                    }
+                });
+            };
+
+            fetchData();
         });
     </script>
 
