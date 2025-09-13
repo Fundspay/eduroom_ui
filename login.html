@@ -82,7 +82,12 @@
                                         <li><a href="about.html">About</a>
                                         </li><!-- /About -->
 
-                                        <li><a href="course.html">Courses</a>
+                                        <li class="full-mega-menu-position">
+                                            <a href="course.html">Courses</a>
+                                            <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-0 ml-0"
+                                                id="domainCourseWrapper">
+                                                <!-- Domains & Courses will be populated here dynamically -->
+                                            </ul>
                                         </li><!-- /Course -->
 
                                         <li><a href="contact.html">Contact</a>
@@ -119,7 +124,8 @@
                                 <ul class="social-link d-none d-md-block">
                                     <li class="d-inline-block">
                                         <a class="facebook-color text-center pr-15 d-inline-block transition-3"
-                                            href="https://www.facebook.com/fundsroom/"><i class="fab fa-facebook-f"></i></a>
+                                            href="https://www.facebook.com/fundsroom/"><i
+                                                class="fab fa-facebook-f"></i></a>
                                     </li>
                                     <li class="d-inline-block">
                                         <a class="twitter-color text-center pr-15 d-inline-block transition-3"
@@ -127,10 +133,12 @@
                                     </li>
                                     <li class="d-inline-block">
                                         <a class="youtube-color text-center pr-15 d-inline-block transition-3"
-                                            href="https://www.youtube.com/@FundsAuditSafe"><i class="fab fa-youtube"></i></a>
+                                            href="https://www.youtube.com/@FundsAuditSafe"><i
+                                                class="fab fa-youtube"></i></a>
                                     </li>
                                     <li class="d-inline-block">
-                                        <a class="instagram-color text-center d-inline-block transition-3" href="https://www.instagram.com/funds_audit/"><i
+                                        <a class="instagram-color text-center d-inline-block transition-3"
+                                            href="https://www.instagram.com/funds_audit/"><i
                                                 class="fab fa-instagram"></i></a>
                                     </li>
                                 </ul><!-- social-link -->
@@ -267,12 +275,10 @@
                                             </div>
                                         </div>
 
-                                        <!-- OR Divider -->
-                                        <div class="col-md-12 text-center mb-3 mt-3">
+                                        <!-- <div class="col-md-12 text-center mb-3 mt-3">
                                             <span style="font-weight: 600; color: #999;">OR</span>
                                         </div>
 
-                                        <!-- Google Login -->
                                         <div class="col-md-12 mb-3">
                                             <div class="d-flex justify-content-between gap-3 flex-wrap">
                                                 <button id="google-login-btn" type="button"
@@ -283,7 +289,7 @@
                                                     Continue with Google
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- Register Link -->
                                         <div class="col-md-12" style="margin-top: -2%;">
@@ -580,13 +586,16 @@
                         console.log(res);
                         let userId = null;
                         let userName = null;
+                        let redirectUrl = "/profile.html";
 
                         if (res.account && res.account.managerId) {
                             userId = res.account.managerId;
                             userName = res.account.name || "Manager";
-                        } else if (res.user_id) {
-                            userId = res.user_id;
-                            userName = res.name || "User";
+                            redirectUrl = "/profile/dashboard/index.html";
+                        } else if (res.account && res.account.user_id) {
+                            userId = res.account.user_id;
+                            userName = res.account.fullName || "User";
+                            redirectUrl = "/profile.html";
                         }
 
                         if (userId) {
@@ -597,18 +606,20 @@
                             sessionStorage.setItem("userName", userName.trim());
                             console.log("Stored userName:", userName);
                         }
+
                         Swal.close();
 
                         Swal.fire({
                             icon: "success",
                             title: "Login Successful",
-                            text: "Redirecting you to the site...",
-                            timer: 2000,
+                            html: `<b>User ID:</b> ${userId} <br> <b>Name:</b> ${userName}`,
+                            timer: 3000,
                             showConfirmButton: false
                         }).then(() => {
-                            window.location.href = "/profile.html";
+                            window.location.href = redirectUrl;
                         });
-                    },
+                    }
+                    ,
                     error: function (xhr) {
                         Swal.close();
 
@@ -677,6 +688,59 @@
                         });
                         console.error("Google login failed:", error);
                     });
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "https://eduroom.in/api/v1/course/courses?userId=2",
+                method: "GET",
+                success: function (response) {
+                    console.log("API Response:", response);
+
+                    if (response && response.data && Array.isArray(response.data)) {
+                        let domainCourseWrapper = $("#domainCourseWrapper");
+                        domainCourseWrapper.empty();
+
+                        let domainMap = {};
+
+                        response.data.forEach(function (course) {
+                            let domainName = course.Domain && course.Domain.name ? course.Domain.name : "Others";
+                            if (!domainMap[domainName]) {
+                                domainMap[domainName] = [];
+                            }
+                            domainMap[domainName].push(course);
+                        });
+
+                        Object.keys(domainMap).forEach(function (domain) {
+                            let li = $('<li class="ml-xl-5 ml-lg-4 pl-xl-4"></li>');
+
+                            li.append(`
+                            <a href="domain-list.html" class="mt-4 mt-lg-0">
+                                <span class="d-block f-500 main-color mb-10">${domain}</span>
+                            </a>
+                        `);
+
+                            domainMap[domain].forEach(function (course) {
+                                if (course.name) {
+                                    li.append(`
+                                    <a href="course.html?domainId=${course.domainId}">
+                                        ${course.name}
+                                    </a>
+                                `);
+                                }
+                            });
+
+                            domainCourseWrapper.append(li);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching courses:", error);
+                }
             });
         });
     </script>
