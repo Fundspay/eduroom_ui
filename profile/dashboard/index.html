@@ -13,7 +13,7 @@
     <title>FundsAudit || Dashboard</title>
     <!--! END:  Apps Title-->
     <!--! BEGIN: Favicon-->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="" />
     <!--! END: Favicon-->
     <!--! BEGIN: Bootstrap CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
@@ -61,7 +61,7 @@
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">DASHBOARD</span><span class="nxl-arrow"><i
+                            <span class="nxl-mtext">ADD COURSE DETAILS</span><span class="nxl-arrow"><i
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
@@ -76,6 +76,22 @@
 
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">TEAM MANAGER</span><span class="nxl-arrow"><i
+                                    class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            </li> -->
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
                         </ul>
@@ -400,7 +416,7 @@
                     processData: false,
                     contentType: false,
                     success: function (res) {
-                        $("#formMessage").html('<span class="text-success"> Category added successfully!</span>');
+                        $("#formMessage").html('<span class="text-success"> Domain added successfully!</span>');
                         $("#domainName").val('');
                         $("#imageInput").val('');
                         $("#previewBox").hide();

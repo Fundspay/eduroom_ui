@@ -101,7 +101,7 @@
                     <div class="card stretch stretch-full">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">TEAM MANAGER DASHBOARD (Total count: <span
+                                <h5 class="card-title">QUERIES (Total count: <span
                                         id="collegeCount">0</span>)</h5>
                             </div>
                             <div class="card-header-action">
@@ -134,25 +134,14 @@
                                     <thead class="table-light">
                                         <tr class="border-b">
                                             <th>SR</th>
-                                            <th>NAME</th>
-                                            <th>MOBILE NUMBER</th>
-                                            <th>EMAIL</th>
-                                            <th>COLLEGE NAME</th>
-                                            <th>DOMAIN</th>
-                                            <th>COURSE</th>
-                                            <th>DURATION</th>
-                                            <th>START DATE</th>
-                                            <th>EST END DATE</th>
-                                            <th>OFFER LETTER</th>
-                                            <th>COURSE STATUS</th>
-                                            <th>BUSINESS TARGET</th>
-                                            <th>CERTIFICATE STATUS</th>
-                                            <th>INTERNSHIP CERTIFCATE STATUS</th>
-                                            <th>SUBSCRIPTIONS LEFT IN WALLET</th>
-                                            <th>NO. OF QUERIES</th>
+                                            <th>INTERN NAME</th>
+                                            <th>INTERN PHONE NUMBER</th>
+                                            <th>INTERN EMAIL</th>
+                                            <th>CUSTOMER</th>
+                                            <th>CUSTOMER PHONE NUMBER</th>
+                                            <th>CUSTOMER EMAIL</th>
+                                            <th>QUERY DATE</th>
                                             <th>QUERY STATUS</th>
-                                            <th>INTERNSHIP ACTION</th>
-                                            <th>TEAM MANAGER ALLOTTED</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -451,7 +440,6 @@
     <script src="./../assets/js/theme-customizer-init.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--! END: Theme Customizer !-->
 
     <!-- <script>
@@ -585,6 +573,12 @@
     </script> -->
 
     <script>
+        const url = window.location.href;
+        const params = new URLSearchParams(new URL(url).search);
+        const postuserId = params.get("userId");
+
+        console.log("User ID:", postuserId);
+
         var userData = JSON.parse(sessionStorage.getItem("user_data"));
         console.log(userData);
 
@@ -594,7 +588,7 @@
             businessStatus: ["Pending", "Approved", "Rejected"],
             certificateStatus: ["Pending", "Issued"],
             internshipCertificateStatus: ["Pending", "Issued"],
-            internshipAction: ["Completed", "Not Started", "Terminated", "On hold", "In-progress"],
+            internshipAction: ["Resolved", "Not Resolved", "In-progress"],
             internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"] // new
         };
 
@@ -606,42 +600,31 @@
 
         function loadTableData() {
             $.ajax({
-                url: `https://eduroom.in/api/v1/offerletter/users/all`,
+                url: `https://eduroom.in/api/v1/raisequery/list/${postuserId}`,
                 method: "GET",
                 success: function (res) {
                     console.log("offerletter users:", res);
 
-                    if (res.success && res.data) {
-                        if (res.teamManagers && res.teamManagers.list) {
-                            managerList = res.teamManagers.list.map(m => ({
-                                id: m.managerId,
-                                name: m.name
-                            }));
-                        }
+                    if (res.success && res.queries) {
+                        // if (res.teamManagers && res.teamManagers.list) {
+                        //     managerList = res.teamManagers.list.map(m => ({
+                        //         id: m.managerId,
+                        //         name: m.name
+                        //     }));
+                        // }
 
-                        tableData = res.data.map((row, index) => ({
+                        tableData = res.queries.map((row, index) => ({
                             sno: index + 1,
+                            id: row.id,
                             userId: row.userId,
-                            name: row.name || "",
-                            phoneNumber: row.phoneNumber || "",
-                            email: row.email || "",
-                            collegeName: row.collegeName || "",
-                            courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
-                            domain: row.domainName || "",
-                            course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
-                            duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
-                            startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
-                            estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
-                            offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
-                            courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
-                            businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
-                            certificateStatus: row.internshipIssued || "",
-                            internshipCertificateStatus: row.internshipCertificateStatus || "",
-                            subscriptionLeft: row.subscriptionWallet || "",
-                            queryCount: row.queryCount || "",
-                            queryStatus: row.queryStatus || "",
-                            internshipAction: row.internshipStatus || "",
-                            teamManager: row.teamManager
+                            name: row.User.firstName,
+                            phoneNumber: row.User.phoneNumber,
+                            email: row.User.email,
+                            collegeName: row.first_name,
+                            courses: row.phone_number,
+                            course: row.email,
+                            duration: formatDate(row.queryDate),
+                            internshipAction: row.queryStatus,
                         }));
 
                         $("#collegeCount").text(tableData.length);
@@ -653,6 +636,15 @@
                     }
                 }
             });
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return "";
+            const d = new Date(timestamp);
+            const day = d.getDate().toString().padStart(2, '0');
+            const month = d.toLocaleString('en-US', { month: 'short' });
+            const year = d.getFullYear();
+            return `${day} ${month} ${year}`;
         }
 
         function renderTable() {
@@ -673,25 +665,7 @@
                     <td>${row.courses}</td>
                     <td>${row.course}</td>
                     <td>${row.duration}</td>
-                    <td>${row.startDate}</td>
-                    <td>${row.estEndDate}</td>
-                    <td>${row.offerLetter}</td>
-                    ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
-                    ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
-                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                    <td>${row.subscriptionLeft}</td>
-                    <td>
-                        <a href="team-manager2.html?userId=${row.userId}" 
-                            class="text-primary fw-bold" 
-                            style="cursor:pointer; text-decoration:underline;"
-                            target="_top">
-                            ${row.queryCount}
-                        </a>
-                    </td>
-                    <td>${row.queryStatus}</td>
                     ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
-                    ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
                 </tr>`;
                 tbody.append(tr);
             });
@@ -702,10 +676,7 @@
 
         const columnKeys = [
             "sno", "name", "phoneNumber", "email", "collegeName",
-            "domain", "course", "duration", "startDate", "estEndDate",
-            "offerLetter", "courseStatus", "businessStatus",
-            "certificateStatus", "internshipCertificateStatus",
-            "subscriptionLeft", "queryCount", "queryStatus", "internshipAction", "teamManager"
+            "courses", "course", "duration", "internshipAction"
         ];
 
         function renderPagination() {
@@ -798,9 +769,31 @@
 
             let displaySelected = formatLabel(selectedValue);
 
-            let html = `<td data-field="${field}" class="${specialDropdown ? 'special-dropdown' : ''}">
-            <span style="font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select2" style="display:none;">`;
+            // Decide colors
+            let bgColor = "";
+            let textColor = "black";
+            if (selectedValue) {
+                switch ((selectedValue || "").toLowerCase()) {
+                    case "resolved":
+                        bgColor = "#a8e6a3"; // soft green
+                        textColor = "#0b3d0b"; // deep green text
+                        break;
+                    case "not resolved":
+                        bgColor = "#f7b2b7"; // soft red/pink
+                        textColor = "#6b0000"; // dark red text
+                        break;
+                    case "in-progress":
+                        bgColor = "#ffe29a"; // soft yellow
+                        textColor = "#7a5b00"; // warm brown text
+                        break;
+                }
+
+            }
+
+            let html = `<td data-field="${field}" class="${specialDropdown ? 'special-dropdown' : ''}" 
+                    style="background-color:${bgColor}; color:${textColor}; font-weight:bold;">
+                <span>${displaySelected}</span>
+                <select class="form-control select2" style="display:none;">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -811,6 +804,7 @@
             html += `</select></td>`;
             return html;
         }
+
 
         function attachCellEvents() {
             $("#leadsTable td").off("dblclick").on("dblclick", function () {
@@ -832,20 +826,18 @@
                 let field = td.data("field");
 
                 let internshipStatus = td.closest("tr").find('td[data-field="internshipAction"] select').val();
-                let managerName = td.closest("tr").find('td[data-field="teamManager"] select').val();
 
                 // Find managerId from managerList
                 let managerObj = managerList.find(m => m.name === managerName);
                 let managerId = managerObj ? managerObj.id : null;
 
                 let payload = {
-                    internshipStatus: internshipStatus || "",
-                    managerId: managerId
+                    queryStatus: internshipStatus || "",
                 };
                 console.log("payload:", payload);
 
                 $.ajax({
-                    url: `https://eduroom.in/api/v1/teamManager/update-internship-manager`,
+                    url: `https://eduroom.in/api/v1/raisequery/update/` + id,
                     method: "PUT",
                     contentType: "application/json",
                     data: JSON.stringify(payload),
@@ -859,6 +851,25 @@
 
                 // Update UI
                 td.find("span").text($(this).val());
+                let val = $(this).val().toLowerCase();
+                let bgColor = "", textColor = "black";
+
+                if (val === "resolved") {
+                    bgColor = "#a8e6a3"; // soft green
+                    textColor = "#0b3d0b"; // deep green text
+                }
+                else if (val === "not resolved") {
+                    bgColor = "#f7b2b7"; // soft red/pink
+                    textColor = "#6b0000"; // dark red text
+                }
+                else if (val === "in-progress") {
+                    bgColor = "#ffe29a"; // soft yellow
+                    textColor = "#7a5b00"; // warm brown text
+                }
+
+
+                td.css({ "background-color": bgColor, "color": textColor, "font-weight": "bold" });
+
                 td.find("select").hide();
                 td.find("span").show();
             });
@@ -940,7 +951,6 @@
             loadTableData();
         });
     </script>
-
 
 </body>
 
