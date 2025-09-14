@@ -594,6 +594,14 @@
                             $card.find(".getCertificateBtn").on("click", function (e) {
                                 e.stopPropagation(); // prevent card click
 
+                                Swal.fire({
+                                    title: "Please Wait...",
+                                    allowOutsideClick: false,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                    }
+                                });
+
                                 const status = $(this).data("status").toLowerCase();
                                 const courseId = $(this).data("courseid");
                                 const businessTarget = parseInt($(this).data("target")) || 0;
@@ -608,8 +616,10 @@
                                         data: JSON.stringify({ userId, courseId }),
                                         success: function (resp) {
                                             if (resp.success) {
+                                                swal.close();
                                                 Swal.fire("Success", resp.message || "Certificate has been sent to your registered email!", "success");
                                             } else {
+                                                swal.close();
                                                 Swal.fire("Info", resp.message || "Certificate not available.", "info");
                                             }
                                         },
