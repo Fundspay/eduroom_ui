@@ -568,7 +568,7 @@
                                     case "in progress":
                                         if (coursePreviews && coursePreviews.length > 0) {
                                             const previewId = coursePreviews[0].id;
-                                            window.top.location.href = `/course-preview.html?courseId=${courseId}&previewId=${previewId}&userId=${userId}`;
+                                            window.top.location.href = `/course-preview.html?courseId=${courseId}&coursePreviewId=${previewId}&userId=${userId}`;
                                         } else {
                                             Swal.fire("Preview not available", "No preview found for this course yet.", "info");
                                         }
@@ -577,7 +577,7 @@
                                         Swal.fire("Completed!", message || "You have already completed this course.", "success");
                                         break;
                                     case "onhold":
-                                        window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviews[0].id}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
+                                        window.location.href = `/course-details.html?courseId=${courseId}&coursePreviewId=${previewId}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
                                         break;
                                     case "terminated":
                                         Swal.fire("Terminated", "This course has been terminated.", "error");
