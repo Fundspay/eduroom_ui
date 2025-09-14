@@ -856,7 +856,7 @@
                             let statusColor = "#fff";
                             if (course.status === "Started") statusColor = "blue";
                             if (course.status === "In Progress") statusColor = "orange";
-                            if (course.status === "Completed") statusColor = "green";
+                            if (course.status === "Completed") statusColor = "#90EE90";
                             if (course.status === "On Hold") statusColor = "red";
                             if (course.status === "Terminated") statusColor = "red";
                             if (course.status === "Not Started") statusColor = "#fff";
@@ -865,52 +865,53 @@
                             col.className = "col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12";
 
                             col.innerHTML = `
-                            <div class="single-popular-course zoom-img-hover d-flex flex-column" 
-                                style="height: 550px; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                <div class="position-relative" style="margin-bottom: -7%;">
-                                    <div class="p-course-img over-hidden position-relative">
-                                        <img class="w-90 img" 
-                                            src="${course.img}" 
-                                            alt="course-image" 
-                                            style="width:300px; height:200px; object-fit:cover; border-radius:8px;">
-                                    </div>
-                                </div>
-                                <div class="popular-course-content-wrapper bg-white pt-5 pl-30 pr-30 d-flex flex-column flex-grow-1">
-                                    <div class="single-popular-course-content primary-border-bottom pb-6" style="flex-grow: 1; overflow: hidden;">
-                                        <h3 class="course-title" style="font-size: 16px; font-weight: 600; line-height: 1.3; height: 40px; overflow: hidden; text-overflow: ellipsis;">
-                                            <a href="#" class="course-link" 
-                                               data-courseid="${course.id}" 
-                                               data-status="${course.status}" 
-                                               data-previewid="${course.CoursePreviews?.[0]?.coursePreviewId || ''}">
-                                               ${course.name.replace(/"/g, "")}
-                                            </a>
-                                        </h3>
-                                        <p style="font-size: 14px; line-height: 1.4; height: 120px; overflow: hidden; text-overflow: ellipsis;">
-                                            ${course.description.replace(/"/g, "")}
-                                        </p>
-                                    </div>
-                                    <div class="pc-info mt-auto pt-12 pb-15">
-                                        <p class="mb-1"><strong>Business Target:</strong> ${course.businessTarget}</p>
-                                        <hr style="margin: 6px 0; border: 0; border-top: 1px solid #ddd;">
-                                        <p class="mb-1"><strong>Duration:</strong> ${course.totalDays} Days</p>
-                                        
-                                        <div style="
-                                            margin-top:8px;
-                                            width:100%;
-                                            background-color:${statusColor};
-                                            color:#fff;
-                                            font-weight:bold;
-                                            text-align:center;
-                                            padding:6px 0;
-                                            border-radius:5px;
-                                            text-transform:capitalize;">
-                                            ${course.status}
+                                <div class="single-popular-course zoom-img-hover d-flex flex-column" 
+                                    style="height: 550px; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                    
+                                    <div class="position-relative" style="margin-bottom: -7%;">
+                                        <div class="p-course-img over-hidden position-relative">
+                                            <img class="img-fluid w-100" 
+                                                src="${course.img}" 
+                                                alt="course-image" 
+                                                style="height: 200px; object-fit: cover; border-radius: 8px;">
                                         </div>
+                                    </div>
 
+                                    <div class="popular-course-content-wrapper bg-white pt-5 pl-30 pr-30 d-flex flex-column flex-grow-1">
+                                        <div class="single-popular-course-content primary-border-bottom pb-6" style="flex-grow: 1; overflow: hidden;">
+                                            <h3 class="course-title" style="font-size: 16px; font-weight: 600; line-height: 1.3; height: 40px; overflow: hidden; text-overflow: ellipsis;">
+                                                <a href="#" class="course-link" 
+                                                data-courseid="${course.id}" 
+                                                data-status="${course.status}" 
+                                                data-previewid="${course.CoursePreviews?.[0]?.coursePreviewId || ''}">
+                                                ${course.name.replace(/"/g, "")}
+                                                </a>
+                                            </h3>
+                                            <p style="font-size: 14px; line-height: 1.4; height: 120px; overflow: hidden; text-overflow: ellipsis;">
+                                                ${course.description.replace(/"/g, "")}
+                                            </p>
+                                        </div>
+                                        <div class="pc-info mt-auto pt-12 pb-15">
+                                            <p class="mb-1"><strong>Business Target:</strong> ${course.businessTarget}</p>
+                                            <hr style="margin: 6px 0; border: 0; border-top: 1px solid #ddd;">
+                                            <p class="mb-1"><strong>Duration:</strong> ${course.totalDays} Days</p>
+                                            
+                                            <div style="
+                                                margin-top:8px;
+                                                width:100%;
+                                                background-color:${statusColor};
+                                                color:#fff;
+                                                font-weight:bold;
+                                                text-align:center;
+                                                padding:6px 0;
+                                                border-radius:5px;
+                                                text-transform:capitalize;">
+                                                ${course.status}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
 
                             container.appendChild(col);
                         });
@@ -1024,7 +1025,7 @@
                                                         }
                                                     },
                                                     error: function (xhr, status, error) {
-                                                        Swal.close(); 
+                                                        Swal.close();
                                                         console.error("POST Error:", error);
                                                         Swal.fire("Error", "Something went wrong. Try again later.", "error");
                                                     }
