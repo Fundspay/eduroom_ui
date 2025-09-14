@@ -490,12 +490,13 @@
                                             Internship Business Target
                                         </h4>
 
-                                        <div class="about-instructor-wrapper pl-30 pr-30 pb-10 text-center">
+                                        <div class="about-instructor-wrapper text-center">
                                             <h2 id="achievedTargetDisplay2" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
-                                            <p id="targetPercentageDisplay2" style="font-size: 24px; font-weight:600;">
-                                                0%
-                                            </p>
+                                            <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
+                                            id="targetPercentageDisplay2">
+                                            0%
+                                        </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -507,11 +508,13 @@
                                             Internship Session Status
                                         </h4>
 
-                                        <div class="about-instructor-wrapper pl-30 pr-30 pb-10 text-center">
+                                        <div class="about-instructor-wrapper text-center">
                                             <h2 id="overallSessionsDisplay2" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
-                                            <p id="overallCompletionRate2" style="font-size: 24px; font-weight:600;">0%
-                                            </p>
+                                            <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
+                                            id="overallCompletionRate2">
+                                            0%
+                                        </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -1042,14 +1045,14 @@
                         targetPercentageDisplay.text(`${percentage}%`);
 
                         // Dynamic coloring (with curved pill style like earlier)
-                        targetPercentageDisplay.css({
-                            "color": "white",
-                            "padding": "6px 18px",
-                            "border-radius": "50px",
-                            "display": "inline-block",
-                            "min-width": "70px",
-                            "text-align": "center"
-                        });
+                        // targetPercentageDisplay.css({
+                        //     "color": "white",
+                        //     "padding": "6px 18px",
+                        //     "border-radius": "50px",
+                        //     "display": "inline-block",
+                        //     "min-width": "70px",
+                        //     "text-align": "center"
+                        // });
 
                         if (percentage < 40) {
                             targetPercentageDisplay.css("background", "#ff4d4f"); // red
@@ -1112,14 +1115,14 @@
                         const rateNum = parseFloat(completionRate.replace("%", "")) || 0;
 
                         // Pill-style percentage
-                        completionRateDisplay.css({
-                            "color": "white",
-                            "padding": "6px 18px",
-                            "border-radius": "50px",
-                            "display": "inline-block",
-                            "min-width": "70px",
-                            "text-align": "center"
-                        });
+                        // completionRateDisplay.css({
+                        //     "color": "white",
+                        //     "padding": "6px 18px",
+                        //     "border-radius": "50px",
+                        //     "display": "inline-block",
+                        //     "min-width": "70px",
+                        //     "text-align": "center"
+                        // });
 
                         if (rateNum < 40) {
                             completionRateDisplay.css("background", "#ff4d4f"); // red

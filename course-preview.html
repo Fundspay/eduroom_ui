@@ -372,10 +372,13 @@
                                             Business Target
                                         </h4>
 
-                                        <div class="about-instructor-wrapper pl-30 pr-30 pb-10 text-center">
+                                        <div class="about-instructor-wrapper text-center">
                                             <h2 id="achievedTargetDisplay" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
-                                            <p id="targetPercentageDisplay" class="badge-percentage">0%</p>
+                                            <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
+                                            id="targetPercentageDisplay">
+                                            0%
+                                        </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -387,10 +390,13 @@
                                             Overall Status
                                         </h4>
 
-                                        <div class="about-instructor-wrapper pl-30 pr-30 pb-10 text-center">
+                                        <div class="about-instructor-wrapper text-center">
                                             <h2 id="overallSessionsDisplay" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
-                                            <p id="overallCompletionRate" class="badge-percentage">0%</p>
+                                            <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
+                                            id="overallCompletionRate">
+                                            0%
+                                        </h4>
                                         </div>
 
                                     </div>
@@ -725,14 +731,14 @@
                         } else {
                             targetPercentageDisplay.css("background", "#00c897"); // green
                         }
-                        targetPercentageDisplay.css({
-                            "color": "white",
-                            "padding": "6px 18px",
-                            "border-radius": "50px",
-                            "display": "inline-block",
-                            "min-width": "70px",
-                            "text-align": "center"
-                        });
+                        // targetPercentageDisplay.css({
+                        //     "color": "white",
+                        //     "padding": "6px 18px",
+                        //     "border-radius": "50px",
+                        //     "display": "inline-block",
+                        //     "min-width": "70px",
+                        //     "text-align": "center"
+                        // });
                     }
                 },
                 error: function (xhr, status, error) {
@@ -803,14 +809,14 @@
                             completionRateDisplay.css("background", "#00c897"); // green
                         }
 
-                        completionRateDisplay.css({
-                            "color": "white",
-                            "padding": "6px 18px",
-                            "border-radius": "50px",
-                            "display": "inline-block",
-                            "min-width": "70px",
-                            "text-align": "center"
-                        });
+                        // completionRateDisplay.css({
+                        //     "color": "white",
+                        //     "padding": "6px 18px",
+                        //     "border-radius": "50px",
+                        //     "display": "inline-block",
+                        //     "min-width": "70px",
+                        //     "text-align": "center"
+                        // });
                     }
                 },
                 error: function (xhr, status, error) {
