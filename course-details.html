@@ -494,9 +494,9 @@
                                             <h2 id="achievedTargetDisplay2" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
                                             <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
-                                            id="targetPercentageDisplay2">
-                                            0%
-                                        </h4>
+                                                id="targetPercentageDisplay2">
+                                                0%
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -504,7 +504,8 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 15%;">
                                     <div class="sidebar-widget cd-sidebar overall-status mt-45"
                                         id="overallStatusWidget2">
-                                        <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center" style="background: #000;">
+                                        <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
+                                            style="background: #000;">
                                             Internship Session Status
                                         </h4>
 
@@ -512,9 +513,9 @@
                                             <h2 id="overallSessionsDisplay2" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
                                             <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
-                                            id="overallCompletionRate2">
-                                            0%
-                                        </h4>
+                                                id="overallCompletionRate2">
+                                                0%
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -540,7 +541,8 @@
                                 </li>
                                 <li class="mr-2">
                                     <a class="instagram-bg text-center rounded-circle pr-0 text-white d-inline-block transition-3"
-                                        href="https://www.instagram.com/funds_audit/"><i class="fab fa-instagram"></i></a>
+                                        href="https://www.instagram.com/funds_audit/"><i
+                                            class="fab fa-instagram"></i></a>
                                 </li>
                                 <!-- <li class="mr-2">
                                     <a class="pinterest-bg text-center rounded-circle pr-0 text-white d-inline-block transition-3"
@@ -973,7 +975,11 @@
                     success: function (response) {
                         if (response.success && response.data) {
                             $('#caseStudyResult').show();
+
+                            // Format percentage to 2 decimal places
                             var percent = response.data.matchPercentage || 0;
+                            percent = parseFloat(percent).toFixed(1);
+
                             $('#caseStudyScore').text(percent + '%');
                             $('#caseStudyPercentage').text(percent + '%');
                             $('#caseStudyStatus').text(response.data.passed ? 'Passed' : 'Failed')
@@ -1001,6 +1007,7 @@
                         alert("Error submitting case study. Please try again.");
                     }
                 });
+
             });
         });
     </script>
