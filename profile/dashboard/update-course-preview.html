@@ -373,7 +373,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--! END: Theme Customizer !-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
     <script>
 $(document).ready(function () {
@@ -402,7 +402,7 @@ $(document).ready(function () {
 
     // Fetch Courses for userId=2
     $.ajax({
-        url: "https://eduroom.in/api/v1/course/courses?userId=2",
+        url: "https://eduroom.in/api/v1/course/courses?userId=1",
         type: "GET",
         success: function (res) {
             console.log("course list:", res);
@@ -458,20 +458,22 @@ $(document).ready(function () {
             type: "GET",
             success: function (res) {
                 console.log("GET preview:", res);
-                if (res.success && res.data) {
-                    const data = res.data;
-                    $("#title").val(data.title);
-                    $("#heading").val(data.heading);
-                    $("#youtubeLink").val(data.youtubeLink);
-                    $("#description").val(data.description);
-                    $("#dayCount").val(data.dayCount);
-                    $("#language").val(data.language);
-                    $("#level").val(data.level);
-                    $("#duration").val(data.duration);
-                    $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || "");
-                    for (let i = 0; i < 7; i++) {
-                        $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets[i] || "");
-                    }
+
+                // Prefill Fix: data is at root, not res.data
+                const data = res.data || res; // Prefill Fix
+
+                $("#title").val(data.title || ""); // Prefill Fix
+                $("#heading").val(data.heading || ""); // Prefill Fix
+                $("#youtubeLink").val(data.youtubeLink || ""); // Prefill Fix
+                $("#description").val(data.description || ""); // Prefill Fix
+                $("#dayCount").val(data.dayCount || ""); // Prefill Fix
+                $("#language").val(data.language || ""); // Prefill Fix
+                $("#level").val(data.level || ""); // Prefill Fix
+                $("#duration").val(data.duration || ""); // Prefill Fix
+
+                $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || ""); // Prefill Fix
+                for (let i = 0; i < 7; i++) {
+                    $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets?.[i] || ""); // Prefill Fix
                 }
             },
             error: function (xhr) {
@@ -537,6 +539,7 @@ $(document).ready(function () {
 
 });
 </script>
+
 
 </body>
 
