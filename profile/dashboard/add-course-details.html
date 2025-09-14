@@ -61,24 +61,37 @@
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">DASHBOARD</span><span class="nxl-arrow"><i
+                            <span class="nxl-mtext">ADD COURSE DETAILS</span><span class="nxl-arrow"><i
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
-                                    COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">TEAM MANAGER</span><span class="nxl-arrow"><i
+                                    class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            </li> -->
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
                         </ul>
@@ -907,7 +920,7 @@
             });
 
             $.ajax({
-                url: "https://eduroom.in/api/v1/course/courses?userId=2",
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 type: "GET",
                 success: function (res) {
                     console.log("course list:", res);

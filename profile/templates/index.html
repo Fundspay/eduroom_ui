@@ -410,8 +410,8 @@
 
     <script>
         $(document).ready(function () {
-            // const userId = sessionStorage.getItem("user_id");
-            const userId = 2;
+            const userId = sessionStorage.getItem("user_id");
+            // const userId = 2;
             console.log("user_id:", userId);
 
             $.ajax({
@@ -557,7 +557,8 @@
                             `;
                             const $card = $(card);
 
-                            // Redirect on card click (status-based, same as before)
+                            $card.find(".card-body").css("cursor", "pointer");
+
                             $card.find(".card-body").on("click", function () {
                                 switch (overallStatus.toLowerCase()) {
                                     case "in progress":

@@ -612,14 +612,12 @@
                         Swal.fire({
                             icon: "success",
                             title: "Login Successful",
-                            html: `<b>User ID:</b> ${userId} <br> <b>Name:</b> ${userName}`,
                             timer: 3000,
                             showConfirmButton: false
                         }).then(() => {
                             window.location.href = redirectUrl;
                         });
-                    }
-                    ,
+                    },
                     error: function (xhr) {
                         Swal.close();
 
@@ -696,7 +694,7 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: "https://eduroom.in/api/v1/course/courses?userId=2",
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
                     console.log("API Response:", response);

@@ -61,7 +61,7 @@
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">DASHBOARD</span><span class="nxl-arrow"><i
+                            <span class="nxl-mtext">ADD COURSE DETAILS</span><span class="nxl-arrow"><i
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
@@ -79,6 +79,23 @@
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">TEAM MANAGER</span><span class="nxl-arrow"><i
+                                    class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            </li>
+
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            </li> -->
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
                         </ul>
@@ -242,7 +259,7 @@
                                 <!-- Domain Select -->
                                 <div class="mb-4">
                                     <label class="form-label">Select Domain <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="domainSelect" data-select2-selector="icon">
+                                    <select class="form-select" id="domainSelect">
                                         <option value="">Loading...</option>
                                     </select>
                                 </div>
@@ -250,7 +267,7 @@
                                 <!-- Course Select -->
                                 <div class="mb-4">
                                     <label class="form-label">Select Course <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="courseSelect" data-select2-selector="icon">
+                                    <select class="form-select" id="courseSelect">
                                         <option value="">Loading...</option>
                                     </select>
                                 </div>
@@ -441,6 +458,8 @@
 
     <script>
         $(document).ready(function () {
+            let allCourses = [];
+
             $.ajax({
                 url: "https://eduroom.in/api/v1/domain/list",
                 type: "GET",
@@ -463,24 +482,35 @@
             });
 
             $.ajax({
-                url: "https://eduroom.in/api/v1/course/list",
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 type: "GET",
                 success: function (res) {
                     console.log("course list:", res);
-                    let options = '<option value="">Select Course</option>';
                     if (res.success && res.data.length > 0) {
-                        res.data.forEach(course => {
-                            let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
-                            if (cleanName) {
-                                options += `<option value="${course.id}">${cleanName}</option>`;
-                            }
-                        });
+                        allCourses = res.data;
                     }
-                    $("#courseSelect").html(options);
+
+                    $("#courseSelect").html('<option value="">Select Course</option>');
                 },
                 error: function () {
                     $("#courseSelect").html('<option value="">Error loading courses</option>');
                 }
+            });
+
+            $("#domainSelect").change(function () {
+                const selectedDomainId = $(this).val();
+                let options = '<option value="">Select Course</option>';
+                if (selectedDomainId && allCourses.length > 0) {
+                    allCourses.forEach(course => {
+                        if (String(course.domainId) === String(selectedDomainId)) {
+                            let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
+                            if (cleanName) {
+                                options += `<option value="${course.id}">${cleanName}</option>`;
+                            }
+                        }
+                    });
+                }
+                $("#courseSelect").html(options);
             });
 
             function previewFile(file) {
@@ -530,16 +560,6 @@
                     }
                 };
                 console.log("payload:", payload);
-
-                // if (!payload.courseId || !payload.domainId || !payload.title || !payload.heading ||
-                //     !payload.youtubeLink || !payload.description || !payload.dayCount ||
-                //     !payload.language || !payload.level || !payload.duration || !payload.whatYouWillLearn.paragraph) {
-                //     $("#formMessage").html('<span class="text-danger">⚠ Please fill all required fields.</span>');
-                //     return;
-                // }
-
-                // const formData = new FormData();
-                // formData.append("data", JSON.stringify(payload));
 
                 $.ajax({
                     url: "https://eduroom.in/api/v1/coursepreview/course-preview",
