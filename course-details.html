@@ -906,10 +906,10 @@
             })();
 
             var courseId = queryParams.courseId || 1;
-            var coursePreviewId = queryParams.coursePreviewId || 1;
+            var coursePreviewId = queryParams.previewId || 1;
             var dayNumber = queryParams.day || 1;
             var sessionNumber = queryParams.sessionNumber || 1;
-            var userId = queryParams.userId || 2;
+            var userId = queryParams.userId || 1;
 
             // Disable submit button until question is loaded
             $('#submitCaseStudy').prop('disabled', true);
@@ -917,10 +917,14 @@
             var questionId = null; // will hold the fetched questionId
 
             // Fetch Case Study Question
+            const url = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies?userId=${userId}`;
+
+            console.log("Case Study API URL:", url);
+            console.log("courseId:", courseId, "previewId:", coursePreviewId, "day:", dayNumber, "session:", sessionNumber, "userId:", userId);
+
             $.ajax({
-                url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies`,
+                url: url,
                 method: "GET",
-                data: { userId: userId },
                 success: function (response) {
                     console.log("Case Study Response:", response);
                     if (response.success && response.data?.caseStudy) {
@@ -936,7 +940,8 @@
                         $('#caseStudyQuestion').text("No case study available for this session.");
                     }
                 },
-                error: function () {
+                error: function (xhr, status, error) {
+                    console.error("Case Study API Error:", status, error, xhr.responseText);
                     $('#caseStudyQuestion').text("Failed to load case study question.");
                 }
             });
