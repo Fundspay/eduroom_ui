@@ -466,13 +466,13 @@
                             success: function (res) {
                                 sessionStorage.setItem("userId", res.userId || '');
                                 Swal.fire("Success", "Registered successfully!", "success").then(() => {
-                                    window.location.href = "/login.html";
+                                    window.top.location.href = "/login.html";
                                 });
                             },
                             error: function (xhr) {
                                 console.error('Submit error', xhr);
                                 const msg = xhr.responseJSON?.message || (xhr.responseText ? xhr.responseText : 'Something went wrong.');
-                                Swal.fire("Error", msg, "error");
+                                Swal.fire("Error", "Mobile Number or Email must be Unique", "error");
                             }
                         });
                     }
@@ -481,7 +481,6 @@
 
         })(jQuery);
     </script>
-
 
 </body>
 
