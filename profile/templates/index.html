@@ -243,7 +243,9 @@
                                                     <th>Mobile No.</th>
                                                     <th>Email</th>
                                                     <th>Downloaded</th>
+                                                    <th>Date of Download</th>
                                                     <th>Subscribed</th>
+                                                    <th>Date of Payment</th>
                                                     <th>Raise A Query</th>
                                                     <th>Query Status</th>
                                                 </tr>
@@ -649,6 +651,29 @@ $(document).ready(function () {
             let currentPage = 1;
             let tableData = [];
 
+            function formatDate(iso) {
+                if (!iso) return null;
+                const d = new Date(iso);
+                if (isNaN(d)) return null;
+                const day = d.getDate();
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const month = monthNames[d.getMonth()];
+                const year = d.getFullYear();
+                return `${day} ${month} ${year}`;
+            }
+
+            function badgeInProgress(text = "In Progress") {
+                return `<span class="badge bg-soft-danger text-danger">${text}</span>`;
+            }
+
+            function escJS(str) {
+                if (str === null || str === undefined) return '';
+                return String(str)
+                    .replace(/\\/g, '\\\\')
+                    .replace(/'/g, "\\'")
+                    .replace(/"/g, '\\"');
+            }
+
             function fetchData() {
                 $.ajax({
                     url: `https://eduroom.in/api/v1/user/${loggedInUserId}/referral-payment-status`,
@@ -669,13 +694,23 @@ $(document).ready(function () {
                                     ? '<span class="badge bg-soft-success text-success">Yes</span>'
                                     : '<span class="badge bg-soft-danger text-danger">No</span>';
 
-                                const isDownloaded = user.isDownloaded
+                                const isDownloadedBadge = user.isDownloaded
                                     ? '<span class="badge bg-soft-success text-success">Yes</span>'
                                     : '<span class="badge bg-soft-warning text-warning">No</span>';
 
+                                const downloadDateRaw = user.date_of_download || null;
+                                const paymentDateRaw = user.date_of_payment || null;
+
+                                const downloadDateDisplay = downloadDateRaw
+                                    ? formatDate(downloadDateRaw)
+                                    : badgeInProgress("Not Downloaded");
+
+                                const paymentDateDisplay = paymentDateRaw
+                                    ? formatDate(paymentDateRaw)
+                                    : badgeInProgress("Not Paid");
+
                                 let statusText = user.queryStatus || "No Query";
                                 let statusBadge;
-
                                 switch (statusText.toLowerCase()) {
                                     case "resolved":
                                         statusBadge = '<span class="badge bg-soft-success text-success">Resolved</span>';
@@ -698,12 +733,13 @@ $(document).ready(function () {
                                     lastName: lastName,
                                     phone,
                                     email,
+                                    isDownloaded: isDownloadedBadge,
+                                    downloadDateDisplay,
                                     hasPaid,
-                                    isDownloaded,
-                                    status: statusBadge,   // for display
-                                    statusText: statusText // for payload
+                                    paymentDateDisplay,
+                                    status: statusBadge,
+                                    statusText: statusText
                                 };
-
                             });
 
                             renderTable();
@@ -732,14 +768,16 @@ $(document).ready(function () {
                     <td><a href="tel:${row.phone}">${row.phone}</a></td>
                     <td><a href="mailto:${row.email}">${row.email}</a></td>
                     <td>${row.isDownloaded}</td>
+                    <td>${row.downloadDateDisplay}</td>
                     <td>${row.hasPaid}</td>
+                    <td>${row.paymentDateDisplay}</td>
                     <td>
-                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${row.id}', '${row.firstName}', '${row.lastName}', '${row.phone}', '${row.statusText}', '${row.email}')">
+                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${escJS(row.id)}', '${escJS(row.firstName)}', '${escJS(row.lastName)}', '${escJS(row.phone)}', '${escJS(row.statusText)}', '${escJS(row.email)}')">
                             Raise Query
                         </button>
                     </td>
                     <td>${row.status}</td>
-                    </tr>`;
+                </tr>`;
                     tbody.append(tr);
                 });
             }
@@ -783,6 +821,7 @@ $(document).ready(function () {
                 if (!value) {
                     renderTable();
                     renderPagination();
+                    $("#pagination").show();
                     return;
                 }
 
@@ -802,14 +841,16 @@ $(document).ready(function () {
                     <td><a href="tel:${row.phone}">${row.phone}</a></td>
                     <td><a href="mailto:${row.email}">${row.email}</a></td>
                     <td>${row.isDownloaded}</td>
+                    <td>${row.downloadDateDisplay}</td>
                     <td>${row.hasPaid}</td>
+                    <td>${row.paymentDateDisplay}</td>
                     <td>
-                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${row.id}', '${row.firstName}', '${row.lastName}', '${row.phone}', '${row.statusText}', '${row.email}')">
+                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${escJS(row.id)}', '${escJS(row.firstName)}', '${escJS(row.lastName)}', '${escJS(row.phone)}', '${escJS(row.statusText)}', '${escJS(row.email)}')">
                             Raise Query
                         </button>
                     </td>
                     <td>${row.status}</td>
-                    </tr>`;
+                </tr>`;
                     tbody.append(tr);
                 });
 
@@ -826,7 +867,7 @@ $(document).ready(function () {
             };
 
             window.exportToExcel = function () {
-                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Has Paid"];
+                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Download Date", "Has Paid", "Payment Date"];
                 const data = [headers];
 
                 tableData.forEach((row, index) => {
@@ -837,7 +878,9 @@ $(document).ready(function () {
                         row.phone,
                         row.email,
                         clean(row.isDownloaded),
-                        clean(row.hasPaid)
+                        clean(row.downloadDateDisplay),
+                        clean(row.hasPaid),
+                        clean(row.paymentDateDisplay)
                     ]);
                 });
 
