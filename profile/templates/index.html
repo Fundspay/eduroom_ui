@@ -467,19 +467,24 @@
                     if (res.success && res.data.courses.length > 0) {
                         container.empty();
 
+                        // ✅ Take subscriptionLeft from root level
+                        const globalSubscriptionLeft = res.data.subscriptionLeft || 0;
+
                         res.data.courses.forEach(function (course) {
                             const {
                                 courseId,
                                 courseName,
                                 courseDuration,   // if exists, otherwise show blank
                                 businessTarget,
-                                subscriptionLeft,
                                 overallStatus,
                                 overallCompletionRate,
                                 coursePreviews,
                                 dailyStatus,
                                 message // ✅ take message if provided
                             } = course;
+
+                            // use global subscriptionLeft instead of per-course
+                            const subscriptionLeft = globalSubscriptionLeft;
 
                             // Card colors based on status
                             let headerColor = "";
@@ -514,50 +519,50 @@
 
                             // Build card + "Get Certificate" button
                             const card = `
-                        <div class="col-xxl-4 col-md-6 mb-4" style="margin-left: 2%;">
-                            <div class="card stretch stretch-full shadow-lg" 
-                                style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
-                                <div class="card-body">
-                                    <div class="hstack justify-content-between">
-                                        <div>
-                                            <h4 class="text-dark fw-bold">
-                                                ${courseName.replace(/"/g, "")}
-                                            </h4>
-                                            <div class="text-muted">${courseDuration || ""}</div>
-                                        </div>
-                                        <div class="text-end">
-                                            <i class="feather-trending-up fs-2"></i>
-                                        </div>
+                    <div class="col-xxl-4 col-md-6 mb-4" style="margin-left: 2%;">
+                        <div class="card stretch stretch-full shadow-lg" 
+                            style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
+                            <div class="card-body">
+                                <div class="hstack justify-content-between">
+                                    <div>
+                                        <h4 class="text-dark fw-bold">
+                                            ${courseName.replace(/"/g, "")}
+                                        </h4>
+                                        <div class="text-muted">${courseDuration || ""}</div>
                                     </div>
-                                </div>
-                                <div class="card-footer ${footerColor} py-3 text-center">
-                                    <!-- Centered status -->
-                                    <p class="text-white mb-3 fw-bold">${displayStatus}</p>
-
-                                    <!-- Labels on left, values on right -->
-                                    <div class="d-flex justify-content-between text-white mb-3">
-                                        <div class="text-start">
-                                            <p class="mb-1">Course Completion Status:</p>
-                                            <p class="mb-0">Business Target Completed:</p>
-                                        </div>
-                                        <div class="text-end">
-                                            <p class="mb-1">${overallCompletionRate || "0"}%</p>
-                                            <p class="mb-0">${subscriptionLeft || "0"}/${businessTarget || "0"}</p>
-                                        </div>
+                                    <div class="text-end">
+                                        <i class="feather-trending-up fs-2"></i>
                                     </div>
-
-                                    <!-- Get Certificate button -->
-                                    <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
-                                            data-courseid="${courseId}" 
-                                            data-status="${overallStatus}" 
-                                            data-target="${businessTarget}" 
-                                            data-left="${subscriptionLeft}">
-                                        Get Certificate
-                                    </button>
                                 </div>
                             </div>
+                            <div class="card-footer ${footerColor} py-3 text-center">
+                                <!-- Centered status -->
+                                <p class="text-white mb-3 fw-bold">${displayStatus}</p>
+
+                                <!-- Labels on left, values on right -->
+                                <div class="d-flex justify-content-between text-white mb-3">
+                                    <div class="text-start">
+                                        <p class="mb-1">Course Completion Status:</p>
+                                        <p class="mb-0">Business Target Completed:</p>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="mb-1">${overallCompletionRate || "0"}%</p>
+                                        <p class="mb-0">${subscriptionLeft || "0"}/${businessTarget || "0"}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Get Certificate button -->
+                                <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
+                                        data-courseid="${courseId}" 
+                                        data-status="${overallStatus}" 
+                                        data-target="${businessTarget}" 
+                                        data-left="${subscriptionLeft}">
+                                    Get Certificate
+                                </button>
+                            </div>
                         </div>
-                    `;
+                    </div>
+                `;
                             const $card = $(card);
 
                             $card.find(".card-body").css("cursor", "pointer");
@@ -640,7 +645,6 @@
             });
         });
     </script>
-
     <script>
         // Logged-in user ID from sessionStorage
         const loggedInUserId = sessionStorage.getItem("user_id") || 2;
@@ -970,7 +974,7 @@
 
                         const courseCount = res.data.courses ? res.data.courses.length : 0;
 
-                        const walletRemaining = res.data.subscriptionWalletRemaining || 0;
+                        const walletRemaining = res.data.subscriptionLeft || 0;
 
                         $("#courseCountDisplay").text(courseCount);
                         $("#walletRemainingDisplay").text(walletRemaining);
