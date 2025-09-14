@@ -454,66 +454,66 @@
     </script>
 
     <script>
-$(document).ready(function () {
-    const container = $("#internshipCardsContainer");
-    const userId = sessionStorage.getItem("user_id"); // taking user id from session
+        $(document).ready(function () {
+            const container = $("#internshipCardsContainer");
+            const userId = sessionStorage.getItem("user_id"); // taking user id from session
 
-    $.ajax({
-        url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
-        method: "GET",
-        dataType: "json",
-        success: function (res) {
-            console.log("Courses Response:", res);
-            if (res.success && res.data.courses.length > 0) {
-                container.empty();
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
+                method: "GET",
+                dataType: "json",
+                success: function (res) {
+                    console.log("Courses Response:", res);
+                    if (res.success && res.data.courses.length > 0) {
+                        container.empty();
 
-                res.data.courses.forEach(function (course) {
-                    const {
-                        courseId,
-                        courseName,
-                        courseDuration,   // if exists, otherwise show blank
-                        businessTarget,
-                        subscriptionLeft,
-                        overallStatus,
-                        overallCompletionRate,
-                        coursePreviews,
-                        dailyStatus,
-                        message // ✅ take message if provided
-                    } = course;
+                        res.data.courses.forEach(function (course) {
+                            const {
+                                courseId,
+                                courseName,
+                                courseDuration,   // if exists, otherwise show blank
+                                businessTarget,
+                                subscriptionLeft,
+                                overallStatus,
+                                overallCompletionRate,
+                                coursePreviews,
+                                dailyStatus,
+                                message // ✅ take message if provided
+                            } = course;
 
-                    // Card colors based on status
-                    let headerColor = "";
-                    let footerColor = "";
-                    let displayStatus = overallStatus;
+                            // Card colors based on status
+                            let headerColor = "";
+                            let footerColor = "";
+                            let displayStatus = overallStatus;
 
-                    switch (overallStatus.toLowerCase()) {
-                        case "in progress":
-                            headerColor = "text-warning";
-                            footerColor = "bg-warning";
-                            displayStatus = "Ongoing";
-                            break;
-                        case "completed":
-                            headerColor = "text-success";
-                            footerColor = "bg-success";
-                            displayStatus = "Completed";
-                            break;
-                        case "onhold":
-                            headerColor = "text-dark";
-                            footerColor = "bg-dark";
-                            displayStatus = "On Hold";
-                            break;
-                        case "terminated":
-                            headerColor = "text-danger";
-                            footerColor = "bg-danger";
-                            displayStatus = "Terminated";
-                            break;
-                        default:
-                            headerColor = "text-muted";
-                            footerColor = "bg-light";
-                    }
+                            switch (overallStatus.toLowerCase()) {
+                                case "in progress":
+                                    headerColor = "text-warning";
+                                    footerColor = "bg-warning";
+                                    displayStatus = "Ongoing";
+                                    break;
+                                case "completed":
+                                    headerColor = "text-success";
+                                    footerColor = "bg-success";
+                                    displayStatus = "Completed";
+                                    break;
+                                case "onhold":
+                                    headerColor = "text-dark";
+                                    footerColor = "bg-dark";
+                                    displayStatus = "On Hold";
+                                    break;
+                                case "terminated":
+                                    headerColor = "text-danger";
+                                    footerColor = "bg-danger";
+                                    displayStatus = "Terminated";
+                                    break;
+                                default:
+                                    headerColor = "text-muted";
+                                    footerColor = "bg-light";
+                            }
 
-                    // Build card + "Get Certificate" button
-                    const card = `
+                            // Build card + "Get Certificate" button
+                            const card = `
                         <div class="col-xxl-4 col-md-6 mb-4" style="margin-left: 2%;">
                             <div class="card stretch stretch-full shadow-lg" 
                                 style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
@@ -558,88 +558,88 @@ $(document).ready(function () {
                             </div>
                         </div>
                     `;
-                    const $card = $(card);
+                            const $card = $(card);
 
-                    $card.find(".card-body").css("cursor", "pointer");
+                            $card.find(".card-body").css("cursor", "pointer");
 
-                    // ✅ Card click actions
-                    $card.find(".card-body").on("click", function () {
-                        switch (overallStatus.toLowerCase()) {
-                            case "in progress":
-                                if (coursePreviews && coursePreviews.length > 0) {
-                                    const previewId = coursePreviews[0].id;
-                                    window.top.location.href = `/course-preview.html?courseId=${courseId}&previewId=${previewId}&userId=${userId}`;
-                                } else {
-                                    Swal.fire("Preview not available", "No preview found for this course yet.", "info");
-                                }
-                                break;
-                            case "completed":
-                                Swal.fire("Completed!", message || "You have already completed this course.", "success");
-                                break;
-                            case "onhold":
-                                window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviews[0].id}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
-                                break;
-                            case "terminated":
-                                Swal.fire("Terminated", "This course has been terminated.", "error");
-                                break;
-                        }
-                    });
-
-                    // ✅ Certificate button click handler
-                    $card.find(".getCertificateBtn").on("click", function (e) {
-                        e.stopPropagation(); // prevent card click
-
-                        const status = $(this).data("status").toLowerCase();
-                        const courseId = $(this).data("courseid");
-                        const businessTarget = parseInt($(this).data("target")) || 0;
-                        const subscriptionLeft = parseInt($(this).data("left")) || 0;
-
-                        if (status === "completed") {
-                            // Call certificate API
-                            $.ajax({
-                                url: "https://eduroom.in/api/v1/internshipcertificate/certificate/send",
-                                method: "POST",
-                                contentType: "application/json",
-                                data: JSON.stringify({ userId, courseId }),
-                                success: function (resp) {
-                                    if (resp.success) {
-                                        Swal.fire("Success", resp.message || "Certificate has been sent to your registered email!", "success");
-                                    } else {
-                                        Swal.fire("Info", resp.message || "Certificate not available.", "info");
-                                    }
-                                },
-                                error: function () {
-                                    Swal.fire("Info", "You have not completed the business target assigned to this course. Complete it to get the certificate.", "info");
+                            // ✅ Card click actions
+                            $card.find(".card-body").on("click", function () {
+                                switch (overallStatus.toLowerCase()) {
+                                    case "in progress":
+                                        if (coursePreviews && coursePreviews.length > 0) {
+                                            const previewId = coursePreviews[0].id;
+                                            window.top.location.href = `/course-preview.html?courseId=${courseId}&previewId=${previewId}&userId=${userId}`;
+                                        } else {
+                                            Swal.fire("Preview not available", "No preview found for this course yet.", "info");
+                                        }
+                                        break;
+                                    case "completed":
+                                        Swal.fire("Completed!", message || "You have already completed this course.", "success");
+                                        break;
+                                    case "onhold":
+                                        window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviews[0].id}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
+                                        break;
+                                    case "terminated":
+                                        Swal.fire("Terminated", "This course has been terminated.", "error");
+                                        break;
                                 }
                             });
-                        }
-                        else if (status === "in progress" && subscriptionLeft < businessTarget) {
-                            Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
-                        }
-                        else if (status === "onhold") {
-                            Swal.fire("On Hold", "This course is on hold. Certificate not available.", "warning");
-                        }
-                        else if (status === "terminated") {
-                            Swal.fire("Terminated", "This course has been terminated. Certificate not available.", "error");
-                        }
-                        else {
-                            Swal.fire("Unavailable", "Certificate not available for this course.", "info");
-                        }
-                    });
 
-                    container.append($card);
-                });
-            } else {
-                container.html('<button onclick="window.location.href=\'domain-list.html\'" style="padding:10px 20px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">Start an Internship</button>');
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-            container.html("<p>Failed to load courses.</p>");
-        }
-    });
-});
-</script>
+                            // ✅ Certificate button click handler
+                            $card.find(".getCertificateBtn").on("click", function (e) {
+                                e.stopPropagation(); // prevent card click
+
+                                const status = $(this).data("status").toLowerCase();
+                                const courseId = $(this).data("courseid");
+                                const businessTarget = parseInt($(this).data("target")) || 0;
+                                const subscriptionLeft = parseInt($(this).data("left")) || 0;
+
+                                if (status === "completed") {
+                                    // Call certificate API
+                                    $.ajax({
+                                        url: "https://eduroom.in/api/v1/internshipcertificate/certificate/send",
+                                        method: "POST",
+                                        contentType: "application/json",
+                                        data: JSON.stringify({ userId, courseId }),
+                                        success: function (resp) {
+                                            if (resp.success) {
+                                                Swal.fire("Success", resp.message || "Certificate has been sent to your registered email!", "success");
+                                            } else {
+                                                Swal.fire("Info", resp.message || "Certificate not available.", "info");
+                                            }
+                                        },
+                                        error: function () {
+                                            Swal.fire("Info", "You have not completed the business target assigned to this course. Complete it to get the certificate.", "info");
+                                        }
+                                    });
+                                }
+                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
+                                    Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
+                                }
+                                else if (status === "onhold") {
+                                    Swal.fire("On Hold", "This course is on hold. Certificate not available.", "warning");
+                                }
+                                else if (status === "terminated") {
+                                    Swal.fire("Terminated", "This course has been terminated. Certificate not available.", "error");
+                                }
+                                else {
+                                    Swal.fire("Unavailable", "Certificate not available for this course.", "info");
+                                }
+                            });
+
+                            container.append($card);
+                        });
+                    } else {
+                        container.html('<button onclick="window.top.location.href=\'/domain-list.html\'" style="padding:10px 20px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">Start an Internship</button>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    container.html("<p>Failed to load courses.</p>");
+                }
+            });
+        });
+    </script>
 
     <script>
         // Logged-in user ID from sessionStorage
