@@ -68,25 +68,32 @@
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE DOMAIN</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
+                                    DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
@@ -99,7 +106,8 @@
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
@@ -192,16 +200,7 @@
             <div class="header-right ms-auto">
                 <div class="d-flex align-items-center">
 
-                    <!-- Full Screen Switcher -->
-                    <!-- <div class="nxl-h-item d-none d-sm-flex">
-                        <div class="full-screen-switcher">
-                            <a href="javascript:void(0);" class="nxl-head-link me-0"
-                                onclick="$('body').fullScreenHelper('toggle');">
-                                <i class="feather-maximize maximize"></i>
-                                <i class="feather-minimize minimize"></i>
-                            </a>
-                        </div>
-                    </div> -->
+
 
                     <!-- Dark/Light Theme Toggle -->
                     <div class="nxl-h-item dark-light-theme">
@@ -241,130 +240,148 @@
     <!--! ================================================================ !-->
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
-   <main class="nxl-container">
-    <div class="nxl-content">
-        <!-- [ page-header ] start -->
-        <div class="page-header">
-            <div class="page-header-left d-flex align-items-center">
-                <div class="page-header-title">
-                    <h5 class="m-b-10">DASHBOARD</h5>
+    <main class="nxl-container">
+        <div class="nxl-content">
+            <!-- [ page-header ] start -->
+            <div class="page-header">
+                <div class="page-header-left d-flex align-items-center">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">DASHBOARD</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">ADD COURSE PREVIEW</li>
+                    </ul>
                 </div>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">ADD COURSE PREVIEW</li>
-                </ul>
             </div>
-        </div>
-        <!-- [ page-header ] end -->
+            <!-- [ page-header ] end -->
 
-        <!-- [ Main Content ] start -->
-        <div class="main-content" style="margin-bottom: 5%;">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
+            <!-- [ Main Content ] start -->
+            <div class="main-content" style="margin-bottom: 5%;">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
 
-                            <!-- Domain Select -->
-                            <div class="mb-4">
-                                <label class="form-label">Select Domain <span class="text-danger">*</span></label>
-                                <select class="form-select" id="domainSelect" data-select2-selector="icon">
-                                    <option value="">Loading...</option>
-                                </select>
-                            </div>
-
-                            <!-- Course Select -->
-                            <div class="mb-4">
-                                <label class="form-label">Select Course <span class="text-danger">*</span></label>
-                                <select class="form-select" id="courseSelect" data-select2-selector="icon">
-                                    <option value="">Loading...</option>
-                                </select>
-                            </div>
-
-                            <!-- Course Preview Select -->
-                            <div class="mb-4">
-                                <label class="form-label">Select Course Preview <span class="text-danger">*</span></label>
-                                <select class="form-select" id="coursePreviewSelect">
-                                    <option value="">Select Course Preview</option>
-                                </select>
-                            </div>
-
-                            <!-- Title -->
-                            <div class="mb-4">
-                                <label class="form-label">Course Title <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="title" placeholder="Enter course title">
-                            </div>
-
-                            <!-- Heading -->
-                            <div class="mb-4">
-                                <label class="form-label">Heading <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="heading" placeholder="Enter heading">
-                            </div>
-
-                            <!-- YouTube Link -->
-                            <div class="mb-4">
-                                <label class="form-label">YouTube Link <span class="text-danger">*</span></label>
-                                <input type="url" class="form-control" id="youtubeLink" placeholder="Enter YouTube link">
-                            </div>
-
-                            <!-- Description -->
-                            <div class="mb-4">
-                                <label class="form-label">Description <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="description" rows="3" placeholder="Enter course description"></textarea>
-                            </div>
-
-                            <!-- Day Count, Language, Level, Duration -->
-                            <div class="row">
-                                <div class="col-lg-3 mb-4">
-                                    <label class="form-label">Day Count <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="dayCount" placeholder="Enter day count">
+                                <!-- Domain Select -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Domain <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="domainSelect" data-select2-selector="icon">
+                                        <option value="">Loading...</option>
+                                    </select>
                                 </div>
-                                <div class="col-lg-3 mb-4">
-                                    <label class="form-label">Language <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="language" placeholder="Enter language">
+
+                                <!-- Course Select -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Course <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="courseSelect" data-select2-selector="icon">
+                                        <option value="">Loading...</option>
+                                    </select>
                                 </div>
-                                <div class="col-lg-3 mb-4">
-                                    <label class="form-label">Level <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="level" placeholder="Beginner / Advanced">
+
+                                <!-- Course Preview Select -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Course Preview <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="coursePreviewSelect">
+                                        <option value="">Select Course Preview</option>
+                                    </select>
                                 </div>
-                                <div class="col-lg-3 mb-4">
-                                    <label class="form-label">Duration <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="duration" placeholder="e.g. 2 hours per day">
+
+                                <!-- Title -->
+                                <div class="mb-4">
+                                    <label class="form-label">Course Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="title" placeholder="Enter course title">
                                 </div>
+
+                                <!-- Heading -->
+                                <div class="mb-4">
+                                    <label class="form-label">Heading <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="heading" placeholder="Enter heading">
+                                </div>
+
+                                <!-- YouTube Link -->
+                                <div class="mb-4">
+                                    <label class="form-label">YouTube Link <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control" id="youtubeLink"
+                                        placeholder="Enter YouTube link">
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-4">
+                                    <label class="form-label">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="description" rows="3"
+                                        placeholder="Enter course description"></textarea>
+                                </div>
+
+                                <!-- Day Count, Language, Level, Duration -->
+                                <div class="row">
+                                    <div class="col-lg-3 mb-4">
+                                        <label class="form-label">Day Count <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="dayCount"
+                                            placeholder="Enter day count">
+                                    </div>
+                                    <div class="col-lg-3 mb-4">
+                                        <label class="form-label">Language <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="language"
+                                            placeholder="Enter language">
+                                    </div>
+                                    <div class="col-lg-3 mb-4">
+                                        <label class="form-label">Level <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="level"
+                                            placeholder="Beginner / Advanced">
+                                    </div>
+                                    <div class="col-lg-3 mb-4">
+                                        <label class="form-label">Duration <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="duration"
+                                            placeholder="e.g. 2 hours per day">
+                                    </div>
+                                </div>
+
+                                <!-- What You Will Learn -->
+                                <div class="mb-4">
+                                    <label class="form-label">What You Will Learn - Paragraph <span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="learnParagraph" rows="2"
+                                        placeholder="Enter introduction paragraph"></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point1"
+                                            placeholder="Point 1"></div>
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point2"
+                                            placeholder="Point 2"></div>
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point3"
+                                            placeholder="Point 3"></div>
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point4"
+                                            placeholder="Point 4"></div>
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point5"
+                                            placeholder="Point 5"></div>
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point6"
+                                            placeholder="Point 6"></div>
+                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point7"
+                                            placeholder="Point 7"></div>
+                                </div>
+
+                                <!-- Form Message -->
+                                <div id="formMessage" class="mb-3"></div>
+
+                                <!-- Submit & Delete Buttons -->
+                                <div class="d-flex justify-content-between mb-4">
+                                    <button type="button" class="btn btn-primary" id="submitBtn">Update Course
+                                        Preview</button>
+                                    <button type="button" class="btn btn-danger" id="deleteBtn">Delete Course
+                                        Preview</button>
+                                </div>
+
+
                             </div>
-
-                            <!-- What You Will Learn -->
-                            <div class="mb-4">
-                                <label class="form-label">What You Will Learn - Paragraph <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="learnParagraph" rows="2" placeholder="Enter introduction paragraph"></textarea>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point1" placeholder="Point 1"></div>
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point2" placeholder="Point 2"></div>
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point3" placeholder="Point 3"></div>
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point4" placeholder="Point 4"></div>
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point5" placeholder="Point 5"></div>
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point6" placeholder="Point 6"></div>
-                                <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point7" placeholder="Point 7"></div>
-                            </div>
-
-                            <!-- Form Message -->
-                            <div id="formMessage" class="mb-3"></div>
-
-                            <!-- Submit -->
-                            <div class="text-end">
-                                <button type="button" class="btn btn-primary" id="submitBtn">Update Course Preview</button>
-                            </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- [ Main Content ] end -->
         </div>
-        <!-- [ Main Content ] end -->
-    </div>
-    <!-- [ Footer ] start -->
-    <!-- [ Footer ] end -->
-</main>
+    </main>
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
@@ -483,22 +500,20 @@ $(document).ready(function () {
             type: "GET",
             success: function (res) {
                 console.log("GET preview:", res);
+                const data = res.data || res;
 
-                // Prefill Fix: data is at root, not res.data
-                const data = res.data || res; // Prefill Fix
+                $("#title").val(data.title || "");
+                $("#heading").val(data.heading || "");
+                $("#youtubeLink").val(data.youtubeLink || "");
+                $("#description").val(data.description || "");
+                $("#dayCount").val(data.dayCount || "");
+                $("#language").val(data.language || "");
+                $("#level").val(data.level || "");
+                $("#duration").val(data.duration || "");
 
-                $("#title").val(data.title || ""); // Prefill Fix
-                $("#heading").val(data.heading || ""); // Prefill Fix
-                $("#youtubeLink").val(data.youtubeLink || ""); // Prefill Fix
-                $("#description").val(data.description || ""); // Prefill Fix
-                $("#dayCount").val(data.dayCount || ""); // Prefill Fix
-                $("#language").val(data.language || ""); // Prefill Fix
-                $("#level").val(data.level || ""); // Prefill Fix
-                $("#duration").val(data.duration || ""); // Prefill Fix
-
-                $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || ""); // Prefill Fix
+                $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || "");
                 for (let i = 0; i < 7; i++) {
-                    $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets?.[i] || ""); // Prefill Fix
+                    $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets?.[i] || "");
                 }
             },
             error: function (xhr) {
@@ -507,13 +522,13 @@ $(document).ready(function () {
         });
     });
 
-    // Update Course Preview (PUT)
+    // Update Course Preview (PUT) with SweetAlert loader
     $("#submitBtn").click(function (e) {
         e.preventDefault();
 
         const previewId = $("#coursePreviewSelect").val();
         if (!previewId) {
-            alert("Please select a Course Preview to update");
+            Swal.fire("Error", "Please select a Course Preview to update", "error");
             return;
         }
 
@@ -542,6 +557,14 @@ $(document).ready(function () {
             }
         };
 
+        Swal.fire({
+            title: 'Updating...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         $.ajax({
             url: "https://eduroom.in/api/v1/coursepreview/course-preview/" + previewId,
             type: "PUT",
@@ -549,12 +572,57 @@ $(document).ready(function () {
             processData: false,
             data: JSON.stringify(payload),
             success: function (response) {
+                Swal.close();
                 console.log("PUT response:", response);
                 $("#formMessage").html('<span class="text-success">✅ Course preview updated successfully!</span>');
             },
             error: function (xhr) {
+                Swal.close();
                 let msg = xhr.responseText || "Error updating course preview. Try again!";
                 $("#formMessage").html('<span class="text-danger">❌ ' + msg + '</span>');
+            }
+        });
+    });
+
+    // Delete Course Preview with SweetAlert confirmation + loader
+    $("#deleteBtn").click(function () {
+        const previewId = $("#coursePreviewSelect").val();
+        if (!previewId) {
+            Swal.fire("Error", "Please select a Course Preview to delete.", "error");
+            return;
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Deleting...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
+                    type: "DELETE",
+                    success: function () {
+                        Swal.close();
+                        Swal.fire("Deleted!", "Course preview has been deleted.", "success");
+                        $("#coursePreviewSelect").val("").trigger("change");
+                        $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
+                    },
+                    error: function (xhr) {
+                        Swal.close();
+                        Swal.fire("Error", xhr.responseText || "Error deleting course preview", "error");
+                    }
+                });
             }
         });
     });
@@ -564,6 +632,7 @@ $(document).ready(function () {
 
 });
 </script>
+
 
 
 </body>
