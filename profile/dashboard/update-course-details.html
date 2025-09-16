@@ -68,25 +68,32 @@
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE DOMAIN</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
+                                    DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
@@ -99,7 +106,8 @@
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
@@ -847,12 +855,18 @@
                                 <!-- Form Message -->
                                 <div id="formMessage" class="mb-3"></div>
 
-                                <!-- Submit -->
-                                <div class="text-end">
-                                    <button type="button" class="btn btn-primary" id="submitBtn">Add Course
-                                        Details</button>
-                                </div>
+                                <!-- Submit & Delete Buttons -->
+                                <div class="d-flex justify-content-between">
+                                    <!-- Add on left -->
+                                    <button type="button" class="btn btn-primary" id="submitBtn">
+                                        Add Course Details
+                                    </button>
 
+                                    <!-- Delete on right -->
+                                    <button type="button" class="btn btn-danger" id="deleteCourseBtn">
+                                        Delete Course details
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -899,388 +913,308 @@
     <!--! END: Theme Customizer !-->
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
-    <script>
-        $(document).ready(function () {
-            let allCourses = [];
-            let allPreviews = [];
-            let selectedPreviewId = null;
-            let selectedDay = null;
-            let selectedSession = null;
+   <script>
+$(document).ready(function () {
+    let allCourses = [];
+    let allPreviews = [];
+    let selectedPreviewId = null;
+    let selectedDay = null;
+    let selectedSession = null;
 
-            const userId = "2"; // fixed userId
+    const userId = "2"; // fixed userId
 
-            // Character count update
-            function updateCharCount(el) {
-                let limit = parseInt($(el).data("limit"), 10) || 100;
-                let value = $(el).val();
-                if (value.length > limit) {
-                    $(el).val(value.substring(0, limit));
-                    value = $(el).val();
-                }
-                $(`.char-count[data-for="${$(el).attr("id")}"]`).text(value.length + "/" + limit + " chars");
+    // Character count update
+    function updateCharCount(el) {
+        let limit = parseInt($(el).data("limit"), 10) || 100;
+        let value = $(el).val();
+        if (value.length > limit) {
+            $(el).val(value.substring(0, limit));
+            value = $(el).val();
+        }
+        $(`.char-count[data-for="${$(el).attr("id")}"]`).text(value.length + "/" + limit + " chars");
+    }
+
+    $(document).on("input", ".char-limit", function () {
+        updateCharCount(this);
+    });
+
+    // Populate session dropdown
+    for (let i = 1; i <= 30; i++) {
+        $("#sessionSelect").append(`<option value="${i}">Session ${i}</option>`);
+    }
+
+    // Fetch domains
+    $.ajax({
+        url: "https://eduroom.in/api/v1/domain/list",
+        type: "GET",
+        success: function (res) {
+            let options = '<option value="">Select Domain</option>';
+            if (res.success && res.data.length > 0) {
+                res.data.forEach(domain => {
+                    let cleanName = (domain.name || "").replace(/^"(.*)"$/, "$1");
+                    options += `<option value="${domain.id}">${cleanName}</option>`;
+                });
             }
-
-            $(document).on("input", ".char-limit", function () {
-                updateCharCount(this);
-            });
-
-            // Populate session dropdown
-            for (let i = 1; i <= 30; i++) {
-                $("#sessionSelect").append(`<option value="${i}">Session ${i}</option>`);
-            }
-
-            // Fetch domains
-            $.ajax({
-                url: "https://eduroom.in/api/v1/domain/list",
-                type: "GET",
-                success: function (res) {
-                    let options = '<option value="">Select Domain</option>';
-                    if (res.success && res.data.length > 0) {
-                        res.data.forEach(domain => {
-                            let cleanName = (domain.name || "").replace(/^"(.*)"$/, "$1");
-                            options += `<option value="${domain.id}">${cleanName}</option>`;
-                        });
-                    }
-                    $("#domainSelect").html(options);
-                }
-            });
-
-            // Fetch courses
-            $.ajax({
-                url: "https://eduroom.in/api/v1/course/courses?userId=1",
-                type: "GET",
-                success: function (res) {
-                    console.log("user id in the session", userId)
-                    if (res.success && res.data.length > 0) {
-                        allCourses = res.data;
-                    }
-                }
-            });
-
-            // Fetch previews
-            $.ajax({
-                url: "https://eduroom.in/api/v1/coursepreview/course-previews",
-                type: "GET",
-                success: function (res) {
-                    if (res.success && res.data.length > 0) {
-                        allPreviews = res.data;
-                    }
-                }
-            });
-
-            // Domain change → load courses
-            $("#domainSelect").change(function () {
-                let domainId = $(this).val();
-                let options = '<option value="">Select Course</option>';
-                if (domainId) {
-                    let filtered = allCourses.filter(c => parseInt(c.domainId) === parseInt(domainId));
-                    filtered.forEach(course => {
-                        let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
-                        options += `<option value="${course.id}">${cleanName}</option>`;
-                    });
-                }
-                $("#courseSelect").html(options);
-                $("#coursePreviewSelect").html('<option value="">Select course first</option>');
-                $("#daySelect").html('<option value="">Select course preview first</option>');
-            });
-
-            // Course change → load previews
-            $("#courseSelect").change(function () {
-                let courseId = $(this).val();
-                let domainId = $("#domainSelect").val();
-                let options = '<option value="">Select Preview</option>';
-                if (courseId && domainId) {
-                    let filtered = allPreviews.filter(
-                        p => parseInt(p.courseId) === parseInt(courseId) && parseInt(p.domainId) === parseInt(domainId)
-                    );
-                    filtered.forEach(preview => {
-                        options += `<option value="${preview.coursePreviewId}" data-daycount="${preview.dayCount}">${preview.title}</option>`;
-                    });
-                }
-                $("#coursePreviewSelect").html(options);
-                $("#daySelect").html('<option value="">Select preview first</option>');
-            });
-
-            // Preview change → load days
-            $("#coursePreviewSelect").change(function () {
-                selectedPreviewId = $(this).val();
-                let dayCount = $(this).find(":selected").data("daycount") || 0;
-                let options = '<option value="">Select Day</option>';
-                for (let i = 1; i <= dayCount; i++) {
-                    options += `<option value="${i}">Day ${i}</option>`;
-                }
-                $("#daySelect").html(options);
-
-                // Reset day/session selection
-                selectedDay = null;
-                selectedSession = null;
-            });
-
-            //     // Day change → only store
-            // $("#daySelect").change(function () {
-            //     selectedDay = parseInt($(this).val(), 10);
-            //     console.log("Day selected:", selectedDay);
-            // });
-
-            // // Session change → store & fetch
-            // $("#sessionSelect").change(function () {
-            //     selectedSession = parseInt($(this).val(), 10);
-            //     console.log("Session selected:", selectedSession);
-
-            //     if (selectedPreviewId && selectedDay && selectedSession) {
-            //         const url = `https://eduroom.in/api/v1/coursedetail/course-preview/${selectedPreviewId}/details-by-session?day=${selectedDay}&sessionNumber=${selectedSession}`;
-            //         console.log("Fetching URL:", url);
-
-            //         $.ajax({
-            //             url: url,
-            //             type: "GET",
-            //             success: function (res) {
-            //                 console.log("Session Details Response:", res);
-
-            //                 if (res.success && res.data.length > 0) {
-            //                     const preview = res.data[0];
-
-            //                     // Fill fields
-            //                     $("#title").val(preview.title || "");
-            //                     $("#description").val(preview.description || "");
-            //                     $("#youtubeLink").val(preview.youtubeLink || "");
-
-            //                     if (preview.QuestionModels && preview.QuestionModels.length > 0) {
-            //                         preview.QuestionModels.forEach((q, idx) => {
-            //                             idx++;
-            //                             if (idx <= 10) {
-            //                                 $(`#questionText${idx}`).val(q.question || "");
-            //                                 $(`#optionA${idx}`).val(q.optionA || "");
-            //                                 $(`#optionB${idx}`).val(q.optionB || "");
-            //                                 $(`#optionC${idx}`).val(q.optionC || "");
-            //                                 $(`#optionD${idx}`).val(q.optionD || "");
-            //                                 $(`#answer${idx}`).val(q.answer || "");
-            //                                 $(`#keywords${idx}`).val(q.keywords || "");
-            //                                 $(`#caseStudy${idx}`).val(q.caseStudy || "");
-            //                             }
-            //                         });
-            //                     }
-            //                 }
-            //             },
-            //             error: function (xhr) {
-            //                 console.error("Error fetching session details:", xhr.responseText);
-            //             }
-            //         });
-            //     }
-            // });
-
-            // ================================
-            // API Fire Change: reusable function
-            function tryFetchSessionDetails() { // API Fire Change
-                if (selectedPreviewId && selectedDay && selectedSession) { // API Fire Change
-                    const url = `https://eduroom.in/api/v1/coursedetail/course-preview/${selectedPreviewId}/details-by-session?day=${selectedDay}&sessionNumber=${selectedSession}`; // API Fire Change
-                    console.log("Fetching URL:", url); // API Fire Change
-
-                    $.ajax({ // API Fire Change
-                        url: url, // API Fire Change
-                        type: "GET", // API Fire Change
-                        success: function (res) { // API Fire Change
-                            console.log("Session Details Response:", res); // API Fire Change
-
-                            if (res.success && res.data.length > 0) { // API Fire Change
-                                const preview = res.data[0]; // API Fire Change
-                                $("#title").val(preview.title || ""); // API Fire Change
-                                $("#description").val(preview.description || ""); // API Fire Change
-                                $("#youtubeLink").val(preview.youtubeLink || ""); // API Fire Change
-
-                                if (preview.QuestionModels && preview.QuestionModels.length > 0) { // QUESTION LOADING FIX
-    preview.QuestionModels.forEach((q, idx) => { // QUESTION LOADING FIX
-        let qIndex = idx + 1; // QUESTION LOADING FIX
-
-        if (qIndex === 1) { // QUESTION LOADING FIX → First question has no number in IDs
-            $("#questionText").val(q.question || ""); // QUESTION LOADING FIX
-            $("#optionA").val(q.optionA || ""); // QUESTION LOADING FIX
-            $("#optionB").val(q.optionB || ""); // QUESTION LOADING FIX
-            $("#optionC").val(q.optionC || ""); // QUESTION LOADING FIX
-            $("#optionD").val(q.optionD || ""); // QUESTION LOADING FIX
-            $("#answer").val(q.answer || ""); // QUESTION LOADING FIX
-            $("#keywords").val(q.keywords || ""); // QUESTION LOADING FIX
-            $("#caseStudy").val(q.caseStudy || ""); // QUESTION LOADING FIX
-        } else if (qIndex <= 10) { // QUESTION LOADING FIX → Remaining use numbered IDs
-            $(`#questionText${qIndex}`).val(q.question || ""); // QUESTION LOADING FIX
-            $(`#optionA${qIndex}`).val(q.optionA || ""); // QUESTION LOADING FIX
-            $(`#optionB${qIndex}`).val(q.optionB || ""); // QUESTION LOADING FIX
-            $(`#optionC${qIndex}`).val(q.optionC || ""); // QUESTION LOADING FIX
-            $(`#optionD${qIndex}`).val(q.optionD || ""); // QUESTION LOADING FIX
-            $(`#answer${qIndex}`).val(q.answer || ""); // QUESTION LOADING FIX
-            $(`#keywords${qIndex}`).val(q.keywords || ""); // QUESTION LOADING FIX
-            $(`#caseStudy${qIndex}`).val(q.caseStudy || ""); // QUESTION LOADING FIX
+            $("#domainSelect").html(options);
         }
     });
-}
 
-                            }
-                        },
-                        error: function (xhr) { // API Fire Change
-                            console.error("Error fetching session details:", xhr.responseText); // API Fire Change
-                        }
-                    });
-                } else { // API Fire Change
-                    console.log("Not ready yet:", { selectedPreviewId, selectedDay, selectedSession }); // API Fire Change
-                }
+    // Fetch courses
+    $.ajax({
+        url: "https://eduroom.in/api/v1/course/courses?userId=1",
+        type: "GET",
+        success: function (res) {
+            console.log("user id in the session", userId)
+            if (res.success && res.data.length > 0) {
+                allCourses = res.data;
             }
-            // ================================
+        }
+    });
 
-            // Day change → store & try API
-            $("#daySelect").change(function () {
-                selectedDay = parseInt($(this).val(), 10);
-                console.log("Day selected:", selectedDay);
-                // tryFetchSessionDetails(); // API Fire Change
+    // Fetch previews
+    $.ajax({
+        url: "https://eduroom.in/api/v1/coursepreview/course-previews",
+        type: "GET",
+        success: function (res) {
+            if (res.success && res.data.length > 0) {
+                allPreviews = res.data;
+            }
+        }
+    });
+
+    // Domain change → load courses
+    $("#domainSelect").change(function () {
+        let domainId = $(this).val();
+        let options = '<option value="">Select Course</option>';
+        if (domainId) {
+            let filtered = allCourses.filter(c => parseInt(c.domainId) === parseInt(domainId));
+            filtered.forEach(course => {
+                let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
+                options += `<option value="${course.id}">${cleanName}</option>`;
             });
+        }
+        $("#courseSelect").html(options);
+        $("#coursePreviewSelect").html('<option value="">Select course first</option>');
+        $("#daySelect").html('<option value="">Select course preview first</option>');
+    });
 
-            // Session change → works with native select & Select2
-            $("#sessionSelect").on("change select2:select", function () {
-                selectedSession = parseInt($(this).val(), 10);
-                console.log("Session selected:", selectedSession);
-                tryFetchSessionDetails();
+    // Course change → load previews
+    $("#courseSelect").change(function () {
+        let courseId = $(this).val();
+        let domainId = $("#domainSelect").val();
+        let options = '<option value="">Select Preview</option>';
+        if (courseId && domainId) {
+            let filtered = allPreviews.filter(
+                p => parseInt(p.courseId) === parseInt(courseId) && parseInt(p.domainId) === parseInt(domainId)
+            );
+            filtered.forEach(preview => {
+                options += `<option value="${preview.coursePreviewId}" data-daycount="${preview.dayCount}">${preview.title}</option>`;
             });
-            $(document).ready()
+        }
+        $("#coursePreviewSelect").html(options);
+        $("#daySelect").html('<option value="">Select preview first</option>');
+    });
 
-            console.log("jQuery version:", $.fn.jquery);
+    // Preview change → load days
+    $("#coursePreviewSelect").change(function () {
+        selectedPreviewId = $(this).val();
+        let dayCount = $(this).find(":selected").data("daycount") || 0;
+        let options = '<option value="">Select Day</option>';
+        for (let i = 1; i <= dayCount; i++) {
+            options += `<option value="${i}">Day ${i}</option>`;
+        }
+        $("#daySelect").html(options);
 
-            // Submit / Upsert
-            // $("#submitBtn").click(function () {
-            //     if (!selectedDay || !selectedSession) {
-            //         alert("Please select both day and session before submitting.");
-            //         return;
-            //     }
+        // Reset day/session selection
+        selectedDay = null;
+        selectedSession = null;
+    });
 
-            //     const payload = {
-            //         domainId: parseInt($("#domainSelect").val(), 10),
-            //         userId: userId,
-            //         courseId: parseInt($("#courseSelect").val(), 10),
-            //         coursePreviewId: parseInt($("#coursePreviewSelect").val(), 10),
-            //         days: [
-            //             {
-            //                 day: selectedDay,
-            //                 sessions: [
-            //                     {
-            //                         sessionNumber: selectedSession,
-            //                         title: $("#title").val().trim(),
-            //                         description: $("#description").val().trim(),
-            //                         youtubeLink: $("#youtubeLink").val().trim(),
-            //                         questions: [...Array(10).keys()].map(i => {
-            //                             let idx = i + 1;
-            //                             return {
-            //                                 question: $(`#questionText${idx}`).val().trim(),
-            //                                 optionA: $(`#optionA${idx}`).val().trim(),
-            //                                 optionB: $(`#optionB${idx}`).val().trim(),
-            //                                 optionC: $(`#optionC${idx}`).val().trim(),
-            //                                 optionD: $(`#optionD${idx}`).val().trim(),
-            //                                 answer: $(`#answer${idx}`).val(),
-            //                                 keywords: $(`#keywords${idx}`).val().trim(),
-            //                                 caseStudy: $(`#caseStudy${idx}`).val().trim()
-            //                             };
-            //                         })
-            //                     }
-            //                 ]
-            //             }
-            //         ]
-            //     };
+    // ================================
+    // API Fire Change: reusable function
+    function tryFetchSessionDetails() {
+        if (selectedPreviewId && selectedDay && selectedSession) {
+            const url = `https://eduroom.in/api/v1/coursedetail/course-preview/${selectedPreviewId}/details-by-session?day=${selectedDay}&sessionNumber=${selectedSession}`;
+            console.log("Fetching URL:", url);
 
-            //     console.log("Final Payload:", payload);
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (res) {
+                    console.log("Session Details Response:", res);
+                    if (res.success && res.data.length > 0) {
+                        const preview = res.data[0];
+                        $("#title").val(preview.title || "");
+                        $("#description").val(preview.description || "");
+                        $("#youtubeLink").val(preview.youtubeLink || "");
 
-            //     $.ajax({
-            //         url: "https://eduroom.in/api/v1/coursedetail/course-detail",
-            //         type: "POST",
-            //         contentType: "application/json",
-            //         data: JSON.stringify(payload),
-            //         success: function () {
-            //             $("#formMessage").html('<span class="text-success">✅ Course saved successfully!</span>');
-            //         },
-            //         error: function (xhr) {
-            //             $("#formMessage").html('<span class="text-danger">❌ ' + (xhr.responseText || "Error submitting") + '</span>');
-            //         }
-            //     });
-            // });
+                        if (preview.QuestionModels && preview.QuestionModels.length > 0) {
+                            preview.QuestionModels.forEach((q, idx) => {
+                                let qIndex = idx + 1;
+                                if (qIndex === 1) {
+                                    $("#questionText").val(q.question || "");
+                                    $("#optionA").val(q.optionA || "");
+                                    $("#optionB").val(q.optionB || "");
+                                    $("#optionC").val(q.optionC || "");
+                                    $("#optionD").val(q.optionD || "");
+                                    $("#answer").val(q.answer || "");
+                                    $("#keywords").val(q.keywords || "");
+                                    $("#caseStudy").val(q.caseStudy || "");
+                                } else if (qIndex <= 10) {
+                                    $(`#questionText${qIndex}`).val(q.question || "");
+                                    $(`#optionA${qIndex}`).val(q.optionA || "");
+                                    $(`#optionB${qIndex}`).val(q.optionB || "");
+                                    $(`#optionC${qIndex}`).val(q.optionC || "");
+                                    $(`#optionD${qIndex}`).val(q.optionD || "");
+                                    $(`#answer${qIndex}`).val(q.answer || "");
+                                    $(`#keywords${qIndex}`).val(q.keywords || "");
+                                    $(`#caseStudy${qIndex}`).val(q.caseStudy || "");
+                                }
+                            });
+                        }
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error fetching session details:", xhr.responseText);
+                }
+            });
+        } else {
+            console.log("Not ready yet:", { selectedPreviewId, selectedDay, selectedSession });
+        }
+    }
+    // ================================
 
-            // Submit / Upsert
-// Submit / Upsert
-$("#submitBtn").click(function () {
-    if (!selectedDay || !selectedSession) {
-        alert("Please select both day and session before submitting.");
+    // Day change → store & try API
+    $("#daySelect").change(function () {
+        selectedDay = parseInt($(this).val(), 10);
+        console.log("Day selected:", selectedDay);
+    });
+
+    // Session change → works with native select & Select2
+    $("#sessionSelect").on("change select2:select", function () {
+        selectedSession = parseInt($(this).val(), 10);
+        console.log("Session selected:", selectedSession);
+        tryFetchSessionDetails();
+    });
+
+    console.log("jQuery version:", $.fn.jquery);
+
+    // Submit / Upsert
+    $("#submitBtn").click(function () {
+        if (!selectedDay || !selectedSession) {
+            alert("Please select both day and session before submitting.");
+            return;
+        }
+
+        let questions = [];
+
+        let qText1 = $("#questionText").val();
+        if (qText1 && qText1.trim() !== "") {
+            questions.push({
+                question: qText1.trim(),
+                optionA: ($("#optionA").val() || "").trim(),
+                optionB: ($("#optionB").val() || "").trim(),
+                optionC: ($("#optionC").val() || "").trim(),
+                optionD: ($("#optionD").val() || "").trim(),
+                answer: $("#answer").val() || "",
+                keywords: ($("#keywords").val() || "").trim(),
+                caseStudy: ($("#caseStudy").val() || "").trim()
+            });
+        }
+
+        for (let i = 2; i <= 10; i++) {
+            let qText = $(`#questionText${i}`).val();
+            if (qText && qText.trim() !== "") {
+                questions.push({
+                    question: qText.trim(),
+                    optionA: ($(`#optionA${i}`).val() || "").trim(),
+                    optionB: ($(`#optionB${i}`).val() || "").trim(),
+                    optionC: ($(`#optionC${i}`).val() || "").trim(),
+                    optionD: ($(`#optionD${i}`).val() || "").trim(),
+                    answer: $(`#answer${i}`).val() || "",
+                    keywords: ($(`#keywords${i}`).val() || "").trim(),
+                    caseStudy: ($(`#caseStudy${i}`).val() || "").trim()
+                });
+            }
+        }
+
+        const payload = {
+            domainId: parseInt($("#domainSelect").val(), 10),
+            userId: userId,
+            courseId: parseInt($("#courseSelect").val(), 10),
+            coursePreviewId: parseInt($("#coursePreviewSelect").val(), 10),
+            days: [
+                {
+                    day: selectedDay,
+                    sessions: [
+                        {
+                            sessionNumber: selectedSession,
+                            title: $("#title").val().trim(),
+                            description: $("#description").val().trim(),
+                            youtubeLink: $("#youtubeLink").val().trim(),
+                            questions: questions
+                        }
+                    ]
+                }
+            ]
+        };
+
+        console.log("Final Payload:", payload);
+
+        $.ajax({
+            url: "https://eduroom.in/api/v1/coursedetail/course-detail",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(payload),
+            success: function () {
+                $("#formMessage").html('<span class="text-success">✅ Course saved successfully!</span>');
+            },
+            error: function (xhr) {
+                $("#formMessage").html('<span class="text-danger">❌ ' + (xhr.responseText || "Error submitting") + '</span>');
+            }
+        });
+    });
+
+    // DELETE COURSE
+$("#deleteCourseBtn").click(function () {
+    const courseDetailId = parseInt($("#courseSelect").val(), 10); // or use the actual courseDetailId if available
+    if (!courseDetailId) {
+        Swal.fire('Error', 'Please select a course to delete!', 'error');
         return;
     }
 
-    let questions = []; // QUESTION LOADING FIX
-
-    // Handle Question 1 (un-numbered IDs) // QUESTION LOADING FIX
-    let qText1 = $("#questionText").val(); // QUESTION LOADING FIX
-    if (qText1 && qText1.trim() !== "") { // QUESTION LOADING FIX
-        questions.push({ // QUESTION LOADING FIX
-            question: qText1.trim(), // QUESTION LOADING FIX
-            optionA: ($("#optionA").val() || "").trim(), // QUESTION LOADING FIX
-            optionB: ($("#optionB").val() || "").trim(), // QUESTION LOADING FIX
-            optionC: ($("#optionC").val() || "").trim(), // QUESTION LOADING FIX
-            optionD: ($("#optionD").val() || "").trim(), // QUESTION LOADING FIX
-            answer: $("#answer").val() || "", // QUESTION LOADING FIX
-            keywords: ($("#keywords").val() || "").trim(), // QUESTION LOADING FIX
-            caseStudy: ($("#caseStudy").val() || "").trim() // QUESTION LOADING FIX
-        });
-    }
-
-    // Handle Questions 2–10 (numbered IDs) // QUESTION LOADING FIX
-    for (let i = 2; i <= 10; i++) { // QUESTION LOADING FIX
-        let qText = $(`#questionText${i}`).val(); // QUESTION LOADING FIX
-        if (qText && qText.trim() !== "") { // QUESTION LOADING FIX
-            questions.push({ // QUESTION LOADING FIX
-                question: qText.trim(), // QUESTION LOADING FIX
-                optionA: ($(`#optionA${i}`).val() || "").trim(), // QUESTION LOADING FIX
-                optionB: ($(`#optionB${i}`).val() || "").trim(), // QUESTION LOADING FIX
-                optionC: ($(`#optionC${i}`).val() || "").trim(), // QUESTION LOADING FIX
-                optionD: ($(`#optionD${i}`).val() || "").trim(), // QUESTION LOADING FIX
-                answer: $(`#answer${i}`).val() || "", // QUESTION LOADING FIX
-                keywords: ($(`#keywords${i}`).val() || "").trim(), // QUESTION LOADING FIX
-                caseStudy: ($(`#caseStudy${i}`).val() || "").trim() // QUESTION LOADING FIX
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This will delete the course permanently!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/delete/${courseDetailId}`, // URL param still present
+                type: "DELETE",
+                contentType: "application/json",
+                data: JSON.stringify({ courseDetailId }), // <-- send body for backend
+                success: function () {
+                    Swal.fire('Deleted!', 'Course has been deleted.', 'success');
+                    $("#courseSelect").val('');
+                    $("#coursePreviewSelect").html('<option value="">Select course first</option>');
+                    $("#daySelect").html('<option value="">Select course preview first</option>');
+                    $("#formMessage").html('');
+                },
+                error: function (xhr) {
+                    Swal.fire('Error', xhr.responseText || 'Error deleting course', 'error');
+                }
             });
-        }
-    }
-
-    const payload = { // QUESTION LOADING FIX
-        domainId: parseInt($("#domainSelect").val(), 10),
-        userId: userId,
-        courseId: parseInt($("#courseSelect").val(), 10),
-        coursePreviewId: parseInt($("#coursePreviewSelect").val(), 10),
-        days: [
-            {
-                day: selectedDay,
-                sessions: [
-                    {
-                        sessionNumber: selectedSession,
-                        title: $("#title").val().trim(),
-                        description: $("#description").val().trim(),
-                        youtubeLink: $("#youtubeLink").val().trim(),
-                        questions: questions // QUESTION LOADING FIX
-                    }
-                ]
-            }
-        ]
-    };
-
-    console.log("Final Payload:", payload); // QUESTION LOADING FIX
-
-    $.ajax({
-        url: "https://eduroom.in/api/v1/coursedetail/course-detail",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(payload),
-        success: function () {
-            $("#formMessage").html('<span class="text-success">✅ Course saved successfully!</span>');
-        },
-        error: function (xhr) {
-            $("#formMessage").html('<span class="text-danger">❌ ' + (xhr.responseText || "Error submitting") + '</span>');
         }
     });
 });
+});
+</script>
 
-
-        });
-    </script>
 
 
 </body>
