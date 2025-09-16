@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2-theme.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/daterangepicker.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <!--! END: Vendors CSS-->
     <!--! BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
@@ -68,25 +69,32 @@
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE DOMAIN</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
+                                    DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
@@ -99,7 +107,8 @@
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
@@ -242,85 +251,94 @@
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
     <main class="nxl-container">
-    <div class="nxl-content">
-        <div class="page-header">
-            <div class="page-header-left d-flex align-items-center">
-                <div class="page-header-title">
-                    <h5 class="m-b-10">DASHBOARD</h5>
+        <div class="nxl-content">
+            <div class="page-header">
+                <div class="page-header-left d-flex align-items-center">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">DASHBOARD</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">UPDATE DOMAIN</li>
+                    </ul>
                 </div>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">UPDATE DOMAIN</li>
-                </ul>
             </div>
-        </div>
 
-        <div class="main-content" style="margin-bottom: 5%;">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
+            <div class="main-content" style="margin-bottom: 5%;">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
 
-                            <!-- Domain Selector -->
-                            <div class="mb-4">
-                                <label class="form-label">Select Domain to Update</label>
-                                <select id="domainSelect" class="form-control">
-                                    <option value="">-- Select Domain --</option>
-                                </select>
-                            </div>
-
-                            <!-- Hidden ID -->
-                            <input type="hidden" id="domainId">
-
-                            <!-- Category Name -->
-                            <div class="mb-4">
-                                <label class="form-label">Domain Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="domainName" placeholder="Enter category name">
-                            </div>
-
-                            <!-- Description -->
-                            <div class="mb-4">
-                                <label class="form-label">Description</label>
-                                <textarea class="form-control" id="domainDescription" rows="3"
-                                    placeholder="Enter description"></textarea>
-                            </div>
-
-                            <!-- Image Upload -->
-                            <div class="mb-4">
-                                <label class="form-label">Upload Image</label>
-                                <div id="uploadBox"
-                                    class="border border-2 border-dashed rounded text-center p-5 cursor-pointer"
-                                    style="border-color: #ccc;">
-                                    <p class="mb-2">Drag & Drop image here or click below to select</p>
-                                    <input type="file" id="imageInput" class="form-control mt-2" accept="image/*">
+                                <!-- Domain Selector -->
+                                <div class="mb-4">
+                                    <label class="form-label">Select Domain to Update</label>
+                                    <select id="domainSelect" class="form-control">
+                                        <option value="">-- Select Domain --</option>
+                                    </select>
                                 </div>
 
-                                <!-- Preview Box -->
-                                <div id="previewBox" class="text-center mt-3" style="display:none;">
-                                    <img id="previewImage" src="" class="img-fluid rounded mb-3"
-                                        style="max-height: 200px; object-fit: contain;" alt="Preview">
-                                    <div>
-                                        <button type="button" class="btn btn-outline-danger btn-sm" id="removeImage">
-                                            Remove Image
-                                        </button>
+                                <!-- Hidden ID -->
+                                <input type="hidden" id="domainId">
+
+                                <!-- Category Name -->
+                                <div class="mb-4">
+                                    <label class="form-label">Domain Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="domainName"
+                                        placeholder="Enter category name">
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" id="domainDescription" rows="3"
+                                        placeholder="Enter description"></textarea>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="mb-4">
+                                    <label class="form-label">Upload Image</label>
+                                    <div id="uploadBox"
+                                        class="border border-2 border-dashed rounded text-center p-5 cursor-pointer"
+                                        style="border-color: #ccc;">
+                                        <p class="mb-2">Drag & Drop image here or click below to select</p>
+                                        <input type="file" id="imageInput" class="form-control mt-2" accept="image/*">
+                                    </div>
+
+                                    <!-- Preview Box -->
+                                    <div id="previewBox" class="text-center mt-3" style="display:none;">
+                                        <img id="previewImage" src="" class="img-fluid rounded mb-3"
+                                            style="max-height: 200px; object-fit: contain;" alt="Preview">
+                                        <div>
+                                            <button type="button" class="btn btn-outline-danger btn-sm"
+                                                id="removeImage">
+                                                Remove Image
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <!-- Form Message -->
+                                <div id="formMessage" class="mb-3"></div>
+
+                                <!-- Submit & Delete Buttons -->
+                                <!-- Submit & Delete Buttons -->
+                                <div class="d-flex justify-content-between">
+                                    <!-- Update on left -->
+                                    <button type="button" class="btn btn-primary" id="submitBtn">Update Domain</button>
+
+                                    <!-- Delete on right -->
+                                    <button type="button" class="btn btn-danger" id="deleteBtn">Delete Domain</button>
+                                </div>
+
+
                             </div>
-
-                            <!-- Form Message -->
-                            <div id="formMessage" class="mb-3"></div>
-
-                            <!-- Submit -->
-                            <div class="text-end">
-                                <button type="button" class="btn btn-primary" id="submitBtn">Update Domain</button>
-                            </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
@@ -340,6 +358,7 @@
     <script src="./../assets/vendors/js/quill.min.js"></script>
     <script src="./../assets/vendors/js/select2.min.js"></script>
     <script src="./../assets/vendors/js/select2-active.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--! END: Vendors JS !-->
     <!--! BEGIN: Apps Init  !-->
     <script src="./../assets/js/common-init.min.js"></script>
@@ -357,111 +376,177 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-$(document).ready(function () {
-    // 1️⃣ Fetch domain list and populate dropdown
-    $.get("https://eduroom.in/api/v1/domain/list", function (res) {
-        if (res.success && res.data.length > 0) {
-            res.data.forEach(function (d) {
-                $("#domainSelect").append(
-                    `<option value="${d.id}">${d.name}</option>`
-                );
-            });
-        }
-    });
-
-    // 2️⃣ When domain selected → populate form
-    $("#domainSelect").change(function () {
-        const domainId = $(this).val();
-        if (!domainId) return;
-
+    $(document).ready(function () {
+        // 1️⃣ Fetch domain list and populate dropdown
         $.get("https://eduroom.in/api/v1/domain/list", function (res) {
-            if (res.success) {
-                const domain = res.data.find(d => d.id === domainId);
-                if (domain) {
-                    $("#domainId").val(domain.id);
-                    $("#domainName").val(domain.name.replace(/"/g, "")); // remove quotes if any
-                    $("#domainDescription").val(domain.description.replace(/"/g, ""));
+            if (res.success && res.data.length > 0) {
+                res.data.forEach(function (d) {
+                    $("#domainSelect").append(
+                        `<option value="${d.id}">${d.name}</option>`
+                    );
+                });
+            }
+        });
 
-                    if (domain.image) {
-                        $("#previewImage").attr("src", domain.image);
-                        $("#uploadBox").hide();
-                        $("#previewBox").show();
-                    } else {
-                        $("#previewBox").hide();
-                        $("#uploadBox").show();
+        // 2️⃣ When domain selected → populate form
+        $("#domainSelect").change(function () {
+            const domainId = $(this).val();
+            if (!domainId) return;
+
+            $.get("https://eduroom.in/api/v1/domain/list", function (res) {
+                if (res.success) {
+                    const domain = res.data.find(d => d.id === domainId);
+                    if (domain) {
+                        $("#domainId").val(domain.id);
+                        $("#domainName").val(domain.name.replace(/"/g, "")); 
+                        $("#domainDescription").val(domain.description.replace(/"/g, ""));
+
+                        if (domain.image) {
+                            $("#previewImage").attr("src", domain.image);
+                            $("#uploadBox").hide();
+                            $("#previewBox").show();
+                        } else {
+                            $("#previewBox").hide();
+                            $("#uploadBox").show();
+                        }
                     }
                 }
+            });
+        });
+
+        // ✅ File preview
+        function previewFile(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $("#uploadBox").hide();
+                $("#previewImage").attr("src", e.target.result);
+                $("#previewBox").fadeIn();
             }
+            reader.readAsDataURL(file);
+        }
+
+        $("#imageInput").change(function () {
+            const file = this.files[0];
+            if (file) previewFile(file);
+        });
+
+        $("#removeImage").click(function () {
+            $("#imageInput").val("");
+            $("#previewBox").hide();
+            $("#previewImage").attr("src", "");
+            $("#uploadBox").fadeIn();
+        });
+
+        // 3️⃣ Update Domain call
+        $("#submitBtn").click(function (e) {
+            e.preventDefault();
+
+            const domainId = $("#domainId").val();
+            const domainName = $("#domainName").val().trim();
+            const description = $("#domainDescription").val().trim();
+            const imageFile = $("#imageInput")[0].files[0];
+
+            if (!domainId) {
+                Swal.fire("⚠ Warning", "Please select a domain first.", "warning");
+                return;
+            }
+
+            if (!domainName) {
+                Swal.fire("⚠ Warning", "Please enter a domain name.", "warning");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("name", domainName);
+            formData.append("description", description || "");
+            if (imageFile) {
+                formData.append("image", imageFile);
+            }
+
+            Swal.fire({
+                title: "Updating...",
+                text: "Please wait while the domain is updated.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/domain/update/${domainId}`,
+                type: "PUT",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    Swal.fire("✅ Success", "Domain updated successfully!", "success");
+                    console.log("Update Response:", res);
+                },
+                error: function (xhr) {
+                    Swal.fire("❌ Error", "Error updating domain: " + xhr.responseText, "error");
+                    console.error("Error:", xhr);
+                }
+            });
+        });
+
+        // 4️⃣ Delete Domain call
+        $("#deleteBtn").click(function (e) {
+            e.preventDefault();
+
+            const domainId = $("#domainId").val();
+            if (!domainId) {
+                Swal.fire("⚠ Warning", "Please select a domain first.", "warning");
+                return;
+            }
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action will delete the domain permanently.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleting...",
+                        text: "Please wait while we delete the domain.",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    $.ajax({
+                        url: `https://eduroom.in/api/v1/domain/delete/${domainId}`,
+                        type: "DELETE",
+                        success: function (res) {
+                            Swal.fire("🗑 Deleted!", "The domain has been deleted successfully.", "success");
+
+                            // Reset form after deletion
+                            $("#domainId").val("");
+                            $("#domainName").val("");
+                            $("#domainDescription").val("");
+                            $("#imageInput").val("");
+                            $("#previewBox").hide();
+                            $("#uploadBox").show();
+
+                            // Remove deleted option from dropdown
+                            $(`#domainSelect option[value='${domainId}']`).remove();
+                            $("#domainSelect").val("");
+                        },
+                        error: function (xhr) {
+                            Swal.fire(" Error", "Could not delete domain: " + xhr.responseText, "error");
+                            console.error("Delete Error:", xhr);
+                        }
+                    });
+                }
+            });
         });
     });
-
-    // ✅ File preview
-    function previewFile(file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            $("#uploadBox").hide();
-            $("#previewImage").attr("src", e.target.result);
-            $("#previewBox").fadeIn();
-        }
-        reader.readAsDataURL(file);
-    }
-
-    $("#imageInput").change(function () {
-        const file = this.files[0];
-        if (file) previewFile(file);
-    });
-
-    $("#removeImage").click(function () {
-        $("#imageInput").val("");
-        $("#previewBox").hide();
-        $("#previewImage").attr("src", "");
-        $("#uploadBox").fadeIn();
-    });
-
-    // 3️⃣ Update Domain call
-    $("#submitBtn").click(function (e) {
-        e.preventDefault();
-
-        const domainId = $("#domainId").val();
-        const domainName = $("#domainName").val().trim();
-        const description = $("#domainDescription").val().trim();
-        const imageFile = $("#imageInput")[0].files[0];
-
-        if (!domainId) {
-            $("#formMessage").html('<span class="text-danger">⚠ Please select a domain first.</span>');
-            return;
-        }
-
-        if (!domainName) {
-            $("#formMessage").html('<span class="text-danger">⚠ Please enter a domain name.</span>');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("name", domainName);
-        formData.append("description", description || "");
-        if (imageFile) {
-            formData.append("image", imageFile);
-        }
-
-        $.ajax({
-            url: `https://eduroom.in/api/v1/domain/update/${domainId}`,
-            type: "PUT",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (res) {
-                $("#formMessage").html('<span class="text-success">✅ Domain updated successfully!</span>');
-                console.log("Update Response:", res);
-            },
-            error: function (xhr) {
-                $("#formMessage").html('<span class="text-danger">❌ Error updating domain: ' + xhr.responseText + '</span>');
-                console.error("Error:", xhr);
-            }
-        });
-    });
-});
 </script>
+
 
 </body>
 
