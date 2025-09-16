@@ -241,7 +241,7 @@
     <!--! ================================================================ !-->
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
- <main class="nxl-container">
+<main class="nxl-container">
   <div class="nxl-content">
     <!-- [ page-header ] start -->
     <div class="page-header">
@@ -332,9 +332,13 @@
               <!-- Message -->
               <div id="formMessage" class="mb-3"></div>
 
-              <!-- Submit -->
-              <div class="text-end">
+              <!-- Submit & Delete -->
+              <div class="d-flex justify-content-between">
+                <!-- Update on left -->
                 <button type="button" class="btn btn-primary" id="submitBtn">Update Course</button>
+
+                <!-- Delete on right -->
+                <button type="button" class="btn btn-danger" id="deleteBtn">Delete Course</button>
               </div>
 
             </div>
@@ -345,6 +349,7 @@
     <!-- [ Main Content ] end -->
   </div>
 </main>
+
 
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
@@ -477,6 +482,15 @@ $(document).ready(function () {
       formData.append("img", imageFile);
     }
 
+    // Loader before request
+    Swal.fire({
+      title: "Updating Course...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     $.ajax({
       url: `https://eduroom.in/api/v1/course/update/${courseId}`,
       type: "PUT",
@@ -484,20 +498,78 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: function (res) {
+        Swal.close();
         if (res.success) {
-          $("#formMessage").html(`<div class="alert alert-success">Course updated successfully!</div>`);
+          Swal.fire("Updated!", "Course updated successfully!", "success");
         } else {
-          $("#formMessage").html(`<div class="alert alert-danger">Update failed: ${res.error || "Unknown error"}</div>`);
+          Swal.fire("Failed!", res.error || "Update failed", "error");
         }
       },
       error: function (xhr) {
-        console.log("Error Response:", xhr.responseText);
-        $("#formMessage").html(`<div class="alert alert-danger">Server error: ${xhr.status} ${xhr.statusText}</div>`);
+        Swal.close();
+        Swal.fire("Error!", `Server error: ${xhr.status} ${xhr.statusText}`, "error");
+      }
+    });
+  });
+
+  // 🔹 Delete Course
+  $("#deleteBtn").click(function () {
+    let courseId = $("#courseId").val();
+    if (!courseId) {
+      Swal.fire("Warning", "Please select a course first.", "warning");
+      return;
+    }
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This will permanently delete the course.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleting...",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        $.ajax({
+          url: `https://eduroom.in/api/v1/course/delete/${courseId}`,
+          type: "DELETE",
+          success: function (res) {
+            Swal.close();
+            if (res.success) {
+              Swal.fire("Deleted!", "Course deleted successfully!", "success");
+              $("#courseSelect option[value='" + courseId + "']").remove();
+              $("#courseSelect").val("");
+              $("#courseId").val("");
+              $("#courseName").val("");
+              $("#description").val("");
+              $("#businessTarget").val("");
+              $("#certificateCount").val("");
+              $("#totalDays").val("");
+              $("#duration").val("");
+              $("#previewBox").hide();
+              $("#uploadBox").show();
+            } else {
+              Swal.fire("Failed!", res.error || "Delete failed", "error");
+            }
+          },
+          error: function (xhr) {
+            Swal.close();
+            Swal.fire("Error!", `Server error: ${xhr.status} ${xhr.statusText}`, "error");
+          }
+        });
       }
     });
   });
 });
 </script>
+
 
 
 </body>
