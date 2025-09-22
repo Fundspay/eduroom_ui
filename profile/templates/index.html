@@ -398,22 +398,6 @@
             const userId = sessionStorage.getItem("user_id");
             // const userId = 2;
 
-            if (!userId) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Login Required",
-                    text: "You need to login to access this page.",
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    allowEnterKey: false,
-                    confirmButtonText: "Go to Login",
-                    confirmButtonColor: "#3085d6"
-                }).then(() => {
-                    window.top.location.href = "/login.html";
-                });
-                return;
-            }
-
             console.log("user_id:", userId);
 
             $.ajax({
