@@ -130,25 +130,32 @@
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE DOMAIN</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
+                                    DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE COURSE</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
+                                    COURSE</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
@@ -161,7 +168,8 @@
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
                             </li>
 
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
@@ -769,10 +777,10 @@
             let filterRow = "<tr class='filters'>";
             columnKeys.forEach((key) => {
                 filterRow += `<th>
-            <select class="column-filter form-select form-select-sm" data-field="${key}">
-                <option value="">All</option>
-            </select>
-        </th>`;
+                    <select class="column-filter form-select form-select-sm" data-field="${key}">
+                        <option value="">All</option>
+                    </select>
+                </th>`;
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
@@ -812,19 +820,20 @@
 
         function makeDropdownCell(field, selectedValue, options, isDefault = true, specialDropdown = false) {
             const formatLabel = (val) => {
-                if (!val) return "";
+                if (val === null || val === undefined) return "";
+                val = String(val);
                 return val.charAt(0).toUpperCase() + val.slice(1);
             };
 
             let displaySelected = formatLabel(selectedValue);
 
             let html = `<td data-field="${field}" class="${specialDropdown ? 'special-dropdown' : ''}">
-            <span style="font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select2" style="display:none;">`;
+                <span style="font-weight:bold;">${displaySelected}</span>
+                <select class="form-control select2" style="display:none;">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
-                let sel = (opt.toLowerCase() === (selectedValue || "").toLowerCase()) ? "selected" : "";
+                let sel = (String(opt).toLowerCase() === String(selectedValue || "").toLowerCase()) ? "selected" : "";
                 html += `<option value="${opt}" ${sel}>${formatLabel(opt)}</option>`;
             });
 
@@ -848,13 +857,12 @@
             $("#leadsTable td select").off("change").on("change", function () {
                 let td = $(this).closest("td");
                 let tr = $(this).closest("tr");
-                let id = tr.data("id"); // userId
+                let id = tr.data("id");
                 let field = td.data("field");
 
                 let internshipStatus = td.closest("tr").find('td[data-field="internshipAction"] select').val();
                 let managerName = td.closest("tr").find('td[data-field="teamManager"] select').val();
 
-                // Find managerId from managerList
                 let managerObj = managerList.find(m => m.name === managerName);
                 let managerId = managerObj ? managerObj.id : null;
 
@@ -877,7 +885,6 @@
                     }
                 });
 
-                // Update UI
                 td.find("span").text($(this).val());
                 td.find("select").hide();
                 td.find("span").show();
