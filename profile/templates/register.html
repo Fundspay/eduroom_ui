@@ -48,10 +48,10 @@
                             <div class="card stretch stretch-full shadow-sm">
                                 <div class="card-body">
                                     <form id="register-form">
-                                        <h4 class="mb-4" style="color:rgb(49, 215, 204);">Create Your EDUROOM Account
-                                        </h4>
+                                        <h3 class="mb-4" style="color:rgb(49, 215, 204); text-align: center;">Create Your EDUROOM Account
+                                        </h3>
 
-                                        <div class="tp-register-progress mb-40">
+                                        <!-- <div class="tp-register-progress mb-40">
                                             <div class="progress-steps">
                                                 <div class="step active" data-step="1">
                                                     <span>1</span>
@@ -82,10 +82,10 @@
                                                     <p>Declaration & Consent</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- First / Last Name -->
-                                        <div class="row" style="margin-top: 2%;">
+                                        <div class="row" style="margin-top: 5%;">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">First Name <span
                                                         class="text-danger">*</span></label>
@@ -551,7 +551,7 @@
 
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully before submitting!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -561,7 +561,7 @@
                     if (result.isConfirmed) {
                         Swal.fire({
                             title: "Processing...",
-                            text: "Please wait while we save your details.",
+                            text: "Please wait while we save your details...",
                             allowOutsideClick: false,
                             didOpen: () => Swal.showLoading()
                         });
@@ -573,8 +573,8 @@
                             data: JSON.stringify(payload),
                             success: function (res) {
                                 sessionStorage.setItem("userId", res.userId || '');
-                                Swal.fire("Success", "Details saved successfully!", "success").then(() => {
-                                    window.top.location.href = "/register2.html";
+                                Swal.fire("Success", "Registered successfully! Please login to continue.", "success").then(() => {
+                                    window.top.location.href = "/login.html";
                                 });
                             },
                             error: function (xhr) {
