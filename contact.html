@@ -76,7 +76,7 @@
                                 </nav>
                             </div><!-- /main-menu -->
                         </div><!-- /col -->
-                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                        <!-- <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
                             <div class="header-right d-flex align-items-center justify-content-end">
                                 <ul class="header-login mr-15 d-none d-sm-block">
                                     <li>
@@ -84,18 +84,21 @@
                                             data-selector="true" data-placement="bottom" title="Login / Register">
                                             Login</a>
                                     </li>
-                                </ul><!-- /header-login -->
+                                </ul>
 
                                 <div class="my-btn d-none d-sm-block">
                                     <a href="register.html" class="btn white-bg">sign up</a>
-                                </div><!-- /Sign Up -->
+                                </div>
 
                                 <div class="d-block d-sm-none pl-20">
                                     <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
                                             class="far fa-bars"></i></a>
-                                </div><!-- /mobile-menubar -->
-                            </div><!-- /header-right -->
-                        </div><!-- /col -->
+                                </div>
+                            </div>
+                        </div> -->
+                        <div id="header-auth-section">
+                            <!-- This part will be replaced dynamically by JS based on session -->
+                        </div>
                         <div
                             class="col-xl-2  col-lg-2  col-md-3  col-sm-1 col-12 d-none d-sm-block d-lg-none d-xl-block">
                             <div
@@ -608,6 +611,105 @@
                 error: function (xhr, status, error) {
                     console.error("Error fetching courses:", error);
                 }
+            });
+        });
+    </script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            const loginRegisterHTML = `
+            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                <div class="header-right d-flex align-items-center justify-content-end">
+                    <ul class="header-login mr-15 d-none d-sm-block">
+                        <li>
+                            <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
+                                data-selector="true" data-placement="bottom" title="Login / Register">
+                                LOGIN</a>
+                        </li>
+                    </ul>
+
+                    <div class="my-btn d-none d-sm-block">
+                        <a href="register.html" class="btn white-bg">Register</a>
+                    </div>
+
+                    <div class="d-block d-sm-none pl-20">
+                        <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
+                                class="far fa-bars"></i></a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            const logoutHTML = `
+            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                <div class="header-right d-flex align-items-center justify-content-end">
+                    <div class="my-btn d-none d-sm-block">
+                        <a href="javascript:void(0);" id="logoutBtn" class="btn white-bg">Logout</a>
+                    </div>
+
+                    <div class="d-block d-sm-none pl-20">
+                        <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
+                                class="far fa-bars"></i></a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            if (userId) {
+                $("#header-auth-section").html(logoutHTML);
+            } else {
+                $("#header-auth-section").html(loginRegisterHTML);
+            }
+
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        console.log("Logout success:", res);
+
+                        sessionStorage.removeItem("user_id");
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
             });
         });
     </script>

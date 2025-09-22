@@ -117,6 +117,13 @@
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
                         </ul>
                     </li>
+                    <li class="nxl-item">
+                        <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-settings"></i></span>
+                            <span class="nxl-mtext">Logout</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
                     <!-- Admin Page Link (Hidden by Default) -->
                     <!-- <li class="nxl-item nxl-hasmenu" id="adminPageLink" style="display: none;">
                         <a href="javascript:void(0);" class="nxl-link">
@@ -376,177 +383,245 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-    $(document).ready(function () {
-        // 1️⃣ Fetch domain list and populate dropdown
-        $.get("https://eduroom.in/api/v1/domain/list", function (res) {
-            if (res.success && res.data.length > 0) {
-                res.data.forEach(function (d) {
-                    $("#domainSelect").append(
-                        `<option value="${d.id}">${d.name}</option>`
-                    );
-                });
-            }
-        });
-
-        // 2️⃣ When domain selected → populate form
-        $("#domainSelect").change(function () {
-            const domainId = $(this).val();
-            if (!domainId) return;
-
+        $(document).ready(function () {
+            // 1️⃣ Fetch domain list and populate dropdown
             $.get("https://eduroom.in/api/v1/domain/list", function (res) {
-                if (res.success) {
-                    const domain = res.data.find(d => d.id === domainId);
-                    if (domain) {
-                        $("#domainId").val(domain.id);
-                        $("#domainName").val(domain.name.replace(/"/g, "")); 
-                        $("#domainDescription").val(domain.description.replace(/"/g, ""));
+                if (res.success && res.data.length > 0) {
+                    res.data.forEach(function (d) {
+                        $("#domainSelect").append(
+                            `<option value="${d.id}">${d.name}</option>`
+                        );
+                    });
+                }
+            });
 
-                        if (domain.image) {
-                            $("#previewImage").attr("src", domain.image);
-                            $("#uploadBox").hide();
-                            $("#previewBox").show();
-                        } else {
-                            $("#previewBox").hide();
-                            $("#uploadBox").show();
+            // 2️⃣ When domain selected → populate form
+            $("#domainSelect").change(function () {
+                const domainId = $(this).val();
+                if (!domainId) return;
+
+                $.get("https://eduroom.in/api/v1/domain/list", function (res) {
+                    if (res.success) {
+                        const domain = res.data.find(d => d.id === domainId);
+                        if (domain) {
+                            $("#domainId").val(domain.id);
+                            $("#domainName").val(domain.name.replace(/"/g, ""));
+                            $("#domainDescription").val(domain.description.replace(/"/g, ""));
+
+                            if (domain.image) {
+                                $("#previewImage").attr("src", domain.image);
+                                $("#uploadBox").hide();
+                                $("#previewBox").show();
+                            } else {
+                                $("#previewBox").hide();
+                                $("#uploadBox").show();
+                            }
                         }
                     }
+                });
+            });
+
+            // ✅ File preview
+            function previewFile(file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#uploadBox").hide();
+                    $("#previewImage").attr("src", e.target.result);
+                    $("#previewBox").fadeIn();
                 }
+                reader.readAsDataURL(file);
+            }
+
+            $("#imageInput").change(function () {
+                const file = this.files[0];
+                if (file) previewFile(file);
+            });
+
+            $("#removeImage").click(function () {
+                $("#imageInput").val("");
+                $("#previewBox").hide();
+                $("#previewImage").attr("src", "");
+                $("#uploadBox").fadeIn();
+            });
+
+            // 3️⃣ Update Domain call
+            $("#submitBtn").click(function (e) {
+                e.preventDefault();
+
+                const domainId = $("#domainId").val();
+                const domainName = $("#domainName").val().trim();
+                const description = $("#domainDescription").val().trim();
+                const imageFile = $("#imageInput")[0].files[0];
+
+                if (!domainId) {
+                    Swal.fire("⚠ Warning", "Please select a domain first.", "warning");
+                    return;
+                }
+
+                if (!domainName) {
+                    Swal.fire("⚠ Warning", "Please enter a domain name.", "warning");
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append("name", domainName);
+                formData.append("description", description || "");
+                if (imageFile) {
+                    formData.append("image", imageFile);
+                }
+
+                Swal.fire({
+                    title: "Updating...",
+                    text: "Please wait while the domain is updated.",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/domain/update/${domainId}`,
+                    type: "PUT",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        Swal.fire("✅ Success", "Domain updated successfully!", "success");
+                        console.log("Update Response:", res);
+                    },
+                    error: function (xhr) {
+                        Swal.fire("❌ Error", "Error updating domain: " + xhr.responseText, "error");
+                        console.error("Error:", xhr);
+                    }
+                });
+            });
+
+            // 4️⃣ Delete Domain call
+            $("#deleteBtn").click(function (e) {
+                e.preventDefault();
+
+                const domainId = $("#domainId").val();
+                if (!domainId) {
+                    Swal.fire("⚠ Warning", "Please select a domain first.", "warning");
+                    return;
+                }
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action will delete the domain permanently.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "Deleting...",
+                            text: "Please wait while we delete the domain.",
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        $.ajax({
+                            url: `https://eduroom.in/api/v1/domain/delete/${domainId}`,
+                            type: "DELETE",
+                            success: function (res) {
+                                Swal.fire("🗑 Deleted!", "The domain has been deleted successfully.", "success");
+
+                                // Reset form after deletion
+                                $("#domainId").val("");
+                                $("#domainName").val("");
+                                $("#domainDescription").val("");
+                                $("#imageInput").val("");
+                                $("#previewBox").hide();
+                                $("#uploadBox").show();
+
+                                // Remove deleted option from dropdown
+                                $(`#domainSelect option[value='${domainId}']`).remove();
+                                $("#domainSelect").val("");
+                            },
+                            error: function (xhr) {
+                                Swal.fire(" Error", "Could not delete domain: " + xhr.responseText, "error");
+                                console.error("Delete Error:", xhr);
+                            }
+                        });
+                    }
+                });
             });
         });
+    </script>
 
-        // ✅ File preview
-        function previewFile(file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                $("#uploadBox").hide();
-                $("#previewImage").attr("src", e.target.result);
-                $("#previewBox").fadeIn();
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
             }
-            reader.readAsDataURL(file);
-        }
-
-        $("#imageInput").change(function () {
-            const file = this.files[0];
-            if (file) previewFile(file);
         });
 
-        $("#removeImage").click(function () {
-            $("#imageInput").val("");
-            $("#previewBox").hide();
-            $("#previewImage").attr("src", "");
-            $("#uploadBox").fadeIn();
-        });
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
 
-        // 3️⃣ Update Domain call
-        $("#submitBtn").click(function (e) {
-            e.preventDefault();
-
-            const domainId = $("#domainId").val();
-            const domainName = $("#domainName").val().trim();
-            const description = $("#domainDescription").val().trim();
-            const imageFile = $("#imageInput")[0].files[0];
-
-            if (!domainId) {
-                Swal.fire("⚠ Warning", "Please select a domain first.", "warning");
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
+                });
                 return;
             }
 
-            if (!domainName) {
-                Swal.fire("⚠ Warning", "Please enter a domain name.", "warning");
-                return;
-            }
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
 
-            const formData = new FormData();
-            formData.append("name", domainName);
-            formData.append("description", description || "");
-            if (imageFile) {
-                formData.append("image", imageFile);
-            }
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        console.log("Logout success:", res);
+                        sessionStorage.removeItem("user_id");
 
-            Swal.fire({
-                title: "Updating...",
-                text: "Please wait while the domain is updated.",
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-
-            $.ajax({
-                url: `https://eduroom.in/api/v1/domain/update/${domainId}`,
-                type: "PUT",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (res) {
-                    Swal.fire("✅ Success", "Domain updated successfully!", "success");
-                    console.log("Update Response:", res);
-                },
-                error: function (xhr) {
-                    Swal.fire("❌ Error", "Error updating domain: " + xhr.responseText, "error");
-                    console.error("Error:", xhr);
-                }
-            });
-        });
-
-        // 4️⃣ Delete Domain call
-        $("#deleteBtn").click(function (e) {
-            e.preventDefault();
-
-            const domainId = $("#domainId").val();
-            if (!domainId) {
-                Swal.fire("⚠ Warning", "Please select a domain first.", "warning");
-                return;
-            }
-
-            Swal.fire({
-                title: "Are you sure?",
-                text: "This action will delete the domain permanently.",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Deleting...",
-                        text: "Please wait while we delete the domain.",
-                        allowOutsideClick: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-
-                    $.ajax({
-                        url: `https://eduroom.in/api/v1/domain/delete/${domainId}`,
-                        type: "DELETE",
-                        success: function (res) {
-                            Swal.fire("🗑 Deleted!", "The domain has been deleted successfully.", "success");
-
-                            // Reset form after deletion
-                            $("#domainId").val("");
-                            $("#domainName").val("");
-                            $("#domainDescription").val("");
-                            $("#imageInput").val("");
-                            $("#previewBox").hide();
-                            $("#uploadBox").show();
-
-                            // Remove deleted option from dropdown
-                            $(`#domainSelect option[value='${domainId}']`).remove();
-                            $("#domainSelect").val("");
-                        },
-                        error: function (xhr) {
-                            Swal.fire(" Error", "Could not delete domain: " + xhr.responseText, "error");
-                            console.error("Delete Error:", xhr);
-                        }
-                    });
-                }
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            allowOutsideClick: false,
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
             });
         });
-    });
-</script>
-
+    </script>
 
 </body>
 

@@ -116,6 +116,13 @@
                             <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
                         </ul>
                     </li>
+                    <li class="nxl-item">
+                        <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-settings"></i></span>
+                            <span class="nxl-mtext">Logout</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
                     <!-- Admin Page Link (Hidden by Default) -->
                     <!-- <li class="nxl-item nxl-hasmenu" id="adminPageLink" style="display: none;">
                         <a href="javascript:void(0);" class="nxl-link">
@@ -418,191 +425,147 @@
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
     <script>
-$(document).ready(function () {
+        $(document).ready(function () {
 
-    // Fetch Domains
-    $.ajax({
-        url: "https://eduroom.in/api/v1/domain/list",
-        type: "GET",
-        success: function (res) {
-            console.log("domain list:", res);
-            let options = '<option value="">Select Domain</option>';
-            if (res.success && res.data.length > 0) {
-                res.data.forEach(domain => {
-                    let cleanName = (domain.name || "").replace(/^"(.*)"$/, "$1");
-                    if (cleanName) {
-                        options += `<option value="${domain.id}">${cleanName}</option>`;
+            // Fetch Domains
+            $.ajax({
+                url: "https://eduroom.in/api/v1/domain/list",
+                type: "GET",
+                success: function (res) {
+                    console.log("domain list:", res);
+                    let options = '<option value="">Select Domain</option>';
+                    if (res.success && res.data.length > 0) {
+                        res.data.forEach(domain => {
+                            let cleanName = (domain.name || "").replace(/^"(.*)"$/, "$1");
+                            if (cleanName) {
+                                options += `<option value="${domain.id}">${cleanName}</option>`;
+                            }
+                        });
+                    }
+                    $("#domainSelect").html(options);
+                },
+                error: function () {
+                    $("#domainSelect").html('<option value="">Error loading domains</option>');
+                }
+            });
+
+            // Fetch Courses for userId=2
+            $.ajax({
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
+                type: "GET",
+                success: function (res) {
+                    console.log("course list:", res);
+                    let options = '<option value="">Select Course</option>';
+                    if (res.success && res.data.length > 0) {
+                        res.data.forEach(course => {
+                            let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
+                            if (cleanName) {
+                                options += `<option value="${course.id}">${cleanName}</option>`;
+                            }
+                        });
+                    }
+                    $("#courseSelect").html(options);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching courses:", status, error, xhr.responseText);
+                    $("#courseSelect").html('<option value="">Error loading courses</option>');
+                }
+            });
+
+            // Fetch all Course Previews (no filtering)
+            function fetchCoursePreviews() {
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/coursepreview/course-previews",
+                    type: "GET",
+                    success: function (res) {
+                        console.log("course previews:", res);
+                        let options = '<option value="">Select Course Preview</option>';
+                        if (res.success && res.data.length > 0) {
+                            res.data.forEach(preview => {
+                                options += `<option value="${preview.coursePreviewId}">${preview.title}</option>`;
+                            });
+                        }
+                        $("#coursePreviewSelect").html(options);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching course previews:", status, error, xhr.responseText);
+                        $("#coursePreviewSelect").html('<option value="">Error loading course previews</option>');
                     }
                 });
             }
-            $("#domainSelect").html(options);
-        },
-        error: function () {
-            $("#domainSelect").html('<option value="">Error loading domains</option>');
-        }
-    });
 
-    // Fetch Courses for userId=2
-    $.ajax({
-        url: "https://eduroom.in/api/v1/course/courses?userId=1",
-        type: "GET",
-        success: function (res) {
-            console.log("course list:", res);
-            let options = '<option value="">Select Course</option>';
-            if (res.success && res.data.length > 0) {
-                res.data.forEach(course => {
-                    let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
-                    if (cleanName) {
-                        options += `<option value="${course.id}">${cleanName}</option>`;
+            // Trigger fetching previews on domain/course change
+            $("#domainSelect, #courseSelect").change(fetchCoursePreviews);
+
+            // Auto-fill form when a course preview is selected
+            $(document).on("change", "#coursePreviewSelect", function () {
+                const previewId = $(this).val();
+                if (!previewId) return;
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
+                    type: "GET",
+                    success: function (res) {
+                        console.log("GET preview:", res);
+                        const data = res.data || res;
+
+                        $("#title").val(data.title || "");
+                        $("#heading").val(data.heading || "");
+                        $("#youtubeLink").val(data.youtubeLink || "");
+                        $("#description").val(data.description || "");
+                        $("#dayCount").val(data.dayCount || "");
+                        $("#language").val(data.language || "");
+                        $("#level").val(data.level || "");
+                        $("#duration").val(data.duration || "");
+
+                        $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || "");
+                        for (let i = 0; i < 7; i++) {
+                            $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets?.[i] || "");
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("Error fetching course preview: " + xhr.responseText);
                     }
                 });
-            }
-            $("#courseSelect").html(options);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error fetching courses:", status, error, xhr.responseText);
-            $("#courseSelect").html('<option value="">Error loading courses</option>');
-        }
-    });
+            });
 
-    // Fetch all Course Previews (no filtering)
-    function fetchCoursePreviews() {
-        $.ajax({
-            url: "https://eduroom.in/api/v1/coursepreview/course-previews",
-            type: "GET",
-            success: function (res) {
-                console.log("course previews:", res);
-                let options = '<option value="">Select Course Preview</option>';
-                if (res.success && res.data.length > 0) {
-                    res.data.forEach(preview => {
-                        options += `<option value="${preview.coursePreviewId}">${preview.title}</option>`;
-                    });
+            // Update Course Preview (PUT) with SweetAlert loader
+            $("#submitBtn").click(function (e) {
+                e.preventDefault();
+
+                const previewId = $("#coursePreviewSelect").val();
+                if (!previewId) {
+                    Swal.fire("Error", "Please select a Course Preview to update", "error");
+                    return;
                 }
-                $("#coursePreviewSelect").html(options);
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching course previews:", status, error, xhr.responseText);
-                $("#coursePreviewSelect").html('<option value="">Error loading course previews</option>');
-            }
-        });
-    }
 
-    // Trigger fetching previews on domain/course change
-    $("#domainSelect, #courseSelect").change(fetchCoursePreviews);
+                const payload = {
+                    courseId: parseInt($("#courseSelect").val(), 10),
+                    domainId: parseInt($("#domainSelect").val(), 10),
+                    title: $("#title").val().trim(),
+                    heading: $("#heading").val().trim(),
+                    youtubeLink: $("#youtubeLink").val().trim(),
+                    description: $("#description").val().trim(),
+                    dayCount: parseInt($("#dayCount").val().trim(), 10),
+                    language: $("#language").val().trim(),
+                    level: $("#level").val().trim(),
+                    duration: $("#duration").val().trim(),
+                    whatYouWillLearn: {
+                        paragraph: $("#learnParagraph").val().trim(),
+                        bullets: [
+                            $("#point1").val().trim(),
+                            $("#point2").val().trim(),
+                            $("#point3").val().trim(),
+                            $("#point4").val().trim(),
+                            $("#point5").val().trim(),
+                            $("#point6").val().trim(),
+                            $("#point7").val().trim()
+                        ]
+                    }
+                };
 
-    // Auto-fill form when a course preview is selected
-    $(document).on("change", "#coursePreviewSelect", function () {
-        const previewId = $(this).val();
-        if (!previewId) return;
-
-        $.ajax({
-            url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
-            type: "GET",
-            success: function (res) {
-                console.log("GET preview:", res);
-                const data = res.data || res;
-
-                $("#title").val(data.title || "");
-                $("#heading").val(data.heading || "");
-                $("#youtubeLink").val(data.youtubeLink || "");
-                $("#description").val(data.description || "");
-                $("#dayCount").val(data.dayCount || "");
-                $("#language").val(data.language || "");
-                $("#level").val(data.level || "");
-                $("#duration").val(data.duration || "");
-
-                $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || "");
-                for (let i = 0; i < 7; i++) {
-                    $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets?.[i] || "");
-                }
-            },
-            error: function (xhr) {
-                alert("Error fetching course preview: " + xhr.responseText);
-            }
-        });
-    });
-
-    // Update Course Preview (PUT) with SweetAlert loader
-    $("#submitBtn").click(function (e) {
-        e.preventDefault();
-
-        const previewId = $("#coursePreviewSelect").val();
-        if (!previewId) {
-            Swal.fire("Error", "Please select a Course Preview to update", "error");
-            return;
-        }
-
-        const payload = {
-            courseId: parseInt($("#courseSelect").val(), 10),
-            domainId: parseInt($("#domainSelect").val(), 10),
-            title: $("#title").val().trim(),
-            heading: $("#heading").val().trim(),
-            youtubeLink: $("#youtubeLink").val().trim(),
-            description: $("#description").val().trim(),
-            dayCount: parseInt($("#dayCount").val().trim(), 10),
-            language: $("#language").val().trim(),
-            level: $("#level").val().trim(),
-            duration: $("#duration").val().trim(),
-            whatYouWillLearn: {
-                paragraph: $("#learnParagraph").val().trim(),
-                bullets: [
-                    $("#point1").val().trim(),
-                    $("#point2").val().trim(),
-                    $("#point3").val().trim(),
-                    $("#point4").val().trim(),
-                    $("#point5").val().trim(),
-                    $("#point6").val().trim(),
-                    $("#point7").val().trim()
-                ]
-            }
-        };
-
-        Swal.fire({
-            title: 'Updating...',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
-        $.ajax({
-            url: "https://eduroom.in/api/v1/coursepreview/course-preview/" + previewId,
-            type: "PUT",
-            contentType: "application/json",
-            processData: false,
-            data: JSON.stringify(payload),
-            success: function (response) {
-                Swal.close();
-                console.log("PUT response:", response);
-                $("#formMessage").html('<span class="text-success">✅ Course preview updated successfully!</span>');
-            },
-            error: function (xhr) {
-                Swal.close();
-                let msg = xhr.responseText || "Error updating course preview. Try again!";
-                $("#formMessage").html('<span class="text-danger">❌ ' + msg + '</span>');
-            }
-        });
-    });
-
-    // Delete Course Preview with SweetAlert confirmation + loader
-    $("#deleteBtn").click(function () {
-        const previewId = $("#coursePreviewSelect").val();
-        if (!previewId) {
-            Swal.fire("Error", "Please select a Course Preview to delete.", "error");
-            return;
-        }
-
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "Cancel"
-        }).then((result) => {
-            if (result.isConfirmed) {
                 Swal.fire({
-                    title: 'Deleting...',
+                    title: 'Updating...',
                     allowOutsideClick: false,
                     didOpen: () => {
                         Swal.showLoading();
@@ -610,30 +573,141 @@ $(document).ready(function () {
                 });
 
                 $.ajax({
-                    url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
-                    type: "DELETE",
-                    success: function () {
+                    url: "https://eduroom.in/api/v1/coursepreview/course-preview/" + previewId,
+                    type: "PUT",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    success: function (response) {
                         Swal.close();
-                        Swal.fire("Deleted!", "Course preview has been deleted.", "success");
-                        $("#coursePreviewSelect").val("").trigger("change");
-                        $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
+                        console.log("PUT response:", response);
+                        $("#formMessage").html('<span class="text-success">✅ Course preview updated successfully!</span>');
                     },
                     error: function (xhr) {
                         Swal.close();
-                        Swal.fire("Error", xhr.responseText || "Error deleting course preview", "error");
+                        let msg = xhr.responseText || "Error updating course preview. Try again!";
+                        $("#formMessage").html('<span class="text-danger">❌ ' + msg + '</span>');
                     }
                 });
+            });
+
+            // Delete Course Preview with SweetAlert confirmation + loader
+            $("#deleteBtn").click(function () {
+                const previewId = $("#coursePreviewSelect").val();
+                if (!previewId) {
+                    Swal.fire("Error", "Please select a Course Preview to delete.", "error");
+                    return;
+                }
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Deleting...',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        $.ajax({
+                            url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
+                            type: "DELETE",
+                            success: function () {
+                                Swal.close();
+                                Swal.fire("Deleted!", "Course preview has been deleted.", "success");
+                                $("#coursePreviewSelect").val("").trigger("change");
+                                $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
+                            },
+                            error: function (xhr) {
+                                Swal.close();
+                                Swal.fire("Error", xhr.responseText || "Error deleting course preview", "error");
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Initial fetch of all course previews on page load
+            fetchCoursePreviews();
+
+        });
+    </script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
             }
         });
-    });
 
-    // Initial fetch of all course previews on page load
-    fetchCoursePreviews();
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
 
-});
-</script>
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
+                });
+                return;
+            }
 
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
 
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        console.log("Logout success:", res);
+                        sessionStorage.removeItem("user_id");
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            allowOutsideClick: false,
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
