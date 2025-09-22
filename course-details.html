@@ -421,14 +421,12 @@
                                     <button id="submitCaseStudy" class="btn btn-primary mt-3">Submit Case Study</button>
                                 </div>
 
-
                                 <!-- Case Study Result (MCQ-style layout) -->
                                 <div class="course-details-ratting-area mt-4" id="caseStudyResult"
                                     style="display:none;">
                                     <h3 class="mb-20">Results</h3>
                                     <div class="course-details-ratting-wrapper pt-25 pb-25 pl-40 pr-35">
                                         <div class="row align-items-center">
-
                                             <!-- LEFT: Stars -->
                                             <div
                                                 class="col-xl-3 col-lg-3 col-md-3 col-sm-12 d-flex justify-content-center border-right">
@@ -471,6 +469,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                         </div><!-- /course-page2-tab-wrapper -->
                     </div><!-- /col -->
@@ -568,6 +567,8 @@
                         </div><!-- /share-social-link -->
                     </div><!-- /col -->
                 </div><!-- /row -->
+
+                
             </div><!-- /container -->
         </div><!-- /course-page2-tab-area -->
         <!-- course-area-end  -->
@@ -829,8 +830,8 @@
                     });
                 });
 
-                if (answers.length === 0) {
-                    alert('Please select at least one answer before submitting.');
+                if (answers.length !== 3) {
+                    alert('Please select all the answers before submitting.');
                     return;
                 }
 
@@ -876,7 +877,7 @@
                                     mcqCard.css('border', '2px solid red');
                                     if (!mcqCard.find('.correct-answer').length) {
                                         mcqCard.find('.card-body').append(
-                                            '<p class="text-success mt-2 correct-answer">Correct Answer: ' + res.correctAnswer + '</p>'
+                                            '<p class="text-danger mt-2 correct-answer">Incorrect Answer ❌</p>'
                                         );
                                     }
                                 }
@@ -899,7 +900,7 @@
     <!-- CASE STUDY RESULT  -->
     <script>
         $(document).ready(function () {
-            // Parse query params
+
             var queryParams = (function () {
                 var params = {};
                 var queryString = window.location.search.substring(1);
@@ -914,41 +915,36 @@
             var courseId = queryParams.courseId || 1;
             var coursePreviewId = queryParams.previewId || 1;
             var dayNumber = queryParams.day || 1;
-            var sessionNumber = queryParams.sessionNumber || 1;
+            var sessionNumber = queryParams.session || 1;
             var userId = queryParams.userId || 1;
 
-            // Disable submit button until question is loaded
+            var $caseWrapper = $('.case-study-wrapper');
+            var questionId = null;
+
             $('#submitCaseStudy').prop('disabled', true);
 
-            var questionId = null; // will hold the fetched questionId
-
-            // Fetch Case Study Question
             const url = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies?userId=${userId}`;
-
             console.log("Case Study API URL:", url);
-            console.log("courseId:", courseId, "previewId:", coursePreviewId, "day:", dayNumber, "session:", sessionNumber, "userId:", userId);
 
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function (response) {
                     console.log("Case Study Response:", response);
+
                     if (response.success && response.data?.caseStudy) {
                         const caseStudy = response.data.caseStudy;
                         $('#caseStudyQuestion').text(caseStudy.caseStudy);
-
-                        // Store questionId for submit
                         questionId = caseStudy.questionId;
-
-                        // Enable submit button now
                         $('#submitCaseStudy').prop('disabled', false);
                     } else {
-                        $('#caseStudyQuestion').text("No case study available for this session.");
+                        $caseWrapper.hide();
+                        console.warn(response.message || "No Case Study available.");
                     }
                 },
                 error: function (xhr, status, error) {
                     console.error("Case Study API Error:", status, error, xhr.responseText);
-                    $('#caseStudyQuestion').text("Failed to load case study question.");
+                    $caseWrapper.hide();
                 }
             });
 
@@ -980,19 +976,14 @@
                         if (response.success && response.data) {
                             $('#caseStudyResult').show();
 
-                            // Format percentage to 2 decimal places
-                            var percent = response.data.matchPercentage || 0;
-                            percent = parseFloat(percent).toFixed(1);
+                            var percent = parseFloat(response.data.matchPercentage || 0).toFixed(1);
 
                             $('#caseStudyScore').text(percent + '%');
                             $('#caseStudyPercentage').text(percent + '%');
-                            $('#caseStudyStatus').text(response.data.passed ? 'Passed' : 'Failed')
+                            $('#caseStudyStatus')
+                                .text(response.data.passed ? 'Passed' : 'Failed')
                                 .removeClass('text-success text-danger')
                                 .addClass(response.data.passed ? 'text-success' : 'text-danger');
-
-                            // Keep textarea & button enabled for edits
-                            $('#caseStudyAnswer').prop('disabled', false);
-                            $('#submitCaseStudy').prop('disabled', false);
 
                             // Update stars (5 stars based on percentage)
                             var stars = Math.round(percent / 20);
@@ -1004,14 +995,13 @@
                                 }
                             });
                         } else {
-                            alert("Failed to submit case study.");
+                            alert(response.message || "Failed to submit case study.");
                         }
                     },
                     error: function () {
                         alert("Error submitting case study. Please try again.");
                     }
                 });
-
             });
         });
     </script>
