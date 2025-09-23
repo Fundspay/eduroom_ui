@@ -51,7 +51,7 @@
                                         <h4 class="mb-4" style="color:rgb(49, 215, 204);">Create Your EDUROOM Account (For Internal purpose only*)
                                         </h4>
 
-                                        <div class="tp-register-progress mb-40">
+                                        <!-- <div class="tp-register-progress mb-40">
                                             <div class="progress-steps">
                                                 <div class="step active" data-step="1">
                                                     <span>1</span>
@@ -82,7 +82,7 @@
                                                     <p>Declaration & Consent</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- First / Last Name -->
                                         <div class="row" style="margin-top: 2%;">
@@ -178,7 +178,7 @@
                                         <div class="d-flex justify-content-end mt-3">
                                             <button type="submit" class="btn px-4"
                                                 style="background-color: #36d5d5; color: #fff;">
-                                                Next
+                                                Register
                                             </button>
                                         </div>
 
@@ -443,7 +443,7 @@
 
                 Swal.fire({
                     title: "Confirm Submission",
-                    text: "Please check your details carefully. Once submitted, changes cannot be made again.",
+                    text: "Please check your details carefully before submitting.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Confirm",
@@ -453,7 +453,7 @@
                     if (result.isConfirmed) {
                         Swal.fire({
                             title: "Processing...",
-                            text: "Please wait while we create your account.",
+                            text: "Please wait while we create your account...",
                             allowOutsideClick: false,
                             didOpen: () => Swal.showLoading()
                         });

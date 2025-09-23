@@ -229,7 +229,8 @@
                     <div class="col-lg-6">
                         <div class="tp-login-wrapper">
                             <div class="tp-login-title text-center mb-50">
-                                <h5 class="tp-section-title" style="color:rgb(49, 215, 204);">Welcome <span class="title-color">Back</span></h5>
+                                <h5 class="tp-section-title" style="color:rgb(49, 215, 204);">Welcome <span
+                                        class="title-color">Back</span></h5>
                                 <p>Sign in to access your EDUROOM account</p>
                             </div>
                             <div class="tp-login-form">
@@ -277,7 +278,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- <div class="col-md-12 text-center mb-3 mt-3">
+                                        <div class="col-md-12 text-center mb-3 mt-3">
                                             <span style="font-weight: 600; color: #999;">OR</span>
                                         </div>
 
@@ -291,12 +292,13 @@
                                                     Continue with Google
                                                 </button>
                                             </div>
-                                        </div> -->
+                                        </div>
 
                                         <!-- Register Link -->
                                         <div class="col-md-12" style="margin-top: -2%;">
                                             <div class="tp-login-register text-center mt-20">
-                                                <p style="font-size: 14px;">Don't have an account? <a href="register.html">Register here</a></p>
+                                                <p style="font-size: 14px;">Don't have an account? <a
+                                                        href="register.html">Register here</a></p>
                                             </div>
                                         </div>
 
@@ -668,6 +670,30 @@
                     })
                     .then(response => {
                         console.log("Google login response:", response);
+
+                        let userId = null;
+                        let userName = null;
+                        let redirectUrl = "/profile.html";
+
+                        if (response.account && response.account.managerId) {
+                            userId = response.account.managerId;
+                            userName = response.account.name || "Manager";
+                            redirectUrl = "/profile/dashboard/index.html";
+                        } else if (response.user && response.user.user_id) {
+                            userId = response.user.user_id;
+                            userName = response.user.fullName || "User";
+                            redirectUrl = "/profile.html";
+                        }
+
+                        if (userId) {
+                            sessionStorage.setItem("user_id", userId);
+                            console.log("Stored user_id:", userId);
+                        }
+                        if (userName) {
+                            sessionStorage.setItem("userName", userName.trim());
+                            console.log("Stored userName:", userName);
+                        }
+
                         Swal.close();
                         Swal.fire({
                             icon: "success",
@@ -676,7 +702,7 @@
                             timer: 2000,
                             showConfirmButton: false
                         }).then(() => {
-                            window.location.href = "/profile.html";
+                            window.location.href = redirectUrl;
                         });
                     })
                     .catch(error => {
