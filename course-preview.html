@@ -929,14 +929,26 @@
 
                         // Add Sessions
                         const sessionList = $("#" + dayId + "-sessions");
+
+                        // ✅ Track unique sessions (latest one overrides)
+                        let sessionMap = {};
+
                         dayData.sessions.forEach(function (session) {
+                            sessionMap[session.sessionNumber] = session; // overwrite if duplicate
+                        });
+
+                        Object.values(sessionMap).forEach(function (session) {
                             let statusLabel = "";
                             if (session.status) {
-                                statusLabel = `<span class="badge badge-pill ${session.status === "Completed" ? "badge-success" :
-                                        session.status === "Help" ? "badge-warning" :
-                                            session.status === "On Hold" ? "badge-secondary" :
-                                                "badge-info"
-                                    }">${session.status}</span>`;
+                                statusLabel = `<span class="badge badge-pill ${
+                                    session.status === "Completed"
+                                        ? "badge-success"
+                                        : session.status === "Help"
+                                        ? "badge-warning"
+                                        : session.status === "On Hold"
+                                        ? "badge-secondary"
+                                        : "badge-info"
+                                }">${session.status}</span>`;
                             }
 
                             let sessionPercentage = `<span>${session.sessionCompletionPercentage || 0}%</span>`;
@@ -963,7 +975,6 @@
                             $sessionItem.css("cursor", "pointer");
                             sessionList.append($sessionItem);
                         });
-
                     });
 
                     console.log("Curriculum data loaded:", response);
@@ -985,7 +996,6 @@
             });
         });
     </script>
-
 
     <script>
         $(document).ready(function () {
