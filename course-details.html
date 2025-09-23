@@ -567,8 +567,17 @@
                         </div><!-- /share-social-link -->
                     </div><!-- /col -->
                 </div><!-- /row -->
+                <div class="d-flex justify-content-between align-items-center mt-5">
+                    <button id="prevBtn"
+                        class="btn btn-light shadow-sm d-flex align-items-center px-4 py-2 rounded-pill">
+                        <i class="bi bi-arrow-left-circle me-2 fs-5"></i> Previous
+                    </button>
+                    <button id="nextBtn"
+                        class="btn btn-primary shadow-sm d-flex align-items-center px-4 py-2 rounded-pill">
+                        Next <i class="bi bi-arrow-right-circle ms-2 fs-5"></i>
+                    </button>
+                </div>
 
-                
             </div><!-- /container -->
         </div><!-- /course-page2-tab-area -->
         <!-- course-area-end  -->
@@ -726,6 +735,9 @@
                 return "https://www.youtube.com/embed/" + videoId + "?" + params;
             }
 
+            // Store response globally for navigation
+            var allSessions = [];
+
             // Fetch course preview data from backend
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/course-preview/${coursePreviewId}/details`,
@@ -742,6 +754,9 @@
                         console.warn("No course data found");
                         return;
                     }
+
+                    // Save all sessions
+                    allSessions = response.data;
 
                     // Match correct course for day + session
                     const course = response.data.find(c =>
@@ -778,7 +793,6 @@
                             // Skip null/empty questions
                             if (!q || !q.question) return;
 
-
                             var qid = 'q' + q.id;
                             var optionsHtml = '';
 
@@ -786,38 +800,39 @@
                                 if (q[optKey] && q[optKey].trim() !== "") {
                                     var letter = String.fromCharCode(65 + i); // A, B, C, D
                                     optionsHtml += `
-                                <li class="mb-2">
-                                    <label>
-                                        <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
-                                    </label>
-                                </li>`;
+                                    <li class="mb-2">
+                                        <label>
+                                            <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
+                                        </label>
+                                    </li>`;
                                 }
                             });
 
                             var cardHtml = `
-                        <div class="card border-0 mb-3" id="card-${qid}">
-                            <div class="card-header border-bottom-0 p-0">
-                                <h6 class="mb-0 main-color f-500">
-                                    Q${index + 1}. ${q.question}
-                                </h6>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-unstyled">${optionsHtml}</ul>
-                            </div>
-                        </div>`;
+                            <div class="card border-0 mb-3" id="card-${qid}">
+                                <div class="card-header border-bottom-0 p-0">
+                                    <h6 class="mb-0 main-color f-500">
+                                        Q${index + 1}. ${q.question}
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">${optionsHtml}</ul>
+                                </div>
+                            </div>`;
 
                             quizContainer.append(cardHtml);
                         });
                     }
 
                     console.log("Course data loaded:", course);
+
+                    setupNavigation(allSessions, dayNumber, sessionNumber);
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX Error:", status, error);
                 }
             });
 
-            // ✅ Submit Quiz
             $('#submitQuiz').on('click', function () {
                 var answers = [];
 
@@ -893,9 +908,41 @@
                     }
                 });
             });
+
+            function setupNavigation(allSessions, currentDay, currentSession) {
+                // Sort by day + session
+                allSessions.sort((a, b) => (a.day - b.day) || (a.sessionNumber - b.sessionNumber));
+
+                // Find current index
+                const currentIndex = allSessions.findIndex(c =>
+                    Number(c.day) === Number(currentDay) &&
+                    Number(c.sessionNumber) === Number(currentSession)
+                );
+
+                if (currentIndex === -1) return;
+
+                // Prev button
+                $('#prevBtn').off('click').on('click', function () {
+                    if (currentIndex > 0) {
+                        const prev = allSessions[currentIndex - 1];
+                        window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviewId}&day=${prev.day}&session=${prev.sessionNumber}&userId=${userId}`;
+                    } else {
+                        alert("This is the first session.");
+                    }
+                });
+
+                // Next button
+                $('#nextBtn').off('click').on('click', function () {
+                    if (currentIndex < allSessions.length - 1) {
+                        const next = allSessions[currentIndex + 1];
+                        window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviewId}&day=${next.day}&session=${next.sessionNumber}&userId=${userId}`;
+                    } else {
+                        alert("This is the last session.");
+                    }
+                });
+            }
         });
     </script>
-
 
     <!-- CASE STUDY RESULT  -->
     <script>
