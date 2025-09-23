@@ -380,9 +380,9 @@
                                             <h2 id="achievedTargetDisplay" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
                                             <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
-                                            id="targetPercentageDisplay">
-                                            0%
-                                        </h4>
+                                                id="targetPercentageDisplay">
+                                                0%
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -390,7 +390,8 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 5%;">
                                     <div class="sidebar-widget cd-sidebar overall-status mt-45"
                                         id="overallStatusWidget">
-                                        <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center" style="background: #000;">
+                                        <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
+                                            style="background: #000;">
                                             Overall Status
                                         </h4>
 
@@ -398,9 +399,9 @@
                                             <h2 id="overallSessionsDisplay" class="mb-3"
                                                 style="font-size: 36px; font-weight:700;">0 / 0</h2>
                                             <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
-                                            id="overallCompletionRate">
-                                            0%
-                                        </h4>
+                                                id="overallCompletionRate">
+                                                0%
+                                            </h4>
                                         </div>
 
                                     </div>
@@ -859,7 +860,7 @@
             const userId = sessionStorage.getItem("user_id");
             // const userId = 2;
 
-            console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId,);
+            console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
 
             if (!userId) {
                 console.warn("⚠️ No userId found in sessionStorage");
@@ -874,7 +875,6 @@
                     console.log("Response days:", response);
                     if (!response.success || !response.dailyStatus) {
                         console.warn("No curriculum data found");
-
                         return;
                     }
 
@@ -890,6 +890,14 @@
                     response.dailyStatus.forEach(function (dayData, index) {
                         const dayId = "Session-" + dayData.day;
 
+                        let sessionMap = {};
+                        dayData.sessions.forEach(function (session) {
+                            sessionMap[session.sessionNumber] = session; // overwrite if duplicate
+                        });
+
+                        const uniqueSessions = Object.values(sessionMap);
+                        const uniqueSessionCount = uniqueSessions.length;
+
                         // Build Day Card
                         let dayCard = `
                     <div class="card border-0 mb-2">
@@ -902,7 +910,7 @@
                             aria-expanded="${index === 0 ? "true" : "false"}"
                             aria-controls="${dayId}-content">
                             Session ${dayData.day}
-                            <span>${dayData.totalSessions} Videos 
+                            <span>${uniqueSessionCount} Videos 
                               <span class="pl-10">${dayData.dayCompletionPercentage}%</span>
                             </span>
                           </a>
@@ -930,25 +938,17 @@
                         // Add Sessions
                         const sessionList = $("#" + dayId + "-sessions");
 
-                        // ✅ Track unique sessions (latest one overrides)
-                        let sessionMap = {};
-
-                        dayData.sessions.forEach(function (session) {
-                            sessionMap[session.sessionNumber] = session; // overwrite if duplicate
-                        });
-
-                        Object.values(sessionMap).forEach(function (session) {
+                        uniqueSessions.forEach(function (session) {
                             let statusLabel = "";
                             if (session.status) {
-                                statusLabel = `<span class="badge badge-pill ${
-                                    session.status === "Completed"
+                                statusLabel = `<span class="badge badge-pill ${session.status === "Completed"
                                         ? "badge-success"
                                         : session.status === "Help"
-                                        ? "badge-warning"
-                                        : session.status === "On Hold"
-                                        ? "badge-secondary"
-                                        : "badge-info"
-                                }">${session.status}</span>`;
+                                            ? "badge-warning"
+                                            : session.status === "On Hold"
+                                                ? "badge-secondary"
+                                                : "badge-info"
+                                    }">${session.status}</span>`;
                             }
 
                             let sessionPercentage = `<span>${session.sessionCompletionPercentage || 0}%</span>`;
