@@ -44,7 +44,7 @@
     </div><!-- /preloader -->
 
     <!--  ====== header-area-start=======================================  -->
-   <header>
+    <header>
         <div id="header-sticky" class="transparent-header header-area home2 home4 white-color-header">
             <div class="header">
                 <div class="container-wrapper">
@@ -669,7 +669,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Internships</a>
+                                    <a href="/domain-list.html"
+                                        class="position-relative d-inline-block mb-2">Internships</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -809,6 +810,20 @@
         const userId = sessionStorage.getItem("user_id");
         // const userId = 2;
         console.log("user_id:", userId);
+
+        if (!userId) {
+            Swal.fire({
+                icon: "warning",
+                title: "Not Logged In",
+                text: "You need to login first to continue.",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: "Login"
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        }
 
         const container = document.getElementById("coursesContainer");
 

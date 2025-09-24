@@ -662,6 +662,26 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        const userId = sessionStorage.getItem("user_id");
+        // const userId = 2;
+        console.log("user_id:", userId);
+
+        if (!userId) {
+            Swal.fire({
+                icon: "warning",
+                title: "Not Logged In",
+                text: "You need to login first to continue.",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: "Login"
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        }
+    </script>
+
+    <script>
         $(document).ready(function () {
             // Helper: get query params from URL
             function getQueryParams() {

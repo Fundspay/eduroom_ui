@@ -474,7 +474,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Internships</a>
+                                    <a href="/domain-list.html"
+                                        class="position-relative d-inline-block mb-2">Internships</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -547,6 +548,25 @@
     <script src="js/jquery.meanmenu.min.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const userId = sessionStorage.getItem("user_id");
+        // const userId = 2;
+        console.log("user_id:", userId);
+
+        if (!userId) {
+            Swal.fire({
+                icon: "warning",
+                title: "Not Logged In",
+                text: "You need to login first to continue.",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: "Login"
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        }
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -914,12 +934,12 @@
                             let statusLabel = "";
                             if (session.status) {
                                 statusLabel = `<span class="badge badge-pill ${session.status === "Completed"
-                                        ? "badge-success"
-                                        : session.status === "Help"
-                                            ? "badge-warning"
-                                            : session.status === "On Hold"
-                                                ? "badge-secondary"
-                                                : "badge-info"
+                                    ? "badge-success"
+                                    : session.status === "Help"
+                                        ? "badge-warning"
+                                        : session.status === "On Hold"
+                                            ? "badge-secondary"
+                                            : "badge-info"
                                     }">${session.status}</span>`;
                             }
 
