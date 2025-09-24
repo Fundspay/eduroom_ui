@@ -144,7 +144,7 @@
                                                 placeholder="Enter Email Address">
                                         </div> -->
 
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">Referral Code<span
                                                         class="text-danger">*</span></label>
@@ -157,7 +157,7 @@
                                                 <input type="url" id="referralLink" class="form-control"
                                                     placeholder="Enter Referral Link (if any)">
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- Address -->
                                         <!-- <div class="mb-3">
@@ -540,9 +540,9 @@
                 const password = $('#password-field').val();
                 const confirmPassword = $('#confirm-password-field').val();
 
-                const referralCode = $('#referralCode').val()?.trim();
-                const referralLink = $('#referralLink').val()?.trim();
-                const internshipModeId = 1;
+                // const referralCode = $('#referralCode').val()?.trim();
+                // const referralLink = $('#referralLink').val()?.trim();
+                // const internshipModeId = 1;
 
                 if (!firstName || !nameRegex.test(firstName)) return showSwalError('Valid First Name required (letters & spaces).');
                 if (!lastName || !nameRegex.test(lastName)) return showSwalError('Valid Last Name required (letters & spaces).');
@@ -560,8 +560,8 @@
                 if (!password) return showSwalError('Password is required.');
                 if (password !== confirmPassword) return showSwalError('Passwords do not match.');
 
-                if (referralCode && !/^[a-zA-Z0-9]+$/.test(referralCode)) return showSwalError('Referral Code must be alphanumeric.');
-                if (referralLink && !/^https?:\/\/.+$/.test(referralLink)) return showSwalError('Referral Link must be valid (http/https).');
+                // if (referralCode && !/^[a-zA-Z0-9]+$/.test(referralCode)) return showSwalError('Referral Code must be alphanumeric.');
+                // if (referralLink && !/^https?:\/\/.+$/.test(referralLink)) return showSwalError('Referral Link must be valid (http/https).');
 
                 const personalPayload = {
                     firstName, lastName,
@@ -581,7 +581,7 @@
 
                     Swal.fire({
                         title: "Processing...",
-                        text: "Saving your details...",
+                        text: "Registering your account...",
                         allowOutsideClick: false,
                         didOpen: () => Swal.showLoading()
                     });
@@ -595,22 +595,25 @@
                             const userId = res.userId;
                             sessionStorage.setItem("userId", userId);
 
-                            const referralPayload = { referralCode, referralLink, internshipModeId };
-                            console.log("payload for put call:", referralPayload);
-
-                            $.ajax({
-                                url: `https://eduroom.in/api/v1/user/${userId}/internship-details`,
-                                method: "PUT",
-                                contentType: "application/json",
-                                data: JSON.stringify(referralPayload),
-                                success: function () {
-                                    Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
+                            Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
                                         .then(() => window.top.location.href = "/login.html");
-                                },
-                                error: function (xhr) {
-                                    Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong while saving registering, please try again later.", "error");
-                                }
-                            });
+
+                            // const referralPayload = { referralCode, referralLink, internshipModeId };
+                            // console.log("payload for put call:", referralPayload);
+
+                            // $.ajax({
+                            //     url: `https://eduroom.in/api/v1/user/${userId}/internship-details`,
+                            //     method: "PUT",
+                            //     contentType: "application/json",
+                            //     data: JSON.stringify(referralPayload),
+                            //     success: function () {
+                            //         Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
+                            //             .then(() => window.top.location.href = "/login.html");
+                            //     },
+                            //     error: function (xhr) {
+                            //         Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong while saving registering, please try again later.", "error");
+                            //     }
+                            // });
                         },
                         error: function (xhr) {
                             Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong while registering.", "error");
