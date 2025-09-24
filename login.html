@@ -83,7 +83,7 @@
                                         </li><!-- /About -->
 
                                         <li class="full-mega-menu-position">
-                                            <a href="#">Courses</a>
+                                            <a href="/domain-list.html">Courses</a>
                                             <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
                                                 id="domainCourseWrapper">
                                                 <!-- Domains & Courses will be populated here dynamically -->
@@ -96,7 +96,7 @@
                                     </ul>
                                 </nav>
                             </div><!-- /main-menu -->
-                        </div><!-- /col -->
+                        </div>
                         <!-- <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
                             <div class="header-right d-flex align-items-center justify-content-end">
                                 <ul class="header-login mr-15 d-none d-sm-block">
@@ -117,9 +117,19 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div id="header-auth-section">
-                            <!-- This part will be replaced dynamically by JS based on session -->
+                        <div id="header-auth-section" class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                            <div class="header-right d-flex align-items-center justify-content-end">
+                                <!-- Dynamic login/register or logout will be injected here -->
+                                <div id="auth-buttons" class="d-flex align-items-center"></div>
+
+                                <div class="d-block d-sm-none pl-20">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);">
+                                        <i class="far fa-bars"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
                         <div
                             class="col-xl-2  col-lg-2  col-md-3  col-sm-1 col-12 d-none d-sm-block d-lg-none d-xl-block">
                             <div
@@ -159,7 +169,6 @@
     </header>
     <!--  header-area-end  -->
 
-
     <!--  ====== header extra info start================================== -->
     <!-- side-mobile-menu start -->
     <div class="side-mobile-menu white-bg pt-10 pb-30 pl-35 pr-30 pb-100">
@@ -169,42 +178,38 @@
                             class="fa fa-times"></i></span></a>
             </div>
         </div>
-        <div class="side-menu-search header-search-content mt-80 pr-15">
+        <!-- <div class="side-menu-search header-search-content mt-80 pr-15">
             <form action="#" class="position-relative">
                 <input class="w-100 rounded-0 pb-2" type="text" placeholder="Type Keyword...">
                 <a class="position-absolute right-0 top-0 dark-black-color d-block" href="#"><i
                         class="fas fa-search"></i></a>
             </form>
-        </div>
+        </div> -->
 
         <div class="mobile-menu mt-50 w-100"></div>
         <ul class="social-link pt-85 clear-both">
             <li class="d-inline-block">
-                <a class="facebook-color text-center pr-15 d-inline-block transition-3" href="#"><i
-                        class="fab fa-facebook-f"></i></a>
+                <a class="facebook-color text-center pr-15 d-inline-block transition-3"
+                    href="https://www.facebook.com/fundsroom/"><i class="fab fa-facebook-f"></i></a>
             </li>
             <li class="d-inline-block">
-                <a class="twitter-color text-center pr-15 d-inline-block transition-3" href="#"><i
+                <a class="twitter-color text-center pr-15 d-inline-block transition-3" href="https://x.com/fundsroom"><i
                         class="fab fa-twitter"></i></a>
             </li>
             <li class="d-inline-block">
-                <a class="google-plus-color text-center pr-15 d-inline-block transition-3" href="#"><i
-                        class="fab fa-google-plus-g"></i></a>
+                <a class="youtube-color text-center pr-15 d-inline-block transition-3"
+                    href="https://www.youtube.com/@FundsAuditSafe"><i class="fab fa-youtube"></i></a>
             </li>
             <li class="d-inline-block">
-                <a class="linked-in-color text-center d-inline-block transition-3" href="#"><i
-                        class="fab fa-linkedin-in"></i></a>
+                <a class="instagram-color text-center d-inline-block transition-3"
+                    href="https://www.instagram.com/funds_audit/"><i class="fab fa-instagram"></i></a>
             </li>
         </ul><!-- social-link -->
 
         <!-- mobile phone area -->
-        <div class="mobile-phone-contact phone-contact mt-30 mb-30">
-            <h6 class="f-500 mb-0 d-inline-block pr-2">Call Us</h6>
-            <a class="theme-color f-700" href="tell:+8801234567890">+8801234567890</a>
-        </div><!-- /mobile phone area -->
 
         <!-- mobile subscribe area -->
-        <div class="mobile-subscribe pb-55">
+        <!-- <div class="mobile-subscribe pb-55">
             <h6 class="mb-1">Subscribe to Our Newsletter</h6>
             <form action="#">
                 <div class="subscribe-info mt-15 position-relative">
@@ -214,7 +219,7 @@
                             class="far fa-envelope"></i></span>
                 </div>
             </form>
-        </div>
+        </div> -->
 
     </div><!-- /side-mobile-menu -->
     <div class="body-overlay"></div>
@@ -782,47 +787,29 @@
             const userId = sessionStorage.getItem("user_id");
 
             const loginRegisterHTML = `
-            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
-                <div class="header-right d-flex align-items-center justify-content-end">
-                    <ul class="header-login mr-15 d-none d-sm-block">
-                        <li>
-                            <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
-                                data-selector="true" data-placement="bottom" title="Login / Register">
-                                LOGIN</a>
-                        </li>
-                    </ul>
+            <ul class="header-login mr-15 d-none d-sm-block">
+                <li>
+                    <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
+                        data-selector="true" data-placement="bottom" title="Login / Register">
+                        LOGIN</a>
+                </li>
+            </ul>
 
-                    <div class="my-btn d-none d-sm-block">
-                        <a href="register.html" class="btn white-bg">Register</a>
-                    </div>
-
-                    <div class="d-block d-sm-none pl-20">
-                        <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
-                                class="far fa-bars"></i></a>
-                    </div>
-                </div>
+            <div class="my-btn d-none d-sm-block">
+                <a href="register.html" class="btn white-bg">Register</a>
             </div>
         `;
 
             const logoutHTML = `
-            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
-                <div class="header-right d-flex align-items-center justify-content-end">
-                    <div class="my-btn d-none d-sm-block">
-                        <a href="javascript:void(0);" id="logoutBtn" class="btn white-bg">Logout</a>
-                    </div>
-
-                    <div class="d-block d-sm-none pl-20">
-                        <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
-                                class="far fa-bars"></i></a>
-                    </div>
-                </div>
+            <div class="my-btn d-none d-sm-block">
+                <a href="javascript:void(0);" id="logoutBtn" class="btn white-bg">Logout</a>
             </div>
         `;
 
             if (userId) {
-                $("#header-auth-section").html(logoutHTML);
+                $("#auth-buttons").html(logoutHTML);
             } else {
-                $("#header-auth-section").html(loginRegisterHTML);
+                $("#auth-buttons").html(loginRegisterHTML);
             }
 
             $(document).on("click", "#logoutBtn", function () {
