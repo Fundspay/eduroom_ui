@@ -223,7 +223,7 @@
 
                                 <h1 class="text-white mb-15 text-capitalize" data-aos="fade-up" data-aos-duration="2000"
                                     style="color: teal !important;" data-aos-delay="150">our <span
-                                        class="f-700">Courses</span></h1>
+                                        class="f-700">Internships</span></h1>
                                 <!-- <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center bg-transparent">
                                         <li class="breadcrumb-item"><a class="text-white" href="index.html" style="color: black !important;">Home</a>
@@ -918,7 +918,7 @@
                                     title: "Terms & Conditions",
                                     html: `
                                         <p style="font-size:14px; margin-bottom:10px; text-align:left;">
-                                            I agree to the <b>Terms and Conditions</b> before starting this course.
+                                            I agree to the <b>Terms and Conditions</b> before starting this Internship.
                                         </p>
                                         <div style="width:100%; text-align:left;">
                                             <input type="text" id="startDate" 
@@ -962,12 +962,12 @@
                                             title: "Are you sure?",
                                             text: `You selected ${uiDate}. Do you want to proceed?`,
                                             showCancelButton: true,
-                                            confirmButtonText: "Yes, Start Course",
+                                            confirmButtonText: "Yes, Start Internship",
                                             cancelButtonText: "No"
                                         }).then(confirmRes => {
                                             if (confirmRes.isConfirmed) {
                                                 Swal.fire({
-                                                    title: "Starting course...",
+                                                    title: "Starting Internship...",
                                                     allowOutsideClick: false,
                                                     didOpen: () => {
                                                         Swal.showLoading();
@@ -989,7 +989,7 @@
                                                         if (res.success) {
                                                             Swal.fire({
                                                                 icon: "success",
-                                                                title: "Course started successfully!",
+                                                                title: "Internship started successfully!",
                                                                 showConfirmButton: false,
                                                                 timer: 1500
                                                             });
@@ -997,7 +997,7 @@
                                                                 window.location.href = `course-preview.html?courseId=${courseId}&coursePreviewId=${previewId}`;
                                                             }, 1600);
                                                         } else {
-                                                            Swal.fire("Error", "Could not start course. Try again.", "error");
+                                                            Swal.fire("Error", "Could not start Internship. Try again.", "error");
                                                         }
                                                     },
                                                     error: function (xhr, status, error) {
