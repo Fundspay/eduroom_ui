@@ -28,12 +28,12 @@
 
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyA328xLn_K8VfCJQvYYzqFqjWY9kuhyMEo",
-            authDomain: "fundsweb-c3fa2.firebaseapp.com",
-            projectId: "fundsweb-c3fa2",
-            storageBucket: "fundsweb-c3fa2.firebasestorage.app",
-            messagingSenderId: "174402074044",
-            appId: "1:174402074044:web:da77c88ab14a33c8b167b9"
+            apiKey: "AIzaSyALdQBWavYA5oJf9GbtakWhyQkyLZYC-8g",
+            authDomain: "eduroom-server.firebaseapp.com",
+            projectId: "eduroom-server",
+            storageBucket: "eduroom-server.firebasestorage.app",
+            messagingSenderId: "785105894800",
+            appId: "1:785105894800:web:57784412eddc0f5ae9c715"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -663,6 +663,13 @@
 
     <script>
         $(document).ready(function () {
+            let GOOGLE_DEFAULT_PASSWORD = "";
+
+            // Load config.json to fetch the password
+            $.getJSON("/config.json", function (config) {
+                GOOGLE_DEFAULT_PASSWORD = config.GOOGLE_DEFAULT_PASSWORD;
+            });
+
             $('#google-login-btn').on('click', function () {
 
                 Swal.fire({
@@ -680,7 +687,7 @@
                         const lastName = nameParts.slice(1).join(' ') || '';
                         let email = user.email || '';
                         let phoneNumber = user.phoneNumber || '';
-                        const password = "Google123!";
+                        const password = GOOGLE_DEFAULT_PASSWORD;
 
                         Swal.close();
 
@@ -761,7 +768,7 @@
                             timer: 2000,
                             showConfirmButton: false
                         }).then(() => {
-                            window.location.href = "/profile.html";
+                            window.top.location.href = "/profile.html";
                         });
                     })
                     .catch(error => {
