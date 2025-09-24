@@ -243,71 +243,101 @@
 
         <!-- ====== about-area-start=========================================== -->
         <div class="about-page-area position-relative over-hidden mt-165 pb-120">
+            <div class="title text-center">
+                <h2 class="mb-30">Life at <span class="f-700">EDUROOM</span></h2>
+                <!-- <p class="pb-30">Eduroom is a brand-new learning platform that blends online video courses
+                                with practical business internships.
+                                Complete real-world challenges, enhance your skills, and earn valuable certificates as
+                                you grow with us.</p> -->
+            </div>
             <div class="container">
                 <div class="d-flex flex-column-reverse flex-sm-column ">
-                    <div class="row about-page-image-wrapper mb-60 g-3">
-                        <!-- Column 1: Small -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img1.jpg" alt="">
-                            </div>
-                        </div>
+                    <div class="about-page-image-wrapper scroll-wrapper" style="margin-bottom: 5%;">
+                        <div class="scroll-container">
+                            <div class="about-page-img"><img src="images/about-page/img10.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img4.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img2.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img1.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img8.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img3.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img9.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img6.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img11.jpg" alt=""></div>
 
-                        <!-- Column 2: Medium -->
-                        <div class="col-xl-5 col-lg-8 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img2.jpg" alt="">
-                            </div>
-                        </div>
-
-                        <!-- Column 3: Small -->
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img2.jpg" alt="">
-                            </div>
-                        </div>
-
-                        <!-- Column 4: Medium -->
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img1.jpg" alt="">
-                            </div>
-                        </div>
-
-                        <!-- Column 5: Small -->
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img2.jpg" alt="">
-                            </div>
-                        </div>
-
-                        <!-- Column 6: Large -->
-                        <div class="col-xl-5 col-lg-8 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img3.jpg" alt="">
-                            </div>
-                        </div>
-
-                        <!-- Column 7: Small -->
-                        <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img1.jpg" alt="">
-                            </div>
-                        </div>
-
-                        <!-- Column 8: Medium -->
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img2.jpg" alt="">
-                            </div>
-                        </div>
-                        <!-- Column 7: Small -->
-                        <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                            <div class="about-page-img">
-                                <img class="w-100" src="images/about-page/about-page-img1.jpg" alt="">
-                            </div>
+                            <!-- Duplicate for seamless loop -->
+                            <div class="about-page-img"><img src="images/about-page/img10.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img4.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img2.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img1.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img8.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img3.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img9.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img6.jpg" alt=""></div>
+                            <div class="about-page-img"><img src="images/about-page/img11.jpg" alt=""></div>
                         </div>
                     </div>
+
+                    <style>
+                        .scroll-wrapper {
+                            overflow: hidden;
+                            width: 100%;
+                            position: relative;
+                        }
+
+                        .scroll-container {
+                            display: flex;
+                            gap: 10px;
+                            animation: scrollLoop 30s linear infinite;
+                        }
+
+                        .scroll-container .about-page-img {
+                            flex: 0 0 auto;
+                            width: 300px;
+                            height: 300px;
+                            border-radius: 10px;
+                            overflow: hidden;
+                        }
+
+                        .scroll-container .about-page-img img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            display: block;
+                        }
+
+                        @keyframes scrollLoop {
+                            0% {
+                                transform: translateX(0);
+                            }
+
+                            100% {
+                                transform: translateX(-50%);
+                            }
+
+                            /* scroll half container (because we duplicated images) */
+                        }
+                    </style>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const container = document.querySelector(".scroll-container");
+                            const images = document.querySelectorAll(".scroll-container .about-page-img");
+                            let scrollIndex = 0;
+                            const total = images.length;
+                            const scrollAmount = images[0].offsetWidth + 10; // image width + gap
+                            const intervalTime = 2500; // 2.5 seconds per image
+
+                            function scrollImages() {
+                                scrollIndex++;
+                                if (scrollIndex >= total) {
+                                    scrollIndex = 0;
+                                }
+                                container.style.transform = `translateX(-${scrollIndex * scrollAmount}px)`;
+                            }
+
+                            setInterval(scrollImages, intervalTime);
+                        });
+                    </script>
                     <div class="row about-page-content-wrapper mb-65">
 
                         <div class="col-xl-4 col-lg-4  col-md-12  col-sm-12 col-12">
@@ -391,10 +421,10 @@
         <!-- about-area -end -->
 
         <div>
-             <!-- ====== home4-facts-area-start=========================================== -->
-          <div class="home4-facts-area home4-facts-bg position-relative over-hidden bg-no-repeat mx-auto mt-140 mb-170"
-            data-background="images/bg/home4-fact-bg.png">
-             <div class="row justify-content-center">
+            <!-- ====== home4-facts-area-start=========================================== -->
+            <div class="home4-facts-area home4-facts-bg position-relative over-hidden bg-no-repeat mx-auto mt-140 mb-170"
+                data-background="images/bg/home4-fact-bg.png">
+                <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-7 col-md-10 col-sm-12 col-12">
                         <div class="title text-center">
                             <h2 class="mb-30">Eduroom Exclusive <span class="f-700">Clients</span></h2>
@@ -406,135 +436,101 @@
                     </div><!-- /col -->
                 </div><!-- /row -->
 
-            <div class="community-area position-relative mt-90 mb-150">
-                <div class="position-absolute community-person1 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st12.png" alt="">
-                </div>
-                <div class="position-absolute community-person2 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st2.png" alt="">
-                </div>
-                <div class="position-absolute community-person3 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st3.png" alt="">
-                </div>
-                <div class="position-absolute community-person4 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st4.png" alt="">
-                </div>
-                <div class="position-absolute community-person5 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st5.png" alt="">
-                </div>
-                <div class="position-absolute community-person6 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st6.png" alt="">
-                </div>
-                <div class="position-absolute community-person7 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st7.png" alt="">
-                </div>
-                <div class="position-absolute community-person8 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st8.png" alt="">
-                </div>
-                <div class="position-absolute community-person9 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st9.png" alt="">
-                </div>
-                <div class="position-absolute community-person10 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st10.png" alt="">
-                </div>
-                <div class="position-absolute community-person11 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st11.png" alt="">
-                </div>
-                <div class="position-absolute community-person12 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st12.png" alt="">
-                </div>
-                <div class="position-absolute community-person14 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st4.png" alt="">
-                </div>
-                <div class="position-absolute community-person15 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st13.png" alt="">
-                </div>
-                <div class="position-absolute community-person16 aos-init aos-animate" data-aos="fade-up"
-                    data-aos-duration="2500">
-                    <img class="rounded-circle" src="images/fact/st14.png" alt="">
-                </div>
-
-                <div
-                    class="hm4-community-shape-circle1 position-absolute rounded-circle heartbeat2 d-none d-lg-inline-block">
-                </div><!-- shape circle -->
-                <div
-                    class="hm4-community-shape-circle2 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
-                </div><!-- shape circle -->
-                <div
-                    class="hm4-community-shape-circle3 position-absolute rounded-circle heartbeat22 d-none d-md-inline-block">
-                </div><!-- shape circle -->
-                <div
-                    class="hm4-community-shape-circle4 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
-                </div><!-- shape circle -->
-                <div
-                    class="hm4-community-shape-circle5 position-absolute rounded-circle heartbeat2 d-none d-lg-inline-block">
-                </div><!-- shape circle -->
-                <div
-                    class="hm4-community-shape-circle6 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
-                </div><!-- shape circle -->
-                <div
-                    class="hm4-community-shape-circle7 position-absolute rounded-circle heartbeat22 d-none d-md-inline-block">
-                </div><!-- shape circle -->
-            </div><!-- /community-area -->
-
-            <div class="container">
-                <div class="row home4-fact-wrapper mt-50 justify-content-center">
-                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-4 col-12 justify-content-center">
-                        <div class="home4-single-fact hm4-fact1 text-center mb-30 tilt">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <span class="main-color f-500 d-inline-block counter">50</span><span
-                                    class="main-color f-500">+</span>
-                            </div>
-                            <h5 class="secondary-color mt-2 f-400">Video Lessons</h5>
-                        </div> <!-- /single-fact -->
-                    </div><!-- /col -->
-
-                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-4 col-12 justify-content-center">
-                        <div class="home4-single-fact hm4-fact2 text-center mb-30 tilt">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <span class="main-color f-500 d-inline-block counter">10</span>
-                            </div>
-                            <h5 class="secondary-color mt-2 f-400">Business Internships</h5>
-                        </div> <!-- /single-fact -->
-                    </div><!-- /col -->
-
-                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-4 col-12 justify-content-center">
-                        <div class="home4-single-fact hm4-fact3 text-center mb-30 tilt">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <span class="main-color f-500 d-inline-block counter">10</span>
-                                <span class="per main-color d-inline-block f-500">K+</span>
-                            </div>
-                            <h5 class="secondary-color mt-2 f-400">Internships Provided</h5>
-                        </div> <!-- /single-fact -->
+                <div class="community-area position-relative mt-90 mb-150">
+                    <div class="position-absolute community-person1 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st12.png" alt="">
                     </div>
-                    <!-- /col -->
-                </div><!-- /row -->
+                    <div class="position-absolute community-person2 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st2.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person3 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st3.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person4 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st4.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person5 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st5.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person6 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st6.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person7 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st7.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person8 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st8.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person9 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st9.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person10 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st10.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person11 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st11.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person12 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st12.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person14 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st4.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person15 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st13.png" alt="">
+                    </div>
+                    <div class="position-absolute community-person16 aos-init aos-animate" data-aos="fade-up"
+                        data-aos-duration="2500">
+                        <img class="rounded-circle" src="images/fact/st14.png" alt="">
+                    </div>
+
+                    <div
+                        class="hm4-community-shape-circle1 position-absolute rounded-circle heartbeat2 d-none d-lg-inline-block">
+                    </div><!-- shape circle -->
+                    <div
+                        class="hm4-community-shape-circle2 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
+                    </div><!-- shape circle -->
+                    <div
+                        class="hm4-community-shape-circle3 position-absolute rounded-circle heartbeat22 d-none d-md-inline-block">
+                    </div><!-- shape circle -->
+                    <div
+                        class="hm4-community-shape-circle4 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
+                    </div><!-- shape circle -->
+                    <div
+                        class="hm4-community-shape-circle5 position-absolute rounded-circle heartbeat2 d-none d-lg-inline-block">
+                    </div><!-- shape circle -->
+                    <div
+                        class="hm4-community-shape-circle6 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
+                    </div><!-- shape circle -->
+                    <div
+                        class="hm4-community-shape-circle7 position-absolute rounded-circle heartbeat22 d-none d-md-inline-block">
+                    </div><!-- shape circle -->
+                </div><!-- /community-area -->
+                <!-- /container -->
+
+                <div class="hm2-facts-shape1 position-absolute">
+                    <img src="images/shape/hm2-fact-shape1.png" alt="">
+                </div><!-- shape -->
+                <div class="hm2-facts-shape2 position-absolute">
+                    <img src="images/shape/hm2-fact-shape2.png" alt="">
+                </div><!-- shape -->
+
             </div>
-            <!-- /container -->
-
-            <div class="hm2-facts-shape1 position-absolute">
-                <img src="images/shape/hm2-fact-shape1.png" alt="">
-            </div><!-- shape -->
-            <div class="hm2-facts-shape2 position-absolute">
-                <img src="images/shape/hm2-fact-shape2.png" alt="">
-            </div><!-- shape -->
-
-        </div>
-        <!-- home4-facts-area -end -->
+            <!-- home4-facts-area -end -->
         </div>
 
 
@@ -605,7 +601,7 @@
         <div class="testimonial-area about-page-testimonial home3 position-relative"
             style="margin-top: 5%; margin-bottom: 5%;">
             <div class="testimonial-bg position-absolute bg-no-repeat bg-cover h-100"
-                data-background="images/testimonial/home3-testimonial-bg.jpg"></div><!-- /testimonial bg -->
+                data-background="images/about-page/clients.jpeg"></div><!-- /testimonial bg -->
             <div class="container">
                 <div class="row justify-content-lg-end home3-testimonial-padding pt-110">
                     <div class="col-xl-5  col-lg-6 col-md-9 col-sm-12 col-12 pl-lg-0">
@@ -637,10 +633,10 @@
                                 </ul>
                                 <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
                                     <div class="d-flex">
-                                        <div class="testi-avatar pr-20 rounded-circle">
+                                        <!-- <div class="testi-avatar pr-20 rounded-circle">
                                             <img class="rounded-circle" src="images/testimonial/hm3-author-img2.jpg"
                                                 alt="Learner">
-                                        </div>
+                                        </div> -->
                                         <div class="avatar-info text-left">
                                             <h6 class="f-500 text-uppercase mb-0">Sarah Patil</h6>
                                             <p class="mb-0">Marketing Intern</p>
@@ -668,10 +664,10 @@
                                 </ul>
                                 <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
                                     <div class="d-flex">
-                                        <div class="testi-avatar pr-20 rounded-circle">
+                                        <!-- <div class="testi-avatar pr-20 rounded-circle">
                                             <img class="rounded-circle" src="images/testimonial/hm3-author-img2.jpg"
                                                 alt="Learner">
-                                        </div>
+                                        </div> -->
                                         <div class="avatar-info text-left">
                                             <h6 class="f-500 text-uppercase mb-0">Manoj Kumar</h6>
                                             <p class="mb-0">Business Intern</p>
@@ -699,10 +695,10 @@
                                 </ul>
                                 <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
                                     <div class="d-flex">
-                                        <div class="testi-avatar pr-20 rounded-circle">
+                                        <!-- <div class="testi-avatar pr-20 rounded-circle">
                                             <img class="rounded-circle" src="images/testimonial/hm3-author-img2.jpg"
                                                 alt="Learner">
-                                        </div>
+                                        </div> -->
                                         <div class="avatar-info text-left">
                                             <h6 class="f-500 text-uppercase mb-0">Jay Sharma</h6>
                                             <p class="mb-0">Design Intern</p>
@@ -730,10 +726,10 @@
                                 </ul>
                                 <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
                                     <div class="d-flex">
-                                        <div class="testi-avatar pr-20 rounded-circle">
+                                        <!-- <div class="testi-avatar pr-20 rounded-circle">
                                             <img class="rounded-circle" src="images/testimonial/hm3-author-img2.jpg"
                                                 alt="Learner">
-                                        </div>
+                                        </div> -->
                                         <div class="avatar-info text-left">
                                             <h6 class="f-500 text-uppercase mb-0">Ritu Mehta</h6>
                                             <p class="mb-0">Software Intern</p>
@@ -761,10 +757,10 @@
                                 </ul>
                                 <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
                                     <div class="d-flex">
-                                        <div class="testi-avatar pr-20 rounded-circle">
+                                        <!-- <div class="testi-avatar pr-20 rounded-circle">
                                             <img class="rounded-circle" src="images/testimonial/hm3-author-img2.jpg"
                                                 alt="Learner">
-                                        </div>
+                                        </div> -->
                                         <div class="avatar-info text-left">
                                             <h6 class="f-500 text-uppercase mb-0">Ankit Singh</h6>
                                             <p class="mb-0">Content Intern</p>
