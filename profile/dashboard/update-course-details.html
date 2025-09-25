@@ -306,7 +306,7 @@
 
                                 <!-- Auto Generated Day Dropdown -->
                                 <div class="mb-4">
-                                    <label class="form-label">Select Day</label>
+                                    <label class="form-label">Select Session</label>
                                     <select class="form-select" id="daySelect">
                                         <option value="">Select course first</option>
                                     </select>
@@ -314,9 +314,9 @@
 
                                 <!-- Session Dropdown -->
                                 <div class="mb-4">
-                                    <label class="form-label">Select Session</label>
+                                    <label class="form-label">Select Video</label>
                                     <select class="form-select" id="sessionSelect" data-select2-selector="icon">
-                                        <option value="">Select session</option>
+                                        <option value="">Select Video</option>
                                     </select>
                                 </div>
 
@@ -947,7 +947,7 @@
 
             // Populate session dropdown
             for (let i = 1; i <= 30; i++) {
-                $("#sessionSelect").append(`<option value="${i}">Session ${i}</option>`);
+                $("#sessionSelect").append(`<option value="${i}">Video ${i}</option>`);
             }
 
             // Fetch domains
@@ -1026,9 +1026,9 @@
             $("#coursePreviewSelect").change(function () {
                 selectedPreviewId = $(this).val();
                 let dayCount = $(this).find(":selected").data("daycount") || 0;
-                let options = '<option value="">Select Day</option>';
+                let options = '<option value="">Select Session</option>';
                 for (let i = 1; i <= dayCount; i++) {
-                    options += `<option value="${i}">Day ${i}</option>`;
+                    options += `<option value="${i}">Session ${i}</option>`;
                 }
                 $("#daySelect").html(options);
 
@@ -1182,38 +1182,77 @@
                 });
             });
 
-            // DELETE COURSE
             $("#deleteCourseBtn").click(function () {
-                const courseDetailId = parseInt($("#courseSelect").val(), 10); // or use the actual courseDetailId if available
+                const courseDetailId = parseInt($("#courseSelect").val(), 10);
                 if (!courseDetailId) {
-                    Swal.fire('Error', 'Please select a course to delete!', 'error');
+                    Swal.fire("⚠ Error", "Please select a course to delete its course details!", "error");
                     return;
                 }
 
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This will delete the course permanently!",
-                    icon: 'warning',
+                    title: "Are you sure?",
+                    text: "This will delete the course-details permanently!",
+                    icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $.ajax({
-                            url: `https://eduroom.in/api/v1/coursedetail/delete/${courseDetailId}`, // URL param still present
-                            type: "DELETE",
-                            contentType: "application/json",
-                            data: JSON.stringify({ courseDetailId }), // <-- send body for backend
-                            success: function () {
-                                Swal.fire('Deleted!', 'Course has been deleted.', 'success');
-                                $("#courseSelect").val('');
-                                $("#coursePreviewSelect").html('<option value="">Select course first</option>');
-                                $("#daySelect").html('<option value="">Select course preview first</option>');
-                                $("#formMessage").html('');
-                            },
-                            error: function (xhr) {
-                                Swal.fire('Error', xhr.responseText || 'Error deleting course', 'error');
+
+                        Swal.fire({
+                            title: "Password Required",
+                            text: "Please enter the admin password to confirm deletion. (Note: Once deleted the Course-details cannot be recovered!!!)",
+                            input: "password",
+                            inputPlaceholder: "Enter password",
+                            showCancelButton: true,
+                            confirmButtonText: "Confirm",
+                            cancelButtonText: "Cancel",
+                            inputAttributes: {
+                                maxlength: 50,
+                                autocapitalize: "off",
+                                autocorrect: "off"
+                            }
+                        }).then((passwordResult) => {
+                            if (passwordResult.isConfirmed) {
+                                const enteredPassword = passwordResult.value;
+
+                                $.getJSON("/config.json", function (config) {
+                                    if (enteredPassword === config.adminPassword) {
+
+                                        Swal.fire({
+                                            title: "Deleting...",
+                                            allowOutsideClick: false,
+                                            didOpen: () => {
+                                                Swal.showLoading();
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            url: `https://eduroom.in/api/v1/coursedetail/delete/${courseDetailId}`,
+                                            type: "DELETE",
+                                            contentType: "application/json",
+                                            data: JSON.stringify({ courseDetailId }),
+                                            success: function () {
+                                                Swal.close();
+                                                Swal.fire("Deleted!", "Course-details has been deleted.", "success");
+
+                                                $("#courseSelect").val("");
+                                                $("#coursePreviewSelect").html('<option value="">Select course first</option>');
+                                                $("#daySelect").html('<option value="">Select course preview first</option>');
+                                                $("#formMessage").html("");
+                                            },
+                                            error: function (xhr) {
+                                                Swal.close();
+                                                Swal.fire("❌ Error", xhr.responseText || "Error deleting course-details", "error");
+                                            }
+                                        });
+                                    } else {
+                                        Swal.fire("❌ Access Denied", "Incorrect password. Deletion cancelled.", "error");
+                                    }
+                                }).fail(function () {
+                                    Swal.fire("⚠ Error", "Could not load config.json", "error");
+                                });
                             }
                         });
                     }
