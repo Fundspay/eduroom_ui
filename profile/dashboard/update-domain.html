@@ -384,7 +384,6 @@
 
     <script>
         $(document).ready(function () {
-            // 1️⃣ Fetch domain list and populate dropdown
             $.get("https://eduroom.in/api/v1/domain/list", function (res) {
                 if (res.success && res.data.length > 0) {
                     res.data.forEach(function (d) {
@@ -395,7 +394,6 @@
                 }
             });
 
-            // 2️⃣ When domain selected → populate form
             $("#domainSelect").change(function () {
                 const domainId = $(this).val();
                 if (!domainId) return;
@@ -421,7 +419,6 @@
                 });
             });
 
-            // ✅ File preview
             function previewFile(file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
@@ -444,7 +441,6 @@
                 $("#uploadBox").fadeIn();
             });
 
-            // 3️⃣ Update Domain call
             $("#submitBtn").click(function (e) {
                 e.preventDefault();
 
@@ -496,7 +492,6 @@
                 });
             });
 
-            // 4️⃣ Delete Domain call
             $("#deleteBtn").click(function (e) {
                 e.preventDefault();
 
@@ -517,35 +512,60 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire({
-                            title: "Deleting...",
-                            text: "Please wait while we delete the domain.",
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
+                            title: "Password Required",
+                            text: "Please enter the admin password to confirm deletion. (Note: Once deleted the Domain cannot be recovered!!!)",
+                            input: "password",
+                            inputPlaceholder: "Enter password",
+                            showCancelButton: true,
+                            confirmButtonText: "Confirm",
+                            cancelButtonText: "Cancel",
+                            inputAttributes: {
+                                maxlength: 50,
+                                autocapitalize: "off",
+                                autocorrect: "off"
                             }
-                        });
+                        }).then((passwordResult) => {
+                            if (passwordResult.isConfirmed) {
+                                const enteredPassword = passwordResult.value;
 
-                        $.ajax({
-                            url: `https://eduroom.in/api/v1/domain/delete/${domainId}`,
-                            type: "DELETE",
-                            success: function (res) {
-                                Swal.fire("🗑 Deleted!", "The domain has been deleted successfully.", "success");
+                                $.getJSON("/config.json", function (config) {
+                                    if (enteredPassword === config.adminPassword) {
+                                        Swal.fire({
+                                            title: "Deleting...",
+                                            text: "Please wait while we delete the domain.",
+                                            allowOutsideClick: false,
+                                            didOpen: () => {
+                                                Swal.showLoading();
+                                            }
+                                        });
 
-                                // Reset form after deletion
-                                $("#domainId").val("");
-                                $("#domainName").val("");
-                                $("#domainDescription").val("");
-                                $("#imageInput").val("");
-                                $("#previewBox").hide();
-                                $("#uploadBox").show();
+                                        $.ajax({
+                                            url: `https://eduroom.in/api/v1/domain/delete/${domainId}`,
+                                            type: "DELETE",
+                                            success: function (res) {
+                                                Swal.fire("Deleted!", "The domain has been deleted successfully.", "success");
 
-                                // Remove deleted option from dropdown
-                                $(`#domainSelect option[value='${domainId}']`).remove();
-                                $("#domainSelect").val("");
-                            },
-                            error: function (xhr) {
-                                Swal.fire(" Error", "Could not delete domain: " + xhr.responseText, "error");
-                                console.error("Delete Error:", xhr);
+                                                $("#domainId").val("");
+                                                $("#domainName").val("");
+                                                $("#domainDescription").val("");
+                                                $("#imageInput").val("");
+                                                $("#previewBox").hide();
+                                                $("#uploadBox").show();
+
+                                                $(`#domainSelect option[value='${domainId}']`).remove();
+                                                $("#domainSelect").val("");
+                                            },
+                                            error: function (xhr) {
+                                                Swal.fire("❌ Error", "Could not delete domain: " + xhr.responseText, "error");
+                                                console.error("Delete Error:", xhr);
+                                            }
+                                        });
+                                    } else {
+                                        Swal.fire("❌ Access Denied", "Incorrect password. Deletion cancelled.", "error");
+                                    }
+                                }).fail(function () {
+                                    Swal.fire("⚠ Error", "Could not load config.json", "error");
+                                });
                             }
                         });
                     }
