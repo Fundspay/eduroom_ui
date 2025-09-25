@@ -586,7 +586,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Internships</a>
+                                    <a href="/domain-list.html"
+                                        class="position-relative d-inline-block mb-2">Internships</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -683,7 +684,6 @@
 
     <script>
         $(document).ready(function () {
-            // Helper: get query params from URL
             function getQueryParams() {
                 var params = {};
                 var queryString = window.location.search.substring(1);
@@ -697,7 +697,6 @@
 
             var queryParams = getQueryParams();
 
-            // Pull values from URL
             var coursePreviewId = queryParams.previewId || queryParams.coursePreviewId || 1;
             var courseId = queryParams.courseId || 1;
             var sessionId = queryParams.Id || queryParams.session || 1;
@@ -712,7 +711,6 @@
                 "userId:", userId
             );
 
-            // Function to format YouTube embed URL
             function formatYouTubeEmbed(url) {
                 if (!url) return "";
                 var videoId = "";
@@ -727,10 +725,8 @@
                 return "https://www.youtube.com/embed/" + videoId + "?" + params;
             }
 
-            // Store response globally for navigation
             var allSessions = [];
 
-            // Fetch course preview data from backend
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/course-preview/${coursePreviewId}/details`,
                 method: "GET",
@@ -747,10 +743,8 @@
                         return;
                     }
 
-                    // Save all sessions
                     allSessions = response.data;
 
-                    // Match correct course for day + session
                     const course = response.data.find(c =>
                         Number(c.day) === Number(dayNumber) &&
                         Number(c.sessionNumber) === Number(sessionNumber)
@@ -761,20 +755,17 @@
                         return;
                     }
 
-                    // Map backend data to UI
                     $('#courseCategory').text(course.Domain?.name || "");
                     $('#courseTitle').text(course.heading || "");
                     $('#courseVideo').attr("src", formatYouTubeEmbed(course.youtubeLink));
                     $('#courseHeadingMain').text(course.title || "Courses");
 
-                    // Description
                     var descContainer = $('#courseDescription');
                     descContainer.empty();
                     if (course.description) {
                         descContainer.append('<p>' + course.description + '</p>');
                     }
 
-                    // MCQ Quiz Injection
                     var quizContainer = $('#accordion-quiz');
                     quizContainer.empty();
 
@@ -782,7 +773,6 @@
                         $('#totalQuestions').text(course.QuestionModels.length);
 
                         course.QuestionModels.forEach(function (q, index) {
-                            // Skip null/empty questions
                             if (!q || !q.question) return;
 
                             var qid = 'q' + q.id;
@@ -792,32 +782,33 @@
                                 if (q[optKey] && q[optKey].trim() !== "") {
                                     var letter = String.fromCharCode(65 + i); // A, B, C, D
                                     optionsHtml += `
-                                    <li class="mb-2">
-                                        <label>
-                                            <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
-                                        </label>
-                                    </li>`;
+                                <li class="mb-2">
+                                    <label>
+                                        <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
+                                    </label>
+                                </li>`;
                                 }
                             });
 
                             var cardHtml = `
-                            <div class="card border-0 mb-3" id="card-${qid}">
-                                <div class="card-header border-bottom-0 p-0">
-                                    <h6 class="mb-0 main-color f-500">
-                                        Q${index + 1}. ${q.question}
-                                    </h6>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="list-unstyled">${optionsHtml}</ul>
-                                </div>
-                            </div>`;
+                        <div class="card border-0 mb-3" id="card-${qid}">
+                            <div class="card-header border-bottom-0 p-0">
+                                <h6 class="mb-0 main-color f-500">
+                                    Q${index + 1}. ${q.question}
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">${optionsHtml}</ul>
+                            </div>
+                        </div>`;
 
                             quizContainer.append(cardHtml);
                         });
+
+                        fetchSavedAnswers();
                     }
 
                     console.log("Course data loaded:", course);
-
                     setupNavigation(allSessions, dayNumber, sessionNumber);
                 },
                 error: function (xhr, status, error) {
@@ -825,11 +816,61 @@
                 }
             });
 
+            function fetchSavedAnswers() {
+                var scoreUrl = `https://eduroom.in/api/v1/coursedetail/mcq/score/${courseId}/${coursePreviewId}/${dayNumber}/${sessionNumber}/${userId}`;
+                $.ajax({
+                    url: scoreUrl,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log("get call response:", res);
+                        if (res.success && res.score) {
+
+                            if (res.score.answers) {
+                                res.score.answers.forEach(function (ans) {
+                                    var qid = "q" + ans.mcqId;
+                                    var selected = ans.selectedOption;
+                                    if (selected) {
+                                        $(`input[name="${qid}"][value="${selected}"]`).prop("checked", true);
+                                    }
+                                });
+                                console.log("Saved answers pre-filled:", res.score.answers);
+                            }
+
+                            var correct = res.score.correctMCQs || 0;
+                            var total = res.score.totalMCQs || 0;
+                            var wrong = total - correct;
+
+                            $('#averageScore').text(correct + "/" + total);
+                            $('#totalAttempts').text(total);
+                            $('#correctAnswers').text(correct);
+                            $('#wrongAnswers').text(wrong);
+
+                            var percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+                            $('#percentage').text(percentage + '%');
+
+                            var stars = Math.round(percentage / 20);
+                            var starList = $('.cd-ratting-number').siblings('ul').find('li');
+                            starList.each(function (index) {
+                                if (index < stars) {
+                                    $(this).find('span').removeClass('r-star-light-color').addClass('r-star-color');
+                                } else {
+                                    $(this).find('span').removeClass('r-star-color').addClass('r-star-light-color');
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching saved answers:", status, error);
+                    }
+                });
+            }
+
             $('#submitQuiz').on('click', function () {
                 var answers = [];
 
                 $('#accordion-quiz input[type="radio"]:checked').each(function () {
-                    var mcqId = $(this).attr('name').replace('q', ''); // Remove 'q' prefix
+                    var mcqId = $(this).attr('name').replace('q', '');
                     var selectedOption = $(this).val();
                     answers.push({
                         mcqId: mcqId,
@@ -854,6 +895,7 @@
                     }),
                     success: function (response) {
                         if (response.success) {
+                            console.log("response data:", response);
                             var evalData = response.evaluation;
 
                             $('#averageScore').text(evalData.score);
@@ -864,8 +906,7 @@
                             var percentage = Math.round((evalData.correct / evalData.totalQuestions) * 100);
                             $('#percentage').text(percentage + '%');
 
-                            // Stars
-                            var stars = Math.round(percentage / 20); // 5 stars max
+                            var stars = Math.round(percentage / 20);
                             var starList = $('.cd-ratting-number').siblings('ul').find('li');
                             starList.each(function (index) {
                                 if (index < stars) {
@@ -875,7 +916,11 @@
                                 }
                             });
 
-                            // Highlight correct/incorrect
+                            $('#accordion-quiz .card').each(function () {
+                                $(this).css('border', '');
+                                $(this).find('.correct-answer').remove();
+                            });
+
                             evalData.results.forEach(function (res) {
                                 var mcqCard = $('#card-q' + res.mcqId);
                                 if (res.isCorrect) {
@@ -902,18 +947,13 @@
             });
 
             function setupNavigation(allSessions, currentDay, currentSession) {
-                // Sort by day + session
                 allSessions.sort((a, b) => (a.day - b.day) || (a.sessionNumber - b.sessionNumber));
-
-                // Find current index
                 const currentIndex = allSessions.findIndex(c =>
                     Number(c.day) === Number(currentDay) &&
                     Number(c.sessionNumber) === Number(currentSession)
                 );
-
                 if (currentIndex === -1) return;
 
-                // Prev button
                 $('#prevBtn').off('click').on('click', function () {
                     if (currentIndex > 0) {
                         const prev = allSessions[currentIndex - 1];
@@ -923,7 +963,6 @@
                     }
                 });
 
-                // Next button
                 $('#nextBtn').off('click').on('click', function () {
                     if (currentIndex < allSessions.length - 1) {
                         const next = allSessions[currentIndex + 1];
@@ -936,7 +975,6 @@
         });
     </script>
 
-    <!-- CASE STUDY RESULT  -->
     <script>
         $(document).ready(function () {
 
@@ -962,11 +1000,11 @@
 
             $('#submitCaseStudy').prop('disabled', true);
 
-            const url = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies?userId=${userId}`;
-            console.log("Case Study API URL:", url);
+            const caseStudyUrl = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies?userId=${userId}`;
+            console.log("Case Study API URL:", caseStudyUrl);
 
             $.ajax({
-                url: url,
+                url: caseStudyUrl,
                 method: "GET",
                 success: function (response) {
                     console.log("Case Study Response:", response);
@@ -976,6 +1014,8 @@
                         $('#caseStudyQuestion').text(caseStudy.caseStudy);
                         questionId = caseStudy.questionId;
                         $('#submitCaseStudy').prop('disabled', false);
+
+                        fetchSavedCaseStudyAnswer();
                     } else {
                         $caseWrapper.hide();
                         console.warn(response.message || "No Case Study available.");
@@ -987,13 +1027,55 @@
                 }
             });
 
-            // Live word count
             $('#caseStudyAnswer').on('input', function () {
                 var words = $(this).val().trim().split(/\s+/).filter(Boolean).length;
                 $('#wordCount').text(words);
             });
 
-            // Submit Case Study
+            function fetchSavedCaseStudyAnswer() {
+                if (!questionId) return;
+                const savedUrl = `https://eduroom.in/api/v1/coursedetail/casestudy/result/${courseId}/${coursePreviewId}/${dayNumber}/${sessionNumber}/${questionId}/${userId}`;
+                console.log("Saved Case Study URL:", savedUrl);
+
+                $.ajax({
+                    url: savedUrl,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log("Saved Case Study Response:", res);
+
+                        if (res.success && res.data) {
+
+                            $('#caseStudyAnswer').val(res.data.answer || '');
+                            var words = res.data.answer ? res.data.answer.trim().split(/\s+/).filter(Boolean).length : 0;
+                            $('#wordCount').text(words);
+
+                            var percent = parseFloat(res.data.matchPercentage || 0).toFixed(1);
+                            $('#caseStudyScore').text(percent + '%');
+                            $('#caseStudyPercentage').text(percent + '%');
+                            $('#caseStudyStatus')
+                                .text(res.data.passed ? 'Passed' : 'Failed')
+                                .removeClass('text-success text-danger')
+                                .addClass(res.data.passed ? 'text-success' : 'text-danger');
+
+                            var stars = Math.round(percent / 20);
+                            $('#caseStudyStars li').each(function (index) {
+                                if (index < stars) {
+                                    $(this).find('i').removeClass('fa-star').addClass('fa-star r-star-color');
+                                } else {
+                                    $(this).find('i').removeClass('r-star-color').addClass('fa-star');
+                                }
+                            });
+
+                            $('#caseStudyResult').show();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching saved case study:", status, error);
+                    }
+                });
+            }
+
             $('#submitCaseStudy').on('click', function () {
                 var answer = $('#caseStudyAnswer').val().trim();
                 if (!answer) {
@@ -1005,6 +1087,7 @@
                     alert("Case study question not loaded. Please try again later.");
                     return;
                 }
+                console.log("answer:", answer);
 
                 $.ajax({
                     url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/question/${questionId}/casestudy`,
@@ -1013,6 +1096,7 @@
                     data: JSON.stringify({ userId: userId, answer: answer }),
                     success: function (response) {
                         if (response.success && response.data) {
+                            console.log("post response of case study:", response);
                             $('#caseStudyResult').show();
 
                             var percent = parseFloat(response.data.matchPercentage || 0).toFixed(1);
@@ -1024,7 +1108,6 @@
                                 .removeClass('text-success text-danger')
                                 .addClass(response.data.passed ? 'text-success' : 'text-danger');
 
-                            // Update stars (5 stars based on percentage)
                             var stars = Math.round(percent / 20);
                             $('#caseStudyStars li').each(function (index) {
                                 if (index < stars) {
@@ -1042,6 +1125,7 @@
                     }
                 });
             });
+
         });
     </script>
 
