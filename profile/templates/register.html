@@ -23,6 +23,24 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyALdQBWavYA5oJf9GbtakWhyQkyLZYC-8g",
+            authDomain: "eduroom-server.firebaseapp.com",
+            projectId: "eduroom-server",
+            storageBucket: "eduroom-server.firebasestorage.app",
+            messagingSenderId: "785105894800",
+            appId: "1:785105894800:web:57784412eddc0f5ae9c715"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+    </script>
+
     <!--! END: Custom CSS-->
     <!--! HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries !-->
     <!--! WARNING: Respond.js doesn"t work if you view the page via file: !-->
@@ -44,7 +62,7 @@
 
                 <div class="main-content" style="margin-bottom: 5%;">
                     <div class="row justify-content-center">
-                        <div class="col-xl-10">
+                        <div class="col-xl-6">
                             <div class="card stretch stretch-full shadow-sm">
                                 <div class="card-body">
                                     <form id="register-form">
@@ -87,13 +105,13 @@
 
                                         <!-- First / Last Name -->
                                         <div class="row" style="margin-top: 5%;">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <label class="form-label">First Name <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" id="firstName" class="form-control"
                                                     placeholder="Enter First Name">
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <label class="form-label">Last Name <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" id="lastName" class="form-control"
@@ -123,13 +141,13 @@
 
                                         <!-- Phone Numbers -->
                                         <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <label class="form-label">Phone Number <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" id="phoneNumber" class="form-control"
                                                     placeholder="10-digit number" maxlength="10">
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <label class="form-label">Email <span
                                                         class="text-danger">*</span></label>
                                                 <input type="email" id="email" class="form-control"
@@ -211,7 +229,7 @@
 
                                         <!-- Password -->
                                         <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <label class="form-label">Password <span
                                                         class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -223,7 +241,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <label class="form-label">Confirm Password <span
                                                         class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -238,13 +256,31 @@
                                         </div>
 
                                         <!-- Submit -->
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <button type="submit" class="btn px-4"
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <button type="submit" class="btn w-100"
                                                 style="background-color: #36d5d5; color: #fff;">
-                                                Register
+                                                Sign Up
                                             </button>
                                         </div>
+
                                     </form>
+
+                                    <div class="col-md-12 text-center mb-3 mt-3">
+                                        <span style="font-weight: 600; color: #999;">OR</span>
+                                    </div>
+
+                                    <div class="col-md-12 mb-3 d-flex justify-content-center">
+                                        <div class="w-100" style="max-width: 600px;">
+                                            <button id="google-login-btn" type="button"
+                                                class="btn btn-outline-dark d-flex align-items-center justify-content-center w-100"
+                                                style="height: 50px; border-radius: 25px;">
+                                                <img src="https://img.icons8.com/color/20/000000/google-logo.png"
+                                                    class="me-2" alt="Google Icon" style="margin-right: 2%;" />
+                                                Continue with Google
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -596,7 +632,7 @@
                             sessionStorage.setItem("userId", userId);
 
                             Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
-                                        .then(() => window.top.location.href = "/login.html");
+                                .then(() => window.top.location.href = "/login.html");
 
                             // const referralPayload = { referralCode, referralLink, internshipModeId };
                             // console.log("payload for put call:", referralPayload);
@@ -623,6 +659,184 @@
             });
 
         })(jQuery);
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            let GOOGLE_DEFAULT_PASSWORD = "";
+
+            // Load config.json to fetch the password
+            $.getJSON("/config.json", function (config) {
+                GOOGLE_DEFAULT_PASSWORD = config.GOOGLE_DEFAULT_PASSWORD;
+            });
+
+            $('#google-login-btn').on('click', function () {
+
+                Swal.fire({
+                    title: 'Signing up with Google...',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+
+                auth.signInWithPopup(provider)
+                    .then(result => {
+                        const user = result.user;
+                        const fullName = user.displayName || '';
+                        const nameParts = fullName.split(' ');
+                        const firstName = nameParts[0] || '';
+                        const lastName = nameParts.slice(1).join(' ') || '';
+                        let email = user.email || '';
+                        let phoneNumber = user.phoneNumber || '';
+                        const password = GOOGLE_DEFAULT_PASSWORD;
+
+                        Swal.close();
+
+                        const askForEmail = () => {
+                            if (!email) {
+                                return Swal.fire({
+                                    title: "Enter your Email",
+                                    input: "email",
+                                    inputPlaceholder: "Enter your email",
+                                    inputValidator: (value) => {
+                                        if (!value) return "Email is required!";
+                                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Enter a valid email address!";
+                                    },
+                                    showCancelButton: true,
+                                    confirmButtonText: "Submit"
+                                }).then(result => {
+                                    if (result.isConfirmed) {
+                                        email = result.value.trim();
+                                    } else {
+                                        throw new Error("Email input cancelled");
+                                    }
+                                });
+                            }
+                            return Promise.resolve();
+                        };
+
+                        const askForPhone = () => {
+                            if (!/^\d{10}$/.test(phoneNumber)) {
+                                return Swal.fire({
+                                    title: "Enter your Phone Number",
+                                    input: "text",
+                                    inputPlaceholder: "10 digit phone number",
+                                    inputValidator: (value) => {
+                                        if (!value) return "Phone number is required!";
+                                        if (!/^\d{10}$/.test(value)) return "Enter a valid 10 digit phone number!";
+                                    },
+                                    showCancelButton: true,
+                                    confirmButtonText: "Submit"
+                                }).then(result => {
+                                    if (result.isConfirmed) {
+                                        phoneNumber = result.value.trim();
+                                    } else {
+                                        throw new Error("Phone input cancelled");
+                                    }
+                                });
+                            }
+                            return Promise.resolve();
+                        };
+
+                        return askForEmail().then(() => askForPhone()).then(() => {
+                            const googlePayload = { firstName, lastName, email, phoneNumber, password };
+                            console.log("Final Google Register Payload:", googlePayload);
+
+                            Swal.fire({
+                                title: "Registering...",
+                                text: "Creating your account...",
+                                allowOutsideClick: false,
+                                didOpen: () => Swal.showLoading()
+                            });
+
+                            return $.ajax({
+                                url: "https://eduroom.in/api/v1/user/personal-info",
+                                type: "POST",
+                                contentType: "application/json",
+                                data: JSON.stringify(googlePayload)
+                            });
+                        });
+                    })
+                    .then(registerResponse => {
+                        const userId = registerResponse.userId;
+                        sessionStorage.setItem("user_id", userId);
+
+                        Swal.close();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Registration Successful",
+                            text: "Redirecting to your profile...",
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.top.location.href = "/profile.html";
+                        });
+                    })
+                    .catch(error => {
+                        Swal.close();
+
+                        if (error.status === 409 || (error.responseJSON && error.responseJSON.message === "User already exists")) {
+                            Swal.fire({
+                                title: 'User already registered. Logging in...',
+                                allowOutsideClick: false,
+                                didOpen: () => Swal.showLoading()
+                            });
+
+                            auth.signInWithPopup(provider)
+                                .then(result => result.user.getIdToken())
+                                .then(idToken => {
+                                    return $.ajax({
+                                        url: "https://eduroom.in/api/v1/user/google-login",
+                                        type: "POST",
+                                        contentType: "application/json",
+                                        data: JSON.stringify({ idToken: idToken })
+                                    });
+                                })
+                                .then(response => {
+                                    let userId = null;
+                                    let redirectUrl = "/profile.html";
+
+                                    if (response.account && response.account.managerId) {
+                                        userId = response.account.managerId;
+                                        redirectUrl = "/profile/dashboard/index.html";
+                                    } else if (response.user && response.user.user_id) {
+                                        userId = response.user.user_id;
+                                    }
+
+                                    if (userId) sessionStorage.setItem("user_id", userId);
+
+                                    Swal.close();
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Login Successful",
+                                        text: "Redirecting...",
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    }).then(() => window.top.location.href = redirectUrl);
+                                })
+                                .catch(err => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Google Login Failed',
+                                        text: err.responseJSON?.message || err.message
+                                    });
+                                });
+
+                        } else if (error.message && (error.message.includes("cancelled"))) {
+                            Swal.fire({
+                                icon: "info",
+                                title: "Registration Cancelled",
+                                text: "You must provide email and phone number to register."
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Google Registration Failed',
+                                text: error.responseJSON?.message || error.message
+                            });
+                        }
+                    });
+            });
+        });
     </script>
 
 </body>

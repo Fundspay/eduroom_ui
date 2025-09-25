@@ -402,11 +402,11 @@
     $(document).ready(function () {
       const userId = 2; // hardcoded for now
 
-      // 🔹 Fetch all courses
       $.ajax({
         url: `https://eduroom.in/api/v1/course/courses?userId=${userId}`,
         type: "GET",
         success: function (res) {
+          console.log("res:", res);
           if (res.success && res.data.length > 0) {
             let options = '<option value="">-- Select Course --</option>';
             res.data.forEach(function (course) {
@@ -423,7 +423,6 @@
         }
       });
 
-      // 🔹 On selecting course → prefill
       $("#courseSelect").change(function () {
         let selected = $(this).find(":selected").data("course");
         if (selected) {
@@ -434,6 +433,8 @@
           $("#certificateCount").val(selected.certificateCount || "");
           $("#totalDays").val(selected.totalDays || "");
           $("#duration").val(selected.duration || "");
+
+          $("#courseSelect").data("domainId", selected.domainId);
 
           if (selected.img) {
             let url = selected.img;
@@ -451,7 +452,6 @@
         }
       });
 
-      // 🔹 Preview new image selection
       $("#imageInput").change(function () {
         const file = this.files[0];
         if (file) {
@@ -465,14 +465,12 @@
         }
       });
 
-      // 🔹 Remove preview image
       $("#removeImage").click(function () {
         $("#previewBox").hide();
         $("#uploadBox").show();
         $("#imageInput").val("");
       });
 
-      // 🔹 Submit (Update Course)
       $("#submitBtn").click(function () {
         let courseId = $("#courseId").val();
         if (!courseId) {
@@ -483,11 +481,16 @@
         let formData = new FormData();
         formData.append("name", $("#courseName").val());
         formData.append("description", $("#description").val());
-        formData.append("domainId", parseInt($("#courseSelect").val()) || null);
-        formData.append("businessTarget", $("#businessTarget").val() ? parseInt($("#businessTarget").val()) : null);
-        formData.append("certificateCount", $("#certificateCount").val() ? parseInt($("#certificateCount").val()) : null);
-        formData.append("totalDays", $("#totalDays").val() ? parseInt($("#totalDays").val()) : null);
+        formData.append("domainId", $("#courseSelect").data("domainId") || null);
+        formData.append("businessTarget", $("#businessTarget").val() ? parseInt($("#businessTarget").val()) : '');
+        formData.append("certificateCount", $("#certificateCount").val() ? parseInt($("#certificateCount").val()) : '');
+        formData.append("totalDays", $("#totalDays").val() ? parseInt($("#totalDays").val()) : '');
         formData.append("duration", $("#duration").val());
+
+        console.log("FormData contents:");
+        for (let pair of formData.entries()) {
+          console.log(pair[0] + ": ", pair[1]);
+        }
 
         let imageFile = $("#imageInput")[0].files[0];
         if (imageFile) {

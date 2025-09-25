@@ -64,7 +64,7 @@
                                         </li><!-- /About -->
 
                                         <li class="full-mega-menu-position">
-                                            <a href="/domain-list.html">Courses</a>
+                                            <a href="/domain-list.html">Internships</a>
                                             <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
                                                 id="domainCourseWrapper">
                                                 <!-- Domains & Courses will be populated here dynamically -->
@@ -586,7 +586,7 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Courses</a>
+                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Internships</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -660,6 +660,26 @@
     <script src="js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const userId = sessionStorage.getItem("user_id");
+        // const userId = 2;
+        console.log("user_id:", userId);
+
+        if (!userId) {
+            Swal.fire({
+                icon: "warning",
+                title: "Not Logged In",
+                text: "You need to login first to continue.",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: "Login"
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        }
+    </script>
 
     <script>
         $(document).ready(function () {

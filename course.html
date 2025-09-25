@@ -44,7 +44,7 @@
     </div><!-- /preloader -->
 
     <!--  ====== header-area-start=======================================  -->
-   <header>
+    <header>
         <div id="header-sticky" class="transparent-header header-area home2 home4 white-color-header">
             <div class="header">
                 <div class="container-wrapper">
@@ -64,7 +64,7 @@
                                         </li><!-- /About -->
 
                                         <li class="full-mega-menu-position">
-                                            <a href="/domain-list.html">Courses</a>
+                                            <a href="/domain-list.html">Internships</a>
                                             <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
                                                 id="domainCourseWrapper">
                                                 <!-- Domains & Courses will be populated here dynamically -->
@@ -223,7 +223,7 @@
 
                                 <h1 class="text-white mb-15 text-capitalize" data-aos="fade-up" data-aos-duration="2000"
                                     style="color: teal !important;" data-aos-delay="150">our <span
-                                        class="f-700">Courses</span></h1>
+                                        class="f-700">Internships</span></h1>
                                 <!-- <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center bg-transparent">
                                         <li class="breadcrumb-item"><a class="text-white" href="index.html" style="color: black !important;">Home</a>
@@ -669,7 +669,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Courses</a>
+                                    <a href="/domain-list.html"
+                                        class="position-relative d-inline-block mb-2">Internships</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -810,6 +811,20 @@
         // const userId = 2;
         console.log("user_id:", userId);
 
+        if (!userId) {
+            Swal.fire({
+                icon: "warning",
+                title: "Not Logged In",
+                text: "You need to login first to continue.",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: "Login"
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        }
+
         const container = document.getElementById("coursesContainer");
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -828,14 +843,18 @@
 
                     if (filteredCourses.length > 0) {
                         filteredCourses.forEach(course => {
-
                             let statusColor = "#fff";
+                            let statusText = course.status;
+
                             if (course.status === "Started") statusColor = "blue";
                             if (course.status === "In Progress") statusColor = "orange";
                             if (course.status === "Completed") statusColor = "#90EE90";
                             if (course.status === "On Hold") statusColor = "red";
                             if (course.status === "Terminated") statusColor = "red";
-                            if (course.status === "Not Started") statusColor = "#fff";
+                            if (course.status === "Not Started") {
+                                statusColor = "gray";
+                                statusText = "Get Started"; // Change text
+                            }
 
                             const col = document.createElement("div");
                             col.className = "col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12";
@@ -872,18 +891,23 @@
                                             <hr style="margin: 6px 0; border: 0; border-top: 1px solid #ddd;">
                                             <p class="mb-1"><strong>Duration:</strong> ${course.totalDays} Days</p>
                                             
-                                            <div style="
-                                                margin-top:8px;
-                                                width:100%;
-                                                background-color:${statusColor};
-                                                color:#fff;
-                                                font-weight:bold;
-                                                text-align:center;
-                                                padding:6px 0;
-                                                border-radius:5px;
-                                                text-transform:capitalize;">
-                                                ${course.status}
-                                            </div>
+                                            <a href="#" class="course-link d-block" 
+                                                data-courseid="${course.id}" 
+                                                data-status="${course.status}" 
+                                                data-previewid="${course.CoursePreviews?.[0]?.coursePreviewId || ''}"
+                                                style="
+                                                    margin-top:8px;
+                                                    width:100%;
+                                                    background-color:${statusColor};
+                                                    color:#fff;
+                                                    font-weight:bold;
+                                                    text-align:center;
+                                                    padding:6px 0;
+                                                    border-radius:5px;
+                                                    text-transform:capitalize;
+                                                    text-decoration:none;">
+                                                ${statusText}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -918,7 +942,7 @@
                                     title: "Terms & Conditions",
                                     html: `
                                         <p style="font-size:14px; margin-bottom:10px; text-align:left;">
-                                            I agree to the <b>Terms and Conditions</b> before starting this course.
+                                            I agree to the <b>Terms and Conditions</b> before starting this Internship.
                                         </p>
                                         <div style="width:100%; text-align:left;">
                                             <input type="text" id="startDate" 
@@ -962,12 +986,12 @@
                                             title: "Are you sure?",
                                             text: `You selected ${uiDate}. Do you want to proceed?`,
                                             showCancelButton: true,
-                                            confirmButtonText: "Yes, Start Course",
+                                            confirmButtonText: "Yes, Start Internship",
                                             cancelButtonText: "No"
                                         }).then(confirmRes => {
                                             if (confirmRes.isConfirmed) {
                                                 Swal.fire({
-                                                    title: "Starting course...",
+                                                    title: "Starting Internship...",
                                                     allowOutsideClick: false,
                                                     didOpen: () => {
                                                         Swal.showLoading();
@@ -989,7 +1013,7 @@
                                                         if (res.success) {
                                                             Swal.fire({
                                                                 icon: "success",
-                                                                title: "Course started successfully!",
+                                                                title: "Internship started successfully!",
                                                                 showConfirmButton: false,
                                                                 timer: 1500
                                                             });
@@ -997,7 +1021,7 @@
                                                                 window.location.href = `course-preview.html?courseId=${courseId}&coursePreviewId=${previewId}`;
                                                             }, 1600);
                                                         } else {
-                                                            Swal.fire("Error", "Could not start course. Try again.", "error");
+                                                            Swal.fire("Error", "Could not start Internship. Try again.", "error");
                                                         }
                                                     },
                                                     error: function (xhr, status, error) {
