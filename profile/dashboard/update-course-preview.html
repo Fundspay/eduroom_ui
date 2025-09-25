@@ -591,43 +591,72 @@
                 });
             });
 
-            // Delete Course Preview with SweetAlert confirmation + loader
             $("#deleteBtn").click(function () {
                 const previewId = $("#coursePreviewSelect").val();
                 if (!previewId) {
-                    Swal.fire("Error", "Please select a Course Preview to delete.", "error");
+                    Swal.fire("⚠ Error", "Please select a Course Preview to delete.", "error");
                     return;
                 }
 
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "You won't be able to revert this!",
+                    text: "This will permanently delete the course-preview.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes, delete it!",
                     cancelButtonText: "Cancel"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire({
-                            title: 'Deleting...',
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
 
-                        $.ajax({
-                            url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
-                            type: "DELETE",
-                            success: function () {
-                                Swal.close();
-                                Swal.fire("Deleted!", "Course preview has been deleted.", "success");
-                                $("#coursePreviewSelect").val("").trigger("change");
-                                $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
-                            },
-                            error: function (xhr) {
-                                Swal.close();
-                                Swal.fire("Error", xhr.responseText || "Error deleting course preview", "error");
+                        Swal.fire({
+                            title: "Password Required",
+                            text: "Please enter the admin password to confirm deletion. (Note: Once deleted the Course-Preview cannot be recovered!!!)",
+                            input: "password",
+                            inputPlaceholder: "Enter password",
+                            showCancelButton: true,
+                            confirmButtonText: "Confirm",
+                            cancelButtonText: "Cancel",
+                            inputAttributes: {
+                                maxlength: 50,
+                                autocapitalize: "off",
+                                autocorrect: "off"
+                            }
+                        }).then((passwordResult) => {
+                            if (passwordResult.isConfirmed) {
+                                const enteredPassword = passwordResult.value;
+
+                                $.getJSON("/config.json", function (config) {
+                                    if (enteredPassword === config.adminPassword) {
+
+                                        Swal.fire({
+                                            title: "Deleting...",
+                                            allowOutsideClick: false,
+                                            didOpen: () => {
+                                                Swal.showLoading();
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
+                                            type: "DELETE",
+                                            success: function () {
+                                                Swal.close();
+                                                Swal.fire("Deleted!", "Course preview has been deleted.", "success");
+
+                                                $("#coursePreviewSelect").val("").trigger("change");
+                                                $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
+                                            },
+                                            error: function (xhr) {
+                                                Swal.close();
+                                                Swal.fire("❌ Error", xhr.responseText || "Error deleting course preview", "error");
+                                            }
+                                        });
+                                    } else {
+                                        Swal.fire("❌ Access Denied", "Incorrect password. Deletion cancelled.", "error");
+                                    }
+                                }).fail(function () {
+                                    Swal.fire("⚠ Error", "Could not load config.json", "error");
+                                });
                             }
                         });
                     }
