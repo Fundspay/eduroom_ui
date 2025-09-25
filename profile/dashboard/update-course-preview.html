@@ -645,6 +645,10 @@
 
                                                 $("#coursePreviewSelect").val("").trigger("change");
                                                 $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
+
+                                                setTimeout(function () {
+                                                    location.reload();
+                                                }, 3000);
                                             },
                                             error: function (xhr) {
                                                 Swal.close();

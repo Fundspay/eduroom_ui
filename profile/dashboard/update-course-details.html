@@ -1241,6 +1241,10 @@
                                                 $("#coursePreviewSelect").html('<option value="">Select course first</option>');
                                                 $("#daySelect").html('<option value="">Select course preview first</option>');
                                                 $("#formMessage").html("");
+
+                                                setTimeout(function () {
+                                                    location.reload();
+                                                }, 3000);
                                             },
                                             error: function (xhr) {
                                                 Swal.close();
