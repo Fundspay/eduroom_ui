@@ -671,7 +671,6 @@
             });
 
             $('#google-login-btn').on('click', function () {
-
                 Swal.fire({
                     title: 'Signing up with Google...',
                     allowOutsideClick: false,
@@ -680,65 +679,85 @@
 
                 auth.signInWithPopup(provider)
                     .then(result => {
+                        Swal.close();
                         const user = result.user;
-                        const fullName = user.displayName || '';
-                        const nameParts = fullName.split(' ');
-                        const firstName = nameParts[0] || '';
-                        const lastName = nameParts.slice(1).join(' ') || '';
                         let email = user.email || '';
-                        let phoneNumber = user.phoneNumber || '';
                         const password = GOOGLE_DEFAULT_PASSWORD;
 
-                        Swal.close();
+                        if (!email || !email.endsWith("@gmail.com")) {
+                            throw new Error("Only Gmail accounts are allowed!");
+                        }
 
-                        const askForEmail = () => {
-                            if (!email) {
-                                return Swal.fire({
-                                    title: "Enter your Email",
-                                    input: "email",
-                                    inputPlaceholder: "Enter your email",
-                                    inputValidator: (value) => {
-                                        if (!value) return "Email is required!";
-                                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Enter a valid email address!";
-                                    },
-                                    showCancelButton: true,
-                                    confirmButtonText: "Submit"
-                                }).then(result => {
-                                    if (result.isConfirmed) {
-                                        email = result.value.trim();
-                                    } else {
-                                        throw new Error("Email input cancelled");
-                                    }
-                                });
+                        // One SweetAlert with multiple inputs
+                        return Swal.fire({
+                            title: "Complete Your Details",
+                            html: `
+                                <div style="text-align:center; margin-bottom:15px;">
+                                    <h3 style="margin:0; font-size:18px; font-weight:600; color:#333;">
+                                        Just a few steps to go 🚀
+                                    </h3>
+                                    <p style="font-size:13px; color:#666; margin:5px 0 0;">
+                                        Please provide accurate details to proceed smoothly.
+                                    </p>
+                                </div>
+
+                                <div style="text-align:left; font-size:14px; margin-top:10px;">
+                                    <label for="swal-firstname" style="font-weight:600;">First Name:</label>
+                                    <input id="swal-firstname" class="swal2-input" style="margin-bottom:15px;" 
+                                        placeholder="Enter first name"
+                                        oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+
+                                    <label for="swal-lastname" style="font-weight:600;">Last Name:</label>
+                                    <input id="swal-lastname" class="swal2-input" style="margin-bottom:15px;" 
+                                        placeholder="Enter last name"
+                                        oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+
+                                    <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
+                                    <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
+                                        placeholder="10 digit phone number" maxlength="10"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                    <small style="font-size:12px; color:#666;">Example: 9999999999</small>
+                                </div>
+
+                                <div style="margin-top:15px; text-align:center; font-size:12px; color:#888;">
+                                    🔒 Your details are safe and will only be used for verification.
+                                </div>
+                            `,
+                            focusConfirm: false,
+                            showCancelButton: true,
+                            confirmButtonText: "<i class='fa fa-check'></i> Submit",
+                            cancelButtonText: "Cancel",
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            customClass: {
+                                popup: "swal2-rounded",
+                                confirmButton: "px-4 py-2 fw-bold",
+                                cancelButton: "px-4 py-2"
+                            },
+                            preConfirm: () => {
+                                const firstName = document.getElementById("swal-firstname").value.trim();
+                                const lastName = document.getElementById("swal-lastname").value.trim();
+                                const phoneNumber = document.getElementById("swal-phone").value.trim();
+
+                                if (!firstName) return Swal.showValidationMessage("⚠️ First name is required!");
+                                if (!lastName) return Swal.showValidationMessage("⚠️ Last name is required!");
+                                if (!/^[0-9]{10}$/.test(phoneNumber)) {
+                                    return Swal.showValidationMessage("⚠️ Enter a valid 10-digit phone number!");
+                                }
+
+                                return { firstName, lastName, phoneNumber };
                             }
-                            return Promise.resolve();
-                        };
+                        }).then(res => {
+                            if (!res.isConfirmed) throw new Error("User cancelled input");
 
-                        const askForPhone = () => {
-                            if (!/^\d{10}$/.test(phoneNumber)) {
-                                return Swal.fire({
-                                    title: "Enter your Phone Number",
-                                    input: "text",
-                                    inputPlaceholder: "10 digit phone number",
-                                    inputValidator: (value) => {
-                                        if (!value) return "Phone number is required!";
-                                        if (!/^\d{10}$/.test(value)) return "Enter a valid 10 digit phone number!";
-                                    },
-                                    showCancelButton: true,
-                                    confirmButtonText: "Submit"
-                                }).then(result => {
-                                    if (result.isConfirmed) {
-                                        phoneNumber = result.value.trim();
-                                    } else {
-                                        throw new Error("Phone input cancelled");
-                                    }
-                                });
-                            }
-                            return Promise.resolve();
-                        };
+                            const googlePayload = {
+                                firstName: res.value.firstName,
+                                lastName: res.value.lastName,
+                                email,
+                                phoneNumber: res.value.phoneNumber,
+                                password
+                            };
 
-                        return askForEmail().then(() => askForPhone()).then(() => {
-                            const googlePayload = { firstName, lastName, email, phoneNumber, password };
                             console.log("Final Google Register Payload:", googlePayload);
 
                             Swal.fire({
@@ -825,7 +844,7 @@
                             Swal.fire({
                                 icon: "info",
                                 title: "Registration Cancelled",
-                                text: "You must provide email and phone number to register."
+                                text: "You must provide all details to register."
                             });
                         } else {
                             Swal.fire({
