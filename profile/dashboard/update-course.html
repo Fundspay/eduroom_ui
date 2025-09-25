@@ -527,11 +527,10 @@
         });
       });
 
-      // 🔹 Delete Course
       $("#deleteBtn").click(function () {
         let courseId = $("#courseId").val();
         if (!courseId) {
-          Swal.fire("Warning", "Please select a course first.", "warning");
+          Swal.fire("⚠ Warning", "Please select a course first.", "warning");
           return;
         }
 
@@ -544,44 +543,73 @@
           cancelButtonText: "Cancel"
         }).then((result) => {
           if (result.isConfirmed) {
+
             Swal.fire({
-              title: "Deleting...",
-              allowOutsideClick: false,
-              didOpen: () => {
-                Swal.showLoading();
+              title: "Password Required",
+              text: "Please enter the admin password to confirm deletion. (Note: Once deleted the Course cannot be recovered!!!)",
+              input: "password",
+              inputPlaceholder: "Enter password",
+              showCancelButton: true,
+              confirmButtonText: "Confirm",
+              cancelButtonText: "Cancel",
+              inputAttributes: {
+                maxlength: 50,
+                autocapitalize: "off",
+                autocorrect: "off"
+              }
+            }).then((passwordResult) => {
+              if (passwordResult.isConfirmed) {
+                const enteredPassword = passwordResult.value;
+
+                $.getJSON("/config.json", function (config) {
+                  if (enteredPassword === config.adminPassword) {
+
+                    Swal.fire({
+                      title: "Deleting...",
+                      allowOutsideClick: false,
+                      didOpen: () => {
+                        Swal.showLoading();
+                      }
+                    });
+
+                    $.ajax({
+                      url: `https://eduroom.in/api/v1/course/delete/${courseId}`,
+                      type: "DELETE",
+                      contentType: "application/json",
+                      data: JSON.stringify({ courseDetailId: courseId }),
+                      success: function (res) {
+                        Swal.close();
+                        if (res.success) {
+                          Swal.fire("Deleted!", `Course ${courseId} deleted successfully!`, "success");
+
+                          $("#courseSelect option[value='" + courseId + "']").remove();
+                          $("#courseSelect").val("");
+                          $("#courseId").val("");
+                          $("#courseName").val("");
+                          $("#description").val("");
+                          $("#businessTarget").val("");
+                          $("#certificateCount").val("");
+                          $("#totalDays").val("");
+                          $("#duration").val("");
+                          $("#previewBox").hide();
+                          $("#uploadBox").show();
+                        } else {
+                          Swal.fire("❌ Failed!", res.error || `Delete failed for course ${courseId}`, "error");
+                        }
+                      },
+                      error: function (xhr) {
+                        Swal.close();
+                        Swal.fire("❌ Error!", `Server error: ${xhr.status} ${xhr.statusText}`, "error");
+                      }
+                    });
+                  } else {
+                    Swal.fire("❌ Access Denied", "Incorrect password. Deletion cancelled.", "error");
+                  }
+                }).fail(function () {
+                  Swal.fire("⚠ Error", "Could not load config.json", "error");
+                });
               }
             });
-
-            $.ajax({
-              url: `https://eduroom.in/api/v1/course/delete/${courseId}`,
-              type: "DELETE",
-              contentType: "application/json",
-              data: JSON.stringify({ courseDetailId: courseId }),
-              success: function (res) {
-                Swal.close();
-                if (res.success) {
-                  Swal.fire("Deleted!", `Course ${courseId} deleted successfully!`, "success");
-                  $("#courseSelect option[value='" + courseId + "']").remove();
-                  $("#courseSelect").val("");
-                  $("#courseId").val("");
-                  $("#courseName").val("");
-                  $("#description").val("");
-                  $("#businessTarget").val("");
-                  $("#certificateCount").val("");
-                  $("#totalDays").val("");
-                  $("#duration").val("");
-                  $("#previewBox").hide();
-                  $("#uploadBox").show();
-                } else {
-                  Swal.fire("Failed!", res.error || `Delete failed for course ${courseId}`, "error");
-                }
-              },
-              error: function (xhr) {
-                Swal.close();
-                Swal.fire("Error!", `Server error: ${xhr.status} ${xhr.statusText}`, "error");
-              }
-            });
-
           }
         });
       });
