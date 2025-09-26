@@ -401,6 +401,17 @@
             console.log("user_id:", userId);
 
             $.ajax({
+                url: `https://eduroom.in/api/v1/coursedetail/business-target/${userId}`,
+                method: "GET",
+                success: function (response1) {
+                    console.log("business target updated:", response1);
+
+                    // window.location.reload();
+
+                }
+            });
+
+            $.ajax({
                 url: `https://eduroom.in/api/v1/user/profile/${userId}`,
                 method: "GET",
                 success: function (response) {
