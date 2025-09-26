@@ -459,7 +459,8 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality internships, interactive resources, and
+                                    educators, and professionals. We provide quality internships, interactive resources,
+                                    and
                                     personalized learning paths to help learners.</p>
                             </div>
                         </div>
@@ -828,166 +829,200 @@
     <!-- DAY WISE SESSIONS -->
 
     <script>
-        $(document).ready(function () {
-            // Utility to read query params
-            function getQueryParams() {
-                const url = window.location.href;
-                const queryString = url.split("?")[1];
-                if (!queryString) return {};
+    $(document).ready(function () {
+        // Utility to read query params
+        function getQueryParams() {
+            const url = window.location.href;
+            const queryString = url.split("?")[1];
+            if (!queryString) return {};
 
-                // Fix multiple "?" → treat as "&"
-                const fixedQuery = queryString.replace(/\?/g, "&");
-                const params = new URLSearchParams(fixedQuery);
+            // Fix multiple "?" → treat as "&"
+            const fixedQuery = queryString.replace(/\?/g, "&");
+            const params = new URLSearchParams(fixedQuery);
 
-                let result = {};
-                for (const [key, value] of params.entries()) {
-                    result[key] = value;
+            let result = {};
+            for (const [key, value] of params.entries()) {
+                result[key] = value;
+            }
+            return result;
+        }
+
+        const params = getQueryParams();
+        const courseId = params.courseId || 1;
+        const previewId = params.coursePreviewId || 1;
+        const userId = sessionStorage.getItem("user_id");
+        // const userId = 2;
+
+        console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
+
+        if (!userId) {
+            console.warn("⚠️ No userId found in sessionStorage");
+            return;
+        }
+
+        $.ajax({
+            url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${previewId}/user/${userId}/dailystatus`,
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                console.log("Response days:", response);
+                if (!response.success || !response.dailyStatus) {
+                    console.warn("No curriculum data found");
+                    return;
                 }
-                return result;
-            }
 
-            const params = getQueryParams();
-            const courseId = params.courseId || 1;
-            const previewId = params.coursePreviewId || 1;
-            const userId = sessionStorage.getItem("user_id");
-            // const userId = 2;
+                // Update summary
+                const summary = response.summary;
+                $("#curriculumSummary").text(
+                    `${summary.totalSessions} Videos | ${summary.overallCompletionRate}% Completed`
+                );
 
-            console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
+                const accordion = $("#curriculumAccordion");
+                accordion.empty();
 
-            if (!userId) {
-                console.warn("⚠️ No userId found in sessionStorage");
-                return;
-            }
+                response.dailyStatus.forEach(function (dayData, index) {
+                    const dayId = "Session-" + dayData.day;
 
-            $.ajax({
-                url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${previewId}/user/${userId}/dailystatus`,
-                method: "GET",
-                dataType: "json",
-                success: function (response) {
-                    console.log("Response days:", response);
-                    if (!response.success || !response.dailyStatus) {
-                        console.warn("No curriculum data found");
-                        return;
-                    }
-
-                    // Update summary
-                    const summary = response.summary;
-                    $("#curriculumSummary").text(
-                        `${summary.totalSessions} Videos | ${summary.overallCompletionRate}% Completed`
-                    );
-
-                    const accordion = $("#curriculumAccordion");
-                    accordion.empty();
-
-                    response.dailyStatus.forEach(function (dayData, index) {
-                        const dayId = "Session-" + dayData.day;
-
-                        let sessionMap = {};
-                        dayData.sessions.forEach(function (session) {
-                            sessionMap[session.sessionNumber] = session; // overwrite if duplicate
-                        });
-
-                        const uniqueSessions = Object.values(sessionMap);
-                        const uniqueSessionCount = uniqueSessions.length;
-
-                        // Build Day Card
-                        let dayCard = `
-                    <div class="card border-0 mb-2">
-                      <div class="card-header border-bottom-0 p-0" id="${dayId}-heading">
-                        <h6 class="mb-0">
-                          <a href="#"
-                            class="btn btn-link main-color f-500 d-block text-left rounded-0 position-relative d-flex align-items-center justify-content-between ${index === 0 ? "" : "collapsed"}"
-                            data-toggle="collapse"
-                            data-target="#${dayId}-content"
-                            aria-expanded="${index === 0 ? "true" : "false"}"
-                            aria-controls="${dayId}-content">
-                            Session ${dayData.day}
-                            <span>${uniqueSessionCount} Videos 
-                              <span class="pl-10">${dayData.dayCompletionPercentage}%</span>
-                            </span>
-                          </a>
-                        </h6>
-                      </div>
-
-                      <div class="collapse ${index === 0 ? "show" : ""}" 
-                           id="${dayId}-content" 
-                           aria-labelledby="${dayId}-heading" 
-                           data-parent="#curriculumAccordion">
-                        <div class="card-body">
-                          <!-- Header Row -->
-                          <div class="d-flex font-weight-bold border-bottom pb-2 mb-2">
-                            <div style="flex:0 0 60%;" class="text-left">Videos</div>
-                            <div style="flex:0 0 20%;" class="text-center">Percentage</div>
-                            <div style="flex:0 0 20%;" class="text-right">Status</div>
-                          </div>
-                          <ul id="${dayId}-sessions" class="list-unstyled mb-0"></ul>
-                        </div>
-                      </div>
-                    </div>`;
-
-                        accordion.append(dayCard);
-
-                        // Add Sessions
-                        const sessionList = $("#" + dayId + "-sessions");
-
-                        uniqueSessions.forEach(function (session) {
-                            let statusLabel = "";
-                            if (session.status) {
-                                statusLabel = `<span class="badge badge-pill ${session.status === "Completed"
-                                    ? "badge-success"
-                                    : session.status === "Help"
-                                        ? "badge-warning"
-                                        : session.status === "On Hold"
-                                            ? "badge-secondary"
-                                            : "badge-info"
-                                    }">${session.status}</span>`;
-                            }
-
-                            let sessionPercentage = `<span>${session.sessionCompletionPercentage || 0}%</span>`;
-
-                            const sessionItem = `
-                                <li class="d-flex align-items-center border-bottom py-2 session-item"
-                                    data-course-id="${courseId}"
-                                    data-preview-id="${previewId}"
-                                    data-session-number="${session.sessionNumber}"
-                                    data-day="${dayData.day}">
-                                    <div style="flex:0 0 60%;" class="text-left pr-2">
-                                        <span class="ab-icon primary-color pr-1"><i class="fas fa-play"></i></span>
-                                        ${session.title}
-                                    </div>
-                                    <div style="flex:0 0 20%;" class="text-center text-muted">
-                                        ${sessionPercentage}
-                                    </div>
-                                    <div style="flex:0 0 20%;" class="text-right">
-                                        ${statusLabel}
-                                    </div>
-                                </li>`;
-
-                            const $sessionItem = $(sessionItem);
-                            $sessionItem.css("cursor", "pointer");
-                            sessionList.append($sessionItem);
-                        });
+                    let sessionMap = {};
+                    dayData.sessions.forEach(function (session) {
+                        sessionMap[session.sessionNumber] = session; // overwrite if duplicate
                     });
 
-                    console.log("Curriculum data loaded:", response);
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
-                }
-            });
+                    const uniqueSessions = Object.values(sessionMap);
+                    const uniqueSessionCount = uniqueSessions.length;
 
-            // Handle click → redirect to course-details
-            $(document).on("click", ".session-item", function () {
-                let courseId = $(this).data("course-id");
-                let previewId = $(this).data("preview-id");
-                let day = $(this).data("day");
-                let sessionNumber = $(this).data("session-number");
+                    const allSessionsCompleted = uniqueSessions.every(
+                        (s) => (s.sessionCompletionPercentage || 0) >= 33
+                    );
 
-                // Redirect with params
-                window.location.href = `/course-details.html?courseId=${courseId}&previewId=${previewId}&day=${day}&session=${sessionNumber}&userId=${userId}`;
-            });
+                    const allSessionsZero = uniqueSessions.every(
+                        (s) => (s.sessionCompletionPercentage || 0) === 0
+                    );
+
+                    // Decide day-level status badge
+                    let dayStatusBadge = "";
+                    if (allSessionsZero) {
+                        dayStatusBadge =
+                            `<span class="badge badge-pill badge-secondary text-white font-weight-bold">Not Started</span>`;
+                    } else if (allSessionsCompleted) {
+                        dayStatusBadge =
+                            `<span class="badge badge-pill badge-success text-white font-weight-bold">Completed</span>`;
+                    } else {
+                        dayStatusBadge =
+                            `<span class="badge badge-pill badge-info text-white font-weight-bold">In Progress</span>`;
+                    }
+
+                    // Build Day Card
+                    let dayCard = `
+                        <div class="card border-0 mb-2">
+                        <div class="card-header border-bottom-0 p-0" id="${dayId}-heading">
+                            <h6 class="mb-0">
+                            <a href="#"
+                                class="btn btn-link main-color f-500 d-block text-left rounded-0 position-relative d-flex align-items-center justify-content-between ${index === 0 ? "" : "collapsed"}"
+                                data-toggle="collapse"
+                                data-target="#${dayId}-content"
+                                aria-expanded="${index === 0 ? "true" : "false"}"
+                                aria-controls="${dayId}-content">
+                                Session ${dayData.day}
+                                <span>
+                                    ${uniqueSessionCount} Videos 
+                                    <span class="pl-10">${Number(dayData.dayCompletionPercentage || 0).toFixed(2)}%</span>
+                                    ${dayStatusBadge}
+                                </span>
+                            </a>
+                            </h6>
+                        </div>
+
+                        <div class="collapse ${index === 0 ? "show" : ""}" 
+                            id="${dayId}-content" 
+                            aria-labelledby="${dayId}-heading" 
+                            data-parent="#curriculumAccordion">
+                            <div class="card-body">
+                            <!-- Header Row -->
+                            <div class="d-flex font-weight-bold border-bottom pb-2 mb-2">
+                                <div style="flex:0 0 60%;" class="text-left">Videos</div>
+                                <div style="flex:0 0 20%;" class="text-center">Percentage</div>
+                                <div style="flex:0 0 20%;" class="text-right">Status</div>
+                            </div>
+                            <ul id="${dayId}-sessions" class="list-unstyled mb-0"></ul>
+                            </div>
+                        </div>
+                        </div>`;
+
+                    accordion.append(dayCard);
+
+                    // Add Sessions
+                    const sessionList = $("#" + dayId + "-sessions");
+
+                    uniqueSessions.forEach(function (session) {
+                        let statusLabel = "";
+                        const perc = session.sessionCompletionPercentage || 0;
+
+                        if (perc === 0) {
+                            statusLabel =
+                                `<span class="badge badge-pill badge-secondary text-white font-weight-bold">Not Started</span>`;
+                        } else if (perc >= 33) {
+                            statusLabel =
+                                `<span class="badge badge-pill badge-success text-white font-weight-bold">Completed</span>`;
+                        } else if (session.status) {
+                            statusLabel = `<span class="badge badge-pill ${
+                                session.status === "Help"
+                                    ? "badge-warning"
+                                    : session.status === "On Hold"
+                                        ? "badge-secondary"
+                                        : session.status === "In Progress"
+                                            ? "badge-info"
+                                            : "badge-light"
+                                } text-white font-weight-bold">${session.status}</span>`;
+                        }
+
+                        let sessionPercentageValue = Number(perc).toFixed(2);
+                        let sessionPercentage = `<span>${sessionPercentageValue}%</span>`;
+
+                        const sessionItem = `
+                        <li class="d-flex align-items-center border-bottom py-2 session-item"
+                            data-course-id="${courseId}"
+                            data-preview-id="${previewId}"
+                            data-session-number="${session.sessionNumber}"
+                            data-day="${dayData.day}">
+                            <div style="flex:0 0 60%;" class="text-left pr-2">
+                                <span class="ab-icon primary-color pr-1"><i class="fas fa-play"></i></span>
+                                ${session.title}
+                            </div>
+                            <div style="flex:0 0 20%;" class="text-center text-muted">
+                                ${sessionPercentage}
+                            </div>
+                            <div style="flex:0 0 20%;" class="text-right">
+                                ${statusLabel}
+                            </div>
+                        </li>`;
+
+                        const $sessionItem = $(sessionItem);
+                        $sessionItem.css("cursor", "pointer");
+                        sessionList.append($sessionItem);
+                    });
+                });
+
+                console.log("Curriculum data loaded:", response);
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+            }
         });
-    </script>
+
+        // Handle click → redirect to course-details
+        $(document).on("click", ".session-item", function () {
+            let courseId = $(this).data("course-id");
+            let previewId = $(this).data("preview-id");
+            let day = $(this).data("day");
+            let sessionNumber = $(this).data("session-number");
+
+            // Redirect with params
+            window.location.href = `/course-details.html?courseId=${courseId}&previewId=${previewId}&day=${day}&session=${sessionNumber}&userId=${userId}`;
+        });
+    });
+</script>
+
 
     <script>
         $(document).ready(function () {

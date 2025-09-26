@@ -156,7 +156,7 @@
                             <div class="card bg-soft-primary text-primary border-primary border-dashed">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block">Subscription Wallet left</span>
+                                        <span class="d-block">Total Subscriptions</span>
                                         <span id="walletRemainingDisplay" class="fw-bolder d-block"
                                             style="font-size: 80px;">0</span>
                                     </a>
@@ -440,7 +440,7 @@
     <script>
         $(document).ready(function () {
             const container = $("#internshipCardsContainer");
-            const userId = sessionStorage.getItem("user_id"); // taking user id from session
+            const userId = sessionStorage.getItem("user_id");
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
@@ -451,26 +451,23 @@
                     if (res.success && res.data.courses.length > 0) {
                         container.empty();
 
-                        // ✅ Take subscriptionLeft from root level
                         const globalSubscriptionLeft = res.data.subscriptionLeft || 0;
 
                         res.data.courses.forEach(function (course) {
                             const {
                                 courseId,
                                 courseName,
-                                courseDuration,   // if exists, otherwise show blank
+                                courseDuration,
                                 businessTarget,
                                 overallStatus,
                                 overallCompletionRate,
                                 coursePreviews,
                                 dailyStatus,
-                                message // ✅ take message if provided
+                                message
                             } = course;
 
-                            // use global subscriptionLeft instead of per-course
                             const subscriptionLeft = globalSubscriptionLeft;
 
-                            // Card colors based on status
                             let headerColor = "";
                             let footerColor = "";
                             let displayStatus = overallStatus;
@@ -501,57 +498,60 @@
                                     footerColor = "bg-light";
                             }
 
-                            // Build card + "Get Certificate" button
+                            const subscriptionText =
+                                displayStatus === "Completed"
+                                    ? "Completed"
+                                    : `${subscriptionLeft || "0"}/${businessTarget || "0"}`;
+
                             const card = `
-                    <div class="col-xxl-4 col-md-6 mb-4">
-                        <div class="card stretch stretch-full shadow-lg" 
-                            style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
-                            <div class="card-body">
-                                <div class="hstack justify-content-between">
-                                    <div>
-                                        <h4 class="text-dark fw-bold">
-                                            ${courseName.replace(/"/g, "")}
-                                        </h4>
-                                        <div class="text-muted">${courseDuration || ""}</div>
-                                    </div>
-                                    <div class="text-end">
-                                        <i class="feather-trending-up fs-2"></i>
+                                <div class="col-xxl-4 col-md-6 mb-4">
+                                    <div class="card stretch stretch-full shadow-lg" 
+                                        style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
+                                        <div class="card-body">
+                                            <div class="hstack justify-content-between">
+                                                <div>
+                                                    <h4 class="text-dark fw-bold">
+                                                        ${courseName.replace(/"/g, "")}
+                                                    </h4>
+                                                    <div class="text-muted">${courseDuration || ""}</div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <i class="feather-trending-up fs-2"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer ${footerColor} py-3 text-center">
+                                            <!-- Centered status -->
+                                            <p class="text-white mb-3 fw-bold">${displayStatus}</p>
+
+                                            <!-- Labels on left, values on right -->
+                                            <div class="d-flex justify-content-between text-white mb-3">
+                                                <div class="text-start">
+                                                    <p class="mb-1">Course Completion Status:</p>
+                                                    <p class="mb-0">Business Target Completed:</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <p class="mb-1">${overallCompletionRate || "0"}%</p>
+                                                    <p class="mb-0">${subscriptionText}</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Get Certificate button -->
+                                            <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
+                                                    data-courseid="${courseId}" 
+                                                    data-status="${overallStatus}" 
+                                                    data-target="${businessTarget}" 
+                                                    data-left="${subscriptionLeft}">
+                                                Get Certificate
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer ${footerColor} py-3 text-center">
-                                <!-- Centered status -->
-                                <p class="text-white mb-3 fw-bold">${displayStatus}</p>
-
-                                <!-- Labels on left, values on right -->
-                                <div class="d-flex justify-content-between text-white mb-3">
-                                    <div class="text-start">
-                                        <p class="mb-1">Course Completion Status:</p>
-                                        <p class="mb-0">Business Target Completed:</p>
-                                    </div>
-                                    <div class="text-end">
-                                        <p class="mb-1">${overallCompletionRate || "0"}%</p>
-                                        <p class="mb-0">${subscriptionLeft || "0"}/${businessTarget || "0"}</p>
-                                    </div>
-                                </div>
-
-                                <!-- Get Certificate button -->
-                                <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
-                                        data-courseid="${courseId}" 
-                                        data-status="${overallStatus}" 
-                                        data-target="${businessTarget}" 
-                                        data-left="${subscriptionLeft}">
-                                    Get Certificate
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                            `;
                             const $card = $(card);
 
                             $card.find(".card-body").css("cursor", "pointer");
 
-                            // ✅ Card click actions
                             $card.find(".card-body").on("click", function () {
                                 switch (overallStatus.toLowerCase()) {
                                     case "in progress":
@@ -574,17 +574,8 @@
                                 }
                             });
 
-                            // ✅ Certificate button click handler
                             $card.find(".getCertificateBtn").on("click", function (e) {
-                                e.stopPropagation(); // prevent card click
-
-                                Swal.fire({
-                                    title: "Please Wait...",
-                                    allowOutsideClick: false,
-                                    didOpen: () => {
-                                        Swal.showLoading();
-                                    }
-                                });
+                                e.stopPropagation();
 
                                 const status = $(this).data("status").toLowerCase();
                                 const courseId = $(this).data("courseid");
@@ -592,22 +583,30 @@
                                 const subscriptionLeft = parseInt($(this).data("left")) || 0;
 
                                 if (status === "completed") {
-                                    // Call certificate API
+
+                                    Swal.fire({
+                                        title: "Please Wait...",
+                                        allowOutsideClick: false,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                        }
+                                    });
+
                                     $.ajax({
                                         url: "https://eduroom.in/api/v1/internshipcertificate/certificate/send",
                                         method: "POST",
                                         contentType: "application/json",
                                         data: JSON.stringify({ userId, courseId }),
                                         success: function (resp) {
+                                            Swal.close();
                                             if (resp.success) {
-                                                swal.close();
                                                 Swal.fire("Success", resp.message || "Certificate has been sent to your registered email!", "success");
                                             } else {
-                                                swal.close();
                                                 Swal.fire("Info", resp.message || "Certificate not available.", "info");
                                             }
                                         },
                                         error: function () {
+                                            Swal.close();
                                             Swal.fire("Info", "Something went wrong", "info");
                                         }
                                     });
@@ -998,11 +997,11 @@
 
                     if (res.success && res.data) {
 
-                        // let total = res.data.subscriptionWalletTotal || 0;
-                        let left = res.data.subscriptionLeft || 0;
+                        let total = res.data.subscriptionWalletTotal || 0;
+                        // let left = res.data.subscriptionLeft || 0;
 
-                        // $("#totalSubscriptions").text(total);
-                        $("#walletRemainingDisplay").text(left);
+                        $("#walletRemainingDisplay").text(total);
+                        // $("#walletRemainingDisplay").text(left);
                     }
                 },
                 error: function (xhr, status, error) {
