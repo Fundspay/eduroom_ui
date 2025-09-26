@@ -632,9 +632,20 @@
         let currentPage = 1;
         let managerList = [];
 
+        $.ajax({
+            url: `https://eduroom.in/api/v1/offerletter/users/all`,
+            method: "GET",
+            success: function (response1) {
+                console.log("offerletter:", response1);
+
+                // window.location.reload();
+
+            }
+        });
+
         function loadTableData() {
             $.ajax({
-                url: `https://eduroom.in/api/v1/offerletter/users/all`,
+                url: `https://eduroom.in/api/v1/status/listall`,
                 method: "GET",
                 success: function (res) {
                     console.log("offerletter users:", res);
@@ -648,6 +659,7 @@
                         }
 
                         tableData = res.data.map((row, index) => ({
+                            id: row.id,
                             sno: index + 1,
                             userId: row.userId,
                             name: row.userName || "",
@@ -692,7 +704,7 @@
             const rows = filteredData.slice(start, end);
 
             rows.forEach((row) => {
-                let tr = `<tr data-id="${row.userId}">
+                let tr = `<tr data-id="${row.id}">
                     <td>${row.sno}</td>
                     <td>${row.name}</td>
                     <td>${row.phoneNumber}</td>
@@ -868,17 +880,29 @@
 
                 let payload = {
                     internshipStatus: internshipStatus || "",
-                    managerId: managerId
+                    teamManager: managerName || ""
                 };
                 console.log("payload:", payload);
 
                 $.ajax({
-                    url: `https://eduroom.in/api/v1/teamManager/update-internship-manager`,
+                    url: `https://eduroom.in/api/v1/status/update/${id}`,
                     method: "PUT",
                     contentType: "application/json",
                     data: JSON.stringify(payload),
-                    success: function (res) {
-                        console.log("Updated:", res);
+                    success: function (res3) {
+                        console.log("Updated:", res3);
+                        console.log("Url:", `https://eduroom.in/api/v1/status/update/${id}`);
+
+                        // $.ajax({
+                        //     url: `https://eduroom.in/api/v1/status/listall`,
+                        //     method: "GET",
+                        //     success: function (response2) {
+                        //         console.log("offerletter:", response2);
+
+                        //         // window.location.reload();
+
+                        //     }
+                        // });
                     },
                     error: function (err) {
                         console.error("Update failed", err);
