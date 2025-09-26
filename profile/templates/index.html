@@ -961,7 +961,7 @@
             const userId2 = sessionStorage.getItem("user_id");
 
             $.ajax({
-                url: `https://eduroom.in/api/v1/coursedetail/${userId2}`,
+                url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
                 type: "GET",
                 success: function (res) {
                     console.log("wallet response:", res);
