@@ -435,7 +435,7 @@
                         if (user.TeamManager) {
                             $(".profile-manager-name").text(user.TeamManager.name || "--");
                             $(".profile-manager-email").text(user.TeamManager.email || "--");
-                            $(".profile-manager-mobile").text(user.TeamManager.mobileNumber || "--");
+                            $(".profile-manager-mobile").text(user.TeamManager.phoneNumber || "--");
                             $(".profile-manager-email").attr("href", "mailto:" + email).text(email);
                             $(".profile-manager-mobile").attr("href", "tel:" + phone).text(phone);
                         }
