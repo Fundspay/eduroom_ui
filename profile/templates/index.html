@@ -502,9 +502,9 @@
                                     footerColor = "bg-success";
                                     displayStatus = "Completed";
                                     break;
-                                case "onhold":
-                                    headerColor = "text-dark";
-                                    footerColor = "bg-dark";
+                                case "on hold":
+                                    headerColor = "text-secondary";
+                                    footerColor = "bg-secondary";
                                     displayStatus = "On Hold";
                                     break;
                                 case "terminated":
@@ -588,7 +588,7 @@
                                         window.location.href = `/course-details.html?courseId=${courseId}&coursePreviewId=${previewId}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
                                         break;
                                     case "terminated":
-                                        Swal.fire("Terminated", "This course has been terminated.", "error");
+                                        Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
                                         break;
                                 }
                             });
@@ -633,11 +633,11 @@
                                 else if (status === "in progress" && subscriptionLeft < businessTarget) {
                                     Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
                                 }
-                                else if (status === "onhold") {
-                                    Swal.fire("On Hold", "This course is on hold. Certificate not available.", "warning");
+                                else if (status === "on hold") {
+                                    Swal.fire("On Hold", "You internship has been put on hold. Please contact your team manager", "warning");
                                 }
                                 else if (status === "terminated") {
-                                    Swal.fire("Terminated", "This course has been terminated. Certificate not available.", "error");
+                                    Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
                                 }
                                 else {
                                     Swal.fire("Unavailable", "Certificate not available for this course.", "info");
