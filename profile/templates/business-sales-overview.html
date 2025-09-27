@@ -341,8 +341,8 @@
                             $("#managerName").text(user.TeamManager.name || "--");
                             $("#managerEmail").text(user.TeamManager.email || "--");
                             $("#managerEmail").attr("href", "mailto:" + (user.TeamManager.email || ""));
-                            $("#managerMobile").text(user.TeamManager.mobileNumber || "--");
-                            $("#managerMobile").attr("href", "tel:" + (user.TeamManager.mobileNumber || ""));
+                            $("#managerMobile").text(user.TeamManager.phoneNumber || "--");
+                            $("#managerMobile").attr("href", "tel:" + (user.TeamManager.phoneNumber || ""));
                         }
                     }
                 },
