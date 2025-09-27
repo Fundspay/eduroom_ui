@@ -436,11 +436,16 @@
                         $("#referralLink").attr("href", user.ReferralLink || "#");
 
                         if (user.TeamManager) {
+                            const email = user.TeamManager.email || "--";
+                            const phone = user.TeamManager.phoneNumber || "--";
+
                             $(".profile-manager-name").text(user.TeamManager.name || "--");
-                            $(".profile-manager-email").text(user.TeamManager.email || "--");
-                            $(".profile-manager-mobile").text(user.TeamManager.phoneNumber || "--");
-                            $(".profile-manager-email").attr("href", "mailto:" + email).text(email);
-                            $(".profile-manager-mobile").attr("href", "tel:" + phone).text(phone);
+                            $(".profile-manager-email")
+                                .attr("href", email !== "--" ? "mailto:" + email : "#")
+                                .text(email);
+                            $(".profile-manager-mobile")
+                                .attr("href", phone !== "--" ? "tel:" + phone : "#")
+                                .text(phone);
                         }
                     }
                 },
@@ -729,7 +734,7 @@
                                     case "not resolved":
                                         statusBadge = '<span class="badge bg-soft-danger text-danger">Not Resolved</span>';
                                         break;
-                                    case "in progress":
+                                    case "in-progress":
                                         statusBadge = '<span class="badge bg-soft-warning text-warning">In Progress</span>';
                                         break;
                                     default:
