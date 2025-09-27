@@ -369,7 +369,7 @@
                                             <th>DURATION</th>
                                             <th>START DATE</th>
                                             <th>EST END DATE</th>
-                                            <th>OFFER LETTER</th>
+                                            <!-- <th>OFFER LETTER</th> -->
                                             <th>COURSE STATUS</th>
                                             <th>TOTAL SUBSCRIPTIONS</th>
                                             <th>BUSINESS TARGET</th>
@@ -675,7 +675,7 @@
                                 duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
                                 startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
                                 estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
-                                offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
+                                // offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
                                 courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
                                 subscriptionWallet: row.subscriptionWallet,
                                 businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
@@ -720,7 +720,6 @@
                     <td>${row.duration}</td>
                     <td>${row.startDate}</td>
                     <td>${row.estEndDate}</td>
-                    <td>${row.offerLetter}</td>
                     ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
                     <td>${row.subscriptionWallet}</td>
                     ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
@@ -747,7 +746,7 @@
         const columnKeys = [
             "sno", "name", "phoneNumber", "email", "collegeName",
             "domain", "course", "duration", "startDate", "estEndDate",
-            "offerLetter", "courseStatus", "subscriptionWallet", "businessStatus", "workPercentage",
+            "courseStatus", "subscriptionWallet", "businessStatus", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
             "subscriptionLeft", "queryStatus", "internshipAction", "teamManager"
         ];
@@ -959,7 +958,7 @@
                 "Duration",
                 "Start Date",
                 "Est. End Date",
-                "Offer Letter",
+                // "Offer Letter",
                 "Course Status",
                 "Business Status",
                 "Total Subscriptions",
@@ -986,7 +985,6 @@
                     <td>${row.duration}</td>
                     <td>${row.startDate}</td>
                     <td>${row.estEndDate}</td>
-                    <td>${row.offerLetter}</td>
                     <td>${row.courseStatus}</td>
                     <td>${row.businessStatus}</td>
                     <td>${row.subscriptionWallet}</td>
@@ -1019,7 +1017,7 @@
                 "Duration",
                 "Start Date",
                 "Est. End Date",
-                "Offer Letter",
+                // "Offer Letter",
                 "Course Status",
                 "Business Status",
                 "Total Subscriptions",
@@ -1046,7 +1044,7 @@
                     row.duration,
                     row.startDate,
                     row.estEndDate,
-                    row.offerLetter ? $(row.offerLetter).attr("href") : "",
+                    // row.offerLetter ? $(row.offerLetter).attr("href") : "",
                     row.courseStatus,
                     row.businessStatus,
                     row.subscriptionWallet,
