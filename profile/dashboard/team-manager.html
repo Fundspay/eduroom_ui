@@ -371,7 +371,9 @@
                                             <th>EST END DATE</th>
                                             <th>OFFER LETTER</th>
                                             <th>COURSE STATUS</th>
+                                            <th>TOTAL SUBSCRIPTIONS</th>
                                             <th>BUSINESS TARGET</th>
+                                            <th>PERCENTAGE OF WORK DONE</th>
                                             <th>CERTIFICATE STATUS</th>
                                             <th>INTERNSHIP CERTIFCATE STATUS</th>
                                             <th>SUBSCRIPTIONS LEFT IN WALLET</th>
@@ -621,7 +623,7 @@
             businessStatus: ["Pending", "Approved", "Rejected"],
             certificateStatus: ["Pending", "Issued"],
             internshipCertificateStatus: ["Pending", "Issued"],
-            internshipAction: [ "Terminated", "On hold", "Resume" ],
+            internshipAction: ["Terminated", "On hold", "Resume"],
             internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"] // new
         };
 
@@ -675,10 +677,12 @@
                                 estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
                                 offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
                                 courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
+                                subscriptionWallet: row.subscriptionWallet,
                                 businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
+                                workPercentage: (row.courses && row.courses.length > 0 && row.courses[0].businessTarget > 0) ? ((row.subscriptionWallet / row.courses[0].businessTarget) * 100).toFixed(2) + "%" : "0.00%",
                                 certificateStatus: row.internshipIssued || "",
                                 internshipCertificateStatus: row.internshipCertificateStatus || "",
-                                subscriptionLeft: row.subscriptionWallet || "",
+                                subscriptionLeft: row.subscriptionLeft,
                                 queryStatus: row.queryStatus || "",
                                 internshipAction: row.internshipStatus || "",
                                 teamManager: row.teamManager,
@@ -718,7 +722,9 @@
                     <td>${row.estEndDate}</td>
                     <td>${row.offerLetter}</td>
                     ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                    <td>${row.subscriptionWallet}</td>
                     ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
+                    <td>${row.workPercentage}</td>
                     ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
                     ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
                     <td>${row.subscriptionLeft}</td>
@@ -742,6 +748,7 @@
             "sno", "name", "phoneNumber", "email", "collegeName",
             "domain", "course", "duration", "startDate", "estEndDate",
             "offerLetter", "courseStatus", "businessStatus",
+            "subscriptionWallet", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
             "subscriptionLeft", "queryStatus", "internshipAction", "teamManager"
         ];
@@ -956,6 +963,8 @@
                 "Offer Letter",
                 "Course Status",
                 "Business Status",
+                "Total Subscriptions",
+                "Work % Completed",
                 "Certificate Status",
                 "Internship Certificate Status",
                 "Subscription Left",
@@ -981,6 +990,8 @@
                     <td>${row.offerLetter}</td>
                     <td>${row.courseStatus}</td>
                     <td>${row.businessStatus}</td>
+                    <td>${row.subscriptionWallet}</td>
+                    <td>${row.workPercentage}</td>
                     <td>${row.certificateStatus}</td>
                     <td>${row.internshipCertificateStatus}</td>
                     <td>${row.subscriptionLeft}</td>
@@ -1012,6 +1023,8 @@
                 "Offer Letter",
                 "Course Status",
                 "Business Status",
+                "Total Subscriptions",
+                "Work % Completed",
                 "Certificate Status",
                 "Internship Certificate Status",
                 "Subscription Left",
@@ -1034,9 +1047,11 @@
                     row.duration,
                     row.startDate,
                     row.estEndDate,
-                    row.offerLetter ? $(row.offerLetter).attr("href") : "", // export link instead of HTML
+                    row.offerLetter ? $(row.offerLetter).attr("href") : "",
                     row.courseStatus,
                     row.businessStatus,
+                    row.subscriptionWallet,
+                    row.workPercentage,
                     row.certificateStatus,
                     row.internshipCertificateStatus,
                     row.subscriptionLeft,
