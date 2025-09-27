@@ -658,31 +658,34 @@
                             }));
                         }
 
-                        tableData = res.data.map((row, index) => ({
-                            id: row.id,
-                            sno: index + 1,
-                            userId: row.userId,
-                            name: row.userName || "",
-                            phoneNumber: row.phoneNumber || "",
-                            email: row.email || "",
-                            collegeName: row.collegeName || "",
-                            courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
-                            domain: row.domainName || "",
-                            course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
-                            duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
-                            startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
-                            estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
-                            offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
-                            courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
-                            businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
-                            certificateStatus: row.internshipIssued || "",
-                            internshipCertificateStatus: row.internshipCertificateStatus || "",
-                            subscriptionLeft: row.subscriptionWallet || "",
-                            queryCount: row.queryCount || "",
-                            queryStatus: row.queryStatus || "",
-                            internshipAction: row.internshipStatus || "",
-                            teamManager: row.teamManager
-                        }));
+                        tableData = res.data
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                            .map((row, index) => ({
+                                id: row.id,
+                                sno: index + 1,
+                                userId: row.userId,
+                                name: row.userName || "",
+                                phoneNumber: row.phoneNumber || "",
+                                email: row.email || "",
+                                collegeName: row.collegeName || "",
+                                courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
+                                domain: row.domainName || "",
+                                course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
+                                duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
+                                startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
+                                estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
+                                offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
+                                courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
+                                businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
+                                certificateStatus: row.internshipIssued || "",
+                                internshipCertificateStatus: row.internshipCertificateStatus || "",
+                                subscriptionLeft: row.subscriptionWallet || "",
+                                queryCount: row.queryCount || "",
+                                queryStatus: row.queryStatus || "",
+                                internshipAction: row.internshipStatus || "",
+                                teamManager: row.teamManager,
+                                createdAt: row.createdAt
+                            }));
 
                         $("#collegeCount").text(tableData.length);
 
