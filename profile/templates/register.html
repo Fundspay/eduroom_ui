@@ -155,6 +155,15 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label class="form-label">College Name <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" id="college" class="form-control"
+                                                    placeholder="College Name">
+                                            </div>
+                                        </div>
+
                                         <!-- Email -->
                                         <!-- <div class="mb-3">
                                             <label class="form-label">Email <span class="text-danger">*</span></label>
@@ -576,6 +585,7 @@
                 const phoneNumber = $('#phoneNumber').val()?.trim();
                 // const alternatePhoneNumber = $('#alternatePhoneNumber').val()?.trim();
                 const email = $('#email').val()?.trim();
+                const collegeName = $('#college').val()?.trim();
                 // const residentialAddress = $('#residentialAddress').val()?.trim();
                 // const emergencyContactName = $('#emergencyContactName').val()?.trim();
                 // const emergencyContactNumber = $('#emergencyContactNumber').val()?.trim();
@@ -610,7 +620,7 @@
 
                 const personalPayload = {
                     firstName, lastName,
-                    phoneNumber, email, password
+                    phoneNumber, email, password, collegeName
                 };
 
                 Swal.fire({
@@ -721,6 +731,10 @@
                                         placeholder="Enter last name"
                                         oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
 
+                                    <label for="swal-college" style="font-weight:600;">College Name:</label>
+                                    <input id="swal-college" class="swal2-input" style="margin-bottom:5px;" 
+                                        placeholder="Enter your college name">
+
                                     <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
                                     <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
                                         placeholder="10 digit phone number" maxlength="10"
@@ -746,6 +760,7 @@
                             preConfirm: () => {
                                 const firstName = document.getElementById("swal-firstname").value.trim();
                                 const lastName = document.getElementById("swal-lastname").value.trim();
+                                const collegeName = document.getElementById("swal-college").value.trim();
                                 const phoneNumber = document.getElementById("swal-phone").value.trim();
 
                                 if (!firstName) return Swal.showValidationMessage("⚠️ First name is required!");
@@ -762,6 +777,7 @@
                             const googlePayload = {
                                 firstName: res.value.firstName,
                                 lastName: res.value.lastName,
+                                collegeName: res.value.collegeName,
                                 email,
                                 phoneNumber: res.value.phoneNumber,
                                 password
