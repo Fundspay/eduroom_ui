@@ -938,9 +938,64 @@
         };
 
         window.printTable = function () {
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Print Table</title></head><body>');
-            printWindow.document.write($("#leadsTable")[0].outerHTML);
+            const printWindow = window.open('', '', 'height=600,width=1200');
+            printWindow.document.write('<html><head><title>Print Table</title>');
+            printWindow.document.write('<style>table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding:6px;text-align:left;}</style>');
+            printWindow.document.write('</head><body>');
+            // Print only visible filtered data
+            let html = "<table><thead><tr>";
+            const headers = [
+                "SR",
+                "Name",
+                "Phone Number",
+                "Email",
+                "College Name",
+                "Courses",
+                "Course",
+                "Duration",
+                "Start Date",
+                "Est. End Date",
+                "Offer Letter",
+                "Course Status",
+                "Business Status",
+                "Certificate Status",
+                "Internship Certificate Status",
+                "Subscription Left",
+                "Query Count",
+                "Query Status",
+                "Internship Action",
+                "Team Manager"
+            ];
+            headers.forEach(h => html += `<th>${h}</th>`);
+            html += "</tr></thead><tbody>";
+
+            filteredData.forEach(row => {
+                html += `<tr>
+                    <td>${row.sno}</td>
+                    <td>${row.name}</td>
+                    <td>${row.phoneNumber}</td>
+                    <td>${row.email}</td>
+                    <td>${row.collegeName}</td>
+                    <td>${row.courses}</td>
+                    <td>${row.course}</td>
+                    <td>${row.duration}</td>
+                    <td>${row.startDate}</td>
+                    <td>${row.estEndDate}</td>
+                    <td>${row.offerLetter}</td>
+                    <td>${row.courseStatus}</td>
+                    <td>${row.businessStatus}</td>
+                    <td>${row.certificateStatus}</td>
+                    <td>${row.internshipCertificateStatus}</td>
+                    <td>${row.subscriptionLeft}</td>
+                    <td>${row.queryCount}</td>
+                    <td>${row.queryStatus}</td>
+                    <td>${row.internshipAction}</td>
+                    <td>${row.teamManager || ""}</td>
+                </tr>`;
+            });
+
+            html += "</tbody></table>";
+            printWindow.document.write(html);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.print();
@@ -950,34 +1005,50 @@
             const headers = [
                 "SR",
                 "Name",
-                "Email",
                 "Phone Number",
+                "Email",
                 "College Name",
-                "Subscription Wallet",
+                "Courses",
+                "Course",
+                "Duration",
+                "Start Date",
+                "Est. End Date",
+                "Offer Letter",
+                "Course Status",
+                "Business Status",
+                "Certificate Status",
+                "Internship Certificate Status",
                 "Subscription Left",
-                "Internship Issued",
-                "Internship Status",
-                "Manager",
-                "Offer Letter Sent",
-                "Offer Letter File"
+                "Query Count",
+                "Query Status",
+                "Internship Action",
+                "Team Manager"
             ];
 
             const data = [headers];
 
-            tableData.forEach((row) => {
+            tableData.forEach(row => {
                 data.push([
                     row.sno,
                     row.name,
-                    row.email,
                     row.phoneNumber,
+                    row.email,
                     row.collegeName,
-                    row.subscriptionWallet,
+                    row.courses,
+                    row.course,
+                    row.duration,
+                    row.startDate,
+                    row.estEndDate,
+                    row.offerLetter ? $(row.offerLetter).attr("href") : "", // export link instead of HTML
+                    row.courseStatus,
+                    row.businessStatus,
+                    row.certificateStatus,
+                    row.internshipCertificateStatus,
                     row.subscriptionLeft,
-                    row.internshipIssued,
-                    row.internshipStatus,
-                    row.teamManager?.name || "",
-                    row.offerLetterSent,
-                    row.offerLetterFile
+                    row.queryCount,
+                    row.queryStatus,
+                    row.internshipAction,
+                    row.teamManager || ""
                 ]);
             });
 
