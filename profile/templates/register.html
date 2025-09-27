@@ -557,6 +557,15 @@
                 }
             }
 
+            function showSwalError(message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: message,
+                    confirmButtonText: 'OK'
+                });
+            }
+
             $('#register-form').on('submit', function (e) {
                 e.preventDefault();
 
@@ -580,8 +589,8 @@
                 // const referralLink = $('#referralLink').val()?.trim();
                 // const internshipModeId = 1;
 
-                if (!firstName || !nameRegex.test(firstName)) return showSwalError('Valid First Name required (letters & spaces).');
-                if (!lastName || !nameRegex.test(lastName)) return showSwalError('Valid Last Name required (letters & spaces).');
+                if (!firstName || !nameRegex.test(firstName)) return showSwalError('Valid First Name required.');
+                if (!lastName || !nameRegex.test(lastName)) return showSwalError('Valid Last Name required.');
                 // if (!dateOfBirth) return showSwalError('Date of Birth is required.');
                 // if (!gender) return showSwalError('Gender is required.');
                 if (!phoneRegex.test(phoneNumber)) return showSwalError('Primary Phone must be 10 digits.');
