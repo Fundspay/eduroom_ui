@@ -31,13 +31,16 @@
     <!--! END: Vendors CSS-->
     <!--! BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
     <script>
         function setStickyColumns() {
             const table = document.getElementById("leadsTable");
             if (!table) return;
 
-            const stickyCols = 3;
+            const stickyCols = 4;
             let leftOffsets = [];
 
             let total = 0;
@@ -279,6 +282,7 @@
                             </a>
                         </div>
                     </div> -->
+                    <input type="text" id="dateFilter" placeholder="Select date or range" class="form-control" />
 
                     <!-- Dark/Light Theme Toggle -->
                     <div class="nxl-h-item dark-light-theme">
@@ -362,6 +366,7 @@
                                             <th>SR</th>
                                             <th>NAME</th>
                                             <th>MOBILE NUMBER</th>
+                                            <th>REGISTRATION DATE</th>
                                             <th>EMAIL</th>
                                             <th>COLLEGE NAME</th>
                                             <th>DOMAIN</th>
@@ -667,6 +672,7 @@
                                 userId: row.userId,
                                 name: row.userName || "",
                                 phoneNumber: row.phoneNumber || "",
+                                registeredAt: formatDate(row.registeredAt) || "",
                                 email: row.email || "",
                                 collegeName: row.collegeName || "",
                                 courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
@@ -700,6 +706,35 @@
             });
         }
 
+        function formatDate(dateStr) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-GB', options);
+        }
+
+        flatpickr("#dateFilter", {
+            dateFormat: "d M Y",
+            mode: "range",
+            onChange: function (selectedDates, dateStr) {
+                if (!dateStr) {
+                    filteredData = [...tableData];
+                } else {
+
+                    const [start, end] = selectedDates.length === 2 ? selectedDates : [selectedDates[0], selectedDates[0]];
+
+                    filteredData = tableData.filter(row => {
+                        const rowDate = new Date(row.registeredAt);
+                        rowDate.setHours(0, 0, 0, 0);
+                        return rowDate >= start && rowDate <= end;
+                    });
+                }
+                currentPage = 1;
+                renderTable();
+                renderPagination();
+            }
+        });
+
         function renderTable() {
             let tbody = $("#leadsTable tbody");
             tbody.empty();
@@ -713,6 +748,7 @@
                     <td>${row.sno}</td>
                     <td>${row.name}</td>
                     <td>${row.phoneNumber}</td>
+                    <td>${row.registeredAt}</td>
                     <td>${row.email}</td>
                     <td>${row.collegeName}</td>
                     <td>${row.courses}</td>
@@ -744,7 +780,7 @@
         }
 
         const columnKeys = [
-            "sno", "name", "phoneNumber", "email", "collegeName",
+            "sno", "name", "phoneNumber", "registeredAt", "email", "collegeName",
             "domain", "course", "duration", "startDate", "estEndDate",
             "courseStatus", "subscriptionWallet", "businessStatus", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
@@ -951,6 +987,7 @@
                 "SR",
                 "Name",
                 "Phone Number",
+                "Registration Date",
                 "Email",
                 "College Name",
                 "Courses",
@@ -978,6 +1015,7 @@
                     <td>${row.sno}</td>
                     <td>${row.name}</td>
                     <td>${row.phoneNumber}</td>
+                    <td>${row.registeredAt}</td>
                     <td>${row.email}</td>
                     <td>${row.collegeName}</td>
                     <td>${row.courses}</td>
@@ -1010,6 +1048,7 @@
                 "SR",
                 "Name",
                 "Phone Number",
+                "Registration Date",
                 "Email",
                 "College Name",
                 "Courses",
@@ -1037,6 +1076,7 @@
                     row.sno,
                     row.name,
                     row.phoneNumber,
+                    row.registeredAt,
                     row.email,
                     row.collegeName,
                     row.courses,
