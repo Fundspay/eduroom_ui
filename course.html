@@ -654,7 +654,8 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality internships, interactive resources, and
+                                    educators, and professionals. We provide quality internships, interactive resources,
+                                    and
                                     personalized learning paths to help learners.</p>
                             </div>
                         </div>
@@ -808,7 +809,6 @@
 
     <script>
         const userId = sessionStorage.getItem("user_id");
-        // const userId = 2;
         console.log("user_id:", userId);
 
         if (!userId) {
@@ -826,7 +826,6 @@
         }
 
         const container = document.getElementById("coursesContainer");
-
         const urlParams = new URLSearchParams(window.location.search);
         const domainId = urlParams.get("domainId");
         console.log("domainId from URL:", domainId);
@@ -838,7 +837,6 @@
             success: function (response) {
                 console.log("API Response:", response);
                 if (response.success && response.data.length > 0) {
-
                     let filteredCourses = response.data.filter(course => course.domainId == domainId);
 
                     if (filteredCourses.length > 0) {
@@ -853,7 +851,7 @@
                             if (course.status === "Terminated") statusColor = "red";
                             if (course.status === "Not Started") {
                                 statusColor = "gray";
-                                statusText = "Get Started"; // Change text
+                                statusText = "Get Started";
                             }
 
                             const col = document.createElement("div");
@@ -878,7 +876,8 @@
                                                 <a href="#" class="course-link" 
                                                 data-courseid="${course.id}" 
                                                 data-status="${course.status}" 
-                                                data-previewid="${course.CoursePreviews?.[0]?.coursePreviewId || ''}">
+                                                data-previewid="${course.CoursePreviews?.[0]?.coursePreviewId || ''}"
+                                                data-usercreatedat="${course.userCreatedAt}">
                                                 ${course.name.replace(/"/g, "")}
                                                 </a>
                                             </h3>
@@ -895,6 +894,7 @@
                                                 data-courseid="${course.id}" 
                                                 data-status="${course.status}" 
                                                 data-previewid="${course.CoursePreviews?.[0]?.coursePreviewId || ''}"
+                                                data-usercreatedat="${course.userCreatedAt}"
                                                 style="
                                                     margin-top:8px;
                                                     width:100%;
@@ -912,7 +912,6 @@
                                     </div>
                                 </div>
                             `;
-
                             container.appendChild(col);
                         });
 
@@ -936,8 +935,29 @@
                             const courseId = $(this).data("courseid");
                             const previewId = $(this).data("previewid");
                             const status = $(this).data("status");
+                            const userCreatedAt = $(this).data("usercreatedat");
 
                             if (status === "Not Started") {
+                                const registrationDate = new Date(userCreatedAt);
+                                const maxDate = new Date(registrationDate);
+                                maxDate.setDate(maxDate.getDate() + 5);
+
+                                maxDate.setHours(23, 59, 59, 999);
+
+                                const today = new Date();
+                                today.setHours(0, 0, 0, 0);
+
+                                if (today > maxDate) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Cannot Start Internship",
+                                        text: "Your 5-days period to start this course has ended. You cannot start this Internship now.",
+                                        confirmButtonText: "Ok",
+                                        allowOutsideClick: false
+                                    });
+                                    return;
+                                }
+
                                 Swal.fire({
                                     title: "Terms & Conditions",
                                     html: `
@@ -961,7 +981,8 @@
                                             dateFormat: "Y-m-d",
                                             altInput: true,
                                             altFormat: "d M Y",
-                                            minDate: "today"
+                                            minDate: today,
+                                            maxDate: maxDate
                                         });
                                     },
                                     preConfirm: () => {
@@ -973,8 +994,14 @@
 
                                         const fp = document.querySelector("#startDate")._flatpickr;
                                         const apiDate = fp.input.value;
-                                        const uiDate = fp.altInput.value;
+                                        const selected = new Date(apiDate);
 
+                                        if (selected < today || selected > maxDate) {
+                                            Swal.showValidationMessage("Selected date is invalid. It must be within 10 days from registration and not before today.");
+                                            return false;
+                                        }
+
+                                        const uiDate = fp.altInput.value;
                                         return { startDate: apiDate, uiDate: uiDate };
                                     }
                                 }).then(result => {
@@ -993,9 +1020,7 @@
                                                 Swal.fire({
                                                     title: "Starting Internship...",
                                                     allowOutsideClick: false,
-                                                    didOpen: () => {
-                                                        Swal.showLoading();
-                                                    }
+                                                    didOpen: () => Swal.showLoading()
                                                 });
 
                                                 $.ajax({
@@ -1009,7 +1034,6 @@
                                                     }),
                                                     success: function (res) {
                                                         Swal.close();
-                                                        console.log("POST Response:", res);
                                                         if (res.success) {
                                                             Swal.fire({
                                                                 icon: "success",
@@ -1026,7 +1050,6 @@
                                                     },
                                                     error: function (xhr, status, error) {
                                                         Swal.close();
-                                                        console.error("POST Error:", error);
                                                         Swal.fire("Error", "Something went wrong. Try again later.", "error");
                                                     }
                                                 });
@@ -1035,7 +1058,6 @@
                                     }
                                 });
                             }
-
                             else if (status === "On Hold" || status === "Terminated") {
                                 Swal.fire({
                                     icon: "error",
