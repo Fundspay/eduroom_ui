@@ -729,6 +729,7 @@
                         return rowDate >= start && rowDate <= end;
                     });
                 }
+                $("#collegeCount").text(filteredData.length);
                 currentPage = 1;
                 renderTable();
                 renderPagination();
@@ -745,7 +746,7 @@
 
             rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-                    <td>${row.sno}</td>
+                    <td>${start + rows.indexOf(row) + 1}</td>
                     <td>${row.name}</td>
                     <td>${row.phoneNumber}</td>
                     <td>${row.registeredAt}</td>
@@ -865,6 +866,7 @@
             });
 
             currentPage = 1;
+            $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
         }
@@ -972,6 +974,7 @@
             );
 
             currentPage = 1;
+            $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
         };
