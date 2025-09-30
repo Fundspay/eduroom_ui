@@ -64,7 +64,7 @@
                                         </li><!-- /About -->
 
                                         <li class="full-mega-menu-position">
-                                            <a href="/domain-list.html">Internships</a>
+                                            <a href="/domain-list.html">Live Projects</a>
                                             <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
                                                 id="domainCourseWrapper">
                                                 <!-- Domains & Courses will be populated here dynamically -->
@@ -223,7 +223,7 @@
 
                                 <h1 class="text-white mb-15 text-capitalize" data-aos="fade-up" data-aos-duration="2000"
                                     style="color: teal !important;" data-aos-delay="150">our <span
-                                        class="f-700">Internships</span></h1>
+                                        class="f-700">Live Projects</span></h1>
                                 <!-- <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center bg-transparent">
                                         <li class="breadcrumb-item"><a class="text-white" href="index.html" style="color: black !important;">Home</a>
@@ -654,7 +654,7 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality internships, interactive resources,
+                                    educators, and professionals. We provide quality live projects, interactive resources,
                                     and
                                     personalized learning paths to help learners.</p>
                             </div>
@@ -671,7 +671,7 @@
                                 </li>
                                 <li>
                                     <a href="/domain-list.html"
-                                        class="position-relative d-inline-block mb-2">Internships</a>
+                                        class="position-relative d-inline-block mb-2">Live Projects</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -950,8 +950,8 @@
                                 if (today > maxDate) {
                                     Swal.fire({
                                         icon: "error",
-                                        title: "Cannot Start Internship",
-                                        text: "Your 5-days period to start this course has ended. You cannot start this Internship now.",
+                                        title: "Cannot Start Live Project",
+                                        text: "Your 5-days period to start this course has ended. You cannot start this live Project now.",
                                         confirmButtonText: "Ok",
                                         allowOutsideClick: false
                                     });
@@ -962,7 +962,7 @@
                                     title: "Terms & Conditions",
                                     html: `
                                         <p style="font-size:14px; margin-bottom:10px; text-align:left;">
-                                            I agree to the <b>Terms and Conditions</b> before starting this Internship.
+                                            I agree to the <b>Terms and Conditions</b> before starting this live project.
                                         </p>
                                         <div style="width:100%; text-align:left;">
                                             <input type="text" id="startDate" 
@@ -1013,12 +1013,12 @@
                                             title: "Are you sure?",
                                             text: `You selected ${uiDate}. Do you want to proceed?`,
                                             showCancelButton: true,
-                                            confirmButtonText: "Yes, Start Internship",
+                                            confirmButtonText: "Yes, Start Live Project",
                                             cancelButtonText: "No"
                                         }).then(confirmRes => {
                                             if (confirmRes.isConfirmed) {
                                                 Swal.fire({
-                                                    title: "Starting Internship...",
+                                                    title: "Starting Live Project...",
                                                     allowOutsideClick: false,
                                                     didOpen: () => Swal.showLoading()
                                                 });
@@ -1037,7 +1037,7 @@
                                                         if (res.success) {
                                                             Swal.fire({
                                                                 icon: "success",
-                                                                title: "Internship started successfully!",
+                                                                title: "Live project started successfully!",
                                                                 showConfirmButton: false,
                                                                 timer: 1500
                                                             });
@@ -1045,7 +1045,7 @@
                                                                 window.location.href = `course-preview.html?courseId=${courseId}&coursePreviewId=${previewId}`;
                                                             }, 1600);
                                                         } else {
-                                                            Swal.fire("Error", "Could not start Internship. Try again.", "error");
+                                                            Swal.fire("Error", "Could not start live project. Try again.", "error");
                                                         }
                                                     },
                                                     error: function (xhr, status, error) {
