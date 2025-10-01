@@ -571,7 +571,8 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality internships, interactive resources, and
+                                    educators, and professionals. We provide quality internships, interactive resources,
+                                    and
                                     personalized learning paths to help learners.</p>
                             </div>
                         </div>
@@ -726,6 +727,22 @@
             }
 
             var allSessions = [];
+            var subscriptionLeft = 0; // from wallet API
+
+            // Fetch wallet balance first
+            $.ajax({
+                url: `https://eduroom.in/api/v1/course/wallet/${userId}`,
+                type: "GET",
+                success: function (res) {
+                    console.log("Wallet API Response:", res);
+                    if (res.success && res.data) {
+                        subscriptionLeft = res.data.subscriptionLeft || 0;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching wallet:", error);
+                }
+            });
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/course-preview/${coursePreviewId}/details`,
@@ -782,25 +799,25 @@
                                 if (q[optKey] && q[optKey].trim() !== "") {
                                     var letter = String.fromCharCode(65 + i); // A, B, C, D
                                     optionsHtml += `
-                                <li class="mb-2">
-                                    <label>
-                                        <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
-                                    </label>
-                                </li>`;
+                                    <li class="mb-2">
+                                        <label>
+                                            <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
+                                        </label>
+                                    </li>`;
                                 }
                             });
 
                             var cardHtml = `
-                        <div class="card border-0 mb-3" id="card-${qid}">
-                            <div class="card-header border-bottom-0 p-0">
-                                <h6 class="mb-0 main-color f-500">
-                                    Q${index + 1}. ${q.question}
-                                </h6>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-unstyled">${optionsHtml}</ul>
-                            </div>
-                        </div>`;
+                            <div class="card border-0 mb-3" id="card-${qid}">
+                                <div class="card-header border-bottom-0 p-0">
+                                    <h6 class="mb-0 main-color f-500">
+                                        Q${index + 1}. ${q.question}
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">${optionsHtml}</ul>
+                                </div>
+                            </div>`;
 
                             quizContainer.append(cardHtml);
                         });
@@ -825,7 +842,6 @@
                     success: function (res) {
                         console.log("get call response:", res);
                         if (res.success && res.score) {
-
                             if (res.score.answers) {
                                 res.score.answers.forEach(function (ans) {
                                     var qid = "q" + ans.mcqId;
@@ -861,7 +877,7 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error("Error fetching saved answers:", status, error);
+                        console.error("Error fetching saved answers:", error);
                     }
                 });
             }
@@ -966,7 +982,18 @@
                 $('#nextBtn').off('click').on('click', function () {
                     if (currentIndex < allSessions.length - 1) {
                         const next = allSessions[currentIndex + 1];
-                        window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviewId}&day=${next.day}&session=${next.sessionNumber}&userId=${userId}`;
+
+                        // Check minBusinessTarget before navigating
+                        if (subscriptionLeft >= (next.minBusinessTarget || 0)) {
+                            window.location.href = `/course-details.html?courseId=${courseId}&previewId=${coursePreviewId}&day=${next.day}&session=${next.sessionNumber}&userId=${userId}`;
+                        } else {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Minimum Business Target Not Achieved",
+                                text: `You need at least ${next.minBusinessTarget || 0} Business Tasks to be completed to unlock this session. Current Business Tasks completed: ${subscriptionLeft}.`,
+                                confirmButtonText: "OK"
+                            });
+                        }
                     } else {
                         alert("This is the last session.");
                     }
