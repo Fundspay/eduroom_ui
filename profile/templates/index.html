@@ -481,7 +481,9 @@
                                 overallCompletionRate,
                                 coursePreviews,
                                 dailyStatus,
-                                message
+                                message,
+                                startDate,
+                                endDate
                             } = course;
 
                             const subscriptionLeft = globalSubscriptionLeft;
@@ -516,6 +518,12 @@
                                     footerColor = "bg-light";
                             }
 
+                            const formatDate = (d) => {
+                                if (!d || d == "Invalid Date") return "-";
+                                const options = { day: "2-digit", month: "short", year: "numeric" };
+                                return d.toLocaleDateString("en-GB", options).replace(",", "");
+                            };
+
                             const subscriptionText =
                                 displayStatus === "Completed"
                                     ? "Completed"
@@ -547,19 +555,25 @@
                                                 <div class="text-start">
                                                     <p class="mb-1">Course Completion Status:</p>
                                                     <p class="mb-0">Business Task Completed:</p>
+                                                    <p class="mb-0">Start Date:</p>
+                                                    <p class="mb-0">End Date:</p>
                                                 </div>
                                                 <div class="text-end">
                                                     <p class="mb-1">${overallCompletionRate || "0"}%</p>
                                                     <p class="mb-0">${subscriptionText}</p>
+                                                    <p class="mb-0">${formatDate(new Date(startDate))}</p>
+                                                    <p class="mb-0">${formatDate(new Date(endDate))}</p>
                                                 </div>
-                                            </div>
+                                            </div>  
 
                                             <!-- Get Certificate button -->
                                             <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
                                                     data-courseid="${courseId}" 
                                                     data-status="${overallStatus}" 
                                                     data-target="${businessTarget}" 
-                                                    data-left="${subscriptionLeft}">
+                                                    data-left="${subscriptionLeft}"
+                                                    data-start="${startDate || ''}"
+                                                    data-end="${endDate || ''}">
                                                 Get Certificate
                                             </button>
                                         </div>
@@ -599,9 +613,10 @@
                                 const courseId = $(this).data("courseid");
                                 const businessTarget = parseInt($(this).data("target")) || 0;
                                 const subscriptionLeft = parseInt($(this).data("left")) || 0;
+                                const startDate = $(this).data("start");
+                                const endDate = $(this).data("end");
 
                                 if (status === "completed") {
-
                                     Swal.fire({
                                         title: "Please Wait...",
                                         allowOutsideClick: false,
@@ -616,6 +631,7 @@
                                         contentType: "application/json",
                                         data: JSON.stringify({ userId, courseId }),
                                         success: function (resp) {
+                                            console.log("Certificate Response:", resp);
                                             Swal.close();
                                             if (resp.success) {
                                                 Swal.fire("Success", "Certificate has been sent to your registered email!", "success");
@@ -639,7 +655,50 @@
                                     Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
                                 }
                                 else {
-                                    Swal.fire("Unavailable", "Your End Date for the live project is not over yet, Please wait until your live project End Date is over to download the certificate!", "info");
+                                    const start = new Date(startDate);
+                                    const end = new Date(endDate);
+
+                                    const formatDate = (d) => {
+                                        const options = { day: "2-digit", month: "short", year: "numeric" };
+                                        return d.toLocaleDateString("en-GB", options).replace(",", "");
+                                    };
+
+                                    Swal.fire({
+                                        title: "Unavailable",
+                                        html: `
+                                                <p>Your End Date for the live project is not over yet.</p>
+                                                <p><b>Start Date:</b> ${formatDate(start)}</p>
+                                                <p><b>End Date:</b> ${formatDate(end)}</p>
+                                                <p><b>Time Left:</b> <span id="countdown"><i class="fa fa-spinner fa-spin"></i> Loading...</span></p>
+                                            `,
+                                        icon: "info",
+                                        didOpen: () => {
+                                            const countdownEl = document.getElementById("countdown");
+
+                                            const updateCountdown = () => {
+                                                const now = new Date().getTime();
+                                                const distance = end.getTime() - now;
+
+                                                if (distance <= 0) {
+                                                    countdownEl.innerHTML = "Expired";
+                                                    return false;
+                                                } else {
+                                                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                                    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                                                    return true;
+                                                }
+                                            };
+
+                                            updateCountdown();
+
+                                            const interval = setInterval(() => {
+                                                if (!updateCountdown()) clearInterval(interval);
+                                            }, 1000);
+                                        }
+                                    });
                                 }
                             });
 
@@ -656,6 +715,7 @@
             });
         });
     </script>
+
     <script>
         // Logged-in user ID from sessionStorage
         const loggedInUserId = sessionStorage.getItem("user_id") || 2;
