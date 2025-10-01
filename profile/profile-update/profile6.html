@@ -318,13 +318,13 @@
     <script>
         const userId = sessionStorage.getItem("user_id");
         // const userId = 2;
-        console.log("User ID:", userId);
+        // console.log("User ID:", userId);
 
         $.ajax({
             url: `https://eduroom.in/api/v1/user/list/${userId}`,
             method: "GET",
             success: function (res) {
-                console.log("Fetched details:", res);
+                // console.log("Fetched details:", res);
 
                 if (res && res.success && res.user) {
                     const user = res.user;
@@ -451,7 +451,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
                         sessionStorage.removeItem("user_id");
 
                         Swal.fire({

@@ -809,7 +809,7 @@
 
     <script>
         const userId = sessionStorage.getItem("user_id");
-        console.log("user_id:", userId);
+        // console.log("user_id:", userId);
 
         if (!userId) {
             Swal.fire({
@@ -828,14 +828,14 @@
         const container = document.getElementById("coursesContainer");
         const urlParams = new URLSearchParams(window.location.search);
         const domainId = urlParams.get("domainId");
-        console.log("domainId from URL:", domainId);
+        // console.log("domainId from URL:", domainId);
 
         $.ajax({
             url: `https://eduroom.in/api/v1/course/courses?userId=${userId}`,
             method: "GET",
             dataType: "json",
             success: function (response) {
-                console.log("API Response:", response);
+                // console.log("API Response:", response);
                 if (response.success && response.data.length > 0) {
                     let filteredCourses = response.data.filter(course => course.domainId == domainId);
 
@@ -1091,7 +1091,7 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    console.log("API Response:", response);
+                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
                         let domainCourseWrapper = $("#domainCourseWrapper");
@@ -1242,7 +1242,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
 
                         sessionStorage.removeItem("user_id");
 

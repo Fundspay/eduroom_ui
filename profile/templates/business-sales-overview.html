@@ -297,14 +297,14 @@
     <script>
         const userId = sessionStorage.getItem("user_id");
         // const userId = 2;
-        console.log("user_id:", userId);
+        // console.log("user_id:", userId);
 
         $(document).ready(function () {
             $.ajax({
                 url: `https://eduroom.in/api/v1/course/wallet/${userId}`,
                 type: "GET",
                 success: function (res) {
-                    console.log("API Response:", res);
+                    // console.log("API Response:", res);
 
                     if (res.success && res.data) {
 
@@ -329,7 +329,7 @@
                 method: "GET",
                 success: function (response) {
                     if (response.success && response.data) {
-                        console.log(response);
+                        // console.log(response);
                         const user = response.data;
 
                         // Referral Link
@@ -368,7 +368,7 @@
         //             url: `https://eduroom.in/api/v1/user/${userId2}/referral-payment-status`,
         //             method: "GET",
         //             success: function (response) {
-        //                 console.log("res:", response);
+                        // console.log("res:", response);
         //                 if (response.success && response.data && Array.isArray(response.data.registered_users)) {
         //                     const users = response.data.registered_users;
 
@@ -541,7 +541,7 @@
     <script>
         // Logged-in user ID from sessionStorage
         const loggedInUserId = sessionStorage.getItem("user_id") || 2;
-        console.log("Logged-in user ID:", loggedInUserId);
+        // console.log("Logged-in user ID:", loggedInUserId);
 
         $(document).ready(function () {
             const rowsPerPage = 10;
@@ -576,7 +576,7 @@
                     url: `https://eduroom.in/api/v1/user/${loggedInUserId}/referral-payment-status`,
                     method: "GET",
                     success: function (response) {
-                        console.log("GET response:", response);
+                        // console.log("GET response:", response);
                         if (response.success && response.data && Array.isArray(response.data.registered_users)) {
                             const users = response.data.registered_users;
 
@@ -788,7 +788,7 @@
             };
 
             window.raiseQuery = function (userId, firstName, lastName, phone, status, email) {
-                console.log("Preparing to raise query for:", userId, "firstname:", firstName, "lastName:", lastName, "phone:", phone, "status:", status, "email:", email, "Logged-in user:", loggedInUserId);
+                // console.log("Preparing to raise query for:", userId, "firstname:", firstName, "lastName:", lastName, "phone:", phone, "status:", status, "email:", email, "Logged-in user:", loggedInUserId);
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -819,7 +819,7 @@
                             phone_number: phone,
                             email: email
                         };
-                        console.log("payload:", payload);
+                        // console.log("payload:", payload);
 
                         $.ajax({
                             url: "https://eduroom.in/api/v1/raisequery/add",
@@ -827,7 +827,7 @@
                             contentType: "application/json",
                             data: JSON.stringify(payload),
                             success: function (res) {
-                                console.log("POST response:", res);
+                                // console.log("POST response:", res);
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success',

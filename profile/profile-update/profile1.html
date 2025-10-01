@@ -398,12 +398,12 @@
     <script>
         const userId = sessionStorage.getItem("user_id");
         // const userId = 2;
-        console.log(userId);
+        // console.log(userId);
         $.ajax({
             url: `https://eduroom.in/api/v1/user/list/${userId}`,
             method: "GET",
             success: function (res) {
-                console.log("Fetched user info:", res);
+                // console.log("Fetched user info:", res);
 
                 if (res && res.success && res.user) {
                     const user = res.user;
@@ -446,7 +446,7 @@
 
     <script>
         (function ($) {
-            console.log('Register script loaded');
+            // console.log('Register script loaded');
 
             const nameRegex = /^[A-Za-z\s]+$/;
             const phoneRegex = /^\d{10}$/;
@@ -457,13 +457,13 @@
 
             $.getJSON('/cities.json')
                 .done(function (data) {
-                    console.log('cities.json loaded', data && data.length, 'records');
+                    // console.log('cities.json loaded', data && data.length, 'records');
                     citiesData = data;
                     populateStatesFromData();
                     populateCitiesFromData();
                 })
                 .fail(function (jqxhr, status, error) {
-                    console.log('Could not load /cities.json. Using sample fallback. Error:', status, error);
+                    // console.log('Could not load /cities.json. Using sample fallback. Error:', status, error);
                     citiesData = [
                         { state: 'Karnataka', name: 'Bengaluru' },
                         { state: 'Karnataka', name: 'Mysuru' },
@@ -601,11 +601,11 @@
                 });
             });
 
-            console.log('Ready: elements present ->', {
-                dateOfBirth_exists: !!$('#dateOfBirth').length,
-                toggle_buttons: $('.toggle-password').length,
-                state_select: $('#state').length
-            });
+            // console.log('Ready: elements present ->', {
+            //     dateOfBirth_exists: !!$('#dateOfBirth').length,
+            //     toggle_buttons: $('.toggle-password').length,
+            //     state_select: $('#state').length
+            // });
 
         })(jQuery);
     </script>
@@ -651,7 +651,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
                         sessionStorage.removeItem("user_id");
 
                         Swal.fire({
@@ -665,7 +665,7 @@
                         });
                     },
                     error: function (err) {
-                        console.error("Logout error:", err);
+                        // console.error("Logout error:", err);
                         Swal.fire({
                             icon: "error",
                             title: "Logout Failed",

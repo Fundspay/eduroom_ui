@@ -475,7 +475,7 @@
 
     <script>
         (function ($) {
-            console.log('Register script loaded');
+            // console.log('Register script loaded');
 
             const nameRegex = /^[A-Za-z\s]+$/;
             const phoneRegex = /^\d{10}$/;
@@ -486,13 +486,13 @@
 
             $.getJSON('/cities.json')
                 .done(function (data) {
-                    console.log('cities.json loaded', data && data.length, 'records');
+                    // console.log('cities.json loaded', data && data.length, 'records');
                     citiesData = data;
                     populateStatesFromData();
                     populateCitiesFromData();
                 })
                 .fail(function (jqxhr, status, error) {
-                    console.log('Could not load /cities.json. Using sample fallback. Error:', status, error);
+                    // console.log('Could not load /cities.json. Using sample fallback. Error:', status, error);
                     citiesData = [
                         { state: 'Karnataka', name: 'Bengaluru' },
                         { state: 'Karnataka', name: 'Mysuru' },
@@ -524,7 +524,7 @@
                         dateFormat: 'Y-m-d',
                         maxDate: 'today',
                         allowInput: false,
-                        onReady: function (sel) { console.log('flatpickr ready for #dateOfBirth'); }
+                        // onReady: function (sel) { console.log('flatpickr ready for #dateOfBirth'); }
                     });
                 } catch (err) {
                     console.warn('flatpickr init failed:', err);
@@ -654,7 +654,7 @@
                                 .then(() => window.top.location.href = "/login.html");
 
                             // const referralPayload = { referralCode, referralLink, internshipModeId };
-                            // console.log("payload for put call:", referralPayload);
+                            console.log("payload for put call:", referralPayload);
 
                             // $.ajax({
                             //     url: `https://eduroom.in/api/v1/user/${userId}/internship-details`,
@@ -783,7 +783,7 @@
                                 password
                             };
 
-                            console.log("Final Google Register Payload:", googlePayload);
+                            // console.log("Final Google Register Payload:", googlePayload);
 
                             Swal.fire({
                                 title: "Registering...",

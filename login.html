@@ -593,7 +593,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ email: email, password: password }),
                     success: function (res) {
-                        console.log(res);
+                        // console.log(res);
                         let userId = null;
                         let userName = null;
                         let redirectUrl = "/profile.html";
@@ -610,11 +610,11 @@
 
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
-                            console.log("Stored user_id:", userId);
+                            // console.log("Stored user_id:", userId);
                         }
                         if (userName) {
                             sessionStorage.setItem("userName", userName.trim());
-                            console.log("Stored userName:", userName);
+                            // console.log("Stored userName:", userName);
                         }
 
                         Swal.close();
@@ -648,9 +648,9 @@
         $(document).ready(function () {
             $('#google-login-btn').on('click', function () {
 
-                console.log("Firebase:", firebase);
-                console.log("auth:", firebase.auth());
-                console.log("signInWithPopup:", firebase.auth().signInWithPopup);
+                // console.log("Firebase:", firebase);
+                // console.log("auth:", firebase.auth());
+                // console.log("signInWithPopup:", firebase.auth().signInWithPopup);
 
                 Swal.fire({
                     title: 'Logging in with Google...',
@@ -662,11 +662,11 @@
 
                 auth.signInWithPopup(provider)
                     .then(result => {
-                        console.log("User signed in:", result.user);
+                        // console.log("User signed in:", result.user);
                         return result.user.getIdToken();
                     })
                     .then(idToken => {
-                        console.log("Retrieved ID token:", idToken);
+                        // console.log("Retrieved ID token:", idToken);
                         return $.ajax({
                             url: "https://eduroom.in/api/v1/user/google-login",
                             type: "POST",
@@ -675,7 +675,7 @@
                         });
                     })
                     .then(response => {
-                        console.log("Google login response:", response);
+                        // console.log("Google login response:", response);
 
                         let userId = null;
                         let userName = null;
@@ -693,11 +693,11 @@
 
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
-                            console.log("Stored user_id:", userId);
+                            // console.log("Stored user_id:", userId);
                         }
                         if (userName) {
                             sessionStorage.setItem("userName", userName.trim());
-                            console.log("Stored userName:", userName);
+                            // console.log("Stored userName:", userName);
                         }
 
                         Swal.close();
@@ -731,7 +731,7 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    console.log("API Response:", response);
+                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
                         let domainCourseWrapper = $("#domainCourseWrapper");
@@ -882,7 +882,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
 
                         sessionStorage.removeItem("user_id");
 

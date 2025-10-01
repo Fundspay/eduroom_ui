@@ -331,7 +331,7 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    console.log("API Response:", response);
+                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
                         let domainCourseWrapper = $("#domainCourseWrapper");
@@ -482,7 +482,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
 
                         sessionStorage.removeItem("user_id");
 

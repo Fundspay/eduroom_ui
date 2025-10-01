@@ -486,13 +486,13 @@
 
     <script>
         (function () {
-            console.log("Binding contact form…");
+            // console.log("Binding contact form…");
             const host = new URL(location.href).hostname;
             sessionStorage.setItem("baseDomain", host);
 
             function submitContactForm(e) {
                 e.preventDefault();
-                console.log("submitContactForm fired");
+                // console.log("submitContactForm fired");
 
                 const data = {
                     Name: $("#username").val().trim(),
@@ -500,8 +500,8 @@
                     phone: $("#phone").val().trim(),
                     message: $("#message").val().trim()
                 };
-                console.log("Posting data:", data);
-                console.log("Contact script loaded, jQuery version:", $.fn.jquery);
+                // console.log("Posting data:", data);
+                // console.log("Contact script loaded, jQuery version:", $.fn.jquery);
 
                 Swal.fire({
                     title: "Sending Message...",
@@ -551,7 +551,7 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    console.log("API Response:", response);
+                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
                         let domainCourseWrapper = $("#domainCourseWrapper");
@@ -702,7 +702,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
 
                         sessionStorage.removeItem("user_id");
 

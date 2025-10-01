@@ -64,7 +64,7 @@
                                         </li><!-- /About -->
 
                                         <li class="full-mega-menu-position">
-                                            <a href="/domain-list.html">Live Projects</a>
+                                            <a href="/domain-list.html">Internships</a>
                                             <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
                                                 id="domainCourseWrapper">
                                                 <!-- Domains & Courses will be populated here dynamically -->
@@ -256,7 +256,7 @@
                                         id="courseCategory2"></span>
                                 </div><!-- /pc-category  -->
                                 <h2>
-                                    <a id="courseTitle2"> </a>
+                                    <a href="course-details.html" id="courseTitle2"> </a>
                                 </h2>
                             </div><!-- /popular-course-content-wrapper -->
 
@@ -277,7 +277,7 @@
 
                                 <div class="col-xl-4 col-lg-5 col-md-4 col-sm- col- pl-md-0">
                                     <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
-                                        <h4 class="text-white text-capitalize mb-15">Live Project-details</h4>
+                                        <h4 class="text-white text-capitalize mb-15">Internship-details</h4>
                                         <ul>
                                             <li class="text-white position-relative d-flex justify-content-between">
                                                 <span><span class="cd-icon"><i class="fal fa-copy"></i></span>Day
@@ -320,39 +320,6 @@
                                     </div><!-- /course-details-left -->
                                 </div><!-- /col -->
                             </div><!-- /course-describe-wrapper2 -->
-                            <h3 class="mb-20" style="margin-top: 10%;" id="courseLearnHeading">Business Task Guide</h3>
-                            <div class="mt-20" style="width: 100%; display: flex; justify-content: center;">
-                                <iframe width="100%" height="480" src="https://www.youtube.com/embed/QwbcAvI_BOY?rel=0"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen>
-                                </iframe>
-                            </div>
-                            <p style="margin-top: 5%; margin-bottom: 10%;">In this step-by-step tutorial, we show you
-                                how to register on Eduroom and get started
-                                with your internship using the FundsAudit app. Learn how to fill your profile, link your
-                                referral code, and track your business and work targets in real time.</br></br>
-
-                                In this video, you’ll learn:</br>
-
-                                1. How to register with Eduroom using Google or manual signup.</br>
-
-                                2. How to fill your basic details for personalized internship experience.</br>
-
-                                3. How to link your mobile number and FundsAudit referral code for business target
-                                tracking.</br>
-
-                                4. How to complete your profile and start your first internship.</br></br>
-
-                                Tips to navigate the Eduroom dashboard and track progress effectively.</br>
-
-                                Eduroom is designed for students, professionals, and enthusiasts to get real-world,
-                                hands-on internship experience in domains like MBA, Finance, Marketing, Engineering, and
-                                more. With 10–60 day internships, you’ll gain valuable skills, complete live projects,
-                                and get certified upon completion.</br>
-
-                                Start your career journey today with Eduroom and FundsAudit!
-                            </p>
                             <div class="faq-wrapper course-Curriculam-accordion mt-22">
                                 <div class="cd-faq-title d-flex align-items-sm-center justify-content-between">
                                     <h3>Sessions</h3>
@@ -409,29 +376,6 @@
                                             </h4>
                                         </div>
 
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: 15%; margin-left: 1.5%;"
-                                    style="padding-top: 5%; margin-left: 1.5%;">
-                                    <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
-                                        <ul>
-                                            <li class="text-white position-relative d-flex justify-content-between">
-                                                <span><span class="cd-icon"><i class="fal fa-calendar"></i></span>Start
-                                                    Date</span>
-                                                <span id="courseStartDate"></span>
-                                            </li>
-                                            <li class="text-white position-relative d-flex justify-content-between">
-                                                <span><span class="cd-icon"><i
-                                                            class="fal fa-calendar-alt"></i></span>End Date</span>
-                                                <span id="courseEndDate"></span>
-                                            </li>
-                                            <li class="text-white position-relative d-flex justify-content-between">
-                                                <span><span class="cd-icon"><i class="fal fa-clock"></i></span>Time
-                                                    Left</span>
-                                                <span id="courseTimeLeft"></span>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                                 <style>
@@ -515,8 +459,7 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality live projects, interactive
-                                    resources,
+                                    educators, and professionals. We provide quality internships, interactive resources,
                                     and
                                     personalized learning paths to help learners.</p>
                             </div>
@@ -532,8 +475,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Live
-                                        Projects</a>
+                                    <a href="/domain-list.html"
+                                        class="position-relative d-inline-block mb-2">Internships</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -609,7 +552,7 @@
     <script>
         const userId = sessionStorage.getItem("user_id");
         // const userId = 2;
-        // console.log("user_id:", userId);
+        console.log("user_id:", userId);
 
         if (!userId) {
             Swal.fire({
@@ -638,8 +581,8 @@
             const courseId = getQueryParam("courseId", 1);
             const previewId = getQueryParam("coursePreviewId", 1);
 
-            // console.log("Course ID:", courseId);
-            // console.log("Preview ID:", previewId);
+            console.log("Course ID:", courseId);
+            console.log("Preview ID:", previewId);
 
             // Function to format YouTube embed URL
             function formatYouTubeEmbed(url) {
@@ -665,7 +608,6 @@
                 method: "GET",
                 dataType: "json",
                 success: function (response) {
-                    // console.log("Course Preview Response2:", response);
                     if (!response.success || !response.data || response.data.length === 0) {
                         console.warn("No course data found");
                         return;
@@ -716,7 +658,7 @@
                     $('#courseHeadingMain').text(course.title || "Courses");
                     $('#coursename').text(course.Course?.name || "Courses");
 
-                    // console.log("Course data loaded:", course);
+                    console.log("Course data loaded:", course);
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX Error:", status, error);
@@ -728,11 +670,13 @@
     <!-- Business Target -->
     <script>
         $(document).ready(function () {
+            // Custom function to parse your special URL
             function getQueryParams() {
                 const url = window.location.href;
-                const queryString = url.split("?")[1];
+                const queryString = url.split("?")[1]; // after first ?
                 if (!queryString) return {};
 
+                // Handle case with multiple ? by replacing them with &
                 const fixedQuery = queryString.replace(/\?/g, "&");
                 const params = new URLSearchParams(fixedQuery);
 
@@ -744,11 +688,11 @@
             }
 
             const params = getQueryParams();
-            const courseId = params.courseId || 1;
+            const courseId = params.courseId || 1;   // fallback = 1
             const coursePreviewId = params.coursePreviewId || null;
             const userId = sessionStorage.getItem("user_id");
 
-            // console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
+            console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
 
             if (!userId) {
                 console.warn(" No userId found in sessionStorage");
@@ -757,19 +701,15 @@
 
             const achievedTargetDisplay = $("#achievedTargetDisplay");
             const targetPercentageDisplay = $("#targetPercentageDisplay");
-            const courseStartDate = $("#courseStartDate");
-            const courseEndDate = $("#courseEndDate");
-            const courseTimeLeft = $("#courseTimeLeft");
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/user/${userId}/business-target`,
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
-                    // console.log("Business Target Response:", data);
+                    console.log("Business Target Response:", data);
 
                     if (data.success && data.data) {
-
                         const target = parseInt(data.data.businessTarget) || 0;
                         const achieved = parseInt(data.data.achievedCount) || 0;
 
@@ -778,51 +718,25 @@
                         let percentage = 0;
                         if (target > 0) {
                             percentage = Math.round((achieved / target) * 100);
-                            percentage = Math.min(percentage, 100);
                         }
 
                         targetPercentageDisplay.text(`${percentage}%`);
 
                         if (percentage < 40) {
-                            targetPercentageDisplay.css("background", "#ff4d4f");
+                            targetPercentageDisplay.css("background", "#ff4d4f"); // red
                         } else if (percentage < 75) {
-                            targetPercentageDisplay.css("background", "#ffa500");
+                            targetPercentageDisplay.css("background", "#ffa500"); // orange
                         } else {
-                            targetPercentageDisplay.css("background", "#00c897");
+                            targetPercentageDisplay.css("background", "#00c897"); // green
                         }
-
-                        const startDate = data.data.startDate;
-                        const endDate = data.data.endDate;
-
-                        function formatDate(dateStr) {
-                            const options = { day: "2-digit", month: "short", year: "numeric" };
-                            return new Date(dateStr).toLocaleDateString("en-GB", options).replace(/,/g, "");
-                        }
-
-                        courseStartDate.text(formatDate(startDate));
-                        courseEndDate.text(formatDate(endDate));
-
-                        function updateCountdown() {
-                            const now = new Date().getTime();
-                            const end = new Date(endDate).getTime();
-                            const distance = end - now;
-
-                            if (distance <= 0) {
-                                courseTimeLeft.text("Expired");
-                                clearInterval(timer);
-                                return;
-                            }
-
-                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                            courseTimeLeft.text(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-                        }
-
-                        const timer = setInterval(updateCountdown, 1000);
-                        updateCountdown();
+                        // targetPercentageDisplay.css({
+                        //     "color": "white",
+                        //     "padding": "6px 18px",
+                        //     "border-radius": "50px",
+                        //     "display": "inline-block",
+                        //     "min-width": "70px",
+                        //     "text-align": "center"
+                        // });
                     }
                 },
                 error: function (xhr, status, error) {
@@ -831,6 +745,7 @@
             });
         });
     </script>
+
 
     <!-- Overall Status -->
     <script>
@@ -856,7 +771,7 @@
             const previewId = params.coursePreviewId || 1;
             const userId = sessionStorage.getItem("user_id");
 
-            // console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
+            console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
 
             if (!userId) {
                 console.warn("⚠️ No userId found in sessionStorage");
@@ -871,7 +786,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
-                    // console.log("Overall Status Response:", res);
+                    console.log("Overall Status Response:", res);
 
                     if (res.success && res.overallStatus) {
                         const totalSessions = res.overallStatus.totalSessions || 0;
@@ -924,7 +839,7 @@
                 url: `https://eduroom.in/api/v1/course/wallet/${userId}`,
                 type: "GET",
                 success: function (res) {
-                    // console.log("Wallet API Response:", res);
+                    console.log("Wallet API Response:", res);
                     if (res.success && res.data) {
                         subscriptionLeft = res.data.subscriptionLeft || 0;
                         $("#walletRemainingDisplay").text(subscriptionLeft);
@@ -956,7 +871,7 @@
                 const courseId = params.courseId || 1;
                 const previewId = params.coursePreviewId || 1;
 
-                // console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
+                console.log("courseId:", courseId, "previewId:", previewId, "userId:", userId);
 
                 if (!userId) {
                     console.warn("⚠️ No userId found in sessionStorage");
@@ -968,7 +883,7 @@
                     method: "GET",
                     dataType: "json",
                     success: function (response) {
-                        // console.log("Response days:", response);
+                        console.log("Response days:", response);
                         if (!response.success || !response.dailyStatus) {
                             console.warn("No curriculum data found");
                             return;
@@ -1042,9 +957,8 @@
                                         <div class="card-body">
                                         <!-- Header Row -->
                                         <div class="d-flex font-weight-bold border-bottom pb-2 mb-2">
-                                            <div style="flex:0 0 40%;" class="text-left">Videos</div>
+                                            <div style="flex:0 0 60%;" class="text-left">Videos</div>
                                             <div style="flex:0 0 20%;" class="text-center">Percentage</div>
-                                            <div style="flex:0 0 20%;" class="text-center">Minimum Tasks</div>
                                             <div style="flex:0 0 20%;" class="text-right">Status</div>
                                         </div>
                                         <ul id="${dayId}-sessions" class="list-unstyled mb-0"></ul>
@@ -1068,12 +982,12 @@
                                         `<span class="badge badge-pill badge-success text-white font-weight-bold">Completed</span>`;
                                 } else if (session.status) {
                                     statusLabel = `<span class="badge badge-pill ${session.status === "Help"
-                                        ? "badge-warning"
-                                        : session.status === "On Hold"
-                                            ? "badge-secondary"
-                                            : session.status === "In Progress"
-                                                ? "badge-info"
-                                                : "badge-light"
+                                            ? "badge-warning"
+                                            : session.status === "On Hold"
+                                                ? "badge-secondary"
+                                                : session.status === "In Progress"
+                                                    ? "badge-info"
+                                                    : "badge-light"
                                         } text-white font-weight-bold">${session.status}</span>`;
                                 }
 
@@ -1087,15 +1001,12 @@
                                         data-session-number="${session.sessionNumber}"
                                         data-day="${dayData.day}"
                                         data-min-target="${session.minBusinessTarget || 0}">
-                                        <div style="flex:0 0 40%;" class="text-left pr-2">
+                                        <div style="flex:0 0 60%;" class="text-left pr-2">
                                             <span class="ab-icon primary-color pr-1"><i class="fas fa-play"></i></span>
                                             ${session.title}
                                         </div>
                                         <div style="flex:0 0 20%;" class="text-center text-muted">
                                             ${sessionPercentage}
-                                        </div>
-                                        <div style="flex:0 0 20%;" class="text-center text-muted">
-                                            ${session.minBusinessTarget || 0}
                                         </div>
                                         <div style="flex:0 0 20%;" class="text-right">
                                             ${statusLabel}
@@ -1108,7 +1019,7 @@
                             });
                         });
 
-                        // console.log("Curriculum data loaded:", response);
+                        console.log("Curriculum data loaded:", response);
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX Error:", status, error);
@@ -1123,7 +1034,7 @@
                 let sessionNumber = $(this).data("session-number");
                 let minTarget = $(this).data("min-target");
 
-                // console.log("Clicked session:", { subscriptionLeft, minTarget, overallStatus });
+                console.log("Clicked session:", { subscriptionLeft, minTarget, overallStatus });
 
                 if (overallStatus === "Completed" || subscriptionLeft >= minTarget) {
 
@@ -1144,7 +1055,7 @@
         $(document).ready(function () {
             $('.btn-link').on('click', function (e) {
                 var dayId = $(this).attr('id').replace('dayTab', ''); // 1,2,3
-                // console.log('Sending day ID to backend:', dayId);
+                console.log('Sending day ID to backend:', dayId);
 
                 // Example AJAX call before redirect
                 /*
@@ -1169,7 +1080,7 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    // console.log("API Response:", response);
+                    console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
                         let domainCourseWrapper = $("#domainCourseWrapper");
@@ -1320,7 +1231,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        // console.log("Logout success:", res);
+                        console.log("Logout success:", res);
 
                         sessionStorage.removeItem("user_id");
 
