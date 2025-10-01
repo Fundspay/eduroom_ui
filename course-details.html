@@ -462,7 +462,7 @@
                                         id="businessTargetWidget2">
                                         <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
                                             id="businessTargetHeading" style="background: #000;">
-                                           Live Project Business Task
+                                            Live Project Business Task
                                         </h4>
 
                                         <div class="about-instructor-wrapper text-center">
@@ -476,7 +476,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 15%;">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-top: 10%;">
                                     <div class="sidebar-widget cd-sidebar overall-status mt-45"
                                         id="overallStatusWidget2">
                                         <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
@@ -495,6 +495,28 @@
                                     </div>
                                 </div>
 
+                                <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: 15%; margin-left: 2%;"
+                                    style="margin-top: 15%; margin-left: 2%;">
+                                    <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
+                                        <ul>
+                                            <li class="text-white position-relative d-flex justify-content-between">
+                                                <span><span class="cd-icon"><i class="fal fa-calendar"></i></span>Start
+                                                    Date</span>
+                                                <span id="courseStartDate"></span>
+                                            </li>
+                                            <li class="text-white position-relative d-flex justify-content-between">
+                                                <span><span class="cd-icon"><i
+                                                            class="fal fa-calendar-alt"></i></span>End Date</span>
+                                                <span id="courseEndDate"></span>
+                                            </li>
+                                            <li class="text-white position-relative d-flex justify-content-between">
+                                                <span><span class="cd-icon"><i class="fal fa-clock"></i></span>Time
+                                                    Left</span>
+                                                <span id="courseTimeLeft"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 
                             </div><!-- /row -->
                         </div><!-- /course-filter-details -->
@@ -571,7 +593,8 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality live projects, interactive resources, and
+                                    educators, and professionals. We provide quality live projects, interactive
+                                    resources, and
                                     personalized learning paths to help learners.</p>
                             </div>
                         </div>
@@ -586,8 +609,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html"
-                                        class="position-relative d-inline-block mb-2">Live Projects</a>
+                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Live
+                                        Projects</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -1158,24 +1181,39 @@
     <!-- business target -->
     <script>
         $(document).ready(function () {
-            // Parse query params
-            var queryParams = (function () {
-                var params = {};
-                var queryString = window.location.search.substring(1);
-                var pairs = queryString.split("&");
-                for (var i = 0; i < pairs.length; i++) {
-                    var pair = pairs[i].split("=");
-                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-                }
-                return params;
-            })();
+            function getQueryParams() {
+                const url = window.location.href;
+                const queryString = url.split("?")[1];
+                if (!queryString) return {};
 
-            var courseId = queryParams.courseId || 1;   // fallback 1
-            var userId = queryParams.userId || 2;       // fallback 2
+                const fixedQuery = queryString.replace(/\?/g, "&");
+                const params = new URLSearchParams(fixedQuery);
+
+                let result = {};
+                for (const [key, value] of params.entries()) {
+                    result[key] = value;
+                }
+                return result;
+            }
+
+            const params = getQueryParams();
+            const courseId = params.courseId || 1;
+            const coursePreviewId = params.coursePreviewId || null;
+            const userId = sessionStorage.getItem("user_id");
+
+            console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
+
+            if (!userId) {
+                console.warn(" No userId found in sessionStorage");
+                return;
+            }
 
             const achievedTargetDisplay = $("#achievedTargetDisplay2");
             const targetPercentageDisplay = $("#targetPercentageDisplay2");
             const businessTargetWidget = $("#businessTargetWidget2");
+            const courseStartDate = $("#courseStartDate");
+            const courseEndDate = $("#courseEndDate");
+            const courseTimeLeft = $("#courseTimeLeft");
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/user/${userId}/business-target`,
@@ -1185,37 +1223,60 @@
                     console.log("Business Target Response:", data);
 
                     if (data.success && data.data) {
+
                         const target = parseInt(data.data.businessTarget) || 0;
                         const achieved = parseInt(data.data.achievedCount) || 0;
 
-                        // Update achieved / target
                         achievedTargetDisplay.text(`${achieved} / ${target}`);
 
-                        // Calculate percentage
                         let percentage = 0;
                         if (target > 0) {
                             percentage = Math.round((achieved / target) * 100);
+                            percentage = Math.min(percentage, 100);
                         }
 
                         targetPercentageDisplay.text(`${percentage}%`);
 
-                        // Dynamic coloring (with curved pill style like earlier)
-                        // targetPercentageDisplay.css({
-                        //     "color": "white",
-                        //     "padding": "6px 18px",
-                        //     "border-radius": "50px",
-                        //     "display": "inline-block",
-                        //     "min-width": "70px",
-                        //     "text-align": "center"
-                        // });
-
                         if (percentage < 40) {
-                            targetPercentageDisplay.css("background", "#ff4d4f"); // red
+                            targetPercentageDisplay.css("background", "#ff4d4f");
                         } else if (percentage < 75) {
-                            targetPercentageDisplay.css("background", "#ffa500"); // orange
+                            targetPercentageDisplay.css("background", "#ffa500");
                         } else {
-                            targetPercentageDisplay.css("background", "#00c897"); // green
+                            targetPercentageDisplay.css("background", "#00c897");
                         }
+
+                        const startDate = data.data.startDate;
+                        const endDate = data.data.endDate;
+
+                        function formatDate(dateStr) {
+                            const options = { day: "2-digit", month: "short", year: "numeric" };
+                            return new Date(dateStr).toLocaleDateString("en-GB", options).replace(/,/g, "");
+                        }
+
+                        courseStartDate.text(formatDate(startDate));
+                        courseEndDate.text(formatDate(endDate));
+
+                        function updateCountdown() {
+                            const now = new Date().getTime();
+                            const end = new Date(endDate).getTime();
+                            const distance = end - now;
+
+                            if (distance <= 0) {
+                                courseTimeLeft.text("Expired");
+                                clearInterval(timer);
+                                return;
+                            }
+
+                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            courseTimeLeft.text(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+                        }
+
+                        const timer = setInterval(updateCountdown, 1000);
+                        updateCountdown();
                     }
                 },
                 error: function (xhr, status, error) {
