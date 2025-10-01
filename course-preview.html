@@ -328,7 +328,8 @@
                                     allowfullscreen>
                                 </iframe>
                             </div>
-                            <p style="margin-top: 5%; margin-bottom: 10%;">In this step-by-step tutorial, we show you how to register on Eduroom and get started
+                            <p style="margin-top: 5%; margin-bottom: 10%;">In this step-by-step tutorial, we show you
+                                how to register on Eduroom and get started
                                 with your internship using the FundsAudit app. Learn how to fill your profile, link your
                                 referral code, and track your business and work targets in real time.</br></br>
 
@@ -408,6 +409,29 @@
                                             </h4>
                                         </div>
 
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: 15%; margin-left: 1.5%;"
+                                    style="padding-top: 5%; margin-left: 1.5%;">
+                                    <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
+                                        <ul>
+                                            <li class="text-white position-relative d-flex justify-content-between">
+                                                <span><span class="cd-icon"><i class="fal fa-calendar"></i></span>Start
+                                                    Date</span>
+                                                <span id="courseStartDate"></span>
+                                            </li>
+                                            <li class="text-white position-relative d-flex justify-content-between">
+                                                <span><span class="cd-icon"><i
+                                                            class="fal fa-calendar-alt"></i></span>End Date</span>
+                                                <span id="courseEndDate"></span>
+                                            </li>
+                                            <li class="text-white position-relative d-flex justify-content-between">
+                                                <span><span class="cd-icon"><i class="fal fa-clock"></i></span>Time
+                                                    Left</span>
+                                                <span id="courseTimeLeft"></span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <style>
@@ -641,6 +665,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (response) {
+                    console.log("Course Preview Response2:", response);
                     if (!response.success || !response.data || response.data.length === 0) {
                         console.warn("No course data found");
                         return;
@@ -703,13 +728,11 @@
     <!-- Business Target -->
     <script>
         $(document).ready(function () {
-            // Custom function to parse your special URL
             function getQueryParams() {
                 const url = window.location.href;
-                const queryString = url.split("?")[1]; // after first ?
+                const queryString = url.split("?")[1];
                 if (!queryString) return {};
 
-                // Handle case with multiple ? by replacing them with &
                 const fixedQuery = queryString.replace(/\?/g, "&");
                 const params = new URLSearchParams(fixedQuery);
 
@@ -721,7 +744,7 @@
             }
 
             const params = getQueryParams();
-            const courseId = params.courseId || 1;   // fallback = 1
+            const courseId = params.courseId || 1;
             const coursePreviewId = params.coursePreviewId || null;
             const userId = sessionStorage.getItem("user_id");
 
@@ -734,6 +757,9 @@
 
             const achievedTargetDisplay = $("#achievedTargetDisplay");
             const targetPercentageDisplay = $("#targetPercentageDisplay");
+            const courseStartDate = $("#courseStartDate");
+            const courseEndDate = $("#courseEndDate");
+            const courseTimeLeft = $("#courseTimeLeft");
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/user/${userId}/business-target`,
@@ -743,6 +769,7 @@
                     console.log("Business Target Response:", data);
 
                     if (data.success && data.data) {
+
                         const target = parseInt(data.data.businessTarget) || 0;
                         const achieved = parseInt(data.data.achievedCount) || 0;
 
@@ -751,25 +778,51 @@
                         let percentage = 0;
                         if (target > 0) {
                             percentage = Math.round((achieved / target) * 100);
+                            percentage = Math.min(percentage, 100);
                         }
 
                         targetPercentageDisplay.text(`${percentage}%`);
 
                         if (percentage < 40) {
-                            targetPercentageDisplay.css("background", "#ff4d4f"); // red
+                            targetPercentageDisplay.css("background", "#ff4d4f");
                         } else if (percentage < 75) {
-                            targetPercentageDisplay.css("background", "#ffa500"); // orange
+                            targetPercentageDisplay.css("background", "#ffa500");
                         } else {
-                            targetPercentageDisplay.css("background", "#00c897"); // green
+                            targetPercentageDisplay.css("background", "#00c897");
                         }
-                        // targetPercentageDisplay.css({
-                        //     "color": "white",
-                        //     "padding": "6px 18px",
-                        //     "border-radius": "50px",
-                        //     "display": "inline-block",
-                        //     "min-width": "70px",
-                        //     "text-align": "center"
-                        // });
+
+                        const startDate = data.data.startDate;
+                        const endDate = data.data.endDate;
+
+                        function formatDate(dateStr) {
+                            const options = { day: "2-digit", month: "short", year: "numeric" };
+                            return new Date(dateStr).toLocaleDateString("en-GB", options).replace(/,/g, "");
+                        }
+
+                        courseStartDate.text(formatDate(startDate));
+                        courseEndDate.text(formatDate(endDate));
+
+                        function updateCountdown() {
+                            const now = new Date().getTime();
+                            const end = new Date(endDate).getTime();
+                            const distance = end - now;
+
+                            if (distance <= 0) {
+                                courseTimeLeft.text("Expired");
+                                clearInterval(timer);
+                                return;
+                            }
+
+                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            courseTimeLeft.text(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+                        }
+
+                        const timer = setInterval(updateCountdown, 1000);
+                        updateCountdown();
                     }
                 },
                 error: function (xhr, status, error) {
@@ -778,7 +831,6 @@
             });
         });
     </script>
-
 
     <!-- Overall Status -->
     <script>
@@ -1016,12 +1068,12 @@
                                         `<span class="badge badge-pill badge-success text-white font-weight-bold">Completed</span>`;
                                 } else if (session.status) {
                                     statusLabel = `<span class="badge badge-pill ${session.status === "Help"
-                                            ? "badge-warning"
-                                            : session.status === "On Hold"
-                                                ? "badge-secondary"
-                                                : session.status === "In Progress"
-                                                    ? "badge-info"
-                                                    : "badge-light"
+                                        ? "badge-warning"
+                                        : session.status === "On Hold"
+                                            ? "badge-secondary"
+                                            : session.status === "In Progress"
+                                                ? "badge-info"
+                                                : "badge-light"
                                         } text-white font-weight-bold">${session.status}</span>`;
                                 }
 
