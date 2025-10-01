@@ -495,8 +495,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: 15%; margin-left: 2%;"
-                                    style="margin-top: 15%; margin-left: 2%;">
+                                <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12"
+                                    style="margin-top: 15%; margin-left: 2%;" style="margin-top: 15%; margin-left: 2%;">
                                     <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
                                         <ul>
                                             <li class="text-white position-relative d-flex justify-content-between">
@@ -688,7 +688,7 @@
     <script>
         const userId = sessionStorage.getItem("user_id");
         // const userId = 2;
-        console.log("user_id:", userId);
+        // console.log("user_id:", userId);
 
         if (!userId) {
             Swal.fire({
@@ -727,12 +727,12 @@
             var sessionNumber = queryParams.session || queryParams.sessionNumber || 1;
             var userId = queryParams.userId || 2;
 
-            console.log("courseId:", courseId,
-                "coursePreviewId:", coursePreviewId,
-                "day:", dayNumber,
-                "session:", sessionNumber,
-                "userId:", userId
-            );
+            // console.log("courseId:", courseId,
+            //     "coursePreviewId:", coursePreviewId,
+            //     "day:", dayNumber,
+            //     "session:", sessionNumber,
+            //     "userId:", userId
+            // );
 
             function formatYouTubeEmbed(url) {
                 if (!url) return "";
@@ -756,7 +756,7 @@
                 url: `https://eduroom.in/api/v1/course/wallet/${userId}`,
                 type: "GET",
                 success: function (res) {
-                    console.log("Wallet API Response:", res);
+                    // console.log("Wallet API Response:", res);
                     if (res.success && res.data) {
                         subscriptionLeft = res.data.subscriptionLeft || 0;
                     }
@@ -776,7 +776,7 @@
                     sessionNumber: sessionNumber
                 },
                 success: function (response) {
-                    console.log("Course Preview Response:", response);
+                    // console.log("Course Preview Response:", response);
                     if (!response.success || !response.data || response.data.length === 0) {
                         console.warn("No course data found");
                         return;
@@ -847,7 +847,7 @@
                         fetchSavedAnswers();
                     }
 
-                    console.log("Course data loaded:", course);
+                    // console.log("Course data loaded:", course);
                     setupNavigation(allSessions, dayNumber, sessionNumber);
                 },
                 error: function (xhr, status, error) {
@@ -862,7 +862,7 @@
                     method: "GET",
                     dataType: "json",
                     success: function (res) {
-                        console.log("get call response:", res);
+                        // console.log("get call response:", res);
                         if (res.success && res.score) {
                             if (res.score.answers) {
                                 res.score.answers.forEach(function (ans) {
@@ -872,7 +872,7 @@
                                         $(`input[name="${qid}"][value="${selected}"]`).prop("checked", true);
                                     }
                                 });
-                                console.log("Saved answers pre-filled:", res.score.answers);
+                                // console.log("Saved answers pre-filled:", res.score.answers);
                             }
 
                             var correct = res.score.correctMCQs || 0;
@@ -933,7 +933,7 @@
                     }),
                     success: function (response) {
                         if (response.success) {
-                            console.log("response data:", response);
+                            // console.log("response data:", response);
                             var evalData = response.evaluation;
 
                             $('#averageScore').text(evalData.score);
@@ -1050,13 +1050,13 @@
             $('#submitCaseStudy').prop('disabled', true);
 
             const caseStudyUrl = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies?userId=${userId}`;
-            console.log("Case Study API URL:", caseStudyUrl);
+            // console.log("Case Study API URL:", caseStudyUrl);
 
             $.ajax({
                 url: caseStudyUrl,
                 method: "GET",
                 success: function (response) {
-                    console.log("Case Study Response:", response);
+                    // console.log("Case Study Response:", response);
 
                     if (response.success && response.data?.caseStudy) {
                         const caseStudy = response.data.caseStudy;
@@ -1084,14 +1084,14 @@
             function fetchSavedCaseStudyAnswer() {
                 if (!questionId) return;
                 const savedUrl = `https://eduroom.in/api/v1/coursedetail/casestudy/result/${courseId}/${coursePreviewId}/${dayNumber}/${sessionNumber}/${questionId}/${userId}`;
-                console.log("Saved Case Study URL:", savedUrl);
+                // console.log("Saved Case Study URL:", savedUrl);
 
                 $.ajax({
                     url: savedUrl,
                     method: "GET",
                     dataType: "json",
                     success: function (res) {
-                        console.log("Saved Case Study Response:", res);
+                        // console.log("Saved Case Study Response:", res);
 
                         if (res.success && res.data) {
 
@@ -1136,7 +1136,7 @@
                     alert("Case study question not loaded. Please try again later.");
                     return;
                 }
-                console.log("answer:", answer);
+                // console.log("answer:", answer);
 
                 $.ajax({
                     url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/question/${questionId}/casestudy`,
@@ -1145,7 +1145,7 @@
                     data: JSON.stringify({ userId: userId, answer: answer }),
                     success: function (response) {
                         if (response.success && response.data) {
-                            console.log("post response of case study:", response);
+                            // console.log("post response of case study:", response);
                             $('#caseStudyResult').show();
 
                             var percent = parseFloat(response.data.matchPercentage || 0).toFixed(1);
@@ -1165,6 +1165,23 @@
                                     $(this).find('i').removeClass('r-star-color').addClass('fa-star');
                                 }
                             });
+
+                            if (percent >= 20) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Congratulations!',
+                                    text: 'You passed the case study.',
+                                    confirmButtonText: 'OK'
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Case Study Failed',
+                                    text: 'Your answers do not match the requirements of the case study.\nPlease review the case study and instructions carefully.\nTry submitting again after making improvements.',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+
                         } else {
                             alert(response.message || "Failed to submit case study.");
                         }
@@ -1174,7 +1191,6 @@
                     }
                 });
             });
-
         });
     </script>
 
@@ -1201,7 +1217,7 @@
             const coursePreviewId = params.coursePreviewId || null;
             const userId = sessionStorage.getItem("user_id");
 
-            console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
+            // console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
 
             if (!userId) {
                 console.warn(" No userId found in sessionStorage");
@@ -1220,7 +1236,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
-                    console.log("Business Target Response:", data);
+                    // console.log("Business Target Response:", data);
 
                     if (data.success && data.data) {
 
@@ -1316,7 +1332,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
-                    console.log("Overall Status Response:", res);
+                    // console.log("Overall Status Response:", res);
 
                     if (res.success && res.overallStatus) {
                         const totalSessions = res.overallStatus.totalSessions || 0;
@@ -1363,7 +1379,7 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    console.log("API Response:", response);
+                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
                         let domainCourseWrapper = $("#domainCourseWrapper");
@@ -1514,7 +1530,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
-                        console.log("Logout success:", res);
+                        // console.log("Logout success:", res);
 
                         sessionStorage.removeItem("user_id");
 
