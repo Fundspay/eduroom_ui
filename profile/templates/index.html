@@ -137,8 +137,7 @@
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Number of Internship
-                                            Courses</span>
+                                        <span class="d-block" style="font-size: 14px;">Number of Live Projects</span>
                                         <span id="courseCountDisplay" class="fw-bolder d-block"
                                             style="font-size: 50px;">0</span>
                                     </a>
@@ -208,7 +207,7 @@
                 </div>
 
                 <!-- [Mini Card] start -->
-                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;">My Internships</h3>
+                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;">My Live Projects</h3>
                 <div class="row" id="internshipCardsContainer">
                     <!-- Cards will be injected here -->
                 </div>
@@ -634,20 +633,20 @@
                                     Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
                                 }
                                 else if (status === "on hold") {
-                                    Swal.fire("On Hold", "You internship has been put on hold. Please contact your team manager", "warning");
+                                    Swal.fire("On Hold", "Your live project has been put on hold. Please contact your team manager", "warning");
                                 }
                                 else if (status === "terminated") {
                                     Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
                                 }
                                 else {
-                                    Swal.fire("Unavailable", "Your End Date for the internship is not over yet, Please wiat until your internship End Date is over to download the certificate!", "info");
+                                    Swal.fire("Unavailable", "Your End Date for the live project is not over yet, Please wait until your live project End Date is over to download the certificate!", "info");
                                 }
                             });
 
                             container.append($card);
                         });
                     } else {
-                        container.html('<button class="bg-success" onclick="window.top.location.href=\'/domain-list.html\'" style="padding:10px 20px; color:#fff; border:none; border-radius:5px; cursor:pointer;">Start an Internship</button>');
+                        container.html('<button class="bg-success" onclick="window.top.location.href=\'/domain-list.html\'" style="padding:10px 20px; color:#fff; border:none; border-radius:5px; cursor:pointer;">Start a Live Project</button>');
                     }
                 },
                 error: function (xhr, status, error) {
