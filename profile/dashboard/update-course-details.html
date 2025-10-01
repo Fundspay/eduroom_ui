@@ -343,6 +343,12 @@
                                     <small class="text-muted char-count" data-for="description">0/500 chars</small>
                                 </div>
 
+                                <div class="mb-4">
+                                    <label class="form-label">Minimum Business Task <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control char-limit" id="minBusinessTarget"
+                                        placeholder="Enter the Minimum Business Tasks to be completed">
+                                </div>
+
                                 <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
 
                                 <!-- Question Section -->
@@ -1054,6 +1060,7 @@
                                 $("#title").val(preview.title || "");
                                 $("#description").val(preview.description || "");
                                 $("#youtubeLink").val(preview.youtubeLink || "");
+                                $("#minBusinessTarget").val(preview.minBusinessTarget || "");
 
                                 if (preview.QuestionModels && preview.QuestionModels.length > 0) {
                                     preview.QuestionModels.forEach((q, idx) => {
@@ -1156,6 +1163,7 @@
                             sessions: [
                                 {
                                     sessionNumber: selectedSession,
+                                    minBusinessTarget: $("#minBusinessTarget").val().trim(),
                                     title: $("#title").val().trim(),
                                     description: $("#description").val().trim(),
                                     youtubeLink: $("#youtubeLink").val().trim(),
