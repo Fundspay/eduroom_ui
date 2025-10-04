@@ -91,6 +91,7 @@
                                     <div
                                         class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
                                         <div class="card-body">
+                                            <span class="fw-semibold text-muted small" style="padding-bottom: 1%;">Referral Link:</span>
                                             <!-- Referral Link -->
                                             <a href="#" target="_blank" class="fs-9 fw-bold text-reset d-block mb-2"
                                                 id="referralLink">--</a>
@@ -139,7 +140,7 @@
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Number of Live Projects</span>
                                         <span id="courseCountDisplay" class="fw-bolder d-block"
-                                            style="font-size: 50px;">0</span>
+                                            style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
                             </div>
@@ -151,7 +152,7 @@
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Total Subscriptions</span>
                                         <span id="walletRemainingDisplay" class="fw-bolder d-block"
-                                            style="font-size: 50px;">0</span>
+                                            style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
                             </div>
@@ -598,7 +599,7 @@
                                         Swal.fire("Completed!", message || "You have already completed this course.", "success");
                                         break;
                                     case "onhold":
-                                        window.location.href = `/course-details.html?courseId=${courseId}&coursePreviewId=${previewId}&day=${dailyStatus[0].day}&session=${dailyStatus[0].sessions[0].sessionNumber}&userId=${userId}`;
+                                        Swal.fire("On Hold", "Your live project has been put on hold. Please contact your team manager", "warning");
                                         break;
                                     case "terminated":
                                         Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
