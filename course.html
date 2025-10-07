@@ -938,14 +938,17 @@
                             const userCreatedAt = $(this).data("usercreatedat");
 
                             if (status === "Not Started") {
+                                const today = new Date();
+                                today.setHours(0, 0, 0, 0);
+
                                 const registrationDate = new Date(userCreatedAt);
-                                const maxDate = new Date(registrationDate);
-                                maxDate.setDate(maxDate.getDate() + 5);
+                                const maxDate = new Date(today);
+                                maxDate.setDate(maxDate.getDate() + 4);
 
                                 maxDate.setHours(23, 59, 59, 999);
 
-                                const today = new Date();
-                                today.setHours(0, 0, 0, 0);
+                                // const today = new Date();
+                                // today.setHours(0, 0, 0, 0);
 
                                 if (today > maxDate) {
                                     Swal.fire({
