@@ -782,7 +782,7 @@
             const rows = filteredData.slice(start, end);
 
             rows.forEach((row, index) => {
-                const profileUrl = ''
+                const profileUrl = row.userId ? '/intern-profile.html?userId=' + encodeURIComponent(row.userId) : '';
                 const safeName = escapeHtml(row.name || '');
                 const nameCell = profileUrl
                     ? `<a href="${profileUrl}" target="_blank" class="text-primary fw-bold" style="cursor:pointer; text-decoration:underline;">${safeName}</a>`
