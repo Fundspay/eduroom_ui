@@ -103,7 +103,16 @@
                   class="feather-chevron-right"></i></span>
             </a>
             <ul class="nxl-submenu">
-              <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">INTERN'S DETAILS</a>
+              <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">MY TARGETS</a>
+              </li>
+              <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a>
+              </li>
+              <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a>
+              </li>
+              <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a>
+              </li>
+              <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/team-manager.html">REGISTRATION
+                  SHEET</a>
               </li>
 
               <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
@@ -234,8 +243,18 @@
             <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
               <div class="dropdown-header">
                 <section id="user-header">
-                  <div id="user-section" class="user-dropdown"><i class="feather-user"></i> Fundsroom
-                    Tech</div>
+                  <div id="user-section" class="user-dropdown">
+                    <a>
+                      <i class="feather-user"></i>
+                      <span id="manager-name">Fundsroom Tech</span></a>
+                  </div>
+                  <script>
+                    const managerName2 = sessionStorage.getItem("userName");
+                    const nameElement = document.getElementById("manager-name");
+                    if (nameElement && managerName2 && managerName2.trim() !== "") {
+                      nameElement.textContent = managerName2;
+                    }
+                  </script>
                 </section>
               </div>
             </div>
