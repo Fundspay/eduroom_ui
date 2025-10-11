@@ -1,0 +1,310 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Eduroom</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" href="images/logo/shape-1.png" type="image/x-icon">
+
+    <!-- All css here -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/meanmenu.css">
+    <link rel="stylesheet" href="css/all-animations.css">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!--  ====== preloader=============================================  -->
+    <div id="preloader">
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_one"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_three"></div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /preloader -->
+
+    <!--  ====== header extra info start================================== -->
+    <div class="body-overlay"></div>
+
+    <main>
+        <!-- Iframe Example -->
+        <div
+            style="width: 100%; max-width: 1650px; margin: auto; border: 1px solid #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); margin-top: 5%;">
+            <iframe style="width: 100%; height: 2000px; border: none;" title="Embedded Page">
+            </iframe>
+        </div>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    </main>
+
+    <!-- back top -->
+    <div id="scroll" class="scroll-up">
+        <div class="top text-center"><span class="white-bg theme-color d-block"><i
+                    class="fa fa-arrow-alt-up"></i></span></div>
+    </div>
+
+    <!-- All js here -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.inputarrow.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/image-loaded.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/waypoint.js"></script>
+    <script src="js/counterup-min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/tilt.jquery.min.js"></script>
+    <script src="js/countdown.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
+                method: "GET",
+                success: function (response) {
+
+                    if (response && response.data && Array.isArray(response.data)) {
+                        let domainCourseWrapper = $("#domainCourseWrapper");
+                        domainCourseWrapper.empty();
+
+                        let domainMap = {};
+
+                        response.data.forEach(function (course) {
+                            let domainName = course.Domain && course.Domain.name ? course.Domain.name : "Others";
+                            if (!domainMap[domainName]) {
+                                domainMap[domainName] = [];
+                            }
+                            domainMap[domainName].push(course);
+                        });
+
+                        Object.keys(domainMap).forEach(function (domain) {
+                            let li = $('<li class="ml-xl-5 ml-lg-4 pl-xl-4"></li>');
+
+                            li.append(`
+                            <a href="domain-list.html" class="mt-4 mt-lg-0">
+                                <span class="d-block f-700 main-color mb-10">${domain}</span>
+                            </a>
+                        `);
+
+                            domainMap[domain].forEach(function (course) {
+                                if (course.name) {
+                                    li.append(`
+                                    <a href="course.html?domainId=${course.domainId}">
+                                        ${course.name}
+                                    </a>
+                                `);
+                                }
+                            });
+
+                            domainCourseWrapper.append(li);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching courses:", error);
+                }
+            });
+        });
+    </script> -->
+
+    <!-- <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Not Logged In",
+                    text: "You need to login first to continue.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: "Login"
+                }).then(() => {
+                    window.location.href = "login.html";
+                });
+            }
+
+            const loginRegisterHTML = `
+            <ul class="header-login mr-15 d-none d-sm-block">
+                <li>
+                    <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
+                        data-selector="true" data-placement="bottom" title="Login / Register">
+                        LOGIN</a>
+                </li>
+            </ul>
+
+            <div class="my-btn d-none d-sm-block">
+                <a href="register.html" class="btn white-bg">Register</a>
+            </div>
+
+            <div class="d-block d-sm-none w-100 mt-0 mobile-login-btn">
+                <div class="home4-btn1 w-100 text-center">
+                    <a href="login.html" class="btn text-uppercase f-500 text-white transition5 w-100">Login</a>
+                </div>
+            </div>
+
+            <style>
+            .mobile-login-btn .home4-btn1 .btn {
+                background: linear-gradient(105deg, #4f46e5, #6366f1); /* same gradient as your hero button */
+                padding: 6px 0;
+                border-radius: 30px;
+                font-size: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-login-btn .home4-btn1 .btn:hover {
+                background: linear-gradient(105deg, #6366f1, #4f46e5);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            }
+            </style>
+        `;
+
+            const logoutHTML = `
+            <div class="my-btn d-none d-sm-block">
+                <a href="javascript:void(0);" id="logoutBtn" class="btn white-bg">Logout</a>
+            </div>
+
+            <div class="d-block d-sm-none w-100 mobile-logout-btn">
+                <div class="home4-btn1 w-100 text-center">
+                    <a href="javascript:void(0);" id="logoutBtn" class="btn text-uppercase f-500 text-white transition5 w-100">Logout</a>
+                </div>
+            </div>
+
+            <style>
+            .mobile-logout-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%; /* ensures vertical alignment */
+            }
+
+            .mobile-logout-btn .home4-btn1 .btn {
+                background: linear-gradient(105deg, #4f46e5, #6366f1);
+                padding: 8px 0;
+                border-radius: 30px;
+                font-size: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-logout-btn .home4-btn1 .btn:hover {
+                background: linear-gradient(105deg, #6366f1, #4f46e5);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            }
+            </style>
+        `;
+
+            if (userId) {
+                $("#auth-buttons").html(logoutHTML);
+            } else {
+                $("#auth-buttons").html(loginRegisterHTML);
+            }
+
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+
+                        sessionStorage.removeItem("user_id");
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script> -->
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlUserId = urlParams.get("userId");
+        // console.log("URL userId:", urlUserId);
+
+        if (urlUserId) {
+            const iframe = document.querySelector("iframe");
+            iframe.src = `/profile/templates/intern-profile.html?userId=${urlUserId}`;
+        }
+    </script>
+</body>
+
+</html>
