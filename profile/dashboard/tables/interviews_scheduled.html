@@ -188,8 +188,6 @@
                                                 <th>MOBILE NUMBER</th>
                                                 <th>EMAIL ID</th>
                                                 <th>DOMAIN</th>
-                                                <th>MAIL SENT ON</th>
-                                                <th>Send Resume</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -576,12 +574,6 @@
             ${makeCell("mobileNumber", row.mobileNumber || "")}
             ${makeCell("emailId", row.emailId || "")}
             ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
-            <td>${formatDateTime(row.mailSentAt)}</td>
-            <td>
-                <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </td>
             </tr>`;
                 tbody.append(tr);
             });
@@ -604,9 +596,7 @@
             "followupBy",
             "mobileNumber",
             "emailId",
-            "domain",
-            "mailSentAt",
-            "sendMail"
+            "domain"
         ];
 
         function renderPagination() {
@@ -1008,18 +998,18 @@
 
         window.exportToExcel = function () {
             const headers = [
-                "SR",
-                "Date of Resumes Received",
-                "College Name",
-                "Course",
-                "Internship Type",
-                "College Onboarded By",
-                "Name of Student",
-                "Mobile Number",
-                "Email ID",
-                "Domain",
-                "Date of Interview Scheduled",
-                "Mail Sent At"
+                "sno",
+                "studentName",
+                "isRegistered",
+                "dateOfRegistration",
+                "resumeDate",
+                "collegeName",
+                "course",
+                "internshipType",
+                "followupBy",
+                "mobileNumber",
+                "emailId",
+                "domain"
             ];
 
             const data = [headers];
@@ -1027,17 +1017,17 @@
             tableData.forEach((row) => {
                 data.push([
                     row.sno,
+                    row.studentName,
+                    row.isRegistered ? "Yes" : "No",
+                    row.dateOfRegistration,
                     row.resumeDate,
                     row.collegeName,
                     row.course,
                     row.internshipType,
                     row.followupBy,
-                    row.studentName,
                     row.mobileNumber,
                     row.emailId,
-                    row.domain,
-                    row.interviewDate,
-                    row.mailSentAt
+                    row.domain
                 ]);
             });
 
