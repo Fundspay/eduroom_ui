@@ -594,6 +594,7 @@
                                                 <th>NAME OF STUDENT</th>
                                                 <th>Registration status</th>
                                                 <th>Date of registration</th>
+                                                <th>Time of Registartion</th>
                                                 <th>DATE OF RESUMES RECEIVED</th>
                                                 <th>COLLEGE NAME</th>
                                                 <th>COURSE</th>
@@ -602,6 +603,26 @@
                                                 <th>MOBILE NUMBER</th>
                                                 <th>EMAIL ID</th>
                                                 <th>DOMAIN</th>
+                                                <th>Subscription 1</th>
+                                                <th>Subscription 2</th>
+                                                <th>Subscription 3</th>
+                                                <th>Subscription 4</th>
+                                                <th>Subscription 5</th>
+                                                <th>Subscription 6</th>
+                                                <th>Subscription 7</th>
+                                                <th>Subscription 8</th>
+                                                <th>Subscription 9</th>
+                                                <th>Subscription 10</th>
+                                                <th>Subscription 11</th>
+                                                <th>Subscription 12</th>
+                                                <th>Subscription 13</th>
+                                                <th>Subscription 14</th>
+                                                <th>Subscription 15</th>
+                                                <th>Subscription 16</th>
+                                                <th>Subscription 17</th>
+                                                <th>Subscription 18</th>
+                                                <th>Subscription 19</th>
+                                                <th>Subscription 20</th>
                                                 <!-- <th>MAIL SENT ON</th>
                                                 <th>Send Resume</th> -->
                                             </tr>
@@ -771,6 +792,7 @@
                                                     <th>NAME OF STUDENT</th>
                                                     <th>Resgitration Status</th>
                                                     <th>Date of Registartion</th>
+                                                    <th>Time of Registartion</th>
                                                     <th>DATE OF RESUMES RECEIVED</th>
                                                     <th>COLLEGE NAME</th>
                                                     <th>COURSE</th>
@@ -779,6 +801,26 @@
                                                     <th>MOBILE NUMBER</th>
                                                     <th>EMAIL ID</th>
                                                     <th>DOMAIN</th>
+                                                    <th>Subscription 1</th>
+                                                    <th>Subscription 2</th>
+                                                    <th>Subscription 3</th>
+                                                    <th>Subscription 4</th>
+                                                    <th>Subscription 5</th>
+                                                    <th>Subscription 6</th>
+                                                    <th>Subscription 7</th>
+                                                    <th>Subscription 8</th>
+                                                    <th>Subscription 9</th>
+                                                    <th>Subscription 10</th>
+                                                    <th>Subscription 11</th>
+                                                    <th>Subscription 12</th>
+                                                    <th>Subscription 13</th>
+                                                    <th>Subscription 14</th>
+                                                    <th>Subscription 15</th>
+                                                    <th>Subscription 16</th>
+                                                    <th>Subscription 17</th>
+                                                    <th>Subscription 18</th>
+                                                    <th>Subscription 19</th>
+                                                    <th>Subscription 20</th>
                                                     <!-- <th>MAIL SENT ON</th>
                                                     <th>Send Resume</th> -->
                                                 </tr>
@@ -1219,6 +1261,7 @@
                                                 <th>NAME OF STUDENT</th>
                                                 <th>Registration Status</th>
                                                 <th>Date of registration</th>
+                                                <th>Time of Registartion</th>
                                                 <th>DATE OF RESUMES RECEIVED</th>
                                                 <th>COLLEGE NAME</th>
                                                 <th>COURSE</th>
@@ -1227,6 +1270,26 @@
                                                 <th>MOBILE NUMBER</th>
                                                 <th>EMAIL ID</th>
                                                 <th>DOMAIN</th>
+                                                <th>Subscription 1</th>
+                                                <th>Subscription 2</th>
+                                                <th>Subscription 3</th>
+                                                <th>Subscription 4</th>
+                                                <th>Subscription 5</th>
+                                                <th>Subscription 6</th>
+                                                <th>Subscription 7</th>
+                                                <th>Subscription 8</th>
+                                                <th>Subscription 9</th>
+                                                <th>Subscription 10</th>
+                                                <th>Subscription 11</th>
+                                                <th>Subscription 12</th>
+                                                <th>Subscription 13</th>
+                                                <th>Subscription 14</th>
+                                                <th>Subscription 15</th>
+                                                <th>Subscription 16</th>
+                                                <th>Subscription 17</th>
+                                                <th>Subscription 18</th>
+                                                <th>Subscription 19</th>
+                                                <th>Subscription 20</th>
                                                 <!-- <th>MAIL SENT ON</th>
                                                 <th>Send Resume</th> -->
                                             </tr>
@@ -1689,22 +1752,61 @@
                         if (res.managers && Array.isArray(res.managers)) {
                             dropdowns.followupBy = res.managers.map(u => u.name);
                         }
-                        tableData = res.data.map((row, index) => ({
-                            sno: index + 1,
-                            id: row.id,
-                            resumeDate: row.resumeDate || "",
-                            collegeName: row.collegeName || "",
-                            course: row.course || "",
-                            internshipType: row.internshipType || "",
-                            followupBy: row.followupBy || "",
-                            studentName: row.studentName || "",
-                            mobileNumber: row.mobileNumber || "",
-                            emailId: row.emailId || "",
-                            domain: row.domain || "",
-                            isRegistered: row.isRegistered,
-                            dateOfRegistration: row.dateOfRegistration || "",
-                            mailSentAt: row.mailSentAt || "",
-                        }));
+                        let maxPayments = 0;
+
+                        tableData = res.data.map((row, index) => {
+                            const dateRaw = row.dateOfRegistration || "";
+                            let dateOnly = "", timeOnly = "";
+                            if (dateRaw) {
+                                const date = new Date(dateRaw);
+                                if (!isNaN(date)) {
+                                    dateOnly = date.toLocaleDateString("en-GB", {
+                                        day: "numeric",
+                                        month: "long",
+                                        year: "numeric"
+                                    });
+                                    let hours = date.getHours();
+                                    let minutes = date.getMinutes().toString().padStart(2, "0");
+                                    const ampm = hours >= 12 ? "PM" : "AM";
+                                    hours = hours % 12 || 12;
+                                    timeOnly = `${hours}:${minutes} ${ampm}`;
+                                }
+                            }
+
+                            const payments = (row.user && Array.isArray(row.user.FundsAudits))
+                                ? row.user.FundsAudits.map(f => f.dateOfPayment)
+                                : [];
+
+                            if (payments.length > maxPayments) maxPayments = payments.length;
+
+                            return {
+                                sno: index + 1,
+                                id: row.id,
+                                resumeDate: row.resumeDate || "",
+                                collegeName: row.collegeName || "",
+                                course: row.course || "",
+                                internshipType: row.internshipType || "",
+                                followupBy: row.followupBy || "",
+                                studentName: row.studentName || "",
+                                mobileNumber: row.mobileNumber || "",
+                                emailId: row.emailId || "",
+                                domain: row.domain || "",
+                                isRegistered: row.isRegistered,
+                                dateOfRegistration: row.dateOfRegistration || "",
+                                dateOfRegistrationDate: dateOnly,
+                                dateOfRegistrationTime: timeOnly,
+                                mailSentAt: row.mailSentAt || "",
+                                payments: payments
+                            };
+                        });
+
+                        window.maxPayments = maxPayments;
+
+                        if (window.maxPayments && window.maxPayments > 0) {
+                            for (let i = 1; i <= window.maxPayments; i++) {
+                                columnKeys.push(`payment${i}`);
+                            }
+                        }
 
                         $("#collegeCount").text(tableData.length);
 
@@ -1754,29 +1856,39 @@
 
             rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-            <td>
-                <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-            <td>${row.sno}</td>
-            ${makeCell("studentName", row.studentName || "")}
-            <td>
-            ${row.isRegistered
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${row.sno}</td>
+                    ${makeCell("studentName", row.studentName || "")}
+                    <td>
+                        ${row.isRegistered
                         ? '<span class="badge bg-soft-success text-success">Yes</span>'
                         : '<span class="badge bg-soft-danger text-danger">No</span>'}
-            </td>
-            <td>${formatDateTime(row.dateOfRegistration)}</td>
-            ${makeDateCell("resumeDate", row.resumeDate || "")}
-            ${makeCell("collegeName", row.collegeName || "")}
-            ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
-            ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
-            ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.connectedBy)}
-            ${makeCell("mobileNumber", row.mobileNumber || "")}
-            ${makeCell("emailId", row.emailId || "")}
-            ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
-            </tr>`;
+                    </td>
+                    <td>${row.dateOfRegistrationDate || ""}</td>
+                    <td>${row.dateOfRegistrationTime || ""}</td>
+                    ${makeDateCell("resumeDate", row.resumeDate || "")}
+                    ${makeCell("collegeName", row.collegeName || "")}
+                    ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
+                    ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
+                    ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.connectedBy)}
+                    ${makeCell("mobileNumber", row.mobileNumber || "")}
+                    ${makeCell("emailId", row.emailId || "")}
+                    ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
+                `;
+
+                const payments = row.payments || [];
+                for (let i = 0; i < (window.maxPayments || 0); i++) {
+                    let paymentDate = payments[i] ? formatDate(payments[i]) : "";
+                    tr += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
+                }
+
+                tr += `</tr>`;
                 tbody.append(tr);
+
             });
 
             attachCellEvents();
@@ -1789,7 +1901,8 @@
             "sno",
             "studentName",
             "isRegistered",
-            "dateOfRegistration",
+            "dateOfRegistrationDate",
+            "dateOfRegistrationTime",
             "resumeDate",
             "collegeName",
             "course",
@@ -1799,6 +1912,12 @@
             "emailId",
             "domain"
         ];
+
+        if (window.maxPayments && window.maxPayments > 0) {
+            for (let i = 1; i <= window.maxPayments; i++) {
+                columnKeys.push(`payment${i}`);
+            }
+        }
 
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
@@ -1869,7 +1988,6 @@
                     values = ["Yes", "No"];
                 }
                 else if (field === "dateOfRegistration") {
-
                     values = [...new Set(
                         tableData
                             .map(row => {
@@ -1884,13 +2002,20 @@
                             .filter(v => v && v.trim() !== "")
                     )];
                 }
-                else if (field === "mailSentAt" || field === "dateOfRegistration") {
+
+                else if (field.startsWith("payment")) {
+                    const paymentIndex = parseInt(field.replace("payment", "")) - 1;
                     values = [...new Set(
                         tableData
-                            .map(row => formatDateTime(row[field]))
+                            .map(row => {
+                                const payments = row.payments || [];
+                                const date = payments[paymentIndex];
+                                return date ? formatDate(date) : "";
+                            })
                             .filter(v => v && v.trim() !== "")
                     )];
                 }
+
                 else if (field.toLowerCase().includes("date")) {
                     values = [...new Set(
                         tableData
@@ -1929,16 +2054,33 @@
 
                 if (value) {
                     filteredData = filteredData.filter(row => {
-                        let cellValue = row[field] || "";
+                        let cellValue = "";
 
-                        if (field === "isRegistered") {
+                        // payment fields (payment1, payment2, ...)
+                        if (field.startsWith("payment")) {
+                            const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                            const payments = row.payments || [];
+                            cellValue = payments[paymentIndex] ? formatDate(payments[paymentIndex]) : "";
+                        }
+                        // boolean registration
+                        else if (field === "isRegistered") {
                             cellValue = row.isRegistered ? "Yes" : "No";
-                        } else if (field === "dateOfRegistration") {
+                        }
+                        // exact field containing a full datetime stored in model (convert to date/time as needed)
+                        else if (field === "dateOfRegistration") {
                             cellValue = formatDateTime(row.dateOfRegistration);
-                        } else if (field.toLowerCase().includes("date")) {
-                            cellValue = formatDate(cellValue);
-                        } else if (field.toLowerCase().includes("time")) {
-                            cellValue = formatTimeHM(cellValue);
+                        }
+                        // any field that is a "Date" column by name: use formatDate()
+                        else if (field.toLowerCase().includes("date")) {
+                            cellValue = formatDate(row[field] || "");
+                        }
+                        // time-only columns
+                        else if (field.toLowerCase().includes("time")) {
+                            cellValue = formatTimeHM(row[field] || "");
+                        }
+                        // everything else (strings/labels)
+                        else {
+                            cellValue = row[field] || "";
                         }
 
                         return String(cellValue).toLowerCase() === String(value).toLowerCase();
@@ -2199,28 +2341,36 @@
 
         window.exportToExcel = function () {
             const headers = [
-                "sno",
-                "studentName",
-                "isRegistered",
-                "dateOfRegistration",
-                "resumeDate",
-                "collegeName",
-                "course",
-                "internshipType",
-                "followupBy",
-                "mobileNumber",
-                "emailId",
-                "domain"
+                "S.No",
+                "Student Name",
+                "Registered",
+                "Registration Date",
+                "Registration Time",
+                "Resume Date",
+                "College Name",
+                "Course",
+                "Internship Type",
+                "Follow-up By",
+                "Mobile Number",
+                "Email ID",
+                "Domain"
             ];
+
+            if (window.maxPayments && window.maxPayments > 0) {
+                for (let i = 1; i <= window.maxPayments; i++) {
+                    headers.push(`Payment ${i}`);
+                }
+            }
 
             const data = [headers];
 
             tableData.forEach((row) => {
-                data.push([
+                const rowData = [
                     row.sno,
                     row.studentName,
                     row.isRegistered ? "Yes" : "No",
-                    row.dateOfRegistration,
+                    row.dateOfRegistrationDate,
+                    row.dateOfRegistrationTime,
                     row.resumeDate,
                     row.collegeName,
                     row.course,
@@ -2229,13 +2379,24 @@
                     row.mobileNumber,
                     row.emailId,
                     row.domain
-                ]);
+                ];
+
+                if (window.maxPayments && window.maxPayments > 0) {
+                    for (let i = 0; i < window.maxPayments; i++) {
+                        const paymentDate = row.payments && row.payments[i]
+                            ? formatDate(row.payments[i])
+                            : "";
+                        rowData.push(paymentDate);
+                    }
+                }
+
+                data.push(rowData);
             });
 
             const worksheet = XLSX.utils.aoa_to_sheet(data);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "StudentResumes");
-            XLSX.writeFile(workbook, "StudentResumes_All.xlsx");
+            XLSX.writeFile(workbook, "StudentResumes_With_Payments.xlsx");
         };
 
         $(document).ready(function () {
@@ -2275,22 +2436,61 @@
                         if (res.managers && Array.isArray(res.managers)) {
                             dropdowns.followupBy = res.managers.map(u => u.name);
                         }
-                        tableData2 = res.data.map((row, index) => ({
-                            sno: index + 1,
-                            id: row.id,
-                            studentName: row.studentName || "",
-                            isRegistered: row.isRegistered || "",
-                            registrationDate: row.dateOfRegistration || "",
-                            resumeDate: row.resumeDate || "",
-                            collegeName: row.collegeName || "",
-                            course: row.course || "",
-                            internshipType: row.internshipType || "",
-                            followupBy: row.followupBy || "",
-                            mobileNumber: row.mobileNumber || "",
-                            emailId: row.emailId || "",
-                            domain: row.domain || "",
-                            mailSentAt: row.mailSentAt || "",
-                        }));
+                        let maxPayments2 = 0;
+
+                        tableData2 = res.data.map((row, index) => {
+                            const dateRaw = row.dateOfRegistration || "";
+                            let dateOnly = "", timeOnly = "";
+                            if (dateRaw) {
+                                const date = new Date(dateRaw);
+                                if (!isNaN(date)) {
+                                    dateOnly = date.toLocaleDateString("en-GB", {
+                                        day: "numeric",
+                                        month: "long",
+                                        year: "numeric"
+                                    });
+                                    let hours = date.getHours();
+                                    let minutes = date.getMinutes().toString().padStart(2, "0");
+                                    const ampm = hours >= 12 ? "PM" : "AM";
+                                    hours = hours % 12 || 12;
+                                    timeOnly = `${hours}:${minutes} ${ampm}`;
+                                }
+                            }
+
+                            const payments = Array.isArray(row.FundsAuditStudents)
+                                ? row.FundsAuditStudents.map(f => f.dateOfPayment)
+                                : [];
+
+                            if (payments.length > maxPayments2) maxPayments2 = payments.length;
+
+                            return {
+                                sno: index + 1,
+                                id: row.id,
+                                resumeDate: row.resumeDate || "",
+                                collegeName: row.collegeName || "",
+                                course: row.course || "",
+                                internshipType: row.internshipType || "",
+                                followupBy: row.followupBy || "",
+                                studentName: row.studentName || "",
+                                mobileNumber: row.mobileNumber || "",
+                                emailId: row.emailId || "",
+                                domain: row.domain || "",
+                                isRegistered: row.isRegistered,
+                                dateOfRegistration: row.dateOfRegistration || "",
+                                dateOfRegistrationDate: dateOnly,
+                                dateOfRegistrationTime: timeOnly,
+                                mailSentAt: row.mailSentAt || "",
+                                payments: payments
+                            };
+                        });
+
+                        window.maxPayments2 = maxPayments2 || 0;
+
+                        if (window.maxPayments2 && window.maxPayments2 > 0) {
+                            for (let i = 1; i <= window.maxPayments2; i++) {
+                                columnKeys2.push(`payment${i}`);
+                            }
+                        }
 
                         const totalColleges2 = tableData2.length;
                         document.getElementById("collegeCount2").textContent = totalColleges2;
@@ -2341,29 +2541,40 @@
 
             rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-            <td>
-                <button class="btn btn-sm btn-danger delete-record2" data-id="${row.id}" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-            <td>${row.sno}</td>
-            ${makeCell2("studentName", row.studentName || "")}
-            <td>
-            ${row.isRegistered
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${row.sno}</td>
+                    ${makeCell("studentName", row.studentName || "")}
+                    <td>
+                        ${row.isRegistered
                         ? '<span class="badge bg-soft-success text-success">Yes</span>'
                         : '<span class="badge bg-soft-danger text-danger">No</span>'}
-            </td>
-            <td>${formatDateTime(row.registrationDate)}</td>
-            ${makeDateCell2("resumeDate", row.resumeDate || "")}
-            ${makeCell2("collegeName", row.collegeName || "")}
-            ${makeDropdownCell2("course", row.course || "", null, dropdowns2.course)}
-            ${makeDropdownCell2("internshipType", row.internshipType || "", null, dropdowns2.internshipType)}
-            ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.connectedBy)}
-            ${makeCell2("mobileNumber", row.mobileNumber || "")}
-            ${makeCell2("emailId", row.emailId || "")}
-            ${makeDropdownCell2("domain", row.domain || "", null, dropdowns2.domain)}
-            </tr>`;
+                    </td>
+                    <td>${row.dateOfRegistrationDate || ""}</td>
+                    <td>${row.dateOfRegistrationTime || ""}</td>
+                    ${makeDateCell("resumeDate", row.resumeDate || "")}
+                    ${makeCell("collegeName", row.collegeName || "")}
+                    ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
+                    ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
+                    ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.connectedBy)}
+                    ${makeCell("mobileNumber", row.mobileNumber || "")}
+                    ${makeCell("emailId", row.emailId || "")}
+                    ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
+                `;
+
+                const payments = row.payments || [];
+                for (let i = 0; i < (window.maxPayments2 || 0); i++) {
+                    let paymentDate = payments[i] ? formatDate(payments[i]) : "";
+                    tr += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
+                }
+
+
+                tr += `</tr>`;
                 tbody.append(tr);
+
             });
 
             attachCellEvents2();
@@ -2376,7 +2587,8 @@
             "sno",
             "studentName",
             "isRegistered",
-            "registrationDate",
+            "dateOfRegistrationDate",
+            "dateOfRegistrationTime",
             "resumeDate",
             "collegeName",
             "course",
@@ -2386,6 +2598,14 @@
             "emailId",
             "domain"
         ];
+
+        if (window.maxPayments2 && window.maxPayments2 > 0) {
+            for (let i = 1; i <= window.maxPayments2; i++) {
+                if (!columnKeys2.includes(`payment${i}`)) {
+                    columnKeys2.push(`payment${i}`);
+                }
+            }
+        }
 
         function renderPagination2() {
             const totalPages = Math.ceil(filteredData2.length / rowsPerPage2);
@@ -2450,21 +2670,60 @@
         function populateColumnFilterOptions2() {
             $("#leadsTable2 thead .column-filter2").each(function () {
                 const field = $(this).data("field");
+                let values = [];
 
-                let values = [...new Set(tableData2.map(row => row[field]))]
-                    .filter(v => v !== null && v !== undefined && v !== "");
-
-                if (field === "registrationDate") {
-                    values = values.map(v => formatDate2(v)).filter(v => v !== "");
-                } else if (field === "mailSentAt") {
-                    values = values.map(v => formatDateTime(v)).filter(v => v !== "");
-                } else if (field === "isRegistered") {
+                if (field === "isRegistered") {
                     values = ["Yes", "No"];
-                } else if (field.toLowerCase().includes("date")) {
-                    values = values.map(v => formatDate2(v)).filter(v => v !== "");
+                }
+                else if (field.startsWith("payment")) {
+                    const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                    values = [...new Set(
+                        tableData2
+                            .map(row => {
+                                const payments = row.payments || [];
+                                const date = payments[paymentIndex];
+                                return date ? formatDate2(date) : "";
+                            })
+                            .filter(v => v && v.trim() !== "")
+                    )];
                 }
 
+                else if (field.startsWith("payment")) {
+                    const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                    values = [...new Set(
+                        tableData2
+                            .map(row => {
+                                const payments = row.payments || [];
+                                const date = payments[paymentIndex];
+                                return date ? formatDate2(date) : "";
+                            })
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
 
+                else if (field.toLowerCase().includes("date")) {
+                    values = [...new Set(
+                        tableData2
+                            .map(row => formatDate2(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+                else if (field.toLowerCase().includes("time")) {
+                    values = [...new Set(
+                        tableData2
+                            .map(row => formatTimeHM(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+                else {
+                    values = [...new Set(
+                        tableData2
+                            .map(row => row[field])
+                            .filter(v => v !== null && v !== undefined && v !== "")
+                    )];
+                }
+
+                $(this).empty().append(`<option value="">All</option>`);
                 values.forEach(v => {
                     $(this).append(`<option value="${v}">${v}</option>`);
                 });
@@ -2480,23 +2739,29 @@
 
                 if (value) {
                     filteredData2 = filteredData2.filter(row => {
-                        let cellValue = row[field] || "";
+                        let cellValue = "";
 
-                        if (field === "registrationDate") {
-                            cellValue = formatDate(cellValue);
-                        } else if (field === "mailSentAt") {
-                            cellValue = formatDateTime(cellValue);
-                        } else if (field === "isRegistered") {
-                            // Normalize boolean/number/string to "Yes"/"No"
-                            const normalized = (String(cellValue).toLowerCase() === "true" || cellValue === 1 || String(cellValue).toLowerCase() === "yes")
-                                ? "Yes"
-                                : "No";
-                            cellValue = normalized;
+                        if (field.startsWith("payment")) {
+                            const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                            const payments = row.payments || [];
+                            cellValue = payments[paymentIndex] ? formatDate2(payments[paymentIndex]) : "";
+                        }
+
+                        else if (field === "isRegistered") {
+                            cellValue = row.isRegistered ? "Yes" : "No";
+                        }
+                        else if (field === "dateOfRegistration") {
+                            cellValue = formatDateTime(row.dateOfRegistration);
                         }
                         else if (field.toLowerCase().includes("date")) {
-                            cellValue = formatDate(cellValue);
+                            cellValue = formatDate(row[field] || "");
                         }
-
+                        else if (field.toLowerCase().includes("time")) {
+                            cellValue = formatTimeHM(row[field] || "");
+                        }
+                        else {
+                            cellValue = row[field] || "";
+                        }
 
                         return String(cellValue).toLowerCase() === String(value).toLowerCase();
                     });
@@ -2756,29 +3021,35 @@
 
         window.exportToExcel2 = function () {
             const headers = [
-                "sno",
-                "studentName",
-                "isRegistered",
-                "dateOfRegistration",
-                "resumeDate",
-                "collegeName",
-                "course",
-                "internshipType",
-                "followupBy",
-                "mobileNumber",
-                "emailId",
-                "domain"
+                "S.No",
+                "Student Name",
+                "Is Registered",
+                "Date of Registration",
+                "Resume Date",
+                "College Name",
+                "Course",
+                "Internship Type",
+                "Follow-up By",
+                "Mobile Number",
+                "Email ID",
+                "Domain"
             ];
+
+            if (window.maxPayments2 && window.maxPayments2 > 0) {
+                for (let i = 1; i <= window.maxPayments2; i++) {
+                    headers.push(`Payment ${i}`);
+                }
+            }
 
             const data = [headers];
 
             tableData2.forEach((row) => {
-                data.push([
+                const rowData = [
                     row.sno,
                     row.studentName,
                     row.isRegistered ? "Yes" : "No",
-                    row.dateOfRegistration,
-                    row.resumeDate,
+                    row.dateOfRegistrationDate || "",
+                    row.resumeDate ? formatDate2(row.resumeDate) : "",
                     row.collegeName,
                     row.course,
                     row.internshipType,
@@ -2786,7 +3057,15 @@
                     row.mobileNumber,
                     row.emailId,
                     row.domain
-                ]);
+                ];
+
+                const payments = row.payments || [];
+                for (let i = 0; i < (window.maxPayments2 || 0); i++) {
+                    let paymentDate = payments[i] ? formatDate2(payments[i]) : "";
+                    rowData.push(paymentDate);
+                }
+
+                data.push(rowData);
             });
 
             const worksheet = XLSX.utils.aoa_to_sheet(data);
@@ -2832,24 +3111,63 @@
                     console.log("student resumes 3:", res);
                     if (res.success && res.data) {
                         if (res.managers && Array.isArray(res.managers)) {
-                            dropdowns.followupBy = res.managers.map(u => u.name);
+                            dropdowns3.followupBy = res.managers.map(u => u.name);
                         }
-                        tableData3 = res.data.map((row, index) => ({
-                            sno: index + 1,
-                            id: row.id,
-                            resumeDate: row.resumeDate || "",
-                            collegeName: row.collegeName || "",
-                            course: row.course || "",
-                            internshipType: row.internshipType || "",
-                            followupBy: row.followupBy || "",
-                            studentName: row.studentName || "",
-                            mobileNumber: row.mobileNumber || "",
-                            emailId: row.emailId || "",
-                            domain: row.domain || "",
-                            isRegistered: row.isRegistered,
-                            registrationDate: row.dateOfRegistration || "",
-                            mailSentAt: row.mailSentAt || "",
-                        }));
+                        let maxPayments3 = 0;
+
+                        tableData3 = res.data.map((row, index) => {
+                            const dateRaw = row.dateOfRegistration || "";
+                            let dateOnly = "", timeOnly = "";
+                            if (dateRaw) {
+                                const date = new Date(dateRaw);
+                                if (!isNaN(date)) {
+                                    dateOnly = date.toLocaleDateString("en-GB", {
+                                        day: "numeric",
+                                        month: "long",
+                                        year: "numeric"
+                                    });
+                                    let hours = date.getHours();
+                                    let minutes = date.getMinutes().toString().padStart(2, "0");
+                                    const ampm = hours >= 12 ? "PM" : "AM";
+                                    hours = hours % 12 || 12;
+                                    timeOnly = `${hours}:${minutes} ${ampm}`;
+                                }
+                            }
+
+                            const payments = Array.isArray(row.FundsAuditStudents)
+                                ? row.FundsAuditStudents.map(f => f.dateOfPayment)
+                                : [];
+
+                            if (payments.length > maxPayments3) maxPayments3 = payments.length;
+
+                            return {
+                                sno: index + 1,
+                                id: row.id,
+                                resumeDate: row.resumeDate || "",
+                                collegeName: row.collegeName || "",
+                                course: row.course || "",
+                                internshipType: row.internshipType || "",
+                                followupBy: row.followupBy || "",
+                                studentName: row.studentName || "",
+                                mobileNumber: row.mobileNumber || "",
+                                emailId: row.emailId || "",
+                                domain: row.domain || "",
+                                isRegistered: row.isRegistered,
+                                dateOfRegistration: row.dateOfRegistration || "",
+                                dateOfRegistrationDate: dateOnly,
+                                dateOfRegistrationTime: timeOnly,
+                                mailSentAt: row.mailSentAt || "",
+                                payments: payments
+                            };
+                        });
+
+                        window.maxPayments3 = maxPayments3 || 0;
+
+                        if (window.maxPayments3 && window.maxPayments3 > 0) {
+                            for (let i = 1; i <= window.maxPayments3; i++) {
+                                columnKeys3.push(`payment${i}`);
+                            }
+                        }
 
                         $("#collegeCount3").text(tableData3.length);
 
@@ -2899,28 +3217,38 @@
 
             rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-            <td>
-                <button class="btn btn-sm btn-danger delete-record3" data-id="${row.id}" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-            <td>${row.sno}</td>
-            ${makeCell3("studentName", row.studentName || "")}
-            <td>
-            ${row.isRegistered
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${row.sno}</td>
+                    ${makeCell("studentName", row.studentName || "")}
+                    <td>
+                        ${row.isRegistered
                         ? '<span class="badge bg-soft-success text-success">Yes</span>'
                         : '<span class="badge bg-soft-danger text-danger">No</span>'}
-            </td>
-            <td>${formatDateTime(row.registrationDate)}</td>
-            ${makeDateCell3("resumeDate", row.resumeDate || "")}
-            ${makeCell3("collegeName", row.collegeName || "")}
-            ${makeDropdownCell3("course", row.course || "", null, dropdowns3.course)}
-            ${makeDropdownCell3("internshipType", row.internshipType || "", null, dropdowns3.internshipType)}
-            ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.connectedBy)}
-            ${makeCell3("mobileNumber", row.mobileNumber || "")}
-            ${makeCell3("emailId", row.emailId || "")}
-            ${makeDropdownCell3("domain", row.domain || "", null, dropdowns3.domain)}
-            </tr>`;
+                    </td>
+                    <td>${row.dateOfRegistrationDate || ""}</td>
+                    <td>${row.dateOfRegistrationTime || ""}</td>
+                    ${makeDateCell("resumeDate", row.resumeDate || "")}
+                    ${makeCell("collegeName", row.collegeName || "")}
+                    ${makeDropdownCell("course", row.course || "", null, dropdowns3.course)}
+                    ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns3.internshipType)}
+                    ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns3.connectedBy)}
+                    ${makeCell("mobileNumber", row.mobileNumber || "")}
+                    ${makeCell("emailId", row.emailId || "")}
+                    ${makeDropdownCell("domain", row.domain || "", null, dropdowns3.domain)}
+                `;
+
+                const payments = row.payments || [];
+                for (let i = 0; i < (window.maxPayments3 || 0); i++) {
+                    let paymentDate = payments[i] ? formatDate(payments[i]) : "";
+                    tr += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
+                }
+
+
+                tr += `</tr>`;
                 tbody.append(tr);
             });
 
@@ -2934,7 +3262,8 @@
             "sno",
             "studentName",
             "isRegistered",
-            "registrationDate",
+            "dateOfRegistrationDate",
+            "dateOfRegistrationTime",
             "resumeDate",
             "collegeName",
             "course",
@@ -2944,6 +3273,14 @@
             "emailId",
             "domain"
         ];
+
+        if (window.maxPayments3 && window.maxPayments3 > 0) {
+            for (let i = 1; i <= window.maxPayments3; i++) {
+                if (!columnKeys3.includes(`payment${i}`)) {
+                    columnKeys3.push(`payment${i}`);
+                }
+            }
+        }
 
         function renderPagination3() {
             const totalPages = Math.ceil(filteredData3.length / rowsPerPage3);
@@ -3008,20 +3345,60 @@
         function populateColumnFilterOptions3() {
             $("#leadsTable3 thead .column-filter3").each(function () {
                 const field = $(this).data("field");
+                let values = [];
 
-                let values = [...new Set(tableData3.map(row => row[field]))]
-                    .filter(v => v !== null && v !== undefined && v !== "");
-
-                if (field === "registrationDate") {
-                    values = values.map(v => formatDate2(v)).filter(v => v !== "");
-                } else if (field === "mailSentAt") {
-                    values = values.map(v => formatDateTime(v)).filter(v => v !== "");
-                } else if (field === "isRegistered") {
+                if (field === "isRegistered") {
                     values = ["Yes", "No"];
-                } else if (field.toLowerCase().includes("date")) {
-                    values = values.map(v => formatDate2(v)).filter(v => v !== "");
+                }
+                else if (field.startsWith("payment")) {
+                    const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                    values = [...new Set(
+                        tableData3
+                            .map(row => {
+                                const payments = row.payments || [];
+                                const date = payments[paymentIndex];
+                                return date ? formatDate3(date) : "";
+                            })
+                            .filter(v => v && v.trim() !== "")
+                    )];
                 }
 
+                else if (field.startsWith("payment")) {
+                    const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                    values = [...new Set(
+                        tableData3
+                            .map(row => {
+                                const payments = row.payments || [];
+                                const date = payments[paymentIndex];
+                                return date ? formatDate3(date) : "";
+                            })
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+
+                else if (field.toLowerCase().includes("date")) {
+                    values = [...new Set(
+                        tableData3
+                            .map(row => formatDate3(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+                else if (field.toLowerCase().includes("time")) {
+                    values = [...new Set(
+                        tableData3
+                            .map(row => formatTimeHM(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+                else {
+                    values = [...new Set(
+                        tableData3
+                            .map(row => row[field])
+                            .filter(v => v !== null && v !== undefined && v !== "")
+                    )];
+                }
+
+                $(this).empty().append(`<option value="">All</option>`);
                 values.forEach(v => {
                     $(this).append(`<option value="${v}">${v}</option>`);
                 });
@@ -3037,16 +3414,28 @@
 
                 if (value) {
                     filteredData3 = filteredData3.filter(row => {
-                        let cellValue = row[field] || "";
+                        let cellValue = "";
 
-                        if (field === "isRegistered") {
+                        if (field.startsWith("payment")) {
+                            const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                            const payments = row.payments || [];
+                            cellValue = payments[paymentIndex] ? formatDate3(payments[paymentIndex]) : "";
+                        }
+
+                        else if (field === "isRegistered") {
                             cellValue = row.isRegistered ? "Yes" : "No";
-                        } else if (field === "dateOfRegistration") {
+                        }
+                        else if (field === "dateOfRegistration") {
                             cellValue = formatDateTime(row.dateOfRegistration);
-                        } else if (field.toLowerCase().includes("date")) {
-                            cellValue = formatDate(cellValue);
-                        } else if (field.toLowerCase().includes("time")) {
-                            cellValue = formatTimeHM(cellValue);
+                        }
+                        else if (field.toLowerCase().includes("date")) {
+                            cellValue = formatDate(row[field] || "");
+                        }
+                        else if (field.toLowerCase().includes("time")) {
+                            cellValue = formatTimeHM(row[field] || "");
+                        }
+                        else {
+                            cellValue = row[field] || "";
                         }
 
                         return String(cellValue).toLowerCase() === String(value).toLowerCase();
@@ -3307,29 +3696,35 @@
 
         window.exportToExcel3 = function () {
             const headers = [
-                "sno",
-                "studentName",
-                "isRegistered",
-                "dateOfRegistration",
-                "resumeDate",
-                "collegeName",
-                "course",
-                "internshipType",
-                "followupBy",
-                "mobileNumber",
-                "emailId",
-                "domain"
+                "S.No",
+                "Student Name",
+                "Is Registered",
+                "Date of Registration",
+                "Resume Date",
+                "College Name",
+                "Course",
+                "Internship Type",
+                "Follow-up By",
+                "Mobile Number",
+                "Email ID",
+                "Domain"
             ];
+
+            if (window.maxPayments3 && window.maxPayments3 > 0) {
+                for (let i = 1; i <= window.maxPayments3; i++) {
+                    headers.push(`Payment ${i}`);
+                }
+            }
 
             const data = [headers];
 
             tableData3.forEach((row) => {
-                data.push([
+                const rowData = [
                     row.sno,
                     row.studentName,
                     row.isRegistered ? "Yes" : "No",
-                    row.dateOfRegistration,
-                    row.resumeDate,
+                    row.dateOfRegistrationDate || "",
+                    row.resumeDate ? formatDate3(row.resumeDate) : "",
                     row.collegeName,
                     row.course,
                     row.internshipType,
@@ -3337,7 +3732,15 @@
                     row.mobileNumber,
                     row.emailId,
                     row.domain
-                ]);
+                ];
+
+                const payments = row.payments || [];
+                for (let i = 0; i < (window.maxPayments3 || 0); i++) {
+                    let paymentDate = payments[i] ? formatDate3(payments[i]) : "";
+                    rowData.push(paymentDate);
+                }
+
+                data.push(rowData);
             });
 
             const worksheet = XLSX.utils.aoa_to_sheet(data);
