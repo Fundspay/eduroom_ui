@@ -791,7 +791,11 @@
                 let tr = `<tr data-id="${row.id}">
                             <td>${start + index + 1}</td>
                             <td>${nameCell}</td>
-                            <td>${escapeHtml(row.phoneNumber || '')}</td>
+                            <td>
+                                <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                                    ${escapeHtml(row.phoneNumber || '')}
+                                </a>
+                            </td>
                             <td>${escapeHtml(row.registeredAt || '')}</td>
                             <td>${escapeHtml(row.email || '')}</td>
                             <td>${escapeHtml(row.collegeName || '')}</td>
