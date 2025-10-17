@@ -40,7 +40,8 @@
                         <div class="card-body">
                             <div class="mb-4 text-center">
                                 <div class="mb-2">
-                                    <span class="fs-24 fw-normal profile-name small">--</span><span class="fs-24">'s Details</span>
+                                    <span class="fs-24 fw-normal profile-name small">--</span><span class="fs-24">'s
+                                        Details</span>
                                 </div>
                             </div>
 
@@ -161,8 +162,7 @@
                             <div class="card bg-soft-danger text-danger border-danger border-dashed h-100">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <a target="_top"
-                                            class="fw-bold d-block text-reset me-2">
+                                        <a target="_top" class="fw-bold d-block text-reset me-2">
                                             <span class="d-block" style="font-size: 13px;">Profile Completion</span>
                                         </a>
                                         <!-- <a target="_top"
@@ -207,7 +207,8 @@
                 </div>
 
                 <!-- [Mini Card] start -->
-                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;"><span class="card-title profile-name">--</span>'s Live Projects</h3>
+                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;"><span
+                        class="card-title profile-name">--</span>'s Live Projects</h3>
                 <div class="row" id="internshipCardsContainer">
                     <!-- Cards will be injected here -->
                 </div>
@@ -222,7 +223,8 @@
                             <div class="card stretch stretch-full">
                                 <div class="card-header">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Business Sales Overview of <span class="card-title profile-name small">--</span></h5>
+                                        <h5 class="card-title">Business Sales Overview of <span
+                                                class="card-title profile-name small">--</span></h5>
                                     </div>
                                     <div class="card-header-action">
                                         <div class="search-bar">
@@ -246,6 +248,7 @@
                                                     <th>Email</th>
                                                     <th>Downloaded</th>
                                                     <th>Date of Download</th>
+                                                    <th>Occupation</th>
                                                     <th>Subscribed</th>
                                                     <th>Date of Payment</th>
                                                     <th>Query Status</th>
@@ -714,15 +717,24 @@
             let currentPage = 1;
             let tableData = [];
 
-            function formatDate(iso) {
-                if (!iso) return null;
-                const d = new Date(iso);
-                if (isNaN(d)) return null;
-                const day = d.getDate();
+            function formatDate(dateStr) {
+                if (!dateStr) return null;
+
+                let parts;
+                if (dateStr.includes("T")) {
+                    // format: "2025-10-14T19:40:16.309Z"
+                    parts = dateStr.split("T")[0].split("-");
+                } else {
+                    // format: "2025-10-14 14:33:41.877"
+                    parts = dateStr.split(" ")[0].split("-");
+                }
+
+                const year = parts[0];
+                const month = parseInt(parts[1], 10) - 1;
+                const day = parseInt(parts[2], 10);
+
                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                const month = monthNames[d.getMonth()];
-                const year = d.getFullYear();
-                return `${day} ${month} ${year}`;
+                return `${day} ${monthNames[month]} ${year}`;
             }
 
             function badgeInProgress(text = "In Progress") {
@@ -763,6 +775,7 @@
 
                                 const downloadDateRaw = user.date_of_download || null;
                                 const paymentDateRaw = user.date_of_payment || null;
+                                const occupation = user.occupation || null;
 
                                 const downloadDateDisplay = downloadDateRaw
                                     ? formatDate(downloadDateRaw)
@@ -798,6 +811,7 @@
                                     email,
                                     isDownloaded: isDownloadedBadge,
                                     downloadDateDisplay,
+                                    occupation: occupation || "--",
                                     hasPaid,
                                     paymentDateDisplay,
                                     status: statusBadge,
@@ -832,6 +846,7 @@
                     <td><a href="mailto:${row.email}">${row.email}</a></td>
                     <td>${row.isDownloaded}</td>
                     <td>${row.downloadDateDisplay}</td>
+                    <td>${row.occupation}</td>
                     <td>${row.hasPaid}</td>
                     <td>${row.paymentDateDisplay}</td>
                     <td>${row.status}</td>
@@ -900,6 +915,7 @@
                     <td><a href="mailto:${row.email}">${row.email}</a></td>
                     <td>${row.isDownloaded}</td>
                     <td>${row.downloadDateDisplay}</td>
+                    <td>${row.occupation}</td>
                     <td>${row.hasPaid}</td>
                     <td>${row.paymentDateDisplay}</td>
                     <td>${row.status}</td>
@@ -932,6 +948,7 @@
                         row.email,
                         clean(row.isDownloaded),
                         clean(row.downloadDateDisplay),
+                        clean(row.occupation),
                         clean(row.hasPaid),
                         clean(row.paymentDateDisplay),
                         clean(row.status)

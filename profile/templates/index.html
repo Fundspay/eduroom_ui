@@ -91,7 +91,8 @@
                                     <div
                                         class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
                                         <div class="card-body">
-                                            <span class="fw-semibold text-muted small" style="padding-bottom: 1%;">Referral Link:</span>
+                                            <span class="fw-semibold text-muted small"
+                                                style="padding-bottom: 1%;">Referral Link:</span>
                                             <!-- Referral Link -->
                                             <a href="#" target="_blank" class="fs-9 fw-bold text-reset d-block mb-2"
                                                 id="referralLink">--</a>
@@ -727,15 +728,24 @@
             let currentPage = 1;
             let tableData = [];
 
-            function formatDate(iso) {
-                if (!iso) return null;
-                const d = new Date(iso);
-                if (isNaN(d)) return null;
-                const day = d.getDate();
+            function formatDate(dateStr) {
+                if (!dateStr) return null;
+
+                let parts;
+                if (dateStr.includes("T")) {
+                    // format: "2025-10-14T19:40:16.309Z"
+                    parts = dateStr.split("T")[0].split("-");
+                } else {
+                    // format: "2025-10-14 14:33:41.877"
+                    parts = dateStr.split(" ")[0].split("-");
+                }
+
+                const year = parts[0];
+                const month = parseInt(parts[1], 10) - 1;
+                const day = parseInt(parts[2], 10);
+
                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                const month = monthNames[d.getMonth()];
-                const year = d.getFullYear();
-                return `${day} ${month} ${year}`;
+                return `${day} ${monthNames[month]} ${year}`;
             }
 
             function badgeInProgress(text = "In Progress") {
