@@ -231,7 +231,7 @@
                                         id="courseCategory"></span>
                                 </div>
                                 <h2>
-                                    <a href="course-details.html" id="courseTitle"></a>
+                                    <a id="courseTitle"></a>
                                 </h2>
                             </div>
 
@@ -241,8 +241,8 @@
                                     width: 100%;
                                     border-top: 4px solid #ffffff;
                                     border-bottom: 4px solid #ffffff;">
-                                                            <h3 class="fw-bold text-dark mb-3">Remaining Time:</h3>
-                                                            <div id="countdownTimer" style="font-size: 72px;
+                                    <h3 class="fw-bold text-dark mb-3">Remaining Time:</h3>
+                                    <div id="countdownTimer" style="font-size: 72px;
                                         font-weight: 800;
                                         color: #fd0d0d;
                                         letter-spacing: 3px;
@@ -546,8 +546,7 @@
                             <div class="col-xl-6  col-lg-5  col-md-12  col-sm-12 col-12">
                                 <div class="copyright-text text-center text-lg-left mt-20 mb-20">
                                     <p class="mb-0">All rights reserved
-                                        <a href="https://themeforest.net/user/ethemestudio/portfolio"
-                                            class="c-theme main-color f-500">Eduroom</a> © 2025
+                                        <a class="c-theme main-color f-500">Eduroom</a> © 2025
                                     </p>
                                 </div>
                             </div><!-- /col -->
@@ -621,7 +620,8 @@
 
     <script>
         $(document).ready(function () {
-            const userId = localStorage.getItem("user_id") || 1;
+            const userId = localStorage.getItem("user_id");
+            console.log("userId:", userId);
             const apiUrl = `https://eduroom.in/api/v1/user/remaining-time/${userId}`;
 
             function parseTimeToSeconds(timeStr) {
@@ -650,7 +650,7 @@
                         timerDisplay.text("00:00:00").css("color", "red");
                         Swal.fire({
                             icon: "warning",
-                            title: "⏰ Time's Up!",
+                            title: "Time's Up!",
                             text: "Your session time has expired.",
                             confirmButtonText: "OK"
                         });
@@ -707,7 +707,7 @@
             var queryParams = getQueryParams();
             var domainId = queryParams.domainId || 1;
             var userId = localStorage.getItem("user_id");
-            console.log(userId);
+            console.log("userId:", userId);
 
             function formatYouTubeEmbed(url) {
                 if (!url) return "";
@@ -870,6 +870,9 @@
     <script>
         $(document).ready(function () {
 
+            var userId = localStorage.getItem("user_id");
+            console.log("userId:", userId);
+
             var queryParams = (function () {
                 var params = {};
                 var queryString = window.location.search.substring(1);
@@ -881,33 +884,26 @@
                 return params;
             })();
 
-            var courseId = queryParams.courseId || 1;
-            var coursePreviewId = queryParams.previewId || 1;
-            var dayNumber = queryParams.day || 1;
-            var sessionNumber = queryParams.session || 1;
-            var userId = queryParams.userId || 1;
+            var selectedDomainId = queryParams.selectedDomainId || 1;
+            var selectedCourseId = queryParams.id || 1;
 
-            var $caseWrapper = $('.case-study-wrapper');
+            var $caseWrapper = $(".case-study-wrapper");
             var questionId = null;
 
-            $('#submitCaseStudy').prop('disabled', true);
+            $("#submitCaseStudy").prop("disabled", true);
 
-            const caseStudyUrl = `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/casestudies?userId=${userId}`;
-            // console.log("Case Study API URL:", caseStudyUrl);
+            const caseStudyUrl = `https://eduroom.in/api/v1/selectedcoursedetail/details/${selectedCourseId}`;
 
             $.ajax({
                 url: caseStudyUrl,
                 method: "GET",
                 success: function (response) {
-                    // console.log("Case Study Response:", response);
+                    if (response.success && response.data?.questions?.length > 0) {
+                        const question = response.data.questions[0];
+                        questionId = question.id;
 
-                    if (response.success && response.data?.caseStudy) {
-                        const caseStudy = response.data.caseStudy;
-                        $('#caseStudyQuestion').text(caseStudy.caseStudy);
-                        questionId = caseStudy.questionId;
-                        $('#submitCaseStudy').prop('disabled', false);
-
-                        fetchSavedCaseStudyAnswer();
+                        $("#caseStudyQuestion").text(question.caseStudy || question.question);
+                        $("#submitCaseStudy").prop("disabled", false);
                     } else {
                         $caseWrapper.hide();
                         console.warn(response.message || "No Case Study available.");
@@ -919,57 +915,14 @@
                 }
             });
 
-            $('#caseStudyAnswer').on('input', function () {
+            $("#caseStudyAnswer").on("input", function () {
                 var words = $(this).val().trim().split(/\s+/).filter(Boolean).length;
-                $('#wordCount').text(words);
+                $("#wordCount").text(words);
             });
 
-            function fetchSavedCaseStudyAnswer() {
-                if (!questionId) return;
-                const savedUrl = `https://eduroom.in/api/v1/coursedetail/casestudy/result/${courseId}/${coursePreviewId}/${dayNumber}/${sessionNumber}/${questionId}/${userId}`;
-                // console.log("Saved Case Study URL:", savedUrl);
+            $("#submitCaseStudy").on("click", function () {
+                var answer = $("#caseStudyAnswer").val().trim();
 
-                $.ajax({
-                    url: savedUrl,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (res) {
-                        // console.log("Saved Case Study Response:", res);
-
-                        if (res.success && res.data) {
-
-                            $('#caseStudyAnswer').val(res.data.answer || '');
-                            var words = res.data.answer ? res.data.answer.trim().split(/\s+/).filter(Boolean).length : 0;
-                            $('#wordCount').text(words);
-
-                            var percent = parseFloat(res.data.matchPercentage || 0).toFixed(1);
-                            $('#caseStudyScore').text(percent + '%');
-                            $('#caseStudyPercentage').text(percent + '%');
-                            $('#caseStudyStatus')
-                                .text(res.data.passed ? 'Passed' : 'Failed')
-                                .removeClass('text-success text-danger')
-                                .addClass(res.data.passed ? 'text-success' : 'text-danger');
-
-                            var stars = Math.round(percent / 20);
-                            $('#caseStudyStars li').each(function (index) {
-                                if (index < stars) {
-                                    $(this).find('i').removeClass('fa-star').addClass('fa-star r-star-color');
-                                } else {
-                                    $(this).find('i').removeClass('r-star-color').addClass('fa-star');
-                                }
-                            });
-
-                            $('#caseStudyResult').show();
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching saved case study:", status, error);
-                    }
-                });
-            }
-
-            $('#submitCaseStudy').on('click', function () {
-                var answer = $('#caseStudyAnswer').val().trim();
                 if (!answer) {
                     alert("Please write your answer before submitting.");
                     return;
@@ -979,174 +932,90 @@
                     alert("Case study question not loaded. Please try again later.");
                     return;
                 }
-                // console.log("answer:", answer);
+
+                const evaluateUrl = `https://eduroom.in/api/v1/selectedcoursedetail/evaluate-case-study/${selectedDomainId}/${questionId}`;
+
+                const payload = {
+                    userId: userId,
+                    answers: [
+                        {
+                            questionId: questionId,
+                            answer: answer
+                        }
+                    ]
+                };
 
                 $.ajax({
-                    url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/preview/${coursePreviewId}/day/${dayNumber}/session/${sessionNumber}/question/${questionId}/casestudy`,
+                    url: evaluateUrl,
                     method: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ userId: userId, answer: answer }),
+                    data: JSON.stringify(payload),
                     success: function (response) {
-                        if (response.success && response.data) {
-                            // console.log("post response of case study:", response);
-                            $('#caseStudyResult').show();
+                        console.log("case study response:", response);
 
-                            var percent = parseFloat(response.data.matchPercentage || 0).toFixed(1);
+                        if (response.success && response.evaluation) {
+                            const result = response.evaluation.results[0];
+                            const percent = parseFloat(result.matchPercentage || 0).toFixed(1);
 
-                            $('#caseStudyScore').text(percent + '%');
-                            $('#caseStudyPercentage').text(percent + '%');
-                            $('#caseStudyStatus')
-                                .text(response.data.passed ? 'Passed' : 'Failed')
-                                .removeClass('text-success text-danger')
-                                .addClass(response.data.passed ? 'text-success' : 'text-danger');
+                            $("#caseStudyScore").text(percent + "%");
+                            $("#caseStudyPercentage").text(percent + "%");
+                            $("#caseStudyStatus")
+                                .text(result.passed ? "Passed" : "Failed")
+                                .removeClass("text-success text-danger")
+                                .addClass(result.passed ? "text-success" : "text-danger");
 
                             var stars = Math.round(percent / 20);
-                            $('#caseStudyStars li').each(function (index) {
+                            $("#caseStudyStars li").each(function (index) {
+                                const $span = $(this).find("span");
                                 if (index < stars) {
-                                    $(this).find('i').removeClass('fa-star').addClass('fa-star r-star-color');
+                                    $span.removeClass("r-star-light-color").addClass("r-star-color");
                                 } else {
-                                    $(this).find('i').removeClass('r-star-color').addClass('fa-star');
+                                    $span.removeClass("r-star-color").addClass("r-star-light-color");
                                 }
                             });
 
-                            if (percent >= 20) {
+                            $("#caseStudyResult").show();
+
+                            if (result.passed) {
                                 Swal.fire({
-                                    icon: 'success',
-                                    title: 'Congratulations!',
-                                    text: 'You passed the case study.',
-                                    confirmButtonText: 'OK'
+                                    icon: "success",
+                                    title: "Congratulations!",
+                                    text: "You passed the case study.",
+                                    confirmButtonText: "OK"
                                 });
                             } else {
                                 Swal.fire({
-                                    icon: 'error',
-                                    title: 'Case Study Failed',
-                                    text: 'Your answers do not match the requirements of the case study.\nPlease review the case study and instructions carefully.\nTry submitting again after making improvements.',
-                                    confirmButtonText: 'OK'
+                                    icon: "error",
+                                    title: "Case Study Failed",
+                                    text: "Your answer did not meet the case study requirements. Please review and try again.",
+                                    confirmButtonText: "OK"
                                 });
                             }
 
+                            if (response.overallStatus === "Complete") {
+                                console.log("✅ Eligibility test completed successfully. Redirecting to profile...");
+                                if (userId) {
+                                    localStorage.setItem("user_id", userId);
+                                    sessionStorage.setItem("user_id", userId);
+                                }
+
+                                setTimeout(() => {
+                                    window.location.href = "/profile.html";
+                                }, 2000);
+                            }
+
                         } else {
-                            alert(response.message || "Failed to submit case study.");
+                            alert(response.message || "Failed to evaluate case study.");
                         }
                     },
-                    error: function () {
+                    error: function (xhr, status, error) {
+                        console.error("Error submitting case study:", status, error);
                         alert("Error submitting case study. Please try again.");
                     }
                 });
             });
         });
     </script>
-
-    <!-- business target -->
-    <script>
-        $(document).ready(function () {
-            function getQueryParams() {
-                const url = window.location.href;
-                const queryString = url.split("?")[1];
-                if (!queryString) return {};
-
-                const fixedQuery = queryString.replace(/\?/g, "&");
-                const params = new URLSearchParams(fixedQuery);
-
-                let result = {};
-                for (const [key, value] of params.entries()) {
-                    result[key] = value;
-                }
-                return result;
-            }
-
-            const params = getQueryParams();
-            const courseId = params.courseId || 1;
-            const coursePreviewId = params.coursePreviewId || null;
-            const userId = sessionStorage.getItem("user_id");
-
-            // console.log("courseId:", courseId, "coursePreviewId:", coursePreviewId, "userId:", userId);
-
-            if (!userId) {
-                console.warn(" No userId found in sessionStorage");
-                return;
-            }
-
-            const achievedTargetDisplay = $("#achievedTargetDisplay2");
-            const targetPercentageDisplay = $("#targetPercentageDisplay2");
-            const businessTargetWidget = $("#businessTargetWidget2");
-            const courseStartDate = $("#courseStartDate");
-            const courseEndDate = $("#courseEndDate");
-            const courseTimeLeft = $("#courseTimeLeft");
-
-            $.ajax({
-                url: `https://eduroom.in/api/v1/coursedetail/course/${courseId}/user/${userId}/business-target`,
-                method: "GET",
-                dataType: "json",
-                success: function (data) {
-                    // console.log("Business Target Response:", data);
-
-                    if (data.success && data.data) {
-
-                        const target = parseInt(data.data.businessTarget) || 0;
-                        const achieved = parseInt(data.data.achievedCount) || 0;
-
-                        achievedTargetDisplay.text(`${achieved} / ${target}`);
-
-                        let percentage = 0;
-                        if (target > 0) {
-                            percentage = Math.round((achieved / target) * 100);
-                            percentage = Math.min(percentage, 100);
-                        }
-
-                        targetPercentageDisplay.text(`${percentage}%`);
-
-                        if (percentage < 40) {
-                            targetPercentageDisplay.css("background", "#ff4d4f");
-                        } else if (percentage < 75) {
-                            targetPercentageDisplay.css("background", "#ffa500");
-                        } else {
-                            targetPercentageDisplay.css("background", "#00c897");
-                        }
-
-                        const startDate = data.data.startDate;
-                        const endDate = data.data.endDate;
-
-                        function formatDate(dateStr) {
-                            const options = { day: "2-digit", month: "short", year: "numeric" };
-                            return new Date(dateStr).toLocaleDateString("en-GB", options).replace(/,/g, "");
-                        }
-
-                        courseStartDate.text(formatDate(startDate));
-                        courseEndDate.text(formatDate(endDate));
-
-                        function updateCountdown() {
-                            const now = new Date().getTime();
-                            const end = new Date(endDate).getTime();
-                            const distance = end - now;
-
-                            if (distance <= 0) {
-                                courseTimeLeft.text("Expired");
-                                clearInterval(timer);
-                                return;
-                            }
-
-                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                            courseTimeLeft.text(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-                        }
-
-                        const timer = setInterval(updateCountdown, 1000);
-                        updateCountdown();
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
-                }
-            });
-        });
-    </script>
-
-
-    <!-- OVER ALL STATUS -->
 
     <script>
         $(document).ready(function () {
