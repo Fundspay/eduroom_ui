@@ -460,7 +460,8 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality live projects, interactive resources, and
+                                    educators, and professionals. We provide quality live projects, interactive
+                                    resources, and
                                     personalized learning paths to help learners.</p>
                             </div>
                         </div>
@@ -475,8 +476,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html"
-                                        class="position-relative d-inline-block mb-2">Live Projects</a>
+                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Live
+                                        Projects</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -555,14 +556,15 @@
 
     <script>
         $(document).ready(function () {
+            // Toggle Password Visibility
             $("#togglePassword").on("click", function () {
                 const passField = $("#l-pass");
                 const type = passField.attr("type") === "password" ? "text" : "password";
                 passField.attr("type", type);
-
                 $(this).find("i").toggleClass("fa-eye fa-eye-slash");
             });
 
+            // Login Form Submission
             $("#loginForm").on("submit", function (e) {
                 e.preventDefault();
 
@@ -595,7 +597,8 @@
                     contentType: "application/json",
                     data: JSON.stringify({ email: email, password: password }),
                     success: function (res) {
-                        // console.log(res);
+                        console.log("Login Response:", res);
+
                         let userId = null;
                         let userName = null;
                         let redirectUrl = "/profile.html";
@@ -610,17 +613,35 @@
                             redirectUrl = "/profile.html";
                         }
 
+                        if (res.account) {
+                            const selectedValue = res.account.selected;
+
+                            if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
+                                if (userId) localStorage.setItem("user_id", userId);
+                                Swal.close();
+                                Swal.fire({
+                                    icon: "info",
+                                    title: "Welcome!",
+                                    text: "Please complete your selection test before continuing....",
+                                    confirmButtonText: "Continue",
+                                    confirmButtonColor: "#3085d6"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = "/test-preview.html";
+                                    }
+                                });
+                                return;
+                            }
+                        }
+
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
-                            // console.log("Stored user_id:", userId);
                         }
                         if (userName) {
                             sessionStorage.setItem("userName", userName.trim());
-                            // console.log("Stored userName:", userName);
                         }
 
                         Swal.close();
-
                         Swal.fire({
                             icon: "success",
                             title: "Login Successful",
@@ -632,7 +653,6 @@
                     },
                     error: function (xhr) {
                         Swal.close();
-
                         Swal.fire({
                             icon: "error",
                             title: "Login Failed",
@@ -650,10 +670,6 @@
         $(document).ready(function () {
             $('#google-login-btn').on('click', function () {
 
-                // console.log("Firebase:", firebase);
-                // console.log("auth:", firebase.auth());
-                // console.log("signInWithPopup:", firebase.auth().signInWithPopup);
-
                 Swal.fire({
                     title: 'Logging in with Google...',
                     allowOutsideClick: false,
@@ -664,11 +680,9 @@
 
                 auth.signInWithPopup(provider)
                     .then(result => {
-                        // console.log("User signed in:", result.user);
                         return result.user.getIdToken();
                     })
                     .then(idToken => {
-                        // console.log("Retrieved ID token:", idToken);
                         return $.ajax({
                             url: "https://eduroom.in/api/v1/user/google-login",
                             type: "POST",
@@ -677,7 +691,7 @@
                         });
                     })
                     .then(response => {
-                        // console.log("Google login response:", response);
+                        console.log("Google login response:", response);
 
                         let userId = null;
                         let userName = null;
@@ -693,13 +707,32 @@
                             redirectUrl = "/profile.html";
                         }
 
+                        if (response.user) {
+                            const selectedValue = response.user.selected;
+
+                            if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
+                                if (userId) localStorage.setItem("user_id", userId);
+                                Swal.close();
+                                Swal.fire({
+                                    icon: "info",
+                                    title: "Welcome!",
+                                    text: "Please complete your selection test before continuing.",
+                                    confirmButtonText: "Continue",
+                                    confirmButtonColor: "#3085d6"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = "/test-preview.html";
+                                    }
+                                });
+                                return;
+                            }
+                        }
+
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
-                            // console.log("Stored user_id:", userId);
                         }
                         if (userName) {
                             sessionStorage.setItem("userName", userName.trim());
-                            // console.log("Stored userName:", userName);
                         }
 
                         Swal.close();
