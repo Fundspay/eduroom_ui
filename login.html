@@ -607,14 +607,14 @@
                             userId = res.account.managerId;
                             userName = res.account.name || "Manager";
                             redirectUrl = "/profile/dashboard/index.html";
-                        } else if (res.account && res.account.user_id) {
-                            userId = res.account.user_id;
-                            userName = res.account.fullName || "User";
+                        } else if (res.user && res.user.user_id) {
+                            userId = res.user.user_id;
+                            userName = res.user.fullName || "User";
                             redirectUrl = "/profile.html";
                         }
 
-                        if (res.account) {
-                            const selectedValue = res.account.selected;
+                        if (res.user) {
+                            const selectedValue = res.user.selected;
 
                             if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
                                 if (userId) localStorage.setItem("user_id", userId);
