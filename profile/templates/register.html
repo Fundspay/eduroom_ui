@@ -648,7 +648,7 @@
                         data: JSON.stringify(personalPayload),
                         success: function (res) {
                             const userId = res.userId;
-                            sessionStorage.setItem("userId", userId);
+                            // sessionStorage.setItem("userId", userId);
 
                             Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
                                 .then(() => window.top.location.href = "/login.html");
@@ -684,7 +684,6 @@
         $(document).ready(function () {
             let GOOGLE_DEFAULT_PASSWORD = "";
 
-            // Load config.json to fetch the password
             $.getJSON("/config.json", function (config) {
                 GOOGLE_DEFAULT_PASSWORD = config.GOOGLE_DEFAULT_PASSWORD;
             });
@@ -707,45 +706,45 @@
                             throw new Error("Only Gmail accounts are allowed!");
                         }
 
-                        // One SweetAlert with multiple inputs
+                        // SweetAlert with user info form
                         return Swal.fire({
                             title: "Complete Your Details",
                             html: `
-                                <div style="text-align:center; margin-bottom:15px;">
-                                    <h3 style="margin:0; font-size:18px; font-weight:600; color:#333;">
-                                        Just a few steps to go 🚀
-                                    </h3>
-                                    <p style="font-size:13px; color:#666; margin:5px 0 0;">
-                                        Please provide accurate details to proceed smoothly.
-                                    </p>
-                                </div>
+                            <div style="text-align:center; margin-bottom:15px;">
+                                <h3 style="margin:0; font-size:18px; font-weight:600; color:#333;">
+                                    Just a few steps to go 🚀
+                                </h3>
+                                <p style="font-size:13px; color:#666; margin:5px 0 0;">
+                                    Please provide accurate details to proceed smoothly.
+                                </p>
+                            </div>
 
-                                <div style="text-align:left; font-size:14px; margin-top:10px;">
-                                    <label for="swal-firstname" style="font-weight:600;">First Name:</label>
-                                    <input id="swal-firstname" class="swal2-input" style="margin-bottom:15px;" 
-                                        placeholder="Enter first name"
-                                        oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+                            <div style="text-align:left; font-size:14px; margin-top:10px;">
+                                <label for="swal-firstname" style="font-weight:600;">First Name:</label>
+                                <input id="swal-firstname" class="swal2-input" style="margin-bottom:15px;" 
+                                    placeholder="Enter first name"
+                                    oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
 
-                                    <label for="swal-lastname" style="font-weight:600;">Last Name:</label>
-                                    <input id="swal-lastname" class="swal2-input" style="margin-bottom:15px;" 
-                                        placeholder="Enter last name"
-                                        oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+                                <label for="swal-lastname" style="font-weight:600;">Last Name:</label>
+                                <input id="swal-lastname" class="swal2-input" style="margin-bottom:15px;" 
+                                    placeholder="Enter last name"
+                                    oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
 
-                                    <label for="swal-college" style="font-weight:600;">College Name:</label>
-                                    <input id="swal-college" class="swal2-input" style="margin-bottom:5px;" 
-                                        placeholder="Enter your college name">
+                                <label for="swal-college" style="font-weight:600;">College Name:</label>
+                                <input id="swal-college" class="swal2-input" style="margin-bottom:5px;" 
+                                    placeholder="Enter your college name">
 
-                                    <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
-                                    <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
-                                        placeholder="10 digit phone number" maxlength="10"
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                    <small style="font-size:12px; color:#666;">Example: 9999999999</small>
-                                </div>
+                                <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
+                                <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
+                                    placeholder="10 digit phone number" maxlength="10"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <small style="font-size:12px; color:#666;">Example: 9999999999</small>
+                            </div>
 
-                                <div style="margin-top:15px; text-align:center; font-size:12px; color:red;">
-                                    <strong>(Note: Please Enter the Phone Number you are registered with FundsAudit App.)</strong>
-                                </div>
-                            `,
+                            <div style="margin-top:15px; text-align:center; font-size:12px; color:red;">
+                                <strong>(Note: Please Enter the Phone Number you are registered with FundsAudit App.)</strong>
+                            </div>
+                        `,
                             focusConfirm: false,
                             showCancelButton: true,
                             confirmButtonText: "<i class='fa fa-check'></i> Submit",
@@ -769,7 +768,7 @@
                                     return Swal.showValidationMessage("⚠️ Enter a valid 10-digit phone number!");
                                 }
 
-                                return { firstName, lastName, phoneNumber };
+                                return { firstName, lastName, collegeName, phoneNumber };
                             }
                         }).then(res => {
                             if (!res.isConfirmed) throw new Error("User cancelled input");
@@ -782,8 +781,6 @@
                                 phoneNumber: res.value.phoneNumber,
                                 password
                             };
-
-                            // console.log("Final Google Register Payload:", googlePayload);
 
                             Swal.fire({
                                 title: "Registering...",
@@ -802,17 +799,15 @@
                     })
                     .then(registerResponse => {
                         const userId = registerResponse.userId;
-                        sessionStorage.setItem("user_id", userId);
-
                         Swal.close();
                         Swal.fire({
                             icon: "success",
                             title: "Registration Successful",
-                            text: "Redirecting to your profile...",
+                            text: "Redirecting to login...",
                             timer: 2000,
                             showConfirmButton: false
                         }).then(() => {
-                            window.top.location.href = "/profile.html";
+                            window.top.location.href = "/login.html";
                         });
                     })
                     .catch(error => {
@@ -844,6 +839,26 @@
                                         redirectUrl = "/profile/dashboard/index.html";
                                     } else if (response.user && response.user.user_id) {
                                         userId = response.user.user_id;
+                                    }
+
+                                    if (response.user) {
+                                        const selectedValue = response.user.selected;
+                                        if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
+                                            if (userId) localStorage.setItem("user_id", userId);
+                                            Swal.close();
+                                            Swal.fire({
+                                                icon: "info",
+                                                title: "Welcome!",
+                                                text: "Please complete your selection test before continuing.",
+                                                confirmButtonText: "Continue",
+                                                confirmButtonColor: "#3085d6"
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    window.top.location.href = "/test-preview.html";
+                                                }
+                                            });
+                                            return;
+                                        }
                                     }
 
                                     if (userId) sessionStorage.setItem("user_id", userId);
