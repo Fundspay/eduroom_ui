@@ -613,26 +613,26 @@
                             redirectUrl = "/profile.html";
                         }
 
-                        if (res.user) {
-                            const selectedValue = res.user.selected;
+                        // if (res.user) {
+                        //     const selectedValue = res.user.selected;
 
-                            if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
-                                if (userId) localStorage.setItem("user_id", userId);
-                                Swal.close();
-                                Swal.fire({
-                                    icon: "info",
-                                    title: "Welcome!",
-                                    text: "Please complete your selection test before continuing....",
-                                    confirmButtonText: "Continue",
-                                    confirmButtonColor: "#3085d6"
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = "/test-preview.html";
-                                    }
-                                });
-                                return;
-                            }
-                        }
+                        //     if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
+                        //         if (userId) localStorage.setItem("user_id", userId);
+                        //         Swal.close();
+                        //         Swal.fire({
+                        //             icon: "info",
+                        //             title: "Welcome!",
+                        //             text: "Please complete your selection test before continuing....",
+                        //             confirmButtonText: "Continue",
+                        //             confirmButtonColor: "#3085d6"
+                        //         }).then((result) => {
+                        //             if (result.isConfirmed) {
+                        //                 window.location.href = "/test-preview.html";
+                        //             }
+                        //         });
+                        //         return;
+                        //     }
+                        // }
 
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
@@ -707,26 +707,26 @@
                             redirectUrl = "/profile.html";
                         }
 
-                        if (response.user) {
-                            const selectedValue = response.user.selected;
+                        // if (response.user) {
+                        //     const selectedValue = response.user.selected;
 
-                            if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
-                                if (userId) localStorage.setItem("user_id", userId);
-                                Swal.close();
-                                Swal.fire({
-                                    icon: "info",
-                                    title: "Welcome!",
-                                    text: "Please complete your selection test before continuing.",
-                                    confirmButtonText: "Continue",
-                                    confirmButtonColor: "#3085d6"
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = "/test-preview.html";
-                                    }
-                                });
-                                return;
-                            }
-                        }
+                        //     if (selectedValue === null || selectedValue === undefined || selectedValue === "") {
+                        //         if (userId) localStorage.setItem("user_id", userId);
+                        //         Swal.close();
+                        //         Swal.fire({
+                        //             icon: "info",
+                        //             title: "Welcome!",
+                        //             text: "Please complete your selection test before continuing.",
+                        //             confirmButtonText: "Continue",
+                        //             confirmButtonColor: "#3085d6"
+                        //         }).then((result) => {
+                        //             if (result.isConfirmed) {
+                        //                 window.location.href = "/test-preview.html";
+                        //             }
+                        //         });
+                        //         return;
+                        //     }
+                        // }
 
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
