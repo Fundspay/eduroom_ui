@@ -130,18 +130,23 @@
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
                             </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION QUESTIONS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION
+                                    QUESTIONS</a>
                             </li>
-                            
+
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
 
@@ -183,17 +188,14 @@
                                     class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/targets.html">MY TARGETS</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">MY
+                                    TARGETS</a>
                             </li>
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/CO.html">CO SHEET</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a>
                             </li>
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/RE.html">RE SHEET</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a>
                             </li>
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/R.html">R SHEET</a>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a>
                             </li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a>
@@ -401,6 +403,7 @@
                                             <th>NAME</th>
                                             <th>MOBILE NUMBER</th>
                                             <th>REGISTRATION DATE</th>
+                                            <th>SELECTION STATUS</th>
                                             <th>EMAIL</th>
                                             <th>COLLEGE NAME</th>
                                             <th>DOMAIN</th>
@@ -410,6 +413,7 @@
                                             <th>EST END DATE</th>
                                             <!-- <th>OFFER LETTER</th> -->
                                             <th>COURSE STATUS</th>
+                                            <th>REFERRAL CODE</th>
                                             <th>TOTAL SUBSCRIPTIONS</th>
                                             <th>PROJECT TASK</th>
                                             <th>PERCENTAGE OF WORK DONE</th>
@@ -726,7 +730,9 @@
                                 queryStatus: row.queryStatus || "",
                                 internshipAction: row.internshipStatus || "",
                                 teamManager: row.teamManager,
-                                createdAt: row.createdAt
+                                createdAt: row.createdAt,
+                                referralCode: row.referralCode || "",
+                                selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No"
                             }));
 
                         $("#collegeCount").text(tableData.length);
@@ -809,6 +815,7 @@
                                 </a>
                             </td>
                             <td>${escapeHtml(row.registeredAt || '')}</td>
+                            <td>${escapeHtml(row.selected || 'No')}</td>
                             <td>${escapeHtml(row.email || '')}</td>
                             <td>${escapeHtml(row.collegeName || '')}</td>
                             <td>${escapeHtml(row.courses || '')}</td>
@@ -817,6 +824,7 @@
                             <td>${escapeHtml(row.startDate || '')}</td>
                             <td>${escapeHtml(row.estEndDate || '')}</td>
                             ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                            <td>${escapeHtml(row.referralCode || '')}</td>
                             <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
                             ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
                             <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
@@ -840,9 +848,9 @@
         }
 
         const columnKeys = [
-            "sno", "name", "phoneNumber", "registeredAt", "email", "collegeName",
+            "sno", "name", "phoneNumber", "registeredAt", "selected", "email", "collegeName",
             "domain", "course", "duration", "startDate", "estEndDate",
-            "courseStatus", "subscriptionWallet", "businessStatus", "workPercentage",
+            "courseStatus", "referralCode", "subscriptionWallet", "businessStatus", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
             "subscriptionLeft", "queryStatus", "internshipAction", "teamManager"
         ];
@@ -1050,6 +1058,7 @@
                 "Name",
                 "Phone Number",
                 "Registration Date",
+                "Selected",
                 "Email",
                 "College Name",
                 "Courses",
@@ -1060,6 +1069,7 @@
                 // "Offer Letter",
                 "Course Status",
                 "Business Status",
+                "Referral Code",
                 "Total Subscriptions",
                 "Work % Completed",
                 "Certificate Status",
@@ -1078,6 +1088,7 @@
                     <td>${row.name}</td>
                     <td>${row.phoneNumber}</td>
                     <td>${row.registeredAt}</td>
+                    <td>${row.selected || 'No'}</td>
                     <td>${row.email}</td>
                     <td>${row.collegeName}</td>
                     <td>${row.courses}</td>
@@ -1087,6 +1098,7 @@
                     <td>${row.estEndDate}</td>
                     <td>${row.courseStatus}</td>
                     <td>${row.businessStatus}</td>
+                    <td>${row.referralCode || ''}</td>
                     <td>${row.subscriptionWallet}</td>
                     <td>${row.workPercentage}</td>
                     <td>${row.certificateStatus}</td>
@@ -1111,6 +1123,7 @@
                 "Name",
                 "Phone Number",
                 "Registration Date",
+                "Selected",
                 "Email",
                 "College Name",
                 "Courses",
@@ -1121,6 +1134,7 @@
                 // "Offer Letter",
                 "Course Status",
                 "Business Status",
+                "Referral Code",
                 "Total Subscriptions",
                 "Work % Completed",
                 "Certificate Status",
@@ -1139,6 +1153,7 @@
                     row.name,
                     row.phoneNumber,
                     row.registeredAt,
+                    row.selected || 'No',
                     row.email,
                     row.collegeName,
                     row.courses,
@@ -1149,6 +1164,7 @@
                     // row.offerLetter ? $(row.offerLetter).attr("href") : "",
                     row.courseStatus,
                     row.businessStatus,
+                    row.referralCode || "",
                     row.subscriptionWallet,
                     row.workPercentage,
                     row.certificateStatus,
