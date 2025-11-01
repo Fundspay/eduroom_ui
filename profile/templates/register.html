@@ -671,7 +671,7 @@
                             // });
                         },
                         error: function (xhr) {
-                            Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong while registering.", "error");
+                            Swal.fire("Error", "Please make sure your Email and Moile number are not repeated", "error");
                         }
                     });
                 });
@@ -877,7 +877,7 @@
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Google Login Failed',
-                                        text: err.responseJSON?.message || err.message
+                                        text: "Please make sure to use the correct Google account associated with your registration."
                                     });
                                 });
 
@@ -890,8 +890,8 @@
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Google Registration Failed',
-                                text: error.responseJSON?.message || error.message
+                                title: 'Please make sure your Email and Moile number are not repeated',
+                                text: "Please use unique Email and Phone number to register."
                             });
                         }
                     });
