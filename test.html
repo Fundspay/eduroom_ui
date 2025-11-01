@@ -259,7 +259,7 @@
                             </div>
 
                             <div class="row course-describe-wrapper">
-                                <div class="col-xl-8  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4">
+                                <div class="col-xl-12  col-lg-12  col-md-12  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4">
                                     <!-- Description -->
                                     <h3>Description</h3>
                                     <div class="course-description-left" id="courseDescription">
@@ -397,7 +397,7 @@
                                                     <span id="caseStudyScore"
                                                         class="cd-ratting-number f-500 line-height-1 d-block primary-color"
                                                         style="font-size:50px;">0%</span>
-                                                    <ul class="d-flex justify-content-center mb-2" id="caseStudyStars">
+                                                    <!-- <ul class="d-flex justify-content-center mb-2" id="caseStudyStars">
                                                         <li><span class="r-star-light-color"><i
                                                                     class="fas fa-star"></i></span></li>
                                                         <li><span class="r-star-light-color"><i
@@ -408,7 +408,7 @@
                                                                     class="fas fa-star"></i></span></li>
                                                         <li><span class="r-star-light-color"><i
                                                                     class="fas fa-star"></i></span></li>
-                                                    </ul>
+                                                    </ul> -->
                                                 </div>
                                             </div>
 
@@ -705,9 +705,11 @@
             }
 
             var queryParams = getQueryParams();
-            var domainId = queryParams.domainId || 1;
+            var domainId = queryParams.domainId;
             var userId = localStorage.getItem("user_id");
             console.log("userId:", userId);
+
+            var displayedQuestionIds = [];
 
             function formatYouTubeEmbed(url) {
                 if (!url) return "";
@@ -740,10 +742,15 @@
                     var quizContainer = $('#accordion-quiz');
                     quizContainer.empty();
 
-                    if (course.questions && course.questions.length > 0) {
-                        $('#totalQuestions').text(course.questions.length);
+                    displayedQuestionIds = [];
 
-                        course.questions.forEach(function (q, index) {
+                    if (course.questions && course.questions.length > 0) {
+                        var validQuestions = course.questions.slice(0, -1); // exclude placeholder
+                        displayedQuestionIds = validQuestions.map(function (q) { return String(q.id); });
+
+                        $('#totalQuestions').text(validQuestions.length);
+
+                        validQuestions.forEach(function (q, index) {
                             if (!q || !q.question) return;
 
                             var qid = 'q' + q.id;
@@ -753,25 +760,25 @@
                                 if (q[optKey] && q[optKey].trim() !== "") {
                                     var letter = String.fromCharCode(65 + i);
                                     optionsHtml += `
-                                    <li class="mb-2">
+                                <li class="mb-2">
                                     <label>
                                         <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
                                     </label>
-                                    </li>`;
+                                </li>`;
                                 }
                             });
 
                             var cardHtml = `
-                                <div class="card border-0 mb-3" id="card-${qid}">
-                                <div class="card-header border-bottom-0 p-0">
-                                    <h6 class="mb-0 main-color f-500">
+                        <div class="card border-0 mb-3" id="card-${qid}">
+                            <div class="card-header border-bottom-0 p-0">
+                                <h6 class="mb-0 main-color f-500">
                                     Q${index + 1}. ${q.question}
-                                    </h6>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="list-unstyled">${optionsHtml}</ul>
-                                </div>
-                                </div>`;
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">${optionsHtml}</ul>
+                            </div>
+                        </div>`;
                             quizContainer.append(cardHtml);
                         });
                     }
@@ -814,12 +821,50 @@
                         if (response.success && response.evaluation) {
                             var evalData = response.evaluation;
 
-                            $('#averageScore').text(evalData.score);
-                            $('#totalAttempts').text(evalData.totalQuestions);
-                            $('#correctAnswers').text(evalData.correct);
-                            $('#wrongAnswers').text(evalData.wrong);
+                            var rawResults = Array.isArray(evalData.results) ? evalData.results : [];
+                            var filteredResults = rawResults.filter(function (r) {
+                                return displayedQuestionIds.indexOf(String(r.mcqId)) !== -1;
+                            });
 
-                            var percentage = Math.round((evalData.correct / evalData.totalQuestions) * 100);
+                            var resultsMap = {};
+                            filteredResults.forEach(function (r) {
+                                resultsMap[String(r.mcqId)] = r;
+                            });
+
+                            var displayedTotal = displayedQuestionIds.length;
+                            var correctCount = 0;
+
+                            $('#accordion-quiz .card').each(function () {
+                                $(this).css('border', '');
+                                $(this).find('.correct-answer').remove();
+                            });
+
+                            displayedQuestionIds.forEach(function (id) {
+                                var mcqCard = $('#card-q' + id);
+                                var res = resultsMap[id];
+
+                                if (res && res.isCorrect) {
+                                    correctCount++;
+                                    mcqCard.css('border', '2px solid green');
+                                    mcqCard.find('.card-body').append(
+                                        `<p class="text-success mt-2 correct-answer">✅ Correct Answer</p>`
+                                    );
+                                } else {
+                                    mcqCard.css('border', '2px solid red');
+                                    mcqCard.find('.card-body').append(
+                                        `<p class="text-danger mt-2 correct-answer">❌ Incorrect Answer</p>`
+                                    );
+                                }
+                            });
+
+                            var wrongCount = displayedTotal - correctCount;
+                            var percentage = displayedTotal > 0 ? Math.round((correctCount / displayedTotal) * 100) : 0;
+                            var correctOverTotal = correctCount + "/" + displayedTotal;
+
+                            $('#averageScore').text(correctOverTotal);
+                            $('#totalAttempts').text(displayedTotal);
+                            $('#correctAnswers').text(correctCount);
+                            $('#wrongAnswers').text(wrongCount);
                             $('#percentage').text(percentage + '%');
 
                             var stars = Math.round(percentage / 20);
@@ -830,26 +875,6 @@
                                     $(this).removeClass('r-star-light-color').addClass('text-warning');
                                 } else {
                                     $(this).removeClass('text-warning').addClass('r-star-light-color');
-                                }
-                            });
-
-                            $('#accordion-quiz .card').each(function () {
-                                $(this).css('border', '');
-                                $(this).find('.correct-answer').remove();
-                            });
-
-                            evalData.results.forEach(function (res) {
-                                var mcqCard = $('#card-q' + res.mcqId);
-                                if (res.isCorrect) {
-                                    mcqCard.css('border', '2px solid green');
-                                    mcqCard.find('.card-body').append(
-                                        `<p class="text-success mt-2 correct-answer">✅ Correct Answer</p>`
-                                    );
-                                } else {
-                                    mcqCard.css('border', '2px solid red');
-                                    mcqCard.find('.card-body').append(
-                                        `<p class="text-danger mt-2 correct-answer">❌ Incorrect Answer</p>`
-                                    );
                                 }
                             });
 
@@ -869,11 +894,10 @@
 
     <script>
         $(document).ready(function () {
-
             var userId = localStorage.getItem("user_id");
             console.log("userId:", userId);
 
-            var queryParams = (function () {
+            function getQueryParams() {
                 var params = {};
                 var queryString = window.location.search.substring(1);
                 var pairs = queryString.split("&");
@@ -882,17 +906,18 @@
                     params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
                 }
                 return params;
-            })();
+            }
 
-            var selectedDomainId = queryParams.selectedDomainId || 1;
-            var selectedCourseId = queryParams.id || 1;
+            var queryParams = getQueryParams();
+            var domainId = queryParams.domainId;
 
             var $caseWrapper = $(".case-study-wrapper");
             var questionId = null;
+            var isSubmitting = false;
 
             $("#submitCaseStudy").prop("disabled", true);
 
-            const caseStudyUrl = `https://eduroom.in/api/v1/selectedcoursedetail/details/${selectedCourseId}`;
+            const caseStudyUrl = `https://eduroom.in/api/v1/selectedcoursedetail/details/${domainId}`;
 
             $.ajax({
                 url: caseStudyUrl,
@@ -921,6 +946,9 @@
             });
 
             $("#submitCaseStudy").on("click", function () {
+                if (isSubmitting) return;
+                isSubmitting = true;
+
                 var answer = $("#caseStudyAnswer").val().trim();
 
                 if (!answer) {
@@ -929,6 +957,7 @@
                         title: "Empty Answer",
                         text: "Please write your answer before submitting.",
                     });
+                    isSubmitting = false;
                     return;
                 }
 
@@ -938,10 +967,11 @@
                         title: "Question Not Loaded",
                         text: "Case study question not loaded. Please try again later.",
                     });
+                    isSubmitting = false;
                     return;
                 }
 
-                const evaluateUrl = `https://eduroom.in/api/v1/selectedcoursedetail/evaluate-case-study/${selectedDomainId}/${questionId}`;
+                const evaluateUrl = `https://eduroom.in/api/v1/selectedcoursedetail/evaluate-case-study/${domainId}/${questionId}`;
 
                 const payload = {
                     userId: userId,
@@ -955,12 +985,16 @@
 
                 Swal.fire({
                     title: "Evaluating your answer...",
-                    html: "Please wait while we check your MCQs and case study submission.",
+                    html: "Please wait while we check your case study submission.",
                     allowOutsideClick: false,
                     didOpen: () => {
                         Swal.showLoading();
                     }
                 });
+
+                $("#caseStudyStars li span")
+                    .removeClass("r-star-color")
+                    .addClass("r-star-light-color");
 
                 $.ajax({
                     url: evaluateUrl,
@@ -969,15 +1003,17 @@
                     data: JSON.stringify(payload),
                     success: function (response) {
                         Swal.close();
+                        isSubmitting = false;
 
-                        console.log("case study response:", response);
+                        console.log("Case study response:", response);
 
-                        if (response.success && response.evaluation) {
+                        if (response.success && response.evaluation && response.evaluation.results?.length > 0) {
                             const result = response.evaluation.results[0];
                             const percent = parseFloat(result.matchPercentage || 0).toFixed(1);
 
                             $("#caseStudyScore").text(percent + "%");
                             $("#caseStudyPercentage").text(percent + "%");
+
                             $("#caseStudyStatus")
                                 .text(result.passed ? "Passed" : "Failed")
                                 .removeClass("text-success text-danger")
@@ -993,20 +1029,20 @@
                                 }
                             });
 
-                            $("#caseStudyResult").show();
+                            $("#caseStudyResult").fadeIn(300);
 
                             if (result.passed) {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "Congratulations!",
-                                    text: "You passed the case study. Well done! Complete the MCQs to finish the test.",
+                                    title: "🎉 Congratulations!",
+                                    text: "You passed the case study. Great job! Complete the MCQs to finish the test.",
                                     confirmButtonText: "OK"
                                 });
                             } else {
                                 Swal.fire({
                                     icon: "error",
                                     title: "Case Study Failed",
-                                    text: "Your answer did not meet the case study requirements. Please review and try again.",
+                                    text: "Your answer did not meet the required criteria. Please review and try again.",
                                     confirmButtonText: "OK"
                                 });
                             }
@@ -1014,13 +1050,11 @@
                             if (response.overallStatus === "Passed") {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "🎉 Eligibility Test Completed!",
+                                    title: "✅ Eligibility Test Completed!",
                                     text: "You have successfully passed the overall test. Redirecting to your profile...",
                                     showConfirmButton: false,
                                     timer: 5000,
-                                    didOpen: () => {
-                                        Swal.showLoading();
-                                    }
+                                    didOpen: () => Swal.showLoading()
                                 });
 
                                 if (userId) {
@@ -1043,6 +1077,7 @@
                     },
                     error: function (xhr, status, error) {
                         Swal.close();
+                        isSubmitting = false;
                         console.error("Error submitting case study:", status, error);
                         Swal.fire({
                             icon: "error",
