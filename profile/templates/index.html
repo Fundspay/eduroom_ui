@@ -20,10 +20,10 @@
     <!--! END: Custom CSS-->
     <!--! HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries !-->
     <!--! WARNING: Respond.js doesn"t work if you view the page via file: !-->
-    <!--[if lt IE 9]>
+    <!-- [if lt IE 9]>
 			<script src="https:oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https:oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
+		<![endif] -->
 </head>
 
 <body>
@@ -248,6 +248,7 @@
                                                     <th>Email</th>
                                                     <th>Downloaded</th>
                                                     <th>Date of Download</th>
+                                                    <th>Occupation</th>
                                                     <th>Subscribed</th>
                                                     <th>Date of Payment</th>
                                                     <th>Raise A Query</th>
@@ -569,15 +570,27 @@
                                             </div>  
 
                                             <!-- Get Certificate button -->
-                                            <button class="btn btn-light fw-bold getCertificateBtn w-100 mt-2" 
+                                            <div class="d-flex justify-content-center gap-2 mt-2">
+                                                <button class="btn btn-light fw-bold getCertificateBtn flex-fill"
                                                     data-courseid="${courseId}" 
                                                     data-status="${overallStatus}" 
                                                     data-target="${businessTarget}" 
                                                     data-left="${subscriptionLeft}"
                                                     data-start="${startDate || ''}"
                                                     data-end="${endDate || ''}">
-                                                Get Certificate
-                                            </button>
+                                                    Get Certificate
+                                                </button>
+
+                                                <button class="btn btn-light fw-bold flex-fill getReportBtn"
+                                                data-courseid="${courseId}" 
+                                                    data-status="${overallStatus}" 
+                                                    data-target="${businessTarget}" 
+                                                    data-left="${subscriptionLeft}"
+                                                    data-start="${startDate || ''}"
+                                                    data-end="${endDate || ''}">
+                                                    Get Report
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -704,6 +717,100 @@
                                 }
                             });
 
+                            $card.find(".getReportBtn").on("click", function (e) {
+                                e.stopPropagation();
+
+                                const status = $(this).data("status").toLowerCase();
+                                const courseId = $(this).data("courseid");
+                                const businessTarget = parseInt($(this).data("target")) || 0;
+                                const subscriptionLeft = parseInt($(this).data("left")) || 0;
+                                const startDate = $(this).data("start");
+                                const endDate = $(this).data("end");
+
+                                if (status === "completed") {
+                                    Swal.fire({
+                                        title: "Please Wait...",
+                                        allowOutsideClick: false,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                        }
+                                    });
+
+                                    $.ajax({
+                                        url: `https://eduroom.in/api/v1/internshipcertificate/internship/merged/email/${userId}/${courseId}`,
+                                        method: "GET",
+                                        success: function (resp) {
+                                            // console.log("Report Response:", resp);
+                                            Swal.close();
+                                            if (resp.success) {
+                                                Swal.fire("Success", "Report has been sent to your registered email!", "success");
+                                            } else {
+                                                Swal.fire("Info", resp.message || "Report not available.", "info");
+                                            }
+                                        },
+                                        error: function () {
+                                            Swal.close();
+                                            Swal.fire("Info", "Something went wrong", "info");
+                                        }
+                                    });
+                                }
+                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
+                                    Swal.fire("Incomplete Target", "Please complete your business target before requesting Report.", "info");
+                                }
+                                else if (status === "on hold") {
+                                    Swal.fire("On Hold", "Your live project has been put on hold. Please contact your team manager", "warning");
+                                }
+                                else if (status === "terminated") {
+                                    Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
+                                }
+                                else {
+                                    const start = new Date(startDate);
+                                    const end = new Date(endDate);
+
+                                    const formatDate = (d) => {
+                                        const options = { day: "2-digit", month: "short", year: "numeric" };
+                                        return d.toLocaleDateString("en-GB", options).replace(",", "");
+                                    };
+
+                                    Swal.fire({
+                                        title: "Unavailable",
+                                        html: `
+                                                <p>Your End Date for the live project is not over yet.</p>
+                                                <p><b>Start Date:</b> ${formatDate(start)}</p>
+                                                <p><b>End Date:</b> ${formatDate(end)}</p>
+                                                <p><b>Time Left:</b> <span id="countdown"><i class="fa fa-spinner fa-spin"></i> Loading...</span></p>
+                                            `,
+                                        icon: "info",
+                                        didOpen: () => {
+                                            const countdownEl = document.getElementById("countdown");
+
+                                            const updateCountdown = () => {
+                                                const now = new Date().getTime();
+                                                const distance = end.getTime() - now;
+
+                                                if (distance <= 0) {
+                                                    countdownEl.innerHTML = "Expired";
+                                                    return false;
+                                                } else {
+                                                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                                    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                                                    return true;
+                                                }
+                                            };
+
+                                            updateCountdown();
+
+                                            const interval = setInterval(() => {
+                                                if (!updateCountdown()) clearInterval(interval);
+                                            }, 1000);
+                                        }
+                                    });
+                                }
+                            });
+
                             container.append($card);
                         });
                     } else {
@@ -765,7 +872,7 @@
                     url: `https://eduroom.in/api/v1/user/${loggedInUserId}/referral-payment-status`,
                     method: "GET",
                     success: function (response) {
-                        // console.log("GET response:", response);
+                        console.log("GET response:", response);
                         if (response.success && response.data && Array.isArray(response.data.registered_users)) {
                             const users = response.data.registered_users;
 
@@ -786,6 +893,7 @@
 
                                 const downloadDateRaw = user.date_of_download || null;
                                 const paymentDateRaw = user.date_of_payment || null;
+                                const occupation = user.occupation || null;
 
                                 const downloadDateDisplay = downloadDateRaw
                                     ? formatDate(downloadDateRaw)
@@ -821,6 +929,7 @@
                                     email,
                                     isDownloaded: isDownloadedBadge,
                                     downloadDateDisplay,
+                                    occupation: occupation || "--",
                                     hasPaid,
                                     paymentDateDisplay,
                                     status: statusBadge,
@@ -855,6 +964,7 @@
                     <td><a href="mailto:${row.email}">${row.email}</a></td>
                     <td>${row.isDownloaded}</td>
                     <td>${row.downloadDateDisplay}</td>
+                    <td>${row.occupation}</td>
                     <td>${row.hasPaid}</td>
                     <td>${row.paymentDateDisplay}</td>
                     <td>
@@ -928,6 +1038,7 @@
                     <td><a href="mailto:${row.email}">${row.email}</a></td>
                     <td>${row.isDownloaded}</td>
                     <td>${row.downloadDateDisplay}</td>
+                    <td>${row.occupation}</td>
                     <td>${row.hasPaid}</td>
                     <td>${row.paymentDateDisplay}</td>
                     <td>
@@ -965,6 +1076,7 @@
                         row.email,
                         clean(row.isDownloaded),
                         clean(row.downloadDateDisplay),
+                        clean(row.occupation),
                         clean(row.hasPaid),
                         clean(row.paymentDateDisplay)
                     ]);
