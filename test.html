@@ -378,8 +378,10 @@
                                 <div id="caseStudyQuestion" class="mb-2 font-weight-bold"></div>
                                 <textarea id="caseStudyAnswer" rows="6" class="form-control"
                                     placeholder="Write your answer here..."></textarea>
-                                <small class="text-muted d-block mt-1">Word Count: <span id="wordCount">0</span><span>/ 500</span></small>
-                                <span style="color: #fd0d0d;">Please Complete Atleast 60% of MCQ'S and 15-20% of CaseStudy to Pass the Eligibility Test.</span>
+                                <small class="text-muted d-block mt-1">Word Count: <span id="wordCount">0</span><span>/
+                                        500</span></small>
+                                <span style="color: #fd0d0d;">Please Complete Atleast 60% of MCQ'S and 15-20% of
+                                    CaseStudy to Pass the Eligibility Test.</span>
                                 <div style="text-align:center;">
                                     <button id="submitCaseStudy" class="btn btn-primary mt-3">Submit Test</button>
                                 </div>
@@ -721,6 +723,7 @@
                 return "https://www.youtube.com/embed/" + videoId + "?controls=1&modestbranding=1&rel=0&showinfo=0";
             }
 
+            // GET request for course + questions
             $.ajax({
                 url: `https://eduroom.in/api/v1/selectedcoursedetail/details/${domainId}`,
                 method: "GET",
@@ -746,12 +749,14 @@
                     displayedQuestionIds = [];
 
                     if (course.questions && course.questions.length > 0) {
-                        var validQuestions = course.questions.slice(0, -1); // exclude placeholder
-                        displayedQuestionIds = validQuestions.map(function (q) { return String(q.id); });
+                        // Exclude placeholder + only show first 10 questions
+                        var validQuestions = course.questions;
+                        var firstTenQuestions = validQuestions.slice(0, 10);
 
-                        $('#totalQuestions').text(validQuestions.length);
+                        displayedQuestionIds = firstTenQuestions.map(q => String(q.id));
+                        $('#totalQuestions').text(firstTenQuestions.length);
 
-                        validQuestions.forEach(function (q, index) {
+                        firstTenQuestions.forEach(function (q, index) {
                             if (!q || !q.question) return;
 
                             var qid = 'q' + q.id;
@@ -761,25 +766,25 @@
                                 if (q[optKey] && q[optKey].trim() !== "") {
                                     var letter = String.fromCharCode(65 + i);
                                     optionsHtml += `
-                                <li class="mb-2">
-                                    <label>
-                                        <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
-                                    </label>
-                                </li>`;
+                                    <li class="mb-2">
+                                        <label>
+                                            <input type="radio" name="${qid}" value="${letter}"> ${q[optKey]}
+                                        </label>
+                                    </li>`;
                                 }
                             });
 
                             var cardHtml = `
-                        <div class="card border-0 mb-3" id="card-${qid}">
-                            <div class="card-header border-bottom-0 p-0">
-                                <h6 class="mb-0 main-color f-500">
-                                    Q${index + 1}. ${q.question}
-                                </h6>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-unstyled">${optionsHtml}</ul>
-                            </div>
-                        </div>`;
+                            <div class="card border-0 mb-3" id="card-${qid}">
+                                <div class="card-header border-bottom-0 p-0">
+                                    <h6 class="mb-0 main-color f-500">
+                                        Q${index + 1}. ${q.question}
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">${optionsHtml}</ul>
+                                </div>
+                            </div>`;
                             quizContainer.append(cardHtml);
                         });
                     }
@@ -789,6 +794,7 @@
                 }
             });
 
+            // POST evaluation
             $('#submitQuiz').on('click', function () {
                 var answers = [];
 
@@ -823,8 +829,9 @@
                             var evalData = response.evaluation;
 
                             var rawResults = Array.isArray(evalData.results) ? evalData.results : [];
+                            // Filter results to only include first 10 questions displayed
                             var filteredResults = rawResults.filter(function (r) {
-                                return displayedQuestionIds.indexOf(String(r.mcqId)) !== -1;
+                                return displayedQuestionIds.includes(String(r.mcqId));
                             });
 
                             var resultsMap = {};
@@ -868,6 +875,7 @@
                             $('#wrongAnswers').text(wrongCount);
                             $('#percentage').text(percentage + '%');
 
+                            // Update stars visually
                             var stars = Math.round(percentage / 20);
                             var $starList = $('.cd-ratting-number').siblings('ul').find('i');
 
