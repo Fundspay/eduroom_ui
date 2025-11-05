@@ -751,7 +751,7 @@
                     if (course.questions && course.questions.length > 0) {
                         // Exclude placeholder + only show first 10 questions
                         var validQuestions = course.questions;
-                        var firstTenQuestions = validQuestions.slice(0, 10);
+                        var firstTenQuestions = validQuestions;
 
                         displayedQuestionIds = firstTenQuestions.map(q => String(q.id));
                         $('#totalQuestions').text(firstTenQuestions.length);
