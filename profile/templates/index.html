@@ -481,6 +481,7 @@
                                 courseDuration,
                                 businessTarget,
                                 overallStatus,
+                                offerMessage,
                                 overallCompletionRate,
                                 coursePreviews,
                                 dailyStatus,
@@ -534,12 +535,14 @@
 
                             const card = `
                                 <div class="col-xxl-4 col-md-6 mb-4">
-                                    <div class="card stretch stretch-full shadow-lg" 
-                                        style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
+                                    <div class="card shadow-lg" 
+                                        style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px; height: auto;">
+                                        
+                                        <!-- Card Body -->
                                         <div class="card-body">
-                                            <div class="hstack justify-content-between">
+                                            <div class="hstack justify-content-between align-items-start">
                                                 <div>
-                                                    <h4 class="text-dark fw-bold">
+                                                    <h4 class="text-dark fw-bold mb-1">
                                                         ${courseName.replace(/"/g, "")}
                                                     </h4>
                                                     <div class="text-muted">${courseDuration || ""}</div>
@@ -549,11 +552,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer ${footerColor} py-3 text-center">
-                                            <!-- Centered status -->
+
+                                        <!-- Card Footer -->
+                                        <div class="card-footer ${footerColor} py-3 text-center" style="border-radius: 0 0 12px 12px;">
+                                            
+                                            <!-- Centered Status -->
                                             <p class="text-white mb-3 fw-bold">${displayStatus}</p>
 
-                                            <!-- Labels on left, values on right -->
+                                            <!-- Key Values -->
                                             <div class="d-flex justify-content-between text-white mb-3">
                                                 <div class="text-start">
                                                     <p class="mb-1">Course Completion Status:</p>
@@ -569,8 +575,8 @@
                                                 </div>
                                             </div>  
 
-                                            <!-- Get Certificate button -->
-                                            <div class="d-flex justify-content-center gap-2 mt-2">
+                                            <!-- Action Buttons -->
+                                            <div class="d-flex justify-content-center gap-2 mt-2 flex-wrap">
                                                 <button class="btn btn-light fw-bold getCertificateBtn flex-fill"
                                                     data-courseid="${courseId}" 
                                                     data-status="${overallStatus}" 
@@ -581,8 +587,8 @@
                                                     Get Certificate
                                                 </button>
 
-                                                <button class="btn btn-light fw-bold flex-fill getReportBtn"
-                                                data-courseid="${courseId}" 
+                                                <button class="btn btn-light fw-bold getReportBtn flex-fill"
+                                                    data-courseid="${courseId}" 
                                                     data-status="${overallStatus}" 
                                                     data-target="${businessTarget}" 
                                                     data-left="${subscriptionLeft}"
@@ -591,6 +597,23 @@
                                                     Get Report
                                                 </button>
                                             </div>
+
+                                            <!-- Offer Message (optional) -->
+                                            ${offerMessage && offerMessage.trim() !== ""
+                                                ? `
+                                                <div class="col-md-12 mt-3">
+                                                    <div class="card bg-blue text-white border-warning border-dashed" 
+                                                        style="border-radius: 8px; background-color: #007bff; border: 1px dashed #ffc107;">
+                                                        <div class="card-body text-start py-2 px-3">
+                                                            <div style="display: flex; align-items: flex-start; flex-wrap: wrap; gap: 6px;">
+                                                                <span style="font-size: 13px; font-weight: 600;">Offer Message:</span>
+                                                                <span class="mb-0">${offerMessage}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`
+                                                : ""
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -640,11 +663,14 @@
                                         }
                                     });
 
+                                    var payload = { userId, courseId };
+                                    // console.log("Certificate Payload:", payload);
+
                                     $.ajax({
                                         url: "https://eduroom.in/api/v1/internshipcertificate/certificate/send",
                                         method: "POST",
                                         contentType: "application/json",
-                                        data: JSON.stringify({ userId, courseId }),
+                                        data: JSON.stringify(payload),
                                         success: function (resp) {
                                             // console.log("Certificate Response:", resp);
                                             Swal.close();
@@ -872,7 +898,7 @@
                     url: `https://eduroom.in/api/v1/user/${loggedInUserId}/referral-payment-status`,
                     method: "GET",
                     success: function (response) {
-                        console.log("GET response:", response);
+                        // console.log("GET response:", response);
                         if (response.success && response.data && Array.isArray(response.data.registered_users)) {
                             const users = response.data.registered_users;
 
