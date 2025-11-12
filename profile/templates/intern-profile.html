@@ -469,7 +469,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
-                    // console.log("Courses Response:", res);
+                    console.log("Courses Data:", res);
                     if (res.success && res.data.courses.length > 0) {
                         container.empty();
 
@@ -482,43 +482,35 @@
                                 courseDuration,
                                 businessTarget,
                                 overallStatus,
+                                offerMessage,
                                 overallCompletionRate,
                                 coursePreviews,
-                                dailyStatus,
-                                message,
                                 startDate,
                                 endDate
                             } = course;
 
                             const subscriptionLeft = globalSubscriptionLeft;
-
-                            let headerColor = "";
                             let footerColor = "";
                             let displayStatus = overallStatus;
 
                             switch (overallStatus.toLowerCase()) {
                                 case "in progress":
-                                    headerColor = "text-warning";
                                     footerColor = "bg-warning";
                                     displayStatus = "Ongoing";
                                     break;
                                 case "completed":
-                                    headerColor = "text-success";
                                     footerColor = "bg-success";
                                     displayStatus = "Completed";
                                     break;
                                 case "on hold":
-                                    headerColor = "text-secondary";
                                     footerColor = "bg-secondary";
                                     displayStatus = "On Hold";
                                     break;
                                 case "terminated":
-                                    headerColor = "text-danger";
                                     footerColor = "bg-danger";
                                     displayStatus = "Terminated";
                                     break;
                                 default:
-                                    headerColor = "text-muted";
                                     footerColor = "bg-light";
                             }
 
@@ -535,8 +527,8 @@
 
                             const card = `
                                 <div class="col-xxl-4 col-md-6 mb-4">
-                                    <div class="card stretch stretch-full shadow-lg" 
-                                        style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px;">
+                                    <div class="card stretch shadow-lg" 
+                                        style="box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-radius: 12px; height: auto;">
                                         <div class="card-body">
                                             <div class="hstack justify-content-between">
                                                 <div>
@@ -550,11 +542,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer ${footerColor} py-3 text-center">
-                                            <!-- Centered status -->
-                                            <p class="text-white mb-3 fw-bold">${displayStatus}</p>
 
-                                            <!-- Labels on left, values on right -->
+                                        <div class="card-footer ${footerColor} py-3 text-center" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; height: auto;">
+                                            <p class="text-white mb-3 fw-bold">${displayStatus}</p>
+                                            
                                             <div class="d-flex justify-content-between text-white mb-3">
                                                 <div class="text-start">
                                                     <p class="mb-1">Course Completion Status:</p>
@@ -570,126 +561,176 @@
                                                 </div>
                                             </div>  
 
+                                            <button class="btn btn-light fw-bold editBtn w-100 mt-2" 
+                                                    data-courseid="${courseId}" 
+                                                    data-status="${overallStatus}" 
+                                                    data-target="${businessTarget}"
+                                                    data-left="${subscriptionLeft}"
+                                                    data-start="${startDate || ''}"
+                                                    data-end="${endDate || ''}">
+                                                Edit Target
+                                            </button>
+
+                                            ${offerMessage && offerMessage.trim() !== ""
+                                            ? `
+                                                <div class="col-md-12 mt-3">
+                                                    <div class="card bg-blue text-white border-warning border-dashed" style="border-radius: 8px;">
+                                                        <div class="card-body text-start py-2 px-3">
+                                                            <div style="display: flex; align-items: flex-start; flex-wrap: wrap; gap: 6px;">
+                                                                <span style="font-size: 13px; font-weight: 600;">Offer Message:</span>
+                                                                <span class="mb-0">${offerMessage}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                `
+                                            : ""
+                                        }
                                         </div>
                                     </div>
                                 </div>
                             `;
+
                             const $card = $(card);
 
-                            $card.find(".card-body").css("cursor", "pointer");
-
-                            $card.find(".card-body").on("click", function () {
-                                switch (overallStatus.toLowerCase()) {
-                                    case "in progress":
-                                        if (coursePreviews && coursePreviews.length > 0) {
-                                            const previewId = coursePreviews[0].id;
-                                        } else {
-                                            Swal.fire("Preview not available", "No preview found for this course yet.", "info");
-                                        }
-                                        return;
-                                    case "completed":
-                                        return;
-                                    case "onhold":
-                                        return;
-                                    case "terminated":
-                                        return;
-                                }
-                            });
-
-                            $card.find(".getCertificateBtn").on("click", function (e) {
-                                e.stopPropagation();
-
-                                const status = $(this).data("status").toLowerCase();
+                            $card.find(".editBtn").on("click", function () {
                                 const courseId = $(this).data("courseid");
-                                const businessTarget = parseInt($(this).data("target")) || 0;
-                                const subscriptionLeft = parseInt($(this).data("left")) || 0;
-                                const startDate = $(this).data("start");
-                                const endDate = $(this).data("end");
 
-                                if (status === "completed") {
-                                    Swal.fire({
-                                        title: "Please Wait...",
-                                        allowOutsideClick: false,
-                                        didOpen: () => {
-                                            Swal.showLoading();
+                                Swal.fire({
+                                    title: "Edit Business Target",
+                                    html: `
+                                        <div style="
+                                            text-align: left; 
+                                            margin-top: 10px;
+                                            font-family: 'Poppins', sans-serif;
+                                        ">
+
+                                            <div style="margin-bottom: 12px;">
+                                                <label for="businessTarget" style="
+                                                    display: block; 
+                                                    font-weight: 500; 
+                                                    color: #444; 
+                                                    margin-bottom: 5px;
+                                                ">
+                                                    Business Target <span style="color: red;">*</span>
+                                                </label>
+                                                <input 
+                                                    type="text" 
+                                                    id="businessTarget" 
+                                                    class="swal2-input" 
+                                                    placeholder="Enter Business Target"
+                                                    style="
+                                                        width: 100%; 
+                                                        padding: 10px 12px; 
+                                                        border: 1px solid #ccc; 
+                                                        border-radius: 6px; 
+                                                        font-size: 14px;
+                                                    "
+                                                >
+                                            </div>
+
+                                            <div>
+                                                <label for="offerMessage" style="
+                                                    display: block; 
+                                                    font-weight: 500; 
+                                                    color: #444; 
+                                                    margin-bottom: 5px;
+                                                ">
+                                                    Offer Message
+                                                </label>
+                                                <textarea 
+                                                    id="offerMessage" 
+                                                    class="swal2-textarea" 
+                                                    placeholder="Enter Offer Message (max 25 words)"
+                                                    style="
+                                                        width: 100%; 
+                                                        height: 100px; 
+                                                        padding: 10px 12px; 
+                                                        border: 1px solid #ccc; 
+                                                        border-radius: 6px; 
+                                                        font-size: 14px; 
+                                                        resize: none;
+                                                    "
+                                                ></textarea>
+                                                <div id="charCount" style="font-size: 12px; color: #666;">
+                                                    0 / 150 characters
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `,
+
+                                    focusConfirm: false,
+                                    showCancelButton: true,
+                                    confirmButtonText: "Submit",
+                                    cancelButtonText: "Cancel",
+                                    preConfirm: () => {
+                                        const businessTarget = $("#businessTarget").val().trim();
+                                        const offerMessage = $("#offerMessage").val().trim();
+
+                                        if (!businessTarget) {
+                                            Swal.showValidationMessage("Business Target is required");
+                                            return false;
                                         }
-                                    });
 
-                                    $.ajax({
-                                        url: "https://eduroom.in/api/v1/internshipcertificate/certificate/send",
-                                        method: "POST",
-                                        contentType: "application/json",
-                                        data: JSON.stringify({ userId, courseId }),
-                                        success: function (resp) {
-                                            // console.log("Certificate Response:", resp);
-                                            Swal.close();
-                                            if (resp.success) {
-                                                Swal.fire("Success", "Certificate has been sent to your registered email!", "success");
-                                            } else {
-                                                Swal.fire("Info", resp.message || "Certificate not available.", "info");
+                                        return { businessTarget, offerMessage };
+                                    },
+                                    didOpen: () => {
+                                        const textarea = document.getElementById("offerMessage");
+                                        const charCount = document.getElementById("charCount");
+
+                                        textarea.addEventListener("input", function () {
+                                            let count = textarea.value.length;
+
+                                            if (count > 150) {
+                                                textarea.value = textarea.value.substring(0, 150);
+                                                count = 150;
                                             }
-                                        },
-                                        error: function () {
-                                            Swal.close();
-                                            Swal.fire("Info", "Something went wrong", "info");
-                                        }
-                                    });
-                                }
-                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
-                                    Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
-                                }
-                                else if (status === "on hold") {
-                                    Swal.fire("On Hold", "Your live project has been put on hold. Please contact your team manager", "warning");
-                                }
-                                else if (status === "terminated") {
-                                    Swal.fire("Terminated", "You have been terminated. Please Contact your team manager.", "error");
-                                }
-                                else {
-                                    const start = new Date(startDate);
-                                    const end = new Date(endDate);
 
-                                    const formatDate = (d) => {
-                                        const options = { day: "2-digit", month: "short", year: "numeric" };
-                                        return d.toLocaleDateString("en-GB", options).replace(",", "");
-                                    };
+                                            charCount.textContent = `${count} / 150 characters`;
+                                            charCount.style.color = count >= 150 ? "red" : "#666";
+                                        });
+                                    }
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        const { businessTarget, offerMessage } = result.value;
 
-                                    Swal.fire({
-                                        title: "Unavailable",
-                                        html: `
-                                                <p>Your End Date for the live project is not over yet.</p>
-                                                <p><b>Start Date:</b> ${formatDate(start)}</p>
-                                                <p><b>End Date:</b> ${formatDate(end)}</p>
-                                                <p><b>Time Left:</b> <span id="countdown"><i class="fa fa-spinner fa-spin"></i> Loading...</span></p>
-                                            `,
-                                        icon: "info",
-                                        didOpen: () => {
-                                            const countdownEl = document.getElementById("countdown");
+                                        Swal.fire({
+                                            title: "Updating...",
+                                            text: "Please wait",
+                                            allowOutsideClick: false,
+                                            didOpen: () => Swal.showLoading(),
+                                        });
 
-                                            const updateCountdown = () => {
-                                                const now = new Date().getTime();
-                                                const distance = end.getTime() - now;
+                                        var payload = {
+                                            courseId: courseId.toString(),
+                                            businessTarget: Number(businessTarget),
+                                            offerMessage: offerMessage
+                                        };
+                                        // console.log("Payload for update:", payload);
+                                        var updateUrl = `https://eduroom.in/api/v1/user/user/business-info/${urlUserId}`;
+                                        // console.log("Update URL:", updateUrl);
 
-                                                if (distance <= 0) {
-                                                    countdownEl.innerHTML = "Expired";
-                                                    return false;
+                                        $.ajax({
+                                            url: updateUrl,
+                                            method: "PUT",
+                                            contentType: "application/json",
+                                            data: JSON.stringify(payload),
+                                            success: function (response) {
+                                                // console.log("Update response:", response);
+                                                Swal.close();
+                                                if (response.success) {
+                                                    Swal.fire("Success", response.message, "success");
                                                 } else {
-                                                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                                                    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                                                    return true;
+                                                    Swal.fire("Error", response.message || "Failed to update.", "error");
                                                 }
-                                            };
-
-                                            updateCountdown();
-
-                                            const interval = setInterval(() => {
-                                                if (!updateCountdown()) clearInterval(interval);
-                                            }, 1000);
-                                        }
-                                    });
-                                }
+                                            },
+                                            error: function (xhr) {
+                                                Swal.close();
+                                                Swal.fire("Error", "Something went wrong while updating.", "error");
+                                            }
+                                        });
+                                    }
+                                });
                             });
 
                             container.append($card);
