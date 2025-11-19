@@ -482,7 +482,7 @@
                                     <div class="sidebar-widget cd-sidebar business-target mt-45"
                                         id="businessTargetWidget">
                                         <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
-                                             style="background: #000;">Business Task Details
+                                            style="background: #000;">Business Task Details
                                         </h4>
 
                                         <div class="about-instructor-wrapper text-center">
@@ -501,13 +501,15 @@
                                                 https://www.youtube.com/watch?v=QwbcAvI_BOY
                                             </a>
 
-                                            <h2 class="mb-3" style="font-size: 16px; font-weight:700; padding-top: 10%;">
+                                            <h2 class="mb-3"
+                                                style="font-size: 16px; font-weight:700; padding-top: 10%;">
                                                 Your Referral Link</h2>
-                                            <a href="#" target="_blank" id="referralLink" style="color: #00c897; font-weight: 600; text-decoration: none;
+                                            <a href="#" target="_blank" id="referralLink"
+                                                style="color: #00c897; font-weight: 600; text-decoration: none;
                                                 font-size: 12px; display: inline-block; 
                                                 word-wrap: break-word; overflow-wrap: anywhere;
                                                 max-width: 100%; white-space: normal; text-align: center; word-break: break-all; padding-left: 2%; padding-right: 2%;">
-                                                                                        --
+                                                --
                                             </a>
 
                                             <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
@@ -817,7 +819,7 @@
                     sessionNumber: sessionNumber
                 },
                 success: function (response) {
-                    // console.log("Course Preview Response:", response);
+                    console.log("Course Preview Response:", response);
                     if (!response.success || !response.data || response.data.length === 0) {
                         console.warn("No course data found");
                         return;
@@ -957,8 +959,8 @@
                     });
                 });
 
-                if (answers.length !== 1) {
-                    alert('Please select all the answers before submitting.');
+                if (answers.length < 1) {
+                    alert('Please select at least one answer before submitting.');
                     return;
                 }
 
