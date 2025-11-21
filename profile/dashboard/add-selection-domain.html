@@ -53,90 +53,72 @@
                     <img src="/images/favicon.svg" alt="" class="logo logo-sm" />
                 </a>
             </div>
+
             <div class="navbar-content">
                 <ul class="nxl-navbar">
                     <li class="nxl-item nxl-caption">
                         <label>Navigation</label>
                     </li>
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">ADD COURSE DETAILS</span><span class="nxl-arrow"><i
-                                    class="feather-chevron-right"></i></span>
+
+                    <!-- PASSWORD PROTECTED DROPDOWN -->
+                    <li class="nxl-item nxl-hasmenu" id="protectedDropdown">
+                        <a href="javascript:void(0);" class="nxl-link protected-menu-trigger" id="protectedTrigger">
+                            <span class="nxl-micon"><i class="feather-upload"></i></span>
+                            <span class="nxl-mtext">ADD COURSE DETAILS</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a>
-                            </li>
 
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
+                        <!-- hidden by default -->
+                        <ul class="nxl-submenu protected-submenu" style="display: none;">
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
                             </li>
-
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
                             </li>
-
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION QUESTIONS</a>
-                            </li>
-                            
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION
+                                    QUESTIONS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
-
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
-                                    COURSE</a>
-                            </li>
-
+                                    COURSE</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
-                            </li>
-
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
-                            </li>
-
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
-                                    DOMAIN</a>
-                            </li>
-
+                                    DOMAIN</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
-                                    COURSE</a>
-                            </li>
-
+                                    COURSE</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
-                            </li>
-
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
-                            </li>
-
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
                         </ul>
                     </li>
+
+                    <!-- OTHER MENU ITEMS UNCHANGED -->
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">TEAM MANAGER</span><span class="nxl-arrow"><i
-                                    class="feather-chevron-right"></i></span>
+                            <span class="nxl-mtext">TEAM MANAGER</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
+
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">MY
-                                    TARGETS</a>
-                            </li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a>
-                            </li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a>
-                            </li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a>
-                            </li>
+                                    TARGETS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li> -->
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a>
-                            </li>
-
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
-                            </li> -->
-
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li>
                         </ul>
                     </li>
+
                     <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-settings"></i></span>
@@ -144,20 +126,7 @@
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                     </li>
-                    <!-- Admin Page Link (Hidden by Default) -->
-                    <!-- <li class="nxl-item nxl-hasmenu" id="adminPageLink" style="display: none;">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-settings"></i></span>
-                            <span class="nxl-mtext">Admin Page</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="admin.html">Dashboard Analysis - Edit</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="business-analysis-edit.html">Business Analysis - Edit</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="analysis-edit.html">Performance Analysis - Edit</a></li>
-                        </ul>
-                    </li> -->
                 </ul>
-
                 <div class="card text-center">
                     <div class="card-body">
                         <i class="feather-briefcase fs-4 text-dark"></i>
@@ -462,6 +431,7 @@
                     success: function (res) {
                         console.log("Logout success:", res);
                         sessionStorage.removeItem("user_id");
+                        sessionStorage.removeItem("coursePasswordVerified");
 
                         Swal.fire({
                             icon: "success",
@@ -487,6 +457,105 @@
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
 
 </body>
 

@@ -118,95 +118,72 @@
                     <img src="/images/favicon.svg" alt="" class="logo logo-sm" />
                 </a>
             </div>
+
             <div class="navbar-content">
                 <ul class="nxl-navbar">
                     <li class="nxl-item nxl-caption">
                         <label>Navigation</label>
                     </li>
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">ADD COURSE DETAILS</span><span class="nxl-arrow"><i
-                                    class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a>
-                            </li>
 
+                    <!-- PASSWORD PROTECTED DROPDOWN -->
+                    <li class="nxl-item nxl-hasmenu" id="protectedDropdown">
+                        <a href="javascript:void(0);" class="nxl-link protected-menu-trigger" id="protectedTrigger">
+                            <span class="nxl-micon"><i class="feather-upload"></i></span>
+                            <span class="nxl-mtext">ADD COURSE DETAILS</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <!-- hidden by default -->
+                        <ul class="nxl-submenu protected-submenu" style="display: none;">
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a></li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
                             </li>
-
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
                             </li>
-
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION
-                                    QUESTIONS</a>
-                            </li>
-
+                                    QUESTIONS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
                             </li>
-
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
-                                    COURSE</a>
-                            </li>
-
+                                    COURSE</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a>
-                            </li>
-
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a>
-                            </li>
-
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
-                                    DOMAIN</a>
-                            </li>
-
+                                    DOMAIN</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
-                                    COURSE</a>
-                            </li>
-
+                                    COURSE</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a>
-                            </li>
-
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a>
-                            </li>
-
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
                         </ul>
                     </li>
+
+                    <!-- OTHER MENU ITEMS UNCHANGED -->
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">TEAM MANAGER</span><span class="nxl-arrow"><i
-                                    class="feather-chevron-right"></i></span>
+                            <span class="nxl-mtext">TEAM MANAGER</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
+
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">MY
-                                    TARGETS</a>
-                            </li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a>
-                            </li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a>
-                            </li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a>
-                            </li>
+                                    TARGETS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li> -->
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a>
-                            </li>
-
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD COURSE</a>
-                            </li> -->
-
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="website-creation-details.html">Website Creation Details</a></li> -->
+                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li>
                         </ul>
                     </li>
+
                     <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-settings"></i></span>
@@ -214,20 +191,7 @@
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                     </li>
-                    <!-- Admin Page Link (Hidden by Default) -->
-                    <!-- <li class="nxl-item nxl-hasmenu" id="adminPageLink" style="display: none;">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-settings"></i></span>
-                            <span class="nxl-mtext">Admin Page</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="admin.html">Dashboard Analysis - Edit</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="business-analysis-edit.html">Business Analysis - Edit</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="analysis-edit.html">Performance Analysis - Edit</a></li>
-                        </ul>
-                    </li> -->
                 </ul>
-
                 <div class="card text-center">
                     <div class="card-body">
                         <i class="feather-briefcase fs-4 text-dark"></i>
@@ -291,6 +255,9 @@
 
                     <!--! [End] nxl-lavel-mega-menu-wrapper !-->
                 </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">TOTAL STUDENTS TILL NOW: <span id="totalStudents">0</span>🎉</h5>
+                </div>
                 <!--! [End] nxl-lavel-mega-menu !-->
             </div>
             <!--! [End] Header Left !-->
@@ -311,13 +278,13 @@
                     <input type="text" id="dateFilter" placeholder="Select date or range" class="form-control" />
 
                     <!-- Dark/Light Theme Toggle -->
-                    <div class="nxl-h-item dark-light-theme">
-                        <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
+                    <div class="nxl-h-item dark-light-theme" style="margin-right: 3%;">
+                        <!-- <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
                             <i class="feather-moon"></i>
                         </a>
                         <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
                             <i class="feather-sun"></i>
-                        </a>
+                        </a> -->
                     </div>
 
                     <!-- User Dropdown -->
@@ -386,6 +353,131 @@
                                     </div>
                                 </div>
 
+                                <div class="month-dropdown d-flex align-items-center gap-2">
+                                    <select id="monthSelect" class="form-select form-select-sm"
+                                        style="margin-right:6px;">
+                                    </select>
+
+                                    <select id="yearSelect" class="form-select form-select-sm">
+
+                                    </select>
+                                </div>
+
+                                <style>
+                                    .card-header-action {
+                                        gap: 10px;
+                                    }
+
+                                    .month-dropdown select {
+                                        min-width: 160px;
+                                        border-radius: 8px;
+                                        border: 1px solid #ddd;
+                                        background-color: #f8f9fa;
+                                        padding: 4px 8px;
+                                        font-size: 14px;
+                                        transition: all 0.2s ease-in-out;
+                                    }
+
+                                    .month-dropdown select:hover {
+                                        border-color: #0d6efd;
+                                        background-color: #fff;
+                                        box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
+                                    }
+
+                                    .search-bar .input-group {
+                                        border: 1px solid #ddd;
+                                        border-radius: 8px;
+                                        overflow: hidden;
+                                        transition: box-shadow 0.2s;
+                                    }
+
+                                    .search-bar .input-group:focus-within {
+                                        box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
+                                        border-color: #0d6efd;
+                                    }
+
+                                    .search-bar input {
+                                        border: none;
+                                        outline: none;
+                                        font-size: 14px;
+                                    }
+
+
+                                    @media (max-width: 576px) {
+                                        .card-header-action {
+                                            display: flex;
+                                            flex-direction: column;
+                                            align-items: stretch;
+                                            gap: 8px;
+                                            padding: 8px 12px;
+                                            box-sizing: border-box;
+                                            width: 100%;
+                                        }
+
+                                        .card-header-action .month-dropdown,
+                                        .card-header-action .search-bar,
+                                        .card-header-action .btn-group {
+                                            width: 100% !important;
+                                            min-width: 0 !important;
+                                            display: block;
+                                        }
+
+                                        .month-dropdown select,
+                                        .card-header-action select,
+                                        .search-bar select {
+                                            width: 100% !important;
+                                            min-width: 0 !important;
+                                            padding: 8px 10px;
+                                            font-size: 14px;
+                                            border-radius: 8px;
+                                            box-sizing: border-box;
+                                            -webkit-appearance: none;
+                                            appearance: none;
+                                            background-position: right 10px center;
+                                            background-repeat: no-repeat;
+                                        }
+
+                                        .search-bar,
+                                        .search-bar .input-group {
+                                            width: 100% !important;
+                                            min-width: 0 !important;
+                                            display: flex;
+                                        }
+
+                                        .search-bar input {
+                                            width: 100%;
+                                            padding: 8px 10px;
+                                            font-size: 14px;
+                                        }
+
+                                        .btn-group {
+                                            display: flex;
+                                            gap: 8px;
+                                            justify-content: flex-start;
+                                            flex-wrap: wrap;
+                                        }
+
+                                        .card .card-body {
+                                            padding-left: 8px;
+                                            padding-right: 8px;
+                                            overflow-x: hidden;
+                                        }
+
+                                        .page-wrapper,
+                                        .main-content,
+                                        .content-area {
+                                            padding-left: 8px !important;
+                                            padding-right: 8px !important;
+                                        }
+
+                                        #leadsTable,
+                                        #leadsTable th,
+                                        #leadsTable td {
+                                            font-size: 13px;
+                                        }
+                                    }
+                                </style>
+
                                 <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                     <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                         <i class="feather-maximize maximize" style="font-size: 15px;"></i>
@@ -403,6 +495,7 @@
                                             <th>NAME</th>
                                             <th>MOBILE NUMBER</th>
                                             <th>REGISTRATION DATE</th>
+                                            <th>OFFER MESSAGE</th>
                                             <th>SELECTION STATUS</th>
                                             <th>EMAIL</th>
                                             <th>COLLEGE NAME</th>
@@ -682,19 +775,72 @@
             success: function (response1) {
                 console.log("offerletter:", response1);
 
-                // window.location.reload();
-
             }
         });
 
+        function getMonthName(monthIndex) {
+            return new Date(2020, monthIndex, 1).toLocaleString('en-GB', { month: 'long' });
+        }
+
+        function initMonthYearSelectors() {
+            const monthSelect = $("#monthSelect");
+            const yearSelect = $("#yearSelect");
+
+            monthSelect.empty();
+            for (let m = 0; m < 12; m++) {
+                const monthName = getMonthName(m);
+                monthSelect.append(`<option value="${monthName}">${monthName}</option>`);
+            }
+
+            yearSelect.empty();
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const startYear = currentYear - 5;
+            const endYear = currentYear + 2;
+            for (let y = startYear; y <= endYear; y++) {
+                yearSelect.append(`<option value="${y}">${y}</option>`);
+            }
+
+            const defaultMonth = getMonthName(now.getMonth());
+            monthSelect.val(defaultMonth);
+            yearSelect.val(String(currentYear));
+
+            monthSelect.off("change").on("change", function () {
+                loadTableData();
+            });
+            yearSelect.off("change").on("change", function () {
+                loadTableData();
+            });
+        }
+
+        function getSelectedMonthYear() {
+            const month = $("#monthSelect").val();
+            const year = $("#yearSelect").val();
+            if (!month || !year) return "";
+            return `${month} ${year}`;
+        }
+
         function loadTableData() {
+
+            const baseUrl = `https://eduroom.in/api/v1/status/listall`;
+            const monthYear = getSelectedMonthYear();
+            let url = baseUrl;
+            if (monthYear) {
+                url = `${baseUrl}?monthYear=${encodeURIComponent(monthYear)}`;
+            }
+            console.log("Calling API URL:", url);
+
             $.ajax({
-                url: `https://eduroom.in/api/v1/status/listall`,
+                url: url,
                 method: "GET",
                 success: function (res) {
-                    console.log("offerletter users:", res);
+                    console.log("registrations response:", res);
 
                     if (res.success && res.data) {
+                        var totalStudents = res.totalStudents
+                        $("#totalStudents").text(totalStudents);
+                        console.log("total students:", totalStudents);
+
                         if (res.teamManagers && res.teamManagers.list) {
                             managerList = res.teamManagers.list.map(m => ({
                                 id: m.managerId,
@@ -719,7 +865,6 @@
                                 duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
                                 startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
                                 estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
-                                // offerLetter: row.offerLetterFile ? `<a href="${row.offerLetterFile}" target="_blank">View</a>` : "",
                                 courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
                                 subscriptionWallet: row.subscriptionWallet,
                                 businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
@@ -732,19 +877,36 @@
                                 teamManager: row.teamManager,
                                 createdAt: row.createdAt,
                                 referralCode: row.referralCode || "",
-                                selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No"
+                                selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
+                                offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
                             }));
 
                         $("#collegeCount").text(tableData.length);
 
                         filteredData = [...tableData];
+                        currentPage = 1;
+                        renderTable();
+                        renderPagination();
+                        renderColumnFilters();
+                    } else {
+                        tableData = [];
+                        filteredData = [];
+                        $("#collegeCount").text(0);
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
                     }
+                },
+                error: function (xhr, status, err) {
+                    console.error("Error loading listall:", status, err);
                 }
             });
         }
+
+        $(document).ready(function () {
+            initMonthYearSelectors();
+            loadTableData();
+        });
 
         function formatDate(dateStr) {
             if (!dateStr) return "";
@@ -815,6 +977,7 @@
                                 </a>
                             </td>
                             <td>${escapeHtml(row.registeredAt || '')}</td>
+                            <td>${escapeHtml(row.offerMessageExists || '')}</td>
                             <td>${escapeHtml(row.selected || 'No')}</td>
                             <td>${escapeHtml(row.email || '')}</td>
                             <td>${escapeHtml(row.collegeName || '')}</td>
@@ -848,7 +1011,7 @@
         }
 
         const columnKeys = [
-            "sno", "name", "phoneNumber", "registeredAt", "selected", "email", "collegeName",
+            "sno", "name", "phoneNumber", "registeredAt", "offerMessageExists", "selected", "email", "collegeName",
             "domain", "course", "duration", "startDate", "estEndDate",
             "courseStatus", "referralCode", "subscriptionWallet", "businessStatus", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
@@ -1058,6 +1221,7 @@
                 "Name",
                 "Phone Number",
                 "Registration Date",
+                "Offer Message",
                 "Selected",
                 "Email",
                 "College Name",
@@ -1088,6 +1252,7 @@
                     <td>${row.name}</td>
                     <td>${row.phoneNumber}</td>
                     <td>${row.registeredAt}</td>
+                    <td>${row.offerMessageExists}</td>
                     <td>${row.selected || 'No'}</td>
                     <td>${row.email}</td>
                     <td>${row.collegeName}</td>
@@ -1123,6 +1288,7 @@
                 "Name",
                 "Phone Number",
                 "Registration Date",
+                "Offer Message",
                 "Selected",
                 "Email",
                 "College Name",
@@ -1152,6 +1318,7 @@
                     row.sno,
                     row.name,
                     row.phoneNumber,
+                    row.offerMessageExists,
                     row.registeredAt,
                     row.selected || 'No',
                     row.email,
@@ -1230,6 +1397,7 @@
                     success: function (res) {
                         console.log("Logout success:", res);
                         sessionStorage.removeItem("user_id");
+                        sessionStorage.removeItem("coursePasswordVerified");
 
                         Swal.fire({
                             icon: "success",
@@ -1255,6 +1423,105 @@
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
 
 </body>
 
