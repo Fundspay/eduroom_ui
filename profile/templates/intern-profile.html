@@ -370,6 +370,14 @@
             display: inline-block;
             margin-right: 8px;
         }
+
+        .swal2-validation-message {
+            background: #e03131 !important;
+            color: white !important;
+            padding: 10px 14px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+        }
     </style>
 
     <!--! ================================================================ !-->
@@ -463,6 +471,11 @@
             const container = $("#internshipCardsContainer");
             const urlParams = new URLSearchParams(window.location.search);
             const urlUserId = urlParams.get("userId");
+
+            let editPassword = null;
+            $.getJSON("/config.json", function (cfg) {
+                editPassword = cfg.editPassword || null;
+            });
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/${urlUserId}`,
@@ -572,7 +585,7 @@
                                             </button>
 
                                             ${offerMessage && offerMessage.trim() !== ""
-                                            ? `
+                                    ? `
                                                 <div class="col-md-12 mt-3">
                                                     <div class="card bg-blue text-white border-warning border-dashed" style="border-radius: 8px;">
                                                         <div class="card-body text-start py-2 px-3">
@@ -584,8 +597,8 @@
                                                     </div>
                                                 </div>
                                                 `
-                                            : ""
-                                        }
+                                    : ""
+                                }
                                         </div>
                                     </div>
                                 </div>
@@ -595,6 +608,68 @@
 
                             $card.find(".editBtn").on("click", function () {
                                 const courseId = $(this).data("courseid");
+
+                                if (!editPassword) {
+                                    Swal.fire("Error", "Password config not loaded!", "error");
+                                    return;
+                                }
+
+                                Swal.fire({
+                                    title: `<span style="font-size:22px; font-weight:700; 
+                                                background: linear-gradient(135deg, #4c6ef5, #7950f2);
+                                                -webkit-background-clip: text;
+                                                color: transparent;">
+                                                Admin Verification
+                                            </span>`,
+                                    html: `
+                                        <div style="
+                                            padding: 0px;
+                                            margin-top: 0px;
+                                            backdrop-filter: blur(12px);
+                                        ">
+                                            <input id="adminPwdInput" type="password" 
+                                                class="swal2-input" 
+                                                placeholder="Enter admin password"
+                                                style="
+                                                    margin-top: 0px;
+                                                    padding: 5px;
+                                                    font-size: 16px;
+                                                    border-radius: 10px;
+                                                    border: 1px solid #d0d0ff;
+                                                ">
+                                        </div>
+                                    `,
+                                    icon: "info",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Verify",
+                                    cancelButtonText: "Cancel",
+
+                                    customClass: {
+                                        popup: "swal2-premium-popup",
+                                        confirmButton: "swal2-premium-confirm",
+                                        cancelButton: "swal2-premium-cancel"
+                                    },
+
+                                    preConfirm: () => {
+                                        const pwd = document.getElementById("adminPwdInput").value;
+
+                                        if (!pwd) {
+                                            Swal.showValidationMessage("Password is required");
+                                            return false;
+                                        }
+                                        if (pwd !== editPassword) {
+                                            Swal.showValidationMessage("We have noticed an unwanted activity from your IP address. Your account may be suspended if you continue to enter the wrong password.");
+                                            return false;
+                                        }
+                                    }
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        openEditForm(courseId, $(this));
+                                    }
+                                });
+                            });
+
+                            function openEditForm(courseId, btnRef) {
 
                                 Swal.fire({
                                     title: "Edit Business Target",
@@ -706,9 +781,8 @@
                                             businessTarget: Number(businessTarget),
                                             offerMessage: offerMessage
                                         };
-                                        // console.log("Payload for update:", payload);
+
                                         var updateUrl = `https://eduroom.in/api/v1/user/user/business-info/${urlUserId}`;
-                                        // console.log("Update URL:", updateUrl);
 
                                         $.ajax({
                                             url: updateUrl,
@@ -716,7 +790,6 @@
                                             contentType: "application/json",
                                             data: JSON.stringify(payload),
                                             success: function (response) {
-                                                // console.log("Update response:", response);
                                                 Swal.close();
                                                 if (response.success) {
                                                     Swal.fire("Success", response.message, "success");
@@ -731,7 +804,7 @@
                                         });
                                     }
                                 });
-                            });
+                            }
 
                             container.append($card);
                         });
