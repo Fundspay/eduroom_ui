@@ -40,7 +40,7 @@
             const table = document.getElementById("leadsTable");
             if (!table) return;
 
-            const stickyCols = 4;
+            const stickyCols = 3;
             let leftOffsets = [];
 
             let total = 0;
@@ -771,7 +771,7 @@
                                     <table class="table table-bordered table-hover mb-0" id="leadsTable">
                                         <thead class="table-light">
                                             <tr class="border-b">
-                                                <th>Delete</th>
+                                                <!-- <th>Delete</th> -->
                                                 <th>SR</th>
                                                 <th>NAME OF STUDENT</th>
                                                 <th>MOBILE NUMBER</th>
@@ -1000,72 +1000,72 @@
                         }
 
                         /* Columns 7 to 13 – Soft Amber */
+                        #leadsTable th:nth-child(8),
                         #leadsTable th:nth-child(9),
                         #leadsTable th:nth-child(10),
                         #leadsTable th:nth-child(11),
                         #leadsTable th:nth-child(12),
                         #leadsTable th:nth-child(13),
-                        #leadsTable th:nth-child(14),
-                        #leadsTable th:nth-child(15) {
+                        #leadsTable th:nth-child(14) {
                             background-color: #f3e8ff !important;
                             /* Light Purple */
                             color: #4b1d79;
                         }
 
+                        #leadsTable th:nth-child(15),
                         #leadsTable th:nth-child(16),
-                        #leadsTable th:nth-child(17),
-                        #leadsTable th:nth-child(18) {
+                        #leadsTable th:nth-child(17) {
                             background-color: #fff8e1 !important;
                             /* Soft Amber */
                             color: #b36b00;
                         }
 
                         /* Columns 16 & 17 – Teal tone */
+                        #leadsTable th:nth-child(18),
                         #leadsTable th:nth-child(19),
-                        #leadsTable th:nth-child(20),
-                        #leadsTable th:nth-child(21) {
+                        #leadsTable th:nth-child(20) {
                             background-color: #e0fffa !important;
                             /* Light Teal */
                             color: #0b4f47;
                         }
 
                         /* Columns 18 & 19 – Gray tone */
+                        #leadsTable th:nth-child(21),
                         #leadsTable th:nth-child(22),
-                        #leadsTable th:nth-child(23),
-                        #leadsTable th:nth-child(24) {
+                        #leadsTable th:nth-child(23) {
                             background-color: #d6d8dc !important;
                             /* Soft Gray */
                             color: #374151;
                         }
 
+                        #leadsTable th:nth-child(24),
                         #leadsTable th:nth-child(25),
-                        #leadsTable th:nth-child(26),
-                        #leadsTable th:nth-child(27) {
+                        #leadsTable th:nth-child(26) {
                             background-color: #fff0e1 !important;
                             /* Orange */
                             color: #7c2d12;
                         }
 
+                        #leadsTable th:nth-child(27),
                         #leadsTable th:nth-child(28),
-                        #leadsTable th:nth-child(29),
-                        #leadsTable th:nth-child(30) {
+                        #leadsTable th:nth-child(29) {
                             background-color: #e0f2ff !important;
                             /* Blue */
                             color: #0c4a6e;
                         }
 
+                        #leadsTable th:nth-child(30),
                         #leadsTable th:nth-child(31),
-                        #leadsTable th:nth-child(32),
-                        #leadsTable th:nth-child(33) {
+                        #leadsTable th:nth-child(32) {
                             background-color: #dbffdd !important;
                             /* Yellow */
                             color: #127128;
                         }
 
                         /* Optional: for C1 section */
+                        #leadsTable th:nth-child(33),
                         #leadsTable th:nth-child(34),
-                        #leadsTable th:nth-child(35),
-                        #leadsTable th:nth-child(36) {
+                        #leadsTable th:nth-child(35) {
                             background-color: #ffe5e5 !important;
                             /* Red */
                             color: #7f1d1d;
@@ -1229,19 +1229,20 @@
                     </style>
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="card-title" id="reSheetTitle2">
-                            INDIVIDUAL ANALYTICS
+                            CATEGORICAL ANALYTICS
                         </h5>
                     </div>
 
                     <div class="row g-3">
-                        <div class="col-md-6">
-                            <a href="tables/resume_count.html" class="text-decoration-none">
-                                <div class="card bg-success text-white h-100">
+                        <!-- Not Working -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=not working" class="text-decoration-none">
+                                <div class="card bg-danger text-white h-100">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <p class="m-0">Resumes:</p>
-                                                <h4 id="totalResumes3" style="color: white;">0</h4>
+                                                <p class="m-0">Not Working:</p>
+                                                <h4 style="color: white;">0</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -1249,15 +1250,111 @@
                             </a>
                         </div>
 
-                        <!-- Card 2: Interviews -->
-                        <div class="col-md-6">
-                            <a href="tables/interviews_scheduled.html" class="text-decoration-none">
+                        <!-- Starter -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Starter" class="text-decoration-none">
+                                <div class="card bg-danger text-white h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="m-0">Starter:</p>
+                                                <h4 style="color: white;">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Basic -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Basic" class="text-decoration-none">
                                 <div class="card bg-warning text-white h-100">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <p class="m-0">Registrations achieved:</p>
-                                                <h4 id="totalInterviews3" style="color: white;">0</h4>
+                                                <p class="m-0">Basic:</p>
+                                                <h4 style="color: white;">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Bronze -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Bronze" class="text-decoration-none">
+                                <div class="card bg-warning text-white h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="m-0">Bronze:</p>
+                                                <h4 style="color: white;">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Silver -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Silver" class="text-decoration-none">
+                                <div class="card bg-blue text-white h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="m-0">Silver:</p>
+                                                <h4 style="color: white;">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Gold -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Gold" class="text-decoration-none">
+                                <div class="card bg-blue text-white h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="m-0">Gold:</p>
+                                                <h4 style="color: white;">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Platinum -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Platinum" class="text-decoration-none">
+                                <div class="card bg-success text-white h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="m-0">Platinum:</p>
+                                                <h4 style="color: white;">0</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Diamond -->
+                        <div class="col-md-3">
+                            <a href="/profile/dashboard/bd-tables/bd-category-table.html?category=Diamond" class="text-decoration-none">
+                                <div class="card bg-success text-white h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="m-0">Diamond:</p>
+                                                <h4 style="color: white;">0</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -1275,11 +1372,11 @@
                     </script>
 
                 </div>
-                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
+                <!-- <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;"> -->
 
-                <div class="col-12 flex-fill">
+                <!-- <div class="col-12 flex-fill">
                     <div class="card stretch stretch-full">
-                        <!-- Header -->
+
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">FUTURE DETAILS(Total Count: <span id="collegeCount3">0</span>)
@@ -1299,7 +1396,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Expand -->
                                 <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                     <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                         <i class="feather-maximize maximize" style="font-size: 15px;"></i>
@@ -1308,7 +1404,6 @@
                             </div>
                         </div>
 
-                        <!-- Body -->
                         <div class="card-body custom-card-action p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="leadsTable3">
@@ -1338,8 +1433,6 @@
                                             <th>Date of interview</th>
                                             <th>Call Status</th>
                                             <th>Alloted to</th>
-                                            <!-- <th>MAIL SENT ON</th>
-                                                    <th>Send Resume</th> -->
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -1347,7 +1440,6 @@
                             </div>
                         </div>
 
-                        <!-- Footer -->
                         <div class="card-footer">
                             <div class="d-flex justify-content-between align-items-center">
                                 <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
@@ -1363,7 +1455,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <style>
                     #dateRangePicker2::placeholder {
@@ -1785,14 +1877,14 @@
         };
 
         const categoryColors = {
-            "not working": "#FF0000", // Red
-            "Starter": "#FF4000", // Red-Orange
-            "Basic": "#FF8000", // Orange
-            "Bronze": "#FFBF00", // Amber
-            "Silver": "#FFFF00", // Yellow
-            "Gold": "#BFFF00", // Yellow-Green
-            "Diamond": "#80FF00", // Light Green
-            "Platinum": "#00FF00" // Green
+            "not working": "#FF6666", // Red
+            "Starter": "#FF9933", // Red-Orange
+            "Basic": "#FFB733", // Orange
+            "Bronze": "#FFD633", // Amber
+            "Silver": "#FFFF66", // Yellow
+            "Gold": "#D9FF66", // Yellow-Green
+            "Diamond": "#99FF66", // Light Green
+            "Platinum": "#66FF66" // Green
         };
 
         let tableData = [];
@@ -1914,11 +2006,6 @@
                 const rowColor = getRowColor(category);
 
                 let tr = `<tr data-id="${row.id}" data-bdsheet-id="${row.bdSheetId || ''}" style="background-color: ${rowColor};">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
                 <td>${row.sno}</td>
                 <td>${row.studentName || ""}</td>
                 <td>${row.mobileNumber || ""}</td>
@@ -1965,7 +2052,6 @@
         }
 
         const columnKeys = [
-            "actions",
             "sno",
             "studentName",
             "mobileNumber",
@@ -2426,1664 +2512,6 @@
         $(document).ready(function () {
             loadTableData();
             setStickyColumns();
-        });
-    </script>
-
-    <script>
-        const teamManagerId2 = sessionStorage.getItem("user_id");
-        const managerName2 = sessionStorage.getItem("userName");
-        console.log("managerName2:", managerName2);
-        console.log(teamManagerId2);
-
-        const apiBase2 = "https://eduroom.in/api/v1/studentresume";
-
-        const dropdowns2 = {
-            domain: ["Marketing", "Finance", "HR", "Operations", "Others"],
-            internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
-            course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
-            // new static dropdowns
-            finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
-            callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
-            // followupBy / alloted will be set from response.managers below
-        };
-
-        const colorMap2 = {
-            internshipType: {
-                "fulltime": "#28a745",
-                "sip": "#0d6efd",
-                "liveproject": "#ffc107",
-                "wip": "#0d6efd",
-                "others": "#adb5bd"
-            }
-        };
-
-        let tableData2 = [];
-        let filteredData2 = [];
-        const rowsPerPage2 = 10;
-        let currentPage2 = 1;
-
-        function loadTableData2() {
-            $.ajax({
-                url: `https://eduroom.in/api/v1/studentresume/list/user/${teamManagerId}`,
-                method: "GET",
-                success: function (res) {
-                    console.log("student resumes2:", res);
-                    if (res.success && res.data) {
-                        if (res.managers && Array.isArray(res.managers)) {
-                            // populate both followupBy and alloted lists from managers
-                            dropdowns2.followupBy = res.managers.map(u => u.name);
-                            dropdowns2.alloted = res.managers.map(u => u.name);
-                        }
-                        let maxPayments2 = 0;
-
-                        tableData2 = res.data.map((row, index) => {
-                            const dateRaw2 = row.dateOfRegistration || "";
-                            let dateOnly2 = "", timeOnly2 = "";
-                            if (dateRaw2) {
-                                const date2 = new Date(dateRaw2);
-                                if (!isNaN(date2)) {
-                                    dateOnly2 = date2.toLocaleDateString("en-GB", {
-                                        day: "numeric",
-                                        month: "long",
-                                        year: "numeric"
-                                    });
-                                    let hours2 = date2.getHours();
-                                    let minutes2 = date2.getMinutes().toString().padStart(2, "0");
-                                    const ampm2 = hours2 >= 12 ? "PM" : "AM";
-                                    hours2 = hours2 % 12 || 12;
-                                    timeOnly2 = `${hours2}:${minutes2} ${ampm2}`;
-                                }
-                            }
-
-                            // const payments2 = (row.user && Array.isArray(row.user.FundsAudits))
-                            //     ? row.user.FundsAudits.map(f => f.dateOfPayment)
-                            //     : [];
-
-                            // if (payments2.length > maxPayments2) maxPayments2 = payments2.length;
-
-                            // NEW fields: safely read from row or default
-                            const knowledgeScore2 = row.knowledgeScore ?? "";
-                            const approachScore2 = row.approachScore ?? "";
-                            const skillsScore2 = row.skillsScore ?? "";
-                            const otherScore2 = row.otherScore ?? "";
-                            const totalAverageScore2 = row.totalAverageScore ?? "";
-                            const finalSelectionStatus2 = row.finalSelectionStatus ?? "";
-                            const comment2 = row.comment ?? "";
-                            const Dateofonboarding2 = row.Dateofonboarding ?? "";
-                            const callStatus2 = row.callStatus ?? "";
-                            const alloted2 = row.alloted ?? "";
-
-                            return {
-                                sno: index + 1,
-                                id: row.id,
-                                resumeDate: row.resumeDate || "",
-                                collegeName: row.collegeName || "",
-                                course: row.course || "",
-                                internshipType: row.internshipType || "",
-                                followupBy: row.followupBy || "",
-                                studentName: row.studentName || "",
-                                mobileNumber: row.mobileNumber || "",
-                                emailId: row.emailId || "",
-                                domain: row.domain || "",
-                                isRegistered: row.isRegistered,
-                                dateOfRegistration: row.dateOfRegistration || "",
-                                dateOfRegistrationDate: dateOnly2,
-                                dateOfRegistrationTime: timeOnly2,
-                                mailSentAt: row.mailSentAt || "",
-                                // payments: payments2,
-                                // new fields included in the row object
-                                knowledgeScore: knowledgeScore2,
-                                approachScore: approachScore2,
-                                skillsScore: skillsScore2,
-                                otherScore: otherScore2,
-                                totalAverageScore: totalAverageScore2,
-                                finalSelectionStatus: finalSelectionStatus2,
-                                comment: comment2,
-                                Dateofonboarding: Dateofonboarding2,
-                                callStatus: callStatus2,
-                                alloted: alloted2
-                            };
-                        });
-
-                        window.maxPayments2 = maxPayments2;
-
-                        if (window.maxPayments2 && window.maxPayments2 > 0) {
-                            for (let i = 1; i <= window.maxPayments2; i++) {
-                                columnKeys2.push(`payment${i}`);
-                            }
-                        }
-
-                        $("#collegeCount2").text(tableData2.length);
-
-                        filteredData2 = [...tableData2];
-                        renderTable2();
-                        renderPagination2();
-                        renderColumnFilters2();
-                    }
-                }
-            });
-        }
-
-        function formatDateTime2(dateStr) {
-            if (!dateStr) return "";
-            let date2 = new Date(dateStr);
-            if (isNaN(date2)) return dateStr;
-
-            const options2 = { day: "2-digit", month: "long", year: "numeric" };
-            const datePart2 = date2.toLocaleDateString("en-GB", options2);
-
-            let hours2 = date2.getHours();
-            let minutes2 = date2.getMinutes().toString().padStart(2, "0");
-            const ampm2 = hours2 >= 12 ? "PM" : "AM";
-            hours2 = hours2 % 12 || 12;
-
-            const timePart2 = `${hours2}:${minutes2} ${ampm2}`;
-            return `${datePart2} / ${timePart2}`;
-        }
-
-        function formatTimeHM2(timeStr) {
-            if (!timeStr) return "";
-            const [h2, m2] = timeStr.split(":");
-            let hour2 = parseInt(h2, 10);
-            const min2 = m2;
-            const ampm2 = hour2 >= 12 ? "PM" : "AM";
-            hour2 = hour2 % 12 || 12;
-            return `${hour2}:${min2} ${ampm2}`;
-        }
-
-        function renderTable2() {
-            let tbody2 = $("#leadsTable2 tbody");
-            tbody2.empty();
-
-            const start2 = (currentPage2 - 1) * rowsPerPage2;
-            const end2 = start2 + rowsPerPage2;
-            const rows2 = filteredData2.slice(start2, end2);
-
-            rows2.forEach((row) => {
-                let tr2 = `<tr data-id="${row.id}">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record2" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-                ${makeCell2("studentName", row.studentName || "")}
-                <td>
-                    ${row.isRegistered
-                        ? '<span class="badge bg-soft-success text-success">Yes</span>'
-                        : '<span class="badge bg-soft-danger text-danger">No</span>'}
-                </td>
-                <td>${row.dateOfRegistrationDate || ""}</td>
-                <td>${row.dateOfRegistrationTime || ""}</td>
-                ${makeDateCell2("resumeDate", row.resumeDate || "")}
-                ${makeCell2("collegeName", row.collegeName || "")}
-                ${makeDropdownCell2("course", row.course || "", null, dropdowns2.course)}
-                ${makeDropdownCell2("internshipType", row.internshipType || "", null, dropdowns2.internshipType)}
-                ${makeDropdownCell2("followupBy", row.followupBy || "", null, dropdowns2.followupBy)}
-                ${makeCell2("mobileNumber", row.mobileNumber || "")}
-                ${makeCell2("emailId", row.emailId || "")}
-                ${makeDropdownCell2("domain", row.domain || "", null, dropdowns2.domain)}
-                `;
-
-                // NEW score inputs (use number inputs)
-                tr2 += makeNumberCell2("knowledgeScore", row.knowledgeScore || "");
-                tr2 += makeNumberCell2("approachScore", row.approachScore || "");
-                tr2 += makeNumberCell2("skillsScore", row.skillsScore || "");
-                tr2 += makeNumberCell2("otherScore", row.otherScore || "");
-                tr2 += makeColoredScoreCell2("totalAverageScore", row.totalAverageScore || "");
-
-                // finalSelectionStatus - dropdown (Yes/No)
-                tr2 += makeDropdownCell2("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns2.finalSelectionStatus);
-
-                // comment - free text input
-                tr2 += makeCell2("comment", row.comment || "");
-
-                // Dateofonboarding - date picker
-                tr2 += makeDateCell2("Dateofonboarding", row.Dateofonboarding || "");
-
-                // callStatus - dropdown
-                tr2 += makeDropdownCell2("callStatus", row.callStatus || "", null, dropdowns2.callStatus);
-
-                // alloted - dropdown from managers
-                tr2 += makeDropdownCell2("alloted", row.alloted || "", null, dropdowns2.alloted || []);
-
-                // const payments = row.payments || [];
-                // for (let i = 0; i < (window.maxPayments2 || 0); i++) {
-                //     let paymentDate = payments[i] ? formatDate2(payments[i]) : "";
-                //     tr2 += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
-                // }
-
-                tr2 += `</tr>`;
-                tbody2.append(tr2);
-
-            });
-
-            attachCellEvents2();
-            attachSendMailEvents2();
-            setStickyColumns2 && setStickyColumns2();
-        }
-
-        const columnKeys2 = [
-            "actions",
-            "sno",
-            "studentName",
-            "isRegistered",
-            "dateOfRegistrationDate",
-            "dateOfRegistrationTime",
-            "resumeDate",
-            "collegeName",
-            "course",
-            "internshipType",
-            "followupBy",
-            "mobileNumber",
-            "emailId",
-            "domain",
-            // new columns
-            "knowledgeScore",
-            "approachScore",
-            "skillsScore",
-            "otherScore",
-            "totalAverageScore",
-            "finalSelectionStatus",
-            "comment",
-            "Dateofonboarding",
-            "callStatus",
-            "alloted"
-        ];
-
-        // if (window.maxPayments2 && window.maxPayments2 > 0) {
-        //     for (let i = 1; i <= window.maxPayments2; i++) {
-        //         columnKeys2.push(`payment${i}`);
-        //     }
-        // }
-
-        function renderPagination2() {
-            const totalPages2 = Math.ceil(filteredData2.length / rowsPerPage2);
-            const pagination2 = $("#pagination2");
-            pagination2.empty();
-
-            const visiblePageCount2 = 3;
-            let startPage2 = Math.max(currentPage2 - 1, 1);
-            let endPage2 = startPage2 + visiblePageCount2 - 1;
-            if (endPage2 > totalPages2) {
-                endPage2 = totalPages2;
-                startPage2 = Math.max(endPage2 - visiblePageCount2 + 1, 1);
-            }
-
-            const prevDisabled2 = currentPage2 === 1 ? 'disabled' : '';
-            const nextDisabled2 = currentPage2 === totalPages2 ? 'disabled' : '';
-
-            pagination2.append(`<li><a href="javascript:void(0);" class="${prevDisabled2}" onclick="changePage2(${currentPage2 - 1})">&laquo;</a></li>`);
-
-            for (let i = startPage2; i <= endPage2; i++) {
-                const active2 = i === currentPage2 ? "active" : "";
-                pagination2.append(`<li><a href="javascript:void(0);" class="${active2}" onclick="changePage2(${i})">${i}</a></li>`);
-            }
-
-            pagination2.append(`<li><a href="javascript:void(0);" class="${nextDisabled2}" onclick="changePage2(${currentPage2 + 1})">&raquo;</a></li>`);
-        }
-
-        window.changePage2 = function (page2) {
-            const totalPages2 = Math.ceil(filteredData2.length / rowsPerPage2);
-            if (page2 < 1 || page2 > totalPages2) return;
-            currentPage2 = page2;
-            renderTable2();
-            renderPagination2();
-        };
-
-        function renderColumnFilters2() {
-            const headerRow2 = $("#leadsTable2 thead tr.filters");
-            headerRow2.remove();
-
-            let filterRow2 = "<tr class='filters'>";
-            columnKeys2.forEach((key, i) => {
-                if (key === "actions" || key === "sno" || key === "sendMail") {
-                    filterRow2 += "<th></th>";
-                } else {
-                    filterRow2 += `<th>
-                <select class="column-filter2 form-select form-select-sm" data-field="${key}">
-                    <option value="">All</option>
-                </select>
-            </th>`;
-                }
-            });
-            filterRow2 += "</tr>";
-            $("#leadsTable2 thead").append(filterRow2);
-
-            populateColumnFilterOptions2();
-
-            $(".column-filter2").off("change").on("change", function () {
-                applyFilters2();
-            });
-        }
-
-        function populateColumnFilterOptions2() {
-            $("#leadsTable2 thead .column-filter2").each(function () {
-                const field = $(this).data("field");
-                let values2 = [];
-
-                if (field === "isRegistered") {
-                    values2 = ["Yes", "No"];
-                }
-                else if (field === "dateOfRegistration") {
-                    values2 = [...new Set(
-                        tableData2
-                            .map(row => {
-                                const d = row.dateOfRegistration;
-                                if (!d) return "";
-                                let formatted = formatDateTime2(d);
-                                if (!formatted || formatted === "Invalid Date / NaN:NaN AM") {
-                                    formatted = formatDate2(d);
-                                }
-                                return formatted;
-                            })
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-
-                // else if (field.startsWith("payment")) {
-                //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                //     values2 = [...new Set(
-                //         tableData2
-                //             .map(row => {
-                //                 const payments = row.payments || [];
-                //                 const date = payments[paymentIndex];
-                //                 return date ? formatDate2(date) : "";
-                //             })
-                //             .filter(v => v && v.trim() !== "")
-                //     )];
-                // }
-
-                else if (field.toLowerCase().includes("date")) {
-                    values2 = [...new Set(
-                        tableData2
-                            .map(row => formatDate2(row[field]))
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-                else if (field.toLowerCase().includes("time")) {
-                    values2 = [...new Set(
-                        tableData2
-                            .map(row => formatTimeHM2(row[field]))
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-
-                else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                    values2 = [...new Set(
-                        tableData2
-                            .map(row => (row[field] !== null && row[field] !== undefined) ? String(row[field]) : "")
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-                else {
-                    values2 = [...new Set(
-                        tableData2
-                            .map(row => row[field])
-                            .filter(v => v !== null && v !== undefined && v !== "")
-                    )];
-                }
-
-                $(this).empty().append(`<option value="">All</option>`);
-                values2.forEach(v => {
-                    $(this).append(`<option value="${v}">${v}</option>`);
-                });
-            });
-        }
-
-        function applyFilters2() {
-            filteredData2 = [...tableData2];
-
-            $("#leadsTable2 thead .column-filter2").each(function () {
-                const value = $(this).val();
-                const field = $(this).data("field");
-
-                if (value) {
-                    filteredData2 = filteredData2.filter(row => {
-                        let cellValue = "";
-
-                        // payment fields (payment1, payment2, ...)
-                        // if (field.startsWith("payment")) {
-                        //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                        //     const payments = row.payments || [];
-                        //     cellValue = payments[paymentIndex] ? formatDate2(payments[paymentIndex]) : "";
-                        // }
-                        // boolean registration
-                        if (field === "isRegistered") {
-                            cellValue = row.isRegistered ? "Yes" : "No";
-                        }
-                        else if (field === "dateOfRegistration") {
-                            cellValue = formatDateTime2(row.dateOfRegistration);
-                        }
-                        else if (field.toLowerCase().includes("date")) {
-                            cellValue = formatDate2(row[field] || "");
-                        }
-                        else if (field.toLowerCase().includes("time")) {
-                            cellValue = formatTimeHM2(row[field] || "");
-                        }
-                        else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                            cellValue = row[field] !== null && row[field] !== undefined ? String(row[field]) : "";
-                        }
-                        else {
-                            cellValue = row[field] || "";
-                        }
-
-                        return String(cellValue).toLowerCase() === String(value).toLowerCase();
-                    });
-                }
-            });
-
-            currentPage2 = 1;
-            renderTable2();
-            renderPagination2();
-        }
-
-        function makeCell2(field, value) {
-            let displayValue = value || "";
-            const safeVal = String(displayValue).replace(/"/g, "&quot;");
-            return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" value="${safeVal}">
-        </td>`;
-        }
-
-        function makeNumberCell2(field, value) {
-            let displayValue = (value === null || value === undefined) ? "" : value;
-            const safeVal = String(displayValue).replace(/"/g, "&quot;");
-            return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="number" value="${safeVal}" step="any" min="0">
-        </td>`;
-        }
-
-        function makeDateCell2(field, value) {
-            let displayValue = formatDate2(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
-            return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker2" value="${rawValue}">
-        </td>`;
-        }
-
-        function makeColoredScoreCell2(field, value) {
-            const raw = (value === null || value === undefined || value === "") ? "" : Number(value);
-            let style = "";
-            let textColor = "";
-
-            if (raw === "" || isNaN(raw)) {
-                style = "";
-            } else if (raw >= 1 && raw <= 3) {
-                style = "background-color: #fde4e4;";
-                textColor = "color: #b12b2b;";
-            } else if (raw > 3 && raw <= 6) {
-                style = "background-color: #fff4d6;";
-                textColor = "color: #7a4b00;";
-            } else if (raw > 6) {
-                style = "background-color: #e3f8e6;";
-                textColor = "color: #166534;";
-            }
-
-            const safeVal = (value === null || value === undefined) ? "" : String(value).replace(/"/g, "&quot;");
-            const textSpan = `<span style="${textColor}">${safeVal}</span>`;
-
-            return `<td data-field="${field}" class="score-cell" style="${style}; padding: 6px 10px;">${textSpan}</td>`;
-        }
-
-        function makeDropdownCell2(field, selectedValue, stateFilter = null, optionsList = null) {
-            let options = optionsList || dropdowns2[field] || [];
-
-            const formatLabel = (val) => {
-                if (!val) return "";
-                return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-            };
-
-            let displaySelected = formatLabel(selectedValue);
-
-            let html = `<td data-field="${field}">
-            <span style="font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select22">`;
-
-            html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
-            options.forEach(opt => {
-                let sel = (String(opt).toLowerCase() === String(selectedValue || "").toLowerCase()) ? "selected" : "";
-                html += `<option value="${opt}" ${sel}>${formatLabel(opt)}</option>`;
-            });
-
-            html += `</select></td>`;
-            return html;
-        }
-
-        function formatDate2(dateStr) {
-            if (!dateStr) return "";
-            let date2 = new Date(dateStr);
-            if (isNaN(date2)) return dateStr;
-            return date2.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            });
-        }
-
-        function attachCellEvents2() {
-            $("#leadsTable2").off("dblclick", "td").on("dblclick", "td", function () {
-                let td = $(this);
-                td.addClass("editing");
-                td.find("input,select").focus();
-            });
-
-            $("#leadsTable2 td input, #leadsTable2 td select")
-                .off("blur change")
-                .on("blur change", function (ev) {
-                    // date picker changes are handled by flatpickr onChange below
-                    if ($(this).hasClass("date-picker2")) return;
-
-                    let td = $(this).closest("td");
-                    let tr = $(this).closest("tr");
-                    let id = tr.data("id");
-                    let field = td.data("field");
-                    let value = $(this).val();
-
-                    // update UI
-                    td.find("span").text(value);
-                    td.removeClass("editing");
-
-                    // build payload for API
-                    let payload = {};
-                    // cast numeric fields to numbers if not empty
-                    if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                        payload[field] = value === "" ? null : Number(value);
-                    } else {
-                        payload[field] = value;
-                    }
-                    if (teamManagerId2) {
-                        payload["teamManagerId"] = teamManagerId2;
-                    }
-
-                    console.log("payload:", payload);
-
-                    $.ajax({
-                        url: `${apiBase2}/update/` + id,
-                        method: "PUT",
-                        contentType: "application/json",
-                        data: JSON.stringify(payload),
-                        success: function (res) {
-                            console.log("Updated:", res);
-                        },
-                        error: function (err) {
-                            console.error("Update failed", err);
-                        }
-                    });
-                });
-
-            $(".date-picker2").each(function () {
-                const input = $(this);
-                input.flatpickr({
-                    dateFormat: "Y-m-d",
-                    onChange: function (selectedDates, dateStr) {
-                        if (!dateStr) return;
-
-                        let td = input.closest("td");
-                        let tr = input.closest("tr");
-                        let id = tr.data("id");
-                        let field = td.data("field");
-                        let value = new Date(dateStr).toISOString().split("T")[0];
-
-                        td.find("span").text(formatDate2(value));
-                        td.removeClass("editing");
-
-                        let payload = {};
-                        payload[field] = value;
-                        if (teamManagerId2) {
-                            payload["teamManagerId"] = teamManagerId2;
-                        }
-
-                        console.log("payload:", payload);
-
-                        $.ajax({
-                            url: `${apiBase2}/update/` + id,
-                            method: "PUT",
-                            contentType: "application/json",
-                            data: JSON.stringify(payload),
-                            success: function (res) {
-                                console.log("Updated:", res);
-                            },
-                            error: function (err) {
-                                console.error("Update failed", err);
-                            }
-                        });
-                    }
-                });
-            });
-
-            // initialize any select22 if you use it - optional
-            $("#leadsTable2 td select.select22").each(function () {
-                if ($(this).select2) {
-                    $(this).select2({ width: '100%' });
-                }
-            });
-        }
-
-        function attachSendMailEvents2() {
-            $(".send-mail2").off("click").on("click", function () {
-                const id = $(this).data("id");
-
-                Swal.fire({
-                    title: "Send Follow-up Mail",
-                    html: `
-                    <input id="mailLink2" class="swal2-input" placeholder="Enter Meeting Link" type="text">
-                    <input id="mailTime2" class="swal2-input" type="time" value="11:30">
-                `,
-                    showCancelButton: true,
-                    confirmButtonText: "Send",
-                    cancelButtonText: "Cancel",
-                    preConfirm: () => {
-                        const link = document.getElementById("mailLink2").value.trim();
-                        const timeRaw = document.getElementById("mailTime2").value;
-
-                        if (!link) {
-                            Swal.showValidationMessage("Meeting link is required!");
-                            return false;
-                        }
-                        if (!timeRaw) {
-                            Swal.showValidationMessage("Time is required!");
-                            return false;
-                        }
-
-                        const [h, m] = timeRaw.split(":");
-                        let hour = parseInt(h, 10);
-                        const min = m;
-                        const ampm = hour >= 12 ? "PM" : "AM";
-                        hour = hour % 12 || 12;
-                        const formattedTime = `${hour}:${min} ${ampm}`;
-
-                        return { link, time: formattedTime };
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed && result.value) {
-                        const { link, time } = result.value;
-
-                        Swal.fire({
-                            title: "Sending...",
-                            text: "Please wait while the follow up mail is being sent",
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-
-                        $.ajax({
-                            url: `${apiBase2}/send-mail/` + id,
-                            method: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify({
-                                type: "hardcoded",
-                                time: time,
-                                link: link,
-                            }),
-                            success: function (res) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Mail Sent!",
-                                    text: "The Follow up mail was sent successfully."
-                                });
-                            },
-                            error: function (err) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: "Failed to send the Follow up mail."
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        }
-
-        window.filterTable2 = function () {
-            const value = $("#searchInput2").val().toLowerCase().trim();
-            if (!value) {
-                filteredData2 = [...tableData2];
-                renderTable2();
-                renderPagination2();
-                return;
-            }
-
-            filteredData2 = tableData2.filter((row) =>
-                Object.values(row).some((field) => {
-                    // convert any field to string safely
-                    const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
-                    return plainText.includes(value);
-                })
-            );
-
-            currentPage2 = 1;
-            renderTable2();
-            renderPagination2();
-        };
-
-        window.printTable2 = function () {
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Print Table</title></head><body>');
-            printWindow.document.write($("#leadsTable2")[0].outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        };
-
-        window.exportToExcel2 = function () {
-            const headers = [
-                "S.No",
-                "Student Name",
-                "Registered",
-                "Registration Date",
-                "Registration Time",
-                "Resume Date",
-                "College Name",
-                "Course",
-                "Internship Type",
-                "Follow-up By",
-                "Mobile Number",
-                "Email ID",
-                "Domain",
-                // new header columns
-                "Knowledge Score",
-                "Approach Score",
-                "Skills Score",
-                "Other Score",
-                "Total Average Score",
-                "Final Selection Status",
-                "Comment",
-                "Date of Onboarding",
-                "Call Status",
-                "Alloted"
-            ];
-
-            if (window.maxPayments2 && window.maxPayments2 > 0) {
-                for (let i = 1; i <= window.maxPayments2; i++) {
-                    headers.push(`Payment ${i}`);
-                }
-            }
-
-            const data = [headers];
-
-            tableData2.forEach((row) => {
-                const rowData = [
-                    row.sno,
-                    row.studentName,
-                    row.isRegistered ? "Yes" : "No",
-                    row.dateOfRegistrationDate,
-                    row.dateOfRegistrationTime,
-                    row.resumeDate,
-                    row.collegeName,
-                    row.course,
-                    row.internshipType,
-                    row.followupBy,
-                    row.mobileNumber,
-                    row.emailId,
-                    row.domain,
-                    // new data columns
-                    row.knowledgeScore,
-                    row.approachScore,
-                    row.skillsScore,
-                    row.otherScore,
-                    row.totalAverageScore,
-                    row.finalSelectionStatus,
-                    row.comment,
-                    formatDate2(row.Dateofonboarding),
-                    row.callStatus,
-                    row.alloted
-                ];
-
-                if (window.maxPayments2 && window.maxPayments2 > 0) {
-                    for (let i = 0; i < window.maxPayments2; i++) {
-                        const paymentDate = row.payments && row.payments[i]
-                            ? formatDate2(row.payments[i])
-                            : "";
-                        rowData.push(paymentDate);
-                    }
-                }
-
-                data.push(rowData);
-            });
-
-            const worksheet = XLSX.utils.aoa_to_sheet(data);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "StudentResumes");
-            XLSX.writeFile(workbook, "StudentResumes_With_Payments.xlsx");
-        };
-
-        $(document).ready(function () {
-            loadTableData2();
-        });
-    </script>
-
-    <script>
-        const teamManagerId3 = sessionStorage.getItem("user_id");
-        const managerName3 = sessionStorage.getItem("userName");
-        console.log("managerName3:", managerName3);
-        console.log(teamManagerId3);
-
-        const apiBase3 = "https://eduroom.in/api/v1/studentresume";
-
-        const dropdowns3 = {
-            domain: ["Marketing", "Finance", "HR", "Operations", "Others"],
-            internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
-            course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
-            // new static dropdowns
-            finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
-            callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
-            // followupBy / alloted will be set from response.managers below
-        };
-
-        const colorMap3 = {
-            internshipType: {
-                "fulltime": "#28a745",
-                "sip": "#0d6efd",
-                "liveproject": "#ffc107",
-                "wip": "#0d6efd",
-                "others": "#adb5bd"
-            }
-        };
-
-        let tableData3 = [];
-        let filteredData3 = [];
-        const rowsPerPage3 = 10;
-        let currentPage3 = 1;
-
-        function loadTableData3() {
-            $.ajax({
-                url: `https://eduroom.in/api/v1/studentresume/list/user/future/${teamManagerId3}`,
-                method: "GET",
-                success: function (res) {
-                    console.log("student resumes3:", res);
-                    if (res.success && res.data) {
-                        if (res.managers && Array.isArray(res.managers)) {
-                            // populate both followupBy and alloted lists from managers
-                            dropdowns3.followupBy = res.managers.map(u => u.name);
-                            dropdowns3.alloted = res.managers.map(u => u.name);
-                        }
-                        let maxPayments3 = 0;
-
-                        tableData3 = res.data.map((row, index) => {
-                            const dateRaw3 = row.dateOfRegistration || "";
-                            let dateOnly3 = "", timeOnly3 = "";
-                            if (dateRaw3) {
-                                const date3 = new Date(dateRaw3);
-                                if (!isNaN(date3)) {
-                                    dateOnly3 = date3.toLocaleDateString("en-GB", {
-                                        day: "numeric",
-                                        month: "long",
-                                        year: "numeric"
-                                    });
-                                    let hours3 = date3.getHours();
-                                    let minutes3 = date3.getMinutes().toString().padStart(2, "0");
-                                    const ampm3 = hours3 >= 12 ? "PM" : "AM";
-                                    hours3 = hours3 % 12 || 12;
-                                    timeOnly3 = `${hours3}:${minutes3} ${ampm3}`;
-                                }
-                            }
-
-                            // const payments3 = (row.user && Array.isArray(row.user.FundsAudits))
-                            //     ? row.user.FundsAudits.map(f => f.dateOfPayment)
-                            //     : [];
-
-                            // if (payments3.length > maxPayments3) maxPayments3 = payments3.length;
-
-                            // NEW fields: safely read from row or default
-                            const knowledgeScore3 = row.knowledgeScore ?? "";
-                            const approachScore3 = row.approachScore ?? "";
-                            const skillsScore3 = row.skillsScore ?? "";
-                            const otherScore3 = row.otherScore ?? "";
-                            const totalAverageScore3 = row.totalAverageScore ?? "";
-                            const finalSelectionStatus3 = row.finalSelectionStatus ?? "";
-                            const comment3 = row.comment ?? "";
-                            const Dateofonboarding3 = row.Dateofonboarding ?? "";
-                            const callStatus3 = row.callStatus ?? "";
-                            const alloted3 = row.alloted ?? "";
-
-                            return {
-                                sno: index + 1,
-                                id: row.id,
-                                resumeDate: row.resumeDate || "",
-                                collegeName: row.collegeName || "",
-                                course: row.course || "",
-                                internshipType: row.internshipType || "",
-                                followupBy: row.followupBy || "",
-                                studentName: row.studentName || "",
-                                mobileNumber: row.mobileNumber || "",
-                                emailId: row.emailId || "",
-                                domain: row.domain || "",
-                                isRegistered: row.isRegistered,
-                                dateOfRegistration: row.dateOfRegistration || "",
-                                dateOfRegistrationDate: dateOnly3,
-                                dateOfRegistrationTime: timeOnly3,
-                                mailSentAt: row.mailSentAt || "",
-                                // payments: payments3,
-                                // new fields included in the row object
-                                knowledgeScore: knowledgeScore3,
-                                approachScore: approachScore3,
-                                skillsScore: skillsScore3,
-                                otherScore: otherScore3,
-                                totalAverageScore: totalAverageScore3,
-                                finalSelectionStatus: finalSelectionStatus3,
-                                comment: comment3,
-                                Dateofonboarding: Dateofonboarding3,
-                                callStatus: callStatus3,
-                                alloted: alloted3
-                            };
-                        });
-
-                        window.maxPayments3 = maxPayments3;
-
-                        if (window.maxPayments3 && window.maxPayments3 > 0) {
-                            for (let i = 1; i <= window.maxPayments3; i++) {
-                                columnKeys3.push(`payment${i}`);
-                            }
-                        }
-
-                        $("#collegeCount3").text(tableData3.length);
-
-                        filteredData3 = [...tableData3];
-                        renderTable3();
-                        renderPagination3();
-                        renderColumnFilters3();
-                    }
-                }
-            });
-        }
-
-        function formatDateTime3(dateStr) {
-            if (!dateStr) return "";
-            let date3 = new Date(dateStr);
-            if (isNaN(date3)) return dateStr;
-
-            const options3 = { day: "2-digit", month: "long", year: "numeric" };
-            const datePart3 = date3.toLocaleDateString("en-GB", options3);
-
-            let hours3 = date3.getHours();
-            let minutes3 = date3.getMinutes().toString().padStart(2, "0");
-            const ampm3 = hours3 >= 12 ? "PM" : "AM";
-            hours3 = hours3 % 12 || 12;
-
-            const timePart3 = `${hours3}:${minutes3} ${ampm3}`;
-            return `${datePart3} / ${timePart3}`;
-        }
-
-        function formatTimeHM3(timeStr) {
-            if (!timeStr) return "";
-            const [h3, m3] = timeStr.split(":");
-            let hour3 = parseInt(h3, 10);
-            const min3 = m3;
-            const ampm3 = hour3 >= 12 ? "PM" : "AM";
-            hour3 = hour3 % 12 || 12;
-            return `${hour3}:${min3} ${ampm3}`;
-        }
-
-        function renderTable3() {
-            let tbody3 = $("#leadsTable3 tbody");
-            tbody3.empty();
-
-            const start3 = (currentPage3 - 1) * rowsPerPage3;
-            const end3 = start3 + rowsPerPage3;
-            const rows3 = filteredData3.slice(start3, end3);
-
-            rows3.forEach((row) => {
-                let tr3 = `<tr data-id="${row.id}">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record3" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-                ${makeCell3("studentName", row.studentName || "")}
-                <td>
-                    ${row.isRegistered
-                        ? '<span class="badge bg-soft-success text-success">Yes</span>'
-                        : '<span class="badge bg-soft-danger text-danger">No</span>'}
-                </td>
-                <td>${row.dateOfRegistrationDate || ""}</td>
-                <td>${row.dateOfRegistrationTime || ""}</td>
-                ${makeDateCell3("resumeDate", row.resumeDate || "")}
-                ${makeCell3("collegeName", row.collegeName || "")}
-                ${makeDropdownCell3("course", row.course || "", null, dropdowns3.course)}
-                ${makeDropdownCell3("internshipType", row.internshipType || "", null, dropdowns3.internshipType)}
-                ${makeDropdownCell3("followupBy", row.followupBy || "", null, dropdowns3.followupBy)}
-                ${makeCell3("mobileNumber", row.mobileNumber || "")}
-                ${makeCell3("emailId", row.emailId || "")}
-                ${makeDropdownCell3("domain", row.domain || "", null, dropdowns3.domain)}
-                `;
-
-                // NEW score inputs (use number inputs)
-                tr3 += makeNumberCell3("knowledgeScore", row.knowledgeScore || "");
-                tr3 += makeNumberCell3("approachScore", row.approachScore || "");
-                tr3 += makeNumberCell3("skillsScore", row.skillsScore || "");
-                tr3 += makeNumberCell3("otherScore", row.otherScore || "");
-                tr3 += makeColoredScoreCell3("totalAverageScore", row.totalAverageScore || "");
-
-                // finalSelectionStatus - dropdown (Yes/No)
-                tr3 += makeDropdownCell3("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns3.finalSelectionStatus);
-
-                // comment - free text input
-                tr3 += makeCell3("comment", row.comment || "");
-
-                // Dateofonboarding - date picker
-                tr3 += makeDateCell3("Dateofonboarding", row.Dateofonboarding || "");
-
-                // callStatus - dropdown
-                tr3 += makeDropdownCell3("callStatus", row.callStatus || "", null, dropdowns3.callStatus);
-
-                // alloted - dropdown from managers
-                tr3 += makeDropdownCell3("alloted", row.alloted || "", null, dropdowns3.alloted || []);
-
-                // const payments = row.payments || [];
-                // for (let i = 0; i < (window.maxPayments3 || 0); i++) {
-                //     let paymentDate = payments[i] ? formatDate3(payments[i]) : "";
-                //     tr3 += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
-                // }
-
-                tr3 += `</tr>`;
-                tbody3.append(tr3);
-
-            });
-
-            attachCellEvents3();
-            attachSendMailEvents3();
-            setStickyColumns3 && setStickyColumns3();
-        }
-
-        const columnKeys3 = [
-            "actions",
-            "sno",
-            "studentName",
-            "isRegistered",
-            "dateOfRegistrationDate",
-            "dateOfRegistrationTime",
-            "resumeDate",
-            "collegeName",
-            "course",
-            "internshipType",
-            "followupBy",
-            "mobileNumber",
-            "emailId",
-            "domain",
-            // new columns
-            "knowledgeScore",
-            "approachScore",
-            "skillsScore",
-            "otherScore",
-            "totalAverageScore",
-            "finalSelectionStatus",
-            "comment",
-            "Dateofonboarding",
-            "callStatus",
-            "alloted"
-        ];
-
-        // if (window.maxPayments3 && window.maxPayments3 > 0) {
-        //     for (let i = 1; i <= window.maxPayments3; i++) {
-        //         columnKeys3.push(`payment${i}`);
-        //     }
-        // }
-
-        function renderPagination3() {
-            const totalPages3 = Math.ceil(filteredData3.length / rowsPerPage3);
-            const pagination3 = $("#pagination3");
-            pagination3.empty();
-
-            const visiblePageCount3 = 3;
-            let startPage3 = Math.max(currentPage3 - 1, 1);
-            let endPage3 = startPage3 + visiblePageCount3 - 1;
-            if (endPage3 > totalPages3) {
-                endPage3 = totalPages3;
-                startPage3 = Math.max(endPage3 - visiblePageCount3 + 1, 1);
-            }
-
-            const prevDisabled3 = currentPage3 === 1 ? 'disabled' : '';
-            const nextDisabled3 = currentPage3 === totalPages3 ? 'disabled' : '';
-
-            pagination3.append(`<li><a href="javascript:void(0);" class="${prevDisabled3}" onclick="changePage3(${currentPage3 - 1})">&laquo;</a></li>`);
-
-            for (let i = startPage3; i <= endPage3; i++) {
-                const active3 = i === currentPage3 ? "active" : "";
-                pagination3.append(`<li><a href="javascript:void(0);" class="${active3}" onclick="changePage3(${i})">${i}</a></li>`);
-            }
-
-            pagination3.append(`<li><a href="javascript:void(0);" class="${nextDisabled3}" onclick="changePage3(${currentPage3 + 1})">&raquo;</a></li>`);
-        }
-
-        window.changePage3 = function (page3) {
-            const totalPages3 = Math.ceil(filteredData3.length / rowsPerPage3);
-            if (page3 < 1 || page3 > totalPages3) return;
-            currentPage3 = page3;
-            renderTable3();
-            renderPagination3();
-        };
-
-        function renderColumnFilters3() {
-            const headerRow3 = $("#leadsTable3 thead tr.filters");
-            headerRow3.remove();
-
-            let filterRow3 = "<tr class='filters'>";
-            columnKeys3.forEach((key, i) => {
-                if (key === "actions" || key === "sno" || key === "sendMail") {
-                    filterRow3 += "<th></th>";
-                } else {
-                    filterRow3 += `<th>
-                <select class="column-filter3 form-select form-select-sm" data-field="${key}">
-                    <option value="">All</option>
-                </select>
-            </th>`;
-                }
-            });
-            filterRow3 += "</tr>";
-            $("#leadsTable3 thead").append(filterRow3);
-
-            populateColumnFilterOptions3();
-
-            $(".column-filter3").off("change").on("change", function () {
-                applyFilters3();
-            });
-        }
-
-        function populateColumnFilterOptions3() {
-            $("#leadsTable3 thead .column-filter3").each(function () {
-                const field = $(this).data("field");
-                let values3 = [];
-
-                if (field === "isRegistered") {
-                    values3 = ["Yes", "No"];
-                }
-                else if (field === "dateOfRegistration") {
-                    values3 = [...new Set(
-                        tableData3
-                            .map(row => {
-                                const d = row.dateOfRegistration;
-                                if (!d) return "";
-                                let formatted = formatDateTime3(d);
-                                if (!formatted || formatted === "Invalid Date / NaN:NaN AM") {
-                                    formatted = formatDate3(d);
-                                }
-                                return formatted;
-                            })
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-
-                // else if (field.startsWith("payment")) {
-                //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                //     values3 = [...new Set(
-                //         tableData3
-                //             .map(row => {
-                //                 const payments = row.payments || [];
-                //                 const date = payments[paymentIndex];
-                //                 return date ? formatDate3(date) : "";
-                //             })
-                //             .filter(v => v && v.trim() !== "")
-                //     )];
-                // }
-
-                else if (field.toLowerCase().includes("date")) {
-                    values3 = [...new Set(
-                        tableData3
-                            .map(row => formatDate3(row[field]))
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-                else if (field.toLowerCase().includes("time")) {
-                    values3 = [...new Set(
-                        tableData3
-                            .map(row => formatTimeHM3(row[field]))
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-
-                else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                    values3 = [...new Set(
-                        tableData3
-                            .map(row => (row[field] !== null && row[field] !== undefined) ? String(row[field]) : "")
-                            .filter(v => v && v.trim() !== "")
-                    )];
-                }
-                else {
-                    values3 = [...new Set(
-                        tableData3
-                            .map(row => row[field])
-                            .filter(v => v !== null && v !== undefined && v !== "")
-                    )];
-                }
-
-                $(this).empty().append(`<option value="">All</option>`);
-                values3.forEach(v => {
-                    $(this).append(`<option value="${v}">${v}</option>`);
-                });
-            });
-        }
-
-        function applyFilters3() {
-            filteredData3 = [...tableData3];
-
-            $("#leadsTable3 thead .column-filter3").each(function () {
-                const value = $(this).val();
-                const field = $(this).data("field");
-
-                if (value) {
-                    filteredData3 = filteredData3.filter(row => {
-                        let cellValue = "";
-
-                        // payment fields (payment1, payment2, ...)
-                        // if (field.startsWith("payment")) {
-                        //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                        //     const payments = row.payments || [];
-                        //     cellValue = payments[paymentIndex] ? formatDate3(payments[paymentIndex]) : "";
-                        // }
-                        // boolean registration
-                        if (field === "isRegistered") {
-                            cellValue = row.isRegistered ? "Yes" : "No";
-                        }
-                        else if (field === "dateOfRegistration") {
-                            cellValue = formatDateTime3(row.dateOfRegistration);
-                        }
-                        else if (field.toLowerCase().includes("date")) {
-                            cellValue = formatDate3(row[field] || "");
-                        }
-                        else if (field.toLowerCase().includes("time")) {
-                            cellValue = formatTimeHM3(row[field] || "");
-                        }
-                        else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                            cellValue = row[field] !== null && row[field] !== undefined ? String(row[field]) : "";
-                        }
-                        else {
-                            cellValue = row[field] || "";
-                        }
-
-                        return String(cellValue).toLowerCase() === String(value).toLowerCase();
-                    });
-                }
-            });
-
-            currentPage3 = 1;
-            renderTable3();
-            renderPagination3();
-        }
-
-        function makeCell3(field, value) {
-            let displayValue = value || "";
-            const safeVal = String(displayValue).replace(/"/g, "&quot;");
-            return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" value="${safeVal}">
-        </td>`;
-        }
-
-        function makeNumberCell3(field, value) {
-            let displayValue = (value === null || value === undefined) ? "" : value;
-            const safeVal = String(displayValue).replace(/"/g, "&quot;");
-            return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="number" value="${safeVal}" step="any" min="0">
-        </td>`;
-        }
-
-        function makeDateCell3(field, value) {
-            let displayValue = formatDate3(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
-            return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker3" value="${rawValue}">
-        </td>`;
-        }
-
-        function makeColoredScoreCell3(field, value) {
-            const raw = (value === null || value === undefined || value === "") ? "" : Number(value);
-            let style = "";
-            let textColor = "";
-
-            if (raw === "" || isNaN(raw)) {
-                style = "";
-            } else if (raw >= 1 && raw <= 3) {
-                style = "background-color: #fde4e4;";
-                textColor = "color: #b12b2b;";
-            } else if (raw > 3 && raw <= 6) {
-                style = "background-color: #fff4d6;";
-                textColor = "color: #7a4b00;";
-            } else if (raw > 6) {
-                style = "background-color: #e3f8e6;";
-                textColor = "color: #166534;";
-            }
-
-            const safeVal = (value === null || value === undefined) ? "" : String(value).replace(/"/g, "&quot;");
-            const textSpan = `<span style="${textColor}">${safeVal}</span>`;
-
-            return `<td data-field="${field}" class="score-cell" style="${style}; padding: 6px 10px;">${textSpan}</td>`;
-        }
-
-        function makeDropdownCell3(field, selectedValue, stateFilter = null, optionsList = null) {
-            let options = optionsList || dropdowns3[field] || [];
-
-            const formatLabel = (val) => {
-                if (!val) return "";
-                return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-            };
-
-            let displaySelected = formatLabel(selectedValue);
-
-            let html = `<td data-field="${field}">
-            <span style="font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select33">`;
-
-            html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
-            options.forEach(opt => {
-                let sel = (String(opt).toLowerCase() === String(selectedValue || "").toLowerCase()) ? "selected" : "";
-                html += `<option value="${opt}" ${sel}>${formatLabel(opt)}</option>`;
-            });
-
-            html += `</select></td>`;
-            return html;
-        }
-
-        function formatDate3(dateStr) {
-            if (!dateStr) return "";
-            let date3 = new Date(dateStr);
-            if (isNaN(date3)) return dateStr;
-            return date3.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            });
-        }
-
-        function attachCellEvents3() {
-            $("#leadsTable3").off("dblclick", "td").on("dblclick", "td", function () {
-                let td = $(this);
-                td.addClass("editing");
-                td.find("input,select").focus();
-            });
-
-            $("#leadsTable3 td input, #leadsTable3 td select")
-                .off("blur change")
-                .on("blur change", function (ev) {
-                    // date picker changes are handled by flatpickr onChange below
-                    if ($(this).hasClass("date-picker3")) return;
-
-                    let td = $(this).closest("td");
-                    let tr = $(this).closest("tr");
-                    let id = tr.data("id");
-                    let field = td.data("field");
-                    let value = $(this).val();
-
-                    // update UI
-                    td.find("span").text(value);
-                    td.removeClass("editing");
-
-                    // build payload for API
-                    let payload = {};
-                    // cast numeric fields to numbers if not empty
-                    if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                        payload[field] = value === "" ? null : Number(value);
-                    } else {
-                        payload[field] = value;
-                    }
-                    if (teamManagerId3) {
-                        payload["teamManagerId"] = teamManagerId3;
-                    }
-
-                    console.log("payload:", payload);
-
-                    $.ajax({
-                        url: `${apiBase3}/update/` + id,
-                        method: "PUT",
-                        contentType: "application/json",
-                        data: JSON.stringify(payload),
-                        success: function (res) {
-                            console.log("Updated:", res);
-                        },
-                        error: function (err) {
-                            console.error("Update failed", err);
-                        }
-                    });
-                });
-
-            $(".date-picker3").each(function () {
-                const input = $(this);
-                input.flatpickr({
-                    dateFormat: "Y-m-d",
-                    onChange: function (selectedDates, dateStr) {
-                        if (!dateStr) return;
-
-                        let td = input.closest("td");
-                        let tr = input.closest("tr");
-                        let id = tr.data("id");
-                        let field = td.data("field");
-                        let value = new Date(dateStr).toISOString().split("T")[0];
-
-                        td.find("span").text(formatDate3(value));
-                        td.removeClass("editing");
-
-                        let payload = {};
-                        payload[field] = value;
-                        if (teamManagerId3) {
-                            payload["teamManagerId"] = teamManagerId3;
-                        }
-
-                        console.log("payload:", payload);
-
-                        $.ajax({
-                            url: `${apiBase3}/update/` + id,
-                            method: "PUT",
-                            contentType: "application/json",
-                            data: JSON.stringify(payload),
-                            success: function (res) {
-                                console.log("Updated:", res);
-                            },
-                            error: function (err) {
-                                console.error("Update failed", err);
-                            }
-                        });
-                    }
-                });
-            });
-
-            // initialize any select33 if you use it - optional
-            $("#leadsTable3 td select.select33").each(function () {
-                if ($(this).select2) {
-                    $(this).select2({ width: '100%' });
-                }
-            });
-        }
-
-        function attachSendMailEvents3() {
-            $(".send-mail3").off("click").on("click", function () {
-                const id = $(this).data("id");
-
-                Swal.fire({
-                    title: "Send Follow-up Mail",
-                    html: `
-                    <input id="mailLink3" class="swal2-input" placeholder="Enter Meeting Link" type="text">
-                    <input id="mailTime3" class="swal2-input" type="time" value="11:30">
-                `,
-                    showCancelButton: true,
-                    confirmButtonText: "Send",
-                    cancelButtonText: "Cancel",
-                    preConfirm: () => {
-                        const link = document.getElementById("mailLink3").value.trim();
-                        const timeRaw = document.getElementById("mailTime3").value;
-
-                        if (!link) {
-                            Swal.showValidationMessage("Meeting link is required!");
-                            return false;
-                        }
-                        if (!timeRaw) {
-                            Swal.showValidationMessage("Time is required!");
-                            return false;
-                        }
-
-                        const [h, m] = timeRaw.split(":");
-                        let hour = parseInt(h, 10);
-                        const min = m;
-                        const ampm = hour >= 12 ? "PM" : "AM";
-                        hour = hour % 12 || 12;
-                        const formattedTime = `${hour}:${min} ${ampm}`;
-
-                        return { link, time: formattedTime };
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed && result.value) {
-                        const { link, time } = result.value;
-
-                        Swal.fire({
-                            title: "Sending...",
-                            text: "Please wait while the follow up mail is being sent",
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-
-                        $.ajax({
-                            url: `${apiBase3}/send-mail/` + id,
-                            method: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify({
-                                type: "hardcoded",
-                                time: time,
-                                link: link,
-                            }),
-                            success: function (res) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Mail Sent!",
-                                    text: "The Follow up mail was sent successfully."
-                                });
-                            },
-                            error: function (err) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: "Failed to send the Follow up mail."
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        }
-
-        window.filterTable3 = function () {
-            const value = $("#searchInput3").val().toLowerCase().trim();
-            if (!value) {
-                filteredData3 = [...tableData3];
-                renderTable3();
-                renderPagination3();
-                return;
-            }
-
-            filteredData3 = tableData3.filter((row) =>
-                Object.values(row).some((field) => {
-                    // convert any field to string safely
-                    const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
-                    return plainText.includes(value);
-                })
-            );
-
-            currentPage3 = 1;
-            renderTable3();
-            renderPagination3();
-        };
-
-        window.printTable3 = function () {
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Print Table</title></head><body>');
-            printWindow.document.write($("#leadsTable3")[0].outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        };
-
-        window.exportToExcel3 = function () {
-            const headers = [
-                "S.No",
-                "Student Name",
-                "Registered",
-                "Registration Date",
-                "Registration Time",
-                "Resume Date",
-                "College Name",
-                "Course",
-                "Internship Type",
-                "Follow-up By",
-                "Mobile Number",
-                "Email ID",
-                "Domain",
-                // new header columns
-                "Knowledge Score",
-                "Approach Score",
-                "Skills Score",
-                "Other Score",
-                "Total Average Score",
-                "Final Selection Status",
-                "Comment",
-                "Date of Onboarding",
-                "Call Status",
-                "Alloted"
-            ];
-
-            if (window.maxPayments3 && window.maxPayments3 > 0) {
-                for (let i = 1; i <= window.maxPayments3; i++) {
-                    headers.push(`Payment ${i}`);
-                }
-            }
-
-            const data = [headers];
-
-            tableData3.forEach((row) => {
-                const rowData = [
-                    row.sno,
-                    row.studentName,
-                    row.isRegistered ? "Yes" : "No",
-                    row.dateOfRegistrationDate,
-                    row.dateOfRegistrationTime,
-                    row.resumeDate,
-                    row.collegeName,
-                    row.course,
-                    row.internshipType,
-                    row.followupBy,
-                    row.mobileNumber,
-                    row.emailId,
-                    row.domain,
-                    // new data columns
-                    row.knowledgeScore,
-                    row.approachScore,
-                    row.skillsScore,
-                    row.otherScore,
-                    row.totalAverageScore,
-                    row.finalSelectionStatus,
-                    row.comment,
-                    formatDate3(row.Dateofonboarding),
-                    row.callStatus,
-                    row.alloted
-                ];
-
-                if (window.maxPayments3 && window.maxPayments3 > 0) {
-                    for (let i = 0; i < window.maxPayments3; i++) {
-                        const paymentDate = row.payments && row.payments[i]
-                            ? formatDate3(row.payments[i])
-                            : "";
-                        rowData.push(paymentDate);
-                    }
-                }
-
-                data.push(rowData);
-            });
-
-            const worksheet = XLSX.utils.aoa_to_sheet(data);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "StudentResumes");
-            XLSX.writeFile(workbook, "StudentResumes_With_Payments.xlsx");
-        };
-
-        $(document).ready(function () {
-            loadTableData3();
         });
     </script>
 
