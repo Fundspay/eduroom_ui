@@ -66,7 +66,7 @@
                     <li class="nxl-item nxl-hasmenu" id="protectedDropdown">
                         <a href="javascript:void(0);" class="nxl-link protected-menu-trigger" id="protectedTrigger">
                             <span class="nxl-micon"><i class="feather-upload"></i></span>
-                            <span class="nxl-mtext">ADD COURSE DETAILS</span>
+                            <span class="nxl-mtext">CMS</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
 
@@ -99,31 +99,59 @@
                                     href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/bd-incentives.html">BD INCENTIVES</a></li>
                         </ul>
                     </li>
 
                     <!-- OTHER MENU ITEMS UNCHANGED -->
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">TEAM MANAGER</span>
+                            <span class="nxl-micon"><i class="feather-user"></i></span>
+                            <span class="nxl-mtext">HR </span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
 
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">MY
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">HR
                                     TARGETS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-briefcase"></i></span>
+                            <span class="nxl-mtext">BD </span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets.html">BD
+                                    TARGETS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/BD.html">BD SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li> -->
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li> -->
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
                         </ul>
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">MASTER SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-settings"></i></span>
+                            <span class="nxl-micon"><i class="feather-log-out"></i></span>
                             <span class="nxl-mtext">Logout</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
@@ -250,22 +278,34 @@
     <!--! ================================================================ !-->
     <main class="nxl-container">
         <div class="main-content">
+
+            <!-- Manager Dropdown -->
+            <div class="d-flex justify-content-end" style="margin-bottom: -1%;">
+                <div class="mb-3" style="max-width: 300px; margin-right: 1%; margin-top: 1%;">
+                    <select id="managerDropdown" class="form-select">
+                        <option value="">-- Select Manager --</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="row">
 
                 <!-- INCENTIVE SHEET -->
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="card stretch stretch-full mt-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card stretch stretch-full mt-4" style="background-color:#64e564;">
+                        <div class="card-header d-flex justify-content-between align-items-center"
+                            style="background-color:#64e564;">
                             <h5 class="card-title">INCENTIVE SHEET</h5>
                         </div>
 
-                        <div class="card-body custom-card-action p-0">
+                        <div class="card-body custom-card-action p-0" style="background-color:#e8f8e8;">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover mb-0" id="incentiveTable">
-                                    <thead class="table-light">
+                                <table class="table table-bordered table-hover mb-0" id="incentiveTable"
+                                    style="background-color:#e8f8e8;">
+                                    <thead class="table-light" style="background-color:#64e564;">
                                         <tr>
-                                            <th>No.of Interns</th>
-                                            <th>Amount</th>
+                                            <th style="background-color:#64e564;">No.of Interns</th>
+                                            <th style="background-color:#64e564;">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -279,18 +319,20 @@
 
                 <!-- DEDUCTION SHEET -->
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="card stretch stretch-full mt-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card stretch stretch-full mt-4" style="background-color:#ff0000;">
+                        <div class="card-header d-flex justify-content-between align-items-center"
+                            style="background-color:#ff0000;">
                             <h5 class="card-title">DEDUCTION SHEET</h5>
                         </div>
 
-                        <div class="card-body custom-card-action p-0">
+                        <div class="card-body custom-card-action p-0" style="background-color:#fdeaea;">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover mb-0" id="deductionTable">
-                                    <thead class="table-light">
+                                <table class="table table-bordered table-hover mb-0" id="deductionTable"
+                                    style="background-color:#fdeaea;">
+                                    <thead class="table-light" style="background-color:#db5353;">
                                         <tr>
-                                            <th>No.of Interns</th>
-                                            <th>Amount</th>
+                                            <th style="background-color:#ff0000;">No.of Interns</th>
+                                            <th style="background-color:#ff0000;">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -301,7 +343,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
@@ -345,14 +386,39 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- incentive sheet -->
     <script>
-        const managerId = sessionStorage.getItem("user_id");
-        console.log("managerId:", managerId);
+        let selectedManagerId = "";
+
+        function loadManagersDropdown() {
+            $.ajax({
+                url: "https://eduroom.in/api/v1/studentresume/list",
+                type: "GET",
+                success: function (res) {
+                    const managers = res.managers;
+                    const dropdown = $("#managerDropdown");
+
+                    dropdown.empty();
+                    dropdown.append(`<option value="">-- Select Manager --</option>`);
+
+                    managers.forEach(m => {
+                        dropdown.append(`<option value="${m.id}">${m.name}</option>`);
+                    });
+
+                    console.log("Managers loaded:", managers);
+                }
+            });
+        }
+
+        loadManagersDropdown();
 
         function loadIncentiveSheet() {
+            if (!selectedManagerId) {
+                $("#incentiveTable tbody").empty();
+                return;
+            }
+
             $.ajax({
-                url: `https://eduroom.in/api/v1/bdsheet/ranges?managerId=${managerId}`,
+                url: `https://eduroom.in/api/v1/bdsheet/ranges?managerId=${selectedManagerId}`,
                 type: "GET",
                 success: function (res) {
                     console.log("get call response for incentive:", res);
@@ -362,9 +428,9 @@
 
                     for (let range in data) {
                         tbody.append(`
-                        <tr data-range="${range}">
-                            <td>${range}</td>
-                            <td class="editable">${data[range]}</td>
+                        <tr data-range="${range}" style="background-color:#e8f8e8;">
+                            <td style="background-color:#e8f8e8;">${range}</td>
+                            <td class="editable" style="background-color:#e8f8e8;">${data[range] || 0}</td>
                         </tr>
                     `);
                     }
@@ -372,66 +438,14 @@
             });
         }
 
-        loadIncentiveSheet();
-
-        $(document).on("dblclick", ".editable", function () {
-            const cell = $(this);
-            const oldValue = cell.text().trim();
-
-            if (cell.find("input").length > 0) return;
-
-            const input = `<input type="number" class="form-control" value="${oldValue}" />`;
-            cell.html(input);
-
-            cell.find("input").trigger("focus");
-
-            cell.find("input").on("blur keypress", function (e) {
-                if (e.type === "blur" || e.key === "Enter") {
-                    const newValue = $(this).val().trim() || oldValue;
-                    cell.text(newValue);
-
-                    updateIncentiveAmounts();
-                }
-            });
-        });
-
-        function updateIncentiveAmounts() {
-            let incentiveData = {};
-            let deductionData = {};
-
-            $("#incentiveTable tbody tr").each(function () {
-                const range = $(this).data("range");
-                const amount = parseInt($(this).find("td:eq(1)").text().trim());
-
-                incentiveData[range] = amount;
-            });
-
-            const body = {
-                managerId: managerId,
-                incentiveAmounts: incentiveData,
-                deductionAmounts: {}
-            };
-
-            $.ajax({
-                url: "https://eduroom.in/api/v1/bdsheet/amount",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(body),
-                success: function () {
-                    console.log("Updated Successfully");
-                }
-            });
-        }
-    </script>
-
-    <!-- Deduction Sheet -->
-    <script>
-        const managerId2 = sessionStorage.getItem("user_id");
-        console.log("managerId:", managerId2);
-
         function loadDeductionSheet() {
+            if (!selectedManagerId) {
+                $("#deductionTable tbody").empty();
+                return;
+            }
+
             $.ajax({
-                url: `https://eduroom.in/api/v1/bdsheet/ranges?managerId=${managerId2}`,
+                url: `https://eduroom.in/api/v1/bdsheet/ranges?managerId=${selectedManagerId}`,
                 type: "GET",
                 success: function (res) {
                     console.log("get call response for deduction:", res);
@@ -442,9 +456,9 @@
 
                     for (let range in data) {
                         tbody.append(`
-                        <tr data-range="${range}">
-                            <td>${range}</td>
-                            <td class="editable-deduct">${data[range]}</td>
+                        <tr data-range="${range}" style="background-color:#fdeaea;">
+                            <td style="background-color:#fdeaea;">${range}</td>
+                            <td class="editable-deduct" style="background-color:#fdeaea;">${data[range] || 0}</td>
                         </tr>
                     `);
                     }
@@ -452,7 +466,31 @@
             });
         }
 
-        loadDeductionSheet();
+        $("#managerDropdown").on("change", function () {
+            selectedManagerId = $(this).val();
+            loadIncentiveSheet();
+            loadDeductionSheet();
+        });
+
+        $(document).on("dblclick", ".editable", function () {
+            const cell = $(this);
+            const oldValue = cell.text().trim();
+
+            if (cell.find("input").length > 0) return;
+
+            const input = `<input type="number" class="form-control" value="${oldValue}" style="background-color:#ffffff;" />`;
+            cell.html(input);
+
+            cell.find("input").trigger("focus");
+
+            cell.find("input").on("blur keypress", function (e) {
+                if (e.type === "blur" || e.key === "Enter") {
+                    const newValue = $(this).val().trim() || oldValue;
+                    cell.text(newValue);
+                    updateBothAmounts();
+                }
+            });
+        });
 
         $(document).on("dblclick", ".editable-deduct", function () {
             const cell = $(this);
@@ -460,7 +498,7 @@
 
             if (cell.find("input").length > 0) return;
 
-            const input = `<input type="number" class="form-control" value="${oldValue}" />`;
+            const input = `<input type="number" class="form-control" value="${oldValue}" style="background-color:#ffffff;" />`;
             cell.html(input);
             cell.find("input").trigger("focus");
 
@@ -468,21 +506,16 @@
                 if (e.type === "blur" || e.key === "Enter") {
                     const newValue = $(this).val().trim() || oldValue;
                     cell.text(newValue);
-
-                    updateDeductionAmounts();
+                    updateBothAmounts();
                 }
             });
         });
 
-        function updateDeductionAmounts() {
-            let updatedDeductionData = {};
-            let updatedIncentiveData = {};
+        function updateBothAmounts() {
+            if (!selectedManagerId) return;
 
-            $("#deductionTable tbody tr").each(function () {
-                const range = $(this).data("range");
-                const amount = parseInt($(this).find("td:eq(1)").text().trim());
-                updatedDeductionData[range] = amount;
-            });
+            let updatedIncentiveData = {};
+            let updatedDeductionData = {};
 
             $("#incentiveTable tbody tr").each(function () {
                 const range = $(this).data("range");
@@ -490,11 +523,18 @@
                 updatedIncentiveData[range] = amount;
             });
 
+            $("#deductionTable tbody tr").each(function () {
+                const range = $(this).data("range");
+                const amount = parseInt($(this).find("td:eq(1)").text().trim());
+                updatedDeductionData[range] = amount;
+            });
+
             const body = {
-                managerId: managerId2,
+                managerId: selectedManagerId,
                 incentiveAmounts: updatedIncentiveData,
                 deductionAmounts: updatedDeductionData
             };
+            console.log("payload:", body);
 
             $.ajax({
                 url: "https://eduroom.in/api/v1/bdsheet/amount",
@@ -502,7 +542,7 @@
                 contentType: "application/json",
                 data: JSON.stringify(body),
                 success: function () {
-                    console.log("Deduction updated successfully");
+                    console.log("Both Incentive + Deduction updated successfully");
                 }
             });
         }
