@@ -253,7 +253,7 @@
                     <li class="nxl-item nxl-hasmenu" id="protectedDropdown">
                         <a href="javascript:void(0);" class="nxl-link protected-menu-trigger" id="protectedTrigger">
                             <span class="nxl-micon"><i class="feather-upload"></i></span>
-                            <span class="nxl-mtext">ADD COURSE DETAILS</span>
+                            <span class="nxl-mtext">CMS</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
 
@@ -286,31 +286,59 @@
                                     href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/bd-incentives.html">BD INCENTIVES</a></li>
                         </ul>
                     </li>
 
                     <!-- OTHER MENU ITEMS UNCHANGED -->
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">TEAM MANAGER</span>
+                            <span class="nxl-micon"><i class="feather-user"></i></span>
+                            <span class="nxl-mtext">HR </span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
 
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">MY
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">HR
                                     TARGETS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-briefcase"></i></span>
+                            <span class="nxl-mtext">BD </span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets.html">BD
+                                    TARGETS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/BD.html">BD SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li> -->
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li> -->
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li>
+                            <!-- <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
                         </ul>
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">MASTER SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-settings"></i></span>
+                            <span class="nxl-micon"><i class="feather-log-out"></i></span>
                             <span class="nxl-mtext">Logout</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
@@ -705,7 +733,7 @@
                 </script>
 
 
-                <div class="col-xxl-12">
+                <!-- <div class="col-xxl-12">
                     <div class="card stretch stretch-full overflow-hidden">
                         <div class="bg-success text-white">
                             <div class="p-4 d-flex justify-content-between align-items-center">
@@ -718,11 +746,11 @@
                         <div class="card-body">
                             <h6 class="mb-3">Resumes sent</h6>
                             <ul class="list-group" id="jdList">
-                                <!-- Dates and JD counts will be appended here -->
+
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <script>
                     const userData7 = JSON.parse(sessionStorage.getItem("user_data"));
@@ -1450,7 +1478,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-12 mx-auto">
+                <div class="col-lg-12 col-md-6 col-12 mx-auto">
                     <div class="card stretch stretch-full mt-4" style="background-color:#0985f0;">
                         <div class="card-header d-flex justify-content-between align-items-center"
                             style="background-color:#0985f0;">
@@ -1978,7 +2006,7 @@
             sessionAttendance: ["Active", "Inactive", "Not Attended", "Left", "Terminated"],
             domainTask: ["Completed", "In Progress", "Not Started", "Pending"],
             module2Status: ["Promoted", "Not Promoted", "On Hold"],
-            activeStatus: ["Active", "Inactive"]
+            activeStatus: ["Active", "Inactive", "Terminated", "Left"]
         };
 
         const categoryColors = {
@@ -2932,6 +2960,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <script>
+        const teamManagerId3 = sessionStorage.getItem("user_id");
+
         $(document).ready(function () {
             initializeDatePicker();
 
@@ -3000,7 +3030,7 @@
         }
 
         function fetchSummaryData(startDate, endDate) {
-            const url = `https://eduroom.in/api/v1/calculator/amount?managerId=10&startDate=${startDate}&endDate=${endDate}`;
+            const url = `https://eduroom.in/api/v1/calculator/amount?managerId=${teamManagerId3}&startDate=${startDate}&endDate=${endDate}`;
             console.log('Summary API URL:', url);
 
             $.ajax({
@@ -3071,7 +3101,7 @@
         function fetchIncentiveData(startDate, endDate) {
             $('#loadingIncentiveSpinner').show();
 
-            const url = `https://eduroom.in/api/v1/calculator/incentive?managerId=10&startDate=${startDate}&endDate=${endDate}`;
+            const url = `https://eduroom.in/api/v1/calculator/incentive?managerId=${teamManagerId3}&startDate=${startDate}&endDate=${endDate}`;
             console.log('Incentive API URL:', url);
 
             $.ajax({
@@ -3086,14 +3116,14 @@
                         populateIncentiveTable(response.data);
                     } else {
                         console.error('Incentive API returned error:', response.message);
-                        alert('Incentive Error: ' + response.message);
+                        // alert('Incentive Error: ' + response.message);
                         showEmptyIncentiveTable();
                     }
                 },
                 error: function (xhr, status, error) {
                     $('#loadingIncentiveSpinner').hide();
                     console.error('Error fetching incentive data:', error);
-                    alert('Failed to fetch incentive data from server.');
+                    // alert('Failed to fetch incentive data from server.');
                     showEmptyIncentiveTable();
                 }
             });
@@ -3141,7 +3171,7 @@
                 tableBody.append(row);
             });
 
-            const totalRow = $('<tr class="total-row"></tr>');
+            const totalRow = $('<tr class="total-row" style="font-weight: bold;"></tr>');
             const totalLabelCell = $('<td></td>').text('TOTAL');
             const totalInternsCell = $('<td></td>').text(totalInterns);
             const emptyCell = $('<td></td>').text('');
@@ -3154,7 +3184,7 @@
         function fetchDeductionData(startDate, endDate) {
             $('#loadingDeductionSpinner').show();
 
-            const url = `https://eduroom.in/api/v1/calculator/deduction?managerId=10&startDate=${startDate}&endDate=${endDate}`;
+            const url = `https://eduroom.in/api/v1/calculator/deduction?managerId=${teamManagerId3}&startDate=${startDate}&endDate=${endDate}`;
             console.log('Deduction API URL:', url);
 
             $.ajax({
@@ -3169,14 +3199,14 @@
                         populateDeductionTable(response.data);
                     } else {
                         console.error('Deduction API returned error:', response.message);
-                        alert('Deduction Error: ' + response.message);
+                        // alert('Deduction Error: ' + response.message);
                         showEmptyDeductionTable();
                     }
                 },
                 error: function (xhr, status, error) {
                     $('#loadingDeductionSpinner').hide();
                     console.error('Error fetching deduction data:', error);
-                    alert('Failed to fetch deduction data from server.');
+                    // alert('Failed to fetch deduction data from server.');
                     showEmptyDeductionTable();
                 }
             });
@@ -3224,7 +3254,7 @@
                 tableBody.append(row);
             });
 
-            const totalRow = $('<tr class="total-row"></tr>');
+            const totalRow = $('<tr class="total-row" style="font-weight: bold;"></tr>');
             const totalLabelCell = $('<td></td>').text('TOTAL');
             const totalInternsCell = $('<td></td>').text(totalInterns);
             const emptyCell = $('<td></td>').text('');
