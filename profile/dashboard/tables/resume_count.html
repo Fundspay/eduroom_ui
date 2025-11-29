@@ -144,7 +144,8 @@
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">RESUME COUNTS (TOTAL)</h5>
+                                    <h5 class="card-title">RESUME COUNTS (Total count: <span id="collegeCount">0</span>)
+                                    </h5>
                                 </div>
                                 <div class="card-header-action">
                                     <!-- <div data-bs-toggle="tooltip" title="Refresh">
@@ -178,7 +179,7 @@
                                                 <th>Delete</th>
                                                 <th>SR</th>
                                                 <th>NAME OF STUDENT</th>
-                                                <th>Registration Status</th>
+                                                <th>Resgitration Status</th>
                                                 <th>Date of Registartion</th>
                                                 <th>Time of Registartion</th>
                                                 <th>DATE OF RESUMES RECEIVED</th>
@@ -189,28 +190,18 @@
                                                 <th>MOBILE NUMBER</th>
                                                 <th>EMAIL ID</th>
                                                 <th>DOMAIN</th>
-                                                <th>Subscription 1</th>
-                                                <th>Subscription 2</th>
-                                                <th>Subscription 3</th>
-                                                <th>Subscription 4</th>
-                                                <th>Subscription 5</th>
-                                                <th>Subscription 6</th>
-                                                <th>Subscription 7</th>
-                                                <th>Subscription 8</th>
-                                                <th>Subscription 9</th>
-                                                <th>Subscription 10</th>
-                                                <th>Subscription 11</th>
-                                                <th>Subscription 12</th>
-                                                <th>Subscription 13</th>
-                                                <th>Subscription 14</th>
-                                                <th>Subscription 15</th>
-                                                <th>Subscription 16</th>
-                                                <th>Subscription 17</th>
-                                                <th>Subscription 18</th>
-                                                <th>Subscription 19</th>
-                                                <th>Subscription 20</th>
+                                                <th>Knowledge Score</th>
+                                                <th>Approach Score</th>
+                                                <th>Skills Score</th>
+                                                <th>Other Score</th>
+                                                <th>Total average score</th>
+                                                <th>Selection status</th>
+                                                <th>Comment</th>
+                                                <th>Date of interview</th>
+                                                <th>Call Status</th>
+                                                <th>Alloted to</th>
                                                 <!-- <th>MAIL SENT ON</th>
-                                                <th>Send Resume</th> -->
+                                                    <th>Send Resume</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -480,7 +471,11 @@
         const dropdowns = {
             domain: ["Marketing", "Finance", "HR", "Operations", "Others"],
             internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
-            course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"]
+            course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
+            // new static dropdowns
+            finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
+            callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
+            // followupBy / alloted will be set from response.managers below
         };
 
         const colorMap = {
@@ -504,15 +499,15 @@
                 method: "GET",
                 success: function (res) {
                     console.log("student resumes:", res);
-                    if (res.success && (res.resumesData || res.data)) {
+                    if (res.success && res.resumesData) {
                         if (res.managers && Array.isArray(res.managers)) {
+                            // populate both followupBy and alloted lists from managers
                             dropdowns.followupBy = res.managers.map(u => u.name);
+                            dropdowns.alloted = res.managers.map(u => u.name);
                         }
-
                         let maxPayments = 0;
-                        const records = res.resumesData || res.data || [];
 
-                        tableData = records.map((row, index) => {
+                        tableData = res.resumesData.map((row, index) => {
                             const dateRaw = row.dateOfRegistration || "";
                             let dateOnly = "", timeOnly = "";
                             if (dateRaw) {
@@ -531,11 +526,23 @@
                                 }
                             }
 
-                            const payments = Array.isArray(row.FundsAuditStudents)
-                                ? row.FundsAuditStudents.map(f => f.dateOfPayment)
-                                : [];
+                            // const payments = (row.user && Array.isArray(row.user.FundsAudits))
+                            //     ? row.user.FundsAudits.map(f => f.dateOfPayment)
+                            //     : [];
 
-                            if (payments.length > maxPayments) maxPayments = payments.length;
+                            // if (payments.length > maxPayments) maxPayments = payments.length;
+
+                            // NEW fields: safely read from row or default
+                            const knowledgeScore = row.knowledgeScore ?? "";
+                            const approachScore = row.approachScore ?? "";
+                            const skillsScore = row.skillsScore ?? "";
+                            const otherScore = row.otherScore ?? "";
+                            const totalAverageScore = row.totalAverageScore ?? "";
+                            const finalSelectionStatus = row.finalSelectionStatus ?? "";
+                            const comment = row.comment ?? "";
+                            const Dateofonboarding = row.Dateofonboarding ?? "";
+                            const callStatus = row.callStatus ?? "";
+                            const alloted = row.alloted ?? "";
 
                             return {
                                 sno: index + 1,
@@ -554,32 +561,36 @@
                                 dateOfRegistrationDate: dateOnly,
                                 dateOfRegistrationTime: timeOnly,
                                 mailSentAt: row.mailSentAt || "",
-                                payments: payments
+                                // payments: payments,
+                                // new fields included in the row object
+                                knowledgeScore,
+                                approachScore,
+                                skillsScore,
+                                otherScore,
+                                totalAverageScore,
+                                finalSelectionStatus,
+                                comment,
+                                Dateofonboarding,
+                                callStatus,
+                                alloted
                             };
                         });
 
-                        window.maxPayments = maxPayments || 0;
+                        window.maxPayments = maxPayments;
 
                         if (window.maxPayments && window.maxPayments > 0) {
                             for (let i = 1; i <= window.maxPayments; i++) {
-                                if (!columnKeys.includes(`payment${i}`)) {
-                                    columnKeys.push(`payment${i}`);
-                                }
+                                columnKeys.push(`payment${i}`);
                             }
                         }
 
-                        const totalColleges = tableData.length;
-                        const countElem = document.getElementById("collegeCount");
-                        if (countElem) countElem.textContent = totalColleges;
+                        $("#collegeCount").text(tableData.length);
 
                         filteredData = [...tableData];
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
                     }
-                },
-                error: function (err) {
-                    console.error("Error loading table data:", err);
                 }
             });
         }
@@ -621,38 +632,61 @@
 
             rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-                    <td>
-                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${row.sno}</td>
-                    ${makeCell("studentName", row.studentName || "")}
-                    <td>
-                        ${row.isRegistered
+                <td>
+                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+                <td>${row.sno}</td>
+                ${makeCell("studentName", row.studentName || "")}
+                <td>
+                    ${row.isRegistered
                         ? '<span class="badge bg-soft-success text-success">Yes</span>'
                         : '<span class="badge bg-soft-danger text-danger">No</span>'}
-                    </td>
-                    <td>${row.dateOfRegistrationDate || ""}</td>
-                    <td>${row.dateOfRegistrationTime || ""}</td>
-                    ${makeDateCell("resumeDate", row.resumeDate || "")}
-                    ${makeCell("collegeName", row.collegeName || "")}
-                    ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
-                    ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
-                    ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.connectedBy)}
-                    ${makeCell("mobileNumber", row.mobileNumber || "")}
-                    ${makeCell("emailId", row.emailId || "")}
-                    ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
+                </td>
+                <td>${row.dateOfRegistrationDate || ""}</td>
+                <td>${row.dateOfRegistrationTime || ""}</td>
+                ${makeDateCell("resumeDate", row.resumeDate || "")}
+                ${makeCell("collegeName", row.collegeName || "")}
+                ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
+                ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
+                ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.followupBy)}
+                ${makeCell("mobileNumber", row.mobileNumber || "")}
+                ${makeCell("emailId", row.emailId || "")}
+                ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
                 `;
 
-                const payments = row.payments || [];
-                for (let i = 0; i < (window.maxPayments || 0); i++) {
-                    let paymentDate = payments[i] ? formatDate(payments[i]) : "";
-                    tr += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
-                }
+                // NEW score inputs (use number inputs)
+                tr += makeNumberCell("knowledgeScore", row.knowledgeScore || "");
+                tr += makeNumberCell("approachScore", row.approachScore || "");
+                tr += makeNumberCell("skillsScore", row.skillsScore || "");
+                tr += makeNumberCell("otherScore", row.otherScore || "");
+                tr += makeColoredScoreCell("totalAverageScore", row.totalAverageScore || "");
+
+                // finalSelectionStatus - dropdown (Yes/No)
+                tr += makeDropdownCell("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns.finalSelectionStatus);
+
+                // comment - free text input
+                tr += makeCell("comment", row.comment || "");
+
+                // Dateofonboarding - date picker
+                tr += makeDateCell("Dateofonboarding", row.Dateofonboarding || "");
+
+                // callStatus - dropdown
+                tr += makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus);
+
+                // alloted - dropdown from managers
+                tr += makeDropdownCell("alloted", row.alloted || "", null, dropdowns.alloted || []);
+
+                // const payments = row.payments || [];
+                // for (let i = 0; i < (window.maxPayments || 0); i++) {
+                //     let paymentDate = payments[i] ? formatDate(payments[i]) : "";
+                //     tr += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
+                // }
 
                 tr += `</tr>`;
                 tbody.append(tr);
+
             });
 
             attachCellEvents();
@@ -674,16 +708,25 @@
             "followupBy",
             "mobileNumber",
             "emailId",
-            "domain"
+            "domain",
+            // new columns
+            "knowledgeScore",
+            "approachScore",
+            "skillsScore",
+            "otherScore",
+            "totalAverageScore",
+            "finalSelectionStatus",
+            "comment",
+            "Dateofonboarding",
+            "callStatus",
+            "alloted"
         ];
 
-        if (window.maxPayments && window.maxPayments > 0) {
-            for (let i = 1; i <= window.maxPayments; i++) {
-                if (!columnKeys.includes(`payment${i}`)) {
-                    columnKeys.push(`payment${i}`);
-                }
-            }
-        }
+        // if (window.maxPayments && window.maxPayments > 0) {
+        //     for (let i = 1; i <= window.maxPayments; i++) {
+        //         columnKeys.push(`payment${i}`);
+        //     }
+        // }
 
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
@@ -753,18 +796,35 @@
                 if (field === "isRegistered") {
                     values = ["Yes", "No"];
                 }
-                else if (field.startsWith("payment")) {
-                    const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                else if (field === "dateOfRegistration") {
                     values = [...new Set(
                         tableData
                             .map(row => {
-                                const payments = row.payments || [];
-                                const date = payments[paymentIndex];
-                                return date ? formatDate(date) : "";
+                                const d = row.dateOfRegistration;
+                                if (!d) return "";
+                                let formatted = formatDateTime(d);
+                                if (!formatted || formatted === "Invalid Date / NaN:NaN AM") {
+                                    formatted = formatDate(d);
+                                }
+                                return formatted;
                             })
                             .filter(v => v && v.trim() !== "")
                     )];
                 }
+
+                // else if (field.startsWith("payment")) {
+                //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                //     values = [...new Set(
+                //         tableData
+                //             .map(row => {
+                //                 const payments = row.payments || [];
+                //                 const date = payments[paymentIndex];
+                //                 return date ? formatDate(date) : "";
+                //             })
+                //             .filter(v => v && v.trim() !== "")
+                //     )];
+                // }
+
                 else if (field.toLowerCase().includes("date")) {
                     values = [...new Set(
                         tableData
@@ -776,6 +836,14 @@
                     values = [...new Set(
                         tableData
                             .map(row => formatTimeHM(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+
+                else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
+                    values = [...new Set(
+                        tableData
+                            .map(row => (row[field] !== null && row[field] !== undefined) ? String(row[field]) : "")
                             .filter(v => v && v.trim() !== "")
                     )];
                 }
@@ -805,12 +873,14 @@
                     filteredData = filteredData.filter(row => {
                         let cellValue = "";
 
-                        if (field.startsWith("payment")) {
-                            const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                            const payments = row.payments || [];
-                            cellValue = payments[paymentIndex] ? formatDate(payments[paymentIndex]) : "";
-                        }
-                        else if (field === "isRegistered") {
+                        // payment fields (payment1, payment2, ...)
+                        // if (field.startsWith("payment")) {
+                        //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                        //     const payments = row.payments || [];
+                        //     cellValue = payments[paymentIndex] ? formatDate(payments[paymentIndex]) : "";
+                        // }
+                        // boolean registration
+                        if (field === "isRegistered") {
                             cellValue = row.isRegistered ? "Yes" : "No";
                         }
                         else if (field === "dateOfRegistration") {
@@ -821,6 +891,9 @@
                         }
                         else if (field.toLowerCase().includes("time")) {
                             cellValue = formatTimeHM(row[field] || "");
+                        }
+                        else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
+                            cellValue = row[field] !== null && row[field] !== undefined ? String(row[field]) : "";
                         }
                         else {
                             cellValue = row[field] || "";
@@ -838,27 +911,53 @@
 
         function makeCell(field, value) {
             let displayValue = value || "";
+            const safeVal = String(displayValue).replace(/"/g, "&quot;");
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" value="${displayValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="text" value="${safeVal}">
+        </td>`;
         }
 
         function makeNumberCell(field, value) {
-            let displayValue = value || "";
+            let displayValue = (value === null || value === undefined) ? "" : value;
+            const safeVal = String(displayValue).replace(/"/g, "&quot;");
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="number" value="${displayValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="number" value="${safeVal}" step="any" min="0">
+        </td>`;
         }
 
         function makeDateCell(field, value) {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" class="date-picker" value="${rawValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="text" class="date-picker" value="${rawValue}">
+        </td>`;
+        }
+
+        function makeColoredScoreCell(field, value) {
+            const raw = (value === null || value === undefined || value === "") ? "" : Number(value);
+            let style = "";
+            let textColor = "";
+
+            if (raw === "" || isNaN(raw)) {
+                style = "";
+            } else if (raw >= 1 && raw <= 3) {
+                style = "background-color: #fde4e4;";
+                textColor = "color: #b12b2b;";
+            } else if (raw > 3 && raw <= 6) {
+                style = "background-color: #fff4d6;";
+                textColor = "color: #7a4b00;";
+            } else if (raw > 6) {
+                style = "background-color: #e3f8e6;";
+                textColor = "color: #166534;";
+            }
+
+            const safeVal = (value === null || value === undefined) ? "" : String(value).replace(/"/g, "&quot;");
+            const textSpan = `<span style="${textColor}">${safeVal}</span>`;
+
+            return `<td data-field="${field}" class="score-cell" style="${style}; padding: 6px 10px;">${textSpan}</td>`;
         }
 
         function makeDropdownCell(field, selectedValue, stateFilter = null, optionsList = null) {
@@ -866,18 +965,18 @@
 
             const formatLabel = (val) => {
                 if (!val) return "";
-                return val.charAt(0).toUpperCase() + val.slice(1);
+                return String(val).charAt(0).toUpperCase() + String(val).slice(1);
             };
 
             let displaySelected = formatLabel(selectedValue);
 
             let html = `<td data-field="${field}">
-                <span style="font-weight:bold;">${displaySelected}</span>
-                <select class="form-control select2">`;
+            <span style="font-weight:bold;">${displaySelected}</span>
+            <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
-                let sel = (opt.toLowerCase() === (selectedValue || "").toLowerCase()) ? "selected" : "";
+                let sel = (String(opt).toLowerCase() === String(selectedValue || "").toLowerCase()) ? "selected" : "";
                 html += `<option value="${opt}" ${sel}>${formatLabel(opt)}</option>`;
             });
 
@@ -905,7 +1004,8 @@
 
             $("#leadsTable td input, #leadsTable td select")
                 .off("blur change")
-                .on("blur change", function () {
+                .on("blur change", function (ev) {
+                    // date picker changes are handled by flatpickr onChange below
                     if ($(this).hasClass("date-picker")) return;
 
                     let td = $(this).closest("td");
@@ -914,17 +1014,26 @@
                     let field = td.data("field");
                     let value = $(this).val();
 
+                    // update UI
                     td.find("span").text(value);
                     td.removeClass("editing");
 
+                    // build payload for API
                     let payload = {};
-                    payload[field] = value;
+                    // cast numeric fields to numbers if not empty
+                    if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
+                        payload[field] = value === "" ? null : Number(value);
+                    } else {
+                        payload[field] = value;
+                    }
                     if (teamManagerId) {
                         payload["teamManagerId"] = teamManagerId;
                     }
 
+                    console.log("payload:", payload);
+
                     $.ajax({
-                        url: `https://eduroom.in/api/v1/studentresume/update/` + id,
+                        url: `${apiBase}/update/` + id,
                         method: "PUT",
                         contentType: "application/json",
                         data: JSON.stringify(payload),
@@ -959,8 +1068,10 @@
                             payload["teamManagerId"] = teamManagerId;
                         }
 
+                        console.log("payload:", payload);
+
                         $.ajax({
-                            url: `https://eduroom.in/api/v1/studentresume/update/` + id,
+                            url: `${apiBase}/update/` + id,
                             method: "PUT",
                             contentType: "application/json",
                             data: JSON.stringify(payload),
@@ -974,6 +1085,13 @@
                     }
                 });
             });
+
+            // initialize any select2 if you use it - optional
+            $("#leadsTable td select.select2").each(function () {
+                if ($(this).select2) {
+                    $(this).select2({ width: '100%' });
+                }
+            });
         }
 
         function attachSendMailEvents() {
@@ -983,9 +1101,9 @@
                 Swal.fire({
                     title: "Send Follow-up Mail",
                     html: `
-                        <input id="mailLink" class="swal2-input" placeholder="Enter Meeting Link" type="text">
-                        <input id="mailTime" class="swal2-input" type="time" value="11:30">
-                    `,
+                    <input id="mailLink" class="swal2-input" placeholder="Enter Meeting Link" type="text">
+                    <input id="mailTime" class="swal2-input" type="time" value="11:30">
+                `,
                     showCancelButton: true,
                     confirmButtonText: "Send",
                     cancelButtonText: "Cancel",
@@ -1025,7 +1143,7 @@
                         });
 
                         $.ajax({
-                            url: `https://eduroom.in/api/v1/studentresume/send-mail/` + id,
+                            url: `${apiBase}/send-mail/` + id,
                             method: "POST",
                             contentType: "application/json",
                             data: JSON.stringify({
@@ -1063,7 +1181,8 @@
 
             filteredData = tableData.filter((row) =>
                 Object.values(row).some((field) => {
-                    const plainText = $('<div>').html(field).text().toLowerCase().trim();
+                    // convert any field to string safely
+                    const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
                     return plainText.includes(value);
                 })
             );
@@ -1084,23 +1203,36 @@
 
         window.exportToExcel = function () {
             const headers = [
-                "sno",
-                "studentName",
-                "isRegistered",
-                "dateOfRegistrationDate",
-                "dateOfRegistrationTime",
-                "resumeDate",
-                "collegeName",
-                "course",
-                "internshipType",
-                "followupBy",
-                "mobileNumber",
-                "emailId",
-                "domain"
+                "S.No",
+                "Student Name",
+                "Registered",
+                "Registration Date",
+                "Registration Time",
+                "Resume Date",
+                "College Name",
+                "Course",
+                "Internship Type",
+                "Follow-up By",
+                "Mobile Number",
+                "Email ID",
+                "Domain",
+                // new header columns
+                "Knowledge Score",
+                "Approach Score",
+                "Skills Score",
+                "Other Score",
+                "Total Average Score",
+                "Final Selection Status",
+                "Comment",
+                "Date of Onboarding",
+                "Call Status",
+                "Alloted"
             ];
 
-            for (let i = 1; i <= (window.maxPayments || 0); i++) {
-                headers.push(`payment${i}`);
+            if (window.maxPayments && window.maxPayments > 0) {
+                for (let i = 1; i <= window.maxPayments; i++) {
+                    headers.push(`Payment ${i}`);
+                }
             }
 
             const data = [headers];
@@ -1119,11 +1251,27 @@
                     row.followupBy,
                     row.mobileNumber,
                     row.emailId,
-                    row.domain
+                    row.domain,
+                    // new data columns
+                    row.knowledgeScore,
+                    row.approachScore,
+                    row.skillsScore,
+                    row.otherScore,
+                    row.totalAverageScore,
+                    row.finalSelectionStatus,
+                    row.comment,
+                    formatDate(row.Dateofonboarding),
+                    row.callStatus,
+                    row.alloted
                 ];
 
-                for (let i = 0; i < (window.maxPayments || 0); i++) {
-                    rowData.push(row.payments[i] ? formatDate(row.payments[i]) : "");
+                if (window.maxPayments && window.maxPayments > 0) {
+                    for (let i = 0; i < window.maxPayments; i++) {
+                        const paymentDate = row.payments && row.payments[i]
+                            ? formatDate(row.payments[i])
+                            : "";
+                        rowData.push(paymentDate);
+                    }
                 }
 
                 data.push(rowData);
@@ -1132,7 +1280,7 @@
             const worksheet = XLSX.utils.aoa_to_sheet(data);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "StudentResumes");
-            XLSX.writeFile(workbook, "StudentResumes_All.xlsx");
+            XLSX.writeFile(workbook, "StudentResumes_With_Payments.xlsx");
         };
 
         $(document).ready(function () {
