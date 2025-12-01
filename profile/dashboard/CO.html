@@ -760,15 +760,27 @@
                     <div class="col-xxl-12">
                         <div class="card stretch stretch-full overflow-hidden">
                             <div class="bg-success text-white">
+
                                 <div class="p-4 d-flex justify-content-between align-items-center">
                                     <h5 class="text-reset">ANALYTICS</h5>
+
+                                    <div class="d-flex gap-2">
+                                        <button class="chart-scroll-btn" id="scrollLeftBtn">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </button>
+
+                                        <button class="chart-scroll-btn" id="scrollRightBtn">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div class="chart-scroll-wrapper">
+                                <div id="chartScrollWrapper" class="chart-scroll-wrapper">
                                     <div id="chart-inner">
                                         <div id="conversion-statistic-bar-chart"></div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="card-body">
@@ -777,7 +789,33 @@
                             </div>
                         </div>
                     </div>
+
                     <style>
+                        .chart-scroll-btn {
+                            background: rgba(255, 255, 255, 0.25);
+                            border: none;
+                            color: #fff;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            transition: 0.2s ease-in-out;
+                        }
+
+                        .chart-scroll-btn:hover {
+                            background: rgba(255, 255, 255, 0.45);
+                        }
+
+                        .chart-scroll-wrapper {
+                            overflow-x: auto;
+                            scroll-behavior: smooth;
+                            padding-bottom: 10px;
+                            white-space: nowrap;
+                        }
+
                         .chart-scroll-wrapper {
                             overflow-x: auto;
                             overflow-y: hidden;
@@ -1625,6 +1663,20 @@
                 }
             });
         }
+
+        $(document).ready(function () {
+
+            const scrollBox = document.getElementById("chartScrollWrapper");
+
+            $("#scrollLeftBtn").click(() => {
+                scrollBox.scrollLeft -= 300;
+            });
+
+            $("#scrollRightBtn").click(() => {
+                scrollBox.scrollLeft += 300;
+            });
+
+        });
 
         function loadDashboardData(startDate = null, endDate = null) {
             let url = `https://eduroom.in/api/v1/analysis/daily?teamManagerId=${teamManagerId}`;
