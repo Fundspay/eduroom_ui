@@ -162,8 +162,8 @@
                                     href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/bd-incentives.html">BD INCENTIVES</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-incentives.html">BD
+                                    INCENTIVES</a></li>
                         </ul>
                     </li>
 
@@ -180,7 +180,8 @@
                                     TARGETS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">RISA SHEET</a>
+                            </li>
                             <!-- <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
                         </ul>
@@ -198,7 +199,7 @@
                                     TARGETS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/BD.html">BD SHEET</a></li>
                             <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li> -->
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">R SHEET</a></li> -->
+                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">RISA SHEET</a></li> -->
                             <!-- <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
                         </ul>
@@ -513,6 +514,40 @@
                                 </div> -->
                             </div>
                         </div>
+                        <div class="subscription-legend d-flex flex-wrap align-items-center gap-2 my-2 justify-content-end"
+                            style="font-size: 15px;"><span style="color:#000; font-weight: bold;">Total
+                                Subscriptions:</span>
+                            <span style="display:inline-flex;align-items:center;margin-right:12px;">
+                                <span
+                                    style="display:inline-block;width:16px;height:16px;background:#ff4d4d;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
+                                0 (Red)
+                            </span>
+                            <span style="display:inline-flex;align-items:center;margin-right:12px;">
+                                <span
+                                    style="display:inline-block;width:16px;height:16px;background:#ffa500;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
+                                1 - 5 (Orange)
+                            </span>
+                            <span style="display:inline-flex;align-items:center;margin-right:12px;">
+                                <span
+                                    style="display:inline-block;width:16px;height:16px;background:#ffff80;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
+                                6 - 12 (Yellow)
+                            </span>
+                            <span style="display:inline-flex;align-items:center;margin-right:12px;">
+                                <span
+                                    style="display:inline-block;width:16px;height:16px;background:#b3ffb3;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
+                                13 - 18 (Light Green)
+                            </span>
+                            <span style="display:inline-flex;align-items:center;margin-right:12px;">
+                                <span
+                                    style="display:inline-block;width:16px;height:16px;background:#5cdb5c;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
+                                19 - 25 (Green)
+                            </span>
+                            <span style="display:inline-flex;align-items:center;margin-right:12px;">
+                                <span
+                                    style="display:inline-block;width:16px;height:16px;background:#4da6ff;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
+                                25+ (Blue)
+                            </span>
+                        </div>
 
                         <div class="card-body custom-card-action p-0">
                             <div class="table-responsive">
@@ -686,9 +721,9 @@
                         border-bottom: 1px solid #f1f5f9;
                     }
 
-                    #leadsTable tr:nth-child(even) td {
+                    /* #leadsTable tr:nth-child(even) td {
                         background: #fafafa;
-                    }
+                    } */
 
                     #leadsTable tr:hover td {
                         background: #f1f5ff;
@@ -848,6 +883,17 @@
             return `${month} ${year}`;
         }
 
+        function getRowBgColor(subscriptionWallet) {
+            const val = parseInt(subscriptionWallet, 10) || 0;
+            if (val === 0) return 'background-color: #ff4d4d;'; // red
+            if (val >= 1 && val <= 5) return 'background-color: #ffa500;'; // orange
+            if (val >= 6 && val <= 12) return 'background-color: #ffff80;'; // yellow
+            if (val >= 13 && val <= 18) return 'background-color: #b3ffb3;'; // light green
+            if (val >= 19 && val <= 25) return 'background-color: #5cdb5c;'; // green
+            if (val > 25) return 'background-color: #4da6ff;'; // blue
+            return '';
+        }
+
         function loadTableData() {
 
             const baseUrl = `https://eduroom.in/api/v1/status/listall`;
@@ -996,41 +1042,43 @@
                     ? `<a href="${profileUrl}" target="_blank" class="text-primary fw-bold" style="cursor:pointer; text-decoration:underline;">${safeName}</a>`
                     : `<span>${safeName}</span>`;
 
-                let tr = `<tr data-id="${row.id}">
-                            <td>${start + index + 1}</td>
-                            <td>${nameCell}</td>
-                            <td>
-                                <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
-                                    ${escapeHtml(row.phoneNumber || '')}
-                                </a>
-                            </td>
-                            <td>${escapeHtml(row.registeredAt || '')}</td>
-                            <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                            <td>${escapeHtml(row.selected || 'No')}</td>
-                            <td>${escapeHtml(row.email || '')}</td>
-                            <td>${escapeHtml(row.collegeName || '')}</td>
-                            <td>${escapeHtml(row.courses || '')}</td>
-                            <td>${escapeHtml(row.course || '')}</td>
-                            <td>${escapeHtml(row.duration || '')}</td>
-                            <td>${escapeHtml(row.startDate || '')}</td>
-                            <td>${escapeHtml(row.estEndDate || '')}</td>
-                            ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
-                            <td>${escapeHtml(row.referralCode || '')}</td>
-                            <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
-                            ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
-                            <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                            ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                            ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                            <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                            <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
-                                    class="text-primary fw-bold" 
-                                    style="cursor:pointer; text-decoration:underline;"
-                                    target="_top">
-                                    ${escapeHtml(row.queryStatus || '')}
-                                </a></td>
-                            ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
-                            ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
-                        </tr>`;
+                const rowBgStyle = getRowBgColor(row.subscriptionWallet);
+
+                let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
+                        <td>${start + index + 1}</td>
+                        <td>${nameCell}</td>
+                        <td>
+                            <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                                ${escapeHtml(row.phoneNumber || '')}
+                            </a>
+                        </td>
+                        <td>${escapeHtml(row.registeredAt || '')}</td>
+                        <td>${escapeHtml(row.offerMessageExists || '')}</td>
+                        <td>${escapeHtml(row.selected || 'No')}</td>
+                        <td>${escapeHtml(row.email || '')}</td>
+                        <td>${escapeHtml(row.collegeName || '')}</td>
+                        <td>${escapeHtml(row.courses || '')}</td>
+                        <td>${escapeHtml(row.course || '')}</td>
+                        <td>${escapeHtml(row.duration || '')}</td>
+                        <td>${escapeHtml(row.startDate || '')}</td>
+                        <td>${escapeHtml(row.estEndDate || '')}</td>
+                        ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                        <td>${escapeHtml(row.referralCode || '')}</td>
+                        <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
+                        ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
+                        <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
+                        ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
+                        ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
+                        <td>${escapeHtml(row.subscriptionLeft || '')}</td>
+                        <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                                class="text-primary fw-bold" 
+                                style="cursor:pointer; text-decoration:underline;"
+                                target="_top">
+                                ${escapeHtml(row.queryStatus || '')}
+                            </a></td>
+                        ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
+                        ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
+                    </tr>`;
                 tbody.append(tr);
             });
 
