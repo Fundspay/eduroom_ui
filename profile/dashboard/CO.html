@@ -224,8 +224,8 @@
                                     href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
-                            <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/bd-incentives.html">BD INCENTIVES</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-incentives.html">BD
+                                    INCENTIVES</a></li>
                         </ul>
                     </li>
 
@@ -762,16 +762,37 @@
                                 <div class="p-4 d-flex justify-content-between align-items-center">
                                     <h5 class="text-reset">ANALYTICS</h5>
                                 </div>
-                                <div id="conversion-statistic-bar-chart"></div>
+
+                                <div class="chart-scroll-wrapper">
+                                    <div id="chart-inner">
+                                        <div id="conversion-statistic-bar-chart"></div>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="card-body">
                                 <h6 class="mb-3">Daily JD Sent</h6>
-                                <ul class="list-group" id="jdList">
-                                    <!-- Dates and JD counts will be appended here -->
-                                </ul>
+                                <ul class="list-group" id="jdList"></ul>
                             </div>
                         </div>
                     </div>
+                    <style>
+                        .chart-scroll-wrapper {
+                            overflow-x: auto;
+                            overflow-y: hidden;
+                            width: 100%;
+                            padding-bottom: 10px;
+                        }
+
+                        #chart-inner {
+                            min-width: 600px;
+                        }
+
+                        #jdList {
+                            max-height: 250px;
+                            overflow-y: auto;
+                        }
+                    </style>
                 </div>
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
@@ -1500,8 +1521,8 @@
         }
 
         function loadAnalysisChart(startDate = null, endDate = null) {
-            let url = `https://eduroom.in/api/v1/analysis/daily?teamManagerId=${teamManagerId}`;
 
+            let url = `https://eduroom.in/api/v1/analysis/daily?teamManagerId=${teamManagerId}`;
             if (startDate && endDate) {
                 url += `&startDate=${startDate}&endDate=${endDate}`;
             }
@@ -1512,16 +1533,21 @@
                 dataType: "json",
                 success: function (res) {
                     console.log("barchart data:", res);
+
                     const jdList = $("#jdList");
                     jdList.empty();
 
                     if (res.success && res.dates && res.dates.length > 0) {
+
+                        const totalDays = res.dates.length;
+
+                        $("#chart-inner").css("min-width", `${totalDays * 55}px`);
+
                         const dates = res.dates.map(item => {
                             let d = new Date(item.date);
                             let day = d.getDate();
-                            let weekday = d.toLocaleDateString("en-US", { weekday: "short" });
-                            // return `${day} (${weekday})`;
-                            return `${day}`;
+                            let month = d.toLocaleDateString("en-US", { month: "short" });
+                            return `${day} ${month}`;
                         });
 
                         const jdCounts = res.dates.map(item => item.jdSent);
@@ -1529,36 +1555,47 @@
                         res.dates.forEach(item => {
                             let target = item.plannedJds || 0;
                             jdList.append(`
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>${formatDateUI(item.date)} (${item.day})</span>
-                            <span class="fw-bold">${item.jdSent}/${target}</span>
-                        </li>
-                    `);
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>${formatDateUI(item.date)} (${item.day})</span>
+                                    <span class="fw-bold">${item.jdSent}/${target}</span>
+                                </li>
+                            `);
                         });
 
                         if (analysisChart) {
                             analysisChart.updateOptions({
-                                series: [{ name: "Planned JDs", data: jdCounts }],
+                                series: [{ name: "JDs Sent", data: jdCounts }],
                                 xaxis: { categories: dates }
                             });
                         } else {
                             analysisChart = new ApexCharts(document.querySelector("#conversion-statistic-bar-chart"), {
                                 series: [{ name: "JDs Sent", data: jdCounts }],
                                 chart: { type: "bar", height: 200, toolbar: { show: false } },
-                                plotOptions: { bar: { horizontal: false, endingShape: "rounded", columnWidth: "20%" } },
+
+                                plotOptions: {
+                                    bar: {
+                                        horizontal: false,
+                                        endingShape: "rounded",
+                                        columnWidth: "35%"
+                                    }
+                                },
+
                                 colors: ["#fff"],
                                 grid: { show: false },
                                 legend: { show: false },
                                 dataLabels: { enabled: false },
+
                                 xaxis: {
                                     categories: dates,
                                     labels: {
                                         show: true,
-                                        style: { colors: "#fff", fontFamily: "Roboto" }
-                                    },
-                                    axisBorder: { show: false }
+                                        style: { colors: "#fff", fontFamily: "Roboto" },
+                                        rotate: -45
+                                    }
                                 },
+
                                 yaxis: { labels: { show: false } },
+
                                 tooltip: {
                                     theme: "dark",
                                     y: { formatter: (val) => val + " JDs Sent" },
@@ -1567,12 +1604,16 @@
                             });
                             analysisChart.render();
                         }
+
                     } else {
                         console.warn("No analysis data found for selected range.");
                         jdList.append(`<li><span class="date">No Data</span><span class="count">0/0</span></li>`);
+
+                        $("#chart-inner").css("min-width", "600px");
+
                         if (analysisChart) {
                             analysisChart.updateOptions({
-                                series: [{ name: "Planned JDs", data: [] }],
+                                series: [{ name: "JDs Sent", data: [] }],
                                 xaxis: { categories: [] }
                             });
                         }
