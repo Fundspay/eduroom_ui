@@ -721,22 +721,32 @@
                     });
                 </script>
 
-
                 <div class="col-xxl-12">
                     <div class="card stretch stretch-full overflow-hidden">
                         <div class="bg-success text-white">
+
                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                <h5 class="card-title" id="reSheetTitle3">
-                                    RESUME ANALYTICS
-                                </h5>
+                                <h5 class="card-title" id="reSheetTitle3">RESUME ANALYTICS</h5>
                             </div>
-                            <div id="conversion-statistic-bar-chart"></div>
+
+                            <div id="chartContainer" style="
+                                    width: 100%;
+                                    overflow-x: auto;
+                                    display: flex;
+                                    justify-content: center;
+                                    padding: 15px 0;
+                                ">
+                                <div id="conversion-statistic-bar-chart"></div>
+                            </div>
+
                         </div>
+
                         <div class="card-body">
                             <h6 class="mb-3">Resumes sent</h6>
-                            <ul class="list-group" id="jdList">
-                                <!-- Dates and JD counts will be appended here -->
-                            </ul>
+
+                            <div style="max-height: 250px; overflow-y: auto; padding-right: 5px;">
+                                <ul class="list-group" id="jdList"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4265,8 +4275,23 @@
             });
         }
 
-        // ---- Work Analysis Chart ----
+        function getDayAndMonth(dateStr) {
+            const d = new Date(dateStr);
+            const day = d.getDate();
+            const month = d.toLocaleString("en-US", { month: "short" });
+            return `${day} ${month}`;
+        }
+
+        function formatDateWithDay(fullDate) {
+            const d = new Date(fullDate);
+            const weekday = d.toLocaleString("en-US", { weekday: "short" });
+            const month = d.toLocaleString("en-US", { month: "short" });
+            const day = d.getDate();
+            return `${weekday}, ${day} ${month}`;
+        }
+
         function loadAnalysisChart(startDate = null, endDate = null) {
+
             let url = `https://eduroom.in/api/v1/studentresume/work-analysis?teamManagerId=${teamManagerId}`;
 
             if (startDate && endDate) {
@@ -4278,23 +4303,21 @@
                 type: "GET",
                 dataType: "json",
                 success: function (res) {
-                    console.log("Work Analysis Data:", res);
+
                     const jdList = $("#jdList");
                     jdList.empty();
 
                     if (res.success && res.data && res.data.length > 0) {
-                        // ---- Aggregate by date ----
-                        const dateMap = {}; // { "02 September 2025": { resumes: X, interviews: Y } }
+
+                        const dateMap = {};
 
                         res.data.forEach(person => {
-                            // Count resumes
                             person.resumeDates.forEach(d => {
-                                const cleanDate = d.split(", ")[1]; // e.g. "02 September 2025"
+                                const cleanDate = d.split(", ")[1];
                                 if (!dateMap[cleanDate]) dateMap[cleanDate] = { resumes: 0, interviews: 0 };
                                 dateMap[cleanDate].resumes++;
                             });
 
-                            // Count interviews
                             person.interviewDates.forEach(d => {
                                 const cleanDate = d.split(", ")[1];
                                 if (!dateMap[cleanDate]) dateMap[cleanDate] = { resumes: 0, interviews: 0 };
@@ -4302,68 +4325,88 @@
                             });
                         });
 
-                        // Convert map → arrays
-                        const fullDates = Object.keys(dateMap); // full for jdList
-                        const dates = fullDates.map(d => d.split(" ")[0]); // only day number for chart
+                        let fullDates = Object.keys(dateMap);
+
+                        fullDates.sort((a, b) => new Date(a) - new Date(b));
+
+                        const chartLabels = fullDates.map(d => getDayAndMonth(d));
                         const resumeCounts = fullDates.map(d => dateMap[d].resumes);
                         const interviewCounts = fullDates.map(d => dateMap[d].interviews);
 
-                        // ---- Sync jdList (date + day in one row) ----
                         fullDates.forEach((d, idx) => {
-                            const formattedWithDay = formatDateWithDay(d);
                             jdList.append(`
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>${formattedWithDay}</span>
-                                <span class="fw-bold">Resumes: ${resumeCounts[idx]} | Regitrations Achieved: ${interviewCounts[idx]}</span>
-                            </li>
-                        `);
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>${formatDateWithDay(d)}</span>
+                                    <span class="fw-bold">
+                                        Resumes: ${resumeCounts[idx]} | Registrations Achieved: ${interviewCounts[idx]}
+                                    </span>
+                                </li>
+                            `);
                         });
 
-                        // ---- Update / Create Chart ----
+                        const chartDiv = $("#conversion-statistic-bar-chart");
+                        const chartContainer = $("#chartContainer");
+
+                        const total = fullDates.length;
+                        const visible = 20;
+                        const widthPerItem = 120;
+                        const dynamicWidth = (total > visible ? total : visible) * widthPerItem;
+
+                        chartDiv.css({
+                            width: dynamicWidth + "px",
+                            overflowX: "auto"
+                        });
+
+                        chartContainer.css({
+                            overflowX: "auto",
+                            display: "flex",
+                            justifyContent: "flex-start"
+                        });
+
                         if (analysisChart) {
                             analysisChart.updateOptions({
                                 series: [
                                     { name: "Resumes Achieved", data: resumeCounts },
                                     { name: "Registrations Achieved", data: interviewCounts }
                                 ],
-                                xaxis: {
-                                    categories: dates,
-                                    labels: {
-                                        show: true,
-                                        style: { colors: "#fff", fontFamily: "Roboto" }
-                                    },
-                                    axisBorder: { show: false }
-                                }
+                                xaxis: { categories: chartLabels }
                             });
                         } else {
-                            analysisChart = new ApexCharts(document.querySelector("#conversion-statistic-bar-chart"), {
-                                series: [
-                                    { name: "Resumes Achieved", data: resumeCounts },
-                                    { name: "Registrations Achieved", data: interviewCounts }
-                                ],
-                                chart: { type: "bar", height: 200, toolbar: { show: false } },
-                                plotOptions: { bar: { horizontal: false, endingShape: "rounded", columnWidth: "30%" } },
-                                colors: ["#fff", "#ffb74d"],
-                                grid: { show: false },
-                                legend: { show: true },
-                                dataLabels: { enabled: false },
-                                xaxis: {
-                                    categories: dates,
-                                    labels: { show: true, style: { colors: "#fff", fontFamily: "Roboto" } },
-                                    axisBorder: { show: false }
-                                },
-                                yaxis: { labels: { show: true, style: { colors: "#fff" } } },
-                                tooltip: {
-                                    theme: "dark",
-                                    y: { formatter: (val, opts) => opts.seriesIndex === 0 ? val + " Resumes" : val + " Registrations" },
-                                    style: { colors: "#000", fontFamily: "Roboto" }
+                            analysisChart = new ApexCharts(
+                                document.querySelector("#conversion-statistic-bar-chart"),
+                                {
+                                    series: [
+                                        { name: "Resumes Achieved", data: resumeCounts },
+                                        { name: "Registrations Achieved", data: interviewCounts }
+                                    ],
+                                    chart: { type: "bar", height: 240, toolbar: { show: false } },
+                                    plotOptions: {
+                                        bar: {
+                                            horizontal: false,
+                                            columnWidth: "45%",
+                                            endingShape: "rounded"
+                                        }
+                                    },
+                                    colors: ["#fff", "#ffcc66"],
+                                    grid: { show: false },
+                                    legend: { show: true },
+                                    dataLabels: { enabled: false },
+                                    xaxis: {
+                                        categories: chartLabels,
+                                        labels: { style: { colors: "#fff", fontSize: "13px" } },
+                                        axisBorder: { show: false }
+                                    },
+                                    yaxis: {
+                                        labels: { show: true, style: { colors: "#fff" } }
+                                    },
+                                    tooltip: { theme: "dark" }
                                 }
-                            });
+                            );
                             analysisChart.render();
                         }
+
                     } else {
-                        console.warn("No work analysis data found.");
-                        jdList.append(`<li><span class="date">No Data</span><span class="count">0/0</span></li>`);
+                        jdList.append(`<li class="list-group-item">No Data</li>`);
                         if (analysisChart) {
                             analysisChart.updateOptions({
                                 series: [
@@ -4374,9 +4417,6 @@
                             });
                         }
                     }
-                },
-                error: function (err) {
-                    console.error("Error fetching work analysis data", err);
                 }
             });
         }
