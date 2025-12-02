@@ -138,6 +138,11 @@
                             <i class="bi bi-printer"></i> Print Page
                         </button>
                     </div> -->
+                    <div class="mb-2 d-flex justify-content-end">
+                        <button id="backBtn" class="btn btn-light btn-sm" title="Back">
+                            <i class="feather-arrow-left"></i> Back
+                        </button>
+                    </div>
 
                     <!-- [Latest Leads] start -->
                     <div class="col-12">
@@ -545,6 +550,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $("#backBtn").click(function () {
+            console.log("Back button clicked");
+            window.history.back();
+        });
+    </script>
 
     <script>
         const managerName6 = sessionStorage.getItem("userName");
