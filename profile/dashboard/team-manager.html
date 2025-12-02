@@ -176,14 +176,13 @@
                         </a>
 
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/targets.html">HR
-                                    TARGETS</a></li>
+                            <li class="nxl-item">
+                                <a class="nxl-link" id="hrTargetsBtn" href="javascript:void(0);">HR TARGETS</a>
+                            </li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">RISA SHEET</a>
                             </li>
-                            <!-- <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
                         </ul>
                     </li>
 
@@ -195,13 +194,10 @@
                         </a>
 
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets.html">BD
-                                    TARGETS</a></li>
+                            <li class="nxl-item">
+                                <a class="nxl-link" id="bdTargetsBtn" href="javascript:void(0);">BD TARGETS</a>
+                            </li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/BD.html">BD SHEET</a></li>
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li> -->
-                            <!-- <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">RISA SHEET</a></li> -->
-                            <!-- <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/team-manager.html">REGISTRATION SHEET</a></li> -->
                         </ul>
                     </li>
 
@@ -1474,6 +1470,8 @@
                         console.log("Logout success:", res);
                         sessionStorage.removeItem("user_id");
                         sessionStorage.removeItem("coursePasswordVerified");
+                        sessionStorage.removeItem("hr_verified");
+                        sessionStorage.removeItem("bd_verified");
 
                         Swal.fire({
                             icon: "success",
@@ -1598,6 +1596,71 @@
             display: block !important;
         }
     </style>
+
+    <script>
+        let passwords = {};
+
+        $(document).ready(function () {
+            $.getJSON("/config.json", function (data) {
+                passwords = data;
+            });
+
+            $("#hrTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "HR_PASSWORD",
+                    "hr_verified",
+                    "/profile/dashboard/targets.html"
+                );
+            });
+
+            $("#bdTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "BD_PASSWORD",
+                    "bd_verified",
+                    "/profile/dashboard/bd-targets.html"
+                );
+            });
+        });
+
+        function handleProtectedPage(passwordKey, sessionKey, redirectUrl) {
+            if (sessionStorage.getItem(sessionKey) === "true") {
+                window.location.href = redirectUrl;
+                return;
+            }
+
+            Swal.fire({
+                title: "Enter Password",
+                input: "password",
+                inputPlaceholder: "Enter access password",
+                showCancelButton: true,
+                confirmButtonText: "Verify",
+            }).then(result => {
+                if (!result.value) return;
+
+                const enteredPassword = result.value.trim();
+                const correctPassword = passwords[passwordKey];
+
+                if (enteredPassword === correctPassword) {
+                    sessionStorage.setItem(sessionKey, "true");
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Access Granted",
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = redirectUrl;
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Password",
+                        text: "Access denied!"
+                    });
+                }
+            });
+        }
+    </script>
 
 </body>
 
