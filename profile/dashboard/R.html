@@ -1867,67 +1867,56 @@
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
+            const sortedData = filteredData.slice().sort((a, b) => b.id - a.id);
+
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
-            const rows = filteredData.slice(start, end);
+            const rows = sortedData.slice(start, end);
 
-            rows.forEach((row) => {
+            rows.forEach((row, index) => {
                 let tr = `<tr data-id="${row.id}">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-                ${makeCell("studentName", row.studentName || "")}
-                <td>
-                    ${row.isRegistered
-                        ? '<span class="badge bg-soft-success text-success">Yes</span>'
-                        : '<span class="badge bg-soft-danger text-danger">No</span>'}
-                </td>
-                <td>${row.dateOfRegistrationDate || ""}</td>
-                <td>${row.dateOfRegistrationTime || ""}</td>
-                ${makeDateCell("resumeDate", row.resumeDate || "")}
-                ${makeCell("collegeName", row.collegeName || "")}
-                ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
-                ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
-                ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.followupBy)}
-                ${makeCell("mobileNumber", row.mobileNumber || "")}
-                ${makeCell("emailId", row.emailId || "")}
-                ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${start + index + 1}</td>
+                    ${makeCell("studentName", row.studentName || "")}
+                    <td>
+                        ${row.isRegistered
+                                ? '<span class="badge bg-soft-success text-success">Yes</span>'
+                                : '<span class="badge bg-soft-danger text-danger">No</span>'}
+                    </td>
+                    <td>${row.dateOfRegistrationDate || ""}</td>
+                    <td>${row.dateOfRegistrationTime || ""}</td>
+                    ${makeDateCell("resumeDate", row.resumeDate || "")}
+                    ${makeCell("collegeName", row.collegeName || "")}
+                    ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
+                    ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
+                    ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.followupBy)}
+                    ${makeCell("mobileNumber", row.mobileNumber || "")}
+                    ${makeCell("emailId", row.emailId || "")}
+                    ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
                 `;
 
-                // NEW score inputs (use number inputs)
                 tr += makeNumberCell("knowledgeScore", row.knowledgeScore || "");
                 tr += makeNumberCell("approachScore", row.approachScore || "");
                 tr += makeNumberCell("skillsScore", row.skillsScore || "");
                 tr += makeNumberCell("otherScore", row.otherScore || "");
                 tr += makeColoredScoreCell("totalAverageScore", row.totalAverageScore || "");
 
-                // finalSelectionStatus - dropdown (Yes/No)
                 tr += makeDropdownCell("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns.finalSelectionStatus);
 
-                // comment - free text input
                 tr += makeCell("comment", row.comment || "");
 
-                // Dateofonboarding - date picker
                 tr += makeDateCell("Dateofonboarding", row.Dateofonboarding || "");
 
-                // callStatus - dropdown
                 tr += makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus);
 
-                // alloted - dropdown from managers
                 tr += makeDropdownCell("alloted", row.alloted || "", null, dropdowns.alloted || []);
-
-                // const payments = row.payments || [];
-                // for (let i = 0; i < (window.maxPayments || 0); i++) {
-                //     let paymentDate = payments[i] ? formatDate(payments[i]) : "";
-                //     tr += `<td data-field="payment${i + 1}">${paymentDate}</td>`;
-                // }
 
                 tr += `</tr>`;
                 tbody.append(tr);
-
             });
 
             attachCellEvents();

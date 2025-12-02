@@ -1850,44 +1850,44 @@
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
+            const sortedData = filteredData.slice().sort((a, b) => b.id - a.id);
+
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
-            const rows = filteredData.slice(start, end);
+            const rows = sortedData.slice(start, end);
 
-            rows.forEach((row) => {
+            rows.forEach((row, index) => {
                 let tr = `<tr data-id="${row.id}">
-            <td>
-                <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-            <td>${row.sno}</td>
-
-            <!-- keep all these NON-editable / dropdown as before -->
-            <td>${row.collegeName || ""}</td>
-            <td>${row.coordinatorName || ""}</td>
-            <td>${row.mobileNumber || ""}</td>
-            <td>${row.emailId || ""}</td>
-            <td>${row.state || ""}</td>
-            <td>${row.city || ""}</td>
-            <td>${row.course || ""}</td>
-            <td>${row.connectedBy || ""}</td>
-            <td>${formatDate(row.dateOfConnect) || ""}</td>
-            <td>${row.callResponse || ""}</td>
-            <td>${row.internshipType || ""}</td>
-            <td>${row.detailedResponse || ""}</td>
-            ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
-            ${makeDateCell("followUpDate", row.followUpDate || "")}
-            ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
-            ${makeNumberCell("resumeCount", row.resumeCount || "")}
-            ${makeDateCell("resumeDate", row.resumeDate || "")}
-            ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-            <td>
-                <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </td>
-            </tr>`;
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${start + index + 1}</td>
+                    <td>${row.collegeName || ""}</td>
+                    <td>${row.coordinatorName || ""}</td>
+                    <td>${row.mobileNumber || ""}</td>
+                    <td>${row.emailId || ""}</td>
+                    <td>${row.state || ""}</td>
+                    <td>${row.city || ""}</td>
+                    <td>${row.course || ""}</td>
+                    <td>${row.connectedBy || ""}</td>
+                    <td>${formatDate(row.dateOfConnect) || ""}</td>
+                    <td>${row.callResponse || ""}</td>
+                    <td>${row.internshipType || ""}</td>
+                    <td>${row.detailedResponse || ""}</td>
+                    ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
+                    ${makeDateCell("followUpDate", row.followUpDate || "")}
+                    ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
+                    ${makeNumberCell("resumeCount", row.resumeCount || "")}
+                    ${makeDateCell("resumeDate", row.resumeDate || "")}
+                    ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
+                    <td>
+                        <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </td>
+                </tr>`;
                 tbody.append(tr);
             });
 
@@ -2538,20 +2538,20 @@
             let tbody = $("#leadsTable2 tbody");
             tbody.empty();
 
+            const sortedData = filteredData2.slice().sort((a, b) => b.id - a.id);
+
             const start = (currentPage2 - 1) * rowsPerPage2;
             const end = start + rowsPerPage2;
-            const rows = filteredData2.slice(start, end);
+            const rows = sortedData.slice(start, end);
 
-            rows.forEach((row) => {
+            rows.forEach((row, index) => {
                 let tr = `<tr data-id="${row.id}">
                     <td>
                         <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
-                    <td>${row.sno}</td>
-
-                    <!-- keep all these NON-editable / dropdown as before -->
+                    <td>${start + index + 1}</td>
                     <td>${row.collegeName || ""}</td>
                     <td>${row.coordinatorName || ""}</td>
                     <td>${row.mobileNumber || ""}</td>
@@ -2575,7 +2575,7 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
-                    </tr>`;
+                </tr>`;
                 tbody.append(tr);
             });
 
@@ -3195,36 +3195,38 @@
             let tbody = $("#leadsTable3 tbody");
             tbody.empty();
 
+            const sortedData = filteredData3.slice().sort((a, b) => b.id - a.id);
+
             const start = (currentPage3 - 1) * rowsPerPage3;
             const end = start + rowsPerPage3;
-            const rows = filteredData3.slice(start, end);
+            const rows = sortedData.slice(start, end);
 
-            rows.forEach((row) => {
+            rows.forEach((row, index) => {
                 let tr = `<tr data-id="${row.id}">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-                <td>${row.collegeName || ""}</td>
-                <td>${row.coordinatorName || ""}</td>
-                <td>${row.mobileNumber || ""}</td>
-                <td>${row.emailId || ""}</td>
-                <td>${row.state || ""}</td>
-                <td>${row.city || ""}</td>
-                <td>${row.course || ""}</td>
-                <td>${row.connectedBy || ""}</td>
-                <td>${formatDate3(row.dateOfConnect) || ""}</td>
-                <td>${row.callResponse || ""}</td>
-                <td>${row.internshipType || ""}</td>
-                <td>${row.detailedResponse || ""}</td>
-                ${makeDropdownCell3("followUpBy", row.followUpBy || "", null, dropdowns3.connectedBy)}
-                ${makeDateCell3("followUpDate", row.followUpDate || "")}
-                ${makeDropdownCell3("followUpResponse", row.followUpResponse || "", null, dropdowns3.followUpResponse)}
-                ${makeNumberCell3("resumeCount", row.resumeCount || "")}
-                ${makeDateCell3("resumeDate", row.resumeDate || "")}
-                ${makeDateCell3("expectedResponseDate", row.expectedResponseDate || "")}
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${start + index + 1}</td>
+                    <td>${row.collegeName || ""}</td>
+                    <td>${row.coordinatorName || ""}</td>
+                    <td>${row.mobileNumber || ""}</td>
+                    <td>${row.emailId || ""}</td>
+                    <td>${row.state || ""}</td>
+                    <td>${row.city || ""}</td>
+                    <td>${row.course || ""}</td>
+                    <td>${row.connectedBy || ""}</td>
+                    <td>${formatDate3(row.dateOfConnect) || ""}</td>
+                    <td>${row.callResponse || ""}</td>
+                    <td>${row.internshipType || ""}</td>
+                    <td>${row.detailedResponse || ""}</td>
+                    ${makeDropdownCell3("followUpBy", row.followUpBy || "", null, dropdowns3.connectedBy)}
+                    ${makeDateCell3("followUpDate", row.followUpDate || "")}
+                    ${makeDropdownCell3("followUpResponse", row.followUpResponse || "", null, dropdowns3.followUpResponse)}
+                    ${makeNumberCell3("resumeCount", row.resumeCount || "")}
+                    ${makeDateCell3("resumeDate", row.resumeDate || "")}
+                    ${makeDateCell3("expectedResponseDate", row.expectedResponseDate || "")}
                 </tr>`;
                 tbody.append(tr);
             });

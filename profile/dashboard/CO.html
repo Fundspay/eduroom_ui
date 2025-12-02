@@ -1992,6 +1992,7 @@
         }
 
         function renderTable() {
+            filteredData.sort((a, b) => b.id - a.id);
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
@@ -2006,7 +2007,7 @@
                         <i class="fas fa-trash"></i>
                     </button>
                 </td>
-                <td>${row.sno}</td>
+                <td>${start + index + 1}</td>
                 ${makeCell("collegeName", row.collegeName)}
                 ${makeCell("coordinatorName", row.coordinatorName)}
                 ${makeCell("mobileNumber", row.mobileNumber)}
@@ -2634,18 +2635,21 @@
             let tbody = $("#leadsTable2 tbody");
             tbody.empty();
 
+            filteredData2.sort((a, b) => b.id - a.id);
+
             const start = (currentPage2 - 1) * rowsPerPage2;
             const end = start + rowsPerPage2;
             const rows = filteredData2.slice(start, end);
 
             rows.forEach((row, index) => {
+                let srNo = start + index + 1;
                 let tr = `<tr data-id="${row.id}">
             <td>
                 <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
-            <td>${row.sno}</td>
+            <td>${srNo}</td>
             ${makeCell2("collegeName", row.collegeName)}
             ${makeCell2("coordinatorName", row.coordinatorName)}
             ${makeCell2("mobileNumber", row.mobileNumber)}

@@ -2052,7 +2052,7 @@
                                 mobileNumber: row.mobileNumber || "",
                                 emailId: row.emailId || "",
                                 activeStatus: bdSheet.activeStatus || "",
-                                businessTask: row.businessTask || "",
+                                businessTask: row.businessTask || 0,
                                 category: row.category || "",
                                 domain: row.domain || "",
 
@@ -2128,54 +2128,57 @@
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
+            const sortedData = filteredData.slice().sort((a, b) => b.id - a.id);
+
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
-            const rows = filteredData.slice(start, end);
+            const rows = sortedData.slice(start, end);
 
-            rows.forEach((row) => {
+            rows.forEach((row, index) => {
                 const category = row.category || "";
                 const rowColor = getRowColor(category);
 
                 let tr = `<tr data-id="${row.id}" data-bdsheet-id="${row.bdSheetId || ''}" style="background-color: ${rowColor};">
-            <td>${row.sno}</td>
-            <td>${row.studentName || ""}</td>
-            <td>${row.mobileNumber || ""}</td>
-            <td>${row.emailId || ""}</td>
-            ${makeDropdownCell("activeStatus", row.activeStatus || "", null, dropdowns.activeStatus)}
-            <td>${row.businessTask || ""}</td>
-            <td>${row.category ? row.category.charAt(0).toUpperCase() + row.category.slice(1) : ""}</td>
-            <td>${row.domain || ""}</td>
-            ${makeDateCell("startDate", row.startDate || "")}
-            ${makeDateCell("endDate", row.endDate || "")}
-            ${makeDateCell("connectDate", row.connectDate || "")}
-            ${makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus)}
-            ${makeReadonlyCell("registration", (row.registration || "").charAt(0).toUpperCase() + (row.registration || "").slice(1).toLowerCase())}
-            ${makeReadonlyCell("selectionTest", row.selectionTest || "")}
-            ${makeDropdownCell("whatsappGroup", row.whatsappGroup || "", null, dropdowns.whatsappGroup)}
-            ${makeDropdownCell("day1SessionAttendance", row.day1SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day1Date", row.day1Date || "")}
-            ${makeDropdownCell("day1DomainTask", row.day1DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("day2SessionAttendance", row.day2SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day2Date", row.day2Date || "")}
-            ${makeDropdownCell("day2DomainTask", row.day2DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("day3SessionAttendance", row.day3SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day3Date", row.day3Date || "")}
-            ${makeDropdownCell("day3DomainTask", row.day3DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("day4SessionAttendance", row.day4SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day4Date", row.day4Date || "")}
-            ${makeDropdownCell("day4DomainTask", row.day4DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("day5SessionAttendance", row.day5SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day5Date", row.day5Date || "")}
-            ${makeDropdownCell("day5DomainTask", row.day5DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("day6SessionAttendance", row.day6SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day6Date", row.day6Date || "")}
-            ${makeDropdownCell("day6DomainTask", row.day6DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("day7SessionAttendance", row.day7SessionAttendance || "", null, dropdowns.sessionAttendance)}
-            ${makeDateCell("day7Date", row.day7Date || "")}
-            ${makeDropdownCell("day7DomainTask", row.day7DomainTask || "", null, dropdowns.domainTask)}
-            ${makeDropdownCell("module2Status", row.module2Status || "", null, dropdowns.module2Status)}
-            ${makeDropdownCell("tlAllocated", row.tlAllocated || "", null, managers.map(m => m.name))}
-        </tr>`;
+                    <td>${start + index + 1}</td>
+                    <td>${row.studentName || ""}</td>
+                    <td>${row.mobileNumber || ""}</td>
+                    <td>${row.emailId || ""}</td>
+                    ${makeDropdownCell("activeStatus", row.activeStatus || "", null, dropdowns.activeStatus)}
+                    <td>${row.businessTask || 0}</td>
+                    <td>${row.category ? row.category.charAt(0).toUpperCase() + row.category.slice(1) : ""}</td>
+                    <td>${row.domain || ""}</td>
+                    ${makeDateCell("startDate", row.startDate || "")}
+                    ${makeDateCell("endDate", row.endDate || "")}
+                    ${makeDateCell("connectDate", row.connectDate || "")}
+                    ${makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus)}
+                    ${makeReadonlyCell("registration", (row.registration || "").charAt(0).toUpperCase() + (row.registration || "").slice(1).toLowerCase())}
+                    ${makeReadonlyCell("selectionTest", row.selectionTest || "")}
+                    ${makeDropdownCell("whatsappGroup", row.whatsappGroup || "", null, dropdowns.whatsappGroup)}
+                    ${makeDropdownCell("day1SessionAttendance", row.day1SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day1Date", row.day1Date || "")}
+                    ${makeDropdownCell("day1DomainTask", row.day1DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("day2SessionAttendance", row.day2SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day2Date", row.day2Date || "")}
+                    ${makeDropdownCell("day2DomainTask", row.day2DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("day3SessionAttendance", row.day3SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day3Date", row.day3Date || "")}
+                    ${makeDropdownCell("day3DomainTask", row.day3DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("day4SessionAttendance", row.day4SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day4Date", row.day4Date || "")}
+                    ${makeDropdownCell("day4DomainTask", row.day4DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("day5SessionAttendance", row.day5SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day5Date", row.day5Date || "")}
+                    ${makeDropdownCell("day5DomainTask", row.day5DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("day6SessionAttendance", row.day6SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day6Date", row.day6Date || "")}
+                    ${makeDropdownCell("day6DomainTask", row.day6DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("day7SessionAttendance", row.day7SessionAttendance || "", null, dropdowns.sessionAttendance)}
+                    ${makeDateCell("day7Date", row.day7Date || "")}
+                    ${makeDropdownCell("day7DomainTask", row.day7DomainTask || "", null, dropdowns.domainTask)}
+                    ${makeDropdownCell("module2Status", row.module2Status || "", null, dropdowns.module2Status)}
+                    ${makeDropdownCell("tlAllocated", row.tlAllocated || "", null, managers.map(m => m.name))}
+                </tr>`;
+
                 tbody.append(tr);
             });
 
