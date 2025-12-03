@@ -801,6 +801,7 @@
                                                 <th>SR</th>
                                                 <th>NAME OF STUDENT</th>
                                                 <th>MOBILE NUMBER</th>
+                                                <th>COLLEGE NAME</th>
                                                 <th>EMAIL ID</th>
                                                 <th>ACTIVE STATUS</th>
                                                 <th>BUSINESS TASKS</th>
@@ -1027,72 +1028,72 @@
                         }
 
                         /* Columns 7 to 13 – Soft Amber */
-                        #leadsTable th:nth-child(9),
                         #leadsTable th:nth-child(10),
                         #leadsTable th:nth-child(11),
                         #leadsTable th:nth-child(12),
                         #leadsTable th:nth-child(13),
                         #leadsTable th:nth-child(14),
-                        #leadsTable th:nth-child(15) {
+                        #leadsTable th:nth-child(15),
+                        #leadsTable th:nth-child(16) {
                             background-color: #f3e8ff !important;
                             /* Light Purple */
                             color: #4b1d79;
                         }
 
-                        #leadsTable th:nth-child(16),
                         #leadsTable th:nth-child(17),
-                        #leadsTable th:nth-child(18) {
+                        #leadsTable th:nth-child(18),
+                        #leadsTable th:nth-child(19) {
                             background-color: #fff8e1 !important;
                             /* Soft Amber */
                             color: #b36b00;
                         }
 
                         /* Columns 16 & 17 – Teal tone */
-                        #leadsTable th:nth-child(19),
                         #leadsTable th:nth-child(20),
-                        #leadsTable th:nth-child(21) {
+                        #leadsTable th:nth-child(21),
+                        #leadsTable th:nth-child(22) {
                             background-color: #e0fffa !important;
                             /* Light Teal */
                             color: #0b4f47;
                         }
 
                         /* Columns 18 & 19 – Gray tone */
-                        #leadsTable th:nth-child(22),
                         #leadsTable th:nth-child(23),
-                        #leadsTable th:nth-child(24) {
+                        #leadsTable th:nth-child(24),
+                        #leadsTable th:nth-child(25) {
                             background-color: #d6d8dc !important;
                             /* Soft Gray */
                             color: #374151;
                         }
 
-                        #leadsTable th:nth-child(25),
                         #leadsTable th:nth-child(26),
-                        #leadsTable th:nth-child(27) {
+                        #leadsTable th:nth-child(27),
+                        #leadsTable th:nth-child(28) {
                             background-color: #fff0e1 !important;
                             /* Orange */
                             color: #7c2d12;
                         }
 
-                        #leadsTable th:nth-child(28),
                         #leadsTable th:nth-child(29),
-                        #leadsTable th:nth-child(30) {
+                        #leadsTable th:nth-child(30),
+                        #leadsTable th:nth-child(31) {
                             background-color: #e0f2ff !important;
                             /* Blue */
                             color: #0c4a6e;
                         }
 
-                        #leadsTable th:nth-child(31),
                         #leadsTable th:nth-child(32),
-                        #leadsTable th:nth-child(33) {
+                        #leadsTable th:nth-child(33),
+                        #leadsTable th:nth-child(34) {
                             background-color: #dbffdd !important;
                             /* Yellow */
                             color: #127128;
                         }
 
                         /* Optional: for C1 section */
-                        #leadsTable th:nth-child(34),
                         #leadsTable th:nth-child(35),
-                        #leadsTable th:nth-child(36) {
+                        #leadsTable th:nth-child(36),
+                        #leadsTable th:nth-child(37) {
                             background-color: #ffe5e5 !important;
                             /* Red */
                             color: #7f1d1d;
@@ -2048,8 +2049,10 @@
                             return {
                                 sno: index + 1,
                                 id: row.id,
+                                userId: row.userId,
                                 studentName: row.studentName || "",
                                 mobileNumber: row.mobileNumber || "",
+                                collegeName: row.collegeName || "",
                                 emailId: row.emailId || "",
                                 activeStatus: bdSheet.activeStatus || "",
                                 businessTask: row.businessTask || 0,
@@ -2140,8 +2143,13 @@
 
                 let tr = `<tr data-id="${row.id}" data-bdsheet-id="${row.bdSheetId || ''}" style="background-color: ${rowColor};">
                     <td>${start + index + 1}</td>
-                    <td>${row.studentName || ""}</td>
+                    <td>
+                        <a class="text-primary fw-bold" target="_blank" href="/intern-profile.html?userId=${encodeURIComponent(row.userId)}" target="_self">
+                            ${row.studentName || ""}
+                        </a>
+                    </td>   
                     <td>${row.mobileNumber || ""}</td>
+                    <td>${row.collegeName || ""}</td>
                     <td>${row.emailId || ""}</td>
                     ${makeDropdownCell("activeStatus", row.activeStatus || "", null, dropdowns.activeStatus)}
                     <td>${row.businessTask || 0}</td>
@@ -2190,6 +2198,7 @@
             "sno",
             "studentName",
             "mobileNumber",
+            "collegeName",
             "emailId",
             "activeStatus",
             "businessTask",
@@ -2557,6 +2566,7 @@
                 "S.No",
                 "Student Name",
                 "Mobile Number",
+                "College Name",
                 "Email ID",
                 "Lead Source",
                 "Business Task",
@@ -2601,6 +2611,7 @@
                     row.sno,
                     row.studentName,
                     row.mobileNumber,
+                    row.collegeName,
                     row.emailId,
                     row.activeStatus,
                     row.businessTask,
