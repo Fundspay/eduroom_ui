@@ -1675,69 +1675,120 @@
         });
 
         function loadDashboardData(startDate = null, endDate = null) {
-            let url = `https://eduroom.in/api/v1/analysis/daily?teamManagerId=${teamManagerId}`;
-
-            if (startDate && endDate) {
-                url += `&startDate=${startDate}&endDate=${endDate}`;
+            if (!startDate || !endDate) {
+                const today = new Date().toISOString().split("T")[0];
+                startDate = today;
+                endDate = today;
             }
-            console.log("url:", url);
+
+            const manager = sessionStorage.getItem("userName");
+
+            const urlTargets = `https://eduroom.in/api/v1/mytarget/fetch?teamManagerId=${teamManagerId}&startDate=${startDate}&endDate=${endDate}`;
+            const urlCosheet = `https://eduroom.in/api/v1/cosheet/list`;
+
+            console.log("Targets URL:", urlTargets);
+            console.log("Cosheet URL:", urlCosheet);
 
             $.ajax({
-                url: url,
+                url: urlTargets,
                 type: "GET",
-                success: function (response) {
-                    console.log("get call response metrics:", response);
-                    if (response.success) {
-                        const totals = response.totals;
+                success: function (targetRes) {
 
-                        $("#totalCalls").text(totals.achievedCalls);
-                        $("#targetCalls").text(totals.plannedCalls);
-                        $("#remainingCalls").text(Math.max(totals.plannedCalls - totals.achievedCalls, 0));
+                    let targetCalls = 0;
 
-                        let achievementText = totals.plannedCalls > 0
-                            ? ((totals.achievedCalls / totals.plannedCalls) * 100).toFixed(2) + "%"
-                            : "Please add target first";
+                    if (targetRes.success && Array.isArray(targetRes.dates)) {
+                        targetRes.dates.forEach(day => {
+                            targetCalls += Number(day.calls || 0);
+                        });
+                    }
 
-                        $("#achievementPercent").text(totals.achievementPercent + "%");
-                        $("#achievementPercent2").text(achievementText);
+                    $.ajax({
+                        url: urlCosheet,
+                        type: "GET",
+                        success: function (cosheetRes) {
 
+                            if (!cosheetRes.success) return;
 
-                        $("#connectedCount").text(totals.connected);
-                        $("#connectedPercent").text(((totals.connected / (totals.plannedCalls || 1)) * 100).toFixed(1) + "%");
+                            const allData = cosheetRes.data;
 
-                        $("#notAnsweredCount").text(totals.notAnswered);
-                        $("#notAnsweredPercent").text(((totals.notAnswered / (totals.plannedCalls || 1)) * 100).toFixed(1) + "%");
+                            let filtered = allData.filter(x => x.connectedBy === manager);
 
-                        $("#busyCount").text(totals.busy);
-                        $("#busyPercent").text(((totals.busy / (totals.plannedCalls || 1)) * 100).toFixed(1) + "%");
+                            if (startDate && endDate) {
+                                filtered = filtered.filter(row => {
+                                    if (!row.dateOfConnect) return false;
+                                    const d = row.dateOfConnect.split("T")[0];
+                                    return d >= startDate && d <= endDate;
+                                });
+                            }
 
-                        $("#switchOffCount").text(totals.switchOff);
-                        $("#switchOffPercent").text(((totals.switchOff / (totals.plannedCalls || 1)) * 100).toFixed(1) + "%");
+                            let achievedCalls = filtered.length;
 
-                        $("#invalidCount").text(totals.invalid);
-                        $("#invalidPercent").text(((totals.invalid / (totals.plannedCalls || 1)) * 100).toFixed(1) + "%");
+                            let counts = {
+                                connected: 0,
+                                notAnswered: 0,
+                                busy: 0,
+                                switchOff: 0,
+                                invalid: 0
+                            };
 
-                        let percent = totals.achievementPercent;
-                        let card = $("#remainingCallsCard");
+                            filtered.forEach(row => {
+                                const res = (row.callResponse || "").toLowerCase().trim();
 
-                        card.removeClass("bg-danger bg-warning bg-success text-white text-dark");
+                                if (res === "connected") counts.connected++;
+                                else if (res === "not answered") counts.notAnswered++;
+                                else if (res === "busy") counts.busy++;
+                                else if (res === "switch off") counts.switchOff++;
+                                else if (res === "invalid") counts.invalid++;
+                            });
 
-                        if (totals.plannedCalls === 0) {
-                            card.addClass("bg-white text-dark");
-                        } else {
-                            if (percent < 33) {
+                            const achievementPercent = targetCalls > 0
+                                ? ((achievedCalls / targetCalls) * 100).toFixed(1)
+                                : 0;
+
+                            $("#totalCalls").text(achievedCalls);
+                            $("#targetCalls").text(targetCalls);
+                            $("#remainingCalls").text(Math.max(targetCalls - achievedCalls, 0));
+
+                            $("#achievementPercent").text(achievementPercent + "%");
+                            $("#achievementPercent2").text(achievementPercent + "%");
+
+                            $("#connectedCount").text(counts.connected);
+                            $("#connectedPercent").text(((counts.connected / (targetCalls || 1)) * 100).toFixed(1) + "%");
+
+                            $("#notAnsweredCount").text(counts.notAnswered);
+                            $("#notAnsweredPercent").text(((counts.notAnswered / (targetCalls || 1)) * 100).toFixed(1) + "%");
+
+                            $("#busyCount").text(counts.busy);
+                            $("#busyPercent").text(((counts.busy / (targetCalls || 1)) * 100).toFixed(1) + "%");
+
+                            $("#switchOffCount").text(counts.switchOff);
+                            $("#switchOffPercent").text(((counts.switchOff / (targetCalls || 1)) * 100).toFixed(1) + "%");
+
+                            $("#invalidCount").text(counts.invalid);
+                            $("#invalidPercent").text(((counts.invalid / (targetCalls || 1)) * 100).toFixed(1) + "%");
+
+                            let card = $("#remainingCallsCard");
+                            card.removeClass("bg-danger bg-warning bg-success text-white text-dark");
+
+                            if (targetCalls === 0) {
+                                card.addClass("bg-white text-dark");
+                            } else if (achievementPercent < 33) {
                                 card.addClass("bg-danger text-white");
-                            } else if (percent >= 33 && percent <= 66) {
+                            } else if (achievementPercent >= 33 && achievementPercent <= 66) {
                                 card.addClass("bg-warning text-white");
                             } else {
                                 card.addClass("bg-success text-white");
                             }
-                        }
+                        },
 
-                    }
+                        error: function () {
+                            console.error("Error fetching COSheet data");
+                        }
+                    });
                 },
-                error: function (err) {
-                    console.error("Error fetching dashboard data", err);
+
+                error: function () {
+                    console.error("Error fetching Target data");
                 }
             });
         }
@@ -1939,8 +1990,6 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
-        let columnFilters = {};
-        let activeFilterDropdown = null;
 
         function loadCities() {
             return fetch("/profile/dashboard/cities.json")
@@ -2072,263 +2121,80 @@
         };
 
         function renderColumnFilters() {
-            const style = document.createElement('style');
-            style.textContent = `
-                .filter-dropdown {
-                    position: absolute;
-                    z-index: 1050 !important;
-                    background: white;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                    padding: 10px;
-                    max-height: 300px;
-                    overflow-y: auto;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    min-width: 200px;
-                }
-                .filter-options {
-                    max-height: 200px;
-                    overflow-y: auto;
-                }
-                .filter-btn {
-                    width: 100%;
-                    text-align: left;
-                    position: relative;
-                    padding-right: 30px;
-                }
-                .filter-btn i {
-                    position: absolute;
-                    right: 10px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-                .form-check {
-                    margin-bottom: 5px;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                .form-check-label {
-                    cursor: pointer;
-                    width: 100%;
-                    display: block;
-                }
-                .filter-controls {
-                    margin-top: 10px;
-                    display: flex;
-                    gap: 5px;
-                    border-top: 1px solid #eee;
-                    padding-top: 10px;
-                }
-                .filter-controls .btn {
-                    flex: 1;
-                    font-size: 12px;
-                    padding: 3px 8px;
-                }
-            `;
-            document.head.appendChild(style);
-
             const headerRow = $("#leadsTable thead tr.filters");
             headerRow.remove();
 
             let filterRow = "<tr class='filters'>";
             $("#leadsTable thead tr:first th").each(function (i, th) {
                 if (i === 0 || i === 1 || i === 14) {
+
                     filterRow += "<th></th>";
                 } else {
-                    const headerText = $(th).text().trim();
-                    filterRow += `<th style="position: relative;">
-                    <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
-                        Apply filter<i class="fas fa-filter"></i>
-                    </button>
-                </th>`;
+                    filterRow += `<th><select class="column-filter form-select form-select-sm" data-index="${i}">
+                    <option value="">All</option>
+                </select></th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
 
-            columnFilters = {};
-            setupFilterEvents();
             populateColumnFilterOptions();
         }
 
         function populateColumnFilterOptions() {
-        }
+            $("#leadsTable thead .column-filter").each(function () {
+                const index = $(this).data("index");
+                let values = [...new Set(tableData.map(row => Object.values(row)[index]))];
 
-        function getColumnValues(columnIndex) {
-            let values = [...new Set(tableData.map(row => {
-                const val = Object.values(row)[columnIndex];
-                return val !== null && val !== undefined ? val.toString().trim() : "";
-            }))];
+                values = values.filter(v => v && v.trim() !== "");
 
-            values = values.filter(v => v && v !== "");
-            values.sort((a, b) => a.localeCompare(b));
+                let formattedValues = values;
 
-            return values;
-        }
-
-        function setupFilterEvents() {
-            $(document).off('click', '.filter-btn');
-            $(document).off('click', '.apply-filter');
-            $(document).off('click', '.clear-filter');
-            $(document).off('click');
-
-            $(document).on('click', '.filter-btn', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const index = parseInt($(this).data('index'));
-                const headerText = $(this).data('header');
-
-                if (activeFilterDropdown) {
-                    activeFilterDropdown.remove();
-                    activeFilterDropdown = null;
-                }
-
-                const values = getColumnValues(index);
-
-                const selectedValues = columnFilters[headerText] || [];
-
-                let dropdownHtml = `
-                    <div class="filter-dropdown" data-index="${index}" data-header="${headerText}">
-                        <div class="filter-options">
-                `;
-
-                if (values.length === 0) {
-                    dropdownHtml += `<div class="text-muted">No values to filter</div>`;
-                } else {
-                    values.forEach(value => {
-                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
-                        const safeId = `filter-${index}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
-                        dropdownHtml += `
-                        <div class="form-check">
-                            <input class="form-check-input filter-checkbox" type="checkbox" 
-                                   value="${value}" id="${safeId}" ${isChecked}>
-                            <label class="form-check-label" for="${safeId}">
-                                ${formatDisplayText(value, index)}
-                            </label>
-                        </div>
-                    `;
+                if ($("#leadsTable thead tr:first th").eq(index).text().toLowerCase().includes("date")) {
+                    formattedValues = values.map(v => {
+                        let d = new Date(v);
+                        if (!isNaN(d)) {
+                            return {
+                                raw: v,
+                                display: d.toLocaleDateString("en-GB", {
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric"
+                                })
+                            };
+                        }
+                        return { raw: v, display: v };
                     });
+                } else {
+                    formattedValues = values.map(v => ({ raw: v, display: v }));
                 }
 
-                dropdownHtml += `
-                    </div>
-                        <div class="filter-controls">
-                            <button class="btn btn-sm btn-primary apply-filter" data-index="${index}">Apply</button>
-                            <button class="btn btn-sm btn-secondary clear-filter" data-index="${index}">Clear</button>
-                        </div>
-                    </div>
-                `;
+                formattedValues.sort((a, b) => a.display.localeCompare(b.display));
 
-                const $dropdown = $(dropdownHtml);
-                const $button = $(this);
-                const buttonRect = $button[0].getBoundingClientRect();
-                const tableRect = $button.closest('table')[0].getBoundingClientRect();
+                formattedValues.forEach(v => {
 
-                $dropdown.css({
-                    position: 'fixed',
-                    top: buttonRect.bottom + 'px',
-                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
-                    zIndex: '9999'
-                });
-
-                $('body').append($dropdown);
-                activeFilterDropdown = $dropdown;
-
-                $dropdown.find('.filter-checkbox').on('change', function (e) {
-                    e.stopPropagation();
-                });
-
-                $dropdown.find('.apply-filter').on('click', function (e) {
-                    e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
-                    const checkboxes = $dropdown.find('.filter-checkbox:checked');
-                    const selectedVals = checkboxes.map(function () {
-                        return $(this).val();
-                    }).get();
-
-                    if (selectedVals.length > 0) {
-                        columnFilters[hdr] = selectedVals;
-                        $(`.filter-btn[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
-                    } else {
-                        delete columnFilters[hdr];
-                        $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
-                    }
-
-                    applyFilters();
-                    $dropdown.remove();
-                    activeFilterDropdown = null;
-                });
-
-                $dropdown.find('.clear-filter').on('click', function (e) {
-                    e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
-
-                    delete columnFilters[hdr];
-                    $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
-
-                    applyFilters();
-                    $dropdown.remove();
-                    activeFilterDropdown = null;
+                    $(this).append(`<option value="${v.raw}">${v.display}</option>`);
                 });
             });
 
-            $(document).on('click', function (e) {
-                if (activeFilterDropdown && !$(e.target).closest('.filter-dropdown, .filter-btn').length) {
-                    activeFilterDropdown.remove();
-                    activeFilterDropdown = null;
-                }
+            $(".column-filter").off("change").on("change", function () {
+                applyFilters();
             });
-        }
-
-        function formatDisplayText(value, index) {
-            const headerText = $("#leadsTable thead tr:first th").eq(index).text().toLowerCase();
-
-            if (headerText.includes("date")) {
-                try {
-                    let d = new Date(value);
-                    if (!isNaN(d)) {
-                        return d.toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric"
-                        });
-                    }
-                } catch (e) {
-                }
-            }
-            return value || "(empty)";
         }
 
         function applyFilters() {
             filteredData = [...tableData];
-
-            if (Object.keys(columnFilters).length === 0) {
-                currentPage = 1;
-                renderTable();
-                renderPagination();
-                return;
-            }
-
-            const headers = [];
-            $("#leadsTable thead tr:first th").each(function (i) {
-                headers[i] = $(this).text().trim();
-            });
-
-            Object.keys(columnFilters).forEach(header => {
-                const columnIndex = headers.indexOf(header);
-                if (columnIndex !== -1 && columnFilters[header].length > 0) {
+            $("#leadsTable thead .column-filter").each(function () {
+                const value = $(this).val();
+                const index = $(this).data("index");
+                if (value) {
                     filteredData = filteredData.filter(row => {
-                        const cellValue = Object.values(row)[columnIndex];
-                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
-                        return columnFilters[header].includes(cellStr);
+                        const cellValue = Object.values(row)[index] || "";
+
+                        return cellValue.toLowerCase() === value.toLowerCase();
                     });
                 }
             });
-
             currentPage = 1;
             renderTable();
             renderPagination();
@@ -2339,6 +2205,7 @@
 
             if (field === "mobileNumber" && value) {
                 const numbers = value.split("/").map(num => num.trim());
+
                 const links = numbers.map(num =>
                     `<a href="tel:${num}" class="text-primary text-decoration-none me-2">${num}</a>`
                 ).join(" | ");
@@ -2347,11 +2214,11 @@
                     <span>${links}</span>
                     <input type="text" value="${displayValue}">
                 </td>`;
-                }
+            }
 
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" value="${displayValue}">
+            <span>${displayValue}</span>
+            <input type="text" value="${displayValue}">
             </td>`;
         }
 
@@ -2359,8 +2226,8 @@
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" class="date-picker" value="${rawValue}">
+            <span>${displayValue}</span>
+            <input type="text" class="date-picker" value="${rawValue}">
             </td>`;
         }
 
@@ -2394,8 +2261,8 @@
             }
 
             let html = `<td data-field="${field}" style="background-color:${bgColor};">
-            <span style="color:black; font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select2">`;
+                <span style="color:black; font-weight:bold;">${displaySelected}</span>
+                <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
 
@@ -2425,6 +2292,7 @@
             $("#leadsTable td input, #leadsTable td select")
                 .off("blur change")
                 .on("blur change", function () {
+
                     if ($(this).hasClass("date-picker")) return;
 
                     let td = $(this).closest("td");
@@ -2560,7 +2428,6 @@
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
             if (!value) {
-                filteredData = [...tableData];
                 renderTable();
                 renderPagination();
                 return;
@@ -2573,10 +2440,40 @@
                 })
             );
 
-            filteredData = filtered;
-            currentPage = 1;
-            renderTable();
-            renderPagination();
+            const tbody = $("#leadsTable tbody");
+            tbody.empty();
+            filtered.forEach((row, index) => {
+                const tr = `<tr data-id="${row.id}">
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${index + 1}</td>
+                    ${makeCell("collegeName", row.collegeName)}
+                    ${makeCell("coordinatorName", row.coordinatorName)}
+                    ${makeCell("mobileNumber", row.mobileNumber)}
+                    ${makeCell("emailId", row.emailId)}
+                    ${makeDropdownCell("state", row.state)}
+                    ${makeDropdownCell("city", row.city, row.state)}
+                    ${makeDropdownCell("course", row.course)}
+                    ${makeDropdownCell("connectedBy", row.connectedBy)}
+                    ${makeDateCell("dateOfConnect", row.dateOfConnect)}
+                    ${makeDropdownCell("callResponse", row.callResponse)}
+                    ${makeDropdownCell("internshipType", row.internshipType)}
+                    ${makeDropdownCell("detailedResponse", row.detailedResponse)}
+                    <td>
+                        <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </td>
+                </tr>`;
+                tbody.append(tr);
+            });
+
+            $("#pagination").hide();
+            attachCellEvents();
+            attachSendMailEvents();
         };
 
         window.printTable = function () {
@@ -2714,16 +2611,9 @@
                 method: "GET",
                 success: function (res) {
                     console.log("master sheet 2:", res);
-
                     if (res.success && res.managers) {
 
-                        dropdowns2.connectedBy = res.managers.map(u => u.name);
-                        dropdowns2.connectedBy.push("Other");
-
-                        console.log("ConnectedBy options 2:", dropdowns2.connectedBy);
-                        sessionStorage.setItem("users_list2", JSON.stringify(res.managers));
-
-                        let rawData = res.data.map((row, index) => ({
+                        tableData2 = res.data.map((row, index) => ({
                             sno: index + 1,
                             id: row.id,
                             collegeName: row.collegeName || "",
@@ -2740,14 +2630,20 @@
                             detailedResponse: row.detailedResponse || "",
                         }));
 
-                        let filtered = [...rawData];
+                        dropdowns2.connectedBy = res.managers.map(u => u.name);
+                        dropdowns2.connectedBy.push("Other");
+                        console.log("ConnectedBy options 2:", dropdowns2.connectedBy);
+
+                        sessionStorage.setItem("users_list2", JSON.stringify(res.managers));
+
+                        filteredData2 = [...tableData2];
 
                         if (managerName2) {
-                            filtered = filtered.filter(row => row.connectedBy === managerName2);
+                            filteredData2 = filteredData2.filter(row => row.connectedBy === managerName2);
                         }
 
                         if (startDate && endDate) {
-                            filtered = filtered.filter(row => {
+                            filteredData2 = filteredData2.filter(row => {
                                 if (!row.dateOfConnect) return false;
                                 let d = new Date(row.dateOfConnect);
                                 let s = new Date(startDate);
@@ -2756,21 +2652,16 @@
                             });
                         }
 
-                        filtered = filtered.filter(row =>
-                            row.callResponse &&
-                            row.callResponse.toLowerCase() === "connected"
-                        );
+                        filteredData2 = filteredData2.filter(row => row.callResponse && row.callResponse.toLowerCase() === "connected");
 
-                        filtered = filtered.map((row, index) => ({
+                        filteredData2 = filteredData2.map((row, index) => ({
                             ...row,
                             sno: index + 1
                         }));
 
-                        tableData2 = [...filtered];
-                        filteredData2 = [...filtered];
-
+                        const totalColleges = filteredData2.length;
                         const countEl = document.getElementById("collegeCount2");
-                        if (countEl) countEl.textContent = filtered.length;
+                        if (countEl) countEl.textContent = totalColleges;
 
                         renderTable2();
                         renderPagination2();
