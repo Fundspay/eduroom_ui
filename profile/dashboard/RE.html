@@ -623,11 +623,11 @@
                                     </div>
                                 </div>
 
-                                <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                     <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                         <i class="feather-maximize maximize" style="font-size: 15px;"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -845,11 +845,11 @@
                                         </div>
                                     </div>
 
-                                    <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                    <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                         <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                             <i class="feather-maximize maximize" style="font-size: 15px;"></i>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -1364,11 +1364,11 @@
                                 </div>
 
                                 <!-- Expand -->
-                                <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                     <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                         <i class="feather-maximize maximize" style="font-size: 15px;"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -1787,6 +1787,8 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
+        let columnFilters = {};
+        let activeFilterDropdown = null;
 
         function loadCities() {
             return fetch("/profile/dashboard/cities.json")
@@ -1841,9 +1843,27 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+
+                        updateFilteredCount();
                     }
                 }
             });
+        }
+
+        function updateFilteredCount() {
+            const totalCount = tableData.length;
+            const filteredCount = filteredData.length;
+            const collegeCountElement = document.getElementById("collegeCount");
+
+            if (filteredCount === totalCount) {
+                collegeCountElement.textContent = totalCount;
+                collegeCountElement.style.color = "";
+                collegeCountElement.style.fontWeight = "";
+            } else {
+                collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
+                collegeCountElement.style.color = "#dc3545";
+                collegeCountElement.style.fontWeight = "bold";
+            }
         }
 
         function renderTable() {
@@ -1931,6 +1951,62 @@
         };
 
         function renderColumnFilters() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .filter-dropdown {
+                    position: absolute;
+                    z-index: 1050 !important;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 10px;
+                    max-height: 300px;
+                    overflow-y: auto;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    min-width: 200px;
+                }
+                .filter-options {
+                    max-height: 200px;
+                    overflow-y: auto;
+                }
+                .filter-btn {
+                    width: 100%;
+                    text-align: left;
+                    position: relative;
+                    padding-right: 30px;
+                }
+                .filter-btn i {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .form-check {
+                    margin-bottom: 5px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .form-check-label {
+                    cursor: pointer;
+                    width: 100%;
+                    display: block;
+                }
+                .filter-controls {
+                    margin-top: 10px;
+                    display: flex;
+                    gap: 5px;
+                    border-top: 1px solid #eee;
+                    padding-top: 10px;
+                }
+                .filter-controls .btn {
+                    flex: 1;
+                    font-size: 12px;
+                    padding: 3px 8px;
+                }
+            `;
+            document.head.appendChild(style);
+
             const headerRow = $("#leadsTable thead tr.filters");
             headerRow.remove();
 
@@ -1939,152 +2015,219 @@
                 if (i === 0 || i === 1 || i === 20) {
                     filterRow += "<th></th>";
                 } else {
-                    filterRow += `<th>
-                <select class="column-filter form-select form-select-sm" data-index="${i}">
-                    <option value="">All</option>
-                </select>
-            </th>`;
+                    const headerText = $(th).text().trim();
+                    filterRow += `<th style="position: relative;">
+                        <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
+                            Apply filter<i class="fas fa-filter"></i>
+                        </button>
+                    </th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
 
-            populateColumnFilterOptions();
+            columnFilters = {};
+            setupFilterEvents();
+        }
 
-            $(".column-filter").off("change").on("change", function () {
-                applyFilters();
+        function getColumnValues(columnIndex) {
+            let values = [...new Set(tableData.map(row => {
+                const val = Object.values(row)[columnIndex];
+                return val !== null && val !== undefined ? val.toString().trim() : "";
+            }))];
+
+            values = values.filter(v => v && v !== "");
+            values.sort((a, b) => a.localeCompare(b));
+
+            return values;
+        }
+
+        function setupFilterEvents() {
+            $(document).off('click', '.filter-btn');
+            $(document).off('click', '.apply-filter');
+            $(document).off('click', '.clear-filter');
+            $(document).off('click');
+            $(document).on('click', '.filter-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const index = parseInt($(this).data('index'));
+                const headerText = $(this).data('header');
+
+                if (activeFilterDropdown) {
+                    activeFilterDropdown.remove();
+                    activeFilterDropdown = null;
+                }
+                const values = getColumnValues(index);
+                const selectedValues = columnFilters[headerText] || [];
+                let dropdownHtml = `
+                    <div class="filter-dropdown" data-index="${index}" data-header="${headerText}">
+                        <div class="filter-options">
+                `;
+
+                if (values.length === 0) {
+                    dropdownHtml += `<div class="text-muted">No values to filter</div>`;
+                } else {
+                    values.forEach(value => {
+                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
+                        const safeId = `filter-${index}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                        dropdownHtml += `
+                            <div class="form-check">
+                                <input class="form-check-input filter-checkbox" type="checkbox" 
+                                       value="${value}" id="${safeId}" ${isChecked}>
+                                <label class="form-check-label" for="${safeId}">
+                                    ${formatDisplayText(value, index)}
+                                </label>
+                            </div>
+                        `;
+                    });
+                }
+
+                dropdownHtml += `
+                        </div>
+                        <div class="filter-controls">
+                            <button class="btn btn-sm btn-primary apply-filter" data-index="${index}">Apply</button>
+                            <button class="btn btn-sm btn-secondary clear-filter" data-index="${index}">Clear</button>
+                        </div>
+                    </div>
+                `;
+
+                const $dropdown = $(dropdownHtml);
+                const $button = $(this);
+                const buttonRect = $button[0].getBoundingClientRect();
+                const tableRect = $button.closest('table')[0].getBoundingClientRect();
+
+                $dropdown.css({
+                    position: 'fixed',
+                    top: buttonRect.bottom + 'px',
+                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
+                    zIndex: '9999'
+                });
+
+                $('body').append($dropdown);
+                activeFilterDropdown = $dropdown;
+
+                $dropdown.find('.filter-checkbox').on('change', function (e) {
+                    e.stopPropagation();
+                });
+                $dropdown.find('.apply-filter').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+                    const checkboxes = $dropdown.find('.filter-checkbox:checked');
+                    const selectedVals = checkboxes.map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedVals.length > 0) {
+                        columnFilters[hdr] = selectedVals;
+                        $(`.filter-btn[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
+                    } else {
+                        delete columnFilters[hdr];
+                        $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+                    }
+
+                    applyFilters();
+                    $dropdown.remove();
+                    activeFilterDropdown = null;
+                });
+
+                $dropdown.find('.clear-filter').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+
+                    delete columnFilters[hdr];
+                    $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+
+                    applyFilters();
+                    $dropdown.remove();
+                    activeFilterDropdown = null;
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (activeFilterDropdown && !$(e.target).closest('.filter-dropdown, .filter-btn').length) {
+                    activeFilterDropdown.remove();
+                    activeFilterDropdown = null;
+                }
             });
         }
 
-        function populateColumnFilterOptions() {
-            $("#leadsTable thead .column-filter").each(function () {
-                const index = $(this).data("index");
+        function formatDisplayText(value, index) {
+            const headerText = $("#leadsTable thead tr:first th").eq(index).text().toLowerCase();
 
-                const colName = $("#leadsTable thead th").eq(index).text().trim().toLowerCase();
-
-                const isDateColumn =
-                    colName.includes("date") ||
-                    colName.includes("response") ||
-                    colName.includes("created");
-
-                const isNumericColumn =
-                    colName.includes("no. of resumes") || colName.includes("number of resumes");
-
-                let values = [...new Set(tableData.map(row => {
-                    let v = Object.values(row)[index];
-                    if (v === null || v === undefined || v === "") return "";
-
-                    if (typeof v === "string") v = v.trim();
-
-                    if (isNumericColumn) {
-                        v = parseInt(v, 10);
-                        if (isNaN(v)) return "";
+            if (headerText.includes("date")) {
+                try {
+                    let d = new Date(value);
+                    if (!isNaN(d)) {
+                        return d.toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        });
                     }
-
-                    return v;
-                }))];
-
-                values = values.filter(v => v !== "" && v !== null && v !== undefined);
-
-                values.sort((a, b) => {
-                    if (isDateColumn) {
-                        const da = new Date(a), db = new Date(b);
-                        if (!isNaN(da) && !isNaN(db)) return da - db;
-                    }
-                    if (isNumericColumn) {
-                        return a - b;
-                    }
-                    return a.toString().localeCompare(b.toString());
-                });
-
-                values.forEach(v => {
-                    let displayText = v;
-                    if (isDateColumn) {
-                        const d = new Date(v);
-                        if (!isNaN(d)) {
-                            displayText = d.toLocaleDateString("en-GB", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric"
-                            });
-                        }
-                    }
-                    $(this).append(`<option value="${v}">${displayText}</option>`);
-                });
-            });
+                } catch (e) {
+                }
+            }
+            return value || "(empty)";
         }
 
-        function applyFilters() {
-            const filters = {};
-            $(".column-filter").each(function () {
-                const index = $(this).data("index");
-                const value = $(this).val();
-                if (value) filters[index] = value;
-            });
-
-            $("#leadsTable tbody tr").each(function () {
-                let show = true;
-                $(this).find("td").each(function (i, td) {
-                    if (filters[i]) {
-                        const colName = $("#leadsTable thead th").eq(i).text().trim().toLowerCase();
-                        let cellText = $(td).text().trim();
-
-                        if (colName.includes("no. of resumes") || colName.includes("number of resumes")) {
-
-                            if (parseInt(cellText, 10) !== parseInt(filters[i], 10)) {
-                                show = false;
-                            }
-                        } else {
-                            if (cellText !== filters[i]) {
-                                show = false;
-                            }
-                        }
-                    }
-                });
-                $(this).toggle(show);
-            });
-        }
         function applyFilters() {
             filteredData = [...tableData];
-            $("#leadsTable thead .column-filter").each(function () {
-                const value = $(this).val();
-                const index = $(this).data("index");
-                if (value) {
-                    filteredData = filteredData.filter(row => {
-                        const cellValue = Object.values(row)[index] || "";
 
-                        return cellValue.toLowerCase() === value.toLowerCase();
+            if (Object.keys(columnFilters).length === 0) {
+                currentPage = 1;
+                renderTable();
+                renderPagination();
+                updateFilteredCount();
+                return;
+            }
+
+            const headers = [];
+            $("#leadsTable thead tr:first th").each(function (i) {
+                headers[i] = $(this).text().trim();
+            });
+            Object.keys(columnFilters).forEach(header => {
+                const columnIndex = headers.indexOf(header);
+                if (columnIndex !== -1 && columnFilters[header].length > 0) {
+                    filteredData = filteredData.filter(row => {
+                        const cellValue = Object.values(row)[columnIndex];
+                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
+                        return columnFilters[header].includes(cellStr);
                     });
                 }
             });
+
             currentPage = 1;
             renderTable();
             renderPagination();
+            updateFilteredCount();
         }
 
         function makeCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" value="${displayValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" value="${displayValue}">
+            </td>`;
         }
 
         function makeNumberCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="number" value="${displayValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="number" value="${displayValue}">
+            </td>`;
         }
 
         function makeDateCell(field, value) {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker" value="${rawValue}">
+            </td>`;
         }
 
         function makeDropdownCell(field, selectedValue, stateFilter = null, optionsList = null) {
@@ -2284,8 +2427,10 @@
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
             if (!value) {
+                filteredData = [...tableData];
                 renderTable();
                 renderPagination();
+                updateFilteredCount();
                 return;
             }
 
@@ -2296,48 +2441,11 @@
                 })
             );
 
-            const tbody = $("#leadsTable tbody");
-            tbody.empty();
-            filtered.forEach((row, index) => {
-                const tr = `<tr data-id="${row.id}">
-                    <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-
-                <!-- keep all these NON-editable / dropdown as before -->
-                <td>${row.collegeName || ""}</td>
-                <td>${row.coordinatorName || ""}</td>
-                <td>${row.mobileNumber || ""}</td>
-                <td>${row.emailId || ""}</td>
-                <td>${row.state || ""}</td>
-                <td>${row.city || ""}</td>
-                <td>${row.course || ""}</td>
-                <td>${row.connectedBy || ""}</td>
-                <td>${row.dateOfConnect || ""}</td>
-                <td>${row.callResponse || ""}</td>
-                <td>${row.internshipType || ""}</td>
-                <td>${row.detailedResponse || ""}</td>
-                ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
-                ${makeDateCell("followUpDate", row.followUpDate || "")}
-                ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
-                ${makeNumberCell("resumeCount", row.resumeCount || "")}
-                ${makeDateCell("resumeDate", row.resumeDate || "")}
-                ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-                <td>
-                    <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </td>
-                </tr>`;
-                tbody.append(tr);
-            });
-
-            $("#pagination").hide();
-            attachCellEvents();
-            attachSendMailEvents();
+            filteredData = filtered;
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+            updateFilteredCount();
         };
 
         window.printTable = function () {
@@ -2475,6 +2583,8 @@
         let filteredData2 = [];
         const rowsPerPage2 = 10;
         let currentPage2 = 1;
+        let columnFilters2 = {};
+        let activeFilterDropdown2 = null;
 
         function loadCities2() {
             return fetch("/profile/dashboard/cities.json")
@@ -2529,9 +2639,27 @@
                         renderTable2();
                         renderPagination2();
                         renderColumnFilters2();
+
+                        updateFilteredCount2();
                     }
                 }
             });
+        }
+
+        function updateFilteredCount2() {
+            const totalCount = tableData2.length;
+            const filteredCount = filteredData2.length;
+            const collegeCountElement = document.getElementById("collegeCount2");
+
+            if (filteredCount === totalCount) {
+                collegeCountElement.textContent = totalCount;
+                collegeCountElement.style.color = "";
+                collegeCountElement.style.fontWeight = "";
+            } else {
+                collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
+                collegeCountElement.style.color = "#dc3545";
+                collegeCountElement.style.fontWeight = "bold";
+            }
         }
 
         function renderTable2() {
@@ -2619,6 +2747,66 @@
         };
 
         function renderColumnFilters2() {
+            const style2 = document.createElement('style');
+            style2.textContent = `
+                    .filter-dropdown2 {
+                        position: absolute;
+                        z-index: 1050 !important;
+                        background: white;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        padding: 10px;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        min-width: 200px;
+                    }
+                    .filter-options2 {
+                        max-height: 200px;
+                        overflow-y: auto;
+                    }
+                    .filter-btn2 {
+                        width: 100%;
+                        text-align: left;
+                        position: relative;
+                        padding-right: 30px;
+                    }
+                    .filter-btn2 i {
+                        position: absolute;
+                        right: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                    .form-check2 {
+                        margin-bottom: 5px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px; /* Add spacing between checkbox and text */
+                    }
+                    .form-check-label2 {
+                        cursor: pointer;
+                        display: block;
+                        flex: 1; /* Take remaining space */
+                        min-width: 0; /* Allow text truncation */
+                    }
+                    .filter-controls2 {
+                        margin-top: 10px;
+                        display: flex;
+                        gap: 5px;
+                        border-top: 1px solid #eee;
+                        padding-top: 10px;
+                    }
+                    .filter-controls2 .btn {
+                        flex: 1;
+                        font-size: 12px;
+                        padding: 3px 8px;
+                    }
+                `;
+            document.head.appendChild(style2);
+
             const headerRow = $("#leadsTable2 thead tr.filters");
             headerRow.remove();
 
@@ -2627,97 +2815,195 @@
                 if (i === 0 || i === 1 || i === 20) {
                     filterRow += "<th></th>";
                 } else {
-                    filterRow += `<th>
-                        <select class="column-filter2 form-select form-select-sm" data-index="${i}">
-                            <option value="">All</option>
-                        </select>
-                    </th>`;
+                    const headerText = $(th).text().trim();
+                    filterRow += `<th style="position: relative;">
+                    <button class="btn btn-sm btn-light filter-btn2" data-index="${i}" data-header="${headerText}">
+                            Apply filter<i class="fas fa-filter"></i>
+                        </button>
+                </th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable2 thead").append(filterRow);
 
-            populateColumnFilterOptions2();
+            columnFilters2 = {};
+            setupFilterEvents2();
+        }
 
-            $(".column-filter2").off("change").on("change", function () {
-                applyFilters2();
+        function getColumnValues2(columnIndex) {
+            let values = [...new Set(tableData2.map(row => {
+                const val = Object.values(row)[columnIndex];
+                return val !== null && val !== undefined ? val.toString().trim() : "";
+            }))];
+
+            values = values.filter(v => v && v !== "");
+            values.sort((a, b) => a.localeCompare(b));
+
+            return values;
+        }
+
+        function setupFilterEvents2() {
+            $(document).off('click', '.filter-btn2');
+            $(document).off('click', '.apply-filter2');
+            $(document).off('click', '.clear-filter2');
+            $(document).on('click', '.filter-btn2', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const index = parseInt($(this).data('index'));
+                const headerText = $(this).data('header');
+
+                if (activeFilterDropdown2) {
+                    activeFilterDropdown2.remove();
+                    activeFilterDropdown2 = null;
+                }
+
+                const values = getColumnValues2(index);
+                const selectedValues = columnFilters2[headerText] || [];
+
+                let dropdownHtml = `
+                <div class="filter-dropdown2" data-index="${index}" data-header="${headerText}">
+                    <div class="filter-options2">
+                `;
+
+                if (values.length === 0) {
+                    dropdownHtml += `<div class="text-muted">No values to filter</div>`;
+                } else {
+                    values.forEach(value => {
+                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
+                        const safeId = `filter2-${index}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                        dropdownHtml += `
+                        <div class="form-check2">
+                            <input class="form-check-input filter-checkbox2" type="checkbox" 
+                                   value="${value}" id="${safeId}" ${isChecked}>
+                            <label class="form-check-label2" for="${safeId}">
+                                ${formatDisplayText2(value, index)}
+                            </label>
+                        </div>
+                    `;
+                    });
+                }
+
+                dropdownHtml += `
+                    </div>
+                        <div class="filter-controls2">
+                            <button class="btn btn-sm btn-primary apply-filter2" data-index="${index}">Apply</button>
+                            <button class="btn btn-sm btn-secondary clear-filter2" data-index="${index}">Clear</button>
+                        </div>
+                    </div>
+                `;
+
+                const $dropdown = $(dropdownHtml);
+                const $button = $(this);
+                const buttonRect = $button[0].getBoundingClientRect();
+
+                $dropdown.css({
+                    position: 'fixed',
+                    top: buttonRect.bottom + 'px',
+                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
+                    zIndex: '9999'
+                });
+
+                $('body').append($dropdown);
+                activeFilterDropdown2 = $dropdown;
+
+                $dropdown.find('.filter-checkbox2').on('change', function (e) {
+                    e.stopPropagation();
+                });
+                $dropdown.find('.apply-filter2').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+                    const checkboxes = $dropdown.find('.filter-checkbox2:checked');
+                    const selectedVals = checkboxes.map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedVals.length > 0) {
+                        columnFilters2[hdr] = selectedVals;
+                        $(`.filter-btn2[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
+                    } else {
+                        delete columnFilters2[hdr];
+                        $(`.filter-btn2[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+                    }
+
+                    applyFilters2();
+                    $dropdown.remove();
+                    activeFilterDropdown2 = null;
+                });
+
+                $dropdown.find('.clear-filter2').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+
+                    delete columnFilters2[hdr];
+                    $(`.filter-btn2[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+
+                    applyFilters2();
+                    $dropdown.remove();
+                    activeFilterDropdown2 = null;
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (activeFilterDropdown2 && !$(e.target).closest('.filter-dropdown2, .filter-btn2').length) {
+                    activeFilterDropdown2.remove();
+                    activeFilterDropdown2 = null;
+                }
             });
         }
 
-        function populateColumnFilterOptions2() {
-            $("#leadsTable2 thead .column-filter2").each(function () {
-                const index = $(this).data("index");
+        function formatDisplayText2(value, index) {
+            const headerText = $("#leadsTable2 thead tr:first th").eq(index).text().toLowerCase();
 
-                const colName = $("#leadsTable2 thead th").eq(index).text().trim().toLowerCase();
-
-                const isDateColumn =
-                    colName.includes("date") ||
-                    colName.includes("response") ||
-                    colName.includes("created");
-
-                const isNumericColumn =
-                    colName.includes("no. of resumes") || colName.includes("number of resumes");
-
-                let values = [...new Set(tableData2.map(row => {
-                    let v = Object.values(row)[index];
-                    if (v === null || v === undefined || v === "") return "";
-
-                    if (typeof v === "string") v = v.trim();
-
-                    if (isNumericColumn) {
-                        v = parseInt(v, 10);
-                        if (isNaN(v)) return "";
+            if (headerText.includes("date")) {
+                try {
+                    let d = new Date(value);
+                    if (!isNaN(d)) {
+                        return d.toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        });
                     }
-
-                    return v;
-                }))];
-
-                values = values.filter(v => v !== "" && v !== null && v !== undefined);
-
-                values.sort((a, b) => {
-                    if (isDateColumn) {
-                        const da = new Date(a), db = new Date(b);
-                        if (!isNaN(da) && !isNaN(db)) return da - db;
-                    }
-                    if (isNumericColumn) {
-                        return a - b;
-                    }
-                    return a.toString().localeCompare(b.toString());
-                });
-
-                values.forEach(v => {
-                    let displayText = v;
-                    if (isDateColumn) {
-                        const d = new Date(v);
-                        if (!isNaN(d)) {
-                            displayText = d.toLocaleDateString("en-GB", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric"
-                            });
-                        }
-                    }
-                    $(this).append(`<option value="${v}">${displayText}</option>`);
-                });
-            });
+                } catch (e) {
+                }
+            }
+            return value || "(empty)";
         }
 
         function applyFilters2() {
             filteredData2 = [...tableData2];
-            $("#leadsTable2 thead .column-filter2").each(function () {
-                const value = $(this).val();
-                const index = $(this).data("index");
-                if (value) {
-                    filteredData2 = filteredData2.filter(row => {
-                        const cellValue = Object.values(row)[index] || "";
 
-                        return cellValue.toLowerCase() === value.toLowerCase();
+            if (Object.keys(columnFilters2).length === 0) {
+                currentPage2 = 1;
+                renderTable2();
+                renderPagination2();
+                updateFilteredCount2();
+                return;
+            }
+
+            const headers = [];
+            $("#leadsTable2 thead tr:first th").each(function (i) {
+                headers[i] = $(this).text().trim();
+            });
+
+            Object.keys(columnFilters2).forEach(header => {
+                const columnIndex = headers.indexOf(header);
+                if (columnIndex !== -1 && columnFilters2[header].length > 0) {
+                    filteredData2 = filteredData2.filter(row => {
+                        const cellValue = Object.values(row)[columnIndex];
+                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
+                        return columnFilters2[header].includes(cellStr);
                     });
                 }
             });
+
             currentPage2 = 1;
             renderTable2();
             renderPagination2();
+            updateFilteredCount2();
         }
 
         function makeNumberCell2(field, value) {
@@ -2747,8 +3033,8 @@
             let displaySelected = selectedValue ? capitalize(selectedValue) : "";
 
             let html = `<td data-field="${field}">
-                <span style="font-weight:bold;">${displaySelected}</span>
-                <select class="form-control select22">`;
+            <span style="font-weight:bold;">${displaySelected}</span>
+            <select class="form-control select22">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -2934,8 +3220,10 @@
         window.filterTable2 = function () {
             const value = $("#searchInput2").val().toLowerCase().trim();
             if (!value) {
+                filteredData2 = [...tableData2];
                 renderTable2();
                 renderPagination2();
+                updateFilteredCount2();
                 return;
             }
 
@@ -2946,48 +3234,11 @@
                 })
             );
 
-            const tbody = $("#leadsTable2 tbody");
-            tbody.empty();
-            filtered.forEach((row, index) => {
-                const tr = `<tr data-id="${row.id}">
-                    <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-
-                <!-- keep all these NON-editable / dropdown as before -->
-                <td>${row.collegeName || ""}</td>
-                <td>${row.coordinatorName || ""}</td>
-                <td>${row.mobileNumber || ""}</td>
-                <td>${row.emailId || ""}</td>
-                <td>${row.state || ""}</td>
-                <td>${row.city || ""}</td>
-                <td>${row.course || ""}</td>
-                <td>${row.connectedBy || ""}</td>
-                <td>${row.dateOfConnect || ""}</td>
-                <td>${row.callResponse || ""}</td>
-                <td>${row.internshipType || ""}</td>
-                <td>${row.detailedResponse || ""}</td>
-                ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
-                ${makeDateCell("followUpDate", row.followUpDate || "")}
-                ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
-                ${makeNumberCell("resumeCount", row.resumeCount || "")}
-                ${makeDateCell("resumeDate", row.resumeDate || "")}
-                ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-                <td>
-                    <button class="btn btn-sm btn-success send-mail2" data-id="${row.id}" title="Send JD">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </td>
-                </tr>`;
-                tbody.append(tr);
-            });
-
-            $("#pagination2").hide();
-            attachCellEvents2();
-            attachSendMailEvents2();
+            filteredData2 = filtered;
+            currentPage2 = 1;
+            renderTable2();
+            renderPagination2();
+            updateFilteredCount2();
         };
 
         window.printTable2 = function () {
@@ -3124,6 +3375,8 @@
         let filteredData3 = [];
         const rowsPerPage3 = 10;
         let currentPage3 = 1;
+        let columnFilters3 = {};
+        let activeFilterDropdown3 = null;
 
         function loadCities3() {
             return fetch("/profile/dashboard/cities.json")
@@ -3171,6 +3424,11 @@
 
                         sessionStorage.setItem("users_list3", JSON.stringify(res.managers));
 
+                        const totalCountElement = document.getElementById("collegeCount3") || document.querySelector('[id*="collegeCount"]');
+                        if (totalCountElement) {
+                            totalCountElement.textContent = tableData3.length;
+                        }
+
                         if (selectedMonthYear3) {
                             filteredData3 = tableData3.filter(row => {
                                 if (!row.followUpDate) return false;
@@ -3186,9 +3444,32 @@
                         renderTable3();
                         renderPagination3();
                         renderColumnFilters3();
+
+                        updateFilteredCount3();
                     }
                 }
             });
+        }
+
+        function updateFilteredCount3() {
+            const totalCount = tableData3.length;
+            const filteredCount = filteredData3.length;
+
+            const collegeCountElement = document.getElementById("collegeCount3") ||
+                document.querySelector('[id*="collegeCount"]') ||
+                document.querySelector('.college-count');
+
+            if (collegeCountElement) {
+                if (filteredCount === totalCount) {
+                    collegeCountElement.textContent = totalCount;
+                    collegeCountElement.style.color = "";
+                    collegeCountElement.style.fontWeight = "";
+                } else {
+                    collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
+                    collegeCountElement.style.color = "#dc3545";
+                    collegeCountElement.style.fontWeight = "bold";
+                }
+            }
         }
 
         function renderTable3() {
@@ -3271,6 +3552,69 @@
         };
 
         function renderColumnFilters3() {
+            if (!$('#filter-styles-3').length) {
+                const style = document.createElement('style');
+                style.id = 'filter-styles-3';
+                style.textContent = `
+                    .filter-dropdown-3 {
+                            position: absolute;
+                            z-index: 1050 !important;
+                            background: white;
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+                            padding: 10px;
+                            max-height: 300px;
+                            overflow-y: auto;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                            min-width: 200px;
+                        }
+                        .filter-options-3 {
+                            max-height: 200px;
+                            overflow-y: auto;
+                        }
+                        .filter-btn-3 {
+                            width: 100%;
+                            text-align: left;
+                            position: relative;
+                            padding-right: 30px;
+                        }
+                        .filter-btn-3 i {
+                            position: absolute;
+                            right: 10px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+                        .form-check-3 {
+                            margin-bottom: 5px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px; /* Add spacing between checkbox and text */
+                        }
+                        .form-check-label-3 {
+                            cursor: pointer;
+                            display: block;
+                            flex: 1; /* Take remaining space */
+                            min-width: 0; /* Allow text truncation */
+                        }
+                        .filter-controls-3 {
+                            margin-top: 10px;
+                            display: flex;
+                            gap: 5px;
+                            border-top: 1px solid #eee;
+                            padding-top: 10px;
+                        }
+                        .filter-controls-3 .btn {
+                            flex: 1;
+                            font-size: 12px;
+                            padding: 3px 8px;
+                        }
+                    `;
+                document.head.appendChild(style);
+            }
+
             const headerRow = $("#leadsTable3 thead tr.filters");
             headerRow.remove();
 
@@ -3279,109 +3623,213 @@
                 if (i === 0 || i === 1 || i === 20) {
                     filterRow += "<th></th>";
                 } else {
-                    filterRow += `<th>
-                    <select class="column-filter3 form-select form-select-sm" data-index="${i}">
-                        <option value="">All</option>
-                    </select>
+                    const headerText = $(th).text().trim();
+                    filterRow += `<th style="position: relative;">
+                    <button class="btn btn-sm btn-light filter-btn-3" data-index="${i}" data-header="${headerText}">
+                        Apply filter<i class="fas fa-filter"></i>
+                    </button>
                 </th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable3 thead").append(filterRow);
 
-            populateColumnFilterOptions3();
+            columnFilters3 = {};
+            setupFilterEvents3();
+        }
 
-            $(".column-filter3").off("change").on("change", function () {
-                applyFilters3();
+        function getColumnValues3(columnIndex) {
+            let values = [...new Set(tableData3.map(row => {
+                const val = Object.values(row)[columnIndex];
+                return val !== null && val !== undefined ? val.toString().trim() : "";
+            }))];
+
+            values = values.filter(v => v && v !== "");
+            values.sort((a, b) => a.localeCompare(b));
+
+            return values;
+        }
+
+        function setupFilterEvents3() {
+            $(document).off('click', '.filter-btn-3');
+            $(document).off('click', '.apply-filter-3');
+            $(document).off('click', '.clear-filter-3');
+            $(document).on('click', '.filter-btn-3', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const index = parseInt($(this).data('index'));
+                const headerText = $(this).data('header');
+
+                if (activeFilterDropdown3) {
+                    activeFilterDropdown3.remove();
+                    activeFilterDropdown3 = null;
+                }
+
+                const values = getColumnValues3(index);
+                const selectedValues = columnFilters3[headerText] || [];
+
+                let dropdownHtml = `
+                    <div class="filter-dropdown-3" data-index="${index}" data-header="${headerText}">
+                        <div class="filter-options-3">
+                `;
+
+                if (values.length === 0) {
+                    dropdownHtml += `<div class="text-muted" style="font-size: 12px;">No values to filter</div>`;
+                } else {
+                    values.forEach(value => {
+                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
+                        const safeId = `filter3-${index}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                        dropdownHtml += `
+                        <div class="form-check-3">
+                            <input class="form-check-input filter-checkbox-3" type="checkbox" 
+                                   value="${value}" id="${safeId}" ${isChecked}>
+                            <label class="form-check-label-3" for="${safeId}">
+                                ${formatDisplayText3(value, index)}
+                            </label>
+                        </div>
+                    `;
+                    });
+                }
+
+                dropdownHtml += `
+                    </div>
+                        <div class="filter-controls-3">
+                            <button class="btn btn-sm btn-primary apply-filter-3" data-index="${index}">Apply</button>
+                            <button class="btn btn-sm btn-secondary clear-filter-3" data-index="${index}">Clear</button>
+                        </div>
+                    </div>
+                `;
+
+                const $dropdown = $(dropdownHtml);
+                const $button = $(this);
+                const buttonRect = $button[0].getBoundingClientRect();
+
+                $dropdown.css({
+                    position: 'fixed',
+                    top: buttonRect.bottom + 'px',
+                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
+                    zIndex: '9999'
+                });
+
+                $('body').append($dropdown);
+                activeFilterDropdown3 = $dropdown;
+
+                $dropdown.find('.filter-checkbox-3').on('change', function (e) {
+                    e.stopPropagation();
+                });
+                $dropdown.find('.apply-filter-3').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+                    const checkboxes = $dropdown.find('.filter-checkbox-3:checked');
+                    const selectedVals = checkboxes.map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedVals.length > 0) {
+                        columnFilters3[hdr] = selectedVals;
+                        $(`.filter-btn-3[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
+                    } else {
+                        delete columnFilters3[hdr];
+                        $(`.filter-btn-3[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+                    }
+
+                    applyFilters3();
+                    $dropdown.remove();
+                    activeFilterDropdown3 = null;
+                });
+
+                $dropdown.find('.clear-filter-3').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+
+                    delete columnFilters3[hdr];
+                    $(`.filter-btn-3[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+
+                    applyFilters3();
+                    $dropdown.remove();
+                    activeFilterDropdown3 = null;
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (activeFilterDropdown3 && !$(e.target).closest('.filter-dropdown-3, .filter-btn-3').length) {
+                    activeFilterDropdown3.remove();
+                    activeFilterDropdown3 = null;
+                }
             });
         }
 
-        function populateColumnFilterOptions3() {
-            $("#leadsTable3 thead .column-filter3").each(function () {
-                const index = $(this).data("index");
-                const colName = $("#leadsTable3 thead th").eq(index).text().trim().toLowerCase();
+        function formatDisplayText3(value, index) {
+            const headerText = $("#leadsTable3 thead tr:first th").eq(index).text().toLowerCase();
 
-                const isDateColumn =
-                    colName.includes("date") ||
-                    colName.includes("response") ||
-                    colName.includes("created");
-
-                const isNumericColumn =
-                    colName.includes("no. of resumes") || colName.includes("number of resumes");
-
-                let values = [...new Set(tableData3.map(row => {
-                    let v = Object.values(row)[index];
-                    if (v === null || v === undefined || v === "") return "";
-                    if (typeof v === "string") v = v.trim();
-                    if (isNumericColumn) {
-                        v = parseInt(v, 10);
-                        if (isNaN(v)) return "";
+            if (headerText.includes("date")) {
+                try {
+                    let d = new Date(value);
+                    if (!isNaN(d)) {
+                        return d.toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        });
                     }
-                    return v;
-                }))];
+                } catch (e) {
 
-                values = values.filter(v => v !== "" && v !== null && v !== undefined);
-
-                values.sort((a, b) => {
-                    if (isDateColumn) {
-                        const da = new Date(a), db = new Date(b);
-                        if (!isNaN(da) && !isNaN(db)) return da - db;
-                    }
-                    if (isNumericColumn) {
-                        return a - b;
-                    }
-                    return a.toString().localeCompare(b.toString());
-                });
-
-                values.forEach(v => {
-                    let displayText = v;
-                    if (isDateColumn) {
-                        const d = new Date(v);
-                        if (!isNaN(d)) {
-                            displayText = d.toLocaleDateString("en-GB", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric"
-                            });
-                        }
-                    }
-                    $(this).append(`<option value="${v}">${displayText}</option>`);
-                });
-            });
+                }
+            }
+            return value || "(empty)";
         }
 
         function applyFilters3() {
             filteredData3 = [...tableData3];
-            $("#leadsTable3 thead .column-filter3").each(function () {
-                const value = $(this).val();
-                const index = $(this).data("index");
-                if (value) {
+
+            if (Object.keys(columnFilters3).length === 0) {
+                currentPage3 = 1;
+                renderTable3();
+                renderPagination3();
+                updateFilteredCount3();
+                return;
+            }
+
+            const headers = [];
+            $("#leadsTable3 thead tr:first th").each(function (i) {
+                headers[i] = $(this).text().trim();
+            });
+
+            Object.keys(columnFilters3).forEach(header => {
+                const columnIndex = headers.indexOf(header);
+                if (columnIndex !== -1 && columnFilters3[header].length > 0) {
                     filteredData3 = filteredData3.filter(row => {
-                        const cellValue = Object.values(row)[index] || "";
-                        return cellValue.toLowerCase() === value.toLowerCase();
+                        const cellValue = Object.values(row)[columnIndex];
+                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
+                        return columnFilters3[header].includes(cellStr);
                     });
                 }
             });
+
             currentPage3 = 1;
             renderTable3();
             renderPagination3();
+            updateFilteredCount3();
         }
 
         function makeNumberCell3(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="number" value="${displayValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="number" value="${displayValue}">
+            </td>`;
         }
 
         function makeDateCell3(field, value) {
             let displayValue = formatDate3(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker3" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker3" value="${rawValue}">
+            </td>`;
         }
 
         function makeDropdownCell3(field, selectedValue, stateFilter = null, optionsList = null) {
@@ -3573,8 +4021,10 @@
         window.filterTable3 = function () {
             const value = $("#searchInput3").val().toLowerCase().trim();
             if (!value) {
+                filteredData3 = [...tableData3];
                 renderTable3();
                 renderPagination3();
+                updateFilteredCount3();
                 return;
             }
 
@@ -3585,44 +4035,11 @@
                 })
             );
 
-            const tbody = $("#leadsTable3 tbody");
-            tbody.empty();
-            filtered.forEach((row, index) => {
-                const tr = `<tr data-id="${row.id}">
-                    <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${row.sno}</td>
-
-                <!-- keep all these NON-editable / dropdown as before -->
-                <td>${row.collegeName || ""}</td>
-                <td>${row.coordinatorName || ""}</td>
-                <td>${row.mobileNumber || ""}</td>
-                <td>${row.emailId || ""}</td>
-                <td>${row.state || ""}</td>
-                <td>${row.city || ""}</td>
-                <td>${row.course || ""}</td>
-                <td>${row.connectedBy || ""}</td>
-                <td>${row.dateOfConnect || ""}</td>
-                <td>${row.callResponse || ""}</td>
-                <td>${row.internshipType || ""}</td>
-                <td>${row.detailedResponse || ""}</td>
-                ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
-                ${makeDateCell("followUpDate", row.followUpDate || "")}
-                ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
-                ${makeNumberCell("resumeCount", row.resumeCount || "")}
-                ${makeDateCell("resumeDate", row.resumeDate || "")}
-                ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-                
-                </tr>`;
-                tbody.append(tr);
-            });
-
-            $("#pagination3").hide();
-            attachCellEvents3();
-            attachSendMailEvents3();
+            filteredData3 = filtered;
+            currentPage3 = 1;
+            renderTable3();
+            renderPagination3();
+            updateFilteredCount3();
         };
 
         window.printTable3 = function () {
@@ -4079,7 +4496,7 @@
                         const totals = response.totals || {};
                         const breakdown = totals.breakdownTotals || {};
 
-                        $("#totalResumes2").text(totals.totalAchievedResumes || 0);
+                        $("#totalResumes2").text(totals.breakdownTotals["resumes received"] || 0);
                         let resumesPercent = (totals.totalResumeTarget > 0)
                             ? ((totals.totalAchievedResumes / totals.totalResumeTarget) * 100).toFixed(1)
                             : 0;
@@ -4133,46 +4550,44 @@
                 return;
             }
 
-            $(document).on("click", "#logoutBtn", function () {
+            document.addEventListener("click", function (e) {
+                const btn = e.target.closest("#logoutBtn");
+                if (!btn) return;
+
+                console.log("Logout clicked");
+
                 Swal.fire({
                     title: "Logging out...",
                     text: "Please wait",
                     allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
+                    didOpen: () => Swal.showLoading()
                 });
+
+                const userId = sessionStorage.getItem("user_id");
 
                 $.ajax({
                     url: "https://eduroom.in/api/v1/user/logout",
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({ id: userId }),
-                    success: function (res) {
-                        console.log("Logout success:", res);
-                        sessionStorage.removeItem("user_id");
-                        sessionStorage.removeItem("coursePasswordVerified");
-                        sessionStorage.removeItem("hr_verified");
-                        sessionStorage.removeItem("bd_verified");
+                    success: function () {
+                        sessionStorage.clear();
 
                         Swal.fire({
                             icon: "success",
                             title: "Logged Out",
                             text: "You have been logged out successfully!",
                             showConfirmButton: false,
-                            timer: 2000
+                            timer: 1500
                         }).then(() => {
                             window.top.location.href = "/login.html";
                         });
                     },
-                    error: function (err) {
-                        console.error("Logout error:", err);
+                    error: function () {
                         Swal.fire({
                             icon: "error",
                             title: "Logout Failed",
-                            text: "Something went wrong. Please try again!",
-                            allowOutsideClick: false,
-                            confirmButtonText: "OK"
+                            text: "Something went wrong. Please try again!"
                         });
                     }
                 });

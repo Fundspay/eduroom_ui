@@ -167,11 +167,11 @@
                                                 placeholder="Search..." oninput="filterTable2()">
                                         </div>
                                     </div>
-                                    <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                    <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                         <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                             <i class="feather-maximize maximize" style="font-size: 15px;"></i>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -180,7 +180,7 @@
                                     <table class="table table-hover mb-0" id="leadsTable2">
                                         <thead>
                                             <tr class="border-b">
-                                                <th>Send JD</th>
+                                                <th>DELETE</th>
                                                 <th>SR</th>
                                                 <th>College Name</th>
                                                 <th>Co-ordinator Name</th>
@@ -194,7 +194,7 @@
                                                 <th>Call Response</th>
                                                 <th>Type of INT</th>
                                                 <th>Detailed Response</th>
-                                                <th>Delete</th>
+                                                <th>SEND JD</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -457,10 +457,9 @@
     </script>
 
     <script>
-        const teamManagerId = sessionStorage.getItem("user_id");
-        const managerName = sessionStorage.getItem("userName");
-        console.log("managerName:", managerName);
-        console.log(teamManagerId);
+        var userData2 = JSON.parse(sessionStorage.getItem("user_data"));
+        const managerName2 = sessionStorage.getItem("userName");
+        console.log(userData2);
 
         const apiBase2 = "https://eduroom.in/api/v1/cosheet";
 
@@ -517,6 +516,8 @@
         let filteredData2 = [];
         const rowsPerPage2 = 10;
         let currentPage2 = 1;
+        let columnFilters2 = {};
+        let activeFilterDropdown2 = null;
 
         function loadCities2() {
             return fetch("/profile/dashboard/cities.json")
@@ -528,15 +529,22 @@
                 .catch(err => console.error("Failed to load cities.json:", err));
         }
 
-        function loadTableData2() {
+        function loadTableData2(startDate = null, endDate = null) {
             $.ajax({
                 url: apiBase2 + "/list",
                 method: "GET",
                 success: function (res) {
                     console.log("master sheet 2:", res);
+
                     if (res.success && res.managers) {
 
-                        tableData2 = res.data.map((row, index) => ({
+                        dropdowns2.connectedBy = res.managers.map(u => u.name);
+                        dropdowns2.connectedBy.push("Other");
+
+                        console.log("ConnectedBy options 2:", dropdowns2.connectedBy);
+                        sessionStorage.setItem("users_list2", JSON.stringify(res.managers));
+
+                        let rawData = res.data.map((row, index) => ({
                             sno: index + 1,
                             id: row.id,
                             collegeName: row.collegeName || "",
@@ -550,35 +558,39 @@
                             dateOfConnect: row.dateOfConnect || "",
                             callResponse: row.callResponse || "",
                             internshipType: row.internshipType || "",
-                            detailedResponse: row.detailedResponse || ""
+                            detailedResponse: row.detailedResponse || "",
                         }));
 
-                        dropdowns2.connectedBy = res.managers.map(u => u.name);
-                        dropdowns2.connectedBy.push("Other");
-                        console.log("ConnectedBy options 2:", dropdowns2.connectedBy);
+                        let filtered = [...rawData];
 
-                        sessionStorage.setItem("users_list2", JSON.stringify(res.managers));
-
-                        filteredData2 = [...tableData2];
-
-                        if (managerName) {
-                            filteredData2 = filteredData2.filter(
-                                row => row.connectedBy === managerName
-                            );
+                        if (managerName2) {
+                            filtered = filtered.filter(row => row.connectedBy === managerName2);
                         }
 
-                        filteredData2 = filteredData2.filter(
-                            row => row.callResponse && row.callResponse.toLowerCase() === "busy"
+                        if (startDate && endDate) {
+                            filtered = filtered.filter(row => {
+                                if (!row.dateOfConnect) return false;
+                                let d = new Date(row.dateOfConnect);
+                                let s = new Date(startDate);
+                                let e = new Date(endDate);
+                                return d >= s && d <= e;
+                            });
+                        }
+
+                        filtered = filtered.filter(row =>
+                            row.callResponse &&
+                            row.callResponse.toLowerCase() === "busy"
                         );
 
-                        filteredData2 = filteredData2.map((row, index) => ({
+                        filtered = filtered.map((row, index) => ({
                             ...row,
                             sno: index + 1
                         }));
 
-                        const totalColleges = filteredData2.length;
-                        const countEl = document.getElementById("collegeCount2");
-                        if (countEl) countEl.textContent = totalColleges;
+                        tableData2 = [...filtered];
+                        filteredData2 = [...filtered];
+
+                        updateFilteredCount2();
 
                         renderTable2();
                         renderPagination2();
@@ -588,11 +600,29 @@
             });
         }
 
+        function updateFilteredCount2() {
+            const totalCount = tableData2.length;
+            const filteredCount = filteredData2.length;
+            const collegeCountElement = document.getElementById("collegeCount2");
+
+            if (!collegeCountElement) return;
+
+            if (filteredCount === totalCount) {
+                collegeCountElement.textContent = totalCount;
+                collegeCountElement.style.color = "";
+                collegeCountElement.style.fontWeight = "";
+            } else {
+                collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
+                collegeCountElement.style.color = "#dc3545";
+                collegeCountElement.style.fontWeight = "bold";
+            }
+        }
+
         function getBaseFilteredData2() {
             let base = [...tableData2];
 
-            if (managerName) {
-                base = base.filter(row => row.connectedBy === managerName);
+            if (userData2 && userData2.name) {
+                base = base.filter(row => row.connectedBy === userData2.name);
             }
 
             base = base.filter(row => row.callResponse && row.callResponse.toLowerCase() === "busy");
@@ -604,18 +634,21 @@
             let tbody = $("#leadsTable2 tbody");
             tbody.empty();
 
+            filteredData2.sort((a, b) => b.id - a.id);
+
             const start = (currentPage2 - 1) * rowsPerPage2;
             const end = start + rowsPerPage2;
             const rows = filteredData2.slice(start, end);
 
             rows.forEach((row, index) => {
+                let srNo = start + index + 1;
                 let tr = `<tr data-id="${row.id}">
             <td>
                 <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
-            <td>${row.sno}</td>
+            <td>${srNo}</td>
             ${makeCell2("collegeName", row.collegeName)}
             ${makeCell2("coordinatorName", row.coordinatorName)}
             ${makeCell2("mobileNumber", row.mobileNumber)}
@@ -677,6 +710,69 @@
         };
 
         function renderColumnFilters2() {
+            if (!$('#filter-style-2').length) {
+                const style = document.createElement('style');
+                style.id = 'filter-style-2';
+                style.textContent = `
+                    .filter-dropdown-2 {
+                        position: absolute;
+                        z-index: 1050 !important;
+                        background: white;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        padding: 10px;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        min-width: 200px;
+                    }
+                    .filter-options-2 {
+                        max-height: 200px;
+                        overflow-y: auto;
+                    }
+                    .filter-btn-2 {
+                        width: 100%;
+                        text-align: left;
+                        position: relative;
+                        padding-right: 30px;
+                    }
+                    .filter-btn-2 i {
+                        position: absolute;
+                        right: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                    .form-check-2 {
+                        margin-bottom: 5px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px; /* Add spacing between checkbox and text */
+                    }
+                    .form-check-label-2 {
+                        cursor: pointer;
+                        display: block;
+                        flex: 1; /* Take remaining space */
+                        min-width: 0; /* Allow text truncation */
+                    }
+                    .filter-controls-2 {
+                        margin-top: 10px;
+                        display: flex;
+                        gap: 5px;
+                        border-top: 1px solid #eee;
+                        padding-top: 10px;
+                    }
+                    .filter-controls-2 .btn {
+                        flex: 1;
+                        font-size: 12px;
+                        padding: 3px 8px;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
             const headerRow = $("#leadsTable2 thead tr.filters");
             headerRow.remove();
 
@@ -685,73 +781,198 @@
                 if (i === 0 || i === 1 || i === 14) {
                     filterRow += "<th></th>";
                 } else {
-                    filterRow += `<th><select class="column-filter2 form-select form-select-sm" data-index="${i}">
-                <option value="">All</option>
-            </select></th>`;
+                    const headerText = $(th).text().trim();
+                    filterRow += `<th style="position: relative;">
+                        <button class="btn btn-sm btn-light filter-btn-2" data-index="${i}" data-header="${headerText}">
+                            Apply filter<i class="fas fa-filter"></i>
+                        </button>
+                    </th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable2 thead").append(filterRow);
 
-            populateColumnFilterOptions2();
+            columnFilters2 = {};
+            setupFilterEvents2();
         }
 
-        function populateColumnFilterOptions2() {
-            $("#leadsTable2 thead .column-filter2").each(function () {
-                const index = $(this).data("index");
-                let values = [...new Set(filteredData2.map(row => Object.values(row)[index]))];
+        function getColumnValues2(columnIndex) {
+            let values = [...new Set(tableData2.map(row => {
+                const val = Object.values(row)[columnIndex];
+                return val !== null && val !== undefined ? val.toString().trim() : "";
+            }))];
 
-                values = values.filter(v => v && v.trim() !== "");
+            values = values.filter(v => v && v !== "");
+            values.sort((a, b) => a.localeCompare(b));
 
-                let formattedValues = values;
+            return values;
+        }
 
-                if ($("#leadsTable2 thead tr:first th").eq(index).text().toLowerCase().includes("date")) {
-                    formattedValues = values.map(v => {
-                        let d = new Date(v);
-                        if (!isNaN(d)) {
-                            return {
-                                raw: v,
-                                display: d.toLocaleDateString("en-GB", {
-                                    day: "numeric",
-                                    month: "long",
-                                    year: "numeric"
-                                })
-                            };
-                        }
-                        return { raw: v, display: v };
-                    });
-                } else {
-                    formattedValues = values.map(v => ({ raw: v, display: v }));
+        function setupFilterEvents2() {
+            $(document).off('click', '.filter-btn-2');
+            $(document).off('click', '.apply-filter-2');
+            $(document).off('click', '.clear-filter-2');
+
+            $(document).on('click', '.filter-btn-2', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const index = parseInt($(this).data('index'));
+                const headerText = $(this).data('header');
+
+                if (activeFilterDropdown2) {
+                    activeFilterDropdown2.remove();
+                    activeFilterDropdown2 = null;
                 }
 
-                formattedValues.sort((a, b) => a.display.localeCompare(b.display));
+                const values = getColumnValues2(index);
 
-                formattedValues.forEach(v => {
+                const selectedValues = columnFilters2[headerText] || [];
 
-                    $(this).append(`<option value="${v.raw}">${v.display}</option>`);
+                let dropdownHtml = `
+                    <div class="filter-dropdown-2" data-index="${index}" data-header="${headerText}">
+                        <div class="filter-options-2">
+                `;
+
+                if (values.length === 0) {
+                    dropdownHtml += `<div class="text-muted">No values to filter</div>`;
+                } else {
+                    values.forEach(value => {
+                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
+                        const safeId = `filter2-${index}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                        dropdownHtml += `
+                            <div class="form-check-2">
+                                <input class="form-check-input filter-checkbox-2" type="checkbox" 
+                                       value="${value}" id="${safeId}" ${isChecked}>
+                                <label class="form-check-label-2" for="${safeId}">
+                                    ${formatDisplayText2(value, index)}
+                                </label>
+                            </div>
+                        `;
+                    });
+                }
+
+                dropdownHtml += `
+                    </div>
+                        <div class="filter-controls-2">
+                            <button class="btn btn-sm btn-primary apply-filter-2" data-index="${index}">Apply</button>
+                            <button class="btn btn-sm btn-secondary clear-filter-2" data-index="${index}">Clear</button>
+                        </div>
+                    </div>
+                `;
+
+                const $dropdown = $(dropdownHtml);
+                const $button = $(this);
+                const buttonRect = $button[0].getBoundingClientRect();
+
+                $dropdown.css({
+                    position: 'fixed',
+                    top: buttonRect.bottom + 'px',
+                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
+                    zIndex: '9999'
+                });
+
+                $('body').append($dropdown);
+                activeFilterDropdown2 = $dropdown;
+
+                $dropdown.find('.filter-checkbox-2').on('change', function (e) {
+                    e.stopPropagation();
+                });
+
+                $dropdown.find('.apply-filter-2').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+                    const checkboxes = $dropdown.find('.filter-checkbox-2:checked');
+                    const selectedVals = checkboxes.map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedVals.length > 0) {
+                        columnFilters2[hdr] = selectedVals;
+                        $(`.filter-btn-2[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
+                    } else {
+                        delete columnFilters2[hdr];
+                        $(`.filter-btn-2[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+                    }
+
+                    applyFilters2();
+                    $dropdown.remove();
+                    activeFilterDropdown2 = null;
+                });
+
+                $dropdown.find('.clear-filter-2').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+
+                    delete columnFilters2[hdr];
+                    $(`.filter-btn-2[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+
+                    applyFilters2();
+                    $dropdown.remove();
+                    activeFilterDropdown2 = null;
                 });
             });
 
-            $(".column-filter2").off("change").on("change", function () {
-                applyFilters2();
+            $(document).on('click', function (e) {
+                if (activeFilterDropdown2 && !$(e.target).closest('.filter-dropdown-2, .filter-btn-2').length) {
+                    activeFilterDropdown2.remove();
+                    activeFilterDropdown2 = null;
+                }
             });
+        }
+
+        function formatDisplayText2(value, index) {
+            const headerText = $("#leadsTable2 thead tr:first th").eq(index).text().toLowerCase();
+
+            if (headerText.includes("date")) {
+                try {
+                    let d = new Date(value);
+                    if (!isNaN(d)) {
+                        return d.toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        });
+                    }
+                } catch (e) {
+                }
+            }
+            return value || "(empty)";
         }
 
         function applyFilters2() {
             filteredData2 = [...getBaseFilteredData2()];
-            $("#leadsTable2 thead .column-filter2").each(function () {
-                const value = $(this).val();
-                const index = $(this).data("index");
-                if (value) {
+
+            if (Object.keys(columnFilters2).length === 0) {
+                currentPage2 = 1;
+                renderTable2();
+                renderPagination2();
+                updateFilteredCount2();
+                return;
+            }
+
+            const headers = [];
+            $("#leadsTable2 thead tr:first th").each(function (i) {
+                headers[i] = $(this).text().trim();
+            });
+
+            Object.keys(columnFilters2).forEach(header => {
+                const columnIndex = headers.indexOf(header);
+                if (columnIndex !== -1 && columnFilters2[header].length > 0) {
                     filteredData2 = filteredData2.filter(row => {
-                        const cellValue = Object.values(row)[index] || "";
-                        return cellValue.toLowerCase() === value.toLowerCase();
+                        const cellValue = Object.values(row)[columnIndex];
+                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
+                        return columnFilters2[header].includes(cellStr);
                     });
                 }
             });
+
             currentPage2 = 1;
             renderTable2();
             renderPagination2();
+            updateFilteredCount2();
         }
 
         function makeCell2(field, value) {
@@ -765,24 +986,24 @@
                 ).join(" | ");
 
                 return `<td data-field="${field}">
-                <span>${links}</span>
-                <input type="text" value="${displayValue}">
-            </td>`;
+                    <span>${links}</span>
+                    <input type="text" value="${displayValue}">
+                </td>`;
             }
 
             return `<td data-field="${field}">
-        <span>${displayValue}</span>
-        <input type="text" value="${displayValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" value="${displayValue}">
+            </td>`;
         }
 
         function makeDateCell2(field, value) {
             let displayValue = formatDate2(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-        <span>${displayValue}</span>
-        <input type="text" class="date-picker2" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker2" value="${rawValue}">
+            </td>`;
         }
 
         function formatDate2(dateStr) {
@@ -982,8 +1203,10 @@
         window.filterTable2 = function () {
             const value = $("#searchInput2").val().toLowerCase().trim();
             if (!value) {
+                filteredData2 = [...getBaseFilteredData2()];
                 renderTable2();
                 renderPagination2();
+                updateFilteredCount2();
                 return;
             }
 
@@ -994,40 +1217,11 @@
                 })
             );
 
-            const tbody = $("#leadsTable2 tbody");
-            tbody.empty();
-            filtered.forEach((row, index) => {
-                const tr = `<tr data-id="${row.id}">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record2" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${index + 1}</td>
-                ${makeCell2("collegeName", row.collegeName)}
-                ${makeCell2("coordinatorName", row.coordinatorName)}
-                ${makeCell2("mobileNumber", row.mobileNumber)}
-                ${makeCell2("emailId", row.emailId)}
-                ${makeDropdownCell2("state", row.state)}
-                ${makeDropdownCell2("city", row.city, row.state)}
-                ${makeDropdownCell2("course", row.course)}
-                ${makeDropdownCell2("connectedBy", row.connectedBy)}
-                ${makeDateCell2("dateOfConnect", row.dateOfConnect)}
-                    ${makeDropdownCell2("callResponse", row.callResponse)}
-                    ${makeDropdownCell2("internshipType", row.internshipType)}
-                    ${makeDropdownCell2("detailedResponse", row.detailedResponse)}
-                    <td>
-                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>`;
-                tbody.append(tr);
-            });
-
-            $("#pagination2").hide();
-            attachCellEvents2();
-            attachSendMailEvents2();
+            filteredData2 = filtered;
+            currentPage2 = 1;
+            renderTable2();
+            renderPagination2();
+            updateFilteredCount2();
         };
 
         window.printTable2 = function () {
