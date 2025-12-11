@@ -149,7 +149,7 @@
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">Registration Achieved list (Total count: <span
+                                    <h5 class="card-title">REGISTRATIONS ACHIEVED (Total count: <span
                                             id="collegeCount">0</span>)
                                     </h5>
                                 </div>
@@ -169,11 +169,11 @@
                                         </div>
                                     </div>
 
-                                    <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                    <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                         <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                             <i class="feather-maximize maximize" style="font-size: 15px;"></i>
                                         </a>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
 
@@ -486,6 +486,7 @@
             course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
             finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
             callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
+            // followupBy / alloted will be set from response.managers below
         };
 
         const colorMap = {
@@ -502,8 +503,6 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
-        let columnFilters = {};
-        let activeFilterDropdown = null;
 
         function loadTableData() {
             $.ajax({
@@ -518,6 +517,7 @@
                         }
                         let maxPayments = 0;
 
+                        // Only keep rows with a non-empty dateOfRegistration
                         tableData = res.resumesData
                             .map((row, index) => {
                                 const dateRaw = row.dateOfRegistration || "";
@@ -577,7 +577,9 @@
                                     callStatus,
                                     alloted
                                 };
-                            }).filter(row => row.dateOfRegistration && row.dateOfRegistration.trim() !== "");
+                            })
+                            // Remove rows without dateOfRegistration
+                            .filter(row => row.dateOfRegistration && row.dateOfRegistration.trim() !== "");
 
                         window.maxPayments = maxPayments;
 
@@ -587,30 +589,15 @@
                             }
                         }
 
+                        $("#collegeCount").text(tableData.length);
+
                         filteredData = [...tableData];
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
-                        updateFilteredCount();
                     }
                 }
             });
-        }
-
-        function updateFilteredCount() {
-            const totalCount = tableData.length;
-            const filteredCount = filteredData.length;
-            const collegeCountElement = document.getElementById("collegeCount");
-
-            if (filteredCount === totalCount) {
-                collegeCountElement.textContent = totalCount;
-                collegeCountElement.style.color = "";
-                collegeCountElement.style.fontWeight = "";
-            } else {
-                collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
-                collegeCountElement.style.color = "#dc3545";
-                collegeCountElement.style.fontWeight = "bold";
-            }
         }
 
         function formatDateTime(dateStr) {
@@ -644,36 +631,34 @@
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
-            const sortedData = filteredData.slice().sort((a, b) => b.id - a.id);
-
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
-            const rows = sortedData.slice(start, end);
+            const rows = filteredData.slice(start, end);
 
-            rows.forEach((row, index) => {
+            rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-                    <td>
-                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${start + index + 1}</td>
-                    ${makeCell("studentName", row.studentName || "")}
-                    <td>
-                        ${row.isRegistered
+                <td>
+                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+                <td>${row.sno}</td>
+                ${makeCell("studentName", row.studentName || "")}
+                <td>
+                    ${row.isRegistered
                         ? '<span class="badge bg-soft-success text-success">Yes</span>'
                         : '<span class="badge bg-soft-danger text-danger">No</span>'}
-                    </td>
-                    <td>${row.dateOfRegistrationDate || ""}</td>
-                    <td>${row.dateOfRegistrationTime || ""}</td>
-                    ${makeDateCell("resumeDate", row.resumeDate || "")}
-                    ${makeCell("collegeName", row.collegeName || "")}
-                    ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
-                    ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
-                    ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.followupBy)}
-                    ${makeCell("mobileNumber", row.mobileNumber || "")}
-                    ${makeCell("emailId", row.emailId || "")}
-                    ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
+                </td>
+                <td>${row.dateOfRegistrationDate || ""}</td>
+                <td>${row.dateOfRegistrationTime || ""}</td>
+                ${makeDateCell("resumeDate", row.resumeDate || "")}
+                ${makeCell("collegeName", row.collegeName || "")}
+                ${makeDropdownCell("course", row.course || "", null, dropdowns.course)}
+                ${makeDropdownCell("internshipType", row.internshipType || "", null, dropdowns.internshipType)}
+                ${makeDropdownCell("followupBy", row.followupBy || "", null, dropdowns.followupBy)}
+                ${makeCell("mobileNumber", row.mobileNumber || "")}
+                ${makeCell("emailId", row.emailId || "")}
+                ${makeDropdownCell("domain", row.domain || "", null, dropdowns.domain)}
                 `;
 
                 tr += makeNumberCell("knowledgeScore", row.knowledgeScore || "");
@@ -681,17 +666,11 @@
                 tr += makeNumberCell("skillsScore", row.skillsScore || "");
                 tr += makeNumberCell("otherScore", row.otherScore || "");
                 tr += makeColoredScoreCell("totalAverageScore", row.totalAverageScore || "");
-
                 tr += makeDropdownCell("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns.finalSelectionStatus);
-
                 tr += makeCell("comment", row.comment || "");
-
                 tr += makeDateCell("Dateofonboarding", row.Dateofonboarding || "");
-
                 tr += makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus);
-
                 tr += makeDropdownCell("alloted", row.alloted || "", null, dropdowns.alloted || []);
-
                 tr += `</tr>`;
                 tbody.append(tr);
             });
@@ -728,6 +707,12 @@
             "alloted"
         ];
 
+        // if (window.maxPayments && window.maxPayments > 0) {
+        //     for (let i = 1; i <= window.maxPayments; i++) {
+        //         columnKeys.push(`payment${i}`);
+        //     }
+        // }
+
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
             const pagination = $("#pagination");
@@ -763,261 +748,143 @@
         };
 
         function renderColumnFilters() {
-            const style = document.createElement('style');
-            style.textContent = `
-                .filter-dropdown {
-                    position: absolute;
-                    z-index: 1050 !important;
-                    background: white;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                    padding: 10px;
-                    max-height: 300px;
-                    overflow-y: auto;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    min-width: 200px;
-                }
-                .filter-options {
-                    max-height: 200px;
-                    overflow-y: auto;
-                }
-                .filter-btn {
-                    width: 100%;
-                    text-align: left;
-                    position: relative;
-                    padding-right: 30px;
-                }
-                .filter-btn i {
-                    position: absolute;
-                    right: 10px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-                .form-check {
-                    margin-bottom: 5px;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                .form-check-label {
-                    cursor: pointer;
-                    width: 100%;
-                    display: block;
-                }
-                .filter-controls {
-                    margin-top: 10px;
-                    display: flex;
-                    gap: 5px;
-                    border-top: 1px solid #eee;
-                    padding-top: 10px;
-                }
-                .filter-controls .btn {
-                    flex: 1;
-                    font-size: 12px;
-                    padding: 3px 8px;
-                }
-            `;
-            document.head.appendChild(style);
-
             const headerRow = $("#leadsTable thead tr.filters");
             headerRow.remove();
 
             let filterRow = "<tr class='filters'>";
             columnKeys.forEach((key, i) => {
-                if (key === "actions" || key === "sno") {
+                if (key === "actions" || key === "sno" || key === "sendMail") {
                     filterRow += "<th></th>";
                 } else {
-                    filterRow += `<th style="position: relative;">
-                    <button class="btn btn-sm btn-light filter-btn" data-field="${key}">
-                        Apply filter<i class="fas fa-filter"></i>
-                    </button>
-                </th>`;
+                    filterRow += `<th>
+                <select class="column-filter form-select form-select-sm" data-field="${key}">
+                    <option value="">All</option>
+                </select>
+            </th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
 
-            columnFilters = {};
-            setupFilterEvents();
+            populateColumnFilterOptions();
+
+            $(".column-filter").off("change").on("change", function () {
+                applyFilters();
+            });
         }
 
-        function getColumnValues(field) {
-            let values = [...new Set(tableData.map(row => {
-                let val;
+        function populateColumnFilterOptions() {
+            $("#leadsTable thead .column-filter").each(function () {
+                const field = $(this).data("field");
+                let values = [];
 
                 if (field === "isRegistered") {
-                    val = row.isRegistered ? "Yes" : "No";
-                } else if (field === "dateOfRegistrationDate") {
-                    val = row.dateOfRegistrationDate || "";
-                } else if (field === "dateOfRegistrationTime") {
-                    val = row.dateOfRegistrationTime || "";
-                } else if (field === "resumeDate") {
-                    val = formatDate(row.resumeDate || "");
-                } else if (field === "Dateofonboarding") {
-                    val = formatDate(row.Dateofonboarding || "");
-                } else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                    val = (row[field] !== null && row[field] !== undefined) ? String(row[field]) : "";
-                } else {
-                    val = row[field] || "";
+                    values = ["Yes", "No"];
+                }
+                else if (field === "dateOfRegistration") {
+                    values = [...new Set(
+                        tableData
+                            .map(row => {
+                                const d = row.dateOfRegistration;
+                                if (!d) return "";
+                                let formatted = formatDateTime(d);
+                                if (!formatted || formatted === "Invalid Date / NaN:NaN AM") {
+                                    formatted = formatDate(d);
+                                }
+                                return formatted;
+                            })
+                            .filter(v => v && v.trim() !== "")
+                    )];
                 }
 
-                return val !== null && val !== undefined ? val.toString().trim() : "";
-            }))];
+                // else if (field.startsWith("payment")) {
+                //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                //     values = [...new Set(
+                //         tableData
+                //             .map(row => {
+                //                 const payments = row.payments || [];
+                //                 const date = payments[paymentIndex];
+                //                 return date ? formatDate(date) : "";
+                //             })
+                //             .filter(v => v && v.trim() !== "")
+                //     )];
+                // }
 
-            values = values.filter(v => v && v !== "");
-            values.sort((a, b) => a.localeCompare(b));
-
-            return values;
-        }
-
-        function setupFilterEvents() {
-            $(document).off('click', '.filter-btn');
-            $(document).off('click', '.apply-filter');
-            $(document).off('click', '.clear-filter');
-
-            $(document).on('click', '.filter-btn', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const field = $(this).data('field');
-
-                if (activeFilterDropdown) {
-                    activeFilterDropdown.remove();
-                    activeFilterDropdown = null;
+                else if (field.toLowerCase().includes("date")) {
+                    values = [...new Set(
+                        tableData
+                            .map(row => formatDate(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
                 }
-                const values = getColumnValues(field);
-                const selectedValues = columnFilters[field] || [];
-                let dropdownHtml = `
-                <div class="filter-dropdown" data-field="${field}">
-                    <div class="filter-options">
-                `;
-
-                if (values.length === 0) {
-                    dropdownHtml += `<div class="text-muted">No values to filter</div>`;
-                } else {
-                    values.forEach(value => {
-                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
-                        const safeId = `filter-${field}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
-                        dropdownHtml += `
-                        <div class="form-check">
-                            <input class="form-check-input filter-checkbox" type="checkbox" 
-                                   value="${value}" id="${safeId}" ${isChecked}>
-                            <label class="form-check-label" for="${safeId}">
-                                ${formatFilterDisplayText(value, field)}
-                            </label>
-                        </div>
-                    `;
-                    });
+                else if (field.toLowerCase().includes("time")) {
+                    values = [...new Set(
+                        tableData
+                            .map(row => formatTimeHM(row[field]))
+                            .filter(v => v && v.trim() !== "")
+                    )];
                 }
 
-                dropdownHtml += `
-                    </div>
-                        <div class="filter-controls">
-                            <button class="btn btn-sm btn-primary apply-filter" data-field="${field}">Apply</button>
-                            <button class="btn btn-sm btn-secondary clear-filter" data-field="${field}">Clear</button>
-                        </div>
-                    </div>
-                `;
+                else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
+                    values = [...new Set(
+                        tableData
+                            .map(row => (row[field] !== null && row[field] !== undefined) ? String(row[field]) : "")
+                            .filter(v => v && v.trim() !== "")
+                    )];
+                }
+                else {
+                    values = [...new Set(
+                        tableData
+                            .map(row => row[field])
+                            .filter(v => v !== null && v !== undefined && v !== "")
+                    )];
+                }
 
-                const $dropdown = $(dropdownHtml);
-                const $button = $(this);
-                const buttonRect = $button[0].getBoundingClientRect();
-
-                $dropdown.css({
-                    position: 'fixed',
-                    top: buttonRect.bottom + 'px',
-                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
-                    zIndex: '9999'
-                });
-
-                $('body').append($dropdown);
-                activeFilterDropdown = $dropdown;
-
-                $dropdown.find('.filter-checkbox').on('change', function (e) {
-                    e.stopPropagation();
-                });
-
-                $dropdown.find('.apply-filter').on('click', function (e) {
-                    e.stopPropagation();
-                    const fieldName = $(this).data('field');
-                    const checkboxes = $dropdown.find('.filter-checkbox:checked');
-                    const selectedVals = checkboxes.map(function () {
-                        return $(this).val();
-                    }).get();
-
-                    if (selectedVals.length > 0) {
-                        columnFilters[fieldName] = selectedVals;
-                        $(`.filter-btn[data-field="${fieldName}"]`).addClass('btn-warning').removeClass('btn-light');
-                    } else {
-                        delete columnFilters[fieldName];
-                        $(`.filter-btn[data-field="${fieldName}"]`).removeClass('btn-warning').addClass('btn-light');
-                    }
-
-                    applyFilters();
-                    $dropdown.remove();
-                    activeFilterDropdown = null;
-                });
-
-                $dropdown.find('.clear-filter').on('click', function (e) {
-                    e.stopPropagation();
-                    const fieldName = $(this).data('field');
-
-                    delete columnFilters[fieldName];
-                    $(`.filter-btn[data-field="${fieldName}"]`).removeClass('btn-warning').addClass('btn-light');
-
-                    applyFilters();
-                    $dropdown.remove();
-                    activeFilterDropdown = null;
+                $(this).empty().append(`<option value="">All</option>`);
+                values.forEach(v => {
+                    $(this).append(`<option value="${v}">${v}</option>`);
                 });
             });
-
-            $(document).on('click', function (e) {
-                if (activeFilterDropdown && !$(e.target).closest('.filter-dropdown, .filter-btn').length) {
-                    activeFilterDropdown.remove();
-                    activeFilterDropdown = null;
-                }
-            });
-        }
-
-        function formatFilterDisplayText(value, field) {
-            if (!value) return "(empty)";
-            return value;
         }
 
         function applyFilters() {
             filteredData = [...tableData];
 
-            if (Object.keys(columnFilters).length === 0) {
-                currentPage = 1;
-                renderTable();
-                renderPagination();
-                updateFilteredCount();
-                return;
-            }
+            $("#leadsTable thead .column-filter").each(function () {
+                const value = $(this).val();
+                const field = $(this).data("field");
 
-            Object.keys(columnFilters).forEach(field => {
-                if (columnFilters[field].length > 0) {
+                if (value) {
                     filteredData = filteredData.filter(row => {
-                        let cellValue;
+                        let cellValue = "";
 
+                        // payment fields (payment1, payment2, ...)
+                        // if (field.startsWith("payment")) {
+                        //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
+                        //     const payments = row.payments || [];
+                        //     cellValue = payments[paymentIndex] ? formatDate(payments[paymentIndex]) : "";
+                        // }
+                        // boolean registration
                         if (field === "isRegistered") {
                             cellValue = row.isRegistered ? "Yes" : "No";
-                        } else if (field === "dateOfRegistrationDate") {
-                            cellValue = row.dateOfRegistrationDate || "";
-                        } else if (field === "dateOfRegistrationTime") {
-                            cellValue = row.dateOfRegistrationTime || "";
-                        } else if (field === "resumeDate") {
-                            cellValue = formatDate(row.resumeDate || "");
-                        } else if (field === "Dateofonboarding") {
-                            cellValue = formatDate(row.Dateofonboarding || "");
-                        } else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
-                            cellValue = (row[field] !== null && row[field] !== undefined) ? String(row[field]) : "";
-                        } else {
+                        }
+                        else if (field === "dateOfRegistration") {
+                            cellValue = formatDateTime(row.dateOfRegistration);
+                        }
+                        else if (field.toLowerCase().includes("date")) {
+                            cellValue = formatDate(row[field] || "");
+                        }
+                        else if (field.toLowerCase().includes("time")) {
+                            cellValue = formatTimeHM(row[field] || "");
+                        }
+                        else if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
+                            cellValue = row[field] !== null && row[field] !== undefined ? String(row[field]) : "";
+                        }
+                        else {
                             cellValue = row[field] || "";
                         }
 
-                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
-                        return columnFilters[field].includes(cellStr);
+                        return String(cellValue).toLowerCase() === String(value).toLowerCase();
                     });
                 }
             });
@@ -1025,34 +892,33 @@
             currentPage = 1;
             renderTable();
             renderPagination();
-            updateFilteredCount();
         }
 
         function makeCell(field, value) {
             let displayValue = value || "";
             const safeVal = String(displayValue).replace(/"/g, "&quot;");
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" value="${safeVal}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="text" value="${safeVal}">
+        </td>`;
         }
 
         function makeNumberCell(field, value) {
             let displayValue = (value === null || value === undefined) ? "" : value;
             const safeVal = String(displayValue).replace(/"/g, "&quot;");
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="number" value="${safeVal}" step="any" min="0">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="number" value="${safeVal}" step="any" min="0">
+        </td>`;
         }
 
         function makeDateCell(field, value) {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" class="date-picker" value="${rawValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="text" class="date-picker" value="${rawValue}">
+        </td>`;
         }
 
         function makeColoredScoreCell(field, value) {
@@ -1090,8 +956,8 @@
             let displaySelected = formatLabel(selectedValue);
 
             let html = `<td data-field="${field}">
-                <span style="font-weight:bold;">${displaySelected}</span>
-                <select class="form-control select2">`;
+            <span style="font-weight:bold;">${displaySelected}</span>
+            <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -1124,6 +990,7 @@
             $("#leadsTable td input, #leadsTable td select")
                 .off("blur change")
                 .on("blur change", function (ev) {
+                    // date picker changes are handled by flatpickr onChange below
                     if ($(this).hasClass("date-picker")) return;
 
                     let td = $(this).closest("td");
@@ -1132,10 +999,13 @@
                     let field = td.data("field");
                     let value = $(this).val();
 
+                    // update UI
                     td.find("span").text(value);
                     td.removeClass("editing");
 
+                    // build payload for API
                     let payload = {};
+                    // cast numeric fields to numbers if not empty
                     if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
                         payload[field] = value === "" ? null : Number(value);
                     } else {
@@ -1201,6 +1071,7 @@
                 });
             });
 
+            // initialize any select2 if you use it - optional
             $("#leadsTable td select.select2").each(function () {
                 if ($(this).select2) {
                     $(this).select2({ width: '100%' });
@@ -1215,9 +1086,9 @@
                 Swal.fire({
                     title: "Send Follow-up Mail",
                     html: `
-                        <input id="mailLink" class="swal2-input" placeholder="Enter Meeting Link" type="text">
-                        <input id="mailTime" class="swal2-input" type="time" value="11:30">
-                    `,
+                    <input id="mailLink" class="swal2-input" placeholder="Enter Meeting Link" type="text">
+                    <input id="mailTime" class="swal2-input" type="time" value="11:30">
+                `,
                     showCancelButton: true,
                     confirmButtonText: "Send",
                     cancelButtonText: "Cancel",
@@ -1288,25 +1159,22 @@
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
             if (!value) {
-                filteredData = [...tableData];
                 renderTable();
                 renderPagination();
-                updateFilteredCount();
                 return;
             }
 
-            const filtered = tableData.filter((row) =>
+            filteredData = tableData.filter((row) =>
                 Object.values(row).some((field) => {
+                    // convert any field to string safely
                     const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
                     return plainText.includes(value);
                 })
             );
 
-            filteredData = filtered;
             currentPage = 1;
             renderTable();
             renderPagination();
-            updateFilteredCount();
         };
 
         window.printTable = function () {
@@ -1333,6 +1201,7 @@
                 "Mobile Number",
                 "Email ID",
                 "Domain",
+                // new header columns
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -1368,6 +1237,7 @@
                     row.mobileNumber,
                     row.emailId,
                     row.domain,
+                    // new data columns
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,

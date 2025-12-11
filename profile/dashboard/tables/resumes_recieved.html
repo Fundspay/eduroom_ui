@@ -149,8 +149,7 @@
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">Resumes Recieved List (Total colleges: <span
-                                            id="collegeCount">
+                                    <h5 class="card-title">RE Master Sheet (Total colleges: <span id="collegeCount">
                                             0</span>)</h5>
                                 </div>
                                 <div class="card-header-action">
@@ -169,11 +168,11 @@
                                         </div>
                                     </div>
 
-                                    <!-- <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                    <div data-bs-toggle="tooltip" title="Maximize/Minimize">
                                         <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
                                             <i class="feather-maximize maximize" style="font-size: 15px;"></i>
                                         </a>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
 
@@ -533,8 +532,6 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
-        let columnFilters = {};
-        let activeFilterDropdown = null;
 
         function loadCities() {
             return fetch("/profile/dashboard/cities.json")
@@ -589,71 +586,53 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
-
-                        updateFilteredCount();
                     }
                 }
             });
-        }
-
-        function updateFilteredCount() {
-            const totalCount = tableData.length;
-            const filteredCount = filteredData.length;
-            const collegeCountElement = document.getElementById("collegeCount");
-
-            if (filteredCount === totalCount) {
-                collegeCountElement.textContent = totalCount;
-                collegeCountElement.style.color = "";
-                collegeCountElement.style.fontWeight = "";
-            } else {
-                collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
-                collegeCountElement.style.color = "#dc3545";
-                collegeCountElement.style.fontWeight = "bold";
-            }
         }
 
         function renderTable() {
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
-            const sortedData = filteredData.slice().sort((a, b) => b.id - a.id);
-
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
-            const rows = sortedData.slice(start, end);
+            const rows = filteredData.slice(start, end);
 
-            rows.forEach((row, index) => {
+            rows.forEach((row) => {
                 let tr = `<tr data-id="${row.id}">
-                    <td>
-                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${start + index + 1}</td>
-                    <td>${row.collegeName || ""}</td>
-                    <td>${row.coordinatorName || ""}</td>
-                    <td>${row.mobileNumber || ""}</td>
-                    <td>${row.emailId || ""}</td>
-                    <td>${row.state || ""}</td>
-                    <td>${row.city || ""}</td>
-                    <td>${row.course || ""}</td>
-                    <td>${row.connectedBy || ""}</td>
-                    <td>${formatDate(row.dateOfConnect) || ""}</td>
-                    <td>${row.callResponse || ""}</td>
-                    <td>${row.internshipType || ""}</td>
-                    <td>${row.detailedResponse || ""}</td>
-                    ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
-                    ${makeDateCell("followUpDate", row.followUpDate || "")}
-                    ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
-                    ${makeNumberCell("resumeCount", row.resumeCount || "")}
-                    ${makeDateCell("resumeDate", row.resumeDate || "")}
-                    ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-                    <td>
-                        <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </td>
-                </tr>`;
+            <td>
+                <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+            <td>${row.sno}</td>
+
+            <!-- keep all these NON-editable / dropdown as before -->
+            <td>${row.collegeName || ""}</td>
+            <td>${row.coordinatorName || ""}</td>
+            <td>${row.mobileNumber || ""}</td>
+            <td>${row.emailId || ""}</td>
+            <td>${row.state || ""}</td>
+            <td>${row.city || ""}</td>
+            <td>${row.course || ""}</td>
+            <td>${row.connectedBy || ""}</td>
+            <td>${formatDate(row.dateOfConnect) || ""}</td>
+            <td>${row.callResponse || ""}</td>
+            <td>${row.internshipType || ""}</td>
+            <td>${row.detailedResponse || ""}</td>
+            ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
+            ${makeDateCell("followUpDate", row.followUpDate || "")}
+            ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
+            ${makeNumberCell("resumeCount", row.resumeCount || "")}
+            ${makeDateCell("resumeDate", row.resumeDate || "")}
+            ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
+            <td>
+                <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </td>
+            </tr>`;
                 tbody.append(tr);
             });
 
@@ -697,62 +676,6 @@
         };
 
         function renderColumnFilters() {
-            const style = document.createElement('style');
-            style.textContent = `
-                .filter-dropdown {
-                    position: absolute;
-                    z-index: 1050 !important;
-                    background: white;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                    padding: 10px;
-                    max-height: 300px;
-                    overflow-y: auto;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    min-width: 200px;
-                }
-                .filter-options {
-                    max-height: 200px;
-                    overflow-y: auto;
-                }
-                .filter-btn {
-                    width: 100%;
-                    text-align: left;
-                    position: relative;
-                    padding-right: 30px;
-                }
-                .filter-btn i {
-                    position: absolute;
-                    right: 10px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-                .form-check {
-                    margin-bottom: 5px;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                .form-check-label {
-                    cursor: pointer;
-                    width: 100%;
-                    display: block;
-                }
-                .filter-controls {
-                    margin-top: 10px;
-                    display: flex;
-                    gap: 5px;
-                    border-top: 1px solid #eee;
-                    padding-top: 10px;
-                }
-                .filter-controls .btn {
-                    flex: 1;
-                    font-size: 12px;
-                    padding: 3px 8px;
-                }
-            `;
-            document.head.appendChild(style);
-
             const headerRow = $("#leadsTable thead tr.filters");
             headerRow.remove();
 
@@ -761,219 +684,152 @@
                 if (i === 0 || i === 1 || i === 20) {
                     filterRow += "<th></th>";
                 } else {
-                    const headerText = $(th).text().trim();
-                    filterRow += `<th style="position: relative;">
-                        <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
-                            Apply filter<i class="fas fa-filter"></i>
-                        </button>
-                    </th>`;
+                    filterRow += `<th>
+                <select class="column-filter form-select form-select-sm" data-index="${i}">
+                    <option value="">All</option>
+                </select>
+            </th>`;
                 }
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
 
-            columnFilters = {};
-            setupFilterEvents();
-        }
+            populateColumnFilterOptions();
 
-        function getColumnValues(columnIndex) {
-            let values = [...new Set(tableData.map(row => {
-                const val = Object.values(row)[columnIndex];
-                return val !== null && val !== undefined ? val.toString().trim() : "";
-            }))];
-
-            values = values.filter(v => v && v !== "");
-            values.sort((a, b) => a.localeCompare(b));
-
-            return values;
-        }
-
-        function setupFilterEvents() {
-            $(document).off('click', '.filter-btn');
-            $(document).off('click', '.apply-filter');
-            $(document).off('click', '.clear-filter');
-            $(document).off('click');
-            $(document).on('click', '.filter-btn', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const index = parseInt($(this).data('index'));
-                const headerText = $(this).data('header');
-
-                if (activeFilterDropdown) {
-                    activeFilterDropdown.remove();
-                    activeFilterDropdown = null;
-                }
-                const values = getColumnValues(index);
-                const selectedValues = columnFilters[headerText] || [];
-                let dropdownHtml = `
-                    <div class="filter-dropdown" data-index="${index}" data-header="${headerText}">
-                        <div class="filter-options">
-                `;
-
-                if (values.length === 0) {
-                    dropdownHtml += `<div class="text-muted">No values to filter</div>`;
-                } else {
-                    values.forEach(value => {
-                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
-                        const safeId = `filter-${index}-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
-                        dropdownHtml += `
-                            <div class="form-check">
-                                <input class="form-check-input filter-checkbox" type="checkbox" 
-                                       value="${value}" id="${safeId}" ${isChecked}>
-                                <label class="form-check-label" for="${safeId}">
-                                    ${formatDisplayText(value, index)}
-                                </label>
-                            </div>
-                        `;
-                    });
-                }
-
-                dropdownHtml += `
-                        </div>
-                        <div class="filter-controls">
-                            <button class="btn btn-sm btn-primary apply-filter" data-index="${index}">Apply</button>
-                            <button class="btn btn-sm btn-secondary clear-filter" data-index="${index}">Clear</button>
-                        </div>
-                    </div>
-                `;
-
-                const $dropdown = $(dropdownHtml);
-                const $button = $(this);
-                const buttonRect = $button[0].getBoundingClientRect();
-                const tableRect = $button.closest('table')[0].getBoundingClientRect();
-
-                $dropdown.css({
-                    position: 'fixed',
-                    top: buttonRect.bottom + 'px',
-                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
-                    zIndex: '9999'
-                });
-
-                $('body').append($dropdown);
-                activeFilterDropdown = $dropdown;
-
-                $dropdown.find('.filter-checkbox').on('change', function (e) {
-                    e.stopPropagation();
-                });
-                $dropdown.find('.apply-filter').on('click', function (e) {
-                    e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
-                    const checkboxes = $dropdown.find('.filter-checkbox:checked');
-                    const selectedVals = checkboxes.map(function () {
-                        return $(this).val();
-                    }).get();
-
-                    if (selectedVals.length > 0) {
-                        columnFilters[hdr] = selectedVals;
-                        $(`.filter-btn[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
-                    } else {
-                        delete columnFilters[hdr];
-                        $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
-                    }
-
-                    applyFilters();
-                    $dropdown.remove();
-                    activeFilterDropdown = null;
-                });
-
-                $dropdown.find('.clear-filter').on('click', function (e) {
-                    e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
-
-                    delete columnFilters[hdr];
-                    $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
-
-                    applyFilters();
-                    $dropdown.remove();
-                    activeFilterDropdown = null;
-                });
-            });
-
-            $(document).on('click', function (e) {
-                if (activeFilterDropdown && !$(e.target).closest('.filter-dropdown, .filter-btn').length) {
-                    activeFilterDropdown.remove();
-                    activeFilterDropdown = null;
-                }
+            $(".column-filter").off("change").on("change", function () {
+                applyFilters();
             });
         }
 
-        function formatDisplayText(value, index) {
-            const headerText = $("#leadsTable thead tr:first th").eq(index).text().toLowerCase();
+        function populateColumnFilterOptions() {
+            $("#leadsTable thead .column-filter").each(function () {
+                const index = $(this).data("index");
 
-            if (headerText.includes("date")) {
-                try {
-                    let d = new Date(value);
-                    if (!isNaN(d)) {
-                        return d.toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric"
-                        });
+                const colName = $("#leadsTable thead th").eq(index).text().trim().toLowerCase();
+
+                const isDateColumn =
+                    colName.includes("date") ||
+                    colName.includes("response") ||
+                    colName.includes("created");
+
+                const isNumericColumn =
+                    colName.includes("no. of resumes") || colName.includes("number of resumes");
+
+                let values = [...new Set(tableData.map(row => {
+                    let v = Object.values(row)[index];
+                    if (v === null || v === undefined || v === "") return "";
+
+                    if (typeof v === "string") v = v.trim();
+
+                    if (isNumericColumn) {
+                        v = parseInt(v, 10);
+                        if (isNaN(v)) return "";
                     }
-                } catch (e) {
-                }
-            }
-            return value || "(empty)";
+
+                    return v;
+                }))];
+
+                values = values.filter(v => v !== "" && v !== null && v !== undefined);
+
+                values.sort((a, b) => {
+                    if (isDateColumn) {
+                        const da = new Date(a), db = new Date(b);
+                        if (!isNaN(da) && !isNaN(db)) return da - db;
+                    }
+                    if (isNumericColumn) {
+                        return a - b;
+                    }
+                    return a.toString().localeCompare(b.toString());
+                });
+
+                values.forEach(v => {
+                    let displayText = v;
+                    if (isDateColumn) {
+                        const d = new Date(v);
+                        if (!isNaN(d)) {
+                            displayText = d.toLocaleDateString("en-GB", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric"
+                            });
+                        }
+                    }
+                    $(this).append(`<option value="${v}">${displayText}</option>`);
+                });
+            });
         }
 
         function applyFilters() {
-            filteredData = [...tableData];
-
-            if (Object.keys(columnFilters).length === 0) {
-                currentPage = 1;
-                renderTable();
-                renderPagination();
-                updateFilteredCount();
-                return;
-            }
-
-            const headers = [];
-            $("#leadsTable thead tr:first th").each(function (i) {
-                headers[i] = $(this).text().trim();
+            const filters = {};
+            $(".column-filter").each(function () {
+                const index = $(this).data("index");
+                const value = $(this).val();
+                if (value) filters[index] = value;
             });
-            Object.keys(columnFilters).forEach(header => {
-                const columnIndex = headers.indexOf(header);
-                if (columnIndex !== -1 && columnFilters[header].length > 0) {
+
+            $("#leadsTable tbody tr").each(function () {
+                let show = true;
+                $(this).find("td").each(function (i, td) {
+                    if (filters[i]) {
+                        const colName = $("#leadsTable thead th").eq(i).text().trim().toLowerCase();
+                        let cellText = $(td).text().trim();
+
+                        if (colName.includes("no. of resumes") || colName.includes("number of resumes")) {
+
+                            if (parseInt(cellText, 10) !== parseInt(filters[i], 10)) {
+                                show = false;
+                            }
+                        } else {
+                            if (cellText !== filters[i]) {
+                                show = false;
+                            }
+                        }
+                    }
+                });
+                $(this).toggle(show);
+            });
+        }
+        function applyFilters() {
+            filteredData = [...tableData];
+            $("#leadsTable thead .column-filter").each(function () {
+                const value = $(this).val();
+                const index = $(this).data("index");
+                if (value) {
                     filteredData = filteredData.filter(row => {
-                        const cellValue = Object.values(row)[columnIndex];
-                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
-                        return columnFilters[header].includes(cellStr);
+                        const cellValue = Object.values(row)[index] || "";
+
+                        return cellValue.toLowerCase() === value.toLowerCase();
                     });
                 }
             });
-
             currentPage = 1;
             renderTable();
             renderPagination();
-            updateFilteredCount();
         }
 
         function makeCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" value="${displayValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="text" value="${displayValue}">
+        </td>`;
         }
 
         function makeNumberCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="number" value="${displayValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="number" value="${displayValue}">
+        </td>`;
         }
 
         function makeDateCell(field, value) {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-                <span>${displayValue}</span>
-                <input type="text" class="date-picker" value="${rawValue}">
-            </td>`;
+            <span>${displayValue}</span>
+            <input type="text" class="date-picker" value="${rawValue}">
+        </td>`;
         }
 
         function makeDropdownCell(field, selectedValue, stateFilter = null, optionsList = null) {
@@ -1129,7 +985,7 @@
 
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "Do you want to send the Follow up mail?",
+                    text: "Do you want to send the JD mail?",
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonText: "Yes, Send",
@@ -1138,7 +994,7 @@
                     if (result.isConfirmed) {
                         Swal.fire({
                             title: "Sending...",
-                            text: "Please wait while the follow up mail is being sent",
+                            text: "Please wait while the mail is being sent",
                             allowOutsideClick: false,
                             didOpen: () => {
                                 Swal.showLoading();
@@ -1146,7 +1002,7 @@
                         });
 
                         $.ajax({
-                            url: "https://eduroom.in/api/v1/resumedetails/send-followup-email/" + id,
+                            url: "https://eduroom.in/api/v1/cosheet/" + id + "/send-jd",
                             method: "POST",
                             contentType: "application/json",
                             data: JSON.stringify({ cc: [], bcc: [], teamManagerId: teamManagerId }),
@@ -1154,14 +1010,14 @@
                                 Swal.fire({
                                     icon: "success",
                                     title: "Mail Sent!",
-                                    text: "The Follow up mail was sent successfully."
+                                    text: "The JD mail was sent successfully."
                                 });
                             },
                             error: function (err) {
                                 Swal.fire({
                                     icon: "error",
                                     title: "Error",
-                                    text: "Failed to send the Follow up mail."
+                                    text: "Failed to send the JD mail."
                                 });
                             }
                         });
@@ -1173,10 +1029,8 @@
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
             if (!value) {
-                filteredData = [...tableData];
                 renderTable();
                 renderPagination();
-                updateFilteredCount();
                 return;
             }
 
@@ -1187,11 +1041,48 @@
                 })
             );
 
-            filteredData = filtered;
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-            updateFilteredCount();
+            const tbody = $("#leadsTable tbody");
+            tbody.empty();
+            filtered.forEach((row, index) => {
+                const tr = `<tr data-id="${row.id}">
+                    <td>
+                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+                <td>${row.sno}</td>
+
+                <!-- keep all these NON-editable / dropdown as before -->
+                <td>${row.collegeName || ""}</td>
+                <td>${row.coordinatorName || ""}</td>
+                <td>${row.mobileNumber || ""}</td>
+                <td>${row.emailId || ""}</td>
+                <td>${row.state || ""}</td>
+                <td>${row.city || ""}</td>
+                <td>${row.course || ""}</td>
+                <td>${row.connectedBy || ""}</td>
+                <td>${row.dateOfConnect || ""}</td>
+                <td>${row.callResponse || ""}</td>
+                <td>${row.internshipType || ""}</td>
+                <td>${row.detailedResponse || ""}</td>
+                ${makeDropdownCell("followUpBy", row.followUpBy || "", null, dropdowns.connectedBy)}
+                ${makeDateCell("followUpDate", row.followUpDate || "")}
+                ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
+                ${makeNumberCell("resumeCount", row.resumeCount || "")}
+                ${makeDateCell("resumeDate", row.resumeDate || "")}
+                ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
+                <td>
+                    <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </td>
+                </tr>`;
+                tbody.append(tr);
+            });
+
+            $("#pagination").hide();
+            attachCellEvents();
+            attachSendMailEvents();
         };
 
         window.printTable = function () {
