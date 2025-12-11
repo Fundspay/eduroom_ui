@@ -353,6 +353,167 @@
     <main class="nxl-container apps-container apps-email bg-white">
         <div class="nxl-content without-header nxl-full-content">
             <!-- [ Main Content ] start -->
+            <div class="row" style="margin-left: 2px; margin-right: 2px;" id="teamManager">
+
+                <div class="col-md-12 mb-3" style="margin-top: 2px;">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- Month Select (Full width equal space) -->
+                        <div class="flex-grow-1" style="flex: 1; min-width: 150px;">
+                            <label class="form-label">Month</label>
+                            <select id="monthSelect" class="form-select form-select-sm"></select>
+                        </div>
+
+                        <!-- Year Select (Full width equal space) -->
+                        <div class="flex-grow-1" style="flex: 1; min-width: 150px;">
+                            <label class="form-label">Year</label>
+                            <select id="yearSelect" class="form-select form-select-sm"></select>
+                        </div>
+
+                        <!-- Manager Select (Full width) -->
+                        <div class="flex-grow-1" style="flex: 1; min-width: 200px;">
+                            <label for="managerSelect" class="form-label">Select Team Manager</label>
+                            <select id="managerSelect" class="form-select">
+                                <option value="">All Managers</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Total Calls -->
+                <div class="col-xxl-6 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Total Interns</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <div>
+                                    <h3><span id="totalInterns">0</span></h3>
+                                    <!-- <div class="fs-11 text-muted">
+                                            Remaining: <span id="remainingCalls">0</span>
+                                        </div> -->
+                                </div>
+                                <div class="hstack gap-2 fs-11" id="totalCallsTrend">
+                                    <!-- <i class="feather-arrow-up-circle fs-12"></i> -->
+                                    <span id="internsPercent">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connected -->
+                <div class="col-xxl-6 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="totalAccounts">0</span>/<span id="targetAccounts">0</span></h3>
+                                <div class="hstack gap-2 fs-11">
+                                    <span id="accountsPercent">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RED -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ff4d4d;">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Red</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h6>No. of interns: <span id="redCount">0</span></br>No. of accounts: <span
+                                        id="totalRedCount">0</span></h6>
+                            </div>
+                            <div class="hstack gap-2 fs-11">
+                                <span id="redCountPercent" style="color:#494444;">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORANGE -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ffa500;">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Orange</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h6>No. of interns: <span id="orangeCount">0</span></br>No. of accounts: <span
+                                        id="totalOrangeCount">0</span></h6>
+                            </div>
+                            <div class="hstack gap-2 fs-11">
+                                <span id="orangeCountPercent" style="color:#494444;">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YELLOW -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ffff80;">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Yellow</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h6>No. of interns: <span id="yellowCount">0</span></br>No. of accounts: <span
+                                        id="totalYellowCount">0</span></h6>
+                            </div>
+                            <div class="hstack gap-2 fs-11">
+                                <span id="yellowCountPercent" style="color:#494444;">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIGHT GREEN -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#b3ffb3;">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Light Green</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h6>No. of interns: <span id="lightGreenCount">0</span></br>No. of accounts: <span
+                                        id="totalLightGreenCount">0</span></h6>
+                            </div>
+                            <div class="hstack gap-2 fs-11">
+                                <span id="lightGreenCountPercent" style="color:#494444;">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GREEN -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#5cdb5c;">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Green</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h6>No. of interns: <span id="greenCount">0</span></br>No. of accounts: <span
+                                        id="totalGreenCount">0</span></h6>
+                            </div>
+                            <div class="hstack gap-2 fs-11">
+                                <span id="greenCountPercent" style="color:#494444;">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLUE -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#4da6ff;">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Blue</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h6>No. of interns: <span id="blueCount">0</span></br>No. of accounts: <span
+                                        id="totalBlueCount">0</span></h6>
+                            </div>
+                            <div class="hstack gap-2 fs-11">
+                                <span id="blueCountPercent" style="color:#494444;">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
 
                 <div class="col-12">
@@ -376,16 +537,6 @@
                                         <input type="text" id="searchInput" class="form-control" placeholder="Search..."
                                             oninput="filterTable()">
                                     </div>
-                                </div>
-
-                                <div class="month-dropdown d-flex align-items-center gap-2">
-                                    <select id="monthSelect" class="form-select form-select-sm"
-                                        style="margin-right:6px;">
-                                    </select>
-
-                                    <select id="yearSelect" class="form-select form-select-sm">
-
-                                    </select>
                                 </div>
 
                                 <style>
@@ -812,7 +963,6 @@
         var userData = JSON.parse(sessionStorage.getItem("user_data"));
         console.log(userData);
 
-        // Dropdown options for specific columns
         const dropdowns = {
             courseStatus: ["Pending", "In Progress", "Completed", "Rejected"],
             businessStatus: ["Pending", "Approved", "Rejected"],
@@ -827,13 +977,13 @@
         const rowsPerPage = 100;
         let currentPage = 1;
         let managerList = [];
+        let selectedManager = "";
 
         $.ajax({
             url: `https://eduroom.in/api/v1/offerletter/users/all`,
             method: "GET",
             success: function (response1) {
                 console.log("offerletter:", response1);
-
             }
         });
 
@@ -890,8 +1040,187 @@
             return '';
         }
 
-        function loadTableData() {
+        function getColorCategory(subscriptionWallet) {
+            const val = parseInt(subscriptionWallet, 10) || 0;
+            if (val === 0) return 'red';
+            if (val >= 1 && val <= 5) return 'orange';
+            if (val >= 6 && val <= 12) return 'yellow';
+            if (val >= 13 && val <= 18) return 'lightGreen';
+            if (val >= 19 && val <= 25) return 'green';
+            if (val > 25) return 'blue';
+            return '';
+        }
 
+        function calculateManagerMetrics(managerName) {
+            if (!managerName || managerName === "") {
+                // Calculate metrics for ALL data when no manager is selected
+                calculateAllMetrics();
+                return;
+            }
+
+            const managerData = tableData.filter(row => row.teamManager === managerName);
+            const totalStudents = managerData.length;
+
+            let totalSubscriptionWallet = 0;
+            let totalBusinessTarget = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0 },
+                orange: { count: 0, total: 0 },
+                yellow: { count: 0, total: 0 },
+                lightGreen: { count: 0, total: 0 },
+                green: { count: 0, total: 0 },
+                blue: { count: 0, total: 0 }
+            };
+
+            managerData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const businessTarget = parseInt(row.businessStatus) || 0;
+
+                totalSubscriptionWallet += subscriptionWallet;
+                totalBusinessTarget += businessTarget;
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                }
+            });
+
+            $("#totalInterns").text(totalStudents);
+
+            const internsPercent = totalStudents > 0 ? "100%" : "0%";
+            $("#internsPercent").text(internsPercent);
+
+            $("#totalAccounts").text(totalSubscriptionWallet);
+            $("#targetAccounts").text(totalBusinessTarget);
+
+            const accountsPercent = totalBusinessTarget > 0 ?
+                ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
+            $("#accountsPercent").text(accountsPercent);
+
+            Object.keys(colorCounts).forEach(color => {
+                const colorData = colorCounts[color];
+                const countElement = $(`#${color}Count`);
+                const totalElement = $(`#total${color.charAt(0).toUpperCase() + color.slice(1)}Count`);
+                const percentElement = $(`#${color}CountPercent`);
+
+                if (countElement.length) {
+                    countElement.text(colorData.count);
+                }
+                if (totalElement.length) {
+                    totalElement.text(colorData.total);
+                }
+                if (percentElement.length) {
+                    const percent = totalStudents > 0 ?
+                        ((colorData.count / totalStudents) * 100).toFixed(2) + "%" : "0%";
+                    percentElement.text(percent);
+                }
+            });
+        }
+
+        function calculateAllMetrics() {
+            const totalStudents = tableData.length;
+            let totalSubscriptionWallet = 0;
+            let totalBusinessTarget = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0 },
+                orange: { count: 0, total: 0 },
+                yellow: { count: 0, total: 0 },
+                lightGreen: { count: 0, total: 0 },
+                green: { count: 0, total: 0 },
+                blue: { count: 0, total: 0 }
+            };
+
+            tableData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const businessTarget = parseInt(row.businessStatus) || 0;
+
+                totalSubscriptionWallet += subscriptionWallet;
+                totalBusinessTarget += businessTarget;
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                }
+            });
+
+            // Update metrics displays for ALL data
+            $("#totalInterns").text(totalStudents);
+
+            const internsPercent = totalStudents > 0 ? "100%" : "0%";
+            $("#internsPercent").text(internsPercent);
+
+            $("#totalAccounts").text(totalSubscriptionWallet);
+            $("#targetAccounts").text(totalBusinessTarget);
+
+            const accountsPercent = totalBusinessTarget > 0 ?
+                ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
+            $("#accountsPercent").text(accountsPercent);
+
+            // Update color metrics
+            Object.keys(colorCounts).forEach(color => {
+                const colorData = colorCounts[color];
+                const countElement = $(`#${color}Count`);
+                const totalElement = $(`#total${color.charAt(0).toUpperCase() + color.slice(1)}Count`);
+                const percentElement = $(`#${color}CountPercent`);
+
+                if (countElement.length) {
+                    countElement.text(colorData.count);
+                }
+                if (totalElement.length) {
+                    totalElement.text(colorData.total);
+                }
+                if (percentElement.length) {
+                    const percent = totalStudents > 0 ?
+                        ((colorData.count / totalStudents) * 100).toFixed(2) + "%" : "0%";
+                    percentElement.text(percent);
+                }
+            });
+        }
+
+        function resetMetrics() {
+            // Instead of setting all to 0, calculate for all data
+            calculateAllMetrics();
+        }
+
+        function createManagerDropdown(managers) {
+            const managerSelect = $("#managerSelect");
+
+            managerSelect.find("option:not(:first)").remove();
+
+            managers.forEach(manager => {
+                managerSelect.append(`<option value="${manager.name}">${manager.name}</option>`);
+            });
+
+            if (managerSelect.length === 0) {
+                const dropdownHtml = `
+                    <div class="col-md-3 mb-3">
+                        <label for="managerSelect" class="form-label">Select Team Manager</label>
+                        <select id="managerSelect" class="form-select">
+                            <option value="">All Managers</option>
+                            ${managers.map(manager =>
+                    `<option value="${manager.name}">${manager.name}</option>`
+                ).join('')}
+                        </select>
+                    </div>
+                `;
+
+                if ($("#teamManager").length) {
+                    $("#teamManager").prepend(`<div class="row">${dropdownHtml}</div>`);
+                }
+            }
+
+            $("#managerSelect").off("change").on("change", function () {
+                selectedManager = $(this).val();
+                calculateManagerMetrics(selectedManager);
+                applyFilters();
+            });
+        }
+
+        function loadTableData() {
             const baseUrl = `https://eduroom.in/api/v1/status/listall`;
             const monthYear = getSelectedMonthYear();
             let url = baseUrl;
@@ -916,6 +1245,8 @@
                                 id: m.managerId,
                                 name: m.name
                             }));
+
+                            createManagerDropdown(managerList);
                         }
 
                         tableData = res.data
@@ -944,7 +1275,7 @@
                                 subscriptionLeft: row.subscriptionLeft,
                                 queryStatus: row.queryStatus || "",
                                 internshipAction: row.internshipStatus || "",
-                                teamManager: row.teamManager,
+                                teamManager: row.teamManager || "",
                                 createdAt: row.createdAt,
                                 referralCode: row.referralCode || "",
                                 selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
@@ -958,6 +1289,13 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+
+                        // Always calculate metrics - if no manager selected, show all data
+                        if (selectedManager && selectedManager !== "") {
+                            calculateManagerMetrics(selectedManager);
+                        } else {
+                            calculateAllMetrics();
+                        }
                     } else {
                         tableData = [];
                         filteredData = [];
@@ -965,6 +1303,7 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+                        resetMetrics();
                     }
                 },
                 error: function (xhr, status, err) {
@@ -992,9 +1331,7 @@
                 if (!dateStr) {
                     filteredData = [...tableData];
                 } else {
-
                     const [start, end] = selectedDates.length === 2 ? selectedDates : [selectedDates[0], selectedDates[0]];
-
                     filteredData = tableData.filter(row => {
                         const rowDate = new Date(row.registeredAt);
                         rowDate.setHours(0, 0, 0, 0);
@@ -1005,6 +1342,12 @@
                 currentPage = 1;
                 renderTable();
                 renderPagination();
+
+                if (selectedManager && selectedManager !== "") {
+                    calculateManagerMetrics(selectedManager);
+                } else {
+                    calculateAllMetrics();
+                }
             }
         });
 
@@ -1041,40 +1384,40 @@
                 const rowBgStyle = getRowBgColor(row.subscriptionWallet);
 
                 let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
-                        <td>${start + index + 1}</td>
-                        <td>${nameCell}</td>
-                        <td>
-                            <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
-                                ${escapeHtml(row.phoneNumber || '')}
-                            </a>
-                        </td>
-                        <td>${escapeHtml(row.registeredAt || '')}</td>
-                        <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                        <td>${escapeHtml(row.selected || 'No')}</td>
-                        <td>${escapeHtml(row.email || '')}</td>
-                        <td>${escapeHtml(row.collegeName || '')}</td>
-                        <td>${escapeHtml(row.courses || '')}</td>
-                        <td>${escapeHtml(row.course || '')}</td>
-                        <td>${escapeHtml(row.duration || '')}</td>
-                        <td>${escapeHtml(row.startDate || '')}</td>
-                        <td>${escapeHtml(row.estEndDate || '')}</td>
-                        ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
-                        <td>${escapeHtml(row.referralCode || '')}</td>
-                        <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
-                        ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
-                        <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                        ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                        ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                        <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                        <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
-                                class="text-primary fw-bold" 
-                                style="cursor:pointer; text-decoration:underline;"
-                                target="_top">
-                                ${escapeHtml(row.queryStatus || '')}
-                            </a></td>
-                        ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
-                        ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
-                    </tr>`;
+                    <td>${start + index + 1}</td>
+                    <td>${nameCell}</td>
+                    <td>
+                        <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                            ${escapeHtml(row.phoneNumber || '')}
+                        </a>
+                    </td>
+                    <td>${escapeHtml(row.registeredAt || '')}</td>
+                    <td>${escapeHtml(row.offerMessageExists || '')}</td>
+                    <td>${escapeHtml(row.selected || 'No')}</td>
+                    <td>${escapeHtml(row.email || '')}</td>
+                    <td>${escapeHtml(row.collegeName || '')}</td>
+                    <td>${escapeHtml(row.courses || '')}</td>
+                    <td>${escapeHtml(row.course || '')}</td>
+                    <td>${escapeHtml(row.duration || '')}</td>
+                    <td>${escapeHtml(row.startDate || '')}</td>
+                    <td>${escapeHtml(row.estEndDate || '')}</td>
+                    ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                    <td>${escapeHtml(row.referralCode || '')}</td>
+                    <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
+                    ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
+                    <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
+                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
+                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
+                    <td>${escapeHtml(row.subscriptionLeft || '')}</td>
+                    <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                            class="text-primary fw-bold" 
+                            style="cursor:pointer; text-decoration:underline;"
+                            target="_top">
+                            ${escapeHtml(row.queryStatus || '')}
+                        </a></td>
+                    ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
+                    ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
+                </tr>`;
                 tbody.append(tr);
             });
 
@@ -1131,10 +1474,10 @@
             let filterRow = "<tr class='filters'>";
             columnKeys.forEach((key) => {
                 filterRow += `<th>
-                    <select class="column-filter form-select form-select-sm" data-field="${key}">
-                        <option value="">All</option>
-                    </select>
-                </th>`;
+                <select class="column-filter form-select form-select-sm" data-field="${key}">
+                    <option value="">All</option>
+                </select>
+            </th>`;
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
@@ -1155,6 +1498,10 @@
 
         function applyFilters() {
             filteredData = [...tableData];
+
+            if (selectedManager) {
+                filteredData = filteredData.filter(row => row.teamManager === selectedManager);
+            }
 
             $("#leadsTable thead .column-filter").each(function () {
                 const value = $(this).val();
@@ -1183,8 +1530,8 @@
             let displaySelected = formatLabel(selectedValue);
 
             let html = `<td data-field="${field}" class="${specialDropdown ? 'special-dropdown' : ''}">
-                <span style="font-weight:bold;">${displaySelected}</span>
-                <select class="form-control select2" style="display:none;">`;
+            <span style="font-weight:bold;">${displaySelected}</span>
+            <select class="form-control select2" style="display:none;">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -1236,16 +1583,11 @@
                         console.log("Updated:", res3);
                         console.log("Url:", `https://eduroom.in/api/v1/status/update/${id}`);
 
-                        // $.ajax({
-                        //     url: `https://eduroom.in/api/v1/status/listall`,
-                        //     method: "GET",
-                        //     success: function (response2) {
-                        //         console.log("offerletter:", response2);
-
-                        //         // window.location.reload();
-
-                        //     }
-                        // });
+                        if (selectedManager && selectedManager !== "") {
+                            calculateManagerMetrics(selectedManager);
+                        } else {
+                            calculateAllMetrics();
+                        }
                     },
                     error: function (err) {
                         console.error("Update failed", err);
@@ -1279,6 +1621,12 @@
             $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
+
+            if (selectedManager && selectedManager !== "") {
+                calculateManagerMetrics(selectedManager);
+            } else {
+                calculateAllMetrics();
+            }
         };
 
         window.printTable = function () {
@@ -1286,7 +1634,6 @@
             printWindow.document.write('<html><head><title>Print Table</title>');
             printWindow.document.write('<style>table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding:6px;text-align:left;}</style>');
             printWindow.document.write('</head><body>');
-            // Print only visible filtered data
             let html = "<table><thead><tr>";
             const headers = [
                 "SR",
@@ -1302,7 +1649,6 @@
                 "Duration",
                 "Start Date",
                 "Est. End Date",
-                // "Offer Letter",
                 "Course Status",
                 "Business Status",
                 "Referral Code",
@@ -1320,31 +1666,31 @@
 
             filteredData.forEach(row => {
                 html += `<tr>
-                    <td>${row.sno}</td>
-                    <td>${row.name}</td>
-                    <td>${row.phoneNumber}</td>
-                    <td>${row.registeredAt}</td>
-                    <td>${row.offerMessageExists}</td>
-                    <td>${row.selected || 'No'}</td>
-                    <td>${row.email}</td>
-                    <td>${row.collegeName}</td>
-                    <td>${row.courses}</td>
-                    <td>${row.course}</td>
-                    <td>${row.duration}</td>
-                    <td>${row.startDate}</td>
-                    <td>${row.estEndDate}</td>
-                    <td>${row.courseStatus}</td>
-                    <td>${row.businessStatus}</td>
-                    <td>${row.referralCode || ''}</td>
-                    <td>${row.subscriptionWallet}</td>
-                    <td>${row.workPercentage}</td>
-                    <td>${row.certificateStatus}</td>
-                    <td>${row.internshipCertificateStatus}</td>
-                    <td>${row.subscriptionLeft}</td>
-                    <td>${row.queryStatus}</td>
-                    <td>${row.internshipAction}</td>
-                    <td>${row.teamManager || ""}</td>
-                </tr>`;
+                <td>${row.sno}</td>
+                <td>${row.name}</td>
+                <td>${row.phoneNumber}</td>
+                <td>${row.registeredAt}</td>
+                <td>${row.offerMessageExists}</td>
+                <td>${row.selected || 'No'}</td>
+                <td>${row.email}</td>
+                <td>${row.collegeName}</td>
+                <td>${row.courses}</td>
+                <td>${row.course}</td>
+                <td>${row.duration}</td>
+                <td>${row.startDate}</td>
+                <td>${row.estEndDate}</td>
+                <td>${row.courseStatus}</td>
+                <td>${row.businessStatus}</td>
+                <td>${row.referralCode || ''}</td>
+                <td>${row.subscriptionWallet}</td>
+                <td>${row.workPercentage}</td>
+                <td>${row.certificateStatus}</td>
+                <td>${row.internshipCertificateStatus}</td>
+                <td>${row.subscriptionLeft}</td>
+                <td>${row.queryStatus}</td>
+                <td>${row.internshipAction}</td>
+                <td>${row.teamManager || ""}</td>
+            </tr>`;
             });
 
             html += "</tbody></table>";
