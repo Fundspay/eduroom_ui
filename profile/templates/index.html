@@ -135,7 +135,7 @@
                 <div class="col-md-8">
                     <div class="row">
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
@@ -147,12 +147,24 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Total Subscriptions</span>
                                         <span id="walletRemainingDisplay" class="fw-bolder d-block"
+                                            style="font-size: 65px;">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
+                                        <span class="d-block" style="font-size: 14px;">Subscription left in wallet</span>
+                                        <span id="leftSubscriptions" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
@@ -1225,10 +1237,10 @@
                     if (res.success && res.data) {
 
                         let total = res.data.subscriptionWalletTotal || 0;
-                        // let left = res.data.subscriptionLeft || 0;
+                        let left = res.data.subscriptionLeft || 0;
 
                         $("#walletRemainingDisplay").text(total);
-                        // $("#walletRemainingDisplay").text(left);
+                        $("#leftSubscriptions").text(left);
                     }
                 },
                 error: function (xhr, status, error) {
