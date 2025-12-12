@@ -492,12 +492,15 @@
                     <label for="excelUpload" class="dropdown-item upload-trigger" style="cursor:pointer;">
                         <span class="btn btn-icon" data-bs-toggle="tooltip" data-bs-trigger="hover"
                             title="Upload Excel files (Less than 5MB)">
-                            <i class="feather-upload"></i> Upload College Data
+                            <i class="feather-upload"></i> Upload Resumes Data
                         </span>
                     </label>
                     <input type="file" id="excelUpload" accept=".csv,.xls,.xlsx" style="display:none;">
 
                 </div>
+                <button id="downloadExample" class="btn btn-icon btn-success" style="margin-left: 1%;">
+                    <i class="feather-download"></i> Download Upload File
+                </button>
                 <div class="date-picker-container" style="margin-left: 1%;">
                     <input type="text" id="dateRangePicker" class="form-control" placeholder="Select date or range"
                         style="max-width:220px;" />
@@ -610,6 +613,8 @@
                                                 <th>MOBILE NUMBER</th>
                                                 <th>EMAIL ID</th>
                                                 <th>DOMAIN</th>
+                                                <th>Interviewed By</th>
+                                                <th>Date of Interview</th>
                                                 <th>Knowledge Score</th>
                                                 <th>Approach Score</th>
                                                 <th>Skills Score</th>
@@ -617,7 +622,7 @@
                                                 <th>Total average score</th>
                                                 <th>Selection status</th>
                                                 <th>Comment</th>
-                                                <th>Date of interview</th>
+                                                <!-- <th>Date of interview</th> -->
                                                 <th>Call Status</th>
                                                 <th>Alloted to</th>
                                                 <!-- <th>MAIL SENT ON</th>
@@ -1270,7 +1275,8 @@
                                             <th>MOBILE NUMBER</th>
                                             <th>EMAIL ID</th>
                                             <th>DOMAIN</th>
-
+                                            <th>Interviewed By</th>
+                                            <th>Date of Onboarding</th>
                                             <th>Knowledge Score</th>
                                             <th>Approach Score</th>
                                             <th>Skills Score</th>
@@ -1281,7 +1287,7 @@
                                             <th>Call Status</th>
                                             <th>Alloted to</th>
                                             <!-- <th>MAIL SENT ON</th>
-                                                    <th>Send Resume</th> -->
+                                            <th>Send Resume</th> -->
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -1604,6 +1610,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.getElementById("downloadExample").addEventListener("click", function () {
+            const fileUrl = "/excel-files/RISA-Upload-sheet.xlsx";
+
+            const link = document.createElement("a");
+            link.href = fileUrl;
+            link.download = "RISA-Upload-sheet.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -1710,15 +1728,15 @@
         console.log(teamManagerId);
 
         const apiBase = "https://eduroom.in/api/v1/studentresume";
+        
+        const ALLOTED_PASSWORD_VERIFIED = "alloted_password_verified";
 
         const dropdowns = {
             domain: ["Marketing", "Finance", "HR", "Operations", "Others"],
             internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
             course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
-            // new static dropdowns
             finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
             callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
-            // followupBy / alloted will be set from response.managers below
         };
 
         const colorMap = {
@@ -1735,6 +1753,62 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
+        
+        async function verifyAllotedPassword(inputPassword) {
+            try {
+                const response = await fetch('/config.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load config');
+                }
+                const config = await response.json();
+                const correctPassword = config.allotedPassword;
+                
+                return inputPassword === correctPassword;
+            } catch (error) {
+                console.error('Error loading config:', error);
+                return false;
+            }
+        }
+        
+        async function showPasswordPrompt() {
+            if (sessionStorage.getItem(ALLOTED_PASSWORD_VERIFIED) === 'true') {
+                return true;
+            }
+            
+            const { value: password } = await Swal.fire({
+                title: 'Password Required',
+                text: 'Enter password to update Alloted field:',
+                input: 'password',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                preConfirm: async (inputPassword) => {
+                    if (!inputPassword) {
+                        Swal.showValidationMessage('Password is required');
+                        return false;
+                    }
+                    
+                    const isValid = await verifyAllotedPassword(inputPassword);
+                    if (!isValid) {
+                        Swal.showValidationMessage('Incorrect password');
+                        return false;
+                    }
+                    return true;
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+            
+            if (password) {
+                sessionStorage.setItem(ALLOTED_PASSWORD_VERIFIED, 'true');
+                return true;
+            }
+            return false;
+        }
 
         function loadTableData() {
             $.ajax({
@@ -1744,7 +1818,6 @@
                     console.log("student resumes:", res);
                     if (res.success && res.data) {
                         if (res.managers && Array.isArray(res.managers)) {
-                            // populate both followupBy and alloted lists from managers
                             dropdowns.followupBy = res.managers.map(u => u.name);
                             dropdowns.alloted = res.managers.map(u => u.name);
                             dropdowns.interviewedBy = res.managers.map(u => u.name);
@@ -1776,7 +1849,6 @@
 
                             // if (payments.length > maxPayments) maxPayments = payments.length;
 
-                            // NEW fields: safely read from row or default
                             const knowledgeScore = row.knowledgeScore ?? "";
                             const approachScore = row.approachScore ?? "";
                             const skillsScore = row.skillsScore ?? "";
@@ -1807,7 +1879,6 @@
                                 mailSentAt: row.mailSentAt || "",
                                 interviewedBy: row.interviewedBy || "",
                                 // payments: payments,
-                                // new fields included in the row object
                                 knowledgeScore,
                                 approachScore,
                                 skillsScore,
@@ -2239,8 +2310,7 @@
 
             $("#leadsTable td input, #leadsTable td select")
                 .off("blur change")
-                .on("blur change", function (ev) {
-                    // date picker changes are handled by flatpickr onChange below
+                .on("blur change", async function (ev) {
                     if ($(this).hasClass("date-picker")) return;
 
                     let td = $(this).closest("td");
@@ -2249,13 +2319,22 @@
                     let field = td.data("field");
                     let value = $(this).val();
 
-                    // update UI
+                    if (field === "alloted") {
+                        const isVerified = await showPasswordPrompt();
+                        if (!isVerified) {
+
+                            const originalValue = td.find("span").text();
+                            $(this).val(originalValue);
+                            td.removeClass("editing");
+                            return;
+                        }
+                    }
+
                     td.find("span").text(value);
                     td.removeClass("editing");
 
-                    // build payload for API
                     let payload = {};
-                    // cast numeric fields to numbers if not empty
+
                     if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
                         payload[field] = value === "" ? null : Number(value);
                     } else {
@@ -2321,7 +2400,6 @@
                 });
             });
 
-            // initialize any select2 if you use it - optional
             $("#leadsTable td select.select2").each(function () {
                 if ($(this).select2) {
                     $(this).select2({ width: '100%' });
@@ -2416,7 +2494,6 @@
 
             filteredData = tableData.filter((row) =>
                 Object.values(row).some((field) => {
-                    // convert any field to string safely
                     const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
                     return plainText.includes(value);
                 })
@@ -2532,15 +2609,15 @@
         console.log(teamManagerId2);
 
         const apiBase2 = "https://eduroom.in/api/v1/studentresume";
+        
+        const ALLOTED_PASSWORD_VERIFIED2 = "alloted_password_verified";
 
         const dropdowns2 = {
             domain: ["Marketing", "Finance", "HR", "Operations", "Others"],
             internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
             course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
-            // new static dropdowns
             finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
             callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
-            // followupBy / alloted will be set from response.managers below
         };
 
         const colorMap2 = {
@@ -2557,6 +2634,62 @@
         let filteredData2 = [];
         const rowsPerPage2 = 10;
         let currentPage2 = 1;
+        
+        async function verifyAllotedPassword(inputPassword) {
+            try {
+                const response = await fetch('/config.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load config');
+                }
+                const config = await response.json();
+                const correctPassword = config.allotedPassword;
+                
+                return inputPassword === correctPassword;
+            } catch (error) {
+                console.error('Error loading config:', error);
+                return false;
+            }
+        }
+        
+        async function showPasswordPrompt() {
+            if (sessionStorage.getItem(ALLOTED_PASSWORD_VERIFIED2) === 'true') {
+                return true;
+            }
+            
+            const { value: password } = await Swal.fire({
+                title: 'Password Required',
+                text: 'Enter password to update Alloted field:',
+                input: 'password',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                preConfirm: async (inputPassword) => {
+                    if (!inputPassword) {
+                        Swal.showValidationMessage('Password is required');
+                        return false;
+                    }
+                    
+                    const isValid = await verifyAllotedPassword(inputPassword);
+                    if (!isValid) {
+                        Swal.showValidationMessage('Incorrect password');
+                        return false;
+                    }
+                    return true;
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+            
+            if (password) {
+                sessionStorage.setItem(ALLOTED_PASSWORD_VERIFIED2, 'true');
+                return true;
+            }
+            return false;
+        }
 
         function loadTableData2() {
             $.ajax({
@@ -2569,6 +2702,7 @@
                             // populate both followupBy and alloted lists from managers
                             dropdowns2.followupBy = res.managers.map(u => u.name);
                             dropdowns2.alloted = res.managers.map(u => u.name);
+                            dropdowns2.interviewedBy = res.managers.map(u => u.name);
                         }
                         let maxPayments2 = 0;
 
@@ -2627,7 +2761,7 @@
                                 dateOfRegistrationTime: timeOnly2,
                                 mailSentAt: row.mailSentAt || "",
                                 // payments: payments2,
-                                // new fields included in the row object
+                                interviewedBy: row.interviewedBy || "",
                                 knowledgeScore: knowledgeScore2,
                                 approachScore: approachScore2,
                                 skillsScore: skillsScore2,
@@ -2721,26 +2855,20 @@
                 ${makeDropdownCell2("domain", row.domain || "", null, dropdowns2.domain)}
                 `;
 
-                // NEW score inputs (use number inputs)
+                tr2 += makeDropdownCell2("interviewedBy", row.interviewedBy || "", null, dropdowns2.interviewedBy);
+                tr2 += makeDateCell2("Dateofonboarding", row.Dateofonboarding || "");
                 tr2 += makeNumberCell2("knowledgeScore", row.knowledgeScore || "");
                 tr2 += makeNumberCell2("approachScore", row.approachScore || "");
                 tr2 += makeNumberCell2("skillsScore", row.skillsScore || "");
                 tr2 += makeNumberCell2("otherScore", row.otherScore || "");
                 tr2 += makeColoredScoreCell2("totalAverageScore", row.totalAverageScore || "");
 
-                // finalSelectionStatus - dropdown (Yes/No)
                 tr2 += makeDropdownCell2("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns2.finalSelectionStatus);
 
-                // comment - free text input
                 tr2 += makeCell2("comment", row.comment || "");
 
-                // Dateofonboarding - date picker
-                tr2 += makeDateCell2("Dateofonboarding", row.Dateofonboarding || "");
-
-                // callStatus - dropdown
                 tr2 += makeDropdownCell2("callStatus", row.callStatus || "", null, dropdowns2.callStatus);
 
-                // alloted - dropdown from managers
                 tr2 += makeDropdownCell2("alloted", row.alloted || "", null, dropdowns2.alloted || []);
 
                 // const payments = row.payments || [];
@@ -2775,6 +2903,8 @@
             "emailId",
             "domain",
             // new columns
+            "interviewedBy",
+            "Dateofonboarding",
             "knowledgeScore",
             "approachScore",
             "skillsScore",
@@ -2782,7 +2912,6 @@
             "totalAverageScore",
             "finalSelectionStatus",
             "comment",
-            "Dateofonboarding",
             "callStatus",
             "alloted"
         ];
@@ -3069,8 +3198,7 @@
 
             $("#leadsTable2 td input, #leadsTable2 td select")
                 .off("blur change")
-                .on("blur change", function (ev) {
-                    // date picker changes are handled by flatpickr onChange below
+                .on("blur change", async function (ev) {
                     if ($(this).hasClass("date-picker2")) return;
 
                     let td = $(this).closest("td");
@@ -3079,13 +3207,20 @@
                     let field = td.data("field");
                     let value = $(this).val();
 
-                    // update UI
+                    if (field === "alloted") {
+                        const isVerified = await showPasswordPrompt();
+                        if (!isVerified) {
+                            const originalValue = td.find("span").text();
+                            $(this).val(originalValue);
+                            td.removeClass("editing");
+                            return;
+                        }
+                    }
+
                     td.find("span").text(value);
                     td.removeClass("editing");
 
-                    // build payload for API
                     let payload = {};
-                    // cast numeric fields to numbers if not empty
                     if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
                         payload[field] = value === "" ? null : Number(value);
                     } else {
@@ -3151,7 +3286,6 @@
                 });
             });
 
-            // initialize any select22 if you use it - optional
             $("#leadsTable2 td select.select22").each(function () {
                 if ($(this).select2) {
                     $(this).select2({ width: '100%' });
@@ -3247,7 +3381,6 @@
 
             filteredData2 = tableData2.filter((row) =>
                 Object.values(row).some((field) => {
-                    // convert any field to string safely
                     const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
                     return plainText.includes(value);
                 })
@@ -3283,6 +3416,8 @@
                 "Email ID",
                 "Domain",
                 // new header columns
+                "Interviewed By",
+                "Date of Onboarding",
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -3290,7 +3425,6 @@
                 "Total Average Score",
                 "Final Selection Status",
                 "Comment",
-                "Date of Onboarding",
                 "Call Status",
                 "Alloted"
             ];
@@ -3319,6 +3453,8 @@
                     row.emailId,
                     row.domain,
                     // new data columns
+                    row.interviewedBy,
+                    formatDate2(row.Dateofonboarding),
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,
@@ -3326,7 +3462,6 @@
                     row.totalAverageScore,
                     row.finalSelectionStatus,
                     row.comment,
-                    formatDate2(row.Dateofonboarding),
                     row.callStatus,
                     row.alloted
                 ];
@@ -3361,15 +3496,15 @@
         console.log(teamManagerId3);
 
         const apiBase3 = "https://eduroom.in/api/v1/studentresume";
+        
+        const ALLOTED_PASSWORD_VERIFIED3 = "alloted_password_verified";
 
         const dropdowns3 = {
             domain: ["Marketing", "Finance", "HR", "Operations", "Others"],
             internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
             course: ["mba", "pgdm", "mba+pgdm", "bba/bcom", "engineering", "other"],
-            // new static dropdowns
             finalSelectionStatus: ["Selected", "Not Selected", "On Hold"],
             callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
-            // followupBy / alloted will be set from response.managers below
         };
 
         const colorMap3 = {
@@ -3386,6 +3521,62 @@
         let filteredData3 = [];
         const rowsPerPage3 = 10;
         let currentPage3 = 1;
+        
+        async function verifyAllotedPassword(inputPassword) {
+            try {
+                const response = await fetch('/config.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load config');
+                }
+                const config = await response.json();
+                const correctPassword = config.allotedPassword;
+                
+                return inputPassword === correctPassword;
+            } catch (error) {
+                console.error('Error loading config:', error);
+                return false;
+            }
+        }
+        
+        async function showPasswordPrompt() {
+            if (sessionStorage.getItem(ALLOTED_PASSWORD_VERIFIED3) === 'true') {
+                return true;
+            }
+            
+            const { value: password } = await Swal.fire({
+                title: 'Password Required',
+                text: 'Enter password to update Alloted field:',
+                input: 'password',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                preConfirm: async (inputPassword) => {
+                    if (!inputPassword) {
+                        Swal.showValidationMessage('Password is required');
+                        return false;
+                    }
+                    
+                    const isValid = await verifyAllotedPassword(inputPassword);
+                    if (!isValid) {
+                        Swal.showValidationMessage('Incorrect password');
+                        return false;
+                    }
+                    return true;
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+            
+            if (password) {
+                sessionStorage.setItem(ALLOTED_PASSWORD_VERIFIED3, 'true');
+                return true;
+            }
+            return false;
+        }
 
         function loadTableData3() {
             $.ajax({
@@ -3395,9 +3586,9 @@
                     console.log("student resumes3:", res);
                     if (res.success && res.data) {
                         if (res.managers && Array.isArray(res.managers)) {
-                            // populate both followupBy and alloted lists from managers
                             dropdowns3.followupBy = res.managers.map(u => u.name);
                             dropdowns3.alloted = res.managers.map(u => u.name);
+                            dropdowns3.interviewedBy = res.managers.map(u => u.name);
                         }
                         let maxPayments3 = 0;
 
@@ -3426,7 +3617,6 @@
 
                             // if (payments3.length > maxPayments3) maxPayments3 = payments3.length;
 
-                            // NEW fields: safely read from row or default
                             const knowledgeScore3 = row.knowledgeScore ?? "";
                             const approachScore3 = row.approachScore ?? "";
                             const skillsScore3 = row.skillsScore ?? "";
@@ -3456,7 +3646,8 @@
                                 dateOfRegistrationTime: timeOnly3,
                                 mailSentAt: row.mailSentAt || "",
                                 // payments: payments3,
-                                // new fields included in the row object
+                                interviewedBy: row.interviewedBy || "",
+                                Dateofonboarding: Dateofonboarding3,
                                 knowledgeScore: knowledgeScore3,
                                 approachScore: approachScore3,
                                 skillsScore: skillsScore3,
@@ -3464,7 +3655,6 @@
                                 totalAverageScore: totalAverageScore3,
                                 finalSelectionStatus: finalSelectionStatus3,
                                 comment: comment3,
-                                Dateofonboarding: Dateofonboarding3,
                                 callStatus: callStatus3,
                                 alloted: alloted3
                             };
@@ -3550,26 +3740,20 @@
                 ${makeDropdownCell3("domain", row.domain || "", null, dropdowns3.domain)}
                 `;
 
-                // NEW score inputs (use number inputs)
+                tr3 += makeDropdownCell3("interviewedBy", row.interviewedBy || "", null, dropdowns3.interviewedBy);
+                tr3 += makeDateCell3("Dateofonboarding", row.Dateofonboarding || "");
                 tr3 += makeNumberCell3("knowledgeScore", row.knowledgeScore || "");
                 tr3 += makeNumberCell3("approachScore", row.approachScore || "");
                 tr3 += makeNumberCell3("skillsScore", row.skillsScore || "");
                 tr3 += makeNumberCell3("otherScore", row.otherScore || "");
                 tr3 += makeColoredScoreCell3("totalAverageScore", row.totalAverageScore || "");
 
-                // finalSelectionStatus - dropdown (Yes/No)
                 tr3 += makeDropdownCell3("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns3.finalSelectionStatus);
 
-                // comment - free text input
                 tr3 += makeCell3("comment", row.comment || "");
 
-                // Dateofonboarding - date picker
-                tr3 += makeDateCell3("Dateofonboarding", row.Dateofonboarding || "");
-
-                // callStatus - dropdown
                 tr3 += makeDropdownCell3("callStatus", row.callStatus || "", null, dropdowns3.callStatus);
 
-                // alloted - dropdown from managers
                 tr3 += makeDropdownCell3("alloted", row.alloted || "", null, dropdowns3.alloted || []);
 
                 // const payments = row.payments || [];
@@ -3604,6 +3788,8 @@
             "emailId",
             "domain",
             // new columns
+            "interviewedBy",
+            "Dateofonboarding",
             "knowledgeScore",
             "approachScore",
             "skillsScore",
@@ -3611,7 +3797,6 @@
             "totalAverageScore",
             "finalSelectionStatus",
             "comment",
-            "Dateofonboarding",
             "callStatus",
             "alloted"
         ];
@@ -3773,7 +3958,6 @@
                         //     const payments = row.payments || [];
                         //     cellValue = payments[paymentIndex] ? formatDate3(payments[paymentIndex]) : "";
                         // }
-                        // boolean registration
                         if (field === "isRegistered") {
                             cellValue = row.isRegistered ? "Yes" : "No";
                         }
@@ -3898,8 +4082,7 @@
 
             $("#leadsTable3 td input, #leadsTable3 td select")
                 .off("blur change")
-                .on("blur change", function (ev) {
-                    // date picker changes are handled by flatpickr onChange below
+                .on("blur change", async function (ev) {
                     if ($(this).hasClass("date-picker3")) return;
 
                     let td = $(this).closest("td");
@@ -3908,13 +4091,20 @@
                     let field = td.data("field");
                     let value = $(this).val();
 
-                    // update UI
+                    if (field === "alloted") {
+                        const isVerified = await showPasswordPrompt();
+                        if (!isVerified) {
+                            const originalValue = td.find("span").text();
+                            $(this).val(originalValue);
+                            td.removeClass("editing");
+                            return;
+                        }
+                    }
+
                     td.find("span").text(value);
                     td.removeClass("editing");
 
-                    // build payload for API
                     let payload = {};
-                    // cast numeric fields to numbers if not empty
                     if (["knowledgeScore", "approachScore", "skillsScore", "otherScore", "totalAverageScore"].includes(field)) {
                         payload[field] = value === "" ? null : Number(value);
                     } else {
@@ -3980,7 +4170,6 @@
                 });
             });
 
-            // initialize any select33 if you use it - optional
             $("#leadsTable3 td select.select33").each(function () {
                 if ($(this).select2) {
                     $(this).select2({ width: '100%' });
@@ -4076,7 +4265,6 @@
 
             filteredData3 = tableData3.filter((row) =>
                 Object.values(row).some((field) => {
-                    // convert any field to string safely
                     const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
                     return plainText.includes(value);
                 })
@@ -4112,6 +4300,8 @@
                 "Email ID",
                 "Domain",
                 // new header columns
+                "Interviewed By",
+                "Date of Onboarding",
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -4119,7 +4309,6 @@
                 "Total Average Score",
                 "Final Selection Status",
                 "Comment",
-                "Date of Onboarding",
                 "Call Status",
                 "Alloted"
             ];
@@ -4148,6 +4337,8 @@
                     row.emailId,
                     row.domain,
                     // new data columns
+                    row.interviewedBy,
+                    formatDate3(row.Dateofonboarding),
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,
@@ -4155,7 +4346,6 @@
                     row.totalAverageScore,
                     row.finalSelectionStatus,
                     row.comment,
-                    formatDate3(row.Dateofonboarding),
                     row.callStatus,
                     row.alloted
                 ];
@@ -4526,10 +4716,7 @@
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
                         console.log("Logout success:", res);
-                        sessionStorage.removeItem("user_id");
-                        sessionStorage.removeItem("coursePasswordVerified");
-                        sessionStorage.removeItem("hr_verified");
-                        sessionStorage.removeItem("bd_verified");
+                        sessionStorage.clear();
 
                         Swal.fire({
                             icon: "success",
