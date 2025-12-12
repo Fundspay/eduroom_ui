@@ -445,6 +445,9 @@
                     <input type="file" id="excelUpload" accept=".csv,.xls,.xlsx" style="display:none;">
 
                 </div>
+                <button id="downloadExample" class="btn btn-icon btn-success" style="margin-left: 1%;">
+                    <i class="feather-download"></i> Download Upload File
+                </button>
                 <div class="date-picker-container" style="margin-left: 1%;">
                     <input type="text" id="dateRangePicker" class="form-control" placeholder="Select date or range"
                         style="max-width:220px;" />
@@ -1540,6 +1543,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.getElementById("downloadExample").addEventListener("click", function () {
+            const fileUrl = "/excel-files/CO-Upload-sheet.xlsx";
+
+            const link = document.createElement("a");
+            link.href = fileUrl;
+            link.download = "CO-Upload-sheet.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
 
     <script>
         const teamManagerId = sessionStorage.getItem("user_id");
