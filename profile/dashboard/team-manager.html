@@ -302,6 +302,13 @@
                     </div> -->
                     <input type="text" id="dateFilter" placeholder="Select date or range" class="form-control" />
 
+                    <div style="width: 30%; min-width: 200px; margin-left: 2%;">
+                            <!-- <label for="managerSelect" class="form-label">Select Team Manager</label> -->
+                            <select id="managerSelect" class="form-select">
+                                <option value="">All Managers</option>
+                            </select>
+                        </div>
+
                     <!-- Dark/Light Theme Toggle -->
                     <div class="nxl-h-item dark-light-theme" style="margin-right: 3%;">
                         <!-- <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
@@ -356,28 +363,7 @@
             <div class="row" style="margin-left: 2px; margin-right: 2px;" id="teamManager">
 
                 <div class="col-md-12 mb-3" style="margin-top: 2px;">
-                    <div class="d-flex align-items-center gap-3">
-
-                        <!-- Month Select (Full width equal space) -->
-                        <div class="flex-grow-1" style="flex: 1; min-width: 150px;">
-                            <label class="form-label">Month</label>
-                            <select id="monthSelect" class="form-select form-select-sm"></select>
-                        </div>
-
-                        <!-- Year Select (Full width equal space) -->
-                        <div class="flex-grow-1" style="flex: 1; min-width: 150px;">
-                            <label class="form-label">Year</label>
-                            <select id="yearSelect" class="form-select form-select-sm"></select>
-                        </div>
-
-                        <!-- Manager Select (Full width) -->
-                        <div class="flex-grow-1" style="flex: 1; min-width: 200px;">
-                            <label for="managerSelect" class="form-label">Select Team Manager</label>
-                            <select id="managerSelect" class="form-select">
-                                <option value="">All Managers</option>
-                            </select>
-                        </div>
-
+                    <div class="d-flex justify-content-end">
                     </div>
                 </div>
 
@@ -421,13 +407,24 @@
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full" style="background-color:#ff4d4d;">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Red</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h6>No. of interns: <span id="redCount">0</span></br>No. of accounts: <span
-                                        id="totalRedCount">0</span></h6>
-                            </div>
-                            <div class="hstack gap-2 fs-11">
-                                <span id="redCountPercent" style="color:#494444;">0%</span>
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Category Red</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="redCount">0</div>
+                                        <div class="fs-10" id="redCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalRedCount">0</div>
+                                        <div class="fs-10" id="redAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -437,13 +434,24 @@
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full" style="background-color:#ffa500;">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Orange</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h6>No. of interns: <span id="orangeCount">0</span></br>No. of accounts: <span
-                                        id="totalOrangeCount">0</span></h6>
-                            </div>
-                            <div class="hstack gap-2 fs-11">
-                                <span id="orangeCountPercent" style="color:#494444;">0%</span>
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Category Orange</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="orangeCount">0</div>
+                                        <div class="fs-10" id="orangeCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalOrangeCount">0</div>
+                                        <div class="fs-10" id="orangeAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -453,13 +461,24 @@
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full" style="background-color:#ffff80;">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Yellow</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h6>No. of interns: <span id="yellowCount">0</span></br>No. of accounts: <span
-                                        id="totalYellowCount">0</span></h6>
-                            </div>
-                            <div class="hstack gap-2 fs-11">
-                                <span id="yellowCountPercent" style="color:#494444;">0%</span>
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Category Yellow</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="yellowCount">0</div>
+                                        <div class="fs-10" id="yellowCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalYellowCount">0</div>
+                                        <div class="fs-10" id="yellowAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -469,13 +488,25 @@
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full" style="background-color:#b3ffb3;">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Light Green</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h6>No. of interns: <span id="lightGreenCount">0</span></br>No. of accounts: <span
-                                        id="totalLightGreenCount">0</span></h6>
-                            </div>
-                            <div class="hstack gap-2 fs-11">
-                                <span id="lightGreenCountPercent" style="color:#494444;">0%</span>
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Category Light Green</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="lightGreenCount">0</div>
+                                        <div class="fs-10" id="lightGreenCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalLightGreenCount">0</div>
+                                        <div class="fs-10" id="lightGreenAccountsPercent" style="color:#494444;">0%
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -485,13 +516,24 @@
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full" style="background-color:#5cdb5c;">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Green</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h6>No. of interns: <span id="greenCount">0</span></br>No. of accounts: <span
-                                        id="totalGreenCount">0</span></h6>
-                            </div>
-                            <div class="hstack gap-2 fs-11">
-                                <span id="greenCountPercent" style="color:#494444;">0%</span>
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Category Green</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="greenCount">0</div>
+                                        <div class="fs-10" id="greenCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalGreenCount">0</div>
+                                        <div class="fs-10" id="greenAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -501,13 +543,24 @@
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full" style="background-color:#4da6ff;">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium mb-3" style="color:#494444;">Category Blue</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h6>No. of interns: <span id="blueCount">0</span></br>No. of accounts: <span
-                                        id="totalBlueCount">0</span></h6>
-                            </div>
-                            <div class="hstack gap-2 fs-11">
-                                <span id="blueCountPercent" style="color:#494444;">0%</span>
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Category Blue</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="blueCount">0</div>
+                                        <div class="fs-10" id="blueCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalBlueCount">0</div>
+                                        <div class="fs-10" id="blueAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -726,6 +779,7 @@
                                             <th>QUERY STATUS</th>
                                             <th>LIVE PROJECT ACTION</th>
                                             <th>TEAM MANAGER ALLOTTED</th>
+                                            <th>PUSH</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -978,6 +1032,7 @@
         let currentPage = 1;
         let managerList = [];
         let selectedManager = "";
+        let selectedDateRange = null;
 
         $.ajax({
             url: `https://eduroom.in/api/v1/offerletter/users/all`,
@@ -986,48 +1041,6 @@
                 console.log("offerletter:", response1);
             }
         });
-
-        function getMonthName(monthIndex) {
-            return new Date(2020, monthIndex, 1).toLocaleString('en-GB', { month: 'long' });
-        }
-
-        function initMonthYearSelectors() {
-            const monthSelect = $("#monthSelect");
-            const yearSelect = $("#yearSelect");
-
-            monthSelect.empty();
-            for (let m = 0; m < 12; m++) {
-                const monthName = getMonthName(m);
-                monthSelect.append(`<option value="${monthName}">${monthName}</option>`);
-            }
-
-            yearSelect.empty();
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            const startYear = currentYear - 5;
-            const endYear = currentYear + 2;
-            for (let y = startYear; y <= endYear; y++) {
-                yearSelect.append(`<option value="${y}">${y}</option>`);
-            }
-
-            const defaultMonth = getMonthName(now.getMonth());
-            monthSelect.val(defaultMonth);
-            yearSelect.val(String(currentYear));
-
-            monthSelect.off("change").on("change", function () {
-                loadTableData();
-            });
-            yearSelect.off("change").on("change", function () {
-                loadTableData();
-            });
-        }
-
-        function getSelectedMonthYear() {
-            const month = $("#monthSelect").val();
-            const year = $("#yearSelect").val();
-            if (!month || !year) return "";
-            return `${month} ${year}`;
-        }
 
         function getRowBgColor(subscriptionWallet) {
             const val = parseInt(subscriptionWallet, 10) || 0;
@@ -1053,7 +1066,6 @@
 
         function calculateManagerMetrics(managerName) {
             if (!managerName || managerName === "") {
-                // Calculate metrics for ALL data when no manager is selected
                 calculateAllMetrics();
                 return;
             }
@@ -1104,6 +1116,7 @@
                 const countElement = $(`#${color}Count`);
                 const totalElement = $(`#total${color.charAt(0).toUpperCase() + color.slice(1)}Count`);
                 const percentElement = $(`#${color}CountPercent`);
+                const accountsPercentElement = $(`#${color}AccountsPercent`);
 
                 if (countElement.length) {
                     countElement.text(colorData.count);
@@ -1115,6 +1128,11 @@
                     const percent = totalStudents > 0 ?
                         ((colorData.count / totalStudents) * 100).toFixed(2) + "%" : "0%";
                     percentElement.text(percent);
+                }
+                if (accountsPercentElement.length) {
+                    const accountsPercent = totalSubscriptionWallet > 0 ?
+                        ((colorData.total / totalSubscriptionWallet) * 100).toFixed(2) + "%" : "0%";
+                    accountsPercentElement.text(accountsPercent);
                 }
             });
         }
@@ -1147,7 +1165,6 @@
                 }
             });
 
-            // Update metrics displays for ALL data
             $("#totalInterns").text(totalStudents);
 
             const internsPercent = totalStudents > 0 ? "100%" : "0%";
@@ -1160,13 +1177,12 @@
                 ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
             $("#accountsPercent").text(accountsPercent);
 
-            // Update color metrics
             Object.keys(colorCounts).forEach(color => {
                 const colorData = colorCounts[color];
                 const countElement = $(`#${color}Count`);
                 const totalElement = $(`#total${color.charAt(0).toUpperCase() + color.slice(1)}Count`);
                 const percentElement = $(`#${color}CountPercent`);
-
+                const accountsPercentElement = $(`#${color}AccountsPercent`);
                 if (countElement.length) {
                     countElement.text(colorData.count);
                 }
@@ -1178,11 +1194,15 @@
                         ((colorData.count / totalStudents) * 100).toFixed(2) + "%" : "0%";
                     percentElement.text(percent);
                 }
+                if (accountsPercentElement.length) {
+                    const accountsPercent = totalSubscriptionWallet > 0 ?
+                        ((colorData.total / totalSubscriptionWallet) * 100).toFixed(2) + "%" : "0%";
+                    accountsPercentElement.text(accountsPercent);
+                }
             });
         }
 
         function resetMetrics() {
-            // Instead of setting all to 0, calculate for all data
             calculateAllMetrics();
         }
 
@@ -1197,16 +1217,16 @@
 
             if (managerSelect.length === 0) {
                 const dropdownHtml = `
-                    <div class="col-md-3 mb-3">
-                        <label for="managerSelect" class="form-label">Select Team Manager</label>
-                        <select id="managerSelect" class="form-select">
-                            <option value="">All Managers</option>
-                            ${managers.map(manager =>
+                <div class="col-md-3 mb-3">
+                    <label for="managerSelect" class="form-label">Select Team Manager</label>
+                    <select id="managerSelect" class="form-select">
+                        <option value="">All Managers</option>
+                        ${managers.map(manager =>
                     `<option value="${manager.name}">${manager.name}</option>`
                 ).join('')}
-                        </select>
-                    </div>
-                `;
+                    </select>
+                </div>
+            `;
 
                 if ($("#teamManager").length) {
                     $("#teamManager").prepend(`<div class="row">${dropdownHtml}</div>`);
@@ -1220,13 +1240,24 @@
             });
         }
 
+        function formatDateForAPI(date) {
+            // Convert date to YYYY-MM-DD format
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
         function loadTableData() {
-            const baseUrl = `https://eduroom.in/api/v1/status/listall`;
-            const monthYear = getSelectedMonthYear();
-            let url = baseUrl;
-            if (monthYear) {
-                url = `${baseUrl}?monthYear=${encodeURIComponent(monthYear)}`;
+            let url = `https://eduroom.in/api/v1/status/listall`;
+
+            // Add date range parameters if date range is selected
+            if (selectedDateRange && selectedDateRange.startDate && selectedDateRange.endDate) {
+                const startDateStr = formatDateForAPI(selectedDateRange.startDate);
+                const endDateStr = formatDateForAPI(selectedDateRange.endDate);
+                url = `${url}?startDate=${startDateStr}&endDate=${endDateStr}`;
             }
+
             console.log("Calling API URL:", url);
 
             $.ajax({
@@ -1280,6 +1311,7 @@
                                 referralCode: row.referralCode || "",
                                 selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
                                 offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
+                                pushto: row.pushto || "",
                             }));
 
                         $("#collegeCount").text(tableData.length);
@@ -1313,9 +1345,42 @@
         }
 
         $(document).ready(function () {
-            initMonthYearSelectors();
+            // Initialize date picker and load data on page load
+            initDatePicker();
             loadTableData();
         });
+
+        function initDatePicker() {
+            flatpickr("#dateFilter", {
+                dateFormat: "d M Y",
+                mode: "range",
+                onChange: function (selectedDates, dateStr) {
+                    if (selectedDates.length === 2) {
+                        // Store the selected date range
+                        selectedDateRange = {
+                            startDate: selectedDates[0],
+                            endDate: selectedDates[1]
+                        };
+
+                        // Trigger API call with the date range
+                        loadTableData();
+                    } else if (selectedDates.length === 1) {
+                        // If only one date is selected, use it for both start and end
+                        selectedDateRange = {
+                            startDate: selectedDates[0],
+                            endDate: selectedDates[0]
+                        };
+
+                        // Trigger API call with the date range
+                        loadTableData();
+                    } else {
+                        // Clear date range and load default data
+                        selectedDateRange = null;
+                        loadTableData();
+                    }
+                }
+            });
+        }
 
         function formatDate(dateStr) {
             if (!dateStr) return "";
@@ -1323,33 +1388,6 @@
             const options = { day: '2-digit', month: 'short', year: 'numeric' };
             return date.toLocaleDateString('en-GB', options);
         }
-
-        flatpickr("#dateFilter", {
-            dateFormat: "d M Y",
-            mode: "range",
-            onChange: function (selectedDates, dateStr) {
-                if (!dateStr) {
-                    filteredData = [...tableData];
-                } else {
-                    const [start, end] = selectedDates.length === 2 ? selectedDates : [selectedDates[0], selectedDates[0]];
-                    filteredData = tableData.filter(row => {
-                        const rowDate = new Date(row.registeredAt);
-                        rowDate.setHours(0, 0, 0, 0);
-                        return rowDate >= start && rowDate <= end;
-                    });
-                }
-                $("#collegeCount").text(filteredData.length);
-                currentPage = 1;
-                renderTable();
-                renderPagination();
-
-                if (selectedManager && selectedManager !== "") {
-                    calculateManagerMetrics(selectedManager);
-                } else {
-                    calculateAllMetrics();
-                }
-            }
-        });
 
         function escapeHtml(text) {
             return String(text || '').replace(/[&<>"'`\/=]/g, function (s) {
@@ -1384,40 +1422,41 @@
                 const rowBgStyle = getRowBgColor(row.subscriptionWallet);
 
                 let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
-                    <td>${start + index + 1}</td>
-                    <td>${nameCell}</td>
-                    <td>
-                        <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
-                            ${escapeHtml(row.phoneNumber || '')}
-                        </a>
-                    </td>
-                    <td>${escapeHtml(row.registeredAt || '')}</td>
-                    <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                    <td>${escapeHtml(row.selected || 'No')}</td>
-                    <td>${escapeHtml(row.email || '')}</td>
-                    <td>${escapeHtml(row.collegeName || '')}</td>
-                    <td>${escapeHtml(row.courses || '')}</td>
-                    <td>${escapeHtml(row.course || '')}</td>
-                    <td>${escapeHtml(row.duration || '')}</td>
-                    <td>${escapeHtml(row.startDate || '')}</td>
-                    <td>${escapeHtml(row.estEndDate || '')}</td>
-                    ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
-                    <td>${escapeHtml(row.referralCode || '')}</td>
-                    <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
-                    ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
-                    <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                    <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                    <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
-                            class="text-primary fw-bold" 
-                            style="cursor:pointer; text-decoration:underline;"
-                            target="_top">
-                            ${escapeHtml(row.queryStatus || '')}
-                        </a></td>
-                    ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
-                    ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
-                </tr>`;
+                <td>${start + index + 1}</td>
+                <td>${nameCell}</td>
+                <td>
+                    <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                        ${escapeHtml(row.phoneNumber || '')}
+                    </a>
+                </td>
+                <td>${escapeHtml(row.registeredAt || '')}</td>
+                <td>${escapeHtml(row.offerMessageExists || '')}</td>
+                <td>${escapeHtml(row.selected || 'No')}</td>
+                <td>${escapeHtml(row.email || '')}</td>
+                <td>${escapeHtml(row.collegeName || '')}</td>
+                <td>${escapeHtml(row.courses || '')}</td>
+                <td>${escapeHtml(row.course || '')}</td>
+                <td>${escapeHtml(row.duration || '')}</td>
+                <td>${escapeHtml(row.startDate || '')}</td>
+                <td>${escapeHtml(row.estEndDate || '')}</td>
+                ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                <td>${escapeHtml(row.referralCode || '')}</td>
+                <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
+                ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
+                <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
+                ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
+                ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
+                <td>${escapeHtml(row.subscriptionLeft || '')}</td>
+                <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                        class="text-primary fw-bold" 
+                        style="cursor:pointer; text-decoration:underline;"
+                        target="_top">
+                        ${escapeHtml(row.queryStatus || '')}
+                    </a></td>
+                ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
+                ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
+                ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
+            </tr>`;
                 tbody.append(tr);
             });
 
@@ -1430,7 +1469,7 @@
             "domain", "course", "duration", "startDate", "estEndDate",
             "courseStatus", "referralCode", "subscriptionWallet", "businessStatus", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
-            "subscriptionLeft", "queryStatus", "internshipAction", "teamManager"
+            "subscriptionLeft", "queryStatus", "internshipAction", "teamManager", "pushto"
         ];
 
         function renderPagination() {
@@ -1474,10 +1513,10 @@
             let filterRow = "<tr class='filters'>";
             columnKeys.forEach((key) => {
                 filterRow += `<th>
-                <select class="column-filter form-select form-select-sm" data-field="${key}">
-                    <option value="">All</option>
-                </select>
-            </th>`;
+            <select class="column-filter form-select form-select-sm" data-field="${key}">
+                <option value="">All</option>
+            </select>
+        </th>`;
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
@@ -1530,8 +1569,8 @@
             let displaySelected = formatLabel(selectedValue);
 
             let html = `<td data-field="${field}" class="${specialDropdown ? 'special-dropdown' : ''}">
-            <span style="font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select2" style="display:none;">`;
+        <span style="font-weight:bold;">${displaySelected}</span>
+        <select class="form-control select2" style="display:none;">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -1568,9 +1607,12 @@
                 let managerObj = managerList.find(m => m.name === managerName);
                 let managerId = managerObj ? managerObj.id : null;
 
+                let pushtoName = td.closest("tr").find('td[data-field="pushto"] select').val();
+
                 let payload = {
                     internshipStatus: internshipStatus || "",
-                    teamManager: managerName || ""
+                    teamManager: managerName || "",
+                    pushto: pushtoName || ""
                 };
                 console.log("payload:", payload);
 
@@ -1659,38 +1701,40 @@
                 "Subscription Left",
                 "Query Status",
                 "Internship Action",
-                "Team Manager"
+                "Team Manager",
+                "Push To"
             ];
             headers.forEach(h => html += `<th>${h}</th>`);
             html += "</tr></thead><tbody>";
 
             filteredData.forEach(row => {
                 html += `<tr>
-                <td>${row.sno}</td>
-                <td>${row.name}</td>
-                <td>${row.phoneNumber}</td>
-                <td>${row.registeredAt}</td>
-                <td>${row.offerMessageExists}</td>
-                <td>${row.selected || 'No'}</td>
-                <td>${row.email}</td>
-                <td>${row.collegeName}</td>
-                <td>${row.courses}</td>
-                <td>${row.course}</td>
-                <td>${row.duration}</td>
-                <td>${row.startDate}</td>
-                <td>${row.estEndDate}</td>
-                <td>${row.courseStatus}</td>
-                <td>${row.businessStatus}</td>
-                <td>${row.referralCode || ''}</td>
-                <td>${row.subscriptionWallet}</td>
-                <td>${row.workPercentage}</td>
-                <td>${row.certificateStatus}</td>
-                <td>${row.internshipCertificateStatus}</td>
-                <td>${row.subscriptionLeft}</td>
-                <td>${row.queryStatus}</td>
-                <td>${row.internshipAction}</td>
-                <td>${row.teamManager || ""}</td>
-            </tr>`;
+            <td>${row.sno}</td>
+            <td>${row.name}</td>
+            <td>${row.phoneNumber}</td>
+            <td>${row.registeredAt}</td>
+            <td>${row.offerMessageExists}</td>
+            <td>${row.selected || 'No'}</td>
+            <td>${row.email}</td>
+            <td>${row.collegeName}</td>
+            <td>${row.courses}</td>
+            <td>${row.course}</td>
+            <td>${row.duration}</td>
+            <td>${row.startDate}</td>
+            <td>${row.estEndDate}</td>
+            <td>${row.courseStatus}</td>
+            <td>${row.businessStatus}</td>
+            <td>${row.referralCode || ''}</td>
+            <td>${row.subscriptionWallet}</td>
+            <td>${row.workPercentage}</td>
+            <td>${row.certificateStatus}</td>
+            <td>${row.internshipCertificateStatus}</td>
+            <td>${row.subscriptionLeft}</td>
+            <td>${row.queryStatus}</td>
+            <td>${row.internshipAction}</td>
+            <td>${row.teamManager || ""}</td>
+            <td>${row.pushto || ""}</td>
+        </tr>`;
             });
 
             html += "</tbody></table>";
@@ -1726,7 +1770,8 @@
                 "Subscription Left",
                 "Query Status",
                 "Internship Action",
-                "Team Manager"
+                "Team Manager",
+                "Push To"
             ];
 
             const data = [headers];
@@ -1757,7 +1802,8 @@
                     row.subscriptionLeft,
                     row.queryStatus,
                     row.internshipAction,
-                    row.teamManager || ""
+                    row.teamManager || "",
+                    row.pushto || ""
                 ]);
             });
 
@@ -1766,10 +1812,6 @@
             XLSX.utils.book_append_sheet(workbook, worksheet, "OfferletterUsers");
             XLSX.writeFile(workbook, "OfferletterUsers_All.xlsx");
         };
-
-        $(document).ready(function () {
-            loadTableData();
-        });
     </script>
 
     <script>
