@@ -388,10 +388,11 @@
 
         function loadManagersDropdown() {
             $.ajax({
-                url: "https://eduroom.in/api/v1/studentresume/list",
+                url: "https://eduroom.in/api/v1/teammanager/all",
                 type: "GET",
                 success: function (res) {
-                    const managers = res.managers;
+                    console.log("get call response for manager:", res);
+                    const managers = res.data;
                     const dropdown = $("#managerDropdown");
 
                     dropdown.empty();
