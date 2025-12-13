@@ -1728,7 +1728,7 @@
         console.log(teamManagerId);
 
         const apiBase = "https://eduroom.in/api/v1/studentresume";
-        
+
         const ALLOTED_PASSWORD_VERIFIED = "alloted_password_verified";
 
         const dropdowns = {
@@ -1753,7 +1753,7 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
-        
+
         async function verifyAllotedPassword(inputPassword) {
             try {
                 const response = await fetch('/config.json');
@@ -1762,19 +1762,19 @@
                 }
                 const config = await response.json();
                 const correctPassword = config.allotedPassword;
-                
+
                 return inputPassword === correctPassword;
             } catch (error) {
                 console.error('Error loading config:', error);
                 return false;
             }
         }
-        
+
         async function showPasswordPrompt() {
             if (sessionStorage.getItem(ALLOTED_PASSWORD_VERIFIED) === 'true') {
                 return true;
             }
-            
+
             const { value: password } = await Swal.fire({
                 title: 'Password Required',
                 text: 'Enter password to update Alloted field:',
@@ -1792,7 +1792,7 @@
                         Swal.showValidationMessage('Password is required');
                         return false;
                     }
-                    
+
                     const isValid = await verifyAllotedPassword(inputPassword);
                     if (!isValid) {
                         Swal.showValidationMessage('Incorrect password');
@@ -1802,7 +1802,7 @@
                 },
                 allowOutsideClick: () => !Swal.isLoading()
             });
-            
+
             if (password) {
                 sessionStorage.setItem(ALLOTED_PASSWORD_VERIFIED, 'true');
                 return true;
@@ -2513,7 +2513,52 @@
             printWindow.print();
         };
 
-        window.exportToExcel = function () {
+        window.exportToExcel = async function () {
+            const isVerified = sessionStorage.getItem("excel_export_verified");
+
+            if (!isVerified) {
+                try {
+                    const response = await fetch("/config.json");
+                    const config = await response.json();
+                    const correctPassword = config.exportPassword;
+
+                    const { value: enteredPassword } = await Swal.fire({
+                        title: "Enter Export Password",
+                        input: "password",
+                        inputPlaceholder: "Enter password",
+                        showCancelButton: true,
+                        confirmButtonText: "Verify",
+                        cancelButtonText: "Cancel",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "Password is required";
+                            }
+                        }
+                    });
+
+                    if (!enteredPassword) return;
+
+                    if (enteredPassword !== correctPassword) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Password",
+                            text: "You are not authorized to export this data"
+                        });
+                        return;
+                    }
+
+                    sessionStorage.setItem("excel_export_verified", "true");
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Unable to verify password"
+                    });
+                    return;
+                }
+            }
+
             const headers = [
                 "S.No",
                 "Student Name",
@@ -2530,7 +2575,6 @@
                 "Domain",
                 "Interviewed By",
                 "Date of Onboarding",
-                // new header columns
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -2567,7 +2611,6 @@
                     row.domain,
                     row.interviewedBy,
                     formatDate(row.Dateofonboarding),
-                    // new data columns
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,
@@ -2581,9 +2624,10 @@
 
                 if (window.maxPayments && window.maxPayments > 0) {
                     for (let i = 0; i < window.maxPayments; i++) {
-                        const paymentDate = row.payments && row.payments[i]
-                            ? formatDate(row.payments[i])
-                            : "";
+                        const paymentDate =
+                            row.payments && row.payments[i]
+                                ? formatDate(row.payments[i])
+                                : "";
                         rowData.push(paymentDate);
                     }
                 }
@@ -2609,7 +2653,7 @@
         console.log(teamManagerId2);
 
         const apiBase2 = "https://eduroom.in/api/v1/studentresume";
-        
+
         const ALLOTED_PASSWORD_VERIFIED2 = "alloted_password_verified";
 
         const dropdowns2 = {
@@ -2634,7 +2678,7 @@
         let filteredData2 = [];
         const rowsPerPage2 = 10;
         let currentPage2 = 1;
-        
+
         async function verifyAllotedPassword(inputPassword) {
             try {
                 const response = await fetch('/config.json');
@@ -2643,19 +2687,19 @@
                 }
                 const config = await response.json();
                 const correctPassword = config.allotedPassword;
-                
+
                 return inputPassword === correctPassword;
             } catch (error) {
                 console.error('Error loading config:', error);
                 return false;
             }
         }
-        
+
         async function showPasswordPrompt() {
             if (sessionStorage.getItem(ALLOTED_PASSWORD_VERIFIED2) === 'true') {
                 return true;
             }
-            
+
             const { value: password } = await Swal.fire({
                 title: 'Password Required',
                 text: 'Enter password to update Alloted field:',
@@ -2673,7 +2717,7 @@
                         Swal.showValidationMessage('Password is required');
                         return false;
                     }
-                    
+
                     const isValid = await verifyAllotedPassword(inputPassword);
                     if (!isValid) {
                         Swal.showValidationMessage('Incorrect password');
@@ -2683,7 +2727,7 @@
                 },
                 allowOutsideClick: () => !Swal.isLoading()
             });
-            
+
             if (password) {
                 sessionStorage.setItem(ALLOTED_PASSWORD_VERIFIED2, 'true');
                 return true;
@@ -3400,7 +3444,52 @@
             printWindow.print();
         };
 
-        window.exportToExcel2 = function () {
+        window.exportToExcel2 = async function () {
+            const isVerified = sessionStorage.getItem("excel_export_verified");
+
+            if (!isVerified) {
+                try {
+                    const response = await fetch("/config.json");
+                    const config = await response.json();
+                    const correctPassword = config.exportPassword;
+
+                    const { value: enteredPassword } = await Swal.fire({
+                        title: "Enter Export Password",
+                        input: "password",
+                        inputPlaceholder: "Enter password",
+                        showCancelButton: true,
+                        confirmButtonText: "Verify",
+                        cancelButtonText: "Cancel",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "Password is required";
+                            }
+                        }
+                    });
+
+                    if (!enteredPassword) return;
+
+                    if (enteredPassword !== correctPassword) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Password",
+                            text: "You are not authorized to export this data"
+                        });
+                        return;
+                    }
+
+                    sessionStorage.setItem("excel_export_verified", "true");
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Unable to verify password"
+                    });
+                    return;
+                }
+            }
+
             const headers = [
                 "S.No",
                 "Student Name",
@@ -3415,7 +3504,6 @@
                 "Mobile Number",
                 "Email ID",
                 "Domain",
-                // new header columns
                 "Interviewed By",
                 "Date of Onboarding",
                 "Knowledge Score",
@@ -3452,7 +3540,6 @@
                     row.mobileNumber,
                     row.emailId,
                     row.domain,
-                    // new data columns
                     row.interviewedBy,
                     formatDate2(row.Dateofonboarding),
                     row.knowledgeScore,
@@ -3468,9 +3555,10 @@
 
                 if (window.maxPayments2 && window.maxPayments2 > 0) {
                     for (let i = 0; i < window.maxPayments2; i++) {
-                        const paymentDate = row.payments && row.payments[i]
-                            ? formatDate2(row.payments[i])
-                            : "";
+                        const paymentDate =
+                            row.payments && row.payments[i]
+                                ? formatDate2(row.payments[i])
+                                : "";
                         rowData.push(paymentDate);
                     }
                 }
@@ -3496,7 +3584,7 @@
         console.log(teamManagerId3);
 
         const apiBase3 = "https://eduroom.in/api/v1/studentresume";
-        
+
         const ALLOTED_PASSWORD_VERIFIED3 = "alloted_password_verified";
 
         const dropdowns3 = {
@@ -3521,7 +3609,7 @@
         let filteredData3 = [];
         const rowsPerPage3 = 10;
         let currentPage3 = 1;
-        
+
         async function verifyAllotedPassword(inputPassword) {
             try {
                 const response = await fetch('/config.json');
@@ -3530,19 +3618,19 @@
                 }
                 const config = await response.json();
                 const correctPassword = config.allotedPassword;
-                
+
                 return inputPassword === correctPassword;
             } catch (error) {
                 console.error('Error loading config:', error);
                 return false;
             }
         }
-        
+
         async function showPasswordPrompt() {
             if (sessionStorage.getItem(ALLOTED_PASSWORD_VERIFIED3) === 'true') {
                 return true;
             }
-            
+
             const { value: password } = await Swal.fire({
                 title: 'Password Required',
                 text: 'Enter password to update Alloted field:',
@@ -3560,7 +3648,7 @@
                         Swal.showValidationMessage('Password is required');
                         return false;
                     }
-                    
+
                     const isValid = await verifyAllotedPassword(inputPassword);
                     if (!isValid) {
                         Swal.showValidationMessage('Incorrect password');
@@ -3570,7 +3658,7 @@
                 },
                 allowOutsideClick: () => !Swal.isLoading()
             });
-            
+
             if (password) {
                 sessionStorage.setItem(ALLOTED_PASSWORD_VERIFIED3, 'true');
                 return true;
@@ -4284,7 +4372,52 @@
             printWindow.print();
         };
 
-        window.exportToExcel3 = function () {
+        window.exportToExcel3 = async function () {
+            const isVerified = sessionStorage.getItem("excel_export_verified");
+
+            if (!isVerified) {
+                try {
+                    const response = await fetch("/config.json");
+                    const config = await response.json();
+                    const correctPassword = config.exportPassword;
+
+                    const { value: enteredPassword } = await Swal.fire({
+                        title: "Enter Export Password",
+                        input: "password",
+                        inputPlaceholder: "Enter password",
+                        showCancelButton: true,
+                        confirmButtonText: "Verify",
+                        cancelButtonText: "Cancel",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "Password is required";
+                            }
+                        }
+                    });
+
+                    if (!enteredPassword) return;
+
+                    if (enteredPassword !== correctPassword) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Password",
+                            text: "You are not authorized to export this data"
+                        });
+                        return;
+                    }
+
+                    sessionStorage.setItem("excel_export_verified", "true");
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Unable to verify password"
+                    });
+                    return;
+                }
+            }
+
             const headers = [
                 "S.No",
                 "Student Name",
@@ -4299,7 +4432,6 @@
                 "Mobile Number",
                 "Email ID",
                 "Domain",
-                // new header columns
                 "Interviewed By",
                 "Date of Onboarding",
                 "Knowledge Score",
@@ -4336,7 +4468,6 @@
                     row.mobileNumber,
                     row.emailId,
                     row.domain,
-                    // new data columns
                     row.interviewedBy,
                     formatDate3(row.Dateofonboarding),
                     row.knowledgeScore,
@@ -4352,9 +4483,10 @@
 
                 if (window.maxPayments3 && window.maxPayments3 > 0) {
                     for (let i = 0; i < window.maxPayments3; i++) {
-                        const paymentDate = row.payments && row.payments[i]
-                            ? formatDate3(row.payments[i])
-                            : "";
+                        const paymentDate =
+                            row.payments && row.payments[i]
+                                ? formatDate3(row.payments[i])
+                                : "";
                         rowData.push(paymentDate);
                     }
                 }

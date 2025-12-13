@@ -222,6 +222,7 @@
                                                 <th>Day 7 Domain Task</th>
                                                 <th>Module 2 Status</th>
                                                 <th>TL Allocated</th>
+                                                <th>Push</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -682,6 +683,7 @@
 
                                 module2Status: bdSheet.module2Status || "",
                                 tlAllocated: bdSheet.tlAllocated || "",
+                                pushto: bdSheet.pushto || "",
 
                                 bdSheetId: bdSheet.id
                             };
@@ -768,6 +770,7 @@
                 ${makeDropdownCell("day7DomainTask", row.day7DomainTask || "", null, dropdowns.domainTask)}
                 ${makeDropdownCell("module2Status", row.module2Status || "", null, dropdowns.module2Status)}
                 ${makeDropdownCell("tlAllocated", row.tlAllocated || "", null, managers.map(m => m.name))}
+                ${makeDropdownCell("pushto", row.pushto || "", null, managers.map(m => m.name))}
             </tr>`;
                 tbody.append(tr);
             });
@@ -815,7 +818,8 @@
             "day7Date",
             "day7DomainTask",
             "module2Status",
-            "tlAllocated"
+            "tlAllocated",
+            "pushto"
         ];
 
         function renderPagination() {
@@ -1042,7 +1046,7 @@
             };
 
             if (['startDate', 'endDate', 'connectDate', 'callStatus', 'registration',
-                'selectionTest', 'whatsappGroup', 'module2Status', 'tlAllocated', 'activeStatus'].includes(field)) {
+                'selectionTest', 'whatsappGroup', 'module2Status', 'tlAllocated', 'activeStatus', 'pushto'].includes(field)) {
                 payload[field] = value;
             }
 
@@ -1143,7 +1147,52 @@
             printWindow.print();
         };
 
-        window.exportToExcel = function () {
+        window.exportToExcel = async function () {
+            const isVerified = sessionStorage.getItem("excel_export_verified");
+
+            if (!isVerified) {
+                try {
+                    const response = await fetch("/config.json");
+                    const config = await response.json();
+                    const correctPassword = config.exportPassword;
+
+                    const { value: enteredPassword } = await Swal.fire({
+                        title: "Enter Export Password",
+                        input: "password",
+                        inputPlaceholder: "Enter password",
+                        showCancelButton: true,
+                        confirmButtonText: "Verify",
+                        cancelButtonText: "Cancel",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "Password is required";
+                            }
+                        }
+                    });
+
+                    if (!enteredPassword) return;
+
+                    if (enteredPassword !== correctPassword) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Password",
+                            text: "You are not authorized to export this data"
+                        });
+                        return;
+                    }
+
+                    sessionStorage.setItem("excel_export_verified", "true");
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Unable to verify password"
+                    });
+                    return;
+                }
+            }
+
             const headers = [
                 "S.No",
                 "Student Name",
@@ -1183,7 +1232,8 @@
                 "Day7 Date",
                 "Day7 Domain Task",
                 "Module 2 Status",
-                "TL Allocated"
+                "TL Allocated",
+                "Push To"
             ];
 
             const data = [headers];
@@ -1228,7 +1278,8 @@
                     formatDate(row.day7Date),
                     row.day7DomainTask,
                     row.module2Status,
-                    row.tlAllocated
+                    row.tlAllocated,
+                    row.pushto
                 ];
 
                 data.push(rowData);

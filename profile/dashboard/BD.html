@@ -2098,7 +2098,7 @@
 
                                 module2Status: bdSheet.module2Status || "",
                                 tlAllocated: bdSheet.tlAllocated || "",
-                                pushto : bdSheet.pushto || "",
+                                pushto: bdSheet.pushto || "",
 
                                 bdSheetId: bdSheet.id
                             };
@@ -2565,7 +2565,52 @@
             printWindow.print();
         };
 
-        window.exportToExcel = function () {
+        window.exportToExcel = async function () {
+            const isVerified = sessionStorage.getItem("excel_export_verified");
+
+            if (!isVerified) {
+                try {
+                    const response = await fetch("/config.json");
+                    const config = await response.json();
+                    const correctPassword = config.exportPassword;
+
+                    const { value: enteredPassword } = await Swal.fire({
+                        title: "Enter Export Password",
+                        input: "password",
+                        inputPlaceholder: "Enter password",
+                        showCancelButton: true,
+                        confirmButtonText: "Verify",
+                        cancelButtonText: "Cancel",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "Password is required";
+                            }
+                        }
+                    });
+
+                    if (!enteredPassword) return;
+
+                    if (enteredPassword !== correctPassword) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Password",
+                            text: "You are not authorized to export this data"
+                        });
+                        return;
+                    }
+
+                    sessionStorage.setItem("excel_export_verified", "true");
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Unable to verify password"
+                    });
+                    return;
+                }
+            }
+
             const headers = [
                 "S.No",
                 "Student Name",
@@ -3324,10 +3369,7 @@
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
                         console.log("Logout success:", res);
-                        sessionStorage.removeItem("user_id");
-                        sessionStorage.removeItem("coursePasswordVerified");
-                        sessionStorage.removeItem("hr_verified");
-                        sessionStorage.removeItem("bd_verified");
+                        sessionStorage.clear();
 
                         Swal.fire({
                             icon: "success",
