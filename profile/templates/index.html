@@ -542,7 +542,7 @@
 
                             const subscriptionText =
                                 displayStatus === "Completed"
-                                    ? "Completed"
+                                    ? `${businessTarget || "0"} (Completed)`
                                     : `${subscriptionLeft || "0"}/${businessTarget || "0"}`;
 
                             const card = `
@@ -575,7 +575,7 @@
                                             <div class="d-flex justify-content-between text-white mb-3">
                                                 <div class="text-start">
                                                     <p class="mb-1">Course Completion Status:</p>
-                                                    <p class="mb-0">Business Task Completed:</p>
+                                                    <p class="mb-0">Business Tasks:</p>
                                                     <p class="mb-0">Start Date:</p>
                                                     <p class="mb-0">End Date:</p>
                                                 </div>
