@@ -910,7 +910,7 @@
                         }
                     </style>
 
-                    <script>
+                    <!-- <script>
                         const searchToggle = document.getElementById("searchToggle");
                         const searchBar = document.getElementById("searchBar");
                         const searchWrapper = document.getElementById("searchWrapper");
@@ -931,7 +931,7 @@
                                 searchBar.classList.remove("active");
                             }
                         });
-                    </script>
+                    </script> -->
 
                     <style>
                         .table-responsive {
@@ -1769,6 +1769,8 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
+        let tableFromDate = null;
+        let tableToDate = null;
 
         flatpickr("#tableDateRangePicker", {
             mode: "range",
@@ -1881,12 +1883,6 @@
                                 }
                             }
 
-                            // const payments = (row.user && Array.isArray(row.user.FundsAudits))
-                            //     ? row.user.FundsAudits.map(f => f.dateOfPayment)
-                            //     : [];
-
-                            // if (payments.length > maxPayments) maxPayments = payments.length;
-
                             const knowledgeScore = row.knowledgeScore ?? "";
                             const approachScore = row.approachScore ?? "";
                             const skillsScore = row.skillsScore ?? "";
@@ -1916,7 +1912,6 @@
                                 dateOfRegistrationTime: timeOnly,
                                 mailSentAt: row.mailSentAt || "",
                                 interviewedBy: row.interviewedBy || "",
-                                // payments: payments,
                                 knowledgeScore,
                                 approachScore,
                                 skillsScore,
@@ -2066,12 +2061,6 @@
             "alloted"
         ];
 
-        // if (window.maxPayments && window.maxPayments > 0) {
-        //     for (let i = 1; i <= window.maxPayments; i++) {
-        //         columnKeys.push(`payment${i}`);
-        //     }
-        // }
-
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
             const pagination = $("#pagination");
@@ -2156,19 +2145,6 @@
                     )];
                 }
 
-                // else if (field.startsWith("payment")) {
-                //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                //     values = [...new Set(
-                //         tableData
-                //             .map(row => {
-                //                 const payments = row.payments || [];
-                //                 const date = payments[paymentIndex];
-                //                 return date ? formatDate(date) : "";
-                //             })
-                //             .filter(v => v && v.trim() !== "")
-                //     )];
-                // }
-
                 else if (field.toLowerCase().includes("date")) {
                     values = [...new Set(
                         tableData
@@ -2217,12 +2193,6 @@
                     filteredData = filteredData.filter(row => {
                         let cellValue = "";
 
-                        // payment fields (payment1, payment2, ...)
-                        // if (field.startsWith("payment")) {
-                        //     const paymentIndex = parseInt(field.replace("payment", "")) - 1;
-                        //     const payments = row.payments || [];
-                        //     cellValue = payments[paymentIndex] ? formatDate(payments[paymentIndex]) : "";
-                        // }
                         // boolean registration
                         if (field === "isRegistered") {
                             cellValue = row.isRegistered ? "Yes" : "No";
@@ -2522,14 +2492,21 @@
             });
         }
 
+        // FIXED: Search function that works with date-filtered data
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
+            
             if (!value) {
+                // If search is empty, show all data (but keep date filtering if applied)
+                filteredData = [...tableData];
+                currentPage = 1;
                 renderTable();
                 renderPagination();
+                renderColumnFilters();
                 return;
             }
 
+            // Search within the current tableData (which already has date filtering applied)
             filteredData = tableData.filter((row) =>
                 Object.values(row).some((field) => {
                     const plainText = $('<div>').html(field === null || field === undefined ? "" : String(field)).text().toLowerCase().trim();
@@ -2541,6 +2518,27 @@
             renderTable();
             renderPagination();
         };
+
+        // FIXED: Remove the problematic loadTableData call from search button
+        const searchToggle = document.getElementById("searchToggle");
+        const searchBar = document.getElementById("searchBar");
+        const searchWrapper = document.getElementById("searchWrapper");
+
+        searchToggle.addEventListener("click", () => {
+            const isActive = searchBar.classList.toggle("active");
+
+            if (isActive) {
+                document.getElementById("searchInput").focus();
+                // REMOVED: loadTableData() call here - don't reload data on search click
+                // Only focus on search input
+            }
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!searchWrapper.contains(event.target)) {
+                searchBar.classList.remove("active");
+            }
+        });
 
         window.printTable = function () {
             const printWindow = window.open('', '', 'height=600,width=800');
