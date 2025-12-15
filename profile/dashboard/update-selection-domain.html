@@ -100,6 +100,10 @@
                                     href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-incentives.html">BD
                                     INCENTIVES</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-targets-admin.html">HR
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets-admin.html">BD
+                                    TARGETS ADMIN</a></li>
                         </ul>
                     </li>
 
@@ -382,6 +386,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
+            Swal.fire({
+                icon: "warning",
+                title: "Access Restricted",
+                text: "You are not permitted to use this page!",
+                confirmButtonText: "Go Back"
+            }).then(() => {
+                window.location.href = "/profile/dashboard/team-manager.html";
+            });
+        }
+    </script>
+
+    <script>
         $(document).ready(function () {
             const BASE_URL = "https://eduroom.in/api/v1/selection-domain";
 
@@ -555,10 +572,7 @@
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
                         console.log("Logout success:", res);
-                        sessionStorage.removeItem("user_id");
-                        sessionStorage.removeItem("coursePasswordVerified");
-                        sessionStorage.removeItem("hr_verified");
-                        sessionStorage.removeItem("bd_verified");
+                        sessionStorage.clear();
 
                         Swal.fire({
                             icon: "success",

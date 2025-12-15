@@ -7,19 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="keyword" content="" />
-    <meta name="author" content="" />
+    <meta name="author" content="Fundsroom" />
     <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
     <!--! BEGIN: Apps Title-->
-    <title>Eduroom || Dashboard</title>
+    <title>Fundsroom HR || CO</title>
     <!--! END:  Apps Title-->
     <!--! BEGIN: Favicon-->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="./../assets/images/FundsAuditLogo.png" />
     <!--! END: Favicon-->
     <!--! BEGIN: Bootstrap CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
     <!--! END: Bootstrap CSS-->
     <!--! BEGIN: Vendors CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/vendors.min.css" />
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/daterangepicker.min.css" />
+    <!--! END: Vendors CSS-->
+    <!--! BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
@@ -28,8 +32,6 @@
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2-theme.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/daterangepicker.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!--! END: Vendors CSS-->
-    <!--! BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
     <!--! END: Custom CSS-->
     <!--! HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries !-->
@@ -226,16 +228,21 @@
             <div class="header-right ms-auto">
                 <div class="d-flex align-items-center">
 
-
-
-                    <!-- Dark/Light Theme Toggle -->
-                    <div class="nxl-h-item dark-light-theme">
-                        <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
-                            <i class="feather-moon"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
-                            <i class="feather-sun"></i>
-                        </a>
+                    <!-- Full Screen Switcher -->
+                    <!-- <div class="nxl-h-item d-none d-sm-flex">
+                        <div class="full-screen-switcher">
+                            <a href="javascript:void(0);" class="nxl-head-link me-0"
+                                onclick="$('body').fullScreenHelper('toggle');">
+                                <i class="feather-maximize maximize"></i>
+                                <i class="feather-minimize minimize"></i>
+                            </a>
+                        </div>
+                    </div> -->
+                    <div class="mb-3" style="margin-right: 10px; margin-top: 20px;">
+                        <!-- <label class="form-label fw-semibold">Select Manager</label> -->
+                        <select id="managerSelect" class="form-select">
+                            <option value="">Select Manager</option>
+                        </select>
                     </div>
 
                     <!-- User Dropdown -->
@@ -277,151 +284,62 @@
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
     <main class="nxl-container">
-        <div class="nxl-content">
-            <!-- [ page-header ] start -->
-            <div class="page-header">
-                <div class="page-header-left d-flex align-items-center">
-                    <div class="page-header-title">
-                        <h5 class="m-b-10">DASHBOARD</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item">UPDATE COURSE PREVIEW</li>
-                    </ul>
+        <!-- [ page-header ] start -->
+        <div class="page-header">
+            <div class="page-header-left d-flex align-items-center">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">DASHBOARD</h5>
                 </div>
+                <ul class="breadcrumb">
+                    <!-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> -->
+                    <li class="breadcrumb-item">HR TARGETS ADMIN</li>
+                </ul>
             </div>
-            <!-- [ page-header ] end -->
-
-            <!-- [ Main Content ] start -->
-            <div class="main-content" style="margin-bottom: 5%;">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card stretch stretch-full">
-                            <div class="card-body">
-
-                                <!-- Domain Select -->
-                                <div class="mb-4">
-                                    <label class="form-label">Select Domain <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="domainSelect" data-select2-selector="icon">
-                                        <option value="">Loading...</option>
-                                    </select>
-                                </div>
-
-                                <!-- Course Select -->
-                                <div class="mb-4">
-                                    <label class="form-label">Select Course <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="courseSelect" data-select2-selector="icon">
-                                        <option value="">Loading...</option>
-                                    </select>
-                                </div>
-
-                                <!-- Course Preview Select -->
-                                <div class="mb-4">
-                                    <label class="form-label">Select Course Preview <span
-                                            class="text-danger">*</span></label>
-                                    <select class="form-select" id="coursePreviewSelect">
-                                        <option value="">Select Course Preview</option>
-                                    </select>
-                                </div>
-
-                                <!-- Title -->
-                                <div class="mb-4">
-                                    <label class="form-label">Course Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="title" placeholder="Enter course title">
-                                </div>
-
-                                <!-- Heading -->
-                                <div class="mb-4">
-                                    <label class="form-label">Heading <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="heading" placeholder="Enter heading">
-                                </div>
-
-                                <!-- YouTube Link -->
-                                <div class="mb-4">
-                                    <label class="form-label">YouTube Link <span class="text-danger">*</span></label>
-                                    <input type="url" class="form-control" id="youtubeLink"
-                                        placeholder="Enter YouTube link">
-                                </div>
-
-                                <!-- Description -->
-                                <div class="mb-4">
-                                    <label class="form-label">Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="description" rows="3"
-                                        placeholder="Enter course description"></textarea>
-                                </div>
-
-                                <!-- Day Count, Language, Level, Duration -->
-                                <div class="row">
-                                    <div class="col-lg-3 mb-4">
-                                        <label class="form-label">Day Count <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="dayCount"
-                                            placeholder="Enter day count">
+        </div>
+        <!-- [ page-header ] end -->
+        <div class="main-content">
+            <div class="row" style="margin-left: 2%; margin-right: 1%;">
+                <div class="col-lg-12" style="margin-top: 2%;">
+                    <div class="card border-top-0">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="profileTab" role="tabpanel">
+                                <div class="card-body personal-info">
+                                    <div class="mb-4 d-flex align-items-center justify-content-between">
+                                        <h5 class="fw-bold mb-0 me-4">
+                                            <span class="d-block mb-2">Targets:</span>
+                                        </h5>
+                                        <div class="date-picker-container">
+                                            <input type="text" id="dateRangePicker" class="form-control"
+                                                placeholder="Select date or range" style="max-width:220px;" />
+                                        </div>
                                     </div>
-                                    <div class="col-lg-3 mb-4">
-                                        <label class="form-label">Language <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="language"
-                                            placeholder="Enter language">
-                                    </div>
-                                    <div class="col-lg-3 mb-4">
-                                        <label class="form-label">Level <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="level"
-                                            placeholder="Beginner / Advanced">
-                                    </div>
-                                    <div class="col-lg-3 mb-4">
-                                        <label class="form-label">Duration <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="duration"
-                                            placeholder="e.g. 2 hours per day">
-                                    </div>
+
+
+                                    <!-- Dynamic target rows will load here -->
+                                    <div id="targetsContainer"></div>
+
                                 </div>
-
-                                <!-- What You Will Learn -->
-                                <div class="mb-4">
-                                    <label class="form-label">What You Will Learn - Paragraph <span
-                                            class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="learnParagraph" rows="2"
-                                        placeholder="Enter introduction paragraph"></textarea>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point1"
-                                            placeholder="Point 1"></div>
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point2"
-                                            placeholder="Point 2"></div>
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point3"
-                                            placeholder="Point 3"></div>
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point4"
-                                            placeholder="Point 4"></div>
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point5"
-                                            placeholder="Point 5"></div>
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point6"
-                                            placeholder="Point 6"></div>
-                                    <div class="col-lg-6 mb-3"><input type="text" class="form-control" id="point7"
-                                            placeholder="Point 7"></div>
-                                </div>
-
-                                <!-- Form Message -->
-                                <div id="formMessage" class="mb-3"></div>
-
-                                <!-- Submit & Delete Buttons -->
-                                <div class="d-flex justify-content-between mb-4">
-                                    <button type="button" class="btn btn-primary" id="submitBtn">Update Course
-                                        Preview</button>
-                                    <button type="button" class="btn btn-danger" id="deleteBtn">Delete Course
-                                        Preview</button>
-                                </div>
-
-
+                                <hr class="my-0">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- [ Main Content ] end -->
         </div>
+        <!-- [ Footer ] end -->
     </main>
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! BEGIN: Theme Customizer !-->
+    <!--! ================================================================ !-->
 
+    <!--! ================================================================ !-->
+    <!--! [End] Theme Customizer !-->
+    <!--! ================================================================ !-->
     <!--! ================================================================ !-->
     <!--! Footer Script !-->
     <!--! ================================================================ !-->
@@ -432,26 +350,24 @@
     <script src="./../assets/vendors/js/apexcharts.min.js"></script>
     <script src="./../assets/vendors/js/circle-progress.min.js"></script>
     <script src="./../assets/vendors/js/jquery.calendar.min.js"></script>
-    <script src="./../assets/vendors/js/tagify.min.js"></script>
-    <script src="./../assets/vendors/js/tagify-data.min.js"></script>
-    <script src="./../assets/vendors/js/quill.min.js"></script>
     <script src="./../assets/vendors/js/select2.min.js"></script>
     <script src="./../assets/vendors/js/select2-active.min.js"></script>
+    <script src="./../assets/js/common-init.min.js"></script>
+    <script src="./../assets/vendors/js/lslstrength.min.js"></script>
     <!--! END: Vendors JS !-->
     <!--! BEGIN: Apps Init  !-->
     <script src="./../assets/js/common-init.min.js"></script>
-    <!-- <script src="./../assets/js/dashboard-init.min.js"></script> -->
-    <!-- <script src="./../assets/js/reports-project-init.min.js"></script> -->
-    <!-- <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script> -->
+    <script src="./../assets/js/reports-project-init.min.js"></script>
+    <script src="./../assets/js/widgets-charts-init.min.js"></script>
+    <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script>
     <!--! END: Apps Init !-->
     <!--! BEGIN: Theme Customizer  !-->
     <script src="./../assets/js/theme-customizer-init.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <!--! END: Theme Customizer !-->
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
         if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
@@ -467,251 +383,215 @@
     </script>
 
     <script>
-        $(document).ready(function () {
+        let fromDate = null;
+        let toDate = null;
 
-            // Fetch Domains
+        const sessionManagerId = null;
+        const managerName = sessionStorage.getItem("userName");
+        let selectedManagerId = sessionManagerId;
+
+        console.log("Manager Name:", managerName);
+
+        const postUrl = `https://eduroom.in/api/v1/mytarget/add`;
+
+        function formatDateForUI(dateStr) {
+            const parts = dateStr.split("-");
+            if (parts.length !== 3) return dateStr;
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        function getDefaultDateRange() {
+            const now = new Date();
+            const firstDay = new Date(now.getFullYear(), now.getMonth(), 2);
+            const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+            return {
+                from: firstDay.toISOString().split("T")[0],
+                to: lastDay.toISOString().split("T")[0]
+            };
+        }
+
+        function loadManagers() {
             $.ajax({
-                url: "https://eduroom.in/api/v1/domain/list",
+                url: "https://eduroom.in/api/v1/teammanager/all",
                 type: "GET",
                 success: function (res) {
-                    console.log("domain list:", res);
-                    let options = '<option value="">Select Domain</option>';
-                    if (res.success && res.data.length > 0) {
-                        res.data.forEach(domain => {
-                            let cleanName = (domain.name || "").replace(/^"(.*)"$/, "$1");
-                            if (cleanName) {
-                                options += `<option value="${domain.id}">${cleanName}</option>`;
-                            }
+                    if (res.data && res.data.length > 0) {
+                        res.data.forEach(manager => {
+                            $("#managerSelect").append(`
+                            <option value="${manager.id}">
+                                ${manager.name} (${manager.department})
+                            </option>
+                        `);
                         });
                     }
-                    $("#domainSelect").html(options);
                 },
-                error: function () {
-                    $("#domainSelect").html('<option value="">Error loading domains</option>');
+                error: function (err) {
+                    console.error("Manager load failed:", err);
                 }
             });
+        }
 
-            // Fetch Courses for userId=2
-            $.ajax({
-                url: "https://eduroom.in/api/v1/course/courses?userId=1",
-                type: "GET",
-                success: function (res) {
-                    console.log("course list:", res);
-                    let options = '<option value="">Select Course</option>';
-                    if (res.success && res.data.length > 0) {
-                        res.data.forEach(course => {
-                            let cleanName = (course.name || "").replace(/^"(.*)"$/, "$1");
-                            if (cleanName) {
-                                options += `<option value="${course.id}">${cleanName}</option>`;
-                            }
-                        });
-                    }
-                    $("#courseSelect").html(options);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching courses:", status, error, xhr.responseText);
-                    $("#courseSelect").html('<option value="">Error loading courses</option>');
-                }
-            });
+        function renderTargetRows(data) {
+            const container = $("#targetsContainer");
+            container.empty();
 
-            // Fetch all Course Previews (no filtering)
-            function fetchCoursePreviews() {
-                $.ajax({
-                    url: "https://eduroom.in/api/v1/coursepreview/course-previews",
-                    type: "GET",
-                    success: function (res) {
-                        console.log("course previews:", res);
-                        let options = '<option value="">Select Course Preview</option>';
-                        if (res.success && res.data.length > 0) {
-                            res.data.forEach(preview => {
-                                options += `<option value="${preview.coursePreviewId}">${preview.title}</option>`;
-                            });
-                        }
-                        $("#coursePreviewSelect").html(options);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error fetching course previews:", status, error, xhr.responseText);
-                        $("#coursePreviewSelect").html('<option value="">Error loading course previews</option>');
-                    }
-                });
+            if (!data || data.length === 0) {
+                container.append(`<p class="text-muted">No targets found for this date range.</p>`);
+                return;
             }
 
-            // Trigger fetching previews on domain/course change
-            $("#domainSelect, #courseSelect").change(fetchCoursePreviews);
+            data.forEach((item, index) => {
 
-            // Auto-fill form when a course preview is selected
-            $(document).on("change", "#coursePreviewSelect", function () {
-                const previewId = $(this).val();
-                if (!previewId) return;
+                let btnClass =
+                    (parseInt(item.jds) > 0 ||
+                        parseInt(item.calls) > 0 ||
+                        parseInt(item.followUps) > 0 ||
+                        parseInt(item.resumetarget) > 0 ||
+                        parseInt(item.collegeTarget) > 0 ||
+                        parseInt(item.interviewsTarget) > 0 ||
+                        parseInt(item.resumesReceivedTarget) > 0)
+                        ? "btn-success"
+                        : "btn-primary";
 
-                $.ajax({
-                    url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
-                    type: "GET",
-                    success: function (res) {
-                        console.log("GET preview:", res);
-                        const data = res.data || res;
+                const row = `
+                    <div class="row mb-3 align-items-center border-bottom pb-2">
+                        <div class="col-lg-2 fw-semibold">
+                            ${formatDateForUI(item.date)}
+                            <small class="text-muted">(${item.day})</small> :
+                        </div>
 
-                        $("#title").val(data.title || "");
-                        $("#heading").val(data.heading || "");
-                        $("#youtubeLink").val(data.youtubeLink || "");
-                        $("#description").val(data.description || "");
-                        $("#dayCount").val(data.dayCount || "");
-                        $("#language").val(data.language || "");
-                        $("#level").val(data.level || "");
-                        $("#duration").val(data.duration || "");
+                        <div class="row mb-3 align-items-center">
 
-                        $("#learnParagraph").val(data.whatYouWillLearn?.paragraph || "");
-                        for (let i = 0; i < 7; i++) {
-                            $(`#point${i + 1}`).val(data.whatYouWillLearn?.bullets?.[i] || "");
-                        }
-                    },
-                    error: function (xhr) {
-                        alert("Error fetching course preview: " + xhr.responseText);
-                    }
-                });
+                            <div class="col-lg-2">JDs:
+                                <input type="number" class="form-control" id="jds-${index}" value="${item.jds}" />
+                            </div>
+
+                            <div class="col-lg-2">Calls:
+                                <input type="number" class="form-control" id="calls-${index}" value="${item.calls}" />
+                            </div>
+
+                            <div class="col-lg-2">Follow Ups:
+                                <input type="number" class="form-control" id="followUps-${index}" value="${item.followUps}" />
+                            </div>
+
+                            <div class="col-lg-2">Resume:
+                                <input type="number" class="form-control" id="resumetarget-${index}" value="${item.resumetarget}" />
+                            </div>
+
+                            <div class="col-lg-2">College:
+                                <input type="number" class="form-control" id="collegeTarget-${index}" value="${item.collegeTarget || 0}" />
+                            </div>
+
+                            <div class="col-lg-2">Resumes Received:
+                                <input type="number" class="form-control" id="resumesReceivedTarget-${index}" value="${item.resumesReceivedTarget || 0}" />
+                            </div>
+
+                            <div class="col-lg-1 text-end mt-3">
+                                <button class="btn ${btnClass} btn-save"
+                                    data-date="${item.date}"
+                                    data-index="${index}">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+
+                container.append(row);
             });
 
-            // Update Course Preview (PUT) with SweetAlert loader
-            $("#submitBtn").click(function (e) {
-                e.preventDefault();
+            $(".btn-save").on("click", function () {
+                const index = $(this).data("index");
+                const date = $(this).data("date");
 
-                const previewId = $("#coursePreviewSelect").val();
-                if (!previewId) {
-                    Swal.fire("Error", "Please select a Course Preview to update", "error");
-                    return;
+                saveTarget(
+                    date,
+                    $(`#jds-${index}`).val(),
+                    $(`#calls-${index}`).val(),
+                    $(`#followUps-${index}`).val(),
+                    $(`#resumetarget-${index}`).val(),
+                    $(`#collegeTarget-${index}`).val(),
+                    0,
+                    $(`#resumesReceivedTarget-${index}`).val()
+                );
+            });
+        }
+
+        function fetchTargetData(startDate, endDate) {
+            const apiUrl = `https://eduroom.in/api/v1/mytarget/fetch?teamManagerId=${selectedManagerId}&startDate=${startDate}&endDate=${endDate}`;
+            console.log("GET:", apiUrl);
+
+            $.ajax({
+                url: apiUrl,
+                type: "GET",
+                success: function (response) {
+                    if (response.success && response.dates?.length) {
+                        renderTargetRows(response.dates);
+                    } else {
+                        $("#targetsContainer").html("<p class='text-muted'>No targets found.</p>");
+                    }
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                    $("#targetsContainer").html("<p class='text-muted' style='font-size: 16px;'>Please select a manager to view targets.</p>");
                 }
-
-                const payload = {
-                    courseId: parseInt($("#courseSelect").val(), 10),
-                    domainId: parseInt($("#domainSelect").val(), 10),
-                    title: $("#title").val().trim(),
-                    heading: $("#heading").val().trim(),
-                    youtubeLink: $("#youtubeLink").val().trim(),
-                    description: $("#description").val().trim(),
-                    dayCount: parseInt($("#dayCount").val().trim(), 10),
-                    language: $("#language").val().trim(),
-                    level: $("#level").val().trim(),
-                    duration: $("#duration").val().trim(),
-                    whatYouWillLearn: {
-                        paragraph: $("#learnParagraph").val().trim(),
-                        bullets: [
-                            $("#point1").val().trim(),
-                            $("#point2").val().trim(),
-                            $("#point3").val().trim(),
-                            $("#point4").val().trim(),
-                            $("#point5").val().trim(),
-                            $("#point6").val().trim(),
-                            $("#point7").val().trim()
-                        ]
-                    }
-                };
-
-                Swal.fire({
-                    title: 'Updating...',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-
-                $.ajax({
-                    url: "https://eduroom.in/api/v1/coursepreview/course-preview/" + previewId,
-                    type: "PUT",
-                    contentType: "application/json",
-                    processData: false,
-                    data: JSON.stringify(payload),
-                    success: function (response) {
-                        Swal.close();
-                        console.log("PUT response:", response);
-                        $("#formMessage").html('<span class="text-success">✅ Course preview updated successfully!</span>');
-                    },
-                    error: function (xhr) {
-                        Swal.close();
-                        let msg = xhr.responseText || "Error updating course preview. Try again!";
-                        $("#formMessage").html('<span class="text-danger">❌ ' + msg + '</span>');
-                    }
-                });
             });
+        }
 
-            $("#deleteBtn").click(function () {
-                const previewId = $("#coursePreviewSelect").val();
-                if (!previewId) {
-                    Swal.fire("⚠ Error", "Please select a Course Preview to delete.", "error");
-                    return;
+        function saveTarget(date, jds, calls, followUps, resumetarget, collegeTarget, interviewsTarget, resumesReceivedTarget) {
+
+            const payload = {
+                teamManagerId: selectedManagerId,
+                targets: [{
+                    date,
+                    jds: parseInt(jds),
+                    calls: parseInt(calls),
+                    followUps: parseInt(followUps),
+                    resumetarget: parseInt(resumetarget),
+                    collegeTarget: parseInt(collegeTarget),
+                    interviewsTarget: parseInt(interviewsTarget),
+                    resumesReceivedTarget: parseInt(resumesReceivedTarget)
+                }]
+            };
+
+            $.ajax({
+                url: postUrl,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function () {
+                    fetchTargetData(fromDate, toDate);
                 }
+            });
+        }
 
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This will permanently delete the course-preview.",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "Cancel"
-                }).then((result) => {
-                    if (result.isConfirmed) {
+        $(document).ready(function () {
 
-                        Swal.fire({
-                            title: "Password Required",
-                            text: "Please enter the admin password to confirm deletion. (Note: Once deleted the Course-Preview cannot be recovered!!!)",
-                            input: "password",
-                            inputPlaceholder: "Enter password",
-                            showCancelButton: true,
-                            confirmButtonText: "Confirm",
-                            cancelButtonText: "Cancel",
-                            inputAttributes: {
-                                maxlength: 50,
-                                autocapitalize: "off",
-                                autocorrect: "off"
-                            }
-                        }).then((passwordResult) => {
-                            if (passwordResult.isConfirmed) {
-                                const enteredPassword = passwordResult.value;
+            loadManagers();
 
-                                $.getJSON("/config.json", function (config) {
-                                    if (enteredPassword === config.adminPassword) {
-
-                                        Swal.fire({
-                                            title: "Deleting...",
-                                            allowOutsideClick: false,
-                                            didOpen: () => {
-                                                Swal.showLoading();
-                                            }
-                                        });
-
-                                        $.ajax({
-                                            url: `https://eduroom.in/api/v1/coursepreview/course-preview/${previewId}`,
-                                            type: "DELETE",
-                                            success: function () {
-                                                Swal.close();
-                                                Swal.fire("Deleted!", "Course preview has been deleted.", "success");
-
-                                                $("#coursePreviewSelect").val("").trigger("change");
-                                                $("#formMessage").html('<span class="text-success">✅ Course preview deleted successfully!</span>');
-
-                                                setTimeout(function () {
-                                                    location.reload();
-                                                }, 3000);
-                                            },
-                                            error: function (xhr) {
-                                                Swal.close();
-                                                Swal.fire("❌ Error", xhr.responseText || "Error deleting course preview", "error");
-                                            }
-                                        });
-                                    } else {
-                                        Swal.fire("❌ Access Denied", "Incorrect password. Deletion cancelled.", "error");
-                                    }
-                                }).fail(function () {
-                                    Swal.fire("⚠ Error", "Could not load config.json", "error");
-                                });
-                            }
-                        });
-                    }
-                });
+            $("#managerSelect").on("change", function () {
+                selectedManagerId = $(this).val() || sessionManagerId;
+                fetchTargetData(fromDate, toDate);
             });
 
-            // Initial fetch of all course previews on page load
-            fetchCoursePreviews();
+            const defaultRange = getDefaultDateRange();
+            fromDate = defaultRange.from;
+            toDate = defaultRange.to;
 
+            flatpickr("#dateRangePicker", {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                defaultDate: [fromDate, toDate],
+                onClose: function (dates, _, instance) {
+                    if (dates.length === 2) {
+                        fromDate = instance.formatDate(dates[0], "Y-m-d");
+                        toDate = instance.formatDate(dates[1], "Y-m-d");
+                    }
+                    fetchTargetData(fromDate, toDate);
+                }
+            });
+
+            fetchTargetData(fromDate, toDate);
         });
     </script>
 
