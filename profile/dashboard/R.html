@@ -619,6 +619,7 @@
                                                 <th>DOMAIN</th>
                                                 <th>Interviewed By</th>
                                                 <th>Date of Interview</th>
+                                                <th>Call Status</th>
                                                 <th>Knowledge Score</th>
                                                 <th>Approach Score</th>
                                                 <th>Skills Score</th>
@@ -627,7 +628,6 @@
                                                 <th>Selection status</th>
                                                 <th>Comment</th>
                                                 <!-- <th>Date of interview</th> -->
-                                                <th>Call Status</th>
                                                 <th>Alloted to</th>
                                                 <!-- <th>MAIL SENT ON</th>
                                                     <th>Send Resume</th> -->
@@ -832,6 +832,7 @@
                                                 <th>DOMAIN</th>
                                                 <th>Interviewed By</th>
                                                 <th>Date of interview</th>
+                                                <th>Call Status</th>
                                                 <th>Knowledge Score</th>
                                                 <th>Approach Score</th>
                                                 <th>Skills Score</th>
@@ -840,7 +841,6 @@
                                                 <th>Selection status</th>
                                                 <th>Comment</th>
                                                 <!-- <th>Date of interview</th> -->
-                                                <th>Call Status</th>
                                                 <th>Alloted to</th>
                                                 <!-- <th>MAIL SENT ON</th>
                                                     <th>Send Resume</th> -->
@@ -1293,6 +1293,7 @@
                                             <th>DOMAIN</th>
                                             <th>Interviewed By</th>
                                             <th>Date of Onboarding</th>
+                                            <th>Call Status</th>
                                             <th>Knowledge Score</th>
                                             <th>Approach Score</th>
                                             <th>Skills Score</th>
@@ -1300,7 +1301,6 @@
                                             <th>Total average score</th>
                                             <th>Selection status</th>
                                             <th>Comment</th>
-                                            <th>Call Status</th>
                                             <th>Alloted to</th>
                                             <!-- <th>MAIL SENT ON</th>
                                             <th>Send Resume</th> -->
@@ -2009,6 +2009,7 @@
                 `;
 
                 tr += makeDateCell("Dateofonboarding", row.Dateofonboarding || "");
+                tr += makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus);
                 tr += makeNumberCell("knowledgeScore", row.knowledgeScore || "");
                 tr += makeNumberCell("approachScore", row.approachScore || "");
                 tr += makeNumberCell("skillsScore", row.skillsScore || "");
@@ -2018,8 +2019,6 @@
                 tr += makeDropdownCell("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns.finalSelectionStatus);
 
                 tr += makeCell("comment", row.comment || "");
-
-                tr += makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus);
 
                 tr += makeDropdownCell("alloted", row.alloted || "", null, dropdowns.alloted || []);
 
@@ -2050,6 +2049,7 @@
             // new columns
             "interviewedBy",
             "Dateofonboarding",
+            "callStatus",
             "knowledgeScore",
             "approachScore",
             "skillsScore",
@@ -2057,7 +2057,6 @@
             "totalAverageScore",
             "finalSelectionStatus",
             "comment",
-            "callStatus",
             "alloted"
         ];
 
@@ -2611,6 +2610,7 @@
                 "Domain",
                 "Interviewed By",
                 "Date of Onboarding",
+                "Call Status",
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -2618,7 +2618,6 @@
                 "Total Average Score",
                 "Final Selection Status",
                 "Comment",
-                "Call Status",
                 "Alloted"
             ];
 
@@ -2647,6 +2646,7 @@
                     row.domain,
                     row.interviewedBy,
                     formatDate(row.Dateofonboarding),
+                    row.callStatus,
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,
@@ -2654,7 +2654,6 @@
                     row.totalAverageScore,
                     row.finalSelectionStatus,
                     row.comment,
-                    row.callStatus,
                     row.alloted
                 ];
 
@@ -2937,6 +2936,7 @@
 
                 tr2 += makeDropdownCell2("interviewedBy", row.interviewedBy || "", null, dropdowns2.interviewedBy);
                 tr2 += makeDateCell2("Dateofonboarding", row.Dateofonboarding || "");
+                tr2 += makeDropdownCell2("callStatus", row.callStatus || "", null, dropdowns2.callStatus);
                 tr2 += makeNumberCell2("knowledgeScore", row.knowledgeScore || "");
                 tr2 += makeNumberCell2("approachScore", row.approachScore || "");
                 tr2 += makeNumberCell2("skillsScore", row.skillsScore || "");
@@ -2946,8 +2946,6 @@
                 tr2 += makeDropdownCell2("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns2.finalSelectionStatus);
 
                 tr2 += makeCell2("comment", row.comment || "");
-
-                tr2 += makeDropdownCell2("callStatus", row.callStatus || "", null, dropdowns2.callStatus);
 
                 tr2 += makeDropdownCell2("alloted", row.alloted || "", null, dropdowns2.alloted || []);
 
@@ -2985,6 +2983,7 @@
             // new columns
             "interviewedBy",
             "Dateofonboarding",
+            "callStatus",
             "knowledgeScore",
             "approachScore",
             "skillsScore",
@@ -2992,7 +2991,6 @@
             "totalAverageScore",
             "finalSelectionStatus",
             "comment",
-            "callStatus",
             "alloted"
         ];
 
@@ -3542,6 +3540,7 @@
                 "Domain",
                 "Interviewed By",
                 "Date of Onboarding",
+                "Call Status",
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -3549,7 +3548,6 @@
                 "Total Average Score",
                 "Final Selection Status",
                 "Comment",
-                "Call Status",
                 "Alloted"
             ];
 
@@ -3578,6 +3576,7 @@
                     row.domain,
                     row.interviewedBy,
                     formatDate2(row.Dateofonboarding),
+                    row.callStatus,
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,
@@ -3585,7 +3584,6 @@
                     row.totalAverageScore,
                     row.finalSelectionStatus,
                     row.comment,
-                    row.callStatus,
                     row.alloted
                 ];
 
@@ -3866,6 +3864,7 @@
 
                 tr3 += makeDropdownCell3("interviewedBy", row.interviewedBy || "", null, dropdowns3.interviewedBy);
                 tr3 += makeDateCell3("Dateofonboarding", row.Dateofonboarding || "");
+                tr3 += makeDropdownCell3("callStatus", row.callStatus || "", null, dropdowns3.callStatus);
                 tr3 += makeNumberCell3("knowledgeScore", row.knowledgeScore || "");
                 tr3 += makeNumberCell3("approachScore", row.approachScore || "");
                 tr3 += makeNumberCell3("skillsScore", row.skillsScore || "");
@@ -3875,8 +3874,6 @@
                 tr3 += makeDropdownCell3("finalSelectionStatus", row.finalSelectionStatus || "", null, dropdowns3.finalSelectionStatus);
 
                 tr3 += makeCell3("comment", row.comment || "");
-
-                tr3 += makeDropdownCell3("callStatus", row.callStatus || "", null, dropdowns3.callStatus);
 
                 tr3 += makeDropdownCell3("alloted", row.alloted || "", null, dropdowns3.alloted || []);
 
@@ -3914,6 +3911,7 @@
             // new columns
             "interviewedBy",
             "Dateofonboarding",
+            "callStatus",
             "knowledgeScore",
             "approachScore",
             "skillsScore",
@@ -3921,7 +3919,6 @@
             "totalAverageScore",
             "finalSelectionStatus",
             "comment",
-            "callStatus",
             "alloted"
         ];
 
@@ -4470,6 +4467,7 @@
                 "Domain",
                 "Interviewed By",
                 "Date of Onboarding",
+                "Call Status",
                 "Knowledge Score",
                 "Approach Score",
                 "Skills Score",
@@ -4477,7 +4475,6 @@
                 "Total Average Score",
                 "Final Selection Status",
                 "Comment",
-                "Call Status",
                 "Alloted"
             ];
 
@@ -4506,6 +4503,7 @@
                     row.domain,
                     row.interviewedBy,
                     formatDate3(row.Dateofonboarding),
+                    row.callStatus,
                     row.knowledgeScore,
                     row.approachScore,
                     row.skillsScore,
@@ -4513,7 +4511,6 @@
                     row.totalAverageScore,
                     row.finalSelectionStatus,
                     row.comment,
-                    row.callStatus,
                     row.alloted
                 ];
 
