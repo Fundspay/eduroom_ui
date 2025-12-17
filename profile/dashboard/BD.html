@@ -2745,7 +2745,7 @@
         }
 
         function loadDashboardData(startDate = null, endDate = null) {
-            let url = `https://eduroom.in/api/v1/bdsheet/activestatus?manegerid=${teamManagerId}`;
+            let url = `https://eduroom.in/api/v1/bdsheet/activestatus?managerId=${teamManagerId}`;
 
             if (startDate && endDate) {
                 url += `&startDate=${startDate}&endDate=${endDate}`;
