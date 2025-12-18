@@ -1692,6 +1692,164 @@
             </style>
             <!-- [ Footer ] end -->
     </main>
+    <div class="modal fade-scale" id="composeMail" tabindex="-1" aria-labelledby="composeMail" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="d-flex flex-column mb-0">
+                        <span class="fs-18 fw-bold mb-1">Compose Reconnect Mail</span>
+                        <small class="d-block fs-11 fw-normal text-muted">Send Reconnect Mail to College
+                            Coordinator</small>
+                    </h2>
+                    <a href="javascript:void(0)" class="avatar-text avatar-md bg-soft-danger close-icon"
+                        data-bs-dismiss="modal">
+                        <i class="feather-x text-danger"></i>
+                    </a>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="position-relative border-bottom">
+                        <div class="col-lg-12 mb-4">
+                            <input id="from" class="form-control border-0 text-dark flex-grow-1" name="from"
+                                placeholder="From: support@fundsbuilder.in" style="min-width: 150px;" readonly>
+                        </div>
+                        <div class="px-2 d-flex align-items-center">
+                            <div class="p-0 w-100 d-flex flex-wrap align-items-center gap-1" id="email-chip-wrapper">
+                                <input id="email-input" class="form-control border-0 text-dark flex-grow-1"
+                                    name="tomailmodal" placeholder="To" style="min-width: 150px;" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom mail-cc-bcc-fields" id="ccbccToggleModalFileds" style="display: none">
+                        <div class="px-2 w-100 d-flex align-items-center border-bottom">
+                            <input class="form-control border-0 text-dark" name="ccmailmodal" placeholder="CC">
+                        </div>
+                        <div class="px-2 w-100 d-flex align-items-center">
+                            <input class="form-control border-0 text-dark" name="bccmailmodal" placeholder="BCC">
+                        </div>
+                    </div>
+
+                    <div class="px-2 w-100 d-flex align-items-center">
+                        <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
+                            placeholder="Subject"
+                            value="Reconfirmation of Live Project Process - FundsAudit" readonly>
+                    </div>
+
+                    <!-- Email Body Container -->
+                    <div class="email-body-container p-3">
+                        <!-- Fixed Top Part -->
+                        <div id="email-fixed-top" class="email-fixed-part mb-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+
+                        <!-- Editable Middle Part -->
+                        <div class="email-editable-part mb-3">
+                            <label class="fw-semibold text-dark mb-2 d-block">Customize Email:</label>
+                            <div id="mailEditorModal" class="ht-200 border rounded p-3 bg-white" contenteditable="true">
+                                <!-- Editable content will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Fixed Bottom Part -->
+                        <div id="email-fixed-bottom" class="email-fixed-part mt-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="mt-4 px-3" id="emailPreviewContainer">
+                        <label class="fw-semibold text-dark mb-2 d-block">Email Preview:</label>
+                        <div id="emailPreview" class="border rounded p-3 bg-light"
+                            style="max-height: 400px; overflow-y: auto;">
+                            <!-- Live preview will be injected here -->
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="currentRecordId" value="">
+                    <input type="hidden" id="currentRecordData" value="">
+                </div>
+
+                <div class="modal-footer d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <button id="sendEmailBtn" class="btn btn-primary me-2" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" title="Send Message">
+                            Send Reconnect Mail
+                        </button>
+
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="copyEmailBody()">
+                            <i class="feather-copy me-1"></i> Copy Body
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-outline-danger">
+                            <i class="feather-x me-1"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .email-body-container {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px;
+        }
+
+        .email-fixed-part {
+            font-size: 14px;
+            line-height: 1.6;
+            user-select: none;
+            cursor: default;
+        }
+
+        .email-editable-part {
+            border-left: 3px solid #0d6efd;
+            padding-left: 15px;
+        }
+
+        #mailEditorModal {
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ced4da !important;
+            background-color: #fff !important;
+        }
+
+        #mailEditorModal:focus {
+            outline: none;
+            border-color: #86b7fe !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+        }
+
+        #emailPreview {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #emailPreview h4 {
+            color: #59595d;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        #emailPreview ul {
+            padding-left: 20px;
+        }
+
+        #emailPreview li {
+            margin-bottom: 5px;
+        }
+
+        .email-template-variable {
+            background-color: #e7f1ff;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
@@ -1791,6 +1949,45 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
+        let currentRecord = null;
+
+        const emailTemplate = {
+        fixedTop: (record) => `
+            <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+            <p>Greetings from FundsAudit!</p>
+            <p>I hope this message finds you well.</p>`,
+
+        editableMiddle: `
+            <p>This is to reconfirm the points discussed during our recent call held on <b>22nd August 2025</b> regarding the Live Project process:</p>
+
+            <ul>
+
+                <li><b>Student Responses -</b> As discussed, the list of interested students will be shared by your end on <b>1st September 2025</b></li>
+
+                <li><b>Pre-Placement Talk -</b> The pre-placement talk will be successfully conducted on <b>1st September 2025</b>, during which all necessary roles, responsibilities, and expectations were clearly communicated.</li>
+
+                <li><b>Interview Schedule -</b> Interviews for the shortlisted students are scheduled immediately after the Pre-Placement Talk.</li>
+
+                <li><b>Internship Commencement -</b> The selected students will begin their internship from <b>2nd September 2025</b>, with sessions scheduled to start between <b>11 a.m to 5 p.m.</b></li>
+
+                <li><b>Student Commitment -</b> As agreed, the selected students are expected to actively participate and commit to the <b>1-hour session time</b> allotted by the college.</li>
+
+            </ul>
+
+            <p>We request you to kindly acknowledge this mail and confirm the same from your end, so we can proceed with the required arrangements accordingly.</p>
+
+            <p>As I have been unable to reach you regarding the further proceedings, I kindly request you to let us know the updates at your earliest convenience.</p>`,
+
+        fixedBottom: `
+            <p>Looking forward to your response and hoping to establish a fruitful collaboration.</p>
+            <p>Pooja M. Shedge<br/>
+            Branch Manager - Pune<br/>
+            +91 7385234536 | +91 7420861507<br/>
+            Pune, Maharashtra<br/>
+            <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+            <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+            </p>`
+        };
 
         function loadCities() {
             return fetch("/profile/dashboard/cities.json")
@@ -1845,8 +2042,216 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+
+                        initEmailModalEvents();
                     }
                 }
+            });
+        }
+
+        function initEmailModalEvents() {
+            $('#composeMail').on('show.bs.modal', function (e) {
+                const button = $(e.relatedTarget);
+                const recordId = button.data('id');
+                const record = tableData.find(row => row.id == recordId);
+
+                if (record) {
+                    currentRecord = record;
+                    loadEmailModal(record);
+
+                    setTimeout(() => {
+                        const editableDiv = document.getElementById('mailEditorModal');
+                        if (editableDiv) {
+                            editableDiv.focus();
+                            const range = document.createRange();
+                            range.selectNodeContents(editableDiv);
+                            range.collapse(true);
+                            const selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }, 100);
+                }
+            });
+
+            $('#mailEditorModal').on('input', function () {
+                updateEmailPreview();
+            });
+
+            $('#sendEmailBtn').off('click').on('click', function () {
+                sendFollowUpEmail();
+            });
+
+            $('#copyEmailBtn').off('click').on('click', function () {
+                copyEmailBody();
+            });
+        }
+
+        function loadEmailModal(record) {
+            $('#currentRecordId').val(record.id);
+
+            $('#email-input').val(record.emailId || '');
+
+            $('#email-fixed-top').html(emailTemplate.fixedTop(record));
+
+            $('#mailEditorModal').html(emailTemplate.editableMiddle);
+
+            $('#email-fixed-bottom').html(emailTemplate.fixedBottom);
+
+            $('#subject-input').val(`Reconfirmation of Live Project Process - FundsAudit`);
+
+            updateEmailPreview();
+        }
+
+        function updateEmailPreview() {
+            const record = currentRecord;
+            if (!record) return;
+
+            const editableContent = $('#mailEditorModal').html();
+
+            const fullEmailBody = `
+            ${emailTemplate.fixedTop(record)}
+            ${editableContent}
+            ${emailTemplate.fixedBottom}
+        `;
+
+            $('#emailPreview').html(fullEmailBody);
+        }
+
+        function getFullEmailBody() {
+            const record = currentRecord;
+            if (!record) return '';
+
+            const editableContent = $('#mailEditorModal').html();
+
+            const fixedTopHtml = emailTemplate.fixedTop(record)
+                .replace(/<span class="email-template-variable">/g, '')
+                .replace(/<\/span>/g, '');
+
+            return `
+            ${editableContent}
+        `;
+        }
+
+        function sendFollowUpEmail() {
+            const recordId = $('#currentRecordId').val();
+            const record = tableData.find(row => row.id == recordId);
+
+            if (!record) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Record not found!"
+                });
+                return;
+            }
+
+            const cc = $('[name="ccmailmodal"]').val() ? [$('[name="ccmailmodal"]').val()] : [];
+            const bcc = $('[name="bccmailmodal"]').val() ? [$('[name="bccmailmodal"]').val()] : [];
+            const emailBody = getFullEmailBody();
+            const subject = $('#subject-input').val() || `Follow-up: Internship Opportunity - ${record.collegeName || 'College'}`;
+
+            Swal.fire({
+                title: "Send Follow-up Mail?",
+                text: `Send follow-up to ${record.coordinatorName || 'coordinator'} at ${record.collegeName || 'college'}?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Send",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Sending...",
+                        text: "Please wait while the follow-up mail is being sent",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    const payload = {
+                        cc: cc,
+                        bcc: bcc,
+                        teamManagerId: teamManagerId,
+                        subject: subject,
+                        body: emailBody
+                    };
+
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/resumedetails/send-followup-email/" + recordId,
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(payload),
+                        success: function (res) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Mail Sent!",
+                                text: "The follow-up mail was sent successfully."
+                            });
+                            $('#composeMail').modal('hide');
+
+                            updateFollowUpFields(recordId);
+                        },
+                        error: function (err) {
+                            console.error("Error sending email:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Failed to send the follow-up mail. Please try again."
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        function updateFollowUpFields(recordId) {
+            const today = new Date().toISOString().split('T')[0];
+            const payload = {
+                followUpBy: managerName || "System",
+                followUpDate: today,
+                followUpResponse: "follow-up sent"
+            };
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/resumedetails/update/` + recordId,
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    console.log("Updated follow-up fields");
+                    loadTableData();
+                },
+                error: function (err) {
+                    console.error("Failed to update follow-up fields", err);
+                }
+            });
+        }
+
+        function copyEmailBody() {
+            const emailBody = getFullEmailBody();
+            const plainText = emailBody.replace(/<[^>]*>/g, '')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .trim();
+
+            navigator.clipboard.writeText(plainText).then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Copied!",
+                    text: "Email body copied to clipboard",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(err => {
+                console.error("Failed to copy:", err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to copy to clipboard"
+                });
             });
         }
 
@@ -1887,7 +2292,8 @@
                     ${makeDateCell("resumeDate", row.resumeDate || "")}
                     ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
                     <td>
-                        <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                                data-bs-target="#composeMail" title="Send Follow-up">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
@@ -1896,7 +2302,6 @@
             });
 
             attachCellEvents();
-            attachSendMailEvents();
             setStickyColumns();
         }
 
@@ -1944,10 +2349,10 @@
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th>
-                <select class="column-filter form-select form-select-sm" data-index="${i}">
-                    <option value="">All</option>
-                </select>
-            </th>`;
+                        <select class="column-filter form-select form-select-sm" data-index="${i}">
+                            <option value="">All</option>
+                        </select>
+                    </th>`;
                 }
             });
             filterRow += "</tr>";
@@ -2019,36 +2424,6 @@
         }
 
         function applyFilters() {
-            const filters = {};
-            $(".column-filter").each(function () {
-                const index = $(this).data("index");
-                const value = $(this).val();
-                if (value) filters[index] = value;
-            });
-
-            $("#leadsTable tbody tr").each(function () {
-                let show = true;
-                $(this).find("td").each(function (i, td) {
-                    if (filters[i]) {
-                        const colName = $("#leadsTable thead th").eq(i).text().trim().toLowerCase();
-                        let cellText = $(td).text().trim();
-
-                        if (colName.includes("no. of resumes") || colName.includes("number of resumes")) {
-
-                            if (parseInt(cellText, 10) !== parseInt(filters[i], 10)) {
-                                show = false;
-                            }
-                        } else {
-                            if (cellText !== filters[i]) {
-                                show = false;
-                            }
-                        }
-                    }
-                });
-                $(this).toggle(show);
-            });
-        }
-        function applyFilters() {
             filteredData = [...tableData];
             $("#leadsTable thead .column-filter").each(function () {
                 const value = $(this).val();
@@ -2056,8 +2431,7 @@
                 if (value) {
                     filteredData = filteredData.filter(row => {
                         const cellValue = Object.values(row)[index] || "";
-
-                        return cellValue.toLowerCase() === value.toLowerCase();
+                        return cellValue.toString().toLowerCase() === value.toString().toLowerCase();
                     });
                 }
             });
@@ -2069,26 +2443,26 @@
         function makeCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" value="${displayValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" value="${displayValue}">
+            </td>`;
         }
 
         function makeNumberCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="number" value="${displayValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="number" value="${displayValue}">
+            </td>`;
         }
 
         function makeDateCell(field, value) {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker" value="${rawValue}">
+            </td>`;
         }
 
         function makeDropdownCell(field, selectedValue, stateFilter = null, optionsList = null) {
@@ -2101,8 +2475,8 @@
             let displaySelected = selectedValue ? capitalize(selectedValue) : "";
 
             let html = `<td data-field="${field}">
-            <span style="font-weight:bold;">${displaySelected}</span>
-            <select class="form-control select2">`;
+                <span style="font-weight:bold;">${displaySelected}</span>
+                <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -2238,53 +2612,6 @@
             });
         }
 
-        function attachSendMailEvents() {
-            $(".send-mail").off("click").on("click", function () {
-                const id = $(this).data("id");
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "Do you want to send the Follow up mail?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, Send",
-                    cancelButtonText: "Cancel"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: "Sending...",
-                            text: "Please wait while the follow up mail is being sent",
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-
-                        $.ajax({
-                            url: "https://eduroom.in/api/v1/resumedetails/send-followup-email/" + id,
-                            method: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify({ cc: [], bcc: [], teamManagerId: teamManagerId }),
-                            success: function (res) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Mail Sent!",
-                                    text: "The Follow up mail was sent successfully."
-                                });
-                            },
-                            error: function (err) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: "Failed to send the Follow up mail."
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        }
-
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
             if (!value) {
@@ -2304,10 +2631,10 @@
             tbody.empty();
             filtered.forEach((row, index) => {
                 const tr = `<tr data-id="${row.id}">
-                    <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                <td>
+                <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </button>
                 </td>
                 <td>${row.sno}</td>
 
@@ -2331,7 +2658,8 @@
                 ${makeDateCell("resumeDate", row.resumeDate || "")}
                 ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
                 <td>
-                    <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                            data-bs-target="#composeMail" title="Send Follow-up">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </td>
@@ -2341,7 +2669,6 @@
 
             $("#pagination").hide();
             attachCellEvents();
-            attachSendMailEvents();
         };
 
         window.printTable = function () {
@@ -2620,7 +2947,8 @@
                     ${makeDateCell2("resumeDate", row.resumeDate || "")}
                     ${makeDateCell2("expectedResponseDate", row.expectedResponseDate || "")}
                     <td>
-                        <button class="btn btn-sm btn-success send-mail2" data-id="${row.id}" title="Send JD">
+                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                                data-bs-target="#composeMail" title="Send Follow-up">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
