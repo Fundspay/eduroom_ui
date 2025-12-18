@@ -2190,7 +2190,7 @@
                             });
                             $('#composeMail').modal('hide');
 
-                            updateFollowUpFields(recordId);
+                            // updateFollowUpFields(recordId);
                         },
                         error: function (err) {
                             console.error("Error sending email:", err);
@@ -2205,28 +2205,28 @@
             });
         }
 
-        function updateFollowUpFields(recordId) {
-            const today = new Date().toISOString().split('T')[0];
-            const payload = {
-                followUpBy: managerName || "System",
-                followUpDate: today,
-                followUpResponse: "follow-up sent"
-            };
+        // function updateFollowUpFields(recordId) {
+        //     const today = new Date().toISOString().split('T')[0];
+        //     const payload = {
+        //         followUpBy: managerName || "System",
+        //         followUpDate: today,
+        //         followUpResponse: "follow-up sent"
+        //     };
 
-            $.ajax({
-                url: `https://eduroom.in/api/v1/resumedetails/update/` + recordId,
-                method: "PUT",
-                contentType: "application/json",
-                data: JSON.stringify(payload),
-                success: function (res) {
-                    console.log("Updated follow-up fields");
-                    loadTableData();
-                },
-                error: function (err) {
-                    console.error("Failed to update follow-up fields", err);
-                }
-            });
-        }
+        //     $.ajax({
+        //         url: `https://eduroom.in/api/v1/resumedetails/update/` + recordId,
+        //         method: "PUT",
+        //         contentType: "application/json",
+        //         data: JSON.stringify(payload),
+        //         success: function (res) {
+        //             console.log("Updated follow-up fields");
+        //             loadTableData();
+        //         },
+        //         error: function (err) {
+        //             console.error("Failed to update follow-up fields", err);
+        //         }
+        //     });
+        // }
 
         function copyEmailBody() {
             const emailBody = getFullEmailBody();
