@@ -20,6 +20,7 @@
     <!--! END: Bootstrap CSS-->
     <!--! BEGIN: Vendors CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/vendors.min.css" />
+    <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
@@ -563,16 +564,18 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-12 col-lg-12 col-md-12 d-flex justify-content-center align-items-center">
-                    <div class="card stretch stretch-full" id="remainingCallsCard"
-                        style="width: 100%; max-width: 1400px;">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center fs-18 fw-medium mb-3">
-                                <div>
-                                    Remaining Calls: <span id="remainingCalls" style="color:white;">0</span>
-                                </div>
-                                <div>
-                                    Achieved Percentage: <span id="achievementPercent2">0%</span>
+                <div class="row">
+                    <div class="col-xxl-12 col-lg-12 col-md-12 d-flex justify-content-center align-items-center">
+                        <div class="card stretch stretch-full" id="remainingCallsCard"
+                            style="width: 100%;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center fs-18 fw-medium mb-3">
+                                    <div>
+                                        Remaining Calls: <span id="remainingCalls" style="color:white;">0</span>
+                                    </div>
+                                    <div>
+                                        Achieved Percentage: <span id="achievementPercent2">0%</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1515,9 +1518,200 @@
             </style>
             <!-- [ Footer ] end -->
     </main>
+
+    <div class="modal fade-scale" id="composeMail" tabindex="-1" aria-labelledby="composeMail" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="d-flex flex-column mb-0">
+                        <span class="fs-18 fw-bold mb-1">Compose JD Mail</span>
+                        <small class="d-block fs-11 fw-normal text-muted">Send Internship JD to College
+                            Coordinator</small>
+                    </h2>
+                    <a href="javascript:void(0)" class="avatar-text avatar-md bg-soft-danger close-icon"
+                        data-bs-dismiss="modal">
+                        <i class="feather-x text-danger"></i>
+                    </a>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="position-relative border-bottom">
+                        <div class="col-lg-12 mb-4">
+                            <input id="from" class="form-control border-0 text-dark flex-grow-1" name="from"
+                                placeholder="From: support@fundsroom.in" style="min-width: 150px;" readonly>
+                        </div>
+                        <div class="px-2 d-flex align-items-center">
+                            <div class="p-0 w-100 d-flex flex-wrap align-items-center gap-1" id="email-chip-wrapper">
+                                <input id="email-input" class="form-control border-0 text-dark flex-grow-1"
+                                    name="tomailmodal" placeholder="To" style="min-width: 150px;" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom mail-cc-bcc-fields" id="ccbccToggleModalFileds" style="display: none">
+                        <div class="px-2 w-100 d-flex align-items-center border-bottom">
+                            <input class="form-control border-0 text-dark" name="ccmailmodal" placeholder="CC">
+                        </div>
+                        <div class="px-2 w-100 d-flex align-items-center">
+                            <input class="form-control border-0 text-dark" name="bccmailmodal" placeholder="BCC">
+                        </div>
+                    </div>
+
+                    <div class="px-2 w-100 d-flex align-items-center">
+                        <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
+                            placeholder="Subject"
+                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit"
+                            readonly>
+                    </div>
+
+                    <!-- Email Body Container -->
+                    <div class="email-body-container p-3">
+                        <!-- Fixed Top Part -->
+                        <div id="email-fixed-top" class="email-fixed-part mb-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+
+                        <!-- Editable Middle Part -->
+                        <div class="email-editable-part mb-3">
+                            <label class="fw-semibold text-dark mb-2 d-block">Customize Email:</label>
+                            <div id="mailEditorModal" class="ht-200 border rounded p-3 bg-white" contenteditable="true">
+                                <!-- Editable content will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Fixed Bottom Part -->
+                        <div id="email-fixed-bottom" class="email-fixed-part mt-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="mt-4 px-3" id="emailPreviewContainer">
+                        <label class="fw-semibold text-dark mb-2 d-block">Email Preview:</label>
+                        <div id="emailPreview" class="border rounded p-3 bg-light"
+                            style="max-height: 400px; overflow-y: auto;">
+                            <!-- Live preview will be injected here -->
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="currentRecordId" value="">
+                    <input type="hidden" id="currentRecordData" value="">
+                </div>
+
+                <div class="modal-footer d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <button id="sendEmailBtn" class="btn btn-primary me-2" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" title="Send Message">
+                            Send JD Mail
+                        </button>
+
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="copyEmailBody()">
+                            <i class="feather-copy me-1"></i> Copy Body
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-outline-danger">
+                            <i class="feather-x me-1"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .email-body-container {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px;
+        }
+
+        .email-fixed-part {
+            font-size: 14px;
+            line-height: 1.6;
+            user-select: none;
+            cursor: default;
+        }
+
+        .email-editable-part {
+            border-left: 3px solid #0d6efd;
+            padding-left: 15px;
+        }
+
+        #mailEditorModal {
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ced4da !important;
+            background-color: #fff !important;
+        }
+
+        #mailEditorModal:focus {
+            outline: none;
+            border-color: #86b7fe !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+        }
+
+        #emailPreview {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #emailPreview h4 {
+            color: #59595d;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        #emailPreview ul {
+            padding-left: 20px;
+        }
+
+        #emailPreview li {
+            margin-bottom: 5px;
+        }
+
+        .email-template-variable {
+            background-color: #e7f1ff;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
+
+    <style>
+        .email-chip {
+            display: flex;
+            align-items: center;
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .email-chip .remove-btn {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .email-chip .remove-btn:hover {
+            color: red;
+        }
+
+        .email-chip .avatar {
+            width: 22px;
+            height: 22px;
+            background-color: #9cc1f9;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
 
     <!--! ================================================================ !-->
     <!--! Footer Script !-->
@@ -1533,6 +1727,11 @@
     <script src="./../assets/vendors/js/select2-active.min.js"></script>
     <script src="./../assets/js/common-init.min.js"></script>
     <script src="./../assets/vendors/js/lslstrength.min.js"></script>
+    <!-- <script src="./../assets/vendors/js/tagify.min.js"></script> -->
+    <script src="./../assets/vendors/js/tagify-data.min.js"></script>
+    <script src="./../assets/vendors/js/quill.min.js"></script>
+    <!-- <script src="./../assets/js/common-init.min.js"></script> -->
+    <script src="./../assets/js/apps-email-init.min.js"></script>
     <!--! END: Vendors JS !-->
     <!--! BEGIN: Apps Init  !-->
     <script src="./../assets/js/reports-project-init.min.js"></script>
@@ -2009,6 +2208,51 @@
         let filteredData = [];
         const rowsPerPage = 10;
         let currentPage = 1;
+        let currentRecord = null;
+
+        const emailTemplate = {
+            fixedTop: (record) => `
+                <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                <p>Warm greetings from FundsAudit!</p>
+                <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
+                <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+
+            editableMiddle: `
+                <p><b>Collaboration Proposal:</b></p>
+                <ul>
+                    <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                    <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                    <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-Bi & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                    <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                </ul>
+                <p>Next Steps: JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+                <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
+                <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                <b>Eligibility:</b> Management Students</p>
+                <p>Following the live project, students may also be considered for:</p>
+                <ul>
+                    <li>Summer/Winter Internships</li>
+                    <li>Pre-placement offers (PPOs)</li>
+                    <li>Final placement opportunities</li>
+                </ul>
+                <p>Perks of the collaboration:</p>
+                <ul>
+                    <li>Exposure to real-time fintech operations</li>
+                    <li>Skill development aligned with industry expectations</li>
+                    <li>Improved employability and practical insight alongside academics</li>
+                    <li>Final placement opportunities</li>
+                </ul>`,
+
+            fixedBottom: `
+                <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                <p>Pooja M. Shedge<br/>
+                Branch Manager - Pune<br/>
+                +91 7385234536 | +91 7420861507<br/>
+                Pune, Maharashtra<br/>
+                <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+        };
 
         function loadCities() {
             return fetch("/profile/dashboard/cities.json")
@@ -2057,8 +2301,211 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+
+                        initEmailModalEvents();
                     }
                 }
+            });
+        }
+
+        function initEmailModalEvents() {
+            $('#composeMail').on('show.bs.modal', function (e) {
+                const button = $(e.relatedTarget);
+                const recordId = button.data('id');
+                const record = tableData.find(row => row.id == recordId);
+
+                if (record) {
+                    currentRecord = record;
+                    loadEmailModal(record);
+
+                    setTimeout(() => {
+                        const editableDiv = document.getElementById('mailEditorModal');
+                        if (editableDiv) {
+                            editableDiv.focus();
+                            const range = document.createRange();
+                            range.selectNodeContents(editableDiv);
+                            range.collapse(true);
+                            const selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }, 100);
+                }
+            });
+
+            $('#mailEditorModal').on('input', function () {
+                updateEmailPreview();
+            });
+
+            $('#sendEmailBtn').off('click').on('click', function () {
+                sendJDEmail();
+            });
+
+            $('#copyEmailBtn').off('click').on('click', function () {
+                copyEmailBody();
+            });
+        }
+
+        function loadEmailModal(record) {
+            $('#currentRecordId').val(record.id);
+
+            $('#email-input').val(record.emailId || '');
+
+            $('#email-fixed-top').html(emailTemplate.fixedTop(record));
+
+            $('#mailEditorModal').html(emailTemplate.editableMiddle);
+
+            $('#email-fixed-bottom').html(emailTemplate.fixedBottom);
+
+            updateEmailPreview();
+        }
+
+        function updateEmailPreview() {
+            const record = currentRecord;
+            if (!record) return;
+
+            const editableContent = $('#mailEditorModal').html();
+
+            const fullEmailBody = `
+            ${emailTemplate.fixedTop(record)}
+            ${editableContent}
+            ${emailTemplate.fixedBottom}
+        `;
+
+            $('#emailPreview').html(fullEmailBody);
+        }
+
+        function getFullEmailBody() {
+            const record = currentRecord;
+            if (!record) return '';
+
+            const editableContent = $('#mailEditorModal').html();
+
+            const fixedTopHtml = emailTemplate.fixedTop(record)
+                .replace(/<span class="email-template-variable">/g, '')
+                .replace(/<\/span>/g, '');
+
+            return `
+            ${editableContent}
+        `;
+        }
+
+        function sendJDEmail() {
+            const recordId = $('#currentRecordId').val();
+            const record = tableData.find(row => row.id == recordId);
+
+            if (!record) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Record not found!"
+                });
+                return;
+            }
+
+            const cc = $('[name="ccmailmodal"]').val() ? [$('[name="ccmailmodal"]').val()] : [];
+            const bcc = $('[name="bccmailmodal"]').val() ? [$('[name="bccmailmodal"]').val()] : [];
+            const emailBody = getFullEmailBody();
+            const subject = $('#subject-input').val() || "Internship Opportunity - FundsAudit Student Development Program";
+
+            Swal.fire({
+                title: "Send JD Mail?",
+                text: `Send internship JD to ${record.coordinatorName || 'coordinator'} at ${record.collegeName || 'college'}?`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Send",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Sending...",
+                        text: "Please wait while the mail is being sent",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    const payload = {
+                        cc: cc,
+                        bcc: bcc,
+                        teamManagerId: teamManagerId2,
+                        subject: subject,
+                        body: emailBody
+                    };
+
+                    $.ajax({
+                        url: apiBase + "/" + recordId + "/send-jd",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(payload),
+                        success: function (res) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Mail Sent!",
+                                text: "The JD mail was sent successfully."
+                            });
+                            $('#composeMail').modal('hide');
+
+                            updateDetailedResponse(recordId);
+                        },
+                        error: function (err) {
+                            console.error("Error sending email:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Failed to send the JD mail. Please try again."
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        function updateDetailedResponse(recordId) {
+            const payload = {
+                detailedResponse: "Send JD"
+            };
+
+            $.ajax({
+                url: apiBase + "/update/" + recordId,
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    console.log("Updated detailed response to 'Send JD'");
+                    loadTableData();
+                },
+                error: function (err) {
+                    console.error("Failed to update detailed response", err);
+                }
+            });
+        }
+
+        function copyEmailBody() {
+            const emailBody = getFullEmailBody();
+            const plainText = emailBody.replace(/<[^>]*>/g, '')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .trim();
+
+            navigator.clipboard.writeText(plainText).then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Copied!",
+                    text: "Email body copied to clipboard",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(err => {
+                console.error("Failed to copy:", err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to copy to clipboard"
+                });
             });
         }
 
@@ -2073,35 +2520,35 @@
 
             rows.forEach((row, index) => {
                 let tr = `<tr data-id="${row.id}">
-                <td>
-                    <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-                <td>${start + index + 1}</td>
-                ${makeCell("collegeName", row.collegeName)}
-                ${makeCell("coordinatorName", row.coordinatorName)}
-                ${makeCell("mobileNumber", row.mobileNumber)}
-                ${makeCell("emailId", row.emailId)}
-                ${makeDropdownCell("state", row.state)}
-                ${makeDropdownCell("city", row.city, row.state)}
-                ${makeDropdownCell("course", row.course)}
-                ${makeDropdownCell("connectedBy", row.connectedBy)}
-                ${makeDateCell("dateOfConnect", row.dateOfConnect)}
-                ${makeDropdownCell("callResponse", row.callResponse)}
-                ${makeDropdownCell("internshipType", row.internshipType)}
-                ${makeDropdownCell("detailedResponse", row.detailedResponse)}   
-                <td>
-                    <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </td>
-                </tr>`;
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${start + index + 1}</td>
+                    ${makeCell("collegeName", row.collegeName)}
+                    ${makeCell("coordinatorName", row.coordinatorName)}
+                    ${makeCell("mobileNumber", row.mobileNumber)}
+                    ${makeCell("emailId", row.emailId)}
+                    ${makeDropdownCell("state", row.state)}
+                    ${makeDropdownCell("city", row.city, row.state)}
+                    ${makeDropdownCell("course", row.course)}
+                    ${makeDropdownCell("connectedBy", row.connectedBy)}
+                    ${makeDateCell("dateOfConnect", row.dateOfConnect)}
+                    ${makeDropdownCell("callResponse", row.callResponse)}
+                    ${makeDropdownCell("internshipType", row.internshipType)}
+                    ${makeDropdownCell("detailedResponse", row.detailedResponse)}   
+                    <td>
+                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                                data-bs-target="#composeMail" title="Send JD">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </td>
+                    </tr>`;
                 tbody.append(tr);
             });
 
             attachCellEvents();
-            attachSendMailEvents();
             setStickyColumns();
         }
 
@@ -2150,8 +2597,8 @@
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th><select class="column-filter form-select form-select-sm" data-index="${i}">
-                    <option value="">All</option>
-                </select></th>`;
+                        <option value="">All</option>
+                    </select></th>`;
                 }
             });
             filterRow += "</tr>";
@@ -2230,9 +2677,9 @@
                 ).join(" | ");
 
                 return `<td data-field="${field}">
-                    <span>${links}</span>
-                    <input type="text" value="${displayValue}">
-                </td>`;
+                <span>${links}</span>
+                <input type="text" value="${displayValue}">
+            </td>`;
             }
 
             return `<td data-field="${field}">
@@ -2397,53 +2844,6 @@
             });
         }
 
-        function attachSendMailEvents() {
-            $(".send-mail").off("click").on("click", function () {
-                const id = $(this).data("id");
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "Do you want to send the JD mail?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, Send",
-                    cancelButtonText: "Cancel"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: "Sending...",
-                            text: "Please wait while the mail is being sent",
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-
-                        $.ajax({
-                            url: "https://eduroom.in/api/v1/cosheet/" + id + "/send-jd",
-                            method: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify({ cc: [], bcc: [], teamManagerId: teamManagerId2 }),
-                            success: function (res) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Mail Sent!",
-                                    text: "The JD mail was sent successfully."
-                                });
-                            },
-                            error: function (err) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: "Failed to send the JD mail."
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        }
-
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
             if (!value) {
@@ -2482,7 +2882,8 @@
                     ${makeDropdownCell("internshipType", row.internshipType)}
                     ${makeDropdownCell("detailedResponse", row.detailedResponse)}
                     <td>
-                        <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
+                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                                data-bs-target="#composeMail" title="Send JD">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
@@ -2492,7 +2893,6 @@
 
             $("#pagination").hide();
             attachCellEvents();
-            attachSendMailEvents();
         };
 
         window.printTable = function () {
@@ -2780,7 +3180,8 @@
             ${makeDropdownCell2("internshipType", row.internshipType)}
             ${makeDropdownCell2("detailedResponse", row.detailedResponse)}   
             <td>
-                <button class="btn btn-sm btn-success send-mail2" data-id="${row.id}" title="Send JD">
+                <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                        data-bs-target="#composeMail" title="Send JD">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </td>
@@ -4170,6 +4571,51 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        // Make functions accessible globally
+        let addEmailChip;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailInput = document.getElementById("email-input");
+            const chipWrapper = document.getElementById("email-chip-wrapper");
+
+            emailInput.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === "," || e.key === " ") {
+                    e.preventDefault();
+                    const email = emailInput.value.trim().replace(/,$/, "");
+                    if (email && validateEmail(email)) {
+                        addEmailChip(email);
+                        emailInput.value = "";
+                    }
+                }
+            });
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            addEmailChip = function (email) {
+                const chip = document.createElement("div");
+                chip.className = "email-chip";
+
+                chip.innerHTML = `
+                <span class="avatar bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center me-2" style="width: 24px; height: 24px; font-size: 12px;">
+                    ${email.charAt(0).toUpperCase()}
+                </span>
+                <span>${email}</span>
+                <span class="remove-btn">&times;</span>
+            `;
+
+                chip.querySelector(".remove-btn").addEventListener("click", () => {
+                    chip.remove();
+                });
+
+                chipWrapper.insertBefore(chip, emailInput);
+            };
+        });
     </script>
 
 </body>
