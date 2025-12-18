@@ -180,7 +180,7 @@
                                     <table class="table table-hover mb-0" id="leadsTable2">
                                         <thead>
                                             <tr class="border-b">
-                                                <th>Send JD</th>
+                                                <th>Delete</th>
                                                 <th>SR</th>
                                                 <th>College Name</th>
                                                 <th>Co-ordinator Name</th>
@@ -194,7 +194,7 @@
                                                 <th>Call Response</th>
                                                 <th>Type of INT</th>
                                                 <th>Detailed Response</th>
-                                                <th>Delete</th>
+                                                <!-- <th>Delete</th> -->
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -628,11 +628,6 @@
             ${makeDropdownCell2("callResponse", row.callResponse)}
             ${makeDropdownCell2("internshipType", row.internshipType)}
             ${makeDropdownCell2("detailedResponse", row.detailedResponse)}   
-            <td>
-                <button class="btn btn-sm btn-success send-mail2" data-id="${row.id}" title="Send JD">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </td>
             </tr>`;
                 tbody.append(tr);
             });

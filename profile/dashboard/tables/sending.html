@@ -201,7 +201,7 @@
                                                 <th>No. of resumes</th>
                                                 <th>Date of resume</th>
                                                 <th>Expected response date</th>
-                                                <th>Send JD</th>
+                                                <!-- <th>Send JD</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -627,11 +627,7 @@
             ${makeNumberCell("resumeCount", row.resumeCount || "")}
             ${makeDateCell("resumeDate", row.resumeDate || "")}
             ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-            <td>
-                <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </td>
+
             </tr>`;
                 tbody.append(tr);
             });
