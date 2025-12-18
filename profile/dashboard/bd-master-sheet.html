@@ -1202,6 +1202,7 @@
         let dashboardApiBase = "https://eduroom.in/api/v1/bdsheet/bd-tl-leaderboard";
         let dashboardData = [];
         let allManagers = [];
+        let paymentsApiBase = "https://eduroom.in/api/v1/bdsheet/payments-vs-target";
 
         function formatDashboardDisplayDate(dateStr) {
             const date = new Date(dateStr);
@@ -1281,6 +1282,31 @@
             });
         }
 
+        function fetchPaymentsData() {
+            const url = `${paymentsApiBase}?from=${dashboardFromDate}&to=${dashboardToDate}`;
+
+            console.log("Fetching payments data from:", url);
+
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (res) {
+                        console.log("Payments data loaded:", res);
+                        if (res.success && res.totals) {
+                            resolve(res.totals.totalAccountsAchieved || 0);
+                        } else {
+                            resolve(0);
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Failed to load payments data:", err);
+                        resolve(0);
+                    }
+                });
+            });
+        }
+
         function triggerDashboardAPI() {
             const url = `${dashboardApiBase}?from=${dashboardFromDate}&to=${dashboardToDate}`;
 
@@ -1289,7 +1315,7 @@
             $.ajax({
                 url: url,
                 method: "GET",
-                success: function (res) {
+                success: async function (res) {
                     console.log("Dashboard data loaded:", res);
                     if (res.success && res.leaderboard) {
                         dashboardData = res.leaderboard.map((tl, index) => ({
@@ -1312,7 +1338,7 @@
 
                         populateManagerDropdown(allManagers);
 
-                        updateDashboardCards();
+                        await updateDashboardCards();
                     }
                 },
                 error: function (err) {
@@ -1326,8 +1352,13 @@
             });
         }
 
-        function updateDashboardCards() {
+        async function updateDashboardCards() {
             let filteredData = dashboardData;
+            let paymentsTotalAccounts = 0;
+
+            if (!selectedManagerId) {
+                paymentsTotalAccounts = await fetchPaymentsData();
+            }
 
             if (selectedManagerId) {
                 filteredData = dashboardData.filter(manager => manager.id == selectedManagerId);
@@ -1348,6 +1379,10 @@
                 totalAccounts += manager.accounts;
                 totalAccountsTarget += manager.accountsTarget;
             });
+
+            if (!selectedManagerId) {
+                totalAccounts = paymentsTotalAccounts;
+            }
 
             const internsAllottedPercent = totalTargetInterns > 0 ? (totalInternsAllotted / totalTargetInterns) * 100 : 0;
             const internsActivePercent = totalInternsActiveTarget > 0 ? (totalActiveInterns / totalInternsActiveTarget) * 100 : 0;
