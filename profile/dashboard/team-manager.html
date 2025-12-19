@@ -414,7 +414,8 @@
                 <div class="col-xxl-4 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
-                            <div class="fs-12 fw-medium text-muted mb-3">Average Accounts Per Intern (AAPI)</div>
+                            <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Average Accounts Per Intern (AAPI)
+                            </div>
                             <div class="hstack justify-content-between lh-base">
                                 <h3><span id="averageAccountsPerIntern">0</span></h3>
                                 <!-- <div class="hstack gap-2 fs-11">
@@ -459,14 +460,20 @@
                                 style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
                                 Working Zone</div>
                             <div class="row">
-                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
                                     <div class="text-center">
                                         <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
                                         <div class="h4 mb-1" id="workingInternsCount">0</div>
                                         <!-- <div class="fs-10" id="workingInternsPercent" style="color:#494444;">0%</div> -->
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="workingAccountsCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
                                     <div class="text-center">
                                         <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
                                         <div class="h4 mb-1" id="workingPercentage">0%</div>
@@ -486,14 +493,20 @@
                                 style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
                                 Completed Zone</div>
                             <div class="row">
-                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
                                     <div class="text-center">
                                         <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
                                         <div class="h4 mb-1" id="completedInternsCount">0</div>
                                         <!-- <div class="fs-10" id="completedInternsPercent" style="color:#494444;">0%</div> -->
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="completedAccountsCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
                                     <div class="text-center">
                                         <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
                                         <div class="h4 mb-1" id="completedPercentage">0%</div>
@@ -1166,6 +1179,17 @@
             return '';
         }
 
+        function getAAPIColorCategory(aapiValue) {
+            const val = parseFloat(aapiValue) || 0;
+            if (val >= 0 && val <= 2.99) return '#ff4d4d';
+            if (val >= 3 && val <= 4.99) return '#ffa500';
+            if (val >= 5 && val <= 6.99) return '#ffff80';
+            if (val >= 7 && val <= 9.99) return '#b3ffb3';
+            if (val >= 10 && val <= 11.99) return '#5cdb5c';
+            if (val >= 12) return '#4da6ff';
+            return '';
+        }
+
         function calculateManagerMetrics(managerName) {
             if (!managerName || managerName === "") {
                 calculateAllMetrics();
@@ -1213,6 +1237,14 @@
                 (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
             $("#averageAccountsPerIntern").text(averageAccountsPerIntern);
 
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            const aapiColor = getAAPIColorCategory(averageAccountsPerIntern);
+            if (aapiColor) {
+                aapiCard.css("background-color", aapiColor);
+            } else {
+                aapiCard.css("background-color", "");
+            }
+
             const nonWorkingInternsCount = colorCounts.red.count;
             const nonWorkingPercentage = totalStudents > 0 ?
                 ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
@@ -1220,14 +1252,18 @@
             $("#nonWorkingPercentage").text(nonWorkingPercentage);
 
             const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingAccountsCount = colorCounts.orange.total + colorCounts.yellow.total;
             const workingPercentage = totalStudents > 0 ?
                 ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#workingAccountsCount").text(workingAccountsCount);
             $("#workingInternsCount").text(workingInternsCount);
             $("#workingPercentage").text(workingPercentage);
 
             const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedAccountsCount = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
             const completedPercentage = totalStudents > 0 ?
                 ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#completedAccountsCount").text(completedAccountsCount);
             $("#completedInternsCount").text(completedInternsCount);
             $("#completedPercentage").text(completedPercentage);
 
@@ -1301,6 +1337,14 @@
                 (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
             $("#averageAccountsPerIntern").text(averageAccountsPerIntern);
 
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            const aapiColor = getAAPIColorCategory(averageAccountsPerIntern);
+            if (aapiColor) {
+                aapiCard.css("background-color", aapiColor);
+            } else {
+                aapiCard.css("background-color", "");
+            }
+
             const nonWorkingInternsCount = colorCounts.red.count;
             const nonWorkingPercentage = totalStudents > 0 ?
                 ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
@@ -1308,14 +1352,18 @@
             $("#nonWorkingPercentage").text(nonWorkingPercentage);
 
             const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingAccountsCount = colorCounts.orange.total + colorCounts.yellow.total;
             const workingPercentage = totalStudents > 0 ?
                 ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#workingAccountsCount").text(workingAccountsCount);
             $("#workingInternsCount").text(workingInternsCount);
             $("#workingPercentage").text(workingPercentage);
 
             const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedAccountsCount = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
             const completedPercentage = totalStudents > 0 ?
                 ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#completedAccountsCount").text(completedAccountsCount);
             $("#completedInternsCount").text(completedInternsCount);
             $("#completedPercentage").text(completedPercentage);
 
@@ -1349,6 +1397,9 @@
         }
 
         function resetMetrics() {
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            aapiCard.css("background-color", "");
+
             $("#averageAccountsPerIntern").text("0");
             $("#nonWorkingInternsCount").text("0");
             $("#nonWorkingPercentage").text("0%");
@@ -1356,6 +1407,8 @@
             $("#workingPercentage").text("0%");
             $("#completedInternsCount").text("0");
             $("#completedPercentage").text("0%");
+            $("#workingAccountsCount").text("0");
+            $("#completedAccountsCount").text("0");
 
             calculateAllMetrics();
         }
@@ -1505,6 +1558,14 @@
             $("#workingPercentage").text("0%");
             $("#completedInternsCount").text("0");
             $("#completedPercentage").text("0%");
+            $("#workingAccountsCount").text("0");
+            $("#completedAccountsCount").text("0");
+
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            const initialAapiColor = getAAPIColorCategory(0);
+            if (initialAapiColor) {
+                aapiCard.css("background-color", initialAapiColor);
+            }
 
             initDatePicker();
             loadTableData();
