@@ -376,7 +376,7 @@
                 </div>
 
                 <!-- Total Calls -->
-                <div class="col-xxl-6 col-lg-2 col-md-6">
+                <div class="col-xxl-4 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
                             <div class="fs-12 fw-medium text-muted mb-3">Total Interns</div>
@@ -397,7 +397,7 @@
                 </div>
 
                 <!-- Connected -->
-                <div class="col-xxl-6 col-lg-2 col-md-6">
+                <div class="col-xxl-4 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
                             <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
@@ -405,6 +405,100 @@
                                 <h3><span id="totalAccounts">0</span>/<span id="targetAccounts">0</span></h3>
                                 <div class="hstack gap-2 fs-11">
                                     <span id="accountsPercent">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Average Accounts Per Intern (AAPI)</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="averageAccountsPerIntern">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="averageAccountsPerInternPercent">0%</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ff4d4d;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Non Working Zone</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="nonWorkingInternsCount">0</div>
+                                        <!-- <div class="fs-10" id="redCountPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
+                                        <div class="h5 mb-1" id="nonWorkingPercentage">0%</div>
+                                        <!-- <div class="fs-10" id="redAccountsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORANGE -->
+                <div class="col-xxl-4 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ffff80;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Working Zone</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="workingInternsCount">0</div>
+                                        <!-- <div class="fs-10" id="workingInternsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
+                                        <div class="h4 mb-1" id="workingPercentage">0%</div>
+                                        <!-- <div class="fs-10" id="orangeAccountsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YELLOW -->
+                <div class="col-xxl-6 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#5cdb5c;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Completed Zone</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="completedInternsCount">0</div>
+                                        <!-- <div class="fs-10" id="completedInternsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
+                                        <div class="h4 mb-1" id="completedPercentage">0%</div>
+                                        <!-- <div class="fs-10" id="yellowAccountsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1115,6 +1209,28 @@
             $("#totalAccounts").text(totalSubscriptionWallet);
             $("#targetAccounts").text(totalBusinessTarget);
 
+            const averageAccountsPerIntern = totalStudents > 0 ?
+                (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
+            $("#averageAccountsPerIntern").text(averageAccountsPerIntern);
+
+            const nonWorkingInternsCount = colorCounts.red.count;
+            const nonWorkingPercentage = totalStudents > 0 ?
+                ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#nonWorkingInternsCount").text(nonWorkingInternsCount);
+            $("#nonWorkingPercentage").text(nonWorkingPercentage);
+
+            const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingPercentage = totalStudents > 0 ?
+                ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#workingInternsCount").text(workingInternsCount);
+            $("#workingPercentage").text(workingPercentage);
+
+            const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedPercentage = totalStudents > 0 ?
+                ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#completedInternsCount").text(completedInternsCount);
+            $("#completedPercentage").text(completedPercentage);
+
             const accountsPercent = totalBusinessTarget > 0 ?
                 ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
             $("#accountsPercent").text(accountsPercent);
@@ -1181,6 +1297,28 @@
             $("#totalAccounts").text(totalSubscriptionWallet);
             $("#targetAccounts").text(totalBusinessTarget);
 
+            const averageAccountsPerIntern = totalStudents > 0 ?
+                (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
+            $("#averageAccountsPerIntern").text(averageAccountsPerIntern);
+
+            const nonWorkingInternsCount = colorCounts.red.count;
+            const nonWorkingPercentage = totalStudents > 0 ?
+                ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#nonWorkingInternsCount").text(nonWorkingInternsCount);
+            $("#nonWorkingPercentage").text(nonWorkingPercentage);
+
+            const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingPercentage = totalStudents > 0 ?
+                ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#workingInternsCount").text(workingInternsCount);
+            $("#workingPercentage").text(workingPercentage);
+
+            const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedPercentage = totalStudents > 0 ?
+                ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#completedInternsCount").text(completedInternsCount);
+            $("#completedPercentage").text(completedPercentage);
+
             const accountsPercent = totalBusinessTarget > 0 ?
                 ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
             $("#accountsPercent").text(accountsPercent);
@@ -1211,6 +1349,14 @@
         }
 
         function resetMetrics() {
+            $("#averageAccountsPerIntern").text("0");
+            $("#nonWorkingInternsCount").text("0");
+            $("#nonWorkingPercentage").text("0%");
+            $("#workingInternsCount").text("0");
+            $("#workingPercentage").text("0%");
+            $("#completedInternsCount").text("0");
+            $("#completedPercentage").text("0%");
+
             calculateAllMetrics();
         }
 
@@ -1330,7 +1476,6 @@
                         renderPagination();
                         renderColumnFilters();
 
-                        // Always calculate metrics - if no manager selected, show all data
                         if (selectedManager && selectedManager !== "") {
                             calculateManagerMetrics(selectedManager);
                         } else {
@@ -1353,7 +1498,14 @@
         }
 
         $(document).ready(function () {
-            // Initialize date picker and load data on page load
+            $("#averageAccountsPerIntern").text("0");
+            $("#nonWorkingInternsCount").text("0");
+            $("#nonWorkingPercentage").text("0%");
+            $("#workingInternsCount").text("0");
+            $("#workingPercentage").text("0%");
+            $("#completedInternsCount").text("0");
+            $("#completedPercentage").text("0%");
+
             initDatePicker();
             loadTableData();
         });
@@ -1364,25 +1516,20 @@
                 mode: "range",
                 onChange: function (selectedDates, dateStr) {
                     if (selectedDates.length === 2) {
-                        // Store the selected date range
                         selectedDateRange = {
                             startDate: selectedDates[0],
                             endDate: selectedDates[1]
                         };
 
-                        // Trigger API call with the date range
                         loadTableData();
                     } else if (selectedDates.length === 1) {
-                        // If only one date is selected, use it for both start and end
                         selectedDateRange = {
                             startDate: selectedDates[0],
                             endDate: selectedDates[0]
                         };
 
-                        // Trigger API call with the date range
                         loadTableData();
                     } else {
-                        // Clear date range and load default data
                         selectedDateRange = null;
                         loadTableData();
                     }
@@ -1717,32 +1864,32 @@
 
             filteredData.forEach(row => {
                 html += `<tr>
-            <td>${row.sno}</td>
-            <td>${row.name}</td>
-            <td>${row.phoneNumber}</td>
-            <td>${row.registeredAt}</td>
-            <td>${row.offerMessageExists}</td>
-            <td>${row.selected || 'No'}</td>
-            <td>${row.email}</td>
-            <td>${row.collegeName}</td>
-            <td>${row.courses}</td>
-            <td>${row.course}</td>
-            <td>${row.duration}</td>
-            <td>${row.startDate}</td>
-            <td>${row.estEndDate}</td>
-            <td>${row.courseStatus}</td>
-            <td>${row.businessStatus}</td>
-            <td>${row.referralCode || ''}</td>
-            <td>${row.subscriptionWallet}</td>
-            <td>${row.workPercentage}</td>
-            <td>${row.certificateStatus}</td>
-            <td>${row.internshipCertificateStatus}</td>
-            <td>${row.subscriptionLeft}</td>
-            <td>${row.queryStatus}</td>
-            <td>${row.internshipAction}</td>
-            <td>${row.teamManager || ""}</td>
-            <td>${row.pushto || ""}</td>
-        </tr>`;
+                    <td>${row.sno}</td>
+                    <td>${row.name}</td>
+                    <td>${row.phoneNumber}</td>
+                    <td>${row.registeredAt}</td>
+                    <td>${row.offerMessageExists}</td>
+                    <td>${row.selected || 'No'}</td>
+                    <td>${row.email}</td>
+                    <td>${row.collegeName}</td>
+                    <td>${row.courses}</td>
+                    <td>${row.course}</td>
+                    <td>${row.duration}</td>
+                    <td>${row.startDate}</td>
+                    <td>${row.estEndDate}</td>
+                    <td>${row.courseStatus}</td>
+                    <td>${row.businessStatus}</td>
+                    <td>${row.referralCode || ''}</td>
+                    <td>${row.subscriptionWallet}</td>
+                    <td>${row.workPercentage}</td>
+                    <td>${row.certificateStatus}</td>
+                    <td>${row.internshipCertificateStatus}</td>
+                    <td>${row.subscriptionLeft}</td>
+                    <td>${row.queryStatus}</td>
+                    <td>${row.internshipAction}</td>
+                    <td>${row.teamManager || ""}</td>
+                    <td>${row.pushto || ""}</td>
+                </tr>`;
             });
 
             html += "</tbody></table>";
