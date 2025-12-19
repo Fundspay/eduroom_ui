@@ -231,6 +231,10 @@
                                     TARGETS ADMIN</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets-admin.html">BD
                                     TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-master-sheet.html">HR
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-master-sheet.html">BD
+                                    MASTER SHEET</a>
                         </ul>
                     </li>
 
@@ -566,8 +570,7 @@
 
                 <div class="row">
                     <div class="col-xxl-12 col-lg-12 col-md-12 d-flex justify-content-center align-items-center">
-                        <div class="card stretch stretch-full" id="remainingCallsCard"
-                            style="width: 100%;">
+                        <div class="card stretch stretch-full" id="remainingCallsCard" style="width: 100%;">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center fs-18 fw-medium mb-3">
                                     <div>
@@ -1563,6 +1566,21 @@
                             readonly>
                     </div>
 
+                    <!-- Attachment Section -->
+                    <div class="px-3 py-2 border-bottom">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <label class="fw-semibold text-dark mb-0">Attachments:</label>
+                            <button type="button" id="addAttachmentBtn" class="btn btn-sm btn-outline-primary">
+                                <i class="feather-paperclip me-1"></i> Add Attachment
+                            </button>
+                        </div>
+                        <div id="attachmentContainer" class="mt-2">
+                            <!-- Attachments will be displayed here -->
+                        </div>
+                        <input type="file" id="fileInput" multiple style="display: none;"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                    </div>
+
                     <!-- Email Body Container -->
                     <div class="email-body-container p-3">
                         <!-- Fixed Top Part -->
@@ -1600,11 +1618,11 @@
                 <div class="modal-footer d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <button id="sendEmailBtn" class="btn btn-primary me-2" data-bs-toggle="tooltip"
-                            data-bs-trigger="hover" title="Send Message">
-                            Send JD Mail
+                            data-bs-trigger="hover" title="Send Message with Attachments">
+                            <i class="feather-send me-1"></i> Send JD Mail
                         </button>
 
-                        <button type="button" class="btn btn-outline-secondary me-2" onclick="copyEmailBody()">
+                        <button type="button" id="copyEmailBtn" class="btn btn-outline-secondary me-2">
                             <i class="feather-copy me-1"></i> Copy Body
                         </button>
                     </div>
@@ -2209,6 +2227,8 @@
         const rowsPerPage = 10;
         let currentPage = 1;
         let currentRecord = null;
+        let attachments = [];
+        const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
 
         const emailTemplate = {
             fixedTop: (record) => `
@@ -2308,8 +2328,23 @@
             });
         }
 
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const base64String = reader.result.split(',')[1];
+                    resolve(base64String);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
         function initEmailModalEvents() {
             $('#composeMail').on('show.bs.modal', function (e) {
+                attachments = [];
+                $('#attachmentContainer').empty();
+
                 const button = $(e.relatedTarget);
                 const recordId = button.data('id');
                 const record = tableData.find(row => row.id == recordId);
@@ -2333,6 +2368,39 @@
                 }
             });
 
+            $('#addAttachmentBtn').off('click').on('click', function () {
+                $('#fileInput').click();
+            });
+
+            $('#fileInput').off('change').on('change', function (e) {
+                const files = Array.from(e.target.files);
+                if (files.length === 0) return;
+
+                const totalCurrentSize = attachments.reduce((sum, att) => sum + att.size, 0);
+                const newFilesTotalSize = files.reduce((sum, file) => sum + file.size, 0);
+                const projectedTotalSize = totalCurrentSize + newFilesTotalSize;
+
+                if (projectedTotalSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'File Size Limit Exceeded',
+                        html: `Cannot add these files. Total size would be ${formatFileSize(projectedTotalSize)}, which exceeds the limit of ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}.<br><br>
+                           Current attachments: ${formatFileSize(totalCurrentSize)}<br>
+                           New files: ${formatFileSize(newFilesTotalSize)}<br>
+                           Please reduce file sizes or select fewer files.`,
+                        confirmButtonText: 'OK'
+                    });
+                    $(this).val('');
+                    return;
+                }
+
+                files.forEach(file => {
+                    addAttachment(file);
+                });
+
+                $(this).val('');
+            });
+
             $('#mailEditorModal').on('input', function () {
                 updateEmailPreview();
             });
@@ -2346,17 +2414,94 @@
             });
         }
 
+        function getTotalAttachmentSize() {
+            return attachments.reduce((total, att) => total + att.size, 0);
+        }
+
+        async function addAttachment(file) {
+            try {
+                const fileId = Date.now() + Math.random().toString(36).substr(2, 9);
+
+                const base64Content = await fileToBase64(file);
+                attachments.push({
+                    id: fileId,
+                    filename: file.name,
+                    size: file.size,
+                    type: file.type,
+                    content: base64Content,
+                    file: file
+                });
+
+                const attachmentElement = `
+                    <div class="attachment-item d-flex align-items-center justify-content-between p-2 mb-1 border rounded" data-id="${fileId}">
+                        <div class="d-flex align-items-center">
+                            <i class="feather-file-text me-2 text-primary"></i>
+                            <div>
+                                <div class="small fw-semibold">${file.name}</div>
+                                <div class="text-muted small">${formatFileSize(file.size)}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-link text-danger remove-attachment" data-id="${fileId}">
+                            <i class="feather-x"></i>
+                        </button>
+                    </div>
+                `;
+
+                $('#attachmentContainer').append(attachmentElement);
+
+                $(`.remove-attachment[data-id="${fileId}"]`).off('click').on('click', function () {
+                    const id = $(this).data('id');
+                    removeAttachment(id);
+                });
+
+                updateAttachmentSizeInfo();
+
+            } catch (error) {
+                console.error('Error adding attachment:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to add attachment. Please try again.'
+                });
+            }
+        }
+
+        function removeAttachment(fileId) {
+            attachments = attachments.filter(att => att.id !== fileId);
+            $(`.attachment-item[data-id="${fileId}"]`).remove();
+            updateAttachmentSizeInfo();
+        }
+
+        function updateAttachmentSizeInfo() {
+            const totalSize = getTotalAttachmentSize();
+            const sizeInfo = `Total: ${formatFileSize(totalSize)} / ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}`;
+
+            let sizeInfoElement = $('#attachmentSizeInfo');
+            if (sizeInfoElement.length === 0) {
+                $('#attachmentContainer').before(`
+                <div id="attachmentSizeInfo" class="small text-muted mb-2 px-1">
+                    ${sizeInfo}
+                </div>
+            `);
+            } else {
+                sizeInfoElement.text(sizeInfo);
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
         function loadEmailModal(record) {
             $('#currentRecordId').val(record.id);
-
             $('#email-input').val(record.emailId || '');
-
             $('#email-fixed-top').html(emailTemplate.fixedTop(record));
-
             $('#mailEditorModal').html(emailTemplate.editableMiddle);
-
             $('#email-fixed-bottom').html(emailTemplate.fixedBottom);
-
             updateEmailPreview();
         }
 
@@ -2390,7 +2535,7 @@
         `;
         }
 
-        function sendJDEmail() {
+        async function sendJDEmail() {
             const recordId = $('#currentRecordId').val();
             const record = tableData.find(row => row.id == recordId);
 
@@ -2408,18 +2553,49 @@
             const emailBody = getFullEmailBody();
             const subject = $('#subject-input').val() || "Internship Opportunity - FundsAudit Student Development Program";
 
+            const totalAttachmentSize = getTotalAttachmentSize();
+            if (totalAttachmentSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Attachment Size Limit Exceeded",
+                    html: `Total attachment size (${formatFileSize(totalAttachmentSize)}) exceeds the limit of ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}.<br><br>
+                       Please remove some attachments to proceed.`,
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+
+            const attachmentPayload = [];
+            for (const att of attachments) {
+                attachmentPayload.push({
+                    filename: att.filename,
+                    content: att.content
+                });
+            }
+
             Swal.fire({
                 title: "Send JD Mail?",
-                text: `Send internship JD to ${record.coordinatorName || 'coordinator'} at ${record.collegeName || 'college'}?`,
+                html: `<div class="text-start">
+                    <p>Send internship JD to ${record.coordinatorName || 'coordinator'} at ${record.collegeName || 'college'}?</p>
+                    ${attachments.length > 0 ? `
+                    <p><strong>Attachments (${attachments.length}):</strong></p>
+                    <ul class="small mb-0">
+                        ${attachments.map(att => `<li>${att.filename} (${formatFileSize(att.size)})</li>`).join('')}
+                    </ul>
+                    <p class="small text-muted mt-2">Total size: ${formatFileSize(totalAttachmentSize)} / ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}</p>
+                    ` : ''}
+                </div>`,
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes, Send",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33"
+            }).then(async (result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
                         title: "Sending...",
-                        text: "Please wait while the mail is being sent",
+                        text: attachments.length > 0 ? "Sending email with attachments..." : "Sending email...",
                         allowOutsideClick: false,
                         didOpen: () => {
                             Swal.showLoading();
@@ -2431,8 +2607,17 @@
                         bcc: bcc,
                         teamManagerId: teamManagerId2,
                         subject: subject,
-                        body: emailBody
+                        body: emailBody,
+                        attachment: attachmentPayload
                     };
+
+                    console.log("Sending payload with attachments:", {
+                        ...payload,
+                        attachment: attachmentPayload.map(att => ({
+                            filename: att.filename,
+                            content: att.content.substring(0, 50) + '...'
+                        }))
+                    });
 
                     $.ajax({
                         url: apiBase + "/" + recordId + "/send-jd",
@@ -2443,10 +2628,16 @@
                             Swal.fire({
                                 icon: "success",
                                 title: "Mail Sent!",
-                                text: "The JD mail was sent successfully."
+                                text: attachments.length > 0 ?
+                                    `Email with ${attachments.length} attachment(s) sent successfully.` :
+                                    "The JD mail was sent successfully."
                             });
-                            $('#composeMail').modal('hide');
 
+                            attachments = [];
+                            $('#attachmentContainer').empty();
+                            $('#attachmentSizeInfo').remove();
+
+                            $('#composeMail').modal('hide');
                             updateDetailedResponse(recordId);
                         },
                         error: function (err) {
@@ -2593,12 +2784,11 @@
             let filterRow = "<tr class='filters'>";
             $("#leadsTable thead tr:first th").each(function (i, th) {
                 if (i === 0 || i === 1 || i === 14) {
-
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th><select class="column-filter form-select form-select-sm" data-index="${i}">
-                        <option value="">All</option>
-                    </select></th>`;
+                    <option value="">All</option>
+                </select></th>`;
                 }
             });
             filterRow += "</tr>";
@@ -2638,7 +2828,6 @@
                 formattedValues.sort((a, b) => a.display.localeCompare(b.display));
 
                 formattedValues.forEach(v => {
-
                     $(this).append(`<option value="${v.raw}">${v.display}</option>`);
                 });
             });
@@ -2656,7 +2845,6 @@
                 if (value) {
                     filteredData = filteredData.filter(row => {
                         const cellValue = Object.values(row)[index] || "";
-
                         return cellValue.toLowerCase() === value.toLowerCase();
                     });
                 }
@@ -2727,8 +2915,8 @@
             }
 
             let html = `<td data-field="${field}" style="background-color:${bgColor};">
-                <span style="color:black; font-weight:bold;">${displaySelected}</span>
-                <select class="form-control select2">`;
+            <span style="color:black; font-weight:bold;">${displaySelected}</span>
+            <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
 
@@ -2758,7 +2946,6 @@
             $("#leadsTable td input, #leadsTable td select")
                 .off("blur change")
                 .on("blur change", function () {
-
                     if ($(this).hasClass("date-picker")) return;
 
                     let td = $(this).closest("td");
@@ -2905,7 +3092,6 @@
         };
 
         window.exportToExcel = async function () {
-
             const isVerified = sessionStorage.getItem("excel_export_verified");
 
             if (!isVerified) {
