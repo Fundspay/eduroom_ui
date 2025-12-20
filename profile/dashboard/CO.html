@@ -1092,8 +1092,15 @@
                                                 <th>Co-ordinator Name</th>
                                                 <th>Mobile Number</th>
                                                 <th>Email</th>
+                                                <th>Placement Cell Link</th>
+                                                <th>MBA Fee Approx</th>
+                                                <th>MBA Batch Strength Approx</th>
                                                 <th>State</th>
                                                 <th>City</th>
+                                                <th>College Tier</th>
+                                                <th>College Level</th>
+                                                <th>Comment</th>
+                                                <th>Corporate Relations</th>
                                                 <th>Course</th>
                                                 <th>Connected by</th>
                                                 <th>Date of connect</th>
@@ -2089,7 +2096,7 @@
 
                     let jsonData = rows.map((row, i) => {
 
-                        let dateValue = row[9];
+                        let dateValue = row[16];
                         if (typeof dateValue === "number") {
 
                             let jsDate = XLSX.SSF.parse_date_code(dateValue);
@@ -2110,13 +2117,20 @@
                                 city: row[5] || null,
                                 state: row[6] || null,
                                 course: row[7] || null,
+                                mbaFeeApprox: row[8] || null,
+                                mbaBatchStrengthApprox: row[9] || null,
+                                collegeTier: row[10] || null,
+                                collegeLevel: row[11] || null,
+                                comment: row[12] || null,
+                                corporateRelations: row[13] || null,
+                                placementCell: row[14] || null,
                             },
                             connect: {
-                                connectedBy: row[8] || null,
+                                connectedBy: row[15] || null,
                                 dateOfConnect: dateValue || null,
-                                callResponse: row[10] || null,
-                                internshipType: row[12] || null,
-                                detailedResponse: row[13] || null,
+                                callResponse: row[17] || null,
+                                internshipType: row[18] || null,
+                                detailedResponse: row[19] || null,
                             },
                             teamManagerId: teamManagerId
                         };
@@ -2184,7 +2198,9 @@
                 "Send JD", "Not Interested", "January", "February", "March", "April",
                 "May", "June", "July", "August", "September", "October", "November",
                 "December", "Cut the call"
-            ]
+            ],
+            collegeTier: ["Tier 1", "Tier 2", "Tier 3", "Tier 4", "Tier 5", "Tier 6"],
+            collegeLevel: ["Platinum", "Diamond", "Gold", "Silver", "Bronze", "Black"],
         };
 
         const colorMap = {
@@ -2298,8 +2314,15 @@
                             coordinatorName: row.coordinatorName || "",
                             mobileNumber: row.mobileNumber || "",
                             emailId: row.emailId || "",
+                            placemetCell: row.placemetCell || "",
+                            mbaFeeApprox: row.mbaFeeApprox || "",
+                            mbaBatchStrengthApprox: row.mbaBatchStrengthApprox || "",
                             state: row.state || "",
                             city: row.city || "",
+                            collegeTier: row.collegeTier || "",
+                            collegeLevel: row.collegeLevel || "",
+                            comment: row.comment || "",
+                            corporateRelations: row.corporateRelations || "",
                             course: row.course || "",
                             connectedBy: row.connectedBy || "",
                             dateOfConnect: row.dateOfConnect || "",
@@ -2721,14 +2744,21 @@
                     ${makeCell("coordinatorName", row.coordinatorName)}
                     ${makeCell("mobileNumber", row.mobileNumber)}
                     ${makeCell("emailId", row.emailId)}
+                    ${makeCell("placemetCell", row.placemetCell)}
+                    ${makeCell("mbaFeeApprox", row.mbaFeeApprox)}
+                    ${makeCell("mbaBatchStrengthApprox", row.mbaBatchStrengthApprox)}
                     ${makeDropdownCell("state", row.state)}
                     ${makeDropdownCell("city", row.city, row.state)}
+                    ${makeDropdownCell("collegeTier", row.collegeTier)}
+                    ${makeDropdownCell("collegeLevel", row.collegeLevel)}
+                    ${makeCell("comment", row.comment)}
+                    ${makeCell("corporateRelations", row.corporateRelations)}
                     ${makeDropdownCell("course", row.course)}
                     ${makeDropdownCell("connectedBy", row.connectedBy)}
                     ${makeDateCell("dateOfConnect", row.dateOfConnect)}
                     ${makeDropdownCell("callResponse", row.callResponse)}
                     ${makeDropdownCell("internshipType", row.internshipType)}
-                    ${makeDropdownCell("detailedResponse", row.detailedResponse)}   
+                    ${makeDropdownCell("detailedResponse", row.detailedResponse)} 
                     <td>
                         <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
                                 data-bs-target="#composeMail" title="Send JD">
@@ -2783,7 +2813,7 @@
 
             let filterRow = "<tr class='filters'>";
             $("#leadsTable thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 1 || i === 14) {
+                if (i === 0 || i === 1 || i === 21) {
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th><select class="column-filter form-select form-select-sm" data-index="${i}">
@@ -3060,8 +3090,15 @@
                     ${makeCell("coordinatorName", row.coordinatorName)}
                     ${makeCell("mobileNumber", row.mobileNumber)}
                     ${makeCell("emailId", row.emailId)}
+                    ${makeCell("placemetCell", row.placemetCell)}
+                    ${makeCell("mbaFeeApprox", row.mbaFeeApprox)}
+                    ${makeCell("mbaBatchStrengthApprox", row.mbaBatchStrengthApprox)}
                     ${makeDropdownCell("state", row.state)}
                     ${makeDropdownCell("city", row.city, row.state)}
+                    ${makeDropdownCell("collegeTier", row.collegeTier)}
+                    ${makeDropdownCell("collegeLevel", row.collegeLevel)}
+                    ${makeCell("comment", row.comment)}
+                    ${makeDropdownCell("corporateRelations", row.corporateRelations)}
                     ${makeDropdownCell("course", row.course)}
                     ${makeDropdownCell("connectedBy", row.connectedBy)}
                     ${makeDateCell("dateOfConnect", row.dateOfConnect)}
@@ -3271,8 +3308,15 @@
                             coordinatorName: row.coordinatorName || "",
                             mobileNumber: row.mobileNumber || "",
                             emailId: row.emailId || "",
+                            // placementCell: row.placementCell || "",
+                            // mbaFeeApprox: row.mbaFeeApprox || "",
+                            // mbaBatchStrengthApprox: row.mbaBatchStrengthApprox || "",
                             state: row.state || "",
                             city: row.city || "",
+                            // collegeTier: row.collegeTier || "",
+                            // collegeLevel: row.collegeLevel || "",
+                            // comment: row.comment || "",
+                            // corporateRelations: row.corporateRelations || "",
                             course: row.course || "",
                             connectedBy: row.connectedBy || "",
                             dateOfConnect: row.dateOfConnect || "",
