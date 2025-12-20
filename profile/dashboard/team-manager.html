@@ -1488,7 +1488,7 @@
                         }
 
                         tableData = res.data
-                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                            // .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                             .map((row, index) => ({
                                 id: row.id,
                                 sno: index + 1,
