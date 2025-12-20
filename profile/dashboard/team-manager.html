@@ -308,9 +308,9 @@
                             </a>
                         </div>
                     </div> -->
-                    <input type="text" id="dateFilter" placeholder="Select date or range" class="form-control" />
+                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter" placeholder="Select date or range" class="form-control" />
 
-                    <div style="width: 30%; min-width: 200px; margin-left: 2%;">
+                    <div style="width: 30%; min-width: 250px; margin-left: 2%;">
                         <!-- <label for="managerSelect" class="form-label">Select Team Manager</label> -->
                         <select id="managerSelect" class="form-select">
                             <option value="">All Managers</option>
@@ -678,6 +678,178 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header text-white">
+                    <h5 class="mb-0">FORECASTED METRICS</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0" id="forecastTable">
+                            <thead class="table-light">
+                                <tr class="border-b">
+                                    <th colspan="5" class="text-center" style="font-size: 14px;">FORECASTED METRICS</th>
+                                    <th colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56); font-size: 14px;">BEST CASE SCENARIO</th>
+                                    <th colspan="2" class="text-center" style="background-color: #ffff80; font-size: 14px;">AVERAGE CASE
+                                        SCENARIO</th>
+                                    <th colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56); font-size: 14px;">WORST CASE SCENARIO</th>
+                                </tr>
+                                <tr class="border-b">
+                                    <th>Zone</th>
+                                    <th>Interns</th>
+                                    <th>Accounts Total</th>
+                                    <th>Average Accounts</th>
+                                    <th>Target To Be Achieved</th>
+
+                                    <th style="background-color: #5cdb5c; color: rgb(58, 56, 56);">EFFICIENCY</th>
+                                    <th style="background-color: #5cdb5c; color: rgb(58, 56, 56);">RESULT</th>
+
+                                    <th style="background-color: #ffff80;">EFFICIENCY</th>
+                                    <th style="background-color: #ffff80;">RESULT</th>
+
+                                    <th style="background-color: #ff4d4d; color: rgb(58, 56, 56);">EFFICIENCY</th>
+                                    <th style="background-color: #ff4d4d; color: rgb(58, 56, 56);">RESULT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold" style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        NON WORKING ZONE
+                                    </td>
+                                    <td><span id="nwzInterns">0</span></td>
+                                    <td><span id="nwzAccounts">0</span></td>
+                                    <td><span id="nwzAvg">0</span></td>
+                                    <td><span>12</span></td>
+
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="nwzEfficiencyBest">65%</span></td>
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="nwzResultBest">0</span></td>
+
+                                    <td style="background-color: #ffff80;"><span id="nwzEfficiencyAvg">55%</span></td>
+                                    <td style="background-color: #ffff80;"><span id="nwzResultAvg">0</span></td>
+
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="nwzEfficiencyWorst">50%</span></td>
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="nwzResultWorst">0</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-bold" style="background-color: #ffff80;">
+                                        WORKING ZONE
+                                    </td>
+                                    <td><span id="wzInterns">0</span></td>
+                                    <td><span id="wzAccounts">0</span></td>
+                                    <td><span id="wzAvg">0</span></td>
+                                    <td><span>15</span></td>
+
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="wzEfficiencyBest">85%</span></td>
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="wzResultBest">0</span></td>
+
+                                    <td style="background-color: #ffff80;"><span id="wzEfficiencyAvg">75%</span></td>
+                                    <td style="background-color: #ffff80;"><span id="wzResultAvg">0</span></td>
+
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="wzEfficiencyWorst">70%</span></td>
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="wzResultWorst">0</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-bold" style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        COMPLETED ZONE
+                                    </td>
+                                    <td><span id="czInterns">0</span></td>
+                                    <td><span id="czAccounts">0</span></td>
+                                    <td><span id="czAvg">0</span></td>
+                                    <td><span>25</span></td>
+
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="czEfficiencyBest">65%</span></td>
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="czResultBest">0</span></td>
+
+                                    <td style="background-color: #ffff80;"><span id="czEfficiencyAvg">55%</span></td>
+                                    <td style="background-color: #ffff80;"><span id="czResultAvg">0</span></td>
+
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="czEfficiencyWorst">50%</span></td>
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="czResultWorst">0</span></td>
+                                </tr>
+
+                                <tr class="table-primary fw-bold">
+                                    <td>TOTAL</td>
+                                    <td><span id="totalInternsForecast">0</span></td>
+                                    <td><span id="totalAccountsForecast">0</span></td>
+                                    <td><span></span></td>
+                                    <td><span></span></td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        <span id="totalResultBest">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center" style="background-color: #ffff80;">
+                                        <span id="totalResultAvg">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        <span id="totalResultWorst">0</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="table-primary fw-bold">
+                                    <td colspan="2">TOTAL FORECASTING</td>
+                                    <td colspan="3">
+                                        <span id="totalForecastWorst2">0</span> - <span id="totalForecastBest2">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastBest">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center" style="background-color: #ffff80;">
+                                        <span id="totalForecastAvg">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastWorst">0</span>
+                                    </td>
+                                </tr>
+                                <tr class="table-primary fw-bold">
+                                    <td colspan="5">AVERAGE</td>
+                                    <!-- <td colspan="3">
+                                        <span id="totalForecastWorst2">0</span> - <span id="totalForecastBest2">0</span>
+                                    </td> -->
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastBestAverage">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center" style="background-color: #ffff80;">
+                                        <span id="totalForecastAvgAverage">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastWorstAverage">0</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -1295,6 +1467,7 @@
                     accountsPercentElement.text(accountsPercent);
                 }
             });
+            calculateManagerForecasting(managerName);
         }
 
         function calculateAllMetrics() {
@@ -1394,6 +1567,168 @@
                     accountsPercentElement.text(accountsPercent);
                 }
             });
+            calculateAllForecasting();
+        }
+
+        function calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet) {
+            const nwzInterns = colorCounts.red.count;
+            const nwzAccounts = colorCounts.red.total;
+            const nwzAvg = nwzInterns > 0 ? (nwzAccounts / nwzInterns).toFixed(2) : 0;
+
+            const wzInterns = colorCounts.orange.count + colorCounts.yellow.count;
+            const wzAccounts = colorCounts.orange.total + colorCounts.yellow.total;
+            const wzAvg = wzInterns > 0 ? (wzAccounts / wzInterns).toFixed(2) : 0;
+
+            const czInterns = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const czAccounts = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
+            const czAvg = czInterns > 0 ? (czAccounts / czInterns).toFixed(2) : 0;
+
+            $("#nwzInterns").text(nwzInterns);
+            $("#nwzAccounts").text(nwzAccounts);
+            $("#nwzAvg").text(nwzAvg);
+
+            $("#wzInterns").text(wzInterns);
+            $("#wzAccounts").text(wzAccounts);
+            $("#wzAvg").text(wzAvg);
+
+            $("#czInterns").text(czInterns);
+            $("#czAccounts").text(czAccounts);
+            $("#czAvg").text(czAvg);
+
+            $("#totalInternsForecast").text(totalStudents);
+            $("#totalAccountsForecast").text(totalSubscriptionWallet);
+
+            const efficiencies = {
+                nwz: { best: 0.65, avg: 0.55, worst: 0.50 },
+                wz: { best: 0.85, avg: 0.75, worst: 0.70 },
+                cz: { best: 0.65, avg: 0.55, worst: 0.50 }
+            };
+
+            const targets = {
+                nwz: 12,
+                wz: 15,
+                cz: 25
+            };
+
+            const nwzResultBest = ((targets.nwz - nwzAvg) * (nwzInterns * efficiencies.nwz.best)).toFixed(0);
+            const nwzResultAvg = ((targets.nwz - nwzAvg) * (nwzInterns * efficiencies.nwz.avg)).toFixed(0);
+            const nwzResultWorst = ((targets.nwz - nwzAvg) * (nwzInterns * efficiencies.nwz.worst)).toFixed(0);
+
+            $("#nwzResultBest").text(nwzResultBest);
+            $("#nwzResultAvg").text(nwzResultAvg);
+            $("#nwzResultWorst").text(nwzResultWorst);
+
+            const wzResultBest = ((targets.wz - wzAvg) * (wzInterns * efficiencies.wz.best)).toFixed(0);
+            const wzResultAvg = ((targets.wz - wzAvg) * (wzInterns * efficiencies.wz.avg)).toFixed(0);
+            const wzResultWorst = ((targets.wz - wzAvg) * (wzInterns * efficiencies.wz.worst)).toFixed(0);
+
+            $("#wzResultBest").text(wzResultBest);
+            $("#wzResultAvg").text(wzResultAvg);
+            $("#wzResultWorst").text(wzResultWorst);
+
+            const czResultBest = ((targets.cz - czAvg) * (czInterns * efficiencies.cz.best)).toFixed(0);
+            const czResultAvg = ((targets.cz - czAvg) * (czInterns * efficiencies.cz.avg)).toFixed(0);
+            const czResultWorst = ((targets.cz - czAvg) * (czInterns * efficiencies.cz.worst)).toFixed(0);
+
+            $("#czResultBest").text(czResultBest);
+            $("#czResultAvg").text(czResultAvg);
+            $("#czResultWorst").text(czResultWorst);
+
+            const totalResultBest = parseInt(nwzResultBest) + parseInt(wzResultBest) + parseInt(czResultBest);
+            const totalResultAvg = parseInt(nwzResultAvg) + parseInt(wzResultAvg) + parseInt(czResultAvg);
+            const totalResultWorst = parseInt(nwzResultWorst) + parseInt(wzResultWorst) + parseInt(czResultWorst);
+
+            $("#totalResultBest").text(totalResultBest);
+            $("#totalResultAvg").text(totalResultAvg);
+            $("#totalResultWorst").text(totalResultWorst);
+
+            const totalForecastBest = (totalResultBest + totalSubscriptionWallet) || 0;
+            const totalForecastAvg = (totalResultAvg + totalSubscriptionWallet) || 0;
+            const totalForecastWorst = (totalResultWorst + totalSubscriptionWallet) || 0;
+            const totalForecastBestAverage = totalForecastBest / totalStudents || 0;
+            const totalForecastAvgAverage = totalForecastAvg / totalStudents || 0;
+            const totalForecastWorstAverage = totalForecastWorst / totalStudents || 0;
+
+            $("#totalForecastBest").text(totalForecastBest);
+            $("#totalForecastBest2").text(totalForecastBest);
+            $("#totalForecastAvg").text(totalForecastAvg);
+            $("#totalForecastWorst").text(totalForecastWorst);
+            $("#totalForecastWorst2").text(totalForecastWorst);
+            $("#totalForecastBestAverage").text(totalForecastBestAverage.toFixed(2));
+            $("#totalForecastAvgAverage").text(totalForecastAvgAverage.toFixed(2));
+            $("#totalForecastWorstAverage").text(totalForecastWorstAverage.toFixed(2));
+        }
+
+        function calculateManagerForecasting(managerName) {
+            if (!managerName || managerName === "") {
+                calculateAllForecasting();
+                return;
+            }
+
+            const managerData = tableData.filter(row => row.teamManager === managerName);
+            const totalStudents = managerData.length;
+
+            let totalSubscriptionWallet = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0 },
+                orange: { count: 0, total: 0 },
+                yellow: { count: 0, total: 0 },
+                lightGreen: { count: 0, total: 0 },
+                green: { count: 0, total: 0 },
+                blue: { count: 0, total: 0 }
+            };
+
+            managerData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                totalSubscriptionWallet += subscriptionWallet;
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                }
+            });
+
+            calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet);
+        }
+
+        function calculateAllForecasting() {
+            const totalStudents = tableData.length;
+            let totalSubscriptionWallet = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0 },
+                orange: { count: 0, total: 0 },
+                yellow: { count: 0, total: 0 },
+                lightGreen: { count: 0, total: 0 },
+                green: { count: 0, total: 0 },
+                blue: { count: 0, total: 0 }
+            };
+
+            tableData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                totalSubscriptionWallet += subscriptionWallet;
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                }
+            });
+
+            calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet);
+        }
+
+        function resetForecastingMetrics() {
+            $("#nwzInterns, #nwzAccounts, #nwzAvg").text("0");
+            $("#wzInterns, #wzAccounts, #wzAvg").text("0");
+            $("#czInterns, #czAccounts, #czAvg").text("0");
+            $("#totalInternsForecast, #totalAccountsForecast").text("0");
+
+            $("[id$='ResultBest'], [id$='ResultAvg'], [id$='ResultWorst']").text("0");
+            $("#totalResultBest, #totalResultAvg, #totalResultWorst").text("0");
+            $("#totalForecastBest, #totalForecastAvg, #totalForecastWorst").text("0");
         }
 
         function resetMetrics() {
@@ -1409,7 +1744,11 @@
             $("#completedPercentage").text("0%");
             $("#workingAccountsCount").text("0");
             $("#completedAccountsCount").text("0");
+            $("#totalForecastBestAverage").text("0");
+            $("#totalForecastAvgAverage").text("0");
+            $("#totalForecastWorstAverage").text("0");
 
+            resetForecastingMetrics();
             calculateAllMetrics();
         }
 
@@ -1560,6 +1899,9 @@
             $("#completedPercentage").text("0%");
             $("#workingAccountsCount").text("0");
             $("#completedAccountsCount").text("0");
+            $("#totalForecastBestAverage").text("0");
+            $("#totalForecastAvgAverage").text("0");
+            $("#totalForecastWorstAverage").text("0");
 
             const aapiCard = $("#averageAccountsPerIntern").closest(".card");
             const initialAapiColor = getAAPIColorCategory(0);
@@ -1567,6 +1909,7 @@
                 aapiCard.css("background-color", initialAapiColor);
             }
 
+            resetForecastingMetrics();
             initDatePicker();
             loadTableData();
         });
@@ -1773,6 +2116,14 @@
             $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
+
+            if (selectedManager && selectedManager !== "") {
+                calculateManagerMetrics(selectedManager);
+                calculateManagerForecasting(selectedManager);
+            } else {
+                calculateAllMetrics();
+                calculateAllForecasting();
+            }
         }
 
         function makeDropdownCell(field, selectedValue, options, isDefault = true, specialDropdown = false) {
@@ -1882,8 +2233,10 @@
 
             if (selectedManager && selectedManager !== "") {
                 calculateManagerMetrics(selectedManager);
+                calculateManagerForecasting(selectedManager);
             } else {
                 calculateAllMetrics();
+                calculateAllForecasting();
             }
         };
 
