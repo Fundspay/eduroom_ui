@@ -163,7 +163,8 @@
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Subscription left in wallet</span>
+                                        <span class="d-block" style="font-size: 14px;">Subscription left in
+                                            wallet</span>
                                         <span id="leftSubscriptions" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
@@ -204,14 +205,20 @@
                         <div class="col-md-12">
                             <div class="card bg-soft-warning text-dark border-warning border-dashed h-70">
                                 <div class="card-body d-flex justify-content-center align-items-center text-center">
-                                    <span style="font-size: 12px; text-align: left; line-height: 1.6;">📌 Note:
+                                    <span style="font-size: 12px; text-align: left; line-height: 1.6;">📌 <b>Note 1:</b>
                                         Your referral code and referral link are linked to the
                                         <b>phone number</b> you used during
                                         <b>registration on the Fundsaudit application</b>.
                                         If you entered an <b>incorrect number</b>, you can update it in the
-                                        <b>Profile Completion section</b>.<br><br>
-                                        For iOS <b>users</b>, please <b>download and register the application</b>
-                                        on an <b>Android device</b> to obtain your referral code.
+                                        <b>Profile Completion section</b>.
+                                        <br>
+                                        📌 <b>Note 2: </b>Stipend eligibility will be evaluated at the end of the live
+                                        project based on overall performance parameters, including task completion,
+                                        professional behaviour, active participation, and a benchmark of <b>25
+                                        subscriptions.</b>
+                                        <br>
+                                        <br>
+                                        For iOS <b>users</b>, you can download the application from <b>AppStore</b>, but you wont be able to use the <b>auto-fetching feature</b>.
                                     </span>
                                 </div>
                             </div>
@@ -612,7 +619,7 @@
 
                                             <!-- Offer Message (optional) -->
                                             ${offerMessage && offerMessage.trim() !== ""
-                                                ? `
+                                    ? `
                                                 <div class="col-md-12 mt-3">
                                                     <div class="card bg-blue text-white border-warning border-dashed" 
                                                         style="border-radius: 8px; background-color: #007bff; border: 1px dashed #ffc107;">
@@ -624,8 +631,8 @@
                                                         </div>
                                                     </div>
                                                 </div>`
-                                                : ""
-                                            }
+                                    : ""
+                                }
                                         </div>
                                     </div>
                                 </div>
@@ -1102,7 +1109,7 @@
             };
 
             window.exportToExcel = function () {
-                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Download Date","Occupation", "Has Paid", "Payment Date"];
+                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Download Date", "Occupation", "Has Paid", "Payment Date"];
                 const data = [headers];
 
                 tableData.forEach((row, index) => {
