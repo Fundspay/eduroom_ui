@@ -308,7 +308,8 @@
                             </a>
                         </div>
                     </div> -->
-                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter" placeholder="Select date or range" class="form-control" />
+                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter"
+                        placeholder="Select date or range" class="form-control" />
 
                     <div style="width: 30%; min-width: 250px; margin-left: 2%;">
                         <!-- <label for="managerSelect" class="form-label">Select Team Manager</label> -->
@@ -682,6 +683,46 @@
                 </div>
             </div>
 
+            <div class="col-xxl-12">
+                <div class="card stretch stretch-full overflow-hidden">
+                    <div class=" text-white">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <h5 class="text-reset">MANAGER PERFORMANCE ANALYTICS</h5>
+                        </div>
+                        <div id="chartScrollWrapper" class="chart-scroll-wrapper">
+                            <div id="chart-inner-manager">
+                                <div id="manager-performance-bar-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-primary">CHAMPION</span> Rank 1</small>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-success">Star/Performer</span> Rank 2-3</small>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-success" style="background-color: #b3ffb3 !important;">Doing Well</span> Rank 4-8</small>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-warning">On Track</span> Rank 9-12</small>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-warning" style="background-color: #ffa500 !important;">Poor Performer</span> Rank 13-16</small>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-danger" style="background-color: #ff9999 !important;">Very Poor</span> Rank 17-20</small>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted"><span class="badge bg-danger">Worst Performer</span> Rank 21+</small>
+                </div>
+            </div>
+        </div> -->
+                </div>
+            </div>
+
             <div class="card mt-4">
                 <div class="card-header text-white">
                     <h5 class="mb-0">FORECASTED METRICS</h5>
@@ -693,11 +734,14 @@
                                 <tr class="border-b">
                                     <th colspan="5" class="text-center" style="font-size: 14px;">FORECASTED METRICS</th>
                                     <th colspan="2" class="text-center"
-                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56); font-size: 14px;">BEST CASE SCENARIO</th>
-                                    <th colspan="2" class="text-center" style="background-color: #ffff80; font-size: 14px;">AVERAGE CASE
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56); font-size: 14px;">BEST
+                                        CASE SCENARIO</th>
+                                    <th colspan="2" class="text-center"
+                                        style="background-color: #ffff80; font-size: 14px;">AVERAGE CASE
                                         SCENARIO</th>
                                     <th colspan="2" class="text-center"
-                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56); font-size: 14px;">WORST CASE SCENARIO</th>
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56); font-size: 14px;">
+                                        WORST CASE SCENARIO</th>
                                 </tr>
                                 <tr class="border-b">
                                     <th>Zone</th>
@@ -1362,6 +1406,309 @@
             return '';
         }
 
+        // Add this at the top with other chart variables
+        let managerPerformanceChart = null;
+
+        // Add this function to calculate manager performance data
+        function calculateManagerPerformanceData() {
+            const managerPerformance = {};
+
+            // Calculate total accounts for each manager
+            tableData.forEach(row => {
+                const manager = row.teamManager || "Unassigned";
+                const accounts = parseInt(row.subscriptionWallet) || 0;
+
+                if (!managerPerformance[manager]) {
+                    managerPerformance[manager] = {
+                        name: manager,
+                        accounts: 0,
+                        internCount: 0
+                    };
+                }
+
+                managerPerformance[manager].accounts += accounts;
+                managerPerformance[manager].internCount += 1;
+            });
+
+            // Convert to array and sort by accounts (descending)
+            const performanceArray = Object.values(managerPerformance);
+            performanceArray.sort((a, b) => b.accounts - a.accounts);
+
+            // Add rank and status
+            performanceArray.forEach((manager, index) => {
+                const rank = index + 1;
+                manager.rank = rank;
+                manager.status = getManagerStatus(rank);
+                manager.color = getManagerStatusColor(rank);
+            });
+
+            return performanceArray;
+        }
+
+        // Function to get manager status based on rank
+        function getManagerStatus(rank) {
+            if (rank === 1) return "CHAMPION";
+            if (rank === 2) return "Star";
+            if (rank === 3) return "Performer";
+            if (rank >= 4 && rank <= 8) return "Doing Well";
+            if (rank >= 9 && rank <= 12) return "On Track";
+            if (rank >= 13 && rank <= 16) return "Poor Performer";
+            if (rank >= 17 && rank <= 20) return "Very Poor Performer";
+            return "Worst Performer";
+        }
+
+        // Function to get color based on rank
+        function getManagerStatusColor(rank) {
+            if (rank === 1) return "#4da6ff"; // blue
+            if (rank === 2 || rank === 3) return "#5cdb5c"; // green
+            if (rank >= 4 && rank <= 8) return "#b3ffb3"; // light green
+            if (rank >= 9 && rank <= 12) return "#ffff80"; // yellow
+            if (rank >= 13 && rank <= 16) return "#ffa500"; // orange
+            if (rank >= 17 && rank <= 20) return "#ff9999"; // light red
+            return "#ff4d4d"; // red
+        }
+
+        // Function to create legend HTML
+        function createManagerPerformanceLegend(performanceData) {
+            if (performanceData.length === 0) return '';
+
+            let legendHTML = '<div class="manager-legend">';
+
+            // Get first 3 managers
+            for (let i = 0; i < Math.min(3, performanceData.length); i++) {
+                const manager = performanceData[i];
+                legendHTML += `
+            <div class="legend-item">
+                <span class="legend-rank">Rank ${manager.rank} (${manager.status}):</span>
+                <span class="legend-name">${manager.name}</span>
+            </div>
+        `;
+            }
+
+            // Get last manager if there are more than 3
+            if (performanceData.length > 3) {
+                const lastManager = performanceData[performanceData.length - 1];
+                legendHTML += `
+            <div class="legend-item">
+                <span class="legend-rank">Rank ${lastManager.rank} (${lastManager.status}):</span>
+                <span class="legend-name">${lastManager.name}</span>
+            </div>
+        `;
+            }
+
+            legendHTML += '</div>';
+            return legendHTML;
+        }
+
+        // Function to update manager performance chart
+        function updateManagerPerformanceChart() {
+            const performanceData = calculateManagerPerformanceData();
+
+            // Prepare data for chart
+            const categories = performanceData.map(manager =>
+                `${manager.name} (${manager.rank})`
+            );
+
+            const accountsData = performanceData.map(manager => manager.accounts);
+            const colors = performanceData.map(manager => manager.color);
+
+            // Set minimum width for scrolling
+            const minWidth = Math.max(600, performanceData.length * 80);
+            $("#chart-inner-manager").css("min-width", `${minWidth}px`);
+
+            const chartOptions = {
+                series: [{
+                    name: "",
+                    data: accountsData
+                }],
+                chart: {
+                    type: "bar",
+                    height: 260,
+                    toolbar: { show: false }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        endingShape: "rounded",
+                        columnWidth: "45%",
+                        dataLabels: {
+                            position: "top"
+                        }
+                    }
+                },
+                colors: colors,
+                grid: { show: false },
+                legend: { show: false },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return val;
+                    },
+                    offsetY: -20,
+                    style: {
+                        fontSize: '10px',
+                        colors: ["#000"],
+                        fontWeight: 'bold'
+                    }
+                },
+                xaxis: {
+                    categories: categories,
+                    labels: {
+                        rotate: -45,
+                        style: {
+                            colors: "#000",
+                            fontFamily: "Roboto",
+                            fontSize: "10px",
+                            fontWeight: 500
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        show: true,
+                        style: {
+                            colors: "#000"
+                        }
+                    },
+                    title: {
+                        text: "Accounts",
+                        style: {
+                            color: "#000"
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: "dark",
+                    y: {
+                        formatter: function (val, { series, seriesIndex, dataPointIndex, w }) {
+                            const manager = performanceData[dataPointIndex];
+                            return `
+                    <div>
+                        <strong>${manager.name}</strong><br/>
+                        Rank: ${manager.rank}<br/>
+                        Accounts: ${val}<br/>
+                        Interns: ${manager.internCount}<br/>
+                        Avg/Intern: ${(manager.accounts / manager.internCount).toFixed(2)}
+                    </div>`;
+                        }
+                    }
+                }
+            };
+
+            if (managerPerformanceChart) {
+                managerPerformanceChart.updateOptions(chartOptions);
+            } else {
+                managerPerformanceChart = new ApexCharts(
+                    document.querySelector("#manager-performance-bar-chart"),
+                    chartOptions
+                );
+                managerPerformanceChart.render();
+            }
+
+            // Add legend above the chart container
+            const legendContainer = document.querySelector('#manager-chart-legend');
+            if (legendContainer) {
+                legendContainer.innerHTML = createManagerPerformanceLegend(performanceData);
+            } else {
+                // Create legend container above the chart
+                const chartContainer = document.querySelector('#manager-performance-bar-chart');
+                if (chartContainer && chartContainer.parentNode) {
+                    const legendDiv = document.createElement('div');
+                    legendDiv.id = 'manager-chart-legend';
+                    legendDiv.className = 'manager-chart-legend';
+                    legendDiv.innerHTML = createManagerPerformanceLegend(performanceData);
+                    chartContainer.parentNode.insertBefore(legendDiv, chartContainer);
+                }
+            }
+
+            // Add scroll functionality
+            setupChartScroll();
+        }
+
+        // Function to setup chart scrolling
+        function setupChartScroll() {
+            const chartWrapper = document.querySelector('#chartScrollWrapper');
+            const chartInner = document.querySelector('#chart-inner-manager');
+
+            if (!chartWrapper || !chartInner) return;
+
+            // Remove existing scroll buttons
+            $('.chart-scroll-btn').remove();
+
+            // Add scroll buttons if content is wider than container
+            if (chartInner.scrollWidth > chartWrapper.clientWidth) {
+                // Create left scroll button
+                const leftBtn = $(`
+            <button class="chart-scroll-btn" id="scrollLeftBtn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+        `);
+
+                // Create right scroll button
+                const rightBtn = $(`
+            <button class="chart-scroll-btn" id="scrollRightBtn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        `);
+
+                $('.bg-success.text-white').append(leftBtn).append(rightBtn);
+
+                // Scroll functionality
+                $('#scrollLeftBtn').off('click').on('click', function () {
+                    chartWrapper.scrollLeft -= 100;
+                });
+
+                $('#scrollRightBtn').off('click').on('click', function () {
+                    chartWrapper.scrollLeft += 100;
+                });
+            }
+        }
+
+        // Add CSS for the legend - UPDATED to appear above chart
+        const legendStyles = `
+.manager-chart-legend {
+    margin-bottom: 15px;
+    text-align: right;
+    font-family: Roboto, sans-serif;
+    width: 100%;
+}
+
+.manager-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.legend-rank {
+    font-weight: 500;
+    color: #333;
+}
+
+.legend-name {
+    font-weight: 600;
+    color: #000;
+    min-width: 100px;
+    text-align: left;
+}
+`;
+
+        // Inject the styles
+        if (!document.querySelector('#manager-legend-styles')) {
+            const styleElement = document.createElement('style');
+            styleElement.id = 'manager-legend-styles';
+            styleElement.textContent = legendStyles;
+            document.head.appendChild(styleElement);
+        }
+
         function calculateManagerMetrics(managerName) {
             if (!managerName || managerName === "") {
                 calculateAllMetrics();
@@ -1873,6 +2220,7 @@
                         } else {
                             calculateAllMetrics();
                         }
+                        updateManagerPerformanceChart();
                     } else {
                         tableData = [];
                         filteredData = [];
@@ -2197,6 +2545,7 @@
                         } else {
                             calculateAllMetrics();
                         }
+                        updateManagerPerformanceChart();
                     },
                     error: function (err) {
                         console.error("Update failed", err);
