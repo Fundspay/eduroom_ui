@@ -199,8 +199,8 @@
                                                 <th>Follow up date</th>
                                                 <th>Response of follow up</th>
                                                 <th>No. of resumes</th>
-                                                <th>Date of resume</th>
                                                 <th>Expected response date</th>
+                                                <th>Date of resume</th>
                                                 <!-- <th>Send JD</th> -->
                                             </tr>
                                         </thead>
@@ -569,8 +569,8 @@
                             followUpDate: row.followUpDate || "",
                             followUpResponse: row.followUpResponse || "",
                             resumeCount: row.resumeCount || "",
-                            resumeDate: row.resumeDate || "",
-                            expectedResponseDate: row.expectedResponseDate || ""
+                            expectedResponseDate: row.expectedResponseDate || "",
+                            resumeDate: row.resumeDate || ""
                         }));
 
                         dropdowns.connectedBy = res.managers.map(u => u.name);
@@ -625,9 +625,8 @@
             ${makeDateCell("followUpDate", row.followUpDate || "")}
             ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
             ${makeNumberCell("resumeCount", row.resumeCount || "")}
-            ${makeDateCell("resumeDate", row.resumeDate || "")}
             ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
-
+            ${makeDateCell("resumeDate", row.resumeDate || "")}
             </tr>`;
                 tbody.append(tr);
             });
@@ -1065,8 +1064,8 @@
                 ${makeDateCell("followUpDate", row.followUpDate || "")}
                 ${makeDropdownCell("followUpResponse", row.followUpResponse || "", null, dropdowns.followUpResponse)}
                 ${makeNumberCell("resumeCount", row.resumeCount || "")}
-                ${makeDateCell("resumeDate", row.resumeDate || "")}
                 ${makeDateCell("expectedResponseDate", row.expectedResponseDate || "")}
+                ${makeDateCell("resumeDate", row.resumeDate || "")}
                 <td>
                     <button class="btn btn-sm btn-success send-mail" data-id="${row.id}" title="Send JD">
                         <i class="fas fa-paper-plane"></i>
@@ -1154,8 +1153,8 @@
                 "Follow up date",
                 "Follow up response",
                 "Resume count",
-                "Resume date",
-                "Expected response date"
+                "Expected response date",
+                "Resume date"
             ];
 
             const data = [headers];
@@ -1179,8 +1178,8 @@
                     row.followUpDate,
                     row.followUpResponse,
                     row.resumeCount,
-                    row.resumeDate,
-                    row.expectedResponseDate
+                    row.expectedResponseDate,
+                    row.resumeDate
                 ]);
             });
 
