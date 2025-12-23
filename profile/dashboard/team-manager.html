@@ -1625,14 +1625,37 @@
                     <div class="${manager.sizeClass}">
                         <div class="card stretch stretch-full ${manager.heightClass}" style="background-color: ${manager.color}; border: none;">
                             <div class="card-body p-3">
-                                <div class="fw-bold mb-2 ${manager.textClass}" style="color: ${textColor};">${manager.status}</div>
-                                <div class="hstack justify-content-between lh-base">
-                                    <div>
-                                        <h4 class="mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.name}</h4>
-                                        <div class="${manager.textClass}" style="color: ${textColor}; opacity: 0.9;">
-                                            Rank: ${manager.rank}<br>
-                                            Accounts: ${manager.accounts}<br>
-                                            Interns: ${manager.internCount}
+                                <div class="fw-bold mb-1 text-center ${manager.textClass}"
+                                    style="color: ${textColor}; padding-bottom: 8px; font-size: ${manager.rank === 1 ? '18px' : '16px'}">
+                                    ${manager.status}</div>
+                                <div class="fw-bold mb-1 text-center ${manager.textClass}"
+                                    style="color: ${textColor}; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                    ${manager.name}</div>
+                                <div class="row">
+                                    <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Interns</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.internCount}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Accounts</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.accounts}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Rank</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.rank}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Avg/Intern</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${(manager.accounts / manager.internCount).toFixed(2)}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1740,22 +1763,22 @@
             }
 
             .legend-card-large {
-                height: 150px !important;
+                height: 210px !important;
                 min-height: 100px !important;
             }
 
             .legend-card-medium {
-                height: 138px !important;
+                height: 200px !important;
                 min-height: 90px !important;
             }
 
             .legend-card-small {
-                height: 128px !important;
+                height: 190px !important;
                 min-height: 80px !important;
             }
 
             .legend-card-xsmall {
-                height: 118px !important;
+                height: 180px !important;
                 min-height: 70px !important;
             }
 
