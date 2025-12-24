@@ -215,10 +215,11 @@
                                         📌 <b>Note 2: </b>Stipend eligibility will be evaluated at the end of the live
                                         project based on overall performance parameters, including task completion,
                                         professional behaviour, active participation, and a benchmark of above <b>25
-                                        subscriptions.</b>
+                                            subscriptions.</b>
                                         <br>
                                         <br>
-                                        For iOS <b>users</b>, you can download the application from <b>AppStore</b>, but you wont be able to use the <b>auto-fetching feature</b>.
+                                        For iOS <b>users</b>, you can download the application from <b>AppStore</b>, but
+                                        you wont be able to use the <b>auto-fetching feature</b>.
                                     </span>
                                 </div>
                             </div>
@@ -272,6 +273,8 @@
                                                     <th>Date of Payment</th>
                                                     <th>Raise A Query</th>
                                                     <th>Query Status</th>
+                                                    <th>User Review</th>
+                                                    <th>Manager Review</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -871,24 +874,22 @@
     </script>
 
     <script>
-        // Logged-in user ID from sessionStorage
         const loggedInUserId = sessionStorage.getItem("user_id");
-        // console.log("Logged-in user ID:", loggedInUserId);
 
         $(document).ready(function () {
-            const rowsPerPage = 10;
+            const rowsPerPage = 25;
             let currentPage = 1;
             let tableData = [];
+
+            const userReviewOptions = ["", "Completed", "Not completed"];
 
             function formatDate(dateStr) {
                 if (!dateStr) return null;
 
                 let parts;
                 if (dateStr.includes("T")) {
-                    // format: "2025-10-14T19:40:16.309Z"
                     parts = dateStr.split("T")[0].split("-");
                 } else {
-                    // format: "2025-10-14 14:33:41.877"
                     parts = dateStr.split(" ")[0].split("-");
                 }
 
@@ -927,6 +928,19 @@
                                 const email = user.email || "--";
                                 const firstName = user.first_name || "--";
                                 const lastName = user.last_name || "--";
+                                const userReviewBadge =
+                                    user.userReview === "Completed"
+                                        ? '<span class="badge bg-soft-success text-success">Completed</span>'
+                                        : user.userReview === "Not completed"
+                                            ? '<span class="badge bg-soft-danger text-danger">Not completed</span>'
+                                            : '<span class="badge bg-soft-secondary text-muted">--</span>';
+
+                                const managerReviewBadge =
+                                    user.managerReview === "Approved"
+                                        ? '<span class="badge bg-soft-success text-success">Approved</span>'
+                                        : user.managerReview === "Not approved"
+                                            ? '<span class="badge bg-soft-danger text-danger">Not approved</span>'
+                                            : '<span class="badge bg-soft-secondary text-muted">--</span>';
 
                                 const hasPaid = user.has_paid
                                     ? '<span class="badge bg-soft-success text-success">Yes</span>'
@@ -978,12 +992,15 @@
                                     hasPaid,
                                     paymentDateDisplay,
                                     status: statusBadge,
-                                    statusText: statusText
+                                    statusText: statusText,
+                                    userReview: userReviewBadge,
+                                    managerReview: managerReviewBadge
                                 };
                             });
 
                             renderTable();
                             renderPagination();
+                            attachEditableEvents();
                         } else {
                             console.error("Invalid response format.");
                         }
@@ -992,6 +1009,27 @@
                         console.error("Error fetching data:", err);
                     }
                 });
+            }
+
+            function makeUserReviewCell(userReview, userId, firstName, lastName, phone, status, email) {
+                let dropdownHtml = `<select class="user-review-dropdown form-control form-control-sm">`;
+
+                userReviewOptions.forEach(option => {
+                    const selected = option === userReview ? "selected" : "";
+                    dropdownHtml += `<option value="${option}" ${selected}>${option}</option>`;
+                });
+
+                dropdownHtml += `</select>`;
+
+                return `<td class="user-review-cell" data-field="userReview" data-user-id="${userId}" 
+                    data-first-name="${escJS(firstName)}" data-last-name="${escJS(lastName)}" 
+                    data-phone="${escJS(phone)}" data-status="${escJS(status)}" data-email="${escJS(email)}"
+                    style="cursor: pointer;">
+                    <span class="user-review-display">${userReview}</span>
+                    <div class="user-review-edit" style="display: none;">
+                        ${dropdownHtml}
+                    </div>
+                </td>`;
             }
 
             function renderTable() {
@@ -1003,23 +1041,100 @@
 
                 rows.forEach((row) => {
                     const tr = `<tr>
-                    <td>${row.sno}</td>
-                    <td>${row.name}</td>
-                    <td><a href="tel:${row.phone}">${row.phone}</a></td>
-                    <td><a href="mailto:${row.email}">${row.email}</a></td>
-                    <td>${row.isDownloaded}</td>
-                    <td>${row.downloadDateDisplay}</td>
-                    <td>${row.occupation}</td>
-                    <td>${row.hasPaid}</td>
-                    <td>${row.paymentDateDisplay}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${escJS(row.id)}', '${escJS(row.firstName)}', '${escJS(row.lastName)}', '${escJS(row.phone)}', '${escJS(row.statusText)}', '${escJS(row.email)}')">
-                            Raise Query
-                        </button>
-                    </td>
-                    <td>${row.status}</td>
-                </tr>`;
+                        <td>${row.sno}</td>
+                        <td>${row.name}</td>
+                        <td><a href="tel:${row.phone}">${row.phone}</a></td>
+                        <td><a href="mailto:${row.email}">${row.email}</a></td>
+                        <td>${row.isDownloaded}</td>
+                        <td>${row.downloadDateDisplay}</td>
+                        <td>${row.occupation}</td>
+                        <td>${row.hasPaid}</td>
+                        <td>${row.paymentDateDisplay}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="raiseQuery('${escJS(row.id)}', '${escJS(row.firstName)}', '${escJS(row.lastName)}', '${escJS(row.phone)}', '${escJS(row.statusText)}', '${escJS(row.email)}')">
+                                Raise Query
+                            </button>
+                        </td>
+                        <td>${row.status}</td>
+                        ${makeUserReviewCell(row.userReview, row.id, row.firstName, row.lastName, row.phone, row.statusText, row.email)}
+                        <td>${row.managerReview}</td>
+                    </tr>`;
                     tbody.append(tr);
+                });
+            }
+
+            function attachEditableEvents() {
+                $(".user-review-cell").off("dblclick").on("dblclick", function () {
+                    const cell = $(this);
+                    cell.find(".user-review-display").hide();
+                    cell.find(".user-review-edit").show();
+                    cell.find(".user-review-dropdown").focus();
+                });
+
+                $(".user-review-dropdown").off("change").on("change", function () {
+                    const dropdown = $(this);
+                    const cell = dropdown.closest(".user-review-cell");
+                    const newValue = dropdown.val();
+                    const displaySpan = cell.find(".user-review-display");
+
+                    displaySpan.text(newValue);
+
+                    cell.find(".user-review-edit").hide();
+                    displaySpan.show();
+
+                    const userId = cell.data("user-id");
+
+                    updateUserReview(userId, newValue);
+                });
+
+                $(document).on("click", function (e) {
+                    if (!$(e.target).closest(".user-review-cell").length) {
+                        $(".user-review-cell").each(function () {
+                            const cell = $(this);
+                            const displaySpan = cell.find(".user-review-display");
+                            const editDiv = cell.find(".user-review-edit");
+
+                            if (editDiv.is(":visible")) {
+                                editDiv.hide();
+                                displaySpan.show();
+                            }
+                        });
+                    }
+                });
+            }
+
+            function updateUserReview(userId, userReview) {
+                let payload = {
+                    userReview: userReview
+                };
+
+                // console.log("Updating user review with payload:", payload);
+
+                const url = `https://eduroom.in/api/v1/fundsaudit/fundsaudit/reviews/${userId}`;
+                // console.log("Updating user review with URL:", url);
+
+                $.ajax({
+                    url: url,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        // console.log("Update response:", res);
+                        // window.location.reload();
+                        fetchData();
+                        renderTable();
+
+                        const userIndex = tableData.findIndex(item => item.id === userId);
+                        if (userIndex !== -1) {
+                            tableData[userIndex].userReview = userReview;
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Error updating user review:", err);
+                        const cell = $(`.user-review-cell[data-user-id="${userId}"]`);
+                        const originalValue = tableData.find(item => item.id === userId)?.userReview || "Not Reviewed";
+                        cell.find(".user-review-display").text(originalValue);
+                    }
                 });
             }
 
@@ -1055,6 +1170,7 @@
                 currentPage = page;
                 renderTable();
                 renderPagination();
+                attachEditableEvents();
             };
 
             window.filterTable = function () {
@@ -1063,6 +1179,7 @@
                     renderTable();
                     renderPagination();
                     $("#pagination").show();
+                    attachEditableEvents();
                     return;
                 }
 
@@ -1077,26 +1194,29 @@
                 tbody.empty();
                 filtered.forEach((row, index) => {
                     const tr = `<tr>
-                    <td>${row.sno}</td>
-                    <td>${row.name}</td>
-                    <td><a href="tel:${row.phone}">${row.phone}</a></td>
-                    <td><a href="mailto:${row.email}">${row.email}</a></td>
-                    <td>${row.isDownloaded}</td>
-                    <td>${row.downloadDateDisplay}</td>
-                    <td>${row.occupation}</td>
-                    <td>${row.hasPaid}</td>
-                    <td>${row.paymentDateDisplay}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" onclick="raiseQuery('${escJS(row.id)}', '${escJS(row.firstName)}', '${escJS(row.lastName)}', '${escJS(row.phone)}', '${escJS(row.statusText)}', '${escJS(row.email)}')">
-                            Raise Query
-                        </button>
-                    </td>
-                    <td>${row.status}</td>
-                </tr>`;
+                        <td>${row.sno}</td>
+                        <td>${row.name}</td>
+                        <td><a href="tel:${row.phone}">${row.phone}</a></td>
+                        <td><a href="mailto:${row.email}">${row.email}</a></td>
+                        <td>${row.isDownloaded}</td>
+                        <td>${row.downloadDateDisplay}</td>
+                        <td>${row.occupation}</td>
+                        <td>${row.hasPaid}</td>
+                        <td>${row.paymentDateDisplay}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="raiseQuery('${escJS(row.id)}', '${escJS(row.firstName)}', '${escJS(row.lastName)}', '${escJS(row.phone)}', '${escJS(row.statusText)}', '${escJS(row.email)}')">
+                                Raise Query
+                            </button>
+                        </td>
+                        <td>${row.status}</td>
+                        ${makeUserReviewCell(row.userReview, row.id, row.firstName, row.lastName, row.phone, row.statusText, row.email)}
+                        <td>${row.managerReview}</td>
+                    </tr>`;
                     tbody.append(tr);
                 });
 
                 $("#pagination").hide();
+                attachEditableEvents();
             };
 
             window.printTable = function () {
@@ -1109,7 +1229,7 @@
             };
 
             window.exportToExcel = function () {
-                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Download Date", "Occupation", "Has Paid", "Payment Date"];
+                const headers = ["S No.", "Name", "Mobile No.", "Email", "App Downloaded", "Download Date", "Occupation", "Has Paid", "Payment Date", "Status", "User Review", "Manager Review"];
                 const data = [headers];
 
                 tableData.forEach((row, index) => {
@@ -1123,7 +1243,10 @@
                         clean(row.downloadDateDisplay),
                         clean(row.occupation),
                         clean(row.hasPaid),
-                        clean(row.paymentDateDisplay)
+                        clean(row.paymentDateDisplay),
+                        clean(row.status),
+                        row.userReview,
+                        row.managerReview
                     ]);
                 });
 
@@ -1134,7 +1257,6 @@
             };
 
             window.raiseQuery = function (userId, firstName, lastName, phone, status, email) {
-                // console.log("Preparing to raise query for:", userId, "firstname:", firstName, "lastName:", lastName, "phone:", phone, "status:", status, "email:", email, "Logged-in user:", loggedInUserId);
 
                 Swal.fire({
                     title: 'Are you sure?',
