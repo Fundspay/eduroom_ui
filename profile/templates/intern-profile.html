@@ -550,7 +550,7 @@
 
                             const subscriptionText =
                                 displayStatus === "Completed"
-                                    ? "Completed"
+                                    ? `${businessTarget || "0"} (Completed)`
                                     : `${subscriptionLeft || "0"}/${businessTarget || "0"}`;
 
                             const card = `
@@ -1311,13 +1311,15 @@
     </script>
 
     <script>
-        const userId = sessionStorage.getItem("user_id");
+       const urlParams2 = new URLSearchParams(window.location.search);
+        // const urlUserId = urlParams.get("userId");
+        const urlUserId2 = urlParams2.get("userId");
         // const userId = 2;
         // console.log("user_id:", userId);
 
         $(document).ready(function () {
             $.ajax({
-                url: `https://eduroom.in/api/v1/course/wallet/${urlUserId}`,
+                url: `https://eduroom.in/api/v1/course/wallet/${urlUserId2}`,
                 type: "GET",
                 success: function (res) {
                     // console.log("API Response:", res);
