@@ -1384,7 +1384,7 @@
                 totalAccounts = paymentsTotalAccounts;
             }
 
-            const internsAllottedPercent = totalTargetInterns > 0 ? (totalInternsAllotted / totalTargetInterns) * 100 : 0;
+            const internsAllottedPercent = totalTargetInterns > 0 ? (totalTargetInterns / totalInternsAllotted) * 100 : 0;
             const internsActivePercent = totalInternsActiveTarget > 0 ? (totalActiveInterns / totalInternsActiveTarget) * 100 : 0;
             const accountsPercent = totalAccountsTarget > 0 ? (totalAccounts / totalAccountsTarget) * 100 : 0;
 
