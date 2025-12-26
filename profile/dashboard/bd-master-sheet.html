@@ -1863,8 +1863,8 @@
                     console.log("Performance data:", res);
                     if (res.success && res.leaderboard) {
                         tableData = res.leaderboard.map((tl, index) => {
-                            const internsAllocated = parseInt(tl.internsAllocated) || 0;
-                            const totalInterns = parseInt(tl.totalInterns) || 0;
+                            const internsAllocated = parseInt(tl.totalInterns) || 0;
+                            const totalInterns = parseInt(tl.internsAllocated) || 0;
                             const activeInterns = parseInt(tl.activeInterns) || 0;
                             const internsActive = parseInt(tl.internsActive) || 0;
                             const accounts = parseInt(tl.accounts) || 0;
