@@ -988,12 +988,12 @@
                                                 <tr class="border-b">
                                                     <!-- Interns Allotted sub-headers -->
                                                     <th>Achieved</th>
-                                                    <th>Total</th>
+                                                    <th>Target</th>
                                                     <th>%</th>
 
                                                     <!-- Active Interns sub-headers -->
                                                     <th>Achieved</th>
-                                                    <th>Active</th>
+                                                    <th>Target</th>
                                                     <th>%</th>
 
                                                     <!-- Accounts sub-headers -->
@@ -1388,8 +1388,8 @@
             const internsActivePercent = totalInternsActiveTarget > 0 ? (totalActiveInterns / totalInternsActiveTarget) * 100 : 0;
             const accountsPercent = totalAccountsTarget > 0 ? (totalAccounts / totalAccountsTarget) * 100 : 0;
 
-            $("#totalInternsAllotted").text(totalInternsAllotted);
-            $("#targetInternsAllotted").text(totalTargetInterns);
+            $("#totalInternsAllotted").text(totalTargetInterns);
+            $("#targetInternsAllotted").text(totalInternsAllotted);
             $("#internsAllottedPercent").text(internsAllottedPercent.toFixed(2) + '%');
 
             $("#totalInternsActive").text(totalActiveInterns);

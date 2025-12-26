@@ -292,6 +292,10 @@
                                     TARGETS ADMIN</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets-admin.html">BD
                                     TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-master-sheet.html">HR
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-master-sheet.html">BD
+                                    MASTER SHEET</a>
                         </ul>
                     </li>
 
@@ -770,7 +774,7 @@
                     <div class="date-picker-container d-flex justify-content-end"
                         style="width: 100%; margin-bottom: 1%;">
                         <input type="text" id="tableDateRangePicker" class="form-control"
-                            placeholder="Select date range" style="width: 20%;" readonly/>
+                            placeholder="Select date range" style="width: 20%;" readonly />
                     </div>
 
                     <div class="col-12">
@@ -783,7 +787,8 @@
                                     </h5>
 
                                     <p class="mb-0 text-muted" style="font-size: 13px;">
-                                        Note: This Table shows data for <span style="font-weight: bold;">TODAY</span> by default, you can change the date range
+                                        Note: This Table shows data for <span style="font-weight: bold;">TODAY</span> by
+                                        default, you can change the date range
                                         to view data for other dates
                                     </p>
                                 </div>
@@ -2494,7 +2499,7 @@
         // FIXED: Search function that works with date-filtered data
         window.filterTable = function () {
             const value = $("#searchInput").val().toLowerCase().trim();
-            
+
             if (!value) {
                 // If search is empty, show all data (but keep date filtering if applied)
                 filteredData = [...tableData];

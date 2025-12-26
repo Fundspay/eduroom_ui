@@ -991,7 +991,7 @@
                                                 <th colspan="3" class="text-center">Resumes Received</th>
                                                 <th colspan="3" class="text-center">Colleges</th>
                                                 <th colspan="3" class="text-center">Selected</th>
-                                                <th colspan="2">Rank</th>
+                                                <th rowspan="2">Rank</th>
                                             </tr>
                                             <tr class="border-b">
                                                 <!-- JD Sent sub-headers -->
@@ -1232,11 +1232,12 @@
                 queryParams.push("startDate=" + fromDate);
                 queryParams.push("endDate=" + toDate);
             }
-
+            
             let finalUrl = API_URL;
             if (queryParams.length) {
                 finalUrl += "?" + queryParams.join("&");
             }
+            console.log("finalUrl:", finalUrl);
 
             $.ajax({
                 url: finalUrl,
