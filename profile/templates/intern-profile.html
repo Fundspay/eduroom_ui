@@ -110,6 +110,10 @@
                 </div>
 
                 <script>
+                    let registeredEmail = "--";
+                </script>
+
+                <script>
                     function copyReferralCode() {
                         const code = document.getElementById("referralCode").innerText;
                         navigator.clipboard.writeText(code).then(() => {
@@ -162,10 +166,22 @@
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Subscription left in wallet</span>
+                                        <span class="d-block" style="font-size: 14px;">Subscription left in
+                                            wallet</span>
                                         <span id="leftSubscriptions" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div>
+                                <div class="card-body">
+                                    <!-- Conditional Message -->
+                                    <div id="subscriptionMessageBox" class="mt-4 p-4 rounded text-center fw-semibold"
+                                        style="display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -421,6 +437,63 @@
     <!--! END: Theme Customizer !-->
 
     <script>
+        function handleSubscriptionUI(totalSubs, email) {
+            const box = $("#subscriptionMessageBox");
+
+            box.hide()
+                .removeClass("bg-danger bg-info text-white")
+                .html("");
+
+            if (totalSubs === 0) {
+                box
+                    .addClass("bg-danger text-dark")
+                    .css("text-align", "left")
+                    .html(`
+                        <div class="fw-bold mb-1" style="font-size: 30px;">
+                            <span style="color: #ffffff;">
+                                ⚠️ Your current subscriptions are 0 ⚠️
+                            </span>
+                        </div>
+                        <div style="font-size: 13px;">
+                            <span style="color: #ffffff;">
+                                You will receive the offer letter once you start your business task.
+                                <br>
+                                The same work status will also be shared with your
+                            </span>
+                            <span style="color: #000000; font-weight: 600;">
+                                college placement cell
+                            </span>
+                        </div>
+                    `)
+                    .show();
+            }
+            else if (totalSubs >= 1 && totalSubs <= 3) {
+                box
+                    .addClass("bg-success text-dark")
+                    .css("text-align", "left")
+                    .html(`
+                        <div class="fw-bold mb-2" style="font-size: 30px;">
+                            ✨Congratulations on starting your Business task!✨
+                        </div>
+                        <div style="font-size: 13px; line-height: 1.6;">
+                            You will receive your offer letter on your registered email
+                            <span style="color: #ffffffff; font-weight: 600;">
+                                ${email}
+                            </span>
+                            within <b>24 hours</b>.
+                            <br>
+                            The same offer letter will also be shared with your
+                            <span style="color: #dc3545; font-weight: 600;">
+                                college placement cell
+                            </span>.
+                        </div>
+                    `)
+                    .show();
+            }
+        }
+    </script>
+
+    <script>
         $(document).ready(function () {
             const urlParams = new URLSearchParams(window.location.search);
             const urlUserId = urlParams.get("userId");
@@ -455,7 +528,7 @@
                         $(".profile-email").text(user.Email || "--");
                         $(".profile-phone").text(user.PhoneNumber || "--");
                         $(".profile-college").text(user.CollegeName || "--");
-
+                        registeredEmail = user.Email || "--";
                         $("#referralCode").text(user.ReferralCode || "--");
                         $("#referralLink").text(user.ReferralLink || "--");
                         $("#referralLink").attr("href", user.ReferralLink || "#");
@@ -1311,7 +1384,7 @@
     </script>
 
     <script>
-       const urlParams2 = new URLSearchParams(window.location.search);
+        const urlParams2 = new URLSearchParams(window.location.search);
         // const urlUserId = urlParams.get("userId");
         const urlUserId2 = urlParams2.get("userId");
         // const userId = 2;
@@ -1331,6 +1404,8 @@
 
                         $("#walletRemainingDisplay").text(total);
                         $("#leftSubscriptions").text(left);
+
+                        handleSubscriptionUI(total, registeredEmail);
                     }
                 },
                 error: function (xhr, status, error) {
