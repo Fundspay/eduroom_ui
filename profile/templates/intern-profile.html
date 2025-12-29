@@ -529,6 +529,10 @@
                         $(".profile-phone").text(user.PhoneNumber || "--");
                         $(".profile-college").text(user.CollegeName || "--");
                         registeredEmail = user.Email || "--";
+                        handleSubscriptionUI(
+                            Number($("#walletRemainingDisplay").text()) || 0,
+                            registeredEmail
+                        );
                         $("#referralCode").text(user.ReferralCode || "--");
                         $("#referralLink").text(user.ReferralLink || "--");
                         $("#referralLink").attr("href", user.ReferralLink || "#");
