@@ -377,7 +377,7 @@
                 </div>
 
                 <!-- Total Calls -->
-                <div class="col-xxl-4 col-lg-2 col-md-6">
+                <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
                             <div class="fs-12 fw-medium text-muted mb-3">Total Interns</div>
@@ -391,6 +391,25 @@
                                 <div class="hstack gap-2 fs-11" id="totalCallsTrend">
                                     <!-- <i class="feather-arrow-up-circle fs-12"></i> -->
                                     <!-- <span id="internsPercent">0%</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Active Interns</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <div>
+                                    <h3><span id="totalActiveInterns">0 / 0</span></h3>
+                                    <!-- <div class="fs-11 text-muted">
+                                            Remaining: <span id="remainingCalls">0</span>
+                                        </div> -->
+                                </div>
+                                <div class="hstack gap-2 fs-11" id="totalActiveCallsTrend">
+                                    <span id="activeInternsPercent" style="color:#5c5757;">0%</span>
                                 </div>
                             </div>
                         </div>
@@ -412,13 +431,28 @@
                     </div>
                 </div>
 
-                <div class="col-xxl-4 col-lg-2 col-md-6">
+                <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
                             <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Average Accounts Per Intern (AAPI)
                             </div>
                             <div class="hstack justify-content-between lh-base">
                                 <h3><span id="averageAccountsPerIntern">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="averageAccountsPerInternPercent">0%</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Average Accounts Per Day (AAPD)
+                            </div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="averageAccountsPerDay">0</span></h3>
                                 <!-- <div class="hstack gap-2 fs-11">
                                     <span id="averageAccountsPerInternPercent">0%</span>
                                 </div> -->
@@ -717,7 +751,7 @@
                         <table class="table table-bordered table-hover mb-0" id="forecastTable">
                             <thead class="table-light">
                                 <tr class="border-b">
-                                    <th colspan="5" class="text-center" style="font-size: 14px;">FORECASTED METRICS</th>
+                                    <th colspan="6" class="text-center" style="font-size: 14px;">FORECASTED METRICS</th>
                                     <th colspan="2" class="text-center"
                                         style="background-color: #5cdb5c; color: rgb(58, 56, 56); font-size: 14px;">BEST
                                         CASE SCENARIO</th>
@@ -731,6 +765,7 @@
                                 <tr class="border-b">
                                     <th>Zone</th>
                                     <th>Interns</th>
+                                    <th>Active Interns</th>
                                     <th>Accounts Total</th>
                                     <th>Average Accounts</th>
                                     <th>Target To Be Achieved</th>
@@ -751,6 +786,7 @@
                                         NON WORKING ZONE
                                     </td>
                                     <td><span id="nwzInterns">0</span></td>
+                                    <td><span id="nwzActiveInterns">0</span></td>
                                     <td><span id="nwzAccounts">0</span></td>
                                     <td><span id="nwzAvg">0</span></td>
                                     <td><span>12</span></td>
@@ -774,6 +810,7 @@
                                         WORKING ZONE
                                     </td>
                                     <td><span id="wzInterns">0</span></td>
+                                    <td><span id="wzActiveInterns">0</span></td>
                                     <td><span id="wzAccounts">0</span></td>
                                     <td><span id="wzAvg">0</span></td>
                                     <td><span>15</span></td>
@@ -797,6 +834,7 @@
                                         COMPLETED ZONE
                                     </td>
                                     <td><span id="czInterns">0</span></td>
+                                    <td><span id="czActiveInterns">0</span></td>
                                     <td><span id="czAccounts">0</span></td>
                                     <td><span id="czAvg">0</span></td>
                                     <td><span>25</span></td>
@@ -818,6 +856,7 @@
                                 <tr class="table-primary fw-bold">
                                     <td>TOTAL</td>
                                     <td><span id="totalInternsForecast">0</span></td>
+                                    <td><span id="totalActiveInternsForecast">0</span></td>
                                     <td><span id="totalAccountsForecast">0</span></td>
                                     <td><span></span></td>
                                     <td><span></span></td>
@@ -839,7 +878,7 @@
 
                                 <tr class="table-primary fw-bold">
                                     <td colspan="2">TOTAL FORECASTING</td>
-                                    <td colspan="3">
+                                    <td colspan="4">
                                         <span id="totalForecastWorst2">0</span> - <span id="totalForecastBest2">0</span>
                                     </td>
 
@@ -858,7 +897,7 @@
                                     </td>
                                 </tr>
                                 <tr class="table-primary fw-bold">
-                                    <td colspan="5">AVERAGE</td>
+                                    <td colspan="6">AVERAGE</td>
                                     <!-- <td colspan="3">
                                         <span id="totalForecastWorst2">0</span> - <span id="totalForecastBest2">0</span>
                                     </td> -->
@@ -1391,6 +1430,28 @@
             return '';
         }
 
+        function getAAPDColorCategory(aapdValue) {
+            const val = parseFloat(aapdValue) || 0;
+            if (val >= 0 && val <= 70) return '#ff4d4d';
+            if (val >= 71 && val <= 150) return '#ffa500';
+            if (val >= 151 && val <= 200) return '#ffff80';
+            if (val >= 201 && val <= 250) return '#b3ffb3';
+            if (val >= 251 && val <= 300) return '#5cdb5c';
+            if (val >= 301) return '#4da6ff';
+            return '';
+        }
+
+        function getTIACColorCategory(tiacValue) {
+            const val = parseFloat(tiacValue) || 0;
+            if (val >= 0 && val <= 30) return '#ff4d4d';
+            if (val >= 30 && val <= 45) return '#ffa500';
+            if (val >= 46 && val <= 60) return '#ffff80';
+            if (val >= 61 && val <= 75) return '#b3ffb3';
+            if (val >= 76 && val <= 90) return '#5cdb5c';
+            if (val >= 91) return '#4da6ff';
+            return '';
+        }
+
         let managerPerformanceChart = null;
 
         function calculateManagerPerformanceData() {
@@ -1740,149 +1801,20 @@
             window.addEventListener('resize', updateScrollButtons);
         }
 
-        $(document).ready(function () {
-            setTimeout(updateManagerPerformanceChart, 500);
-
-            setTimeout(setupManagerChartScroll, 1000);
-        });
-
-        const managerChartStyles = `
-            .manager-chart-legend {
-                width: 100%;
-                margin-bottom: 20px;
+        function getNumberOfDays() {
+            if (selectedDateRange && selectedDateRange.startDate && selectedDateRange.endDate) {
+                const start = selectedDateRange.startDate;
+                const end = selectedDateRange.endDate;
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                return diffDays;
+            } else {
+                const today = new Date();
+                const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                const diffTime = Math.abs(today - firstDayOfMonth);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
             }
-
-            .manager-chart-legend .card {
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                border: none;
-            }
-
-            .manager-chart-legend .card-body {
-                padding: 10px;
-            }
-
-            .legend-card-large {
-                height: 210px !important;
-                min-height: 100px !important;
-            }
-
-            .legend-card-medium {
-                height: 200px !important;
-                min-height: 90px !important;
-            }
-
-            .legend-card-small {
-                height: 190px !important;
-                min-height: 80px !important;
-            }
-
-            .legend-card-xsmall {
-                height: 180px !important;
-                min-height: 70px !important;
-            }
-
-            .legend-text-large {
-                font-size: 14px;
-            }
-
-            .legend-text-medium {
-                font-size: 13px;
-            }
-
-            .legend-text-small {
-                font-size: 12px;
-            }
-
-            .legend-text-xsmall {
-                font-size: 11px;
-            }
-
-            .manager-chart-legend h4 {
-                font-weight: 600;
-                margin-bottom: 4px;
-            }
-
-            .stretch-full {
-                /* Remove or comment out the fixed height */
-                /* min-height: 115px; */
-            }
-
-            #manager-chart-scroll-wrapper {
-                position: relative;
-                overflow-x: auto;
-                margin-top: 20px;
-                scrollbar-width: none;
-                padding: 10px 0;
-            }
-
-            #manager-chart-scroll-wrapper::-webkit-scrollbar {
-                display: none;
-            }
-
-            .chart-scroll-btn {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(255, 255, 255, 0.2);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                color: white;
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                z-index: 20;
-                transition: all 0.3s ease;
-                font-size: 14px;
-            }
-
-            .chart-scroll-btn:hover:not(:disabled) {
-                background: rgba(255, 255, 255, 0.3);
-                transform: translateY(-50%) scale(1.1);
-            }
-
-            .chart-scroll-btn:disabled {
-                opacity: 0.3;
-                cursor: not-allowed;
-            }
-
-            #manager-scroll-left-btn {
-                left: 10px;
-            }
-
-            #manager-scroll-right-btn {
-                right: 10px;
-            }
-
-            #manager-performance-bar-chart {
-                position: relative;
-                z-index: 1;
-            }
-
-            .apexcharts-xaxis text {
-                fill: #494444 !important;
-                font-weight: 500 !important;
-            }
-
-            .apexcharts-yaxis text {
-                fill: #494444 !important;
-            }
-
-            .apexcharts-datalabels text {
-                fill: #494444 !important;
-                font-weight: bold !important;
-                white-space: pre-line !important;
-            }
-        `;
-
-        if (!document.querySelector('#manager-chart-styles')) {
-            const styleElement = document.createElement('style');
-            styleElement.id = 'manager-chart-styles';
-            styleElement.textContent = managerChartStyles;
-            document.head.appendChild(styleElement);
         }
 
         function calculateManagerMetrics(managerName) {
@@ -1896,27 +1828,37 @@
 
             let totalSubscriptionWallet = 0;
             let totalBusinessTarget = 0;
+            let activeInternsCount = 0;
 
             const colorCounts = {
-                red: { count: 0, total: 0 },
-                orange: { count: 0, total: 0 },
-                yellow: { count: 0, total: 0 },
-                lightGreen: { count: 0, total: 0 },
-                green: { count: 0, total: 0 },
-                blue: { count: 0, total: 0 }
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
             };
 
             managerData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
                 const businessTarget = parseInt(row.businessStatus) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
 
                 totalSubscriptionWallet += subscriptionWallet;
                 totalBusinessTarget += businessTarget;
+
+                if (isActive) {
+                    activeInternsCount++;
+                }
 
                 const color = getColorCategory(subscriptionWallet);
                 if (colorCounts[color]) {
                     colorCounts[color].count++;
                     colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
                 }
             });
 
@@ -1927,6 +1869,32 @@
 
             $("#totalAccounts").text(totalSubscriptionWallet);
             $("#targetAccounts").text(totalBusinessTarget);
+
+            const numberOfDays = getNumberOfDays();
+            const averageAccountsPerDay = numberOfDays > 0 ?
+                (totalSubscriptionWallet / numberOfDays).toFixed(2) : 0;
+            $("#averageAccountsPerDay").text(averageAccountsPerDay);
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            const aapdColor = getAAPDColorCategory(averageAccountsPerDay);
+            if (aapdColor) {
+                aapdCard.css("background-color", aapdColor);
+            } else {
+                aapdCard.css("background-color", "");
+            }
+
+            $("#totalActiveInterns").text(activeInternsCount + "/" + totalStudents);
+            const activeInternsPercent = totalStudents > 0 ?
+                ((activeInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#activeInternsPercent").text(activeInternsPercent);
+
+            const tiacCard = $("#totalActiveInterns").closest(".card");
+            const tiacColor = getTIACColorCategory(activeInternsPercent);
+            if (tiacColor) {
+                tiacCard.css("background-color", tiacColor);
+            } else {
+                tiacCard.css("background-color", "");
+            }
 
             const averageAccountsPerIntern = totalStudents > 0 ?
                 (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
@@ -1941,12 +1909,14 @@
             }
 
             const nonWorkingInternsCount = colorCounts.red.count;
+            const nonWorkingInternsActiveCount = colorCounts.red.activeCount;
             const nonWorkingPercentage = totalStudents > 0 ?
                 ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
             $("#nonWorkingInternsCount").text(nonWorkingInternsCount);
             $("#nonWorkingPercentage").text(nonWorkingPercentage);
 
             const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingInternsActiveCount = colorCounts.orange.activeCount + colorCounts.yellow.activeCount;
             const workingAccountsCount = colorCounts.orange.total + colorCounts.yellow.total;
             const workingPercentage = totalStudents > 0 ?
                 ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
@@ -1955,6 +1925,7 @@
             $("#workingPercentage").text(workingPercentage);
 
             const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedInternsActiveCount = colorCounts.lightGreen.activeCount + colorCounts.green.activeCount + colorCounts.blue.activeCount;
             const completedAccountsCount = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
             const completedPercentage = totalStudents > 0 ?
                 ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
@@ -1997,27 +1968,37 @@
             const totalStudents = tableData.length;
             let totalSubscriptionWallet = 0;
             let totalBusinessTarget = 0;
+            let activeInternsCount = 0;
 
             const colorCounts = {
-                red: { count: 0, total: 0 },
-                orange: { count: 0, total: 0 },
-                yellow: { count: 0, total: 0 },
-                lightGreen: { count: 0, total: 0 },
-                green: { count: 0, total: 0 },
-                blue: { count: 0, total: 0 }
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
             };
 
             tableData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
                 const businessTarget = parseInt(row.businessStatus) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
 
                 totalSubscriptionWallet += subscriptionWallet;
                 totalBusinessTarget += businessTarget;
+
+                if (isActive) {
+                    activeInternsCount++;
+                }
 
                 const color = getColorCategory(subscriptionWallet);
                 if (colorCounts[color]) {
                     colorCounts[color].count++;
                     colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
                 }
             });
 
@@ -2028,6 +2009,32 @@
 
             $("#totalAccounts").text(totalSubscriptionWallet);
             $("#targetAccounts").text(totalBusinessTarget);
+
+            const numberOfDays = getNumberOfDays();
+            const averageAccountsPerDay = numberOfDays > 0 ?
+                (totalSubscriptionWallet / numberOfDays).toFixed(2) : 0;
+            $("#averageAccountsPerDay").text(averageAccountsPerDay);
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            const aapdColor = getAAPDColorCategory(averageAccountsPerDay);
+            if (aapdColor) {
+                aapdCard.css("background-color", aapdColor);
+            } else {
+                aapdCard.css("background-color", "");
+            }
+
+            $("#totalActiveInterns").text(activeInternsCount + "/" + totalStudents);
+            const activeInternsPercent = totalStudents > 0 ?
+                ((activeInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#activeInternsPercent").text(activeInternsPercent);
+
+            const tiacCard = $("#totalActiveInterns").closest(".card");
+            const tiacColor = getTIACColorCategory(activeInternsPercent);
+            if (tiacColor) {
+                tiacCard.css("background-color", tiacColor);
+            } else {
+                tiacCard.css("background-color", "");
+            }
 
             const averageAccountsPerIntern = totalStudents > 0 ?
                 (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
@@ -2095,30 +2102,42 @@
 
         function calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet) {
             const nwzInterns = colorCounts.red.count;
+            const nwzInternsActive = colorCounts.red.activeCount;
             const nwzAccounts = colorCounts.red.total;
             const nwzAvg = nwzInterns > 0 ? (nwzAccounts / nwzInterns).toFixed(2) : 0;
+            const nwzAvgActive = nwzInternsActive > 0 ? (nwzAccounts / nwzInternsActive).toFixed(2) : 0;
 
             const wzInterns = colorCounts.orange.count + colorCounts.yellow.count;
+            const wzInternsActive = colorCounts.orange.activeCount + colorCounts.yellow.activeCount;
             const wzAccounts = colorCounts.orange.total + colorCounts.yellow.total;
             const wzAvg = wzInterns > 0 ? (wzAccounts / wzInterns).toFixed(2) : 0;
+            const wzAvgActive = wzInternsActive > 0 ? (wzAccounts / wzInternsActive).toFixed(2) : 0;
 
             const czInterns = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const czInternsActive = colorCounts.lightGreen.activeCount + colorCounts.green.activeCount + colorCounts.blue.activeCount;
             const czAccounts = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
             const czAvg = czInterns > 0 ? (czAccounts / czInterns).toFixed(2) : 0;
+            const czAvgActive = czInternsActive > 0 ? (czAccounts / czInternsActive).toFixed(2) : 0;
 
-            $("#nwzInterns").text(nwzInterns);
+            const totalActiveInterns = nwzInternsActive + wzInternsActive + czInternsActive;
+
+            $("#nwzInterns").text(`${nwzInterns}`);
+            $("#nwzActiveInterns").text(`${nwzInternsActive}`);
             $("#nwzAccounts").text(nwzAccounts);
-            $("#nwzAvg").text(nwzAvg);
+            $("#nwzAvg").text(`${nwzAvg}`);
 
-            $("#wzInterns").text(wzInterns);
+            $("#wzInterns").text(`${wzInterns}`);
+            $("#wzActiveInterns").text(`${wzInternsActive}`);
             $("#wzAccounts").text(wzAccounts);
-            $("#wzAvg").text(wzAvg);
+            $("#wzAvg").text(`${wzAvg}`);
 
-            $("#czInterns").text(czInterns);
+            $("#czInterns").text(`${czInterns}`);
+            $("#czActiveInterns").text(`${czInternsActive}`);
             $("#czAccounts").text(czAccounts);
-            $("#czAvg").text(czAvg);
+            $("#czAvg").text(`${czAvg}`);
 
-            $("#totalInternsForecast").text(totalStudents);
+            $("#totalInternsForecast").text(`${totalStudents}`);
+            $("#totalActiveInternsForecast").text(`${totalActiveInterns}`);
             $("#totalAccountsForecast").text(totalSubscriptionWallet);
 
             const efficiencies = {
@@ -2133,25 +2152,25 @@
                 cz: 25
             };
 
-            const nwzResultBest = ((targets.nwz - nwzAvg) * (nwzInterns * efficiencies.nwz.best)).toFixed(0);
-            const nwzResultAvg = ((targets.nwz - nwzAvg) * (nwzInterns * efficiencies.nwz.avg)).toFixed(0);
-            const nwzResultWorst = ((targets.nwz - nwzAvg) * (nwzInterns * efficiencies.nwz.worst)).toFixed(0);
+            const nwzResultBest = ((targets.nwz - nwzAvg) * (nwzInternsActive * efficiencies.nwz.best)).toFixed(0);
+            const nwzResultAvg = ((targets.nwz - nwzAvg) * (nwzInternsActive * efficiencies.nwz.avg)).toFixed(0);
+            const nwzResultWorst = ((targets.nwz - nwzAvg) * (nwzInternsActive * efficiencies.nwz.worst)).toFixed(0);
 
             $("#nwzResultBest").text(nwzResultBest);
             $("#nwzResultAvg").text(nwzResultAvg);
             $("#nwzResultWorst").text(nwzResultWorst);
 
-            const wzResultBest = ((targets.wz - wzAvg) * (wzInterns * efficiencies.wz.best)).toFixed(0);
-            const wzResultAvg = ((targets.wz - wzAvg) * (wzInterns * efficiencies.wz.avg)).toFixed(0);
-            const wzResultWorst = ((targets.wz - wzAvg) * (wzInterns * efficiencies.wz.worst)).toFixed(0);
+            const wzResultBest = ((targets.wz - wzAvg) * (wzInternsActive * efficiencies.wz.best)).toFixed(0);
+            const wzResultAvg = ((targets.wz - wzAvg) * (wzInternsActive * efficiencies.wz.avg)).toFixed(0);
+            const wzResultWorst = ((targets.wz - wzAvg) * (wzInternsActive * efficiencies.wz.worst)).toFixed(0);
 
             $("#wzResultBest").text(wzResultBest);
             $("#wzResultAvg").text(wzResultAvg);
             $("#wzResultWorst").text(wzResultWorst);
 
-            const czResultBest = ((targets.cz - czAvg) * (czInterns * efficiencies.cz.best)).toFixed(0);
-            const czResultAvg = ((targets.cz - czAvg) * (czInterns * efficiencies.cz.avg)).toFixed(0);
-            const czResultWorst = ((targets.cz - czAvg) * (czInterns * efficiencies.cz.worst)).toFixed(0);
+            const czResultBest = ((targets.cz - czAvg) * (czInternsActive * efficiencies.cz.best)).toFixed(0);
+            const czResultAvg = ((targets.cz - czAvg) * (czInternsActive * efficiencies.cz.avg)).toFixed(0);
+            const czResultWorst = ((targets.cz - czAvg) * (czInternsActive * efficiencies.cz.worst)).toFixed(0);
 
             $("#czResultBest").text(czResultBest);
             $("#czResultAvg").text(czResultAvg);
@@ -2168,18 +2187,19 @@
             const totalForecastBest = (totalResultBest + totalSubscriptionWallet) || 0;
             const totalForecastAvg = (totalResultAvg + totalSubscriptionWallet) || 0;
             const totalForecastWorst = (totalResultWorst + totalSubscriptionWallet) || 0;
-            const totalForecastBestAverage = totalForecastBest / totalStudents || 0;
-            const totalForecastAvgAverage = totalForecastAvg / totalStudents || 0;
-            const totalForecastWorstAverage = totalForecastWorst / totalStudents || 0;
+
+            const totalForecastBestAverage = totalActiveInterns > 0 ? (totalForecastBest / totalStudents).toFixed(2) : 0;
+            const totalForecastAvgAverage = totalActiveInterns > 0 ? (totalForecastAvg / totalStudents).toFixed(2) : 0;
+            const totalForecastWorstAverage = totalActiveInterns > 0 ? (totalForecastWorst / totalStudents).toFixed(2) : 0;
 
             $("#totalForecastBest").text(totalForecastBest);
             $("#totalForecastBest2").text(totalForecastBest);
             $("#totalForecastAvg").text(totalForecastAvg);
             $("#totalForecastWorst").text(totalForecastWorst);
             $("#totalForecastWorst2").text(totalForecastWorst);
-            $("#totalForecastBestAverage").text(totalForecastBestAverage.toFixed(2));
-            $("#totalForecastAvgAverage").text(totalForecastAvgAverage.toFixed(2));
-            $("#totalForecastWorstAverage").text(totalForecastWorstAverage.toFixed(2));
+            $("#totalForecastBestAverage").text(totalForecastBestAverage);
+            $("#totalForecastAvgAverage").text(totalForecastAvgAverage);
+            $("#totalForecastWorstAverage").text(totalForecastWorstAverage);
         }
 
         function calculateManagerForecasting(managerName) {
@@ -2194,22 +2214,28 @@
             let totalSubscriptionWallet = 0;
 
             const colorCounts = {
-                red: { count: 0, total: 0 },
-                orange: { count: 0, total: 0 },
-                yellow: { count: 0, total: 0 },
-                lightGreen: { count: 0, total: 0 },
-                green: { count: 0, total: 0 },
-                blue: { count: 0, total: 0 }
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
             };
 
             managerData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
+
                 totalSubscriptionWallet += subscriptionWallet;
 
                 const color = getColorCategory(subscriptionWallet);
                 if (colorCounts[color]) {
                     colorCounts[color].count++;
                     colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
                 }
             });
 
@@ -2221,22 +2247,28 @@
             let totalSubscriptionWallet = 0;
 
             const colorCounts = {
-                red: { count: 0, total: 0 },
-                orange: { count: 0, total: 0 },
-                yellow: { count: 0, total: 0 },
-                lightGreen: { count: 0, total: 0 },
-                green: { count: 0, total: 0 },
-                blue: { count: 0, total: 0 }
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
             };
 
             tableData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
+
                 totalSubscriptionWallet += subscriptionWallet;
 
                 const color = getColorCategory(subscriptionWallet);
                 if (colorCounts[color]) {
                     colorCounts[color].count++;
                     colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
                 }
             });
 
@@ -2258,7 +2290,13 @@
             const aapiCard = $("#averageAccountsPerIntern").closest(".card");
             aapiCard.css("background-color", "");
 
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            aapdCard.css("background-color", "");
+
             $("#averageAccountsPerIntern").text("0");
+            $("#averageAccountsPerDay").text("0");
+            $("#totalActiveInterns").text("0/0");
+            $("#activeInternsPercent").text("0%");
             $("#nonWorkingInternsCount").text("0");
             $("#nonWorkingPercentage").text("0%");
             $("#workingInternsCount").text("0");
@@ -2291,8 +2329,8 @@
                     <select id="managerSelect" class="form-select">
                         <option value="">All Managers</option>
                         ${managers.map(manager =>
-                    `<option value="${manager.name}">${manager.name}</option>`
-                ).join('')}
+                        `<option value="${manager.name}">${manager.name}</option>`
+                    ).join('')}
                     </select>
                 </div>
             `;
@@ -2415,6 +2453,9 @@
 
         $(document).ready(function () {
             $("#averageAccountsPerIntern").text("0");
+            $("#averageAccountsPerDay").text("0");
+            $("#totalActiveInterns").text("0/0");
+            $("#activeInternsPercent").text("0%");
             $("#nonWorkingInternsCount").text("0");
             $("#nonWorkingPercentage").text("0%");
             $("#workingInternsCount").text("0");
@@ -2431,6 +2472,12 @@
             const initialAapiColor = getAAPIColorCategory(0);
             if (initialAapiColor) {
                 aapiCard.css("background-color", initialAapiColor);
+            }
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            const initialAapdColor = getAAPDColorCategory(0);
+            if (initialAapdColor) {
+                aapdCard.css("background-color", initialAapdColor);
             }
 
             resetForecastingMetrics();
