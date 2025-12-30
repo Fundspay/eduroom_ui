@@ -2314,7 +2314,7 @@
                             coordinatorName: row.coordinatorName || "",
                             mobileNumber: row.mobileNumber || "",
                             emailId: row.emailId || "",
-                            placemetCell: row.placemetCell || "",
+                            placementCell: row.placementCell || "",
                             mbaFeeApprox: row.mbaFeeApprox || "",
                             mbaBatchStrengthApprox: row.mbaBatchStrengthApprox || "",
                             state: row.state || "",
@@ -2744,7 +2744,7 @@
                     ${makeCell("coordinatorName", row.coordinatorName)}
                     ${makeCell("mobileNumber", row.mobileNumber)}
                     ${makeCell("emailId", row.emailId)}
-                    ${makeCell("placemetCell", row.placemetCell)}
+                    ${makeCell("placementCell", row.placementCell)}
                     ${makeCell("mbaFeeApprox", row.mbaFeeApprox)}
                     ${makeCell("mbaBatchStrengthApprox", row.mbaBatchStrengthApprox)}
                     ${makeDropdownCell("state", row.state)}
@@ -3090,7 +3090,7 @@
                     ${makeCell("coordinatorName", row.coordinatorName)}
                     ${makeCell("mobileNumber", row.mobileNumber)}
                     ${makeCell("emailId", row.emailId)}
-                    ${makeCell("placemetCell", row.placemetCell)}
+                    ${makeCell("placementCell", row.placementCell)}
                     ${makeCell("mbaFeeApprox", row.mbaFeeApprox)}
                     ${makeCell("mbaBatchStrengthApprox", row.mbaBatchStrengthApprox)}
                     ${makeDropdownCell("state", row.state)}
@@ -3180,8 +3180,15 @@
                 "Coordinator Name",
                 "Mobile Number",
                 "Email ID",
+                "Placement Cell",
+                "MBA Fee Approx",
+                "MBA Batch Strength Approx",
                 "State",
                 "City",
+                "College Tier",
+                "College Level",
+                "Comment",
+                "Corporate Relations",
                 "Course",
                 "Connected By",
                 "Date of Connect",
@@ -3199,8 +3206,15 @@
                     row.coordinatorName,
                     row.mobileNumber,
                     row.emailId,
+                    row.placementCell,
+                    row.mbaFeeApprox,
+                    row.mbaBatchStrengthApprox,
                     row.state,
                     row.city,
+                    row.collegeTier,
+                    row.collegeLevel,
+                    row.comment,
+                    row.corporateRelations,
                     row.course,
                     row.connectedBy,
                     row.dateOfConnect,
