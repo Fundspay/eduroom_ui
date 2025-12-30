@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/quill.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!--! END: Vendors CSS-->
     <!--! BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css">
@@ -38,7 +39,7 @@
                 <div class="col-md-4">
                     <div class="card stretch shadow-none" style="margin-right: 1%;">
                         <div class="card-body">
-                            <div class="mb-4 text-center">
+                            <div class="mb-2 text-center">
                                 <div class="mb-2">
                                     <span class="fs-24">USER DETAILS</span>
                                 </div>
@@ -87,7 +88,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12" style="margin-top: 7%;">
+                                <div class="col-md-12" style="margin-top: 3%;">
                                     <div
                                         class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
                                         <div class="card-body">
@@ -102,6 +103,34 @@
                                                 onclick="copyReferral()">
                                                 Copy Link
                                             </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card bg-soft-danger text-danger border-danger border-dashed h-70"
+                                    style="margin-top: -2%;">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <a href="/profile/profile-update/profile1.html" target="_top"
+                                                class="fw-bold d-block text-reset me-2">
+                                                <span class="d-block" style="font-size: 13px;">Profile Completion</span>
+                                            </a>
+                                            <a href="/profile/profile-update/profile1.html" target="_top"
+                                                class="btn btn-sm btn-outline-danger">
+                                                Edit
+                                            </a>
+                                        </div>
+                                        <div class="pt-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div>
+                                                    <span
+                                                        class="fs-12 fw-bold text-reset profile-completion-percent">(0%)</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress mt-2 ht-4">
+                                                <div class="progress-bar bg-danger profile-completion-bar"
+                                                    role="progressbar" style="width: 0%">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,38 +218,9 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="card bg-soft-danger text-danger border-danger border-dashed h-70">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <a href="/profile/profile-update/profile1.html" target="_top"
-                                            class="fw-bold d-block text-reset me-2">
-                                            <span class="d-block" style="font-size: 13px;">Profile Completion</span>
-                                        </a>
-                                        <a href="/profile/profile-update/profile1.html" target="_top"
-                                            class="btn btn-sm btn-outline-danger">
-                                            Edit
-                                        </a>
-                                    </div>
-                                    <div class="pt-3">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <span
-                                                    class="fs-12 fw-bold text-reset profile-completion-percent">(0%)</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress mt-2 ht-4">
-                                            <div class="progress-bar bg-danger profile-completion-bar"
-                                                role="progressbar" style="width: 0%">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" style="margin-top: 20px;">
                             <div class="card bg-soft-warning text-dark border-warning border-dashed h-70">
                                 <div class="card-body d-flex justify-content-center align-items-center text-center">
                                     <span style="font-size: 12px; text-align: left; line-height: 1.6;">📌 <b>Note 1:</b>
@@ -229,6 +229,7 @@
                                         <b>registration on the Fundsaudit application</b>.
                                         If you entered an <b>incorrect number</b>, you can update it in the
                                         <b>Profile Completion section</b>.
+                                        <br>
                                         <br>
                                         📌 <b>Note 2: </b>Stipend eligibility will be evaluated at the end of the live
                                         project based on overall performance parameters, including task completion,
@@ -245,6 +246,301 @@
 
                     </div>
                 </div>
+                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
+
+                <div class="row mb-4">
+                    <!-- Course Overview Dashboard -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size: 25px;">Business Target Overview</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- Course Information -->
+                                    <div class="col-md-12">
+                                        <div class="course-info-card">
+                                            <div class="row">
+                                                <!-- <div class="col-md-6 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label">Course Name:</span>
+                                                        <span class="info-value" id="courseName">--</span>
+                                                    </div>
+                                                </div> -->
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label">Current Category:</span>
+                                                        <span class="info-value badge" id="currentCategory">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label">Start Date:</span>
+                                                        <span
+                                                            class="info-value editable-display text-center d-block w-100"
+                                                            id="startDate">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="info-box editable-field" data-field="end_date"
+                                                        id="endDateContainer">
+                                                        <span class="info-label">End Date:</span>
+                                                        <span
+                                                            class="info-value editable-display text-center d-block w-100"
+                                                            id="endDateDisplay">--</span>
+                                                        <!-- <div class="edit-input-container" style="display: none;">
+                                                            <input type="date"
+                                                                class="form-control form-control-sm edit-input w-100 text-center mx-auto"
+                                                                id="endDateInput" data-original-value="">
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label">Days Left:</span>
+                                                        <span class="info-value badge" id="daysLeft">--</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Business Status -->
+                                    <div class="col-md-12">
+                                        <div class="business-status-card">
+                                            <div class="row">
+                                                <div class="col-md-12 mb-4">
+                                                    <div class="progress-box">
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span class="progress-label">Total Work Status</span>
+                                                            <span class="progress-percentage"
+                                                                id="workStatusPercentage">0%</span>
+                                                        </div>
+                                                        <div class="progress" style="height: 20px;">
+                                                            <div class="progress-bar bg-success" id="workStatusProgress"
+                                                                role="progressbar" style="width: 0%"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="col-md-12 mb-4">
+                                                    <div class="info-box">
+                                                        <span class="info-label">Category:</span>
+                                                        <span class="info-value badge bg-primary"
+                                                            id="categoryDisplay">--</span>
+                                                    </div>
+                                                </div> -->
+
+                                                <div class="col-md-12">
+                                                    <div class="business-task-box">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <div class="task-box text-center">
+                                                                    <span class="task-label">Achieved Task</span>
+                                                                    <span class="task-value text-success"
+                                                                        id="achievedTask">--</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <div class="task-box text-center">
+                                                                    <span class="task-label">Business Target</span>
+                                                                    <div class="editable-field"
+                                                                        data-field="business_task"
+                                                                        id="businessTaskContainer">
+                                                                        <span class="task-value"
+                                                                            id="businessTaskDisplay">--</span>
+                                                                        <!-- <div class="edit-input-container"
+                                                                            style="display: none;">
+                                                                            <input type="number"
+                                                                                class="form-control form-control-sm edit-input w-100 text-center mx-auto"
+                                                                                id="businessTaskInput"
+                                                                                data-original-value="" min="0">
+                                                                        </div> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="col-md-4 mb-3">
+                                                                <div class="task-box text-center">
+                                                                    <span class="task-label">Completion %</span>
+                                                                    <span class="task-value text-info"
+                                                                        id="completionPercentage">--</span>
+                                                                </div>
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .course-info-card,
+                    .business-status-card {
+                        background: #f8f9fa;
+                        border-radius: 10px;
+                        padding: 20px;
+                        height: 100%;
+                    }
+
+                    .info-box {
+                        background: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #e9ecef;
+                        transition: all 0.3s ease;
+                    }
+
+                    .info-box.editable-field:hover {
+                        background: #f8f9ff;
+                        cursor: pointer;
+                        border-color: #4d94ff;
+                    }
+
+                    .info-label {
+                        display: block;
+                        font-size: 12px;
+                        color: #6c757d;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        margin-bottom: 5px;
+                    }
+
+                    .info-value {
+                        display: block;
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #343a40;
+                    }
+
+                    .progress-box {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #e9ecef;
+                    }
+
+                    .progress-label {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #343a40;
+                    }
+
+                    .progress-percentage {
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: #28a745;
+                    }
+
+                    .business-task-box {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #e9ecef;
+                    }
+
+                    .task-box {
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    .task-label {
+                        display: block;
+                        font-size: 12px;
+                        color: #6c757d;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        margin-bottom: 8px;
+                    }
+
+                    .task-value {
+                        display: block;
+                        font-size: 24px;
+                        font-weight: 700;
+                    }
+
+                    .editable-display {
+                        cursor: pointer;
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                        transition: background-color 0.3s;
+                    }
+
+                    .editable-display:hover {
+                        background-color: #f1f3ff;
+                    }
+
+                    .edit-input-container {
+                        margin-top: 10px;
+                    }
+
+                    .edit-input {
+                        width: 100%;
+                        max-width: 200px;
+                    }
+                </style>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card stretch stretch-full">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- <h3 class="card-title" style="font-size: 25px;">Dashboard</h3> -->
+                                </div>
+                                <div class="card-header-action">
+                                    <!-- <div class="search-bar">
+                                        <input type="text" id="searchInput2" class="form-control"
+                                            placeholder="Search..." oninput="filterTable2()">
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="card-body custom-card-action p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0" id="leadsTable2">
+                                        <thead>
+                                            <tr class="border-b">
+                                                <th scope="row">S No.</th>
+                                                <th>Day of week</th>
+                                                <th>Date</th>
+                                                <th>My work status</th>
+                                                <th>Comment</th>
+                                                <th>My business task</th>
+                                                <th>My target</th>
+                                                <th>Percentage of work</th>
+                                                <th>Category</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
+                                        id="">
+                                    </ul>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-primary" onclick="printTable2()">
+                                            <i class="bi bi-printer"></i> Print
+                                        </button>
+                                        <button class="btn btn-success" onclick="exportToExcel2()">
+                                            <i class="bi bi-file-earmark-excel"></i> Excel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
                 <!-- [Mini Card] start -->
                 <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;">My Live Projects</h3>
@@ -462,8 +758,9 @@
                             <br>
                             The same work status will also be shared with your
                             <span style="color: #000000ff; font-weight: 600;">
-                                college placement cell
-                        <span style="color: #ffffff;">
+                                college placement cell  
+                            </span>
+                        </span>
                         </div>
                     `)
                     .show();
@@ -485,8 +782,8 @@
                             <br>
                             The same offer letter will also be shared with your
                             <span style="color: #dc3545; font-weight: 600;">
-                                college placement cell
-                            </span>.
+                                college placement cell.
+                            </span>
                         </div>
                     `)
                     .show();
@@ -1398,6 +1695,632 @@
             };
 
             fetchData();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $(document).ready(function () {
+            function fetchCourseData() {
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/analysis1/list/${loggedInUserId}`,
+                    method: "GET",
+                    success: function (response) {
+                        console.log("Course GET response:", response);
+                        if (response.success && response.data && Array.isArray(response.data) && response.data.length > 0) {
+                            const courseData = response.data[0];
+                            updateCourseDashboard(courseData);
+                            attachDashboardEditableEvents();
+                        } else {
+                            console.error("Invalid course data format.");
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Error fetching course data:", err);
+                    }
+                });
+            }
+
+            function formatDate(dateStr) {
+                if (!dateStr) return '--';
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            }
+
+            function updateCourseDashboard(courseData) {
+                $("#courseName").text(courseData.course_name || '--');
+                $("#currentCategory").text(courseData.current_category || '--');
+
+                $("#startDate").text(formatDate(courseData.start_date));
+                $("#endDateDisplay").text(formatDate(courseData.end_date));
+                $("#endDateInput").val(courseData.end_date || '');
+                $("#endDateInput").data('original-value', courseData.end_date || '');
+
+                const daysLeft = courseData.daysLeft || 0;
+                $("#daysLeft").text(daysLeft + (daysLeft === 1 ? " DAY" : " DAYS"));
+
+                const businessTask = parseInt(courseData.business_task) || 0;
+                const achievedTask = courseData.achieved_business_task || 0;
+
+                const workPercentage = businessTask > 0 ? Math.round((achievedTask / businessTask) * 100) : 0;
+                $("#workStatusPercentage").text(workPercentage + '%');
+                $("#workStatusProgress").css('width', workPercentage + '%');
+
+                $("#businessTaskDisplay").text(businessTask);
+                $("#businessTaskInput").val(businessTask);
+                $("#businessTaskInput").data('original-value', businessTask);
+                $("#achievedTask").text(achievedTask);
+
+                const completionPercentage = businessTask > 0 ? Math.round((achievedTask / businessTask) * 100) : 0;
+                $("#completionPercentage").text(completionPercentage + '%');
+
+                $("#categoryDisplay").text(courseData.current_category || '--');
+            }
+
+            function attachDashboardEditableEvents() {
+                $("#endDateContainer").off("dblclick").on("dblclick", function () {
+                    $(this).find(".editable-display").hide();
+                    $(this).find(".edit-input-container").show();
+
+                    const endDateInput = $(this).find("#endDateInput")[0];
+                    const originalValue = $(endDateInput).val();
+
+                    if (endDateInput._flatpickr) {
+                        endDateInput._flatpickr.destroy();
+                    }
+
+                    const flatpickrInstance = flatpickr(endDateInput, {
+                        dateFormat: "Y-m-d",
+                        allowInput: true,
+                        clickOpens: true,
+                        defaultDate: originalValue || new Date(),
+                        onOpen: function (selectedDates, dateStr, instance) {
+                            $(endDateInput).data('flatpickr-instance', instance);
+                            $(endDateInput).data('flatpickr-open', true);
+                        },
+                        onChange: function (selectedDates, dateStr, instance) {
+                            $(endDateInput).val(dateStr);
+                        },
+                        onClose: function (selectedDates, dateStr, instance) {
+                            $(endDateInput).data('flatpickr-open', false);
+
+                            if (dateStr) {
+                                const displayElement = $("#endDateContainer").find(".editable-display");
+                                displayElement.text(formatDate(dateStr));
+                                $("#endDateContainer").find(".edit-input-container").hide();
+                                displayElement.show();
+                                $(endDateInput).data('original-value', dateStr);
+                                updateDashboardField("end_date", dateStr);
+                            } else {
+                                $("#endDateContainer").find(".edit-input-container").hide();
+                                $("#endDateContainer").find(".editable-display").show();
+                            }
+
+                            if (instance) {
+                                instance.destroy();
+                            }
+                            $(endDateInput).removeData('flatpickr-instance');
+                        }
+                    });
+
+                    flatpickrInstance.open();
+                });
+
+                $("#businessTaskContainer").off("dblclick").on("dblclick", function () {
+                    $(this).find(".editable-display").hide();
+                    $(this).find(".edit-input-container").show();
+                    $(this).find(".edit-input").focus().select();
+                });
+
+                $("#endDateInput").off("blur").on("blur", function () {
+                    const instance = $(this).data('flatpickr-instance');
+                    const isOpen = $(this).data('flatpickr-open');
+                    if (!instance || !isOpen) {
+                        saveDashboardField($(this), "end_date");
+                    }
+                });
+
+                $("#endDateInput").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        saveDashboardField($(this), "end_date");
+                    }
+                });
+
+                $("#businessTaskInput").off("blur").on("blur", function () {
+                    saveDashboardField($(this), "business_task");
+                });
+
+                $("#businessTaskInput").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        saveDashboardField($(this), "business_task");
+                    }
+                });
+
+                $(document).on("click", function (e) {
+                    if (!$(e.target).closest(".editable-field").length &&
+                        !$(e.target).closest('.flatpickr-calendar').length) {
+                        closeAllDashboardEditModes();
+                    }
+                });
+            }
+
+            function saveDashboardField(input, fieldName) {
+                const container = input.closest(".editable-field");
+                let newValue = input.val().trim();
+                const displayElement = container.find(".editable-display");
+                const originalValue = input.data('original-value');
+
+                if (fieldName === "end_date") {
+                    if (!newValue) {
+                        newValue = originalValue;
+                    }
+                    displayElement.text(formatDate(newValue));
+
+                    if (input[0] && input[0]._flatpickr) {
+                        input[0]._flatpickr.destroy();
+                    }
+                    input.removeData('flatpickr-instance');
+                    input.removeData('flatpickr-open');
+                } else if (fieldName === "business_task") {
+                    newValue = parseInt(newValue) || 0;
+                    if (newValue < 0) newValue = 0;
+                    displayElement.text(newValue);
+
+                    const achievedTask = parseInt($("#achievedTask").text()) || 0;
+                    const completionPercentage = newValue > 0 ? Math.round((achievedTask / newValue) * 100) : 0;
+                    $("#completionPercentage").text(completionPercentage + '%');
+
+                    $("#workStatusPercentage").text(completionPercentage + '%');
+                    $("#workStatusProgress").css('width', completionPercentage + '%');
+                }
+
+                container.find(".edit-input-container").hide();
+                displayElement.show();
+
+                input.data('original-value', newValue);
+
+                if (fieldName === "end_date" && newValue !== originalValue) {
+                    updateDashboardField(fieldName, newValue);
+                } else if (fieldName === "business_task") {
+                    updateDashboardField(fieldName, newValue);
+                }
+            }
+
+            function closeAllDashboardEditModes() {
+                $(".editable-field").each(function () {
+                    const container = $(this);
+                    const editContainer = container.find(".edit-input-container");
+                    if (editContainer.is(":visible")) {
+                        const input = container.find(".edit-input");
+                        const fieldName = container.data("field") || input.attr("id") === "endDateInput" ? "end_date" : "business_task";
+
+                        if (fieldName === "end_date") {
+                            const instance = input.data('flatpickr-instance');
+                            const isOpen = input.data('flatpickr-open');
+                            if (!instance || !isOpen) {
+                                saveDashboardField(input, fieldName);
+                            }
+                        } else {
+                            saveDashboardField(input, fieldName);
+                        }
+                    }
+                });
+            }
+
+            function updateDashboardField(fieldName, fieldValue) {
+                const payload = {
+                    [fieldName]: fieldValue
+                };
+
+                const url = `https://eduroom.in/api/v1/analysis1/update/${loggedInUserId}`;
+                console.log(`Updating dashboard field ${fieldName} with URL:`, url, "Payload:", payload);
+
+                $.ajax({
+                    url: url,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        console.log("Dashboard update response:", res);
+                        fetchCourseData();
+                        fetchTableData();
+                    },
+                    error: function (err) {
+                        fetchCourseData();
+                        fetchTableData();
+                    }
+                });
+            }
+
+            const rowsPerPage = 25;
+            let currentPage = 1;
+            let tableData = [];
+
+            const workStatusOptions = ["Completed", "Not Completed", "In Progress"];
+
+            function escJS(str) {
+                if (str === null || str === undefined) return '';
+                return String(str)
+                    .replace(/\\/g, '\\\\')
+                    .replace(/'/g, "\\'")
+                    .replace(/"/g, '\\"');
+            }
+
+            function badgeWorkStatus(status) {
+                switch (status) {
+                    case "Completed":
+                        return '<span class="badge bg-soft-success text-success">Completed</span>';
+                    case "In Progress":
+                        return '<span class="badge bg-soft-warning text-warning">In Progress</span>';
+                    case "Not Completed":
+                        return '<span class="badge bg-soft-danger text-danger">Not Completed</span>';
+                    default:
+                        return '<span class="badge bg-soft-secondary text-muted">' + status + '</span>';
+                }
+            }
+
+            function makeWorkStatusCell(status, sr) {
+                let dropdownHtml = `<select class="work-status-dropdown form-control form-control-sm">`;
+                workStatusOptions.forEach(option => {
+                    const selected = option === status ? "selected" : "";
+                    dropdownHtml += `<option value="${escJS(option)}" ${selected}>${option}</option>`;
+                });
+                dropdownHtml += `</select>`;
+
+                return `<td class="work-status-cell" data-sr="${sr}" style="cursor: pointer;">
+                    <span class="work-status-display">${badgeWorkStatus(status)}</span>
+                </td>`;
+            }
+
+            function makeCommentCell(comment, sr) {
+                return `<td class="comment-cell" data-field="COMMENT" data-sr="${sr}" style="cursor: pointer;">
+                    <span class="comment-display">${comment || '--'}</span>
+                    <div class="comment-edit" style="display: none;">
+                        <input type="text" class="comment-input form-control form-control-sm" value="${escJS(comment || '')}" placeholder="Enter comment">
+                    </div>
+                </td>`;
+            }
+
+            function makeDailyTargetCell(dailyTarget, sr) {
+                return `<td class="daily-target-cell" data-field="DAILY_TARGET" data-sr="${sr}" style="cursor: pointer;">
+                    <span class="daily-target-display">${dailyTarget}</span>
+                    <div class="daily-target-edit" style="display: none;">
+                        <input type="number" class="daily-target-input form-control form-control-sm" value="${dailyTarget}" min="0">
+                    </div>
+                </td>`;
+            }
+
+            function fetchTableData() {
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/analysis1/analysis/${loggedInUserId}`,
+                    method: "GET",
+                    success: function (response) {
+                        console.log("Table GET response:", response);
+                        if (response.success && response.data && Array.isArray(response.data)) {
+                            tableData = response.data.map(item => {
+                                return {
+                                    sr: item.SR,
+                                    dayOfWork: item.DAY_OF_WORK,
+                                    dateDay: item.DATE_DAY,
+                                    workStatus: item.WORK_STATUS,
+                                    comment: item.COMMENT,
+                                    businessTask: item.ACHIEVED_BUSINESS_TASK,
+                                    dailyTarget: item.DAILY_TARGET,
+                                    percentOfWork: item.PERCENT_OF_WORK,
+                                    category: item.CATEGORY
+                                };
+                            });
+
+                            renderTable();
+                            renderPagination();
+                            attachEditableEvents();
+                        } else {
+                            console.error("Invalid response format.");
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Error fetching table data:", err);
+                    }
+                });
+            }
+
+            function renderTable() {
+                const tbody = $("#leadsTable2 tbody");
+                tbody.empty();
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const rows = tableData.slice(start, end);
+
+                rows.forEach((row) => {
+                    const tr = `<tr>
+                        <td>${row.sr}</td>
+                        <td>${row.dayOfWork}</td>
+                        <td>${row.dateDay}</td>
+                        ${makeWorkStatusCell(row.workStatus, row.sr)}
+                        <td>${row.comment}</td>
+                        <td>${row.businessTask}</td>
+                        <td>${row.dailyTarget}</td>
+                        <td>${row.percentOfWork}</td>
+                        <td>${row.category}</td>
+                    </tr>`;
+                    tbody.append(tr);
+                });
+            }
+
+            function attachEditableEvents() {
+                $(".work-status-cell").off("dblclick").on("dblclick", function () {
+                    const cell = $(this);
+                    cell.find(".work-status-display").show();
+                    cell.find(".work-status-edit").show();
+                    cell.find(".work-status-dropdown").focus();
+                });
+
+                $(".work-status-dropdown").off("change").on("change", function () {
+                    const dropdown = $(this);
+                    const cell = dropdown.closest(".work-status-cell");
+                    const newValue = dropdown.val();
+                    const displaySpan = cell.find(".work-status-display");
+                    const sr = cell.data("sr");
+
+                    displaySpan.html(badgeWorkStatus(newValue));
+                    cell.find(".work-status-edit").hide();
+                    displaySpan.show();
+
+                    const index = tableData.findIndex(item => item.sr === sr);
+                    if (index !== -1) {
+                        tableData[index].workStatus = newValue;
+                    }
+
+                    updateField(sr, "work_status", newValue);
+                });
+
+                $(".comment-cell").off("dblclick").on("dblclick", function () {
+                    const cell = $(this);
+                    cell.find(".comment-display").hide();
+                    cell.find(".comment-edit").show();
+                    cell.find(".comment-input").focus().select();
+                });
+
+                $(".comment-input").off("blur").on("blur", function () {
+                    saveComment($(this));
+                });
+
+                $(".comment-input").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        saveComment($(this));
+                    }
+                });
+
+                $(".daily-target-cell").off("dblclick").on("dblclick", function () {
+                    const cell = $(this);
+                    cell.find(".daily-target-display").hide();
+                    cell.find(".daily-target-edit").show();
+                    cell.find(".daily-target-input").focus().select();
+                });
+
+                $(".daily-target-input").off("blur").on("blur", function () {
+                    saveDailyTarget($(this));
+                });
+
+                $(".daily-target-input").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        saveDailyTarget($(this));
+                    }
+                });
+
+                $(document).on("click", function (e) {
+                    if (!$(e.target).closest(".work-status-cell, .comment-cell, .daily-target-cell").length) {
+                        closeAllEditModes();
+                    }
+                });
+            }
+
+            function saveComment(input) {
+                const cell = input.closest(".comment-cell");
+                const newValue = input.val().trim();
+                const displaySpan = cell.find(".comment-display");
+                const sr = cell.data("sr");
+
+                displaySpan.text(newValue || '--');
+                cell.find(".comment-edit").hide();
+                displaySpan.show();
+
+                const index = tableData.findIndex(item => item.sr === sr);
+                if (index !== -1) {
+                    tableData[index].comment = newValue;
+                }
+
+                updateField(sr, "comment", newValue);
+            }
+
+            function saveDailyTarget(input) {
+                const cell = input.closest(".daily-target-cell");
+                const newValue = parseInt(input.val()) || 0;
+                const displaySpan = cell.find(".daily-target-display");
+                const sr = cell.data("sr");
+
+                displaySpan.text(newValue);
+                cell.find(".daily-target-edit").hide();
+                displaySpan.show();
+
+                const index = tableData.findIndex(item => item.sr === sr);
+                if (index !== -1) {
+                    tableData[index].dailyTarget = newValue;
+                }
+
+                updateField(sr, "daily_target", newValue);
+            }
+
+            function closeAllEditModes() {
+                $(".work-status-cell").each(function () {
+                    const cell = $(this);
+                    const displaySpan = cell.find(".work-status-display");
+                    const editDiv = cell.find(".work-status-edit");
+                    if (editDiv.is(":visible")) {
+                        editDiv.hide();
+                        displaySpan.show();
+                    }
+                });
+
+                $(".comment-cell").each(function () {
+                    const cell = $(this);
+                    const displaySpan = cell.find(".comment-display");
+                    const editDiv = cell.find(".comment-edit");
+                    if (editDiv.is(":visible")) {
+                        const input = cell.find(".comment-input");
+                        saveComment(input);
+                    }
+                });
+
+                $(".daily-target-cell").each(function () {
+                    const cell = $(this);
+                    const displaySpan = cell.find(".daily-target-display");
+                    const editDiv = cell.find(".daily-target-edit");
+                    if (editDiv.is(":visible")) {
+                        const input = cell.find(".daily-target-input");
+                        saveDailyTarget(input);
+                    }
+                });
+            }
+
+            function updateField(sr, fieldName, fieldValue) {
+                const payload = {
+                    user_id: loggedInUserId,
+                    day_no: sr,
+                    [fieldName]: fieldValue
+                };
+
+                const url = `https://eduroom.in/api/v1/analysis1/user/day-work`;
+                console.log("Updating field with URL:", url, "Payload:", payload);
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        console.log("Update response:", res);
+                        fetchTableData();
+                    },
+                    error: function (err) {
+                        console.error(`Error updating ${fieldName}:`, err);
+                        fetchTableData();
+                    }
+                });
+            }
+
+            function renderPagination() {
+                const totalPages = Math.ceil(tableData.length / rowsPerPage);
+                const pagination = $("#pagination");
+                pagination.empty();
+
+                const visiblePageCount = 3;
+                let startPage = Math.max(currentPage - 1, 1);
+                let endPage = startPage + visiblePageCount - 1;
+                if (endPage > totalPages) {
+                    endPage = totalPages;
+                    startPage = Math.max(endPage - visiblePageCount + 1, 1);
+                }
+
+                const prevDisabled = currentPage === 1 ? 'disabled' : '';
+                const nextDisabled = currentPage === totalPages ? 'disabled' : '';
+
+                pagination.append(`<li><a href="javascript:void(0);" class="${prevDisabled}" onclick="changePage2(${currentPage - 1})">&laquo;</a></li>`);
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const active = i === currentPage ? "active" : "";
+                    pagination.append(`<li><a href="javascript:void(0);" class="${active}" onclick="changePage2(${i})">${i}</a></li>`);
+                }
+
+                pagination.append(`<li><a href="javascript:void(0);" class="${nextDisabled}" onclick="changePage2(${currentPage + 1})">&raquo;</a></li>`);
+            }
+
+            window.changePage2 = function (page) {
+                const totalPages = Math.ceil(tableData.length / rowsPerPage);
+                if (page < 1 || page > totalPages) return;
+                currentPage = page;
+                renderTable();
+                renderPagination();
+                attachEditableEvents();
+            };
+
+            window.filterTable2 = function () {
+                const value = $("#searchInput2").val().toLowerCase().trim();
+                if (!value) {
+                    renderTable();
+                    renderPagination();
+                    $("#pagination").show();
+                    attachEditableEvents();
+                    return;
+                }
+
+                const filtered = tableData.filter((row) =>
+                    Object.values(row).some((field) => {
+                        const fieldText = typeof field === 'string' ? field.toLowerCase() : String(field).toLowerCase();
+                        return fieldText.includes(value);
+                    })
+                );
+
+                const tbody = $("#leadsTable2 tbody");
+                tbody.empty();
+                filtered.forEach((row, index) => {
+                    const tr = `<tr>
+                        <td>${row.sr}</td>
+                        <td>${row.dayOfWork}</td>
+                        <td>${row.dateDay}</td>
+                        ${makeWorkStatusCell(row.workStatus, row.sr)}
+                        ${makeCommentCell(row.comment, row.sr)}
+                        <td>${row.businessTask}</td>
+                        <td>${row.dailyTarget}</td>
+                        <td>${row.percentOfWork}</td>
+                        <td>${row.category}</td>
+                    </tr>`;
+                    tbody.append(tr);
+                });
+
+                $("#pagination").hide();
+                attachEditableEvents();
+            };
+
+            window.printTable2 = function () {
+                const printWindow = window.open('', '', 'height=600,width=800');
+                printWindow.document.write('<html><head><title>Print Table</title></head><body>');
+                printWindow.document.write($("#leadsTable2")[0].outerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            };
+
+            window.exportToExcel2 = function () {
+                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work", "Category"];
+                const data = [headers];
+
+                tableData.forEach((row) => {
+                    data.push([
+                        row.sr,
+                        row.dayOfWork,
+                        row.dateDay,
+                        row.workStatus,
+                        row.comment || '',
+                        row.businessTask,
+                        row.dailyTarget,
+                        row.percentOfWork,
+                        row.category
+                    ]);
+                });
+
+                const worksheet = XLSX.utils.aoa_to_sheet(data);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Analysis Data");
+                XLSX.writeFile(workbook, "AnalysisData.xlsx");
+            };
+
+            fetchCourseData();
+            fetchTableData();
         });
     </script>
 
