@@ -948,6 +948,75 @@
                                 </div>
 
                                 <style>
+                                    @media (max-width: 576px) {
+                                        #teamManager>[class*="col-"] {
+                                            flex: 0 0 100% !important;
+                                            max-width: 100% !important;
+                                        }
+
+                                        html,
+                                        body {
+                                            width: 100%;
+                                            overflow-x: hidden;
+                                        }
+
+                                        #teamManager .card {
+                                            width: 100%;
+                                        }
+
+                                        #teamManager .card-body {
+                                            padding: 14px;
+                                        }
+
+                                        #teamManager h3,
+                                        #teamManager h4,
+                                        #teamManager h5 {
+                                            font-size: 16px;
+                                        }
+
+                                        #teamManager .row {
+                                            margin-left: 0;
+                                            margin-right: 0;
+                                        }
+                                    }
+
+                                    #manager-chart-scroll-wrapper {
+                                        width: 100%;
+                                        max-width: 100%;
+                                        overflow-x: auto;
+                                        overflow-y: hidden;
+                                        position: relative;
+                                        -webkit-overflow-scrolling: touch;
+                                    }
+
+                                    #manager-chart-inner {
+                                        display: block;
+                                        width: max-content;
+                                        min-width: 100%;
+                                        padding-bottom: 10px;
+                                    }
+
+                                    #manager-performance-bar-chart {
+                                        width: 100% !important;
+                                        min-height: 360px;
+                                    }
+
+                                    @media (max-width: 576px) {
+
+                                        #manager-chart-inner {
+                                            min-width: 750px;
+                                        }
+
+                                        #manager-performance-bar-chart {
+                                            min-height: 320px;
+                                        }
+
+                                        html,
+                                        body {
+                                            overflow-x: hidden;
+                                        }
+                                    }
+
                                     .card-header-action {
                                         gap: 10px;
                                     }
@@ -985,7 +1054,6 @@
                                         outline: none;
                                         font-size: 14px;
                                     }
-
 
                                     @media (max-width: 576px) {
                                         .card-header-action {
@@ -2329,8 +2397,8 @@
                     <select id="managerSelect" class="form-select">
                         <option value="">All Managers</option>
                         ${managers.map(manager =>
-                        `<option value="${manager.name}">${manager.name}</option>`
-                    ).join('')}
+                    `<option value="${manager.name}">${manager.name}</option>`
+                ).join('')}
                     </select>
                 </div>
             `;
