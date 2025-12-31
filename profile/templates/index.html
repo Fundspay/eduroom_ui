@@ -262,12 +262,14 @@
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box">
                                                         <span class="info-label text-center">Current Category</span>
-                                                        <span class="info-value badge" id="currentCategory" style="font-size: 20px;">--</span>
+                                                        <span class="info-value badge" id="currentCategory"
+                                                            style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box">
-                                                        <span class="info-label text-center">Start Date (For Business Task)</span>
+                                                        <span class="info-label text-center">Start Date (For Business
+                                                            Task)</span>
                                                         <span
                                                             class="info-value editable-display text-center d-block w-100"
                                                             id="startDate" style="font-size: 20px;">--</span>
@@ -276,7 +278,8 @@
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box editable-field" data-field="end_date"
                                                         id="endDateContainer">
-                                                        <span class="info-label text-center">End Date (For Business Task)</span>
+                                                        <span class="info-label text-center">End Date (For Business
+                                                            Task)</span>
                                                         <span
                                                             class="info-value editable-display text-center d-block w-100"
                                                             id="endDateDisplay" style="font-size: 20px;">--</span>
@@ -284,9 +287,11 @@
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box" id="daysLeft2">
-                                                        <span class="info-label text-center" style="color: rgb(78, 76, 76);">Days
+                                                        <span class="info-label text-center"
+                                                            style="color: rgb(78, 76, 76);">Days
                                                             Left</span>
-                                                        <span class="info-value badge" id="daysLeft" style="font-size: 20px;">--</span>
+                                                        <span class="info-value badge" id="daysLeft"
+                                                            style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -597,10 +602,10 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap">
                                     <div id="taskCountdownContainer"></div>
 
-                                    <div class="d-flex gap-2">
+                                    <div class="d-flex gap-2" id="taskActionButtons">
                                         <button class="btn btn-primary" onclick="printTable2()">
                                             <i class="bi bi-printer"></i> Print
                                         </button>
@@ -1780,7 +1785,7 @@
                     url: `https://eduroom.in/api/v1/analysis1/list/${loggedInUserId}`,
                     method: "GET",
                     success: function (response) {
-                        console.log("Course GET response:", response);
+                        // console.log("Course GET response:", response);
                         if (response.success && response.data && Array.isArray(response.data) && response.data.length > 0) {
                             const courseData = response.data[0];
                             updateCourseDashboard(courseData);
@@ -2093,7 +2098,7 @@
                 };
 
                 const url = `https://eduroom.in/api/v1/analysis1/update/${loggedInUserId}`;
-                console.log(`Updating dashboard field ${fieldName} with URL:`, url, "Payload:", payload);
+                // console.log(`Updating dashboard field ${fieldName} with URL:`, url, "Payload:", payload);
 
                 $.ajax({
                     url: url,
@@ -2101,7 +2106,7 @@
                     contentType: "application/json",
                     data: JSON.stringify(payload),
                     success: function (res) {
-                        console.log("Dashboard update response:", res);
+                        // console.log("Dashboard update response:", res);
                         fetchCourseData();
                         fetchTableData();
                     },
@@ -2199,69 +2204,72 @@
 
                 container.innerHTML = `
                     <div style="
-                        display: inline-flex;
-                        align-items: center;
+                        display: flex;
+                        align-items: flex-start;
                         gap: 10px;
-                        padding: 10px 16px;
-                        border-radius: 10px;
-                        background: linear-gradient(135deg, #ffe5e5, #fff);
-                        border: 1px solid #f5c2c7;
-                        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.15);
-                        font-size: 20px;
+                        padding: 10px 14px;
+                        border-radius: 8px;
+                        background-color: #fff3f4;
+                        border: 1px solid #f1b0b7;
+                        box-shadow: 0 2px 8px rgba(220, 53, 69, 0.12);
+                        font-size: 15px;
                         font-weight: 600;
-                        color: #b02a37;">
+                        color: #b02a37;
+                        max-width: 100%;
+                    ">
 
                         <span style="
-                            width: 10px;
-                            height: 10px;
+                            width: 8px;
+                            height: 8px;
                             background-color: #dc3545;
                             border-radius: 50%;
-                            animation: pulse 1.5s infinite;">
-                        </span>
+                            margin-top: 6px;
+                            flex-shrink: 0;
+                        "></span>
 
-                        <span>
+                        <span style="line-height: 1.5;">
                             Your task sheet for
                             <span style="
                                 display: inline-block;
                                 padding: 2px 8px;
-                                border-radius: 12px;
+                                border-radius: 10px;
                                 background-color: #dc3545;
                                 color: #fff;
-                                font-size: 16px;
+                                font-size: 12px;
                                 font-weight: 600;
-                                margin: 0 4px;">
+                                margin: 0 4px;
+                                white-space: nowrap;
+                            ">
                                 ${formatTodayDate()}
                             </span>
-                            will be sent to your TPO / Official College Authority by EOD 5:00 PM*
+                            will be sent to your TPO / Official College Authority by
+                            <strong> EOD 5:00 PM*</strong>
                         </span>
                     </div>
                 `;
 
                 if (countdownInterval) clearInterval(countdownInterval);
-
-                function updateCountdown() {
-                    const now = new Date();
-                    const midnight = new Date();
-                    midnight.setHours(24, 0, 0, 0);
-
-                    const diff = midnight - now;
-
-                    if (diff <= 0) {
-                        clearInterval(countdownInterval);
-                        container.innerHTML = "";
-                        return;
-                    }
-
-                    const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
-                    const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
-                    const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
-
-                    timerSpan.textContent = `${hours}:${minutes}:${seconds}`;
-                }
-
-                updateCountdown();
-                countdownInterval = setInterval(updateCountdown, 1000);
             }
+
+            function adjustTaskCountdownForMobile() {
+                const countdown = document.getElementById("taskCountdownContainer");
+                const buttons = document.getElementById("taskActionButtons");
+
+                if (!countdown || !buttons) return;
+
+                if (window.innerWidth < 576) {
+                    buttons.parentNode.appendChild(countdown);
+                    countdown.style.width = "100%";
+                    countdown.style.marginTop = "10px";
+                } else {
+                    buttons.parentNode.prepend(countdown);
+                    countdown.style.width = "auto";
+                    countdown.style.marginTop = "0";
+                }
+            }
+
+            adjustTaskCountdownForMobile();
+            window.addEventListener("resize", adjustTaskCountdownForMobile);
 
             function handleTaskCountdown() {
                 const container = document.getElementById("taskCountdownContainer");
@@ -2295,7 +2303,7 @@
                     url: `https://eduroom.in/api/v1/analysis1/analysis/${loggedInUserId}`,
                     method: "GET",
                     success: function (response) {
-                        console.log("Table GET response:", response);
+                        // console.log("Table GET response:", response);
 
                         if (response.success && response.data && Array.isArray(response.data)) {
                             tableData = response.data.map(item => {
@@ -2509,7 +2517,7 @@
                 };
 
                 const url = `https://eduroom.in/api/v1/analysis1/user/day-work`;
-                console.log("Updating field with URL:", url, "Payload:", payload);
+                // console.log("Updating field with URL:", url, "Payload:", payload);
 
                 $.ajax({
                     url: url,
@@ -2517,7 +2525,7 @@
                     contentType: "application/json",
                     data: JSON.stringify(payload),
                     success: function (res) {
-                        console.log("Update response:", res);
+                        // console.log("Update response:", res);
                         fetchTableData();
                     },
                     error: function (err) {
