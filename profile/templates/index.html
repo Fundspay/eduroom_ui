@@ -249,7 +249,6 @@
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
 
                 <div class="row mb-4">
-                    <!-- Course Overview Dashboard -->
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -257,79 +256,72 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <!-- Course Information -->
                                     <div class="col-md-12">
                                         <div class="course-info-card">
                                             <div class="row">
-                                                <!-- <div class="col-md-6 mb-3">
+                                                <div class="col-md-3 mb-3">
                                                     <div class="info-box">
-                                                        <span class="info-label">Course Name:</span>
-                                                        <span class="info-value" id="courseName">--</span>
-                                                    </div>
-                                                </div> -->
-                                                <div class="col-md-6 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label">Current Category:</span>
-                                                        <span class="info-value badge" id="currentCategory">--</span>
+                                                        <span class="info-label text-center">Current Category</span>
+                                                        <span class="info-value badge" id="currentCategory" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 mb-3">
+                                                <div class="col-md-3 mb-3">
                                                     <div class="info-box">
-                                                        <span class="info-label">Start Date:</span>
+                                                        <span class="info-label text-center">Start Date (For Business Task)</span>
                                                         <span
                                                             class="info-value editable-display text-center d-block w-100"
-                                                            id="startDate">--</span>
+                                                            id="startDate" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 mb-3">
+                                                <div class="col-md-3 mb-3">
                                                     <div class="info-box editable-field" data-field="end_date"
                                                         id="endDateContainer">
-                                                        <span class="info-label">End Date:</span>
+                                                        <span class="info-label text-center">End Date (For Business Task)</span>
                                                         <span
                                                             class="info-value editable-display text-center d-block w-100"
-                                                            id="endDateDisplay">--</span>
-                                                        <!-- <div class="edit-input-container" style="display: none;">
-                                                            <input type="date"
-                                                                class="form-control form-control-sm edit-input w-100 text-center mx-auto"
-                                                                id="endDateInput" data-original-value="">
-                                                        </div> -->
+                                                            id="endDateDisplay" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label">Days Left:</span>
-                                                        <span class="info-value badge" id="daysLeft">--</span>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="info-box" id="daysLeft2">
+                                                        <span class="info-label text-center" style="color: rgb(78, 76, 76);">Days
+                                                            Left</span>
+                                                        <span class="info-value badge" id="daysLeft" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Business Status -->
                                     <div class="col-md-12">
                                         <div class="business-status-card">
                                             <div class="row">
-                                                <div class="col-md-12 mb-4">
+                                                <div class="col-md-6 mb-4">
                                                     <div class="progress-box">
                                                         <div class="d-flex justify-content-between mb-2">
-                                                            <span class="progress-label">Total Work Status</span>
+                                                            <span class="progress-label">Business Task Status</span>
                                                             <span class="progress-percentage"
                                                                 id="workStatusPercentage">0%</span>
                                                         </div>
                                                         <div class="progress" style="height: 20px;">
-                                                            <div class="progress-bar bg-success" id="workStatusProgress"
+                                                            <div class="progress-bar" id="workStatusProgress"
                                                                 role="progressbar" style="width: 0%"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <!-- <div class="col-md-12 mb-4">
-                                                    <div class="info-box">
-                                                        <span class="info-label">Category:</span>
-                                                        <span class="info-value badge bg-primary"
-                                                            id="categoryDisplay">--</span>
+                                                <div class="col-md-6 mb-4">
+                                                    <div class="progress-box">
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span class="progress-label">Work Status</span>
+                                                            <span class="progress-percentage"
+                                                                id="workStatusPercentage2">0%</span>
+                                                        </div>
+                                                        <div class="progress" style="height: 20px;">
+                                                            <div class="progress-bar" id="workStatusProgress2"
+                                                                role="progressbar" style="width: 0%"></div>
+                                                        </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
 
                                                 <div class="col-md-12">
                                                     <div class="business-task-box">
@@ -338,7 +330,8 @@
                                                                 <div class="task-box text-center">
                                                                     <span class="task-label">Achieved Task</span>
                                                                     <span class="task-value text-success"
-                                                                        id="achievedTask">--</span>
+                                                                        id="achievedTask"
+                                                                        style="font-size: 30px;">--</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 mb-3">
@@ -347,25 +340,12 @@
                                                                     <div class="editable-field"
                                                                         data-field="business_task"
                                                                         id="businessTaskContainer">
-                                                                        <span class="task-value"
-                                                                            id="businessTaskDisplay">--</span>
-                                                                        <!-- <div class="edit-input-container"
-                                                                            style="display: none;">
-                                                                            <input type="number"
-                                                                                class="form-control form-control-sm edit-input w-100 text-center mx-auto"
-                                                                                id="businessTaskInput"
-                                                                                data-original-value="" min="0">
-                                                                        </div> -->
+                                                                        <span class="task-value text-danger"
+                                                                            id="businessTaskDisplay"
+                                                                            style="font-size: 30px;">--</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="col-md-4 mb-3">
-                                                                <div class="task-box text-center">
-                                                                    <span class="task-label">Completion %</span>
-                                                                    <span class="task-value text-info"
-                                                                        id="completionPercentage">--</span>
-                                                                </div>
-                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -433,7 +413,6 @@
                     .progress-percentage {
                         font-size: 18px;
                         font-weight: 700;
-                        color: #28a745;
                     }
 
                     .business-task-box {
@@ -476,13 +455,116 @@
                         background-color: #f1f3ff;
                     }
 
-                    .edit-input-container {
-                        margin-top: 10px;
+                    .days-left-green {
+                        background-color: #5cdb5c !important;
+                        color: white !important;
                     }
 
-                    .edit-input {
-                        width: 100%;
-                        max-width: 200px;
+                    .days-left-light-green {
+                        background-color: #b3ffb3 !important;
+                        color: #212529 !important;
+                    }
+
+                    .days-left-yellow {
+                        background-color: #ffff80 !important;
+                        color: #212529 !important;
+                    }
+
+                    .days-left-orange {
+                        background-color: #ffa500 !important;
+                        color: white !important;
+                    }
+
+                    .days-left-red {
+                        background-color: #ff4d4d !important;
+                        color: white !important;
+                    }
+
+                    .progress-red {
+                        background-color: #ff4d4d !important;
+                    }
+
+                    .progress-orange {
+                        background-color: #ffa500 !important;
+                    }
+
+                    .progress-yellow {
+                        background-color: #ffff80 !important;
+                    }
+
+                    .progress-light-green {
+                        background-color: #b3ffb3 !important;
+                    }
+
+                    .progress-green {
+                        background-color: #5cdb5c !important;
+                    }
+
+                    .progress-blue {
+                        background-color: #4da6ff !important;
+                    }
+
+                    .status-card-red {
+                        background: linear-gradient(135deg, #ff4d4d 0%, #ff4d4d 100%) !important;
+                        border: 1px solid #ff4d4d !important;
+                    }
+
+                    .status-card-orange {
+                        background: linear-gradient(135deg, #ffa500 0%, #ffa500 100%) !important;
+                        border: 1px solid #ffa500 !important;
+                    }
+
+                    .status-card-yellow {
+                        background: linear-gradient(135deg, #ffff80 0%, #ffff80 100%) !important;
+                        border: 1px solid #ffff80 !important;
+                    }
+
+                    .status-card-light-green {
+                        background: linear-gradient(135deg, #b3ffb3 0%, #b3ffb3 100%) !important;
+                        border: 1px solid #b3ffb3 !important;
+                    }
+
+                    .status-card-green {
+                        background: linear-gradient(135deg, #5cdb5c 0%, #5cdb5c 100%) !important;
+                        border: 1px solid #5cdb5c !important;
+                    }
+
+                    .status-card-blue {
+                        background: linear-gradient(135deg, #4da6ff 0%, #4da6ff 100%) !important;
+                        border: 1px solid #4da6ff !important;
+                    }
+
+                    .percentage-red {
+                        color: #ff4d4d !important;
+                    }
+
+                    .percentage-orange {
+                        color: #ffa500 !important;
+                    }
+
+                    .percentage-yellow {
+                        color: #ffff80 !important;
+                    }
+
+                    .percentage-light-green {
+                        color: #b3ffb3 !important;
+                    }
+
+                    .percentage-green {
+                        color: #5cdb5c !important;
+                    }
+
+                    .percentage-blue {
+                        color: #4da6ff !important;
+                    }
+
+                    .row-today {
+                        background-color: #adf390 !important;
+                    }
+
+                    .row-past {
+                        background-color: #f1f4f8 !important;
+                        color: #444447 !important;
                     }
                 </style>
 
@@ -490,43 +572,34 @@
                     <div class="col-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <!-- <h3 class="card-title" style="font-size: 25px;">Dashboard</h3> -->
-                                </div>
-                                <div class="card-header-action">
-                                    <!-- <div class="search-bar">
-                                        <input type="text" id="searchInput2" class="form-control"
-                                            placeholder="Search..." oninput="filterTable2()">
-                                    </div> -->
-                                </div>
+                                <h3 class="card-title" style="font-size: 25px;">My Daily Task Sheet</h3>
+                                <div class="d-flex justify-content-between align-items-center"></div>
+                                <div class="card-header-action"></div>
                             </div>
                             <div class="card-body custom-card-action p-0">
                                 <div class="table-responsive">
                                     <table class="table table-hover mb-0" id="leadsTable2">
                                         <thead>
                                             <tr class="border-b">
-                                                <th scope="row">S No.</th>
-                                                <th>Day of week</th>
-                                                <th>Date</th>
-                                                <th>My work status</th>
-                                                <th>Comment</th>
-                                                <th>My business task</th>
-                                                <th>My target</th>
-                                                <th>Percentage of work</th>
-                                                <th>Category</th>
+                                                <th scope="row" style="font-size: 15px;">S No.</th>
+                                                <th style="font-size: 15px;">Day of week</th>
+                                                <th style="font-size: 15px;">Date</th>
+                                                <th style="font-size: 15px;">My work status</th>
+                                                <th style="font-size: 15px;">Comment</th>
+                                                <th style="font-size: 15px;">My business task</th>
+                                                <th style="font-size: 15px;">My target</th>
+                                                <th style="font-size: 15px;">Percentage of work</th>
+                                                <th style="font-size: 15px;">Category</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                        id="">
-                                    </ul>
+                                    <div id="taskCountdownContainer"></div>
+
                                     <div class="d-flex gap-2">
                                         <button class="btn btn-primary" onclick="printTable2()">
                                             <i class="bi bi-printer"></i> Print
@@ -536,6 +609,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -1731,6 +1805,96 @@
                 });
             }
 
+            function updateDaysLeftColor(daysLeft) {
+                const daysLeftElement = $("#daysLeft2");
+
+                daysLeftElement.removeClass('days-left-green days-left-light-green days-left-yellow days-left-orange days-left-red');
+
+                if (daysLeft >= 5) {
+                    daysLeftElement.addClass('days-left-green');
+                } else if (daysLeft === 4) {
+                    daysLeftElement.addClass('days-left-light-green');
+                } else if (daysLeft === 3) {
+                    daysLeftElement.addClass('days-left-yellow');
+                } else if (daysLeft === 2) {
+                    daysLeftElement.addClass('days-left-orange');
+                } else if (daysLeft <= 1) {
+                    daysLeftElement.addClass('days-left-red');
+                }
+            }
+
+            function updateProgressBarColor(percentage) {
+                const progressBar = $("#workStatusProgress");
+                const percentageText = $("#workStatusPercentage");
+                const statusCard = $(".business-status-card");
+
+                progressBar.removeClass('progress-red progress-orange progress-yellow progress-light-green progress-green progress-blue');
+                percentageText.removeClass('percentage-red percentage-orange percentage-yellow percentage-light-green percentage-green percentage-blue');
+                statusCard.removeClass('status-card-red status-card-orange status-card-yellow status-card-light-green status-card-green status-card-blue');
+
+                if (percentage <= 30) {
+                    progressBar.addClass('progress-red');
+                    percentageText.addClass('percentage-red');
+                    statusCard.addClass('status-card-red');
+                } else if (percentage <= 45) {
+                    progressBar.addClass('progress-orange');
+                    percentageText.addClass('percentage-orange');
+                    statusCard.addClass('status-card-orange');
+                } else if (percentage <= 60) {
+                    progressBar.addClass('progress-yellow');
+                    percentageText.addClass('percentage-yellow');
+                    statusCard.addClass('status-card-yellow');
+                } else if (percentage <= 75) {
+                    progressBar.addClass('progress-light-green');
+                    percentageText.addClass('percentage-light-green');
+                    statusCard.addClass('status-card-light-green');
+                } else if (percentage <= 90) {
+                    progressBar.addClass('progress-green');
+                    percentageText.addClass('percentage-green');
+                    statusCard.addClass('status-card-green');
+                } else {
+                    progressBar.addClass('progress-blue');
+                    percentageText.addClass('percentage-blue');
+                    statusCard.addClass('status-card-blue');
+                }
+            }
+
+            function updateProgressBarColor2(percentage) {
+                const progressBar = $("#workStatusProgress2");
+                const percentageText = $("#workStatusPercentage2");
+                const statusCard = $(".business-status-card");
+
+                progressBar.removeClass('progress-red progress-orange progress-yellow progress-light-green progress-green progress-blue');
+                percentageText.removeClass('percentage-red percentage-orange percentage-yellow percentage-light-green percentage-green percentage-blue');
+                // statusCard.removeClass('status-card-red status-card-orange status-card-yellow status-card-light-green status-card-green status-card-blue');
+
+                if (percentage <= 30) {
+                    progressBar.addClass('progress-red');
+                    percentageText.addClass('percentage-red');
+                    // statusCard.addClass('status-card-red');
+                } else if (percentage <= 45) {
+                    progressBar.addClass('progress-orange');
+                    percentageText.addClass('percentage-orange');
+                    // statusCard.addClass('status-card-orange');
+                } else if (percentage <= 60) {
+                    progressBar.addClass('progress-yellow');
+                    percentageText.addClass('percentage-yellow');
+                    // statusCard.addClass('status-card-yellow');
+                } else if (percentage <= 75) {
+                    progressBar.addClass('progress-light-green');
+                    percentageText.addClass('percentage-light-green');
+                    // statusCard.addClass('status-card-light-green');
+                } else if (percentage <= 90) {
+                    progressBar.addClass('progress-green');
+                    percentageText.addClass('percentage-green');
+                    // statusCard.addClass('status-card-green');
+                } else {
+                    progressBar.addClass('progress-blue');
+                    percentageText.addClass('percentage-blue');
+                    // statusCard.addClass('status-card-blue');
+                }
+            }
+
             function updateCourseDashboard(courseData) {
                 $("#courseName").text(courseData.course_name || '--');
                 $("#currentCategory").text(courseData.current_category || '--');
@@ -1743,12 +1907,22 @@
                 const daysLeft = courseData.daysLeft || 0;
                 $("#daysLeft").text(daysLeft + (daysLeft === 1 ? " DAY" : " DAYS"));
 
+                updateDaysLeftColor(daysLeft);
+
                 const businessTask = parseInt(courseData.business_task) || 0;
                 const achievedTask = courseData.achieved_business_task || 0;
 
                 const workPercentage = businessTask > 0 ? Math.round((achievedTask / businessTask) * 100) : 0;
                 $("#workStatusPercentage").text(workPercentage + '%');
                 $("#workStatusProgress").css('width', workPercentage + '%');
+
+                updateProgressBarColor(workPercentage);
+
+                const workPercentage2 = courseData.work_status_percentage || 0;
+                $("#workStatusPercentage2").text(workPercentage2 + '%');
+                $("#workStatusProgress2").css('width', workPercentage2 + '%');
+
+                updateProgressBarColor2(workPercentage2);
 
                 $("#businessTaskDisplay").text(businessTask);
                 $("#businessTaskInput").val(businessTask);
@@ -1876,6 +2050,8 @@
 
                     $("#workStatusPercentage").text(completionPercentage + '%');
                     $("#workStatusProgress").css('width', completionPercentage + '%');
+
+                    updateProgressBarColor(completionPercentage);
                 }
 
                 container.find(".edit-input-container").hide();
@@ -1994,12 +2170,133 @@
                 </td>`;
             }
 
+            function parseDateDay(dateStr) {
+                if (!dateStr) return null;
+
+                try {
+                    const parts = dateStr.split(", ");
+                    if (parts.length < 2) return null;
+
+                    const year = new Date().getFullYear();
+                    return new Date(`${parts[1]}, ${year}`);
+                } catch {
+                    return null;
+                }
+            }
+
+            function formatTodayDate() {
+                return new Date().toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                });
+            }
+
+            let countdownInterval = null;
+
+            function startMidnightCountdown() {
+                const container = document.getElementById("taskCountdownContainer");
+
+                container.innerHTML = `
+                    <div style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 10px;
+                        padding: 10px 16px;
+                        border-radius: 10px;
+                        background: linear-gradient(135deg, #ffe5e5, #fff);
+                        border: 1px solid #f5c2c7;
+                        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.15);
+                        font-size: 20px;
+                        font-weight: 600;
+                        color: #b02a37;">
+
+                        <span style="
+                            width: 10px;
+                            height: 10px;
+                            background-color: #dc3545;
+                            border-radius: 50%;
+                            animation: pulse 1.5s infinite;">
+                        </span>
+
+                        <span>
+                            Your task sheet for
+                            <span style="
+                                display: inline-block;
+                                padding: 2px 8px;
+                                border-radius: 12px;
+                                background-color: #dc3545;
+                                color: #fff;
+                                font-size: 16px;
+                                font-weight: 600;
+                                margin: 0 4px;">
+                                ${formatTodayDate()}
+                            </span>
+                            will be sent to your TPO / Official College Authority by EOD 5:00 PM*
+                        </span>
+                    </div>
+                `;
+
+                if (countdownInterval) clearInterval(countdownInterval);
+
+                function updateCountdown() {
+                    const now = new Date();
+                    const midnight = new Date();
+                    midnight.setHours(24, 0, 0, 0);
+
+                    const diff = midnight - now;
+
+                    if (diff <= 0) {
+                        clearInterval(countdownInterval);
+                        container.innerHTML = "";
+                        return;
+                    }
+
+                    const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
+                    const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
+                    const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+
+                    timerSpan.textContent = `${hours}:${minutes}:${seconds}`;
+                }
+
+                updateCountdown();
+                countdownInterval = setInterval(updateCountdown, 1000);
+            }
+
+            function handleTaskCountdown() {
+                const container = document.getElementById("taskCountdownContainer");
+                container.innerHTML = "";
+
+                if (!tableData || tableData.length === 0) return;
+
+                const dates = tableData
+                    .map(row => parseDateDay(row.dateDay))
+                    .filter(Boolean);
+
+                if (!dates.length) return;
+
+                const minDate = new Date(Math.min(...dates));
+                const maxDate = new Date(Math.max(...dates));
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                minDate.setHours(0, 0, 0, 0);
+                maxDate.setHours(0, 0, 0, 0);
+
+                if (today >= minDate && today <= maxDate) {
+                    startMidnightCountdown();
+                } else {
+                    container.innerHTML = "";
+                }
+            }
+
             function fetchTableData() {
                 $.ajax({
                     url: `https://eduroom.in/api/v1/analysis1/analysis/${loggedInUserId}`,
                     method: "GET",
                     success: function (response) {
                         console.log("Table GET response:", response);
+
                         if (response.success && response.data && Array.isArray(response.data)) {
                             tableData = response.data.map(item => {
                                 return {
@@ -2011,13 +2308,15 @@
                                     businessTask: item.ACHIEVED_BUSINESS_TASK,
                                     dailyTarget: item.DAILY_TARGET,
                                     percentOfWork: item.PERCENT_OF_WORK,
-                                    category: item.CATEGORY
+                                    category: item.CATEGORY,
+                                    colorPercentage: item.COLOR_PERCENTAGE
                                 };
                             });
 
                             renderTable();
                             renderPagination();
                             attachEditableEvents();
+                            handleTaskCountdown();
                         } else {
                             console.error("Invalid response format.");
                         }
@@ -2028,25 +2327,40 @@
                 });
             }
 
+            function getRowColorByPercentage(value) {
+                if (value === null || value === undefined) return "#f1f4f8";
+                if (value <= 30) return "#ff4d4d";      // red
+                if (value <= 45) return "#ffa500";      // orange
+                if (value <= 60) return "#ffff80";      // yellow
+                if (value <= 75) return "#b3ffb3";      // light green
+                if (value <= 90) return "#5cdb5c";      // green
+                return "#4da6ff";                       // blue (90+)
+            }
+
             function renderTable() {
                 const tbody = $("#leadsTable2 tbody");
                 tbody.empty();
+
                 const start = (currentPage - 1) * rowsPerPage;
                 const end = start + rowsPerPage;
                 const rows = tableData.slice(start, end);
 
                 rows.forEach((row) => {
-                    const tr = `<tr>
-                        <td>${row.sr}</td>
-                        <td>${row.dayOfWork}</td>
-                        <td>${row.dateDay}</td>
-                        ${makeWorkStatusCell(row.workStatus, row.sr)}
-                        <td>${row.comment}</td>
-                        <td>${row.businessTask}</td>
-                        <td>${row.dailyTarget}</td>
-                        <td>${row.percentOfWork}</td>
-                        <td>${row.category}</td>
-                    </tr>`;
+                    const bgColor = getRowColorByPercentage(row.colorPercentage);
+
+                    const tr = `
+                        <tr style="background-color:${bgColor};">
+                            <td>${row.sr}</td>
+                            <td>${row.dayOfWork}</td>
+                            <td>${row.dateDay}</td>
+                            ${makeWorkStatusCell(row.workStatus, row.sr)}
+                            <td>${row.comment}</td>
+                            <td>${row.businessTask}</td>
+                            <td>${row.dailyTarget}</td>
+                            <td>${row.percentOfWork}</td>
+                            <td>${row.category}</td>
+                        </tr>
+                    `;
                     tbody.append(tr);
                 });
             }
@@ -2268,7 +2582,14 @@
                 const tbody = $("#leadsTable2 tbody");
                 tbody.empty();
                 filtered.forEach((row, index) => {
-                    const tr = `<tr>
+                    let rowClass = '';
+                    if (isToday(row.dateDay)) {
+                        rowClass = 'row-today';
+                    } else if (isPastDate(row.dateDay)) {
+                        rowClass = 'row-past';
+                    }
+
+                    const tr = `<tr class="${rowClass}">
                         <td>${row.sr}</td>
                         <td>${row.dayOfWork}</td>
                         <td>${row.dateDay}</td>
