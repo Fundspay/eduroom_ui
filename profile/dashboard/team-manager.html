@@ -2631,7 +2631,7 @@
                 <td>${escapeHtml(row.offerMessageExists || '')}</td>
                 <td>${escapeHtml(row.selected || 'No')}</td>
                 <td>${escapeHtml(row.email || '')}</td>
-                <td>${escapeHtml(row.collegeName || '')}</td>
+                ${makeInputCell("collegeName", row.collegeName, "Enter college name")}
                 <td>${escapeHtml(row.courses || '')}</td>
                 <td>${escapeHtml(row.course || '')}</td>
                 <td>${escapeHtml(row.duration || '')}</td>
@@ -2788,66 +2788,102 @@
             return html;
         }
 
+        function makeInputCell(field, value, placeholder = "") {
+            return `
+                <td data-field="${field}" class="editable-input">
+                    <span class="cell-display" style="font-weight:bold;">
+                        ${escapeHtml(value || '')}
+                    </span>
+                    <input 
+                        type="text"
+                        class="form-control form-control-sm cell-input"
+                        value="${escapeHtml(value || '')}"
+                        placeholder="${placeholder}"
+                        style="display:none;"
+                    />
+                </td>
+            `;
+        }
+
+        function updateRowData(tr) {
+            let id = tr.data("id");
+
+            let internshipStatus = tr.find('td[data-field="internshipAction"] select').val();
+            let managerName = tr.find('td[data-field="teamManager"] select').val();
+            let pushtoName = tr.find('td[data-field="pushto"] select').val();
+            let collegeName = tr.find('td[data-field="collegeName"] input').val();
+
+            let payload = {
+                internshipStatus: internshipStatus || "",
+                teamManager: managerName || "",
+                pushto: pushtoName || "",
+                collegeName: collegeName || ""
+            };
+
+            console.log("payload:", payload);
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/status/update/${id}`,
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    console.log("Updated:", res);
+
+                    if (selectedManager && selectedManager !== "") {
+                        calculateManagerMetrics(selectedManager);
+                    } else {
+                        calculateAllMetrics();
+                    }
+                    updateManagerPerformanceChart();
+                },
+                error: function (err) {
+                    console.error("Update failed", err);
+                }
+            });
+        }
+
         function attachCellEvents() {
+
             $("#leadsTable td").off("dblclick").on("dblclick", function () {
                 let td = $(this);
 
                 if (td.hasClass("special-dropdown")) {
                     td.find("span").hide();
                     td.find("select").show().focus();
-                } else {
-                    td.addClass("editing");
-                    td.find("input,select").focus();
+                    return;
+                }
+
+                if (td.hasClass("editable-input")) {
+                    td.find(".cell-display").hide();
+                    td.find(".cell-input").show().focus().select();
                 }
             });
 
             $("#leadsTable td select").off("change").on("change", function () {
                 let td = $(this).closest("td");
                 let tr = $(this).closest("tr");
-                let id = tr.data("id");
-                let field = td.data("field");
-
-                let internshipStatus = td.closest("tr").find('td[data-field="internshipAction"] select').val();
-                let managerName = td.closest("tr").find('td[data-field="teamManager"] select').val();
-
-                let managerObj = managerList.find(m => m.name === managerName);
-                let managerId = managerObj ? managerObj.id : null;
-
-                let pushtoName = td.closest("tr").find('td[data-field="pushto"] select').val();
-
-                let payload = {
-                    internshipStatus: internshipStatus || "",
-                    teamManager: managerName || "",
-                    pushto: pushtoName || ""
-                };
-                console.log("payload:", payload);
-
-                $.ajax({
-                    url: `https://eduroom.in/api/v1/status/update/${id}`,
-                    method: "PUT",
-                    contentType: "application/json",
-                    data: JSON.stringify(payload),
-                    success: function (res3) {
-                        console.log("Updated:", res3);
-                        console.log("Url:", `https://eduroom.in/api/v1/status/update/${id}`);
-
-                        if (selectedManager && selectedManager !== "") {
-                            calculateManagerMetrics(selectedManager);
-                        } else {
-                            calculateAllMetrics();
-                        }
-                        updateManagerPerformanceChart();
-                    },
-                    error: function (err) {
-                        console.error("Update failed", err);
-                    }
-                });
 
                 td.find("span").text($(this).val());
                 td.find("select").hide();
                 td.find("span").show();
+
+                updateRowData(tr);
             });
 
+            $("#leadsTable .cell-input").off("blur keypress").on("blur keypress", function (e) {
+                if (e.type === "keypress" && e.which !== 13) return;
+
+                let input = $(this);
+                let td = input.closest("td");
+                let tr = input.closest("tr");
+
+                td.find(".cell-display").text(input.val());
+                input.hide();
+                td.find(".cell-display").show();
+
+                updateRowData(tr);
+            });
         }
 
         window.filterTable = function () {
