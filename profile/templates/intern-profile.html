@@ -237,7 +237,7 @@
 
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
-                 <div class="row mb-4">
+                <div class="row mb-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -251,12 +251,14 @@
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box">
                                                         <span class="info-label text-center">Current Category</span>
-                                                        <span class="info-value badge" id="currentCategory" style="font-size: 20px;">--</span>
+                                                        <span class="info-value badge" id="currentCategory"
+                                                            style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box">
-                                                        <span class="info-label text-center">Start Date (For Business Task)</span>
+                                                        <span class="info-label text-center">Start Date (For Business
+                                                            Task)</span>
                                                         <span
                                                             class="info-value editable-display text-center d-block w-100"
                                                             id="startDate" style="font-size: 20px;">--</span>
@@ -265,7 +267,8 @@
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box editable-field" data-field="end_date"
                                                         id="endDateContainer">
-                                                        <span class="info-label text-center">End Date</span>
+                                                        <span class="info-label text-center">End Date (For Business
+                                                            Task)</span>
                                                         <span
                                                             class="info-value editable-display text-center d-block w-100"
                                                             id="endDateDisplay" style="font-size: 20px;">--</span>
@@ -278,9 +281,11 @@
                                                 </div>
                                                 <div class="col-md-3 mb-3">
                                                     <div class="info-box" id="daysLeft2">
-                                                        <span class="info-label text-center" style="color: rgb(78, 76, 76);">Days
+                                                        <span class="info-label text-center"
+                                                            style="color: rgb(78, 76, 76);">Days
                                                             Left</span>
-                                                        <span class="info-value badge" id="daysLeft" style="font-size: 20px;">--</span>
+                                                        <span class="info-value badge" id="daysLeft"
+                                                            style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,7 +339,8 @@
                                                                     <div class="editable-field"
                                                                         data-field="business_task"
                                                                         id="businessTaskContainer">
-                                                                        <span class="task-value text-danger editable-display"
+                                                                        <span
+                                                                            class="task-value text-danger editable-display"
                                                                             id="businessTaskDisplay">--</span>
                                                                         <div class="edit-input-container"
                                                                             style="display: none;">
@@ -565,6 +571,23 @@
                     .row-past {
                         background-color: #f1f4f8 !important;
                         color: #444447 !important;
+                    }
+
+                    .day-separator td {
+                        height: 32px;
+                        padding: 0;
+                        background: transparent;
+                        position: relative;
+                    }
+
+                    .day-separator td::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: 100%;
+                        border-top: 2px dotted #999;
+                        transform: translateY(-50%);
                     }
                 </style>
 
@@ -2139,7 +2162,7 @@
                 </td>`;
             }
 
-             function parseDateDay(dateStr) {
+            function parseDateDay(dateStr) {
                 if (!dateStr) return null;
 
                 try {
@@ -2311,12 +2334,14 @@
             function renderTable() {
                 const tbody = $("#leadsTable2 tbody");
                 tbody.empty();
+
                 const start = (currentPage - 1) * rowsPerPage;
                 const end = start + rowsPerPage;
                 const rows = tableData.slice(start, end);
 
-                rows.forEach((row) => {
+                rows.forEach((row, index) => {
                     const bgColor = getRowColorByPercentage(row.colorPercentage);
+
                     const tr = `<tr style="background-color: ${bgColor};">
                         <td>${row.sr}</td>
                         <td>${row.dayOfWork}</td>
@@ -2328,7 +2353,17 @@
                         <td>${row.percentOfWork}</td>
                         <td>${row.category}</td>
                     </tr>`;
+
                     tbody.append(tr);
+
+                    if (row.sr === 5) {
+                        const separatorRow = `
+                            <tr class="day-separator">
+                                <td colspan="9"></td>
+                            </tr>
+                        `;
+                        tbody.append(separatorRow);
+                    }
                 });
             }
 
