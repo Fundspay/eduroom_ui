@@ -253,6 +253,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title" style="font-size: 25px;">Business Target Overview</h3>
+                                <!-- <button type="button" class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" 
+                                        title=" 1. Track your daily business targets
+                                                2. Monitor progress with color-coded indicators
+                                                3. Update your work status regularly">
+                                    <i class="bi bi-info-circle" style="font-size: 16px;"></i>
+                                </button> -->
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -570,6 +576,23 @@
                     .row-past {
                         background-color: #f1f4f8 !important;
                         color: #444447 !important;
+                    }
+
+                    .day-separator td {
+                        height: 32px;
+                        padding: 0;
+                        background: transparent;
+                        position: relative;
+                    }
+
+                    .day-separator td::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: 100%;
+                        border-top: 2px dotted #999;
+                        transform: translateY(-50%);
                     }
                 </style>
 
@@ -2370,6 +2393,15 @@
                         </tr>
                     `;
                     tbody.append(tr);
+
+                    if (row.sr === 5) {
+                        const separatorRow = `
+                            <tr class="day-separator">
+                                <td colspan="9"></td>
+                            </tr>
+                        `;
+                        tbody.append(separatorRow);
+                    }
                 });
             }
 
