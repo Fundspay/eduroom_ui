@@ -252,7 +252,7 @@
                                                     <div class="info-box">
                                                         <span class="info-label text-center">Current Category</span>
                                                         <span class="info-value badge" id="currentCategory"
-                                                            style="font-size: 20px;">--</span>
+                                                            style="font-size: 19px;">--</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-3">
@@ -1888,7 +1888,9 @@
 
             function updateCourseDashboard(courseData) {
                 $("#courseName").text(courseData.course_name || '--');
-                $("#currentCategory").text(courseData.current_category || '--');
+                $("#currentCategory").text(
+                    formatCategoryWithEmoji(courseData.current_category)
+                );
 
                 $("#startDate").text(formatDate(courseData.start_date));
                 $("#endDateDisplay").text(formatDate(courseData.end_date));
@@ -2323,12 +2325,32 @@
 
             function getRowColorByPercentage(value) {
                 if (value === null || value === undefined) return "#f1f4f8";
-                if (value <= 30) return "#ff4d4d";      // red
-                if (value <= 45) return "#ffa500";      // orange
-                if (value <= 60) return "#ffff80";      // yellow
-                if (value <= 75) return "#b3ffb3";      // light green
-                if (value <= 90) return "#5cdb5c";      // green
-                return "#4da6ff";                       // blue (90+)
+                if (value <= 30) return "#ff4d4d";
+                if (value <= 45) return "#ffa500";
+                if (value <= 60) return "#ffff80";
+                if (value <= 75) return "#b3ffb3";
+                if (value <= 90) return "#5cdb5c";
+                return "#4da6ff";
+            }
+
+            function formatCategoryWithEmoji(category) {
+                if (!category) return '--';
+
+                const map = {
+                    "OFFER LETTER": "📜",                 
+                    "BRONZE": "🥉",                       
+                    "SILVER": "🥈",                       
+                    "GOLD": "🥇",                         
+                    "DIAMOND": "💎",                      
+                    "LETTER OF APPRECIATION (LOA)": "🏅", 
+                    "1500 STIPEND": "🪙",
+                    "2500 STIPEND": "💵",   
+                    "3500 STIPEND": "⭐",   
+                    "5000 STIPEND": "🏆"
+                };
+
+                const emoji = map[category.toUpperCase()] || "📌";
+                return `${category} ${emoji}`;
             }
 
             function renderTable() {
@@ -2520,10 +2542,12 @@
                     data: JSON.stringify(payload),
                     success: function (res) {
                         console.log("Update response:", res);
+                        fetchCourseData();
                         fetchTableData();
                     },
                     error: function (err) {
                         console.error(`Error updating ${fieldName}:`, err);
+                        fetchCourseData();
                         fetchTableData();
                     }
                 });
