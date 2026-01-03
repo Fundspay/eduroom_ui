@@ -1203,6 +1203,7 @@
                                             <th>LIVE PROJECT ACTION</th>
                                             <th>TEAM MANAGER ALLOTTED</th>
                                             <th>PUSH</th>
+                                            <th>PUSH COMMENT</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1446,7 +1447,8 @@
             certificateStatus: ["Pending", "Issued"],
             internshipCertificateStatus: ["Pending", "Issued"],
             internshipAction: ["Terminated", "On hold", "Resume"],
-            internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"]
+            internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"],
+            pushComment: ["Interested", "Not Interested", "Connected", "CNA", "Will do"]
         };
 
         let tableData = [];
@@ -2487,6 +2489,7 @@
                                 selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
                                 offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
                                 pushto: row.pushto || "",
+                                pushComment: row.pushComment || "",
                             }));
 
                         $("#collegeCount").text(tableData.length);
@@ -2649,11 +2652,12 @@
                         class="text-primary fw-bold" 
                         style="cursor:pointer; text-decoration:underline;"
                         target="_top">
-                        ${escapeHtml(row.queryStatus || '')}
+                        ${escapeHtml(row.queryStatus || '')}    
                     </a></td>
                 ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
                 ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
                 ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
+                ${makeDropdownCell("pushComment", row.pushComment, dropdowns.pushComment, true, true)}
             </tr>`;
                 tbody.append(tr);
             });
@@ -2667,7 +2671,7 @@
             "domain", "course", "duration", "startDate", "estEndDate",
             "courseStatus", "referralCode", "subscriptionWallet", "businessStatus", "workPercentage",
             "certificateStatus", "internshipCertificateStatus",
-            "subscriptionLeft", "queryStatus", "internshipAction", "teamManager", "pushto"
+            "subscriptionLeft", "queryStatus", "internshipAction", "teamManager", "pushto", "pushComment"
         ];
 
         function renderPagination() {
@@ -2812,12 +2816,14 @@
             let managerName = tr.find('td[data-field="teamManager"] select').val();
             let pushtoName = tr.find('td[data-field="pushto"] select').val();
             let collegeName = tr.find('td[data-field="collegeName"] input').val();
+            let pushComment = tr.find('td[data-field="pushComment"] select').val();
 
             let payload = {
                 internshipStatus: internshipStatus || "",
                 teamManager: managerName || "",
                 pushto: pushtoName || "",
-                collegeName: collegeName || ""
+                collegeName: collegeName || "",
+                pushComment: pushComment || ""
             };
 
             console.log("payload:", payload);
@@ -2947,7 +2953,8 @@
                 "Query Status",
                 "Internship Action",
                 "Team Manager",
-                "Push To"
+                "Push To",
+                "Push Comment"
             ];
             headers.forEach(h => html += `<th>${h}</th>`);
             html += "</tr></thead><tbody>";
@@ -2979,6 +2986,7 @@
                     <td>${row.internshipAction}</td>
                     <td>${row.teamManager || ""}</td>
                     <td>${row.pushto || ""}</td>
+                    <td>${row.pushComment || ""}</td>
                 </tr>`;
             });
 
@@ -3060,7 +3068,8 @@
                 "Query Status",
                 "Internship Action",
                 "Team Manager",
-                "Push To"
+                "Push To",
+                "Push Comment"
             ];
 
             const data = [headers];
@@ -3091,7 +3100,8 @@
                     row.queryStatus,
                     row.internshipAction,
                     row.teamManager || "",
-                    row.pushto || ""
+                    row.pushto || "",
+                    row.pushComment || ""
                 ]);
             });
 
