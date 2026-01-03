@@ -155,14 +155,35 @@
                                             </div>
                                         </div>
 
+                                        <!-- State & City -->
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">State <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-control" id="state">
+                                                    <option value="">Select State</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">City <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-control" id="city" disabled>
+                                                    <option value="">Select City</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- College -->
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <label class="form-label">College Name <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" id="college" class="form-control"
-                                                    placeholder="College Name">
+                                                <select class="form-control" id="college" disabled>
+                                                    <option value="">Select College</option>
+                                                </select>
                                             </div>
                                         </div>
+
 
                                         <!-- Email -->
                                         <!-- <div class="mb-3">
@@ -475,152 +496,118 @@
 
     <script>
         (function ($) {
-            // console.log('Register script loaded');
 
             const nameRegex = /^[A-Za-z\s]+$/;
             const phoneRegex = /^\d{10}$/;
-            const pinRegex = /^\d{6}$/;
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             let citiesData = [];
 
-            $.getJSON('/cities.json')
-                .done(function (data) {
-                    // console.log('cities.json loaded', data && data.length, 'records');
-                    citiesData = data;
-                    populateStatesFromData();
-                    populateCitiesFromData();
-                })
-                .fail(function (jqxhr, status, error) {
-                    // console.log('Could not load /cities.json. Using sample fallback. Error:', status, error);
-                    citiesData = [
-                        { state: 'Karnataka', name: 'Bengaluru' },
-                        { state: 'Karnataka', name: 'Mysuru' },
-                        { state: 'Maharashtra', name: 'Mumbai' },
-                        { state: 'Maharashtra', name: 'Pune' },
-                        { state: 'Delhi', name: 'New Delhi' }
-                    ];
-                    populateStatesFromData();
-                    populateCitiesFromData();
-                });
-
-            function populateStatesFromData() {
-                const states = [...new Set(citiesData.map(i => i.state))].sort();
-                const $state = $('#state');
-                $state.empty().append('<option value="">Select State</option>');
-                states.forEach(s => $state.append(`<option value="${s}">${s}</option>`));
-            }
-
-            function populateCitiesFromData() {
-                const cities = [...new Set(citiesData.map(i => i.name))].sort();
-                const $city = $('#city');
-                $city.empty().append('<option value="">Select City</option>');
-                cities.forEach(c => $city.append(`<option value="${c}">${c}</option>`));
-            }
-
-            if (typeof flatpickr === 'function') {
-                try {
-                    flatpickr('#dateOfBirth', {
-                        dateFormat: 'Y-m-d',
-                        maxDate: 'today',
-                        allowInput: false,
-                        // onReady: function (sel) { console.log('flatpickr ready for #dateOfBirth'); }
-                    });
-                } catch (err) {
-                    console.warn('flatpickr init failed:', err);
-                    $('#dateOfBirth').attr('type', 'date').prop('readonly', false);
-                }
-            } else {
-                console.warn('flatpickr not found — using native date input');
-                $('#dateOfBirth').attr('type', 'date').prop('readonly', false);
-            }
-
             $(document).on('click', '.toggle-password', function (e) {
                 e.preventDefault();
-                const $btn = $(this);
-                const $input = $btn.closest('.input-group').find('input').first();
-                if (!$input || $input.length === 0) return;
-                const currentType = $input.attr('type');
-                const newType = currentType === 'password' ? 'text' : 'password';
-                $input.attr('type', newType);
-                $btn.find('i').toggleClass('fa-eye fa-eye-slash');
+                const $input = $(this).closest('.input-group').find('input');
+                const type = $input.attr('type') === 'password' ? 'text' : 'password';
+                $input.attr('type', type);
+                $(this).find('i').toggleClass('fa-eye fa-eye-slash');
             });
 
-            $('#firstName, #lastName, #emergencyContactName').on('input', function () {
-                const before = this.value;
+            $('#firstName, #lastName').on('input', function () {
                 this.value = this.value.replace(/[^A-Za-z\s]/g, '');
-                if (before !== this.value) $(this).addClass('is-invalid'); else $(this).removeClass('is-invalid');
             });
 
-            $('#phoneNumber, #alternatePhoneNumber, #emergencyContactNumber, #pinCode').on('input', function () {
-                const max = $(this).attr('maxlength') || 100;
-                this.value = this.value.replace(/\D/g, '').slice(0, max);
+            $('#phoneNumber').on('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
             });
 
-            function showFieldError(id, show, msg) {
-                const $err = $('#' + id);
-                if (show) {
-                    $err.text(msg).show();
-                } else {
-                    $err.hide();
-                }
+            function showSwalError(msg) {
+                Swal.fire({ icon: 'error', title: 'Oops...', text: msg });
             }
 
-            function showSwalError(message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: message,
-                    confirmButtonText: 'OK'
+            $.getJSON('/cities.json', function (data) {
+                citiesData = data;
+
+                const states = [...new Set(data.map(item => item.state))].sort();
+                states.forEach(state => {
+                    $('#state').append(`<option value="${state}">${state}</option>`);
                 });
-            }
+            });
+
+            $('#state').on('change', function () {
+                const state = $(this).val();
+                $('#city').prop('disabled', true).html('<option value="">Select City</option>');
+                $('#college').prop('disabled', true).html('<option value="">Select College</option>');
+
+                if (!state) return;
+
+                const cities = citiesData
+                    .filter(c => c.state === state)
+                    .map(c => c.name);
+
+                [...new Set(cities)].sort().forEach(city => {
+                    $('#city').append(`<option value="${city}">${city}</option>`);
+                });
+
+                $('#city').prop('disabled', false);
+            });
+
+            $('#city').on('change', function () {
+                const state = $('#state').val();
+                const city = $(this).val();
+
+                $('#college').prop('disabled', true).html('<option value="">Loading colleges...</option>');
+
+                if (!state || !city) return;
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/cosheet/colleges?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}`,
+                    method: 'GET',
+                    success: function (res) {
+
+                        $('#college').html('<option value="">Select College</option>');
+
+                        if (res.success && Array.isArray(res.data)) {
+                            res.data.forEach(item => {
+                                $('#college').append(
+                                    `<option value="${item.collegeName}">${item.collegeName}</option>`
+                                );
+                            });
+                            $('#college').prop('disabled', false);
+                        } else {
+                            $('#college').html('<option value="">No colleges found</option>');
+                        }
+                    },
+                    error: function () {
+                        $('#college').html('<option value="">Failed to load colleges</option>');
+                    }
+                });
+            });
 
             $('#register-form').on('submit', function (e) {
                 e.preventDefault();
 
-                const firstName = $('#firstName').val()?.trim();
-                const lastName = $('#lastName').val()?.trim();
-                // const dateOfBirth = $('#dateOfBirth').val()?.trim();
-                // const gender = $('#gender').val();
-                const phoneNumber = $('#phoneNumber').val()?.trim();
-                // const alternatePhoneNumber = $('#alternatePhoneNumber').val()?.trim();
-                const email = $('#email').val()?.trim();
-                const collegeName = $('#college').val()?.trim();
-                // const residentialAddress = $('#residentialAddress').val()?.trim();
-                // const emergencyContactName = $('#emergencyContactName').val()?.trim();
-                // const emergencyContactNumber = $('#emergencyContactNumber').val()?.trim();
-                // const city = $('#city').val();
-                // const state = $('#state').val();
-                // const pinCode = $('#pinCode').val()?.trim();
+                const firstName = $('#firstName').val().trim();
+                const lastName = $('#lastName').val().trim();
+                const phoneNumber = $('#phoneNumber').val().trim();
+                const email = $('#email').val().trim();
+                const collegeName = $('#college').val();
                 const password = $('#password-field').val();
                 const confirmPassword = $('#confirm-password-field').val();
 
-                // const referralCode = $('#referralCode').val()?.trim();
-                // const referralLink = $('#referralLink').val()?.trim();
-                // const internshipModeId = 1;
-
                 if (!firstName || !nameRegex.test(firstName)) return showSwalError('Valid First Name required.');
                 if (!lastName || !nameRegex.test(lastName)) return showSwalError('Valid Last Name required.');
-                // if (!dateOfBirth) return showSwalError('Date of Birth is required.');
-                // if (!gender) return showSwalError('Gender is required.');
-                if (!phoneRegex.test(phoneNumber)) return showSwalError('Primary Phone must be 10 digits.');
-                // if (alternatePhoneNumber && !phoneRegex.test(alternatePhoneNumber)) return showSwalError('Alternate Phone must be 10 digits.');
+                if (!phoneRegex.test(phoneNumber)) return showSwalError('Phone number must be 10 digits.');
                 if (!emailRegex.test(email)) return showSwalError('Valid Email required.');
-                // if (!residentialAddress || residentialAddress.length < 5) return showSwalError('Address must be at least 5 characters.');
-                // if (!emergencyContactName || !nameRegex.test(emergencyContactName)) return showSwalError('Valid Emergency Contact Name required.');
-                // if (!phoneRegex.test(emergencyContactNumber)) return showSwalError('Emergency Contact Number must be 10 digits.');
-                // if (!state) return showSwalError('State is required.');
-                // if (!city) return showSwalError('City is required.');
-                // if (!pinRegex.test(pinCode)) return showSwalError('Pin Code must be 6 digits.');
+                if (!collegeName) return showSwalError('Please select a college.');
                 if (!password) return showSwalError('Password is required.');
                 if (password !== confirmPassword) return showSwalError('Passwords do not match.');
 
-                // if (referralCode && !/^[a-zA-Z0-9]+$/.test(referralCode)) return showSwalError('Referral Code must be alphanumeric.');
-                // if (referralLink && !/^https?:\/\/.+$/.test(referralLink)) return showSwalError('Referral Link must be valid (http/https).');
-
-                const personalPayload = {
-                    firstName, lastName,
-                    phoneNumber, email, password, collegeName
+                const payload = {
+                    firstName,
+                    lastName,
+                    phoneNumber,
+                    email,
+                    password,
+                    collegeName
                 };
 
                 Swal.fire({
@@ -628,15 +615,12 @@
                     text: "Please check all your details before submitting!",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Yes, Submit",
-                    cancelButtonText: "Cancel",
-                    reverseButtons: true
+                    confirmButtonText: "Yes, Submit"
                 }).then((result) => {
                     if (!result.isConfirmed) return;
 
                     Swal.fire({
                         title: "Processing...",
-                        text: "Registering your account...",
                         allowOutsideClick: false,
                         didOpen: () => Swal.showLoading()
                     });
@@ -645,33 +629,13 @@
                         url: "https://eduroom.in/api/v1/user/personal-info",
                         method: "POST",
                         contentType: "application/json",
-                        data: JSON.stringify(personalPayload),
-                        success: function (res) {
-                            const userId = res.userId;
-                            // sessionStorage.setItem("userId", userId);
-
+                        data: JSON.stringify(payload),
+                        success: function () {
                             Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
-                                .then(() => window.top.location.href = "/login.html");
-
-                            // const referralPayload = { referralCode, referralLink, internshipModeId };
-                            console.log("payload for put call:", referralPayload);
-
-                            // $.ajax({
-                            //     url: `https://eduroom.in/api/v1/user/${userId}/internship-details`,
-                            //     method: "PUT",
-                            //     contentType: "application/json",
-                            //     data: JSON.stringify(referralPayload),
-                            //     success: function () {
-                            //         Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
-                            //             .then(() => window.top.location.href = "/login.html");
-                            //     },
-                            //     error: function (xhr) {
-                            //         Swal.fire("Error", xhr.responseJSON?.message || "Something went wrong while saving registering, please try again later.", "error");
-                            //     }
-                            // });
+                                .then(() => window.location.href = "/login.html");
                         },
-                        error: function (xhr) {
-                            Swal.fire("Error", "Please make sure your Email and Moile number are not repeated", "error");
+                        error: function () {
+                            Swal.fire("Error", "Email or Phone number already exists", "error");
                         }
                     });
                 });
@@ -683,10 +647,47 @@
     <script>
         $(document).ready(function () {
             let GOOGLE_DEFAULT_PASSWORD = "";
+            let citiesData = [];
+
+            $.getJSON('/cities.json', function (data) {
+                citiesData = data;
+            });
 
             $.getJSON("/config.json", function (config) {
                 GOOGLE_DEFAULT_PASSWORD = config.GOOGLE_DEFAULT_PASSWORD;
             });
+
+            function loadColleges(state, city, collegeSelectId) {
+                const $collegeSelect = $(`#${collegeSelectId}`);
+                $collegeSelect.prop('disabled', true).html('<option value="">Loading colleges...</option>');
+
+                if (!state || !city) {
+                    $collegeSelect.html('<option value="">Select College</option>');
+                    return;
+                }
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/cosheet/colleges?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}`,
+                    method: 'GET',
+                    success: function (res) {
+                        $collegeSelect.html('<option value="">Select College</option>');
+
+                        if (res.success && Array.isArray(res.data)) {
+                            res.data.forEach(item => {
+                                $collegeSelect.append(
+                                    `<option value="${item.collegeName}">${item.collegeName}</option>`
+                                );
+                            });
+                            $collegeSelect.prop('disabled', false);
+                        } else {
+                            $collegeSelect.html('<option value="">No colleges found</option>');
+                        }
+                    },
+                    error: function () {
+                        $collegeSelect.html('<option value="">Failed to load colleges</option>');
+                    }
+                });
+            }
 
             $('#google-login-btn').on('click', function () {
                 Swal.fire({
@@ -706,69 +707,128 @@
                             throw new Error("Only Gmail accounts are allowed!");
                         }
 
-                        // SweetAlert with user info form
+                        let statesOptions = '<option value="">Select State</option>';
+                        if (citiesData.length > 0) {
+                            const states = [...new Set(citiesData.map(item => item.state))].sort();
+                            states.forEach(state => {
+                                statesOptions += `<option value="${state}">${state}</option>`;
+                            });
+                        }
+
                         return Swal.fire({
                             title: "Complete Your Details",
                             html: `
-                            <div style="text-align:center; margin-bottom:15px;">
-                                <h3 style="margin:0; font-size:18px; font-weight:600; color:#333;">
-                                    Just a few steps to go 🚀
-                                </h3>
-                                <p style="font-size:13px; color:#666; margin:5px 0 0;">
-                                    Please provide accurate details to proceed smoothly.
-                                </p>
-                            </div>
+                                <div style="text-align:center; margin-bottom:15px;">
+                                    <h3 style="margin:0; font-size:18px; font-weight:600; color:#333;">
+                                        Just a few steps to go 🚀
+                                    </h3>
+                                    <p style="font-size:13px; color:#666; margin:5px 0 0;">
+                                        Please provide accurate details to proceed smoothly.
+                                    </p>
+                                </div>
 
-                            <div style="text-align:left; font-size:14px; margin-top:10px;">
-                                <label for="swal-firstname" style="font-weight:600;">First Name:</label>
-                                <input id="swal-firstname" class="swal2-input" style="margin-bottom:15px;" 
-                                    placeholder="Enter first name"
-                                    oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+                                <div style="text-align:left; font-size:14px; margin-top:10px;">
+                                    <label for="swal-firstname" style="font-weight:600;">First Name:</label>
+                                    <input id="swal-firstname" class="swal2-input" style="margin-bottom:15px;" 
+                                        placeholder="Enter first name"
+                                        oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
 
-                                <label for="swal-lastname" style="font-weight:600;">Last Name:</label>
-                                <input id="swal-lastname" class="swal2-input" style="margin-bottom:15px;" 
-                                    placeholder="Enter last name"
-                                    oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
+                                    <label for="swal-lastname" style="font-weight:600;">Last Name:</label>
+                                    <input id="swal-lastname" class="swal2-input" style="margin-bottom:15px;" 
+                                        placeholder="Enter last name"
+                                        oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')">
 
-                                <label for="swal-college" style="font-weight:600;">College Name:</label>
-                                <input id="swal-college" class="swal2-input" style="margin-bottom:5px;" 
-                                    placeholder="Enter your college name">
+                                    <label for="swal-state" style="font-weight:600;">State:</label>
+                                    <select id="swal-state" class="swal2-input" style="margin-bottom:15px; width:100%; height:38px; padding:8px;">
+                                        ${statesOptions}
+                                    </select>
 
-                                <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
-                                <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
-                                    placeholder="10 digit phone number" maxlength="10"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                <small style="font-size:12px; color:#666;">Example: 9999999999</small>
-                            </div>
+                                    <label for="swal-city" style="font-weight:600;">City:</label>
+                                    <select id="swal-city" class="swal2-input" style="margin-bottom:15px; width:100%; height:38px; padding:8px;" disabled>
+                                        <option value="">Select City</option>
+                                    </select>
 
-                            <div style="margin-top:15px; text-align:center; font-size:12px; color:red;">
-                                <strong>(Note: Please Enter the Phone Number you are registered with FundsAudit App.)</strong>
-                            </div>
-                        `,
+                                    <label for="swal-college" style="font-weight:600;">College Name:</label>
+                                    <select id="swal-college" class="swal2-input" style="margin-bottom:15px; width:100%; height:38px; padding:8px;" disabled>
+                                        <option value="">Select College</option>
+                                    </select>
+
+                                    <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
+                                    <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
+                                        placeholder="10 digit phone number" maxlength="10"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                    <small style="font-size:12px; color:#666;">Example: 9999999999</small>
+                                </div>
+
+                                <div style="margin-top:15px; text-align:center; font-size:12px; color:red;">
+                                    <strong>(Note: Please Enter the Phone Number you are registered with FundsAudit App.)</strong>
+                                </div>
+                            `,
+
                             focusConfirm: false,
                             showCancelButton: true,
                             confirmButtonText: "<i class='fa fa-check'></i> Submit",
                             cancelButtonText: "Cancel",
                             confirmButtonColor: "#3085d6",
                             cancelButtonColor: "#d33",
+                            allowOutsideClick: false,
                             customClass: {
                                 popup: "swal2-rounded",
                                 confirmButton: "px-4 py-2 fw-bold",
                                 cancelButton: "px-4 py-2"
                             },
+                            didOpen: () => {
+                                $('#swal-state').on('change', function () {
+                                    const state = $(this).val();
+                                    const $citySelect = $('#swal-city');
+                                    const $collegeSelect = $('#swal-college');
+
+                                    $citySelect.prop('disabled', true).html('<option value="">Select City</option>');
+                                    $collegeSelect.prop('disabled', true).html('<option value="">Select College</option>');
+
+                                    if (!state) return;
+
+                                    const cities = citiesData
+                                        .filter(c => c.state === state)
+                                        .map(c => c.name);
+
+                                    [...new Set(cities)].sort().forEach(city => {
+                                        $citySelect.append(`<option value="${city}">${city}</option>`);
+                                    });
+
+                                    $citySelect.prop('disabled', false);
+                                });
+
+                                $('#swal-city').on('change', function () {
+                                    const state = $('#swal-state').val();
+                                    const city = $(this).val();
+
+                                    if (!state || !city) {
+                                        $('#swal-college').prop('disabled', true).html('<option value="">Select College</option>');
+                                        return;
+                                    }
+
+                                    loadColleges(state, city, 'swal-college');
+                                });
+                            },
                             preConfirm: () => {
                                 const firstName = document.getElementById("swal-firstname").value.trim();
                                 const lastName = document.getElementById("swal-lastname").value.trim();
-                                const collegeName = document.getElementById("swal-college").value.trim();
+                                const state = document.getElementById("swal-state").value;
+                                const city = document.getElementById("swal-city").value;
+                                const collegeName = document.getElementById("swal-college").value;
                                 const phoneNumber = document.getElementById("swal-phone").value.trim();
 
                                 if (!firstName) return Swal.showValidationMessage("⚠️ First name is required!");
                                 if (!lastName) return Swal.showValidationMessage("⚠️ Last name is required!");
+                                if (!state) return Swal.showValidationMessage("⚠️ Please select a state!");
+                                if (!city) return Swal.showValidationMessage("⚠️ Please select a city!");
+                                if (!collegeName) return Swal.showValidationMessage("⚠️ Please select a college!");
                                 if (!/^[0-9]{10}$/.test(phoneNumber)) {
                                     return Swal.showValidationMessage("⚠️ Enter a valid 10-digit phone number!");
                                 }
 
-                                return { firstName, lastName, collegeName, phoneNumber };
+                                return { firstName, lastName, state, city, collegeName, phoneNumber };
                             }
                         }).then(res => {
                             if (!res.isConfirmed) throw new Error("User cancelled input");
@@ -890,7 +950,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Please make sure your Email and Moile number are not repeated',
+                                title: 'Please make sure your Email and Mobile number are not repeated',
                                 text: "Please use unique Email and Phone number to register."
                             });
                         }
