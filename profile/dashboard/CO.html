@@ -1800,10 +1800,7 @@
 
         function loadAnalysisChart(startDate = null, endDate = null) {
 
-            let url = `https://eduroom.in/api/v1/analysis/daily?teamManagerId=${teamManagerId}`;
-            if (startDate && endDate) {
-                url += `&startDate=${startDate}&endDate=${endDate}`;
-            }
+            let url = `https://eduroom.in/api/v1/analysis/daily?teamManagerId=${teamManagerId}&startDate=${startDate}&endDate=${endDate}`;
 
             $.ajax({
                 url: url,
@@ -1918,11 +1915,6 @@
         });
 
         function loadDashboardData(startDate = null, endDate = null) {
-            if (!startDate || !endDate) {
-                const today = new Date().toISOString().split("T")[0];
-                startDate = today;
-                endDate = today;
-            }
 
             const manager = sessionStorage.getItem("userName");
 
@@ -2046,9 +2038,28 @@
         let fromDate = null;
         let toDate = null;
 
+        function formatDate(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        const today = new Date();
+        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        fromDate = formatDate(firstDayOfMonth);
+        toDate = formatDate(today);
+
         flatpickr("#dateRangePicker", {
             mode: "range",
             dateFormat: "Y-m-d",
+            defaultDate: [firstDayOfMonth, today],
+            onReady: function () {
+                loadAnalysisChart(fromDate, toDate);
+                loadDashboardData(fromDate, toDate);
+                loadTableData2(fromDate, toDate);
+            },
             onClose: function (selectedDates, dateStr, instance) {
                 if (selectedDates.length === 2) {
                     fromDate = instance.formatDate(selectedDates[0], "Y-m-d");
@@ -2057,7 +2068,6 @@
                     console.log("From:", fromDate, "To:", toDate);
 
                     loadAnalysisChart(fromDate, toDate);
-
                     loadDashboardData(fromDate, toDate);
                     loadTableData2(fromDate, toDate);
                 }
