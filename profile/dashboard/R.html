@@ -4665,13 +4665,13 @@
 
                         res.data.forEach(person => {
                             person.resumeDates.forEach(d => {
-                                const cleanDate = d.split(", ")[1];
+                                const cleanDate = d.split("T")[0];
                                 if (!dateMap[cleanDate]) dateMap[cleanDate] = { resumes: 0, interviews: 0 };
                                 dateMap[cleanDate].resumes++;
                             });
 
                             person.interviewDates.forEach(d => {
-                                const cleanDate = d.split(", ")[1];
+                                const cleanDate = d.split("T")[0];
                                 if (!dateMap[cleanDate]) dateMap[cleanDate] = { resumes: 0, interviews: 0 };
                                 dateMap[cleanDate].interviews++;
                             });
