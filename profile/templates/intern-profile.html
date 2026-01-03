@@ -1766,6 +1766,18 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $(document).ready(function () {
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/analysis1/extract-course-dates`,
+                method: "GET",
+                success: function (response) {
+                    console.log("Course GET response:", response);
+                },
+                error: function (err) {
+                    console.error("Error fetching course data:", err);
+                }
+            });
+            
             function fetchCourseData() {
                 $.ajax({
                     url: `https://eduroom.in/api/v1/analysis1/list/${loggedInUserId}`,

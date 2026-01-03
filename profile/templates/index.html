@@ -1803,6 +1803,18 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $(document).ready(function () {
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/analysis1/extract-course-dates`,
+                method: "GET",
+                success: function (response) {
+                    console.log("Course GET response:", response);
+                },
+                error: function (err) {
+                    console.error("Error fetching course data:", err);
+                }
+            });
+
             function fetchCourseData() {
                 $.ajax({
                     url: `https://eduroom.in/api/v1/analysis1/list/${loggedInUserId}`,
@@ -2362,27 +2374,27 @@
 
             function getRowColorByPercentage(value) {
                 if (value === null || value === undefined) return "#f1f4f8";
-                if (value <= 30) return "#ff4d4d";      
-                if (value <= 45) return "#ffa500";      
-                if (value <= 60) return "#ffff80";      
-                if (value <= 75) return "#b3ffb3";      
-                if (value <= 90) return "#5cdb5c";      
-                return "#4da6ff";                       
+                if (value <= 30) return "#ff4d4d";
+                if (value <= 45) return "#ffa500";
+                if (value <= 60) return "#ffff80";
+                if (value <= 75) return "#b3ffb3";
+                if (value <= 90) return "#5cdb5c";
+                return "#4da6ff";
             }
 
             function formatCategoryWithEmoji(category) {
                 if (!category) return '--';
 
                 const map = {
-                    "OFFER LETTER": "📜",                 
-                    "BRONZE": "🥉",                       
-                    "SILVER": "🥈",                       
-                    "GOLD": "🥇",                         
-                    "DIAMOND": "💎",                      
-                    "LETTER OF APPRECIATION (LOA)": "🏅", 
+                    "OFFER LETTER": "📜",
+                    "BRONZE": "🥉",
+                    "SILVER": "🥈",
+                    "GOLD": "🥇",
+                    "DIAMOND": "💎",
+                    "LETTER OF APPRECIATION (LOA)": "🏅",
                     "1500 STIPEND": "🪙",
-                    "2500 STIPEND": "💵",   
-                    "3500 STIPEND": "⭐",   
+                    "2500 STIPEND": "💵",
+                    "3500 STIPEND": "⭐",
                     "5000 STIPEND": "🏆"
                 };
 
