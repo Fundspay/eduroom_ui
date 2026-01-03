@@ -343,6 +343,14 @@
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-file-text"></i></span>
+                            <span class="nxl-mtext">COLLEGE SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-log-out"></i></span>
                             <span class="nxl-mtext">Logout</span>
@@ -1239,7 +1247,8 @@
                         </h5>
                         <br>
                         <small class="text-muted">
-                            These metrics are based on the type of <strong>response</strong> we get from the college. By default, it shows data for the current month
+                            These metrics are based on the type of <strong>response</strong> we get from the college. By
+                            default, it shows data for the current month
                         </small>
                     </div>
 
@@ -1348,7 +1357,8 @@
                             <div class="d-flex flex-column">
                                 <h5 class="card-title">FOLLOW UP DETAILS</h5>
                                 <small class="text-muted">
-                                    This sheet shows all colleges who are not in the <strong>Resume Received</strong> category.
+                                    This sheet shows all colleges who are not in the <strong>Resume Received</strong>
+                                    category.
                                     By default, it shows data till date.
                                 </small>
                             </div>
@@ -1364,8 +1374,7 @@
                                         onchange="setSelectedMonthYear3()">
                                         <option value=""></option>
                                     </select>
-                                    <span id="selectedMonthDisplay3" class="badge bg-primary"
-                                        style="display:none;"></span>
+                                    <span id="selectedMonthDisplay3" class="badge bg-primary" style="display:none;"></span>
                                 </div>
 
                                 <div class="search-wrapper3" id="searchWrapper3">
@@ -1374,8 +1383,8 @@
                                             width="20" height="20">
                                     </button>
                                     <div class="search-bar3" id="searchBar3">
-                                        <input type="text" id="searchInput3" class="form-control"
-                                            placeholder="Search..." oninput="filterTable3()">
+                                        <input type="text" id="searchInput3" class="form-control" placeholder="Search..."
+                                            oninput="filterTable3()">
                                     </div>
                                 </div>
 
@@ -1655,8 +1664,8 @@
                 </p>
                 <div class="d-flex align-items-center gap-4">
                     <!-- <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Help</a>
-					<a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
-					<a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a> -->
+                        <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
+                        <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a> -->
                 </div>
             </footer>
             <style>
@@ -1743,8 +1752,7 @@
 
                     <div class="px-2 w-100 d-flex align-items-center">
                         <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
-                            placeholder="Subject"
-                            value="Reconfirmation of Live Project Process - FundsAudit" readonly>
+                            placeholder="Subject" value="Reconfirmation of Live Project Process - FundsAudit" readonly>
                     </div>
 
                     <!-- Email Body Container -->
@@ -1964,12 +1972,12 @@
         let currentRecord = null;
 
         const emailTemplate = {
-        fixedTop: (record) => `
+            fixedTop: (record) => `
             <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
             <p>Greetings from FundsAudit!</p>
             <p>I hope this message finds you well.</p>`,
 
-        editableMiddle: `
+            editableMiddle: `
             <p>This is to reconfirm the points discussed during our recent call held on <b>22nd August 2025</b> regarding the Live Project process:</p>
 
             <ul>
@@ -1990,7 +1998,7 @@
 
             <p>As I have been unable to reach you regarding the further proceedings, I kindly request you to let us know the updates at your earliest convenience.</p>`,
 
-        fixedBottom: `
+            fixedBottom: `
             <p>Looking forward to your response and hoping to establish a fruitful collaboration.</p>
             <p>Pooja M. Shedge<br/>
             Branch Manager - Pune<br/>

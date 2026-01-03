@@ -316,13 +316,12 @@
                             </a>
                         </div>
                     </div> -->
-                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter" placeholder="This Month"
-                        class="form-control" />
+                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter"
+                        placeholder="Select date or range" class="form-control" />
 
-                    <div style="width: 30%; min-width: 250px; margin-left: 2%;">
-                        <!-- <label for="managerSelect" class="form-label">Select Team Manager</label> -->
-                        <select id="managerSelect" class="form-select">
-                            <option value="">All Managers</option>
+                    <div style="width: 50%; min-width: 250px; margin-left: 2%;">
+                        <select id="collegeSelect" class="form-select">
+                            <option value="">All Colleges</option>
                         </select>
                     </div>
 
@@ -725,30 +724,20 @@
                 </div>
             </div>
 
-            <div class="bg-white text-black p-3 rounded-3"
+            <!-- <div class="bg-white text-black p-3 rounded-3"
                 style="position: relative; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); margin-left: 15px; margin-right: 15px; margin-bottom: 25px; margin-top: 25px;">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="m-0">TEAM MANAGER ACCOUNTS</h5>
                 </div>
 
-                <!-- Legend will be inserted here by JavaScript -->
                 <div id="manager-chart-legend" class="manager-chart-legend"></div>
 
-                <!-- Chart container with scroll wrapper -->
                 <div id="manager-chart-scroll-wrapper" class="chart-scroll-wrapper">
                     <div id="manager-chart-inner" class="chart-inner">
                         <div id="manager-performance-bar-chart"></div>
                     </div>
                 </div>
-
-                <!-- Scroll buttons -->
-                <!-- <button class="chart-scroll-btn" id="manager-scroll-left-btn">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
-                <button class="chart-scroll-btn" id="manager-scroll-right-btn">
-                    <i class="bi bi-chevron-right"></i>
-                </button> -->
-            </div>
+            </div> -->
 
             <div class="card mt-4">
                 <div class="card-header text-white">
@@ -1463,9 +1452,10 @@
         let filteredData = [];
         const rowsPerPage = 100;
         let currentPage = 1;
-        let managerList = [];
-        let selectedManager = "";
+        let collegeList = [];
+        let selectedCollege = "";
         let selectedDateRange = null;
+        let managerList = [];
 
         $.ajax({
             url: `https://eduroom.in/api/v1/offerletter/users/all`,
@@ -1895,14 +1885,14 @@
             }
         }
 
-        function calculateManagerMetrics(managerName) {
-            if (!managerName || managerName === "") {
+        function calculateCollegeMetrics(collegeName) {
+            if (!collegeName || collegeName === "") {
                 calculateAllMetrics();
                 return;
             }
 
-            const managerData = tableData.filter(row => row.teamManager === managerName);
-            const totalStudents = managerData.length;
+            const collegeData = tableData.filter(row => row.collegeName === collegeName);
+            const totalStudents = collegeData.length;
 
             let totalSubscriptionWallet = 0;
             let totalBusinessTarget = 0;
@@ -1917,7 +1907,7 @@
                 blue: { count: 0, total: 0, activeCount: 0 }
             };
 
-            managerData.forEach(row => {
+            collegeData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
                 const businessTarget = parseInt(row.businessStatus) || 0;
                 const internshipStatus = row.internshipAction || "";
@@ -2039,7 +2029,7 @@
                     accountsPercentElement.text(accountsPercent);
                 }
             });
-            calculateManagerForecasting(managerName);
+            calculateCollegeForecasting(collegeName);
         }
 
         function calculateAllMetrics() {
@@ -2280,14 +2270,14 @@
             $("#totalForecastWorstAverage").text(totalForecastWorstAverage);
         }
 
-        function calculateManagerForecasting(managerName) {
-            if (!managerName || managerName === "") {
+        function calculateCollegeForecasting(collegeName) {
+            if (!collegeName || collegeName === "") {
                 calculateAllForecasting();
                 return;
             }
 
-            const managerData = tableData.filter(row => row.teamManager === managerName);
-            const totalStudents = managerData.length;
+            const collegeData = tableData.filter(row => row.collegeName === collegeName);
+            const totalStudents = collegeData.length;
 
             let totalSubscriptionWallet = 0;
 
@@ -2300,7 +2290,7 @@
                 blue: { count: 0, total: 0, activeCount: 0 }
             };
 
-            managerData.forEach(row => {
+            collegeData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
                 const internshipStatus = row.internshipAction || "";
                 const isActive = internshipStatus.toLowerCase() === "resume";
@@ -2391,42 +2381,40 @@
             calculateAllMetrics();
         }
 
-        function createManagerDropdown(managers) {
-            const managerSelect = $("#managerSelect");
+        function createCollegeDropdown(colleges) {
+            const collegeSelect = $("#collegeSelect");
 
-            managerSelect.find("option:not(:first)").remove();
-
-            managers.forEach(manager => {
-                managerSelect.append(`<option value="${manager.name}">${manager.name}</option>`);
-            });
-
-            if (managerSelect.length === 0) {
+            if (collegeSelect.length === 0) {
                 const dropdownHtml = `
-                <div class="col-md-3 mb-3">
-                    <label for="managerSelect" class="form-label">Select Team Manager</label>
-                    <select id="managerSelect" class="form-select">
-                        <option value="">All Managers</option>
-                        ${managers.map(manager =>
-                    `<option value="${manager.name}">${manager.name}</option>`
+                    <div class="col-md-3 mb-3">
+                        <label for="collegeSelect" class="form-label">Select College</label>
+                        <select id="collegeSelect" class="form-select">
+                            <option value="">All Colleges</option>
+                            ${colleges.map(college =>
+                    `<option value="${college}">${college}</option>`
                 ).join('')}
-                    </select>
-                </div>
-            `;
+                        </select>
+                    </div>
+                `;
 
                 if ($("#teamManager").length) {
                     $("#teamManager").prepend(`<div class="row">${dropdownHtml}</div>`);
                 }
+            } else {
+                collegeSelect.find("option:not(:first)").remove();
+
+                colleges.forEach(college => {
+                    collegeSelect.append(`<option value="${college}">${college}</option>`);
+                });
             }
 
-            $("#managerSelect").off("change").on("change", function () {
-                selectedManager = $(this).val();
-                calculateManagerMetrics(selectedManager);
+            $("#collegeSelect").off("change").on("change", function () {
+                selectedCollege = $(this).val();
                 applyFilters();
             });
         }
 
         function formatDateForAPI(date) {
-            // Convert date to YYYY-MM-DD format
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
@@ -2436,7 +2424,6 @@
         function loadTableData() {
             let url = `https://eduroom.in/api/v1/status/listall`;
 
-            // Add date range parameters if date range is selected
             if (selectedDateRange && selectedDateRange.startDate && selectedDateRange.endDate) {
                 const startDateStr = formatDateForAPI(selectedDateRange.startDate);
                 const endDateStr = formatDateForAPI(selectedDateRange.endDate);
@@ -2461,44 +2448,49 @@
                                 id: m.managerId,
                                 name: m.name
                             }));
-
-                            createManagerDropdown(managerList);
                         }
 
-                        tableData = res.data
-                            // .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                            .map((row, index) => ({
-                                id: row.id,
-                                sno: index + 1,
-                                userId: row.userId,
-                                name: row.userName || "",
-                                phoneNumber: row.phoneNumber || "",
-                                registeredAt: formatDate(row.registeredAt) || "",
-                                email: row.email || "",
-                                collegeName: row.collegeName || "",
-                                courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
-                                domain: row.domainName || "",
-                                course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
-                                duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
-                                startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
-                                estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
-                                courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
-                                subscriptionWallet: row.subscriptionWallet,
-                                businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
-                                workPercentage: (row.courses && row.courses.length > 0 && row.courses[0].businessTarget > 0) ? ((row.subscriptionWallet / row.courses[0].businessTarget) * 100).toFixed(2) + "%" : "0.00%",
-                                certificateStatus: row.internshipIssued || "",
-                                internshipCertificateStatus: row.internshipCertificateStatus || "",
-                                subscriptionLeft: row.subscriptionLeft,
-                                queryStatus: row.queryStatus || "",
-                                internshipAction: row.internshipStatus || "",
-                                teamManager: row.teamManager || "",
-                                createdAt: row.createdAt,
-                                referralCode: row.referralCode || "",
-                                selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
-                                offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
-                                pushto: row.pushto || "",
-                                pushComment: row.pushComment || "",
-                            }));
+                        const uniqueColleges = [...new Set(res.data
+                            .filter(row => row.collegeName && row.collegeName.trim() !== "")
+                            .map(row => row.collegeName)
+                            .sort((a, b) => a.localeCompare(b))
+                        )];
+
+                        collegeList = uniqueColleges;
+                        createCollegeDropdown(collegeList);
+
+                        tableData = res.data.map((row, index) => ({
+                            id: row.id,
+                            sno: index + 1,
+                            userId: row.userId,
+                            name: row.userName || "",
+                            phoneNumber: row.phoneNumber || "",
+                            registeredAt: formatDate(row.registeredAt) || "",
+                            email: row.email || "",
+                            collegeName: row.collegeName || "",
+                            courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
+                            domain: row.domainName || "",
+                            course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
+                            duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
+                            startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
+                            estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
+                            courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
+                            subscriptionWallet: row.subscriptionWallet,
+                            businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
+                            workPercentage: (row.courses && row.courses.length > 0 && row.courses[0].businessTarget > 0) ? ((row.subscriptionWallet / row.courses[0].businessTarget) * 100).toFixed(2) + "%" : "0.00%",
+                            certificateStatus: row.internshipIssued || "",
+                            internshipCertificateStatus: row.internshipCertificateStatus || "",
+                            subscriptionLeft: row.subscriptionLeft,
+                            queryStatus: row.queryStatus || "",
+                            internshipAction: row.internshipStatus || "",
+                            teamManager: row.teamManager || "",
+                            createdAt: row.createdAt,
+                            referralCode: row.referralCode || "",
+                            selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
+                            offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
+                            pushto: row.pushto || "",
+                            pushComment: row.pushComment || "",
+                        }));
 
                         $("#collegeCount").text(tableData.length);
 
@@ -2508,11 +2500,7 @@
                         renderPagination();
                         renderColumnFilters();
 
-                        if (selectedManager && selectedManager !== "") {
-                            calculateManagerMetrics(selectedManager);
-                        } else {
-                            calculateAllMetrics();
-                        }
+                        calculateAllMetrics();
                         updateManagerPerformanceChart();
                     } else {
                         tableData = [];
@@ -2617,6 +2605,11 @@
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
+            if (filteredData.length === 0) {
+                tbody.append('<tr><td colspan="26" class="text-center">No data available</td></tr>');
+                return;
+            }
+
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
             const rows = filteredData.slice(start, end);
@@ -2631,42 +2624,42 @@
                 const rowBgStyle = getRowBgColor(row.subscriptionWallet);
 
                 let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
-                <td>${start + index + 1}</td>
-                <td>${nameCell}</td>
-                <td>
-                    <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
-                        ${escapeHtml(row.phoneNumber || '')}
-                    </a>
-                </td>
-                <td>${escapeHtml(row.registeredAt || '')}</td>
-                <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                <td>${escapeHtml(row.selected || 'No')}</td>
-                <td>${escapeHtml(row.email || '')}</td>
-                ${makeInputCell("collegeName", row.collegeName, "Enter college name")}
-                <td>${escapeHtml(row.courses || '')}</td>
-                <td>${escapeHtml(row.course || '')}</td>
-                <td>${escapeHtml(row.duration || '')}</td>
-                <td>${escapeHtml(row.startDate || '')}</td>
-                <td>${escapeHtml(row.estEndDate || '')}</td>
-                ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
-                <td>${escapeHtml(row.referralCode || '')}</td>
-                <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
-                ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
-                <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
-                        class="text-primary fw-bold" 
-                        style="cursor:pointer; text-decoration:underline;"
-                        target="_top">
-                        ${escapeHtml(row.queryStatus || '')}    
-                    </a></td>
-                ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
-                ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
-                ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
-                ${makeDropdownCell("pushComment", row.pushComment, dropdowns.pushComment, true, true)}
-            </tr>`;
+                    <td>${start + index + 1}</td>
+                    <td>${nameCell}</td>
+                    <td>
+                        <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                            ${escapeHtml(row.phoneNumber || '')}
+                        </a>
+                    </td>
+                    <td>${escapeHtml(row.registeredAt || '')}</td>
+                    <td>${escapeHtml(row.offerMessageExists || '')}</td>
+                    <td>${escapeHtml(row.selected || 'No')}</td>
+                    <td>${escapeHtml(row.email || '')}</td>
+                    ${makeInputCell("collegeName", row.collegeName, "Enter college name")}
+                    <td>${escapeHtml(row.courses || '')}</td>
+                    <td>${escapeHtml(row.course || '')}</td>
+                    <td>${escapeHtml(row.duration || '')}</td>
+                    <td>${escapeHtml(row.startDate || '')}</td>
+                    <td>${escapeHtml(row.estEndDate || '')}</td>
+                    ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                    <td>${escapeHtml(row.referralCode || '')}</td>
+                    <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
+                    ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
+                    <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
+                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
+                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
+                    <td>${escapeHtml(row.subscriptionLeft || '')}</td>
+                    <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                            class="text-primary fw-bold" 
+                            style="cursor:pointer; text-decoration:underline;"
+                            target="_top">
+                            ${escapeHtml(row.queryStatus || '')}    
+                        </a></td>
+                    ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
+                    ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
+                    ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
+                    ${makeDropdownCell("pushComment", row.pushComment, dropdowns.pushComment, true, true)}
+                </tr>`;
                 tbody.append(tr);
             });
 
@@ -2686,6 +2679,8 @@
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
             const pagination = $("#pagination");
             pagination.empty();
+
+            if (totalPages <= 1) return;
 
             const visiblePageCount = 3;
             let startPage = Math.max(currentPage - 1, 1);
@@ -2723,10 +2718,10 @@
             let filterRow = "<tr class='filters'>";
             columnKeys.forEach((key) => {
                 filterRow += `<th>
-            <select class="column-filter form-select form-select-sm" data-field="${key}">
-                <option value="">All</option>
-            </select>
-        </th>`;
+                    <select class="column-filter form-select form-select-sm" data-field="${key}">
+                        <option value="">All</option>
+                    </select>
+                </th>`;
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
@@ -2748,10 +2743,9 @@
         function applyFilters() {
             filteredData = [...tableData];
 
-            if (selectedManager) {
-                filteredData = filteredData.filter(row => row.teamManager === selectedManager);
+            if (selectedCollege && selectedCollege !== "") {
+                filteredData = filteredData.filter(row => row.collegeName === selectedCollege);
             }
-
             $("#leadsTable thead .column-filter").each(function () {
                 const value = $(this).val();
                 const field = $(this).data("field");
@@ -2768,9 +2762,9 @@
             renderTable();
             renderPagination();
 
-            if (selectedManager && selectedManager !== "") {
-                calculateManagerMetrics(selectedManager);
-                calculateManagerForecasting(selectedManager);
+            if (selectedCollege && selectedCollege !== "") {
+                calculateCollegeMetrics(selectedCollege);
+                calculateCollegeForecasting(selectedCollege);
             } else {
                 calculateAllMetrics();
                 calculateAllForecasting();
@@ -2787,8 +2781,8 @@
             let displaySelected = formatLabel(selectedValue);
 
             let html = `<td data-field="${field}" class="${specialDropdown ? 'special-dropdown' : ''}">
-        <span style="font-weight:bold;">${displaySelected}</span>
-        <select class="form-control select2" style="display:none;">`;
+                <span style="font-weight:bold;">${displaySelected}</span>
+                <select class="form-control select2" style="display:none;">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -2844,12 +2838,7 @@
                 success: function (res) {
                     console.log("Updated:", res);
 
-                    if (selectedManager && selectedManager !== "") {
-                        calculateManagerMetrics(selectedManager);
-                    } else {
-                        calculateAllMetrics();
-                    }
-                    updateManagerPerformanceChart();
+                    loadTableData();
                 },
                 error: function (err) {
                     console.error("Update failed", err);
@@ -2858,7 +2847,6 @@
         }
 
         function attachCellEvents() {
-
             $("#leadsTable td").off("dblclick").on("dblclick", function () {
                 let td = $(this);
 
@@ -2921,9 +2909,9 @@
             renderTable();
             renderPagination();
 
-            if (selectedManager && selectedManager !== "") {
-                calculateManagerMetrics(selectedManager);
-                calculateManagerForecasting(selectedManager);
+            if (selectedCollege && selectedCollege !== "") {
+                calculateCollegeMetrics(selectedCollege);
+                calculateCollegeForecasting(selectedCollege);
             } else {
                 calculateAllMetrics();
                 calculateAllForecasting();
