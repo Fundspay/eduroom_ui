@@ -350,9 +350,9 @@
                             border-bottom: 1px solid #f1f5f9;
                         }
 
-                        #leadsTable tr:nth-child(even) td {
+                        /* #leadsTable tr:nth-child(even) td {
                             background: #fafafa;
-                        }
+                        } */
 
                         #leadsTable tr:hover td {
                             background: #f1f5ff;
@@ -490,15 +490,35 @@
             callStatus: ["Connected", "Not Answered", "Busy", "Not Interested"],
         };
 
-        const colorMap = {
-            internshipType: {
-                "fulltime": "#28a745",
-                "sip": "#0d6efd",
-                "liveproject": "#ffc107",
-                "wip": "#0d6efd",
-                "others": "#adb5bd"
-            }
-        };
+        // const colorMap = {
+        //     internshipType: {
+        //         "fulltime": "#28a745",
+        //         "sip": "#0d6efd",
+        //         "liveproject": "#ffc107",
+        //         "wip": "#0d6efd",
+        //         "others": "#adb5bd"
+        //     }
+        // };
+
+        // function getRowBgColor(finalSelectionStatus) {
+        //     if (finalSelectionStatus === null || finalSelectionStatus === "") return 'background-color: #fff;';
+
+        //     const val = finalSelectionStatus.toLowerCase();
+        //     if (val === "selected") return 'background-color: #5cdb5c;';
+        //     if (val === "not selected") return 'background-color: #ff4d4d;';
+        //     if (val === "on hold") return 'background-color: #ffff80;';
+        //     return 'background-color: #fff;';
+        // }
+
+        function getRowBgColor(finalSelectionStatus) {
+            if (finalSelectionStatus === null || finalSelectionStatus === "") return 'background-color: #fff;';
+
+            const val = finalSelectionStatus.toLowerCase();
+            if (val === "selected") return 'background-color: #fff;';
+            if (val === "not selected") return 'background-color: #fff;';
+            if (val === "on hold") return 'background-color: #fff;';
+            return 'background-color: #fff;';
+        }
 
         let tableData = [];
         let filteredData = [];
@@ -700,7 +720,8 @@
             const rows = sortedData.slice(start, end);
 
             rows.forEach((row, index) => {
-                let tr = `<tr data-id="${row.id}">
+                const bgColor = getRowBgColor(row.finalSelectionStatus);
+                let tr = `<tr data-id="${row.id}" style="${bgColor}">
                     <td>
                         <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                             <i class="fas fa-trash"></i>
@@ -997,18 +1018,18 @@
             let style = "";
             let textColor = "";
 
-            if (raw === "" || isNaN(raw)) {
-                style = "";
-            } else if (raw >= 1 && raw <= 3) {
-                style = "background-color: #fde4e4;";
-                textColor = "color: #b12b2b;";
-            } else if (raw > 3 && raw <= 6) {
-                style = "background-color: #fff4d6;";
-                textColor = "color: #7a4b00;";
-            } else if (raw > 6) {
-                style = "background-color: #e3f8e6;";
-                textColor = "color: #166534;";
-            }
+            // if (raw === "" || isNaN(raw)) {
+            //     style = "";
+            // } else if (raw >= 1 && raw <= 3) {
+            //     style = "background-color: #fde4e4;";
+            //     textColor = "color: #b12b2b;";
+            // } else if (raw > 3 && raw <= 6) {
+            //     style = "background-color: #fff4d6;";
+            //     textColor = "color: #7a4b00;";
+            // } else if (raw > 6) {
+            //     style = "background-color: #e3f8e6;";
+            //     textColor = "color: #166534;";
+            // }
 
             const safeVal = (value === null || value === undefined) ? "" : String(value).replace(/"/g, "&quot;");
             const textSpan = `<span style="${textColor}">${safeVal}</span>`;
