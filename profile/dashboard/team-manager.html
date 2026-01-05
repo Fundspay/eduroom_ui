@@ -424,21 +424,6 @@
                     </div>
                 </div>
 
-                <!-- Connected -->
-                <div class="col-xxl-4 col-lg-2 col-md-6">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
-                            <div class="hstack justify-content-between lh-base">
-                                <h3><span id="totalAccounts">0</span>/<span id="targetAccounts">0</span></h3>
-                                <div class="hstack gap-2 fs-11">
-                                    <span id="accountsPercent">0%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
@@ -463,6 +448,35 @@
                                 <h3><span id="averageAccountsPerDay">0</span></h3>
                                 <!-- <div class="hstack gap-2 fs-11">
                                     <span id="averageAccountsPerInternPercent">0%</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connected -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="totalAccounts">0</span>/<span id="targetAccounts">0</span></h3>
+                                <div class="hstack gap-2 fs-11">
+                                    <span id="accountsPercent">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Today's Accounts</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="todayAccounts">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="accountsPercent">0%</span>
                                 </div> -->
                             </div>
                         </div>
@@ -3118,6 +3132,34 @@
             XLSX.utils.book_append_sheet(workbook, worksheet, "OfferletterUsers");
             XLSX.writeFile(workbook, "OfferletterUsers_All.xlsx");
         };
+    </script>
+
+    <script>
+        function loadTodayAccounts(fromDate, toDate) {
+
+            const url = `https://eduroom.in/api/v1/bdsheet/payments-vs-target?from=${fromDate}&to=${toDate}`;
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    if (res.success && res.totals && res.totals.totalAccountsAchieved !== undefined) {
+                        $("#todayAccounts").text(res.totals.totalAccountsAchieved);
+                    } else {
+                        $("#todayAccounts").text(0);
+                    }
+                },
+                error: function () {
+                    $("#todayAccounts").text(0);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            const today = new Date().toISOString().split("T")[0];
+            loadTodayAccounts(today, today);
+        });
     </script>
 
     <script>
