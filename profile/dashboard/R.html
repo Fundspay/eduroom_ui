@@ -4624,10 +4624,10 @@
                         $("#interviewsPercent").text(interviewsPercent + "%");
 
                         // ---- New: Resume Achieved (Card 1) ----
-                        $("#totalResumes3").text(totals.resumesAchieved || 0);
+                        $("#totalResumes3").text(totals.resumeSelectedCount || 0);
 
                         // ---- New: Interviews Achieved (Card 2) ----
-                        $("#totalInterviews3").text(totals.interviewsAchieved || 0);
+                        $("#totalInterviews3").text(totals.registrationCount || 0);
                     }
                 },
                 error: function (err) {
@@ -4673,26 +4673,24 @@
                         const dateMap = {};
 
                         res.data.forEach(person => {
-                            person.resumeDates.forEach(d => {
-                                const cleanDate = d.split("T")[0];
-                                if (!dateMap[cleanDate]) dateMap[cleanDate] = { resumes: 0, interviews: 0 };
-                                dateMap[cleanDate].resumes++;
-                            });
-
-                            person.interviewDates.forEach(d => {
-                                const cleanDate = d.split("T")[0];
-                                if (!dateMap[cleanDate]) dateMap[cleanDate] = { resumes: 0, interviews: 0 };
-                                dateMap[cleanDate].interviews++;
-                            });
+                            if (Array.isArray(person.resumeDates)) {
+                                person.resumeDates.forEach(item => {
+                                    const cleanDate = item.date;
+                                    if (!dateMap[cleanDate]) {
+                                        dateMap[cleanDate] = { resumes: 0, interviews: 0 };
+                                    }
+                                    dateMap[cleanDate].resumes += Number(item.count) || 0;
+                                    dateMap[cleanDate].interviews += Number(item.registeredCount) || 0;
+                                });
+                            }
                         });
 
                         let fullDates = Object.keys(dateMap);
-
                         fullDates.sort((a, b) => new Date(a) - new Date(b));
 
                         const chartLabels = fullDates.map(d => getDayAndMonth(d));
-                        const resumeCounts = fullDates.map(d => dateMap[d].resumes);
-                        const interviewCounts = fullDates.map(d => dateMap[d].interviews);
+                        const resumeCounts = fullDates.map(d => Math.trunc(dateMap[d].resumes));
+                        const interviewCounts = fullDates.map(d => Math.trunc(dateMap[d].interviews));
 
                         fullDates.forEach((d, idx) => {
                             jdList.append(`
@@ -4713,16 +4711,8 @@
                         const widthPerItem = 120;
                         const dynamicWidth = (total > visible ? total : visible) * widthPerItem;
 
-                        chartDiv.css({
-                            width: dynamicWidth + "px",
-                            overflowX: "auto"
-                        });
-
-                        chartContainer.css({
-                            overflowX: "auto",
-                            display: "flex",
-                            justifyContent: "flex-start"
-                        });
+                        chartDiv.css({ width: dynamicWidth + "px", overflowX: "auto" });
+                        chartContainer.css({ overflowX: "auto", display: "flex", justifyContent: "flex-start" });
 
                         if (analysisChart) {
                             analysisChart.updateOptions({
@@ -4742,11 +4732,7 @@
                                     ],
                                     chart: { type: "bar", height: 240, toolbar: { show: false } },
                                     plotOptions: {
-                                        bar: {
-                                            horizontal: false,
-                                            columnWidth: "45%",
-                                            endingShape: "rounded"
-                                        }
+                                        bar: { horizontal: false, columnWidth: "45%", endingShape: "rounded" }
                                     },
                                     colors: ["#fff", "#ffcc66"],
                                     grid: { show: false },
@@ -4758,9 +4744,18 @@
                                         axisBorder: { show: false }
                                     },
                                     yaxis: {
-                                        labels: { show: true, style: { colors: "#fff" } }
+                                        decimalsInFloat: 0,
+                                        labels: {
+                                            style: { colors: "#fff" },
+                                            formatter: val => Math.trunc(val)
+                                        }
                                     },
-                                    tooltip: { theme: "dark" }
+                                    tooltip: {
+                                        theme: "dark",
+                                        y: {
+                                            formatter: val => Math.trunc(val)
+                                        }
+                                    }
                                 }
                             );
                             analysisChart.render();
