@@ -149,7 +149,7 @@
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">RE Master Sheet (Total colleges: <span id="collegeCount">
+                                    <h5 class="card-title">Sending Sheet (Total colleges: <span id="collegeCount">
                                             0</span>)</h5>
                                 </div>
                                 <div class="card-header-action">
@@ -344,9 +344,9 @@
                             border-bottom: 1px solid #f1f5f9;
                         }
 
-                        #leadsTable tr:nth-child(even) td {
+                        /* #leadsTable tr:nth-child(even) td {
                             background: #fafafa;
-                        }
+                        } */
 
                         #leadsTable tr:hover td {
                             background: #f1f5ff;
@@ -493,39 +493,59 @@
                 "unprofessional"]
         };
 
-        const colorMap = {
-            callResponse: {
-                "connected": "#28a745",
-                "not answered": "#dc3545",
-                "busy": "#ffc107",
-                "switch off": "#0d6efd",
-                "invalid": "#6c757d"
-            },
-            internshipType: {
-                "fulltime": "#28a745",
-                "sip": "#0d6efd",
-                "liveproject": "#ffc107",
-                "wip": "#0d6efd",
-                "others": "#adb5bd"
-            },
-            detailedResponse: {
-                "send jd": "#28a745",
-                "not interested": "#dc3545",
-                "cut the call": "#ffc107",
-                "january": "#0d6efd",
-                "february": "#0d6efd",
-                "march": "#0d6efd",
-                "april": "#0d6efd",
-                "may": "#0d6efd",
-                "june": "#0d6efd",
-                "july": "#0d6efd",
-                "august": "#0d6efd",
-                "september": "#0d6efd",
-                "october": "#0d6efd",
-                "november": "#0d6efd",
-                "december": "#0d6efd"
-            }
-        };
+        // const colorMap = {
+        //     callResponse: {
+        //         "connected": "#28a745",
+        //         "not answered": "#dc3545",
+        //         "busy": "#ffc107",
+        //         "switch off": "#0d6efd",
+        //         "invalid": "#6c757d"
+        //     },
+        //     internshipType: {
+        //         "fulltime": "#28a745",
+        //         "sip": "#0d6efd",
+        //         "liveproject": "#ffc107",
+        //         "wip": "#0d6efd",
+        //         "others": "#adb5bd"
+        //     },
+        //     detailedResponse: {
+        //         "send jd": "#28a745",
+        //         "not interested": "#dc3545",
+        //         "cut the call": "#ffc107",
+        //         "january": "#0d6efd",
+        //         "february": "#0d6efd",
+        //         "march": "#0d6efd",
+        //         "april": "#0d6efd",
+        //         "may": "#0d6efd",
+        //         "june": "#0d6efd",
+        //         "july": "#0d6efd",
+        //         "august": "#0d6efd",
+        //         "september": "#0d6efd",
+        //         "october": "#0d6efd",
+        //         "november": "#0d6efd",
+        //         "december": "#0d6efd"
+        //     }
+        // };
+
+        // function getRowBgColor(followUpResponse) {
+        //     if (followUpResponse === null || followUpResponse === "") return 'background-color: #fff;';
+
+        //     const val = followUpResponse.toLowerCase();
+        //     if (val === "resumes received") return 'background-color: #5cdb5c;';
+        //     if (val === "sending in 1-2 days") return 'background-color: #ffff80;';
+        //     if (val === "delayed") return 'background-color: #ffa500;';
+        //     return 'background-color: #ff4d4d;';
+        // }
+
+        function getRowBgColor(followUpResponse) {
+            if (followUpResponse === null || followUpResponse === "") return 'background-color: #fff;';
+
+            const val = followUpResponse.toLowerCase();
+            if (val === "resumes received") return 'background-color: #fff;';
+            if (val === "sending in 1-2 days") return 'background-color: #fff;';
+            if (val === "delayed") return 'background-color: #fff;';
+            return 'background-color: #fff;';
+        }
 
         let citiesData = [];
         let tableData = [];
@@ -600,7 +620,8 @@
             const rows = filteredData.slice(start, end);
 
             rows.forEach((row) => {
-                let tr = `<tr data-id="${row.id}">
+                let bgColor = getRowBgColor(row.followUpResponse);
+                let tr = `<tr data-id="${row.id}" style="${bgColor}">
             <td>
                 <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                     <i class="fas fa-trash"></i>
@@ -894,9 +915,9 @@
                     if ($(this).is("select")) {
                         let displayText = capitalize(value);
                         let bgColor = "";
-                        if (colorMap[field] && value) {
-                            bgColor = colorMap[field][value.toLowerCase()] || "";
-                        }
+                        // if (colorMap[field] && value) {
+                        //     bgColor = colorMap[field][value.toLowerCase()] || "";
+                        // }
                         td.css("background-color", bgColor);
                         td.find("span").css("color", "black").css("font-weight", "bold").text(displayText);
                     } else {
