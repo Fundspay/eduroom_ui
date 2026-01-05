@@ -1503,15 +1503,18 @@
                             followUpsPercentage: manager.percentage?.followUps || 0,
 
                             resumesReceivedAchieved: manager.resumeReceivedSum || 0,
-                            resumesReceivedTarget: manager.target?.resumesReceivedTarget || "0",
-                            resumesReceivedPercentage: manager.percentage?.resumesReceivedTarget || 0,
+                            resumesReceivedTarget: manager.target?.resumetarget || "0",
+                            resumesReceivedPercentage: manager.percentage?.resumetarget || 0,
 
                             collegesAchieved: manager.collegesAchieved || 0,
                             collegesTarget: manager.target?.collegeTarget || "0",
                             collegesPercentage: manager.percentage?.collegeTarget || 0,
                             resumesSelectedAchieved: manager.resumeSelectedCount || 0,
-                            resumesSelectedTarget: manager.target?.resumetarget || "0",
-                            resumesSelectedPercentage: manager.percentage?.resumetarget || 0,
+                            resumesSelectedTarget: manager.target?.resumesReceivedTarget || "0",
+                            resumesSelectedPercentage:
+                                manager.target?.resumesReceivedTarget > 0
+                                    ? ((manager.resumeSelectedCount / manager.target.resumesReceivedTarget) * 100).toFixed(2)
+                                    : 0,
 
                             rank: manager.rank || 0,
                             rankScore: manager.rankScore || 0
