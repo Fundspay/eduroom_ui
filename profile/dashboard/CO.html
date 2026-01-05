@@ -3257,6 +3257,7 @@
 
     <script>
         var userData2 = JSON.parse(sessionStorage.getItem("user_data"));
+        var userName = sessionStorage.getItem("userName");
         console.log(userData2);
 
         const apiBase2 = "https://eduroom.in/api/v1/cosheet";
@@ -3327,7 +3328,7 @@
 
         function loadTableData2(startDate = null, endDate = null) {
             $.ajax({
-                url: apiBase2 + "/list",
+                url: `https://eduroom.in/api/v1/cosheet/list/${userName}`,
                 method: "GET",
                 success: function (res) {
                     console.log("master sheet 2:", res);
