@@ -906,9 +906,9 @@
                             border-bottom: 1px solid #f1f5f9;
                         }
 
-                        #leadsTable tr:nth-child(even) td {
+                        /* #leadsTable tr:nth-child(even) td {
                             background: #fafafa;
-                        }
+                        } */
 
                         #leadsTable tr:hover td {
                             background: #f1f5ff;
@@ -1008,9 +1008,9 @@
                             border-bottom: 1px solid #f1f5f9;
                         }
 
-                        #leadsTable2 tr:nth-child(even) td {
+                        /* #leadsTable2 tr:nth-child(even) td {
                             background: #fafafa;
-                        }
+                        } */
 
                         #leadsTable2 tr:hover td {
                             background: #f1f5ff;
@@ -2221,39 +2221,57 @@
             collegeLevel: ["Platinum", "Diamond", "Gold", "Silver", "Bronze", "Black"],
         };
 
-        const colorMap = {
-            callResponse: {
-                "connected": "#28a745",
-                "not answered": "#dc3545",
-                "busy": "#ffc107",
-                "switch off": "#0d6efd",
-                "invalid": "#6c757d"
-            },
-            internshipType: {
-                "fulltime": "#28a745",
-                "sip": "#0d6efd",
-                "liveproject": "#ffc107",
-                "wip": "#0d6efd",
-                "others": "#adb5bd"
-            },
-            detailedResponse: {
-                "send jd": "#28a745",
-                "not interested": "#dc3545",
-                "cut the call": "#ffc107",
-                "january": "#0d6efd",
-                "february": "#0d6efd",
-                "march": "#0d6efd",
-                "april": "#0d6efd",
-                "may": "#0d6efd",
-                "june": "#0d6efd",
-                "july": "#0d6efd",
-                "august": "#0d6efd",
-                "september": "#0d6efd",
-                "october": "#0d6efd",
-                "november": "#0d6efd",
-                "december": "#0d6efd"
-            }
-        };
+        // const colorMap = {
+        //     callResponse: {
+        //         "connected": "#28a745",
+        //         "not answered": "#dc3545",
+        //         "busy": "#ffc107",
+        //         "switch off": "#0d6efd",
+        //         "invalid": "#6c757d"
+        //     },
+        //     internshipType: {
+        //         "fulltime": "#28a745",
+        //         "sip": "#0d6efd",
+        //         "liveproject": "#ffc107",
+        //         "wip": "#0d6efd",
+        //         "others": "#adb5bd"
+        //     },
+        //     detailedResponse: {
+        //         "send jd": "#28a745",
+        //         "not interested": "#dc3545",
+        //         "cut the call": "#ffc107",
+        //         "january": "#0d6efd",
+        //         "february": "#0d6efd",
+        //         "march": "#0d6efd",
+        //         "april": "#0d6efd",
+        //         "may": "#0d6efd",
+        //         "june": "#0d6efd",
+        //         "july": "#0d6efd",
+        //         "august": "#0d6efd",
+        //         "september": "#0d6efd",
+        //         "october": "#0d6efd",
+        //         "november": "#0d6efd",
+        //         "december": "#0d6efd"
+        //     }
+        // };
+
+        // function getRowBgColor(detailedResponse) {
+        //     if (detailedResponse === "" || detailedResponse === null) return 'background-color: #fff;';
+
+        //     const val = detailedResponse.toLowerCase();
+        //     if (val === "send jd") return 'background-color: #5cdb5c;';
+        //     if (val === "not interested") return 'background-color: #ff4d4d;';
+        //     return 'background-color: #ffff80;';
+        // }
+
+        function getRowBgColor(detailedResponse) {
+            if (detailedResponse === null) return '';
+
+            const val = detailedResponse.toLowerCase();
+            if (val === "send jd") return 'background-color: #fff;';
+            if (val === "not interested") return 'background-color: #fff;';
+            return 'background-color: #fff;';
+        }
 
         let citiesData = [];
         let tableData = [];
@@ -2751,7 +2769,8 @@
             const rows = filteredData.slice(start, end);
 
             rows.forEach((row, index) => {
-                let tr = `<tr data-id="${row.id}">
+                const rowBgStyle = getRowBgColor(row.detailedResponse);
+                let tr = `<tr data-id="${row.id}" style="${rowBgStyle}">
                     <td>
                         <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                             <i class="fas fa-trash"></i>
@@ -2958,9 +2977,9 @@
             let displaySelected = selectedValue ? capitalize(selectedValue) : "";
 
             let bgColor = "";
-            if (colorMap[field] && selectedValue) {
-                bgColor = colorMap[field][selectedValue.toLowerCase()] || "";
-            }
+            // if (colorMap[field] && selectedValue) {
+            //     bgColor = colorMap[field][selectedValue.toLowerCase()] || "";
+            // }
 
             let html = `<td data-field="${field}" style="background-color:${bgColor};">
             <span style="color:black; font-weight:bold;">${displaySelected}</span>
@@ -3009,9 +3028,9 @@
                     if ($(this).is("select")) {
                         let displayText = capitalize(value);
                         let bgColor = "";
-                        if (colorMap[field] && value) {
-                            bgColor = colorMap[field][value.toLowerCase()] || "";
-                        }
+                        // if (colorMap[field] && value) {
+                        //     bgColor = colorMap[field][value.toLowerCase()] || "";
+                        // }
                         td.css("background-color", bgColor);
                         td.find("span").css("color", "black").css("font-weight", "bold").text(displayText);
                     } else {
@@ -3276,39 +3295,57 @@
             ]
         };
 
-        const colorMap2 = {
-            callResponse: {
-                "connected": "#28a745",
-                "not answered": "#dc3545",
-                "busy": "#ffc107",
-                "switch off": "#0d6efd",
-                "invalid": "#6c757d"
-            },
-            internshipType: {
-                "fulltime": "#28a745",
-                "sip": "#0d6efd",
-                "liveproject": "#ffc107",
-                "wip": "#0d6efd",
-                "others": "#adb5bd"
-            },
-            detailedResponse: {
-                "send jd": "#28a745",
-                "not interested": "#dc3545",
-                "cut the call": "#ffc107",
-                "january": "#0d6efd",
-                "february": "#0d6efd",
-                "march": "#0d6efd",
-                "april": "#0d6efd",
-                "may": "#0d6efd",
-                "june": "#0d6efd",
-                "july": "#0d6efd",
-                "august": "#0d6efd",
-                "september": "#0d6efd",
-                "october": "#0d6efd",
-                "november": "#0d6efd",
-                "december": "#0d6efd"
-            }
-        };
+        // const colorMap2 = {
+        //     callResponse: {
+        //         "connected": "#28a745",
+        //         "not answered": "#dc3545",
+        //         "busy": "#ffc107",
+        //         "switch off": "#0d6efd",
+        //         "invalid": "#6c757d"
+        //     },
+        //     internshipType: {
+        //         "fulltime": "#28a745",
+        //         "sip": "#0d6efd",
+        //         "liveproject": "#ffc107",
+        //         "wip": "#0d6efd",
+        //         "others": "#adb5bd"
+        //     },
+        //     detailedResponse: {
+        //         "send jd": "#28a745",
+        //         "not interested": "#dc3545",
+        //         "cut the call": "#ffc107",
+        //         "january": "#0d6efd",
+        //         "february": "#0d6efd",
+        //         "march": "#0d6efd",
+        //         "april": "#0d6efd",
+        //         "may": "#0d6efd",
+        //         "june": "#0d6efd",
+        //         "july": "#0d6efd",
+        //         "august": "#0d6efd",
+        //         "september": "#0d6efd",
+        //         "october": "#0d6efd",
+        //         "november": "#0d6efd",
+        //         "december": "#0d6efd"
+        //     }
+        // };
+
+        // function getRowBgColor2(detailedResponse) {
+        //     if (detailedResponse === null || detailedResponse === "") return 'background-color: #fff;';
+
+        //     const val = detailedResponse.toLowerCase();
+        //     if (val === "send jd") return 'background-color: #5cdb5c;';
+        //     if (val === "not interested") return 'background-color: #ff4d4d;';
+        //     return 'background-color: #ffff80;';
+        // }
+
+        function getRowBgColor2(detailedResponse) {
+            if (detailedResponse === null || detailedResponse === "") return 'background-color: #fff;';
+
+            const val = detailedResponse.toLowerCase();
+            if (val === "send jd") return 'background-color: #fff;';
+            if (val === "not interested") return 'background-color: #fff;';
+            return 'background-color: #fff;';
+        }
 
         let citiesData2 = [];
         let tableData2 = [];
@@ -3422,8 +3459,9 @@
             const rows = filteredData2.slice(start, end);
 
             rows.forEach((row, index) => {
+                const rowBgStyle = getRowBgColor2(row.detailedResponse);
                 let srNo = start + index + 1;
-                let tr = `<tr data-id="${row.id}">
+                let tr = `<tr data-id="${row.id}" style="${rowBgStyle}">
             <td>
                 <button class="btn btn-sm btn-danger delete-record" data-id="${row.id}" title="Delete">
                     <i class="fas fa-trash"></i>
@@ -3625,9 +3663,9 @@
             let displaySelected = selectedValue ? capitalize(selectedValue) : "";
 
             let bgColor = "";
-            if (colorMap2[field] && selectedValue) {
-                bgColor = colorMap2[field][selectedValue.toLowerCase()] || "";
-            }
+            // if (colorMap2[field] && selectedValue) {
+            //     bgColor = colorMap2[field][selectedValue.toLowerCase()] || "";
+            // }
 
             let html = `<td data-field="${field}" style="background-color:${bgColor};">
             <span style="color:black; font-weight:bold;">${displaySelected}</span>
@@ -3677,9 +3715,9 @@
                     if ($(this).is("select")) {
                         let displayText = capitalize(value);
                         let bgColor = "";
-                        if (colorMap2[field] && value) {
-                            bgColor = colorMap2[field][value.toLowerCase()] || "";
-                        }
+                        // if (colorMap2[field] && value) {
+                        //     bgColor = colorMap2[field][value.toLowerCase()] || "";
+                        // }
                         td.css("background-color", bgColor);
                         td.find("span").css("color", "black").css("font-weight", "bold").text(displayText);
                     } else {
