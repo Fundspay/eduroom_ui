@@ -1230,8 +1230,7 @@
                     <div class="date-picker-container d-flex justify-content-center"
                         style="margin-top: 0%; margin-bottom: 0%; margin-right:2%;">
                         <input type="text" id="dateRangePicker2" class="form-control text-center fw-bold"
-                            placeholder="Select date or range"
-                            style="max-width:220px; font-weight:700; color:#000; opacity:1;" />
+                            placeholder="This Month" style="max-width:220px; font-weight:700; color:#000; opacity:1;" />
                     </div>
 
                     <style>
@@ -1242,476 +1241,481 @@
                         }
                     </style>
                     <div class="d-flex flex-column"></div>
-                        <h5 class="card-title" id="reSheetTitle2">
-                            INDIVIDUAL ANALYTICS
-                        </h5>
-                        <br>
-                        <small class="text-muted">
-                            These metrics are based on the type of <strong>response</strong> we get from the college. By
-                            default, it shows data for the current month
-                        </small>
-                    </div>
-
-                    <div class="row g-3">
-                        <!-- Card 1 -->
-                        <div class="col-md-6">
-                            <a href="tables/resumes_recieved.html" class="text-decoration-none">
-                                <div class="card bg-success text-white h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="m-0">Resumes Received:</p>
-                                                <h4 id="totalResumes2" style="color: white;">0</h4>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="col-md-6">
-                            <a href="tables/sending.html" class="text-decoration-none">
-                                <div class="card bg-warning text-white h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="m-0">Sending in 1-2 days:</p>
-                                                <h4 id="sendingCount2" style="color: white;">0</h4>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="col-md-4">
-                            <a href="tables/delay.html" class="text-decoration-none">
-                                <div class="card bg-primary text-white h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="m-0">Delay:</p>
-                                                <h4 id="delayCount2" style="color: white;">0</h4>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="col-md-4">
-                            <a href="tables/no_response.html" class="text-decoration-none">
-                                <div class="card bg-secondary text-white h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="m-0">No Response:</p>
-                                                <h4 id="noresponseCount2" style="color: white;">0</h4>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="col-md-4">
-                            <a href="tables/unprofessional.html" class="text-decoration-none">
-                                <div class="card bg-danger text-white h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="m-0">Unprofessional:</p>
-                                                <h4 id="unprofessionalCount2" style="color: white;">0</h4>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <script>
-                        const userData6 = JSON.parse(sessionStorage.getItem("user_data"));
-                        if (userData6 && userData6.name) {
-                            document.getElementById("reSheetTitle2").innerHTML =
-                                `${userData6.name}'s ANALYTICS`;
-                        }
-                    </script>
-
-                </div>
-                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
-
-                <div class="col-12 flex-fill">
-                    <div class="card stretch stretch-full">
-                        <!-- Header -->
-                        <div class="card-header">
-                            <div class="d-flex flex-column">
-                                <h5 class="card-title">FOLLOW UP DETAILS</h5>
-                                <small class="text-muted">
-                                    This sheet shows all colleges who are not in the <strong>Resume Received</strong>
-                                    category.
-                                    By default, it shows data till date.
-                                </small>
-                            </div>
-
-                            <div class="card-header-action d-flex align-items-center gap-2">
-                                <!-- Month & Year dropdown -->
-                                <div class="month-dropdown d-flex align-items-center gap-2">
-                                    <select id="monthSelect3" class="form-select form-select-sm"
-                                        onchange="setSelectedMonthYear3()">
-                                        <option value=""></option>
-                                    </select>
-                                    <select id="yearSelect3" class="form-select form-select-sm"
-                                        onchange="setSelectedMonthYear3()">
-                                        <option value=""></option>
-                                    </select>
-                                    <span id="selectedMonthDisplay3" class="badge bg-primary" style="display:none;"></span>
-                                </div>
-
-                                <div class="search-wrapper3" id="searchWrapper3">
-                                    <button id="searchToggle3" class="search-icon">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search"
-                                            width="20" height="20">
-                                    </button>
-                                    <div class="search-bar3" id="searchBar3">
-                                        <input type="text" id="searchInput3" class="form-control" placeholder="Search..."
-                                            oninput="filterTable3()">
-                                    </div>
-                                </div>
-
-                                <!-- Expand -->
-                                <div data-bs-toggle="tooltip" title="Maximize/Minimize">
-                                    <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
-                                        <i class="feather-maximize maximize" style="font-size: 15px;"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Body -->
-                        <div class="card-body custom-card-action p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0" id="leadsTable3">
-                                    <thead>
-                                        <tr class="border-b">
-                                            <th></th> <!-- For Delete Btn -->
-                                            <th>SR</th>
-                                            <th>College Name</th>
-                                            <th>Co-ordinator Name</th>
-                                            <th>Mobile Number</th>
-                                            <th>Email</th>
-                                            <th>State</th>
-                                            <th>City</th>
-                                            <th>Course</th>
-                                            <th>Connected by</th>
-                                            <th>Date of connect</th>
-                                            <th>Call Response</th>
-                                            <th>Type of INT</th>
-                                            <th>Detailed Response</th>
-                                            <th>Follow up by</th>
-                                            <th>Follow up date</th>
-                                            <th>Follow up response</th>
-                                            <th>No. of resumes</th>
-                                            <th>Expected response date</th>
-                                            <th>Resume date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                    id="pagination3"></ul>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-primary" onclick="printTable3()">
-                                        <i class="bi bi-printer"></i> Print
-                                    </button>
-                                    <button class="btn btn-success" onclick="exportToExcel3()">
-                                        <i class="bi bi-file-earmark-excel"></i> Excel
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <h5 class="card-title" id="reSheetTitle2">
+                        INDIVIDUAL ANALYTICS
+                    </h5>
+                    <br>
+                    <small class="text-muted">
+                        These metrics are based on the type of <strong>response</strong> we get from the college.
+                    </small>
+                    <div class="text-start mt-2 mb-3" style="font-size:13px; font-weight:bold; color:#6c757d;">
+                        Note: These metrics data is based on the selected date range (default shows current month),
+                        while the
+                        table onclick displays <span style="font-weight:bold; color:#ea1e1e;">Overall data</span> of
+                        that particlar category.
                     </div>
                 </div>
 
-                <style>
-                    #dateRangePicker2::placeholder {
-                        font-weight: 700;
-                        color: #000;
-                        opacity: 1;
-                    }
+                <div class="row g-3">
+                    <!-- Card 1 -->
+                    <div class="col-md-6">
+                        <a href="tables/resumes_recieved.html" class="text-decoration-none">
+                            <div class="card bg-success text-white h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="m-0">Resumes Received:</p>
+                                            <h4 id="totalResumes2" style="color: white;">0</h4>
+                                        </div>
 
-                    .search-wrapper3 {
-                        position: relative;
-                        display: flex;
-                        align-items: center;
-                    }
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
 
-                    .search-icon {
-                        background: none;
-                        border: none;
-                        cursor: pointer;
-                        margin-right: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 4px;
-                    }
+                    <!-- Card 2 -->
+                    <div class="col-md-6">
+                        <a href="tables/sending.html" class="text-decoration-none">
+                            <div class="card bg-warning text-white h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="m-0">Sending in 1-2 days:</p>
+                                            <h4 id="sendingCount2" style="color: white;">0</h4>
+                                        </div>
 
-                    .search-bar3 {
-                        display: none;
-                    }
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
 
-                    .search-bar3.active {
-                        display: block;
-                    }
+                    <!-- Card 3 -->
+                    <div class="col-md-4">
+                        <a href="tables/delay.html" class="text-decoration-none">
+                            <div class="card bg-primary text-white h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="m-0">Delay:</p>
+                                            <h4 id="delayCount2" style="color: white;">0</h4>
+                                        </div>
 
-                    #searchInput3 {
-                        padding: 6px 10px;
-                        border: 1px solid #ccc;
-                        border-radius: 6px;
-                    }
-                </style>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="col-md-4">
+                        <a href="tables/no_response.html" class="text-decoration-none">
+                            <div class="card bg-secondary text-white h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="m-0">No Response:</p>
+                                            <h4 id="noresponseCount2" style="color: white;">0</h4>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="col-md-4">
+                        <a href="tables/unprofessional.html" class="text-decoration-none">
+                            <div class="card bg-danger text-white h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="m-0">Unprofessional:</p>
+                                            <h4 id="unprofessionalCount2" style="color: white;">0</h4>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
 
                 <script>
-                    const searchToggle3 = document.getElementById("searchToggle3");
-                    const searchBar3 = document.getElementById("searchBar3");
-                    const searchWrapper3 = document.getElementById("searchWrapper3");
-
-                    searchToggle3.addEventListener("click", () => {
-                        const isActive = searchBar3.classList.toggle("active");
-
-                        if (isActive) {
-                            document.getElementById("searchInput3").focus();
-
-                            loadTableData3();
-                        }
-                    });
-
-                    document.addEventListener("click", (event) => {
-                        if (!searchWrapper3.contains(event.target)) {
-                            searchBar3.classList.remove("active");
-                        }
-                    });
+                    const userData6 = JSON.parse(sessionStorage.getItem("user_data"));
+                    if (userData6 && userData6.name) {
+                        document.getElementById("reSheetTitle2").innerHTML =
+                            `${userData6.name}'s ANALYTICS`;
+                    }
                 </script>
 
-                <style>
-                    .table-responsive {
-                        overflow-x: auto;
-                        position: relative;
-                    }
+            </div>
+            <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
-                    #leadsTable3 {
-                        border-collapse: collapse;
-                        width: max-content;
-                        font-family: 'Inter', sans-serif;
-                        font-size: 14px;
-                        background: #fff;
-                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-                        border-radius: 8px;
-                    }
+            <div class="col-12 flex-fill">
+                <div class="card stretch stretch-full">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <div class="d-flex flex-column">
+                            <h5 class="card-title">FOLLOW UP DETAILS</h5>
+                            <small class="text-muted">
+                                This sheet shows all colleges who are not in the <strong>Resume Received</strong>
+                                category.
+                                By default, it shows data till date.
+                            </small>
+                        </div>
 
-                    .column-filter3 {
-                        display: inline-block !important;
-                        width: 100%;
-                        margin-top: 4px;
-                    }
+                        <div class="card-header-action d-flex align-items-center gap-2">
+                            <!-- Month & Year dropdown -->
+                            <div class="month-dropdown d-flex align-items-center gap-2">
+                                <select id="monthSelect3" class="form-select form-select-sm"
+                                    onchange="setSelectedMonthYear3()">
+                                    <option value=""></option>
+                                </select>
+                                <select id="yearSelect3" class="form-select form-select-sm"
+                                    onchange="setSelectedMonthYear3()">
+                                    <option value=""></option>
+                                </select>
+                                <span id="selectedMonthDisplay3" class="badge bg-primary" style="display:none;"></span>
+                            </div>
 
-                    #leadsTable3 th {
-                        font-weight: 600;
-                        text-align: left;
-                        padding: 8px 12px;
-                        border-bottom: 2px solid #e5e7eb;
-                        position: sticky;
-                        top: 0;
-                        z-index: 10;
-                    }
+                            <div class="search-wrapper3" id="searchWrapper3">
+                                <button id="searchToggle3" class="search-icon">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search"
+                                        width="20" height="20">
+                                </button>
+                                <div class="search-bar3" id="searchBar3">
+                                    <input type="text" id="searchInput3" class="form-control" placeholder="Search..."
+                                        oninput="filterTable3()">
+                                </div>
+                            </div>
 
-                    #leadsTable3 th:nth-child(-n+3) {
-                        background: #fff;
-                        color: #000;
-                        z-index: 15;
-                    }
+                            <!-- Expand -->
+                            <div data-bs-toggle="tooltip" title="Maximize/Minimize">
+                                <a href="javascript:void(0);" class="avatar-xs" data-bs-toggle="expand">
+                                    <i class="feather-maximize maximize" style="font-size: 15px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-                    #leadsTable3 th:nth-child(n+4) {
-                        background: #fff;
-                        color: #000;
-                        font-weight: bold;
-                        font-size: 13px;
-                    }
+                    <!-- Body -->
+                    <div class="card-body custom-card-action p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="leadsTable3">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th></th> <!-- For Delete Btn -->
+                                        <th>SR</th>
+                                        <th>College Name</th>
+                                        <th>Co-ordinator Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Email</th>
+                                        <th>State</th>
+                                        <th>City</th>
+                                        <th>Course</th>
+                                        <th>Connected by</th>
+                                        <th>Date of connect</th>
+                                        <th>Call Response</th>
+                                        <th>Type of INT</th>
+                                        <th>Detailed Response</th>
+                                        <th>Follow up by</th>
+                                        <th>Follow up date</th>
+                                        <th>Follow up response</th>
+                                        <th>No. of resumes</th>
+                                        <th>Expected response date</th>
+                                        <th>Resume date</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                    #leadsTable3 td {
-                        vertical-align: middle;
-                        padding: 8px 12px;
-                        white-space: nowrap;
-                        border-bottom: 1px solid #f1f5f9;
-                    }
+                    <!-- Footer -->
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
+                                id="pagination3"></ul>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary" onclick="printTable3()">
+                                    <i class="bi bi-printer"></i> Print
+                                </button>
+                                <button class="btn btn-success" onclick="exportToExcel3()">
+                                    <i class="bi bi-file-earmark-excel"></i> Excel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    /* #leadsTable3 tr:nth-child(even) td {
+            <style>
+                #dateRangePicker2::placeholder {
+                    font-weight: 700;
+                    color: #000;
+                    opacity: 1;
+                }
+
+                .search-wrapper3 {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .search-icon {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    margin-right: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 4px;
+                }
+
+                .search-bar3 {
+                    display: none;
+                }
+
+                .search-bar3.active {
+                    display: block;
+                }
+
+                #searchInput3 {
+                    padding: 6px 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 6px;
+                }
+            </style>
+
+            <script>
+                const searchToggle3 = document.getElementById("searchToggle3");
+                const searchBar3 = document.getElementById("searchBar3");
+                const searchWrapper3 = document.getElementById("searchWrapper3");
+
+                searchToggle3.addEventListener("click", () => {
+                    const isActive = searchBar3.classList.toggle("active");
+
+                    if (isActive) {
+                        document.getElementById("searchInput3").focus();
+
+                        loadTableData3();
+                    }
+                });
+
+                document.addEventListener("click", (event) => {
+                    if (!searchWrapper3.contains(event.target)) {
+                        searchBar3.classList.remove("active");
+                    }
+                });
+            </script>
+
+            <style>
+                .table-responsive {
+                    overflow-x: auto;
+                    position: relative;
+                }
+
+                #leadsTable3 {
+                    border-collapse: collapse;
+                    width: max-content;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 14px;
+                    background: #fff;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                    border-radius: 8px;
+                }
+
+                .column-filter3 {
+                    display: inline-block !important;
+                    width: 100%;
+                    margin-top: 4px;
+                }
+
+                #leadsTable3 th {
+                    font-weight: 600;
+                    text-align: left;
+                    padding: 8px 12px;
+                    border-bottom: 2px solid #e5e7eb;
+                    position: sticky;
+                    top: 0;
+                    z-index: 10;
+                }
+
+                #leadsTable3 th:nth-child(-n+3) {
+                    background: #fff;
+                    color: #000;
+                    z-index: 15;
+                }
+
+                #leadsTable3 th:nth-child(n+4) {
+                    background: #fff;
+                    color: #000;
+                    font-weight: bold;
+                    font-size: 13px;
+                }
+
+                #leadsTable3 td {
+                    vertical-align: middle;
+                    padding: 8px 12px;
+                    white-space: nowrap;
+                    border-bottom: 1px solid #f1f5f9;
+                }
+
+                /* #leadsTable3 tr:nth-child(even) td {
                         background: #fafafa;
                     } */
 
-                    #leadsTable3 tr:hover td {
-                        background: #f1f5ff;
-                    }
+                #leadsTable3 tr:hover td {
+                    background: #f1f5ff;
+                }
 
-                    #leadsTable3 th:nth-child(-n+3),
-                    #leadsTable3 td:nth-child(-n+3) {
-                        position: sticky;
-                        left: 0;
-                        z-index: 5;
-                        border-right: 1px solid #dee2e6;
-                        background: #fff;
-                        font-size: 13px;
-                    }
+                #leadsTable3 th:nth-child(-n+3),
+                #leadsTable3 td:nth-child(-n+3) {
+                    position: sticky;
+                    left: 0;
+                    z-index: 5;
+                    border-right: 1px solid #dee2e6;
+                    background: #fff;
+                    font-size: 13px;
+                }
 
-                    #leadsTable3 input,
-                    #leadsTable3 select {
-                        display: none;
-                        width: 100%;
-                        font-size: 14px;
-                        padding: 6px 8px;
-                        border: 1px solid #cbd5e1;
-                        border-radius: 6px;
-                        background: #fff;
-                    }
-
-                    #leadsTable3 td.editing input,
-                    #leadsTable3 td.editing select {
-                        display: block;
-                    }
-
-                    #leadsTable3 td span {
-                        display: inline-block;
-                        width: 100%;
-                        min-height: 22px;
-                        font-size: 14px;
-                        cursor: pointer;
-                        color: #1e293b;
-                    }
-
-                    #leadsTable3 td.editing {
-                        background: #ffffff;
-                        box-shadow: inset 0 0 0 2px #fff;
-                    }
-                </style>
-
-
-                <style>
-                    .card-header-action {
-                        gap: 10px;
-                    }
-
-                    .month-dropdown select {
-                        min-width: 160px;
-                        border-radius: 8px;
-                        border: 1px solid #ddd;
-                        background-color: #f8f9fa;
-                        padding: 4px 8px;
-                        font-size: 14px;
-                        transition: all 0.2s ease-in-out;
-                    }
-
-                    .month-dropdown select:hover {
-                        border-color: #0d6efd;
-                        background-color: #fff;
-                        box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
-                    }
-
-                    .search-bar .input-group {
-                        border: 1px solid #ddd;
-                        border-radius: 8px;
-                        overflow: hidden;
-                        transition: box-shadow 0.2s;
-                    }
-
-                    .search-bar .input-group:focus-within {
-                        box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
-                        border-color: #0d6efd;
-                    }
-
-                    .search-bar input {
-                        border: none;
-                        outline: none;
-                        font-size: 14px;
-                    }
-                </style>
-
-
-                <!-- [ Main Content ] end -->
-            </div>
-            <!-- [ Footer ] start -->
-            <footer class="footer">
-                <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
-                    <span>Copyright Fundsroom ©</span>
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                </p>
-                <div class="d-flex align-items-center gap-4">
-                    <!-- <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Help</a>
-                        <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
-                        <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a> -->
-                </div>
-            </footer>
-            <style>
-                .flatpickr-calendar,
-                .flatpickr-calendar * {
-                    font-family: 'Inter', sans-serif !important;
+                #leadsTable3 input,
+                #leadsTable3 select {
+                    display: none;
+                    width: 100%;
                     font-size: 14px;
-                }
-
-                .flatpickr-months .flatpickr-month {
-                    font-weight: 600;
-                    color: #155fcf;
-                }
-
-                .flatpickr-weekday {
-                    color: #1e293b;
-                    font-weight: 500;
-                }
-
-                .flatpickr-day.selected,
-                .flatpickr-day.startRange,
-                .flatpickr-day.endRange {
-                    background: #155fcf !important;
-                    color: #fff !important;
-                    border-radius: 6px;
-                }
-
-                .flatpickr-day.inRange {
-                    background: #e0ebff;
-                    color: #155fcf;
-                }
-
-                .flatpickr-day.today {
-                    border: 1px solid #155fcf;
-                }
-
-                #dateRangePicker {
-                    font-family: 'Inter', sans-serif;
-                    font-size: 14px;
-                    border-radius: 6px;
+                    padding: 6px 8px;
                     border: 1px solid #cbd5e1;
-                    padding: 6px 10px;
+                    border-radius: 6px;
+                    background: #fff;
+                }
+
+                #leadsTable3 td.editing input,
+                #leadsTable3 td.editing select {
+                    display: block;
+                }
+
+                #leadsTable3 td span {
+                    display: inline-block;
+                    width: 100%;
+                    min-height: 22px;
+                    font-size: 14px;
+                    cursor: pointer;
                     color: #1e293b;
+                }
+
+                #leadsTable3 td.editing {
+                    background: #ffffff;
+                    box-shadow: inset 0 0 0 2px #fff;
                 }
             </style>
-            <!-- [ Footer ] end -->
+
+
+            <style>
+                .card-header-action {
+                    gap: 10px;
+                }
+
+                .month-dropdown select {
+                    min-width: 160px;
+                    border-radius: 8px;
+                    border: 1px solid #ddd;
+                    background-color: #f8f9fa;
+                    padding: 4px 8px;
+                    font-size: 14px;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                .month-dropdown select:hover {
+                    border-color: #0d6efd;
+                    background-color: #fff;
+                    box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
+                }
+
+                .search-bar .input-group {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    transition: box-shadow 0.2s;
+                }
+
+                .search-bar .input-group:focus-within {
+                    box-shadow: 0 0 6px rgba(13, 110, 253, 0.2);
+                    border-color: #0d6efd;
+                }
+
+                .search-bar input {
+                    border: none;
+                    outline: none;
+                    font-size: 14px;
+                }
+            </style>
+
+
+            <!-- [ Main Content ] end -->
+        </div>
+        <!-- [ Footer ] start -->
+        <footer class="footer">
+            <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+                <span>Copyright Fundsroom ©</span>
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+            </p>
+            <div class="d-flex align-items-center gap-4">
+                <!-- <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Help</a>
+                        <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
+                        <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a> -->
+            </div>
+        </footer>
+        <style>
+            .flatpickr-calendar,
+            .flatpickr-calendar * {
+                font-family: 'Inter', sans-serif !important;
+                font-size: 14px;
+            }
+
+            .flatpickr-months .flatpickr-month {
+                font-weight: 600;
+                color: #155fcf;
+            }
+
+            .flatpickr-weekday {
+                color: #1e293b;
+                font-weight: 500;
+            }
+
+            .flatpickr-day.selected,
+            .flatpickr-day.startRange,
+            .flatpickr-day.endRange {
+                background: #155fcf !important;
+                color: #fff !important;
+                border-radius: 6px;
+            }
+
+            .flatpickr-day.inRange {
+                background: #e0ebff;
+                color: #155fcf;
+            }
+
+            .flatpickr-day.today {
+                border: 1px solid #155fcf;
+            }
+
+            #dateRangePicker {
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                border-radius: 6px;
+                border: 1px solid #cbd5e1;
+                padding: 6px 10px;
+                color: #1e293b;
+            }
+        </style>
+        <!-- [ Footer ] end -->
     </main>
     <div class="modal fade-scale" id="composeMail" tabindex="-1" aria-labelledby="composeMail" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
