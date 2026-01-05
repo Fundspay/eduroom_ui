@@ -743,7 +743,7 @@
                         <div class="bg-success text-white">
 
                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                <h5 class="card-title" id="reSheetTitle3">RESUME ANALYTICS</h5>
+                                <h5 class="card-title" id="reSheetTitle3">SELECTION ANALYTICS</h5>
                             </div>
 
                             <div id="chartContainer" style="
@@ -759,7 +759,7 @@
                         </div>
 
                         <div class="card-body">
-                            <h6 class="mb-3">Resumes sent</h6>
+                            <h6 class="mb-3">Selection Analytics</h6>
 
                             <div style="max-height: 250px; overflow-y: auto; padding-right: 5px;">
                                 <ul class="list-group" id="jdList"></ul>
@@ -1220,7 +1220,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <p class="m-0">Resumes:</p>
+                                                <p class="m-0">Selected:</p>
                                                 <h4 id="totalResumes3" style="color: white;">0</h4>
                                             </div>
                                         </div>
@@ -4764,7 +4764,7 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span>${formatDateWithDay(d)}</span>
                                     <span class="fw-bold">
-                                        Resumes: ${resumeCounts[idx]} | Registrations Achieved: ${interviewCounts[idx]}
+                                        Selected: ${resumeCounts[idx]} | Registrations Achieved: ${interviewCounts[idx]}
                                     </span>
                                 </li>
                             `);
@@ -4784,7 +4784,7 @@
                         if (analysisChart) {
                             analysisChart.updateOptions({
                                 series: [
-                                    { name: "Resumes Achieved", data: resumeCounts },
+                                    { name: "Selected", data: resumeCounts },
                                     { name: "Registrations Achieved", data: interviewCounts }
                                 ],
                                 xaxis: { categories: chartLabels }
@@ -4794,7 +4794,7 @@
                                 document.querySelector("#conversion-statistic-bar-chart"),
                                 {
                                     series: [
-                                        { name: "Resumes Achieved", data: resumeCounts },
+                                        { name: "Selected", data: resumeCounts },
                                         { name: "Registrations Achieved", data: interviewCounts }
                                     ],
                                     chart: { type: "bar", height: 240, toolbar: { show: false } },
