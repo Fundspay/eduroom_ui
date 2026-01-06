@@ -164,6 +164,14 @@
                                     href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
                             <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-incentives.html">BD
                                     INCENTIVES</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-targets-admin.html">HR
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets-admin.html">BD
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-master-sheet.html">HR
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-master-sheet.html">BD
+                                    MASTER SHEET</a></li>
                         </ul>
                     </li>
 
@@ -205,6 +213,14 @@
                         <a href="/profile/dashboard/team-manager.html" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-airplay"></i></span>
                             <span class="nxl-mtext">MASTER SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-file-text"></i></span>
+                            <span class="nxl-mtext">COLLEGE SHEET</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                     </li>
@@ -300,7 +316,10 @@
                             </a>
                         </div>
                     </div> -->
-                    <input type="text" id="dateFilter" placeholder="Select date or range" class="form-control" />
+                    <div id="managerSelectWrapper" style="width: 30%; min-width: 250px; margin-right: 4%;"></div>
+
+                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter" placeholder="This Month"
+                        class="form-control" />
 
                     <!-- Dark/Light Theme Toggle -->
                     <div class="nxl-h-item dark-light-theme" style="margin-right: 3%;">
@@ -353,6 +372,573 @@
     <main class="nxl-container apps-container apps-email bg-white">
         <div class="nxl-content without-header nxl-full-content">
             <!-- [ Main Content ] start -->
+            <div class="row" style="margin-left: 2px; margin-right: 2px;" id="teamManager">
+
+                <div class="col-md-12 mb-3" style="margin-top: 2px;">
+                    <div class="d-flex justify-content-end">
+                    </div>
+                </div>
+
+                <!-- Total Calls -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Total Interns</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <div>
+                                    <h3><span id="totalInterns">0</span></h3>
+                                    <!-- <div class="fs-11 text-muted">
+                                            Remaining: <span id="remainingCalls">0</span>
+                                        </div> -->
+                                </div>
+                                <div class="hstack gap-2 fs-11" id="totalCallsTrend">
+                                    <!-- <i class="feather-arrow-up-circle fs-12"></i> -->
+                                    <!-- <span id="internsPercent">0%</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Active Interns</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <div>
+                                    <h3><span id="totalActiveInterns">0 / 0</span></h3>
+                                    <!-- <div class="fs-11 text-muted">
+                                            Remaining: <span id="remainingCalls">0</span>
+                                        </div> -->
+                                </div>
+                                <div class="hstack gap-2 fs-11" id="totalActiveCallsTrend">
+                                    <span id="activeInternsPercent" style="color:#5c5757;">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Average Accounts Per Intern (AAPI)
+                            </div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="averageAccountsPerIntern">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="averageAccountsPerInternPercent">0%</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Average Accounts Per Day (AAPD)
+                            </div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="averageAccountsPerDay">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="averageAccountsPerInternPercent">0%</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connected -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="totalAccounts" style="color:#47b947;">0</span>/<span id="targetAccounts" style="color:#dc3545;">0</span></h3>
+                                <div class="hstack gap-2 fs-11">
+                                    <span id="accountsPercent">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Today's Accounts</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="todayAccounts">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="accountsPercent">0%</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ff4d4d;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Non Working Zone</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="nonWorkingInternsCount">0</div>
+                                        <!-- <div class="fs-10" id="redCountPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
+                                        <div class="h5 mb-1" id="nonWorkingPercentage">0%</div>
+                                        <!-- <div class="fs-10" id="redAccountsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORANGE -->
+                <div class="col-xxl-4 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ffff80;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Working Zone</div>
+                            <div class="row">
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="workingInternsCount">0</div>
+                                        <!-- <div class="fs-10" id="workingInternsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="workingAccountsCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
+                                        <div class="h4 mb-1" id="workingPercentage">0%</div>
+                                        <!-- <div class="fs-10" id="orangeAccountsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YELLOW -->
+                <div class="col-xxl-6 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#5cdb5c;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Completed Zone</div>
+                            <div class="row">
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="completedInternsCount">0</div>
+                                        <!-- <div class="fs-10" id="completedInternsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-4" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="completedAccountsCount">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-center">
+                                        <div class="fs-9 fw-medium mb-1" style="color:#494444;">Percentage</div>
+                                        <div class="h4 mb-1" id="completedPercentage">0%</div>
+                                        <!-- <div class="fs-10" id="yellowAccountsPercent" style="color:#494444;">0%</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RED -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ff4d4d;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Red</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="redCount">0</div>
+                                        <div class="fs-10" id="redCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalRedCount">0</div>
+                                        <div class="fs-10" id="redAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORANGE -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ffa500;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Orange</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="orangeCount">0</div>
+                                        <div class="fs-10" id="orangeCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalOrangeCount">0</div>
+                                        <div class="fs-10" id="orangeAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YELLOW -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#ffff80;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Yellow</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="yellowCount">0</div>
+                                        <div class="fs-10" id="yellowCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalYellowCount">0</div>
+                                        <div class="fs-10" id="yellowAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIGHT GREEN -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#b3ffb3;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Light Green</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="lightGreenCount">0</div>
+                                        <div class="fs-10" id="lightGreenCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalLightGreenCount">0</div>
+                                        <div class="fs-10" id="lightGreenAccountsPercent" style="color:#494444;">0%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GREEN -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#5cdb5c;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Green</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="greenCount">0</div>
+                                        <div class="fs-10" id="greenCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalGreenCount">0</div>
+                                        <div class="fs-10" id="greenAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLUE -->
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full" style="background-color:#4da6ff;">
+                        <div class="card-body">
+                            <div class="fs-14 fw-bold mb-3 text-center"
+                                style="color:#494444; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                Blue</div>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Interns</div>
+                                        <div class="h4 mb-1" id="blueCount">0</div>
+                                        <div class="fs-10" id="blueCountPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <div class="fs-11 fw-medium mb-1" style="color:#494444;">Accounts</div>
+                                        <div class="h4 mb-1" id="totalBlueCount">0</div>
+                                        <div class="fs-10" id="blueAccountsPercent" style="color:#494444;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white text-black p-3 rounded-3"
+                style="position: relative; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); margin-left: 15px; margin-right: 15px; margin-bottom: 25px; margin-top: 25px;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="m-0">TEAM MANAGER ACCOUNTS</h5>
+                </div>
+
+                <!-- Legend will be inserted here by JavaScript -->
+                <div id="manager-chart-legend" class="manager-chart-legend"></div>
+
+                <!-- Chart container with scroll wrapper -->
+                <div id="manager-chart-scroll-wrapper" class="chart-scroll-wrapper">
+                    <div id="manager-chart-inner" class="chart-inner">
+                        <div id="manager-performance-bar-chart"></div>
+                    </div>
+                </div>
+
+                <!-- Scroll buttons -->
+                <!-- <button class="chart-scroll-btn" id="manager-scroll-left-btn">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="chart-scroll-btn" id="manager-scroll-right-btn">
+                    <i class="bi bi-chevron-right"></i>
+                </button> -->
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header text-white">
+                    <h5 class="mb-0">FORECASTED METRICS</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0" id="forecastTable">
+                            <thead class="table-light">
+                                <tr class="border-b">
+                                    <th colspan="6" class="text-center" style="font-size: 14px;">FORECASTED METRICS</th>
+                                    <th colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56); font-size: 14px;">BEST
+                                        CASE SCENARIO</th>
+                                    <th colspan="2" class="text-center"
+                                        style="background-color: #ffff80; font-size: 14px;">AVERAGE CASE
+                                        SCENARIO</th>
+                                    <th colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56); font-size: 14px;">
+                                        WORST CASE SCENARIO</th>
+                                </tr>
+                                <tr class="border-b">
+                                    <th>Zone</th>
+                                    <th>Interns</th>
+                                    <th>Active Interns</th>
+                                    <th>Accounts Total</th>
+                                    <th>Average Accounts</th>
+                                    <th>Target To Be Achieved</th>
+
+                                    <th style="background-color: #5cdb5c; color: rgb(58, 56, 56);">EFFICIENCY</th>
+                                    <th style="background-color: #5cdb5c; color: rgb(58, 56, 56);">RESULT</th>
+
+                                    <th style="background-color: #ffff80;">EFFICIENCY</th>
+                                    <th style="background-color: #ffff80;">RESULT</th>
+
+                                    <th style="background-color: #ff4d4d; color: rgb(58, 56, 56);">EFFICIENCY</th>
+                                    <th style="background-color: #ff4d4d; color: rgb(58, 56, 56);">RESULT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold" style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        NON WORKING ZONE
+                                    </td>
+                                    <td><span id="nwzInterns">0</span></td>
+                                    <td><span id="nwzActiveInterns">0</span></td>
+                                    <td><span id="nwzAccounts">0</span></td>
+                                    <td><span id="nwzAvg">0</span></td>
+                                    <td><span>12</span></td>
+
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="nwzEfficiencyBest">65%</span></td>
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="nwzResultBest">0</span></td>
+
+                                    <td style="background-color: #ffff80;"><span id="nwzEfficiencyAvg">55%</span></td>
+                                    <td style="background-color: #ffff80;"><span id="nwzResultAvg">0</span></td>
+
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="nwzEfficiencyWorst">50%</span></td>
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="nwzResultWorst">0</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-bold" style="background-color: #ffff80;">
+                                        WORKING ZONE
+                                    </td>
+                                    <td><span id="wzInterns">0</span></td>
+                                    <td><span id="wzActiveInterns">0</span></td>
+                                    <td><span id="wzAccounts">0</span></td>
+                                    <td><span id="wzAvg">0</span></td>
+                                    <td><span>15</span></td>
+
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="wzEfficiencyBest">85%</span></td>
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="wzResultBest">0</span></td>
+
+                                    <td style="background-color: #ffff80;"><span id="wzEfficiencyAvg">75%</span></td>
+                                    <td style="background-color: #ffff80;"><span id="wzResultAvg">0</span></td>
+
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="wzEfficiencyWorst">70%</span></td>
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="wzResultWorst">0</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-bold" style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        COMPLETED ZONE
+                                    </td>
+                                    <td><span id="czInterns">0</span></td>
+                                    <td><span id="czActiveInterns">0</span></td>
+                                    <td><span id="czAccounts">0</span></td>
+                                    <td><span id="czAvg">0</span></td>
+                                    <td><span>25</span></td>
+
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="czEfficiencyBest">65%</span></td>
+                                    <td style="background-color: #5cdb5c; color: rgb(58, 56, 56);"><span
+                                            id="czResultBest">0</span></td>
+
+                                    <td style="background-color: #ffff80;"><span id="czEfficiencyAvg">55%</span></td>
+                                    <td style="background-color: #ffff80;"><span id="czResultAvg">0</span></td>
+
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="czEfficiencyWorst">50%</span></td>
+                                    <td style="background-color: #ff4d4d; color: rgb(58, 56, 56);"><span
+                                            id="czResultWorst">0</span></td>
+                                </tr>
+
+                                <tr class="table-primary fw-bold">
+                                    <td>TOTAL</td>
+                                    <td><span id="totalInternsForecast">0</span></td>
+                                    <td><span id="totalActiveInternsForecast">0</span></td>
+                                    <td><span id="totalAccountsForecast">0</span></td>
+                                    <td><span></span></td>
+                                    <td><span></span></td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        <span id="totalResultBest">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center" style="background-color: #ffff80;">
+                                        <span id="totalResultAvg">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        <span id="totalResultWorst">0</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="table-primary fw-bold">
+                                    <td colspan="2">TOTAL FORECASTING</td>
+                                    <td colspan="4">
+                                        <span id="totalForecastWorst2">0</span> - <span id="totalForecastBest2">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastBest">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center" style="background-color: #ffff80;">
+                                        <span id="totalForecastAvg">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastWorst">0</span>
+                                    </td>
+                                </tr>
+                                <tr class="table-primary fw-bold">
+                                    <td colspan="6">AVERAGE</td>
+                                    <!-- <td colspan="3">
+                                        <span id="totalForecastWorst2">0</span> - <span id="totalForecastBest2">0</span>
+                                    </td> -->
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #5cdb5c; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastBestAverage">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center" style="background-color: #ffff80;">
+                                        <span id="totalForecastAvgAverage">0</span>
+                                    </td>
+
+                                    <td colspan="2" class="text-center"
+                                        style="background-color: #ff4d4d; color: rgb(58, 56, 56);">
+                                        <span id="totalForecastWorstAverage">0</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
 
                 <div class="col-12">
@@ -378,17 +964,76 @@
                                     </div>
                                 </div>
 
-                                <div class="month-dropdown d-flex align-items-center gap-2">
-                                    <select id="monthSelect" class="form-select form-select-sm"
-                                        style="margin-right:6px;">
-                                    </select>
-
-                                    <select id="yearSelect" class="form-select form-select-sm">
-
-                                    </select>
-                                </div>
-
                                 <style>
+                                    @media (max-width: 576px) {
+                                        #teamManager>[class*="col-"] {
+                                            flex: 0 0 100% !important;
+                                            max-width: 100% !important;
+                                        }
+
+                                        html,
+                                        body {
+                                            width: 100%;
+                                            overflow-x: hidden;
+                                        }
+
+                                        #teamManager .card {
+                                            width: 100%;
+                                        }
+
+                                        #teamManager .card-body {
+                                            padding: 14px;
+                                        }
+
+                                        #teamManager h3,
+                                        #teamManager h4,
+                                        #teamManager h5 {
+                                            font-size: 16px;
+                                        }
+
+                                        #teamManager .row {
+                                            margin-left: 0;
+                                            margin-right: 0;
+                                        }
+                                    }
+
+                                    #manager-chart-scroll-wrapper {
+                                        width: 100%;
+                                        max-width: 100%;
+                                        overflow-x: auto;
+                                        overflow-y: hidden;
+                                        position: relative;
+                                        -webkit-overflow-scrolling: touch;
+                                    }
+
+                                    #manager-chart-inner {
+                                        display: block;
+                                        width: max-content;
+                                        min-width: 100%;
+                                        padding-bottom: 10px;
+                                    }
+
+                                    #manager-performance-bar-chart {
+                                        width: 100% !important;
+                                        min-height: 360px;
+                                    }
+
+                                    @media (max-width: 576px) {
+
+                                        #manager-chart-inner {
+                                            min-width: 750px;
+                                        }
+
+                                        #manager-performance-bar-chart {
+                                            min-height: 320px;
+                                        }
+
+                                        html,
+                                        body {
+                                            overflow-x: hidden;
+                                        }
+                                    }
+
                                     .card-header-action {
                                         gap: 10px;
                                     }
@@ -426,7 +1071,6 @@
                                         outline: none;
                                         font-size: 14px;
                                     }
-
 
                                     @media (max-width: 576px) {
                                         .card-header-action {
@@ -575,6 +1219,8 @@
                                             <th>QUERY STATUS</th>
                                             <th>LIVE PROJECT ACTION</th>
                                             <th>TEAM MANAGER ALLOTTED</th>
+                                            <th>PUSH</th>
+                                            <th>PUSH COMMENT</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -818,11 +1464,11 @@
             certificateStatus: ["Pending", "Issued"],
             internshipCertificateStatus: ["Pending", "Issued"],
             internshipAction: ["Terminated", "On hold", "Resume"],
-            internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"] // new
+            internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"],
+            pushComment: ["Interested", "Not Interested", "Connected", "CNA", "Will do"]
         };
 
         const columnMap = {
-            0: "sno",
             1: "name",
             2: "phoneNumber",
             3: "registeredAt",
@@ -845,7 +1491,9 @@
             20: "subscriptionLeft",
             21: "queryStatus",
             22: "internshipAction",
-            23: "teamManager"
+            23: "teamManager",
+            24: "pushto",
+            25: "pushComment"
         };
 
         let tableData = [];
@@ -853,6 +1501,8 @@
         const rowsPerPage = 100;
         let currentPage = 1;
         let managerList = [];
+        let selectedManagers = [];
+        let selectedDateRange = null;
         let columnFilters = {};
         let activeFilterDropdown = null;
 
@@ -861,71 +1511,1108 @@
             method: "GET",
             success: function (response1) {
                 console.log("offerletter:", response1);
-
             }
         });
 
-        function getMonthName(monthIndex) {
-            return new Date(2020, monthIndex, 1).toLocaleString('en-GB', { month: 'long' });
-        }
-
-        function initMonthYearSelectors() {
-            const monthSelect = $("#monthSelect");
-            const yearSelect = $("#yearSelect");
-
-            monthSelect.empty();
-            for (let m = 0; m < 12; m++) {
-                const monthName = getMonthName(m);
-                monthSelect.append(`<option value="${monthName}">${monthName}</option>`);
-            }
-
-            yearSelect.empty();
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            const startYear = currentYear - 5;
-            const endYear = currentYear + 2;
-            for (let y = startYear; y <= endYear; y++) {
-                yearSelect.append(`<option value="${y}">${y}</option>`);
-            }
-
-            const defaultMonth = getMonthName(now.getMonth());
-            monthSelect.val(defaultMonth);
-            yearSelect.val(String(currentYear));
-
-            monthSelect.off("change").on("change", function () {
-                loadTableData();
-            });
-            yearSelect.off("change").on("change", function () {
-                loadTableData();
-            });
-        }
-
-        function getSelectedMonthYear() {
-            const month = $("#monthSelect").val();
-            const year = $("#yearSelect").val();
-            if (!month || !year) return "";
-            return `${month} ${year}`;
-        }
-
         function getRowBgColor(subscriptionWallet) {
             const val = parseInt(subscriptionWallet, 10) || 0;
-            if (val === 0) return 'background-color: #ff4d4d;'; // red
-            if (val >= 1 && val <= 5) return 'background-color: #ffa500;'; // orange
-            if (val >= 6 && val <= 12) return 'background-color: #ffff80;'; // yellow
-            if (val >= 13 && val <= 18) return 'background-color: #b3ffb3;'; // light green
-            if (val >= 19 && val <= 25) return 'background-color: #5cdb5c;'; // green
-            if (val > 25) return 'background-color: #4da6ff;'; // blue
+            if (val === 0) return 'background-color: #ff4d4d;';
+            if (val >= 1 && val <= 5) return 'background-color: #ffa500;';
+            if (val >= 6 && val <= 12) return 'background-color: #ffff80;';
+            if (val >= 13 && val <= 18) return 'background-color: #b3ffb3;';
+            if (val >= 19 && val <= 25) return 'background-color: #5cdb5c;';
+            if (val > 25) return 'background-color: #4da6ff;';
             return '';
         }
 
-        function loadTableData() {
+        function getColorCategory(subscriptionWallet) {
+            const val = parseInt(subscriptionWallet, 10) || 0;
+            if (val === 0) return 'red';
+            if (val >= 1 && val <= 5) return 'orange';
+            if (val >= 6 && val <= 12) return 'yellow';
+            if (val >= 13 && val <= 18) return 'lightGreen';
+            if (val >= 19 && val <= 25) return 'green';
+            if (val > 25) return 'blue';
+            return '';
+        }
 
-            const baseUrl = `https://eduroom.in/api/v1/status/listall`;
-            const monthYear = getSelectedMonthYear();
-            let url = baseUrl;
-            if (monthYear) {
-                url = `${baseUrl}?monthYear=${encodeURIComponent(monthYear)}`;
+        function getAAPIColorCategory(aapiValue) {
+            const val = parseFloat(aapiValue) || 0;
+            if (val >= 0 && val <= 2.99) return '#ff4d4d';
+            if (val >= 3 && val <= 4.99) return '#ffa500';
+            if (val >= 5 && val <= 6.99) return '#ffff80';
+            if (val >= 7 && val <= 9.99) return '#b3ffb3';
+            if (val >= 10 && val <= 11.99) return '#5cdb5c';
+            if (val >= 12) return '#4da6ff';
+            return '';
+        }
+
+        function getAAPDColorCategory(aapdValue) {
+            const val = parseFloat(aapdValue) || 0;
+            if (val >= 0 && val <= 70) return '#ff4d4d';
+            if (val >= 71 && val <= 150) return '#ffa500';
+            if (val >= 151 && val <= 200) return '#ffff80';
+            if (val >= 201 && val <= 250) return '#b3ffb3';
+            if (val >= 251 && val <= 300) return '#5cdb5c';
+            if (val >= 301) return '#4da6ff';
+            return '';
+        }
+
+        function getTIACColorCategory(tiacValue) {
+            const val = parseFloat(tiacValue) || 0;
+            if (val >= 0 && val <= 30) return '#ff4d4d';
+            if (val >= 30 && val <= 45) return '#ffa500';
+            if (val >= 46 && val <= 60) return '#ffff80';
+            if (val >= 61 && val <= 75) return '#b3ffb3';
+            if (val >= 76 && val <= 90) return '#5cdb5c';
+            if (val >= 91) return '#4da6ff';
+            return '';
+        }
+
+        let managerPerformanceChart = null;
+
+        function calculateManagerPerformanceData() {
+            const managerPerformance = {};
+
+            tableData.forEach(row => {
+                const manager = row.teamManager || "Unassigned";
+                const accounts = parseInt(row.subscriptionWallet) || 0;
+
+                if (!managerPerformance[manager]) {
+                    managerPerformance[manager] = {
+                        name: manager,
+                        accounts: 0,
+                        internCount: 0
+                    };
+                }
+
+                managerPerformance[manager].accounts += accounts;
+                managerPerformance[manager].internCount += 1;
+            });
+
+            const performanceArray = Object.values(managerPerformance);
+
+            performanceArray.sort((a, b) => b.accounts - a.accounts);
+
+            let rank = 1;
+            performanceArray.forEach((manager, index) => {
+                if (manager.name === "Unassigned") {
+                    manager.rank = null;
+                    manager.status = "Unassigned";
+                    manager.color = "#cccccc";
+                } else {
+                    manager.rank = rank;
+                    manager.status = getManagerStatus(rank);
+                    manager.color = getManagerStatusColor(rank);
+                    rank++;
+                }
+            });
+
+            return performanceArray.filter(manager => manager.name !== "Unassigned");
+        }
+
+        function getManagerStatus(rank) {
+            if (rank === 1) return "CHAMPION";
+            if (rank === 2) return "STAR";
+            if (rank === 3) return "PERFORMER";
+            if (rank >= 4 && rank <= 8) return "DOING WELL";
+            if (rank >= 9 && rank <= 12) return "ON TRACK";
+            if (rank >= 13 && rank <= 16) return "POOR PERFORMER";
+            if (rank >= 17 && rank <= 20) return "VERY POOR PERFORMER";
+            return "WORST PERFORMER";
+        }
+
+        function getManagerStatusColor(rank) {
+            if (rank === 1) return "#4da6ff";
+            if (rank === 2 || rank === 3) return "#5cdb5c";
+            if (rank >= 4 && rank <= 8) return "#b3ffb3";
+            if (rank >= 9 && rank <= 12) return "#ffff80";
+            if (rank >= 13 && rank <= 16) return "#ffa500";
+            if (rank >= 17 && rank <= 20) return "#ff9999";
+            return "#ff4d4d";
+        }
+
+        function updateManagerPerformanceChart() {
+            const performanceData = calculateManagerPerformanceData();
+
+            const categories = performanceData.map(manager =>
+                `${manager.name}`
+            );
+
+            const accountsData = performanceData.map(manager => manager.accounts);
+            const colors = performanceData.map(manager => manager.color);
+
+            const minWidth = Math.max(600, performanceData.length * 100);
+            const chartInner = document.querySelector('#manager-chart-inner');
+            if (chartInner) {
+                chartInner.style.minWidth = `${minWidth}px`;
             }
+
+            if (managerPerformanceChart) {
+                managerPerformanceChart.destroy();
+                managerPerformanceChart = null;
+            }
+
+            const chartOptions = {
+                series: [{
+                    name: "",
+                    data: accountsData
+                }],
+                chart: {
+                    type: "bar",
+                    height: 300,
+                    toolbar: { show: false },
+                    background: 'transparent'
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        endingShape: "rounded",
+                        columnWidth: "60%",
+                        dataLabels: {
+                            position: "top"
+                        },
+                        distributed: true
+                    }
+                },
+                colors: performanceData.map(manager => manager.color),
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val, { seriesIndex, dataPointIndex, w }) {
+                        const manager = performanceData[dataPointIndex];
+                        return `${val}\n(${manager.rank})`;
+                    },
+                    offsetY: -20,
+                    style: {
+                        fontSize: '12px',
+                        colors: ["#494444"],
+                        fontWeight: 'bold'
+                    }
+                },
+                grid: {
+                    show: false,
+                    padding: {
+                        bottom: -10
+                    }
+                },
+                legend: {
+                    show: false
+                },
+                xaxis: {
+                    categories: categories,
+                    labels: {
+                        rotate: -45,
+                        style: {
+                            colors: "#494444",
+                            fontFamily: "Roboto",
+                            fontSize: "11px",
+                            fontWeight: '500'
+                        }
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#494444'
+                    },
+                    axisTicks: {
+                        show: true,
+                        color: '#494444'
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        show: true,
+                        style: {
+                            colors: "#494444"
+                        }
+                    },
+                    title: {
+                        text: "Accounts",
+                        style: {
+                            color: "#494444"
+                        }
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#494444'
+                    }
+                },
+                tooltip: {
+                    theme: "dark",
+                    style: {
+                        fontFamily: 'Roboto, sans-serif'
+                    },
+                    y: {
+                        formatter: function (val, { seriesIndex, dataPointIndex, w }) {
+                            const manager = performanceData[dataPointIndex];
+                            return `
+                            <div style="padding: 5px;">
+                                <strong>${manager.name}</strong><br/>
+                                <span style="color: ${manager.color}">Rank ${manager.rank} (${manager.status})</span><br/>
+                                Accounts: ${val}<br/>
+                                Interns: ${manager.internCount}<br/>
+                                Avg/Intern: ${(manager.accounts / manager.internCount).toFixed(2)}
+                            </div>
+                        `;
+                        }
+                    }
+                }
+            };
+
+            managerPerformanceChart = new ApexCharts(
+                document.querySelector("#manager-performance-bar-chart"),
+                chartOptions
+            );
+
+            managerPerformanceChart.render();
+
+            updateManagerLegend(performanceData);
+
+            setTimeout(setupManagerChartScroll, 500);
+        }
+
+        function updateManagerLegend(performanceData) {
+            if (performanceData.length === 0) return;
+
+            const legendContainer = document.querySelector('#manager-chart-legend');
+
+            let legendHTML = `
+                <div class="row g-3 mb-4">
+            `;
+
+            const managersToShow = [];
+
+            const champion = performanceData.find(manager => manager.rank === 1);
+            if (champion) managersToShow.push({ ...champion, sizeClass: "col-xxl-4 col-lg-4", heightClass: "legend-card-large", textClass: "legend-text-large" });
+
+            const star = performanceData.find(manager => manager.rank === 2);
+            if (star) managersToShow.push({ ...star, sizeClass: "col-xxl-3 col-lg-3", heightClass: "legend-card-medium", textClass: "legend-text-medium" });
+
+            const performer = performanceData.find(manager => manager.rank === 3);
+            if (performer) managersToShow.push({ ...performer, sizeClass: "col-xxl-3 col-lg-3", heightClass: "legend-card-small", textClass: "legend-text-small" });
+
+            if (performanceData.length > 0) {
+                const worstPerformer = performanceData[performanceData.length - 1];
+                if (worstPerformer.rank > 3) {
+                    managersToShow.push({ ...worstPerformer, sizeClass: "col-xxl-2 col-lg-2", heightClass: "legend-card-xsmall", textClass: "legend-text-xsmall" });
+                }
+            }
+
+            managersToShow.forEach(manager => {
+                const textColor = getContrastColor(manager.color);
+                legendHTML += `
+                    <div class="${manager.sizeClass}">
+                        <div class="card stretch stretch-full ${manager.heightClass}" style="background-color: ${manager.color}; border: none;">
+                            <div class="card-body p-3">
+                                <div class="fw-bold mb-1 text-center ${manager.textClass}"
+                                    style="color: ${textColor}; padding-bottom: 8px; font-size: ${manager.rank === 1 ? '18px' : '16px'}">
+                                    ${manager.status}</div>
+                                <div class="fw-bold mb-1 text-center ${manager.textClass}"
+                                    style="color: ${textColor}; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                    ${manager.name}</div>
+                                <div class="row">
+                                    <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Interns</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.internCount}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Accounts</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.accounts}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-6" style="border-right: 1px solid rgba(0,0,0,0.15);">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Rank</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${manager.rank}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <div class="${manager.textClass} fw-medium mb-1" style="color: ${textColor};">Avg/Intern</div>
+                                            <div class="h4 mb-1 ${manager.textClass}" style="color: ${textColor};">${(manager.accounts / manager.internCount).toFixed(2)}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            legendHTML += `</div>`;
+
+            if (legendContainer) {
+                legendContainer.innerHTML = legendHTML;
+                legendContainer.style.display = 'block';
+            } else {
+                const chartContainer = document.querySelector('#manager-performance-bar-chart').parentNode;
+                const legendDiv = document.createElement('div');
+                legendDiv.id = 'manager-chart-legend';
+                legendDiv.className = 'manager-chart-legend';
+                legendDiv.innerHTML = legendHTML;
+                chartContainer.parentNode.insertBefore(legendDiv, chartContainer);
+            }
+        }
+
+        function getContrastColor(hexColor) {
+            const r = parseInt(hexColor.substr(1, 2), 16);
+            const g = parseInt(hexColor.substr(3, 2), 16);
+            const b = parseInt(hexColor.substr(5, 2), 16);
+
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+            return brightness > 128 ? '#000000' : '#ffffff';
+        }
+
+        function setupManagerChartScroll() {
+            const scrollWrapper = document.getElementById('manager-chart-scroll-wrapper');
+            const scrollLeftBtn = document.getElementById('manager-scroll-left-btn');
+            const scrollRightBtn = document.getElementById('manager-scroll-right-btn');
+
+            if (!scrollWrapper || !scrollLeftBtn || !scrollRightBtn) return;
+
+            const scrollAmount = 200;
+
+            function updateScrollButtons() {
+                const scrollLeft = scrollWrapper.scrollLeft;
+                const scrollWidth = scrollWrapper.scrollWidth;
+                const clientWidth = scrollWrapper.clientWidth;
+
+                if (scrollLeft <= 10) {
+                    scrollLeftBtn.style.opacity = '0.5';
+                    scrollLeftBtn.disabled = true;
+                } else {
+                    scrollLeftBtn.style.opacity = '1';
+                    scrollLeftBtn.disabled = false;
+                }
+
+                if (scrollLeft + clientWidth >= scrollWidth - 10) {
+                    scrollRightBtn.style.opacity = '0.5';
+                    scrollRightBtn.disabled = true;
+                } else {
+                    scrollRightBtn.style.opacity = '1';
+                    scrollRightBtn.disabled = false;
+                }
+            }
+            scrollLeftBtn.addEventListener('click', function () {
+                scrollWrapper.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+
+            scrollRightBtn.addEventListener('click', function () {
+                scrollWrapper.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+
+            updateScrollButtons();
+
+            scrollWrapper.addEventListener('scroll', updateScrollButtons);
+            window.addEventListener('resize', updateScrollButtons);
+        }
+
+        function getNumberOfDays() {
+            if (selectedDateRange && selectedDateRange.startDate && selectedDateRange.endDate) {
+                const start = selectedDateRange.startDate;
+                const end = selectedDateRange.endDate;
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                return diffDays;
+            } else {
+                const today = new Date();
+                const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                const diffTime = Math.abs(today - firstDayOfMonth);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            }
+        }
+
+        function calculateManagerMetrics(managerNames) {
+            if (!managerNames || managerNames.length === 0) {
+                calculateAllMetrics();
+                return;
+            }
+
+            const managerData = tableData.filter(row => managerNames.includes(row.teamManager));
+            const totalStudents = managerData.length;
+
+            let totalSubscriptionWallet = 0;
+            let totalBusinessTarget = 0;
+            let activeInternsCount = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
+            };
+
+            managerData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const businessTarget = parseInt(row.businessStatus) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
+
+                totalSubscriptionWallet += subscriptionWallet;
+                totalBusinessTarget += businessTarget;
+
+                if (isActive) {
+                    activeInternsCount++;
+                }
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
+                }
+            });
+
+            $("#totalInterns").text(totalStudents);
+
+            const internsPercent = totalStudents > 0 ? "100%" : "0%";
+            $("#internsPercent").text(internsPercent);
+
+            $("#totalAccounts").text(totalSubscriptionWallet);
+            $("#targetAccounts").text(totalBusinessTarget);
+
+            const numberOfDays = getNumberOfDays();
+            const averageAccountsPerDay = numberOfDays > 0 ?
+                (totalSubscriptionWallet / numberOfDays).toFixed(2) : 0;
+            $("#averageAccountsPerDay").text(averageAccountsPerDay);
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            const aapdColor = getAAPDColorCategory(averageAccountsPerDay);
+            if (aapdColor) {
+                aapdCard.css("background-color", aapdColor);
+            } else {
+                aapdCard.css("background-color", "");
+            }
+
+            $("#totalActiveInterns").text(activeInternsCount + "/" + totalStudents);
+            const activeInternsPercent = totalStudents > 0 ?
+                ((activeInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#activeInternsPercent").text(activeInternsPercent);
+
+            const tiacCard = $("#totalActiveInterns").closest(".card");
+            const tiacColor = getTIACColorCategory(activeInternsPercent);
+            if (tiacColor) {
+                tiacCard.css("background-color", tiacColor);
+            } else {
+                tiacCard.css("background-color", "");
+            }
+
+            const averageAccountsPerIntern = totalStudents > 0 ?
+                (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
+            $("#averageAccountsPerIntern").text(averageAccountsPerIntern);
+
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            const aapiColor = getAAPIColorCategory(averageAccountsPerIntern);
+            if (aapiColor) {
+                aapiCard.css("background-color", aapiColor);
+            } else {
+                aapiCard.css("background-color", "");
+            }
+
+            const nonWorkingInternsCount = colorCounts.red.count;
+            const nonWorkingInternsActiveCount = colorCounts.red.activeCount;
+            const nonWorkingPercentage = totalStudents > 0 ?
+                ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#nonWorkingInternsCount").text(nonWorkingInternsCount);
+            $("#nonWorkingPercentage").text(nonWorkingPercentage);
+
+            const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingInternsActiveCount = colorCounts.orange.activeCount + colorCounts.yellow.activeCount;
+            const workingAccountsCount = colorCounts.orange.total + colorCounts.yellow.total;
+            const workingPercentage = totalStudents > 0 ?
+                ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#workingAccountsCount").text(workingAccountsCount);
+            $("#workingInternsCount").text(workingInternsCount);
+            $("#workingPercentage").text(workingPercentage);
+
+            const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedInternsActiveCount = colorCounts.lightGreen.activeCount + colorCounts.green.activeCount + colorCounts.blue.activeCount;
+            const completedAccountsCount = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
+            const completedPercentage = totalStudents > 0 ?
+                ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#completedAccountsCount").text(completedAccountsCount);
+            $("#completedInternsCount").text(completedInternsCount);
+            $("#completedPercentage").text(completedPercentage);
+
+            const accountsPercent = totalBusinessTarget > 0 ?
+                ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
+            $("#accountsPercent").text(accountsPercent);
+
+            Object.keys(colorCounts).forEach(color => {
+                const colorData = colorCounts[color];
+                const countElement = $(`#${color}Count`);
+                const totalElement = $(`#total${color.charAt(0).toUpperCase() + color.slice(1)}Count`);
+                const percentElement = $(`#${color}CountPercent`);
+                const accountsPercentElement = $(`#${color}AccountsPercent`);
+
+                if (countElement.length) {
+                    countElement.text(colorData.count);
+                }
+                if (totalElement.length) {
+                    totalElement.text(colorData.total);
+                }
+                if (percentElement.length) {
+                    const percent = totalStudents > 0 ?
+                        ((colorData.count / totalStudents) * 100).toFixed(2) + "%" : "0%";
+                    percentElement.text(percent);
+                }
+                if (accountsPercentElement.length) {
+                    const accountsPercent = totalSubscriptionWallet > 0 ?
+                        ((colorData.total / totalSubscriptionWallet) * 100).toFixed(2) + "%" : "0%";
+                    accountsPercentElement.text(accountsPercent);
+                }
+            });
+            calculateManagerForecasting(managerNames);
+        }
+
+        function calculateAllMetrics() {
+            const totalStudents = tableData.length;
+            let totalSubscriptionWallet = 0;
+            let totalBusinessTarget = 0;
+            let activeInternsCount = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
+            };
+
+            tableData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const businessTarget = parseInt(row.businessStatus) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
+
+                totalSubscriptionWallet += subscriptionWallet;
+                totalBusinessTarget += businessTarget;
+
+                if (isActive) {
+                    activeInternsCount++;
+                }
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
+                }
+            });
+
+            $("#totalInterns").text(totalStudents);
+
+            const internsPercent = totalStudents > 0 ? "100%" : "0%";
+            $("#internsPercent").text(internsPercent);
+
+            $("#totalAccounts").text(totalSubscriptionWallet);
+            $("#targetAccounts").text(totalBusinessTarget);
+
+            const numberOfDays = getNumberOfDays();
+            const averageAccountsPerDay = numberOfDays > 0 ?
+                (totalSubscriptionWallet / numberOfDays).toFixed(2) : 0;
+            $("#averageAccountsPerDay").text(averageAccountsPerDay);
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            const aapdColor = getAAPDColorCategory(averageAccountsPerDay);
+            if (aapdColor) {
+                aapdCard.css("background-color", aapdColor);
+            } else {
+                aapdCard.css("background-color", "");
+            }
+
+            $("#totalActiveInterns").text(activeInternsCount + "/" + totalStudents);
+            const activeInternsPercent = totalStudents > 0 ?
+                ((activeInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#activeInternsPercent").text(activeInternsPercent);
+
+            const tiacCard = $("#totalActiveInterns").closest(".card");
+            const tiacColor = getTIACColorCategory(activeInternsPercent);
+            if (tiacColor) {
+                tiacCard.css("background-color", tiacColor);
+            } else {
+                tiacCard.css("background-color", "");
+            }
+
+            const averageAccountsPerIntern = totalStudents > 0 ?
+                (totalSubscriptionWallet / totalStudents).toFixed(2) : 0;
+            $("#averageAccountsPerIntern").text(averageAccountsPerIntern);
+
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            const aapiColor = getAAPIColorCategory(averageAccountsPerIntern);
+            if (aapiColor) {
+                aapiCard.css("background-color", aapiColor);
+            } else {
+                aapiCard.css("background-color", "");
+            }
+
+            const nonWorkingInternsCount = colorCounts.red.count;
+            const nonWorkingPercentage = totalStudents > 0 ?
+                ((nonWorkingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#nonWorkingInternsCount").text(nonWorkingInternsCount);
+            $("#nonWorkingPercentage").text(nonWorkingPercentage);
+
+            const workingInternsCount = colorCounts.orange.count + colorCounts.yellow.count;
+            const workingAccountsCount = colorCounts.orange.total + colorCounts.yellow.total;
+            const workingPercentage = totalStudents > 0 ?
+                ((workingInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#workingAccountsCount").text(workingAccountsCount);
+            $("#workingInternsCount").text(workingInternsCount);
+            $("#workingPercentage").text(workingPercentage);
+
+            const completedInternsCount = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const completedAccountsCount = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
+            const completedPercentage = totalStudents > 0 ?
+                ((completedInternsCount / totalStudents) * 100).toFixed(2) + "%" : "0%";
+            $("#completedAccountsCount").text(completedAccountsCount);
+            $("#completedInternsCount").text(completedInternsCount);
+            $("#completedPercentage").text(completedPercentage);
+
+            const accountsPercent = totalBusinessTarget > 0 ?
+                ((totalSubscriptionWallet / totalBusinessTarget) * 100).toFixed(2) + "%" : "0%";
+            $("#accountsPercent").text(accountsPercent);
+
+            Object.keys(colorCounts).forEach(color => {
+                const colorData = colorCounts[color];
+                const countElement = $(`#${color}Count`);
+                const totalElement = $(`#total${color.charAt(0).toUpperCase() + color.slice(1)}Count`);
+                const percentElement = $(`#${color}CountPercent`);
+                const accountsPercentElement = $(`#${color}AccountsPercent`);
+                if (countElement.length) {
+                    countElement.text(colorData.count);
+                }
+                if (totalElement.length) {
+                    totalElement.text(colorData.total);
+                }
+                if (percentElement.length) {
+                    const percent = totalStudents > 0 ?
+                        ((colorData.count / totalStudents) * 100).toFixed(2) + "%" : "0%";
+                    percentElement.text(percent);
+                }
+                if (accountsPercentElement.length) {
+                    const accountsPercent = totalSubscriptionWallet > 0 ?
+                        ((colorData.total / totalSubscriptionWallet) * 100).toFixed(2) + "%" : "0%";
+                    accountsPercentElement.text(accountsPercent);
+                }
+            });
+            calculateAllForecasting();
+        }
+
+        function calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet) {
+            const nwzInterns = colorCounts.red.count;
+            const nwzInternsActive = colorCounts.red.activeCount;
+            const nwzAccounts = colorCounts.red.total;
+            const nwzAvg = nwzInterns > 0 ? (nwzAccounts / nwzInterns).toFixed(2) : 0;
+            const nwzAvgActive = nwzInternsActive > 0 ? (nwzAccounts / nwzInternsActive).toFixed(2) : 0;
+
+            const wzInterns = colorCounts.orange.count + colorCounts.yellow.count;
+            const wzInternsActive = colorCounts.orange.activeCount + colorCounts.yellow.activeCount;
+            const wzAccounts = colorCounts.orange.total + colorCounts.yellow.total;
+            const wzAvg = wzInterns > 0 ? (wzAccounts / wzInterns).toFixed(2) : 0;
+            const wzAvgActive = wzInternsActive > 0 ? (wzAccounts / wzInternsActive).toFixed(2) : 0;
+
+            const czInterns = colorCounts.lightGreen.count + colorCounts.green.count + colorCounts.blue.count;
+            const czInternsActive = colorCounts.lightGreen.activeCount + colorCounts.green.activeCount + colorCounts.blue.activeCount;
+            const czAccounts = colorCounts.lightGreen.total + colorCounts.green.total + colorCounts.blue.total;
+            const czAvg = czInterns > 0 ? (czAccounts / czInterns).toFixed(2) : 0;
+            const czAvgActive = czInternsActive > 0 ? (czAccounts / czInternsActive).toFixed(2) : 0;
+
+            const totalActiveInterns = nwzInternsActive + wzInternsActive + czInternsActive;
+
+            $("#nwzInterns").text(`${nwzInterns}`);
+            $("#nwzActiveInterns").text(`${nwzInternsActive}`);
+            $("#nwzAccounts").text(nwzAccounts);
+            $("#nwzAvg").text(`${nwzAvg}`);
+
+            $("#wzInterns").text(`${wzInterns}`);
+            $("#wzActiveInterns").text(`${wzInternsActive}`);
+            $("#wzAccounts").text(wzAccounts);
+            $("#wzAvg").text(`${wzAvg}`);
+
+            $("#czInterns").text(`${czInterns}`);
+            $("#czActiveInterns").text(`${czInternsActive}`);
+            $("#czAccounts").text(czAccounts);
+            $("#czAvg").text(`${czAvg}`);
+
+            $("#totalInternsForecast").text(`${totalStudents}`);
+            $("#totalActiveInternsForecast").text(`${totalActiveInterns}`);
+            $("#totalAccountsForecast").text(totalSubscriptionWallet);
+
+            const efficiencies = {
+                nwz: { best: 0.65, avg: 0.55, worst: 0.50 },
+                wz: { best: 0.85, avg: 0.75, worst: 0.70 },
+                cz: { best: 0.65, avg: 0.55, worst: 0.50 }
+            };
+
+            const targets = {
+                nwz: 12,
+                wz: 15,
+                cz: 25
+            };
+
+            const nwzResultBest = ((targets.nwz - nwzAvg) * (nwzInternsActive * efficiencies.nwz.best)).toFixed(0);
+            const nwzResultAvg = ((targets.nwz - nwzAvg) * (nwzInternsActive * efficiencies.nwz.avg)).toFixed(0);
+            const nwzResultWorst = ((targets.nwz - nwzAvg) * (nwzInternsActive * efficiencies.nwz.worst)).toFixed(0);
+
+            $("#nwzResultBest").text(nwzResultBest);
+            $("#nwzResultAvg").text(nwzResultAvg);
+            $("#nwzResultWorst").text(nwzResultWorst);
+
+            const wzResultBest = ((targets.wz - wzAvg) * (wzInternsActive * efficiencies.wz.best)).toFixed(0);
+            const wzResultAvg = ((targets.wz - wzAvg) * (wzInternsActive * efficiencies.wz.avg)).toFixed(0);
+            const wzResultWorst = ((targets.wz - wzAvg) * (wzInternsActive * efficiencies.wz.worst)).toFixed(0);
+
+            $("#wzResultBest").text(wzResultBest);
+            $("#wzResultAvg").text(wzResultAvg);
+            $("#wzResultWorst").text(wzResultWorst);
+
+            const czResultBest = ((targets.cz - czAvg) * (czInternsActive * efficiencies.cz.best)).toFixed(0);
+            const czResultAvg = ((targets.cz - czAvg) * (czInternsActive * efficiencies.cz.avg)).toFixed(0);
+            const czResultWorst = ((targets.cz - czAvg) * (czInternsActive * efficiencies.cz.worst)).toFixed(0);
+
+            $("#czResultBest").text(czResultBest);
+            $("#czResultAvg").text(czResultAvg);
+            $("#czResultWorst").text(czResultWorst);
+
+            const totalResultBest = parseInt(nwzResultBest) + parseInt(wzResultBest) + parseInt(czResultBest);
+            const totalResultAvg = parseInt(nwzResultAvg) + parseInt(wzResultAvg) + parseInt(czResultAvg);
+            const totalResultWorst = parseInt(nwzResultWorst) + parseInt(wzResultWorst) + parseInt(czResultWorst);
+
+            $("#totalResultBest").text(totalResultBest);
+            $("#totalResultAvg").text(totalResultAvg);
+            $("#totalResultWorst").text(totalResultWorst);
+
+            const totalForecastBest = (totalResultBest + totalSubscriptionWallet) || 0;
+            const totalForecastAvg = (totalResultAvg + totalSubscriptionWallet) || 0;
+            const totalForecastWorst = (totalResultWorst + totalSubscriptionWallet) || 0;
+
+            const totalForecastBestAverage = totalActiveInterns > 0 ? (totalForecastBest / totalStudents).toFixed(2) : 0;
+            const totalForecastAvgAverage = totalActiveInterns > 0 ? (totalForecastAvg / totalStudents).toFixed(2) : 0;
+            const totalForecastWorstAverage = totalActiveInterns > 0 ? (totalForecastWorst / totalStudents).toFixed(2) : 0;
+
+            $("#totalForecastBest").text(totalForecastBest);
+            $("#totalForecastBest2").text(totalForecastBest);
+            $("#totalForecastAvg").text(totalForecastAvg);
+            $("#totalForecastWorst").text(totalForecastWorst);
+            $("#totalForecastWorst2").text(totalForecastWorst);
+            $("#totalForecastBestAverage").text(totalForecastBestAverage);
+            $("#totalForecastAvgAverage").text(totalForecastAvgAverage);
+            $("#totalForecastWorstAverage").text(totalForecastWorstAverage);
+        }
+
+        function calculateManagerForecasting(managerNames) {
+            if (!managerNames || managerNames.length === 0) {
+                calculateAllForecasting();
+                return;
+            }
+
+            const managerData = tableData.filter(row => managerNames.includes(row.teamManager));
+            const totalStudents = managerData.length;
+
+            let totalSubscriptionWallet = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
+            };
+
+            managerData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
+
+                totalSubscriptionWallet += subscriptionWallet;
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
+                }
+            });
+
+            calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet);
+        }
+
+        function calculateAllForecasting() {
+            const totalStudents = tableData.length;
+            let totalSubscriptionWallet = 0;
+
+            const colorCounts = {
+                red: { count: 0, total: 0, activeCount: 0 },
+                orange: { count: 0, total: 0, activeCount: 0 },
+                yellow: { count: 0, total: 0, activeCount: 0 },
+                lightGreen: { count: 0, total: 0, activeCount: 0 },
+                green: { count: 0, total: 0, activeCount: 0 },
+                blue: { count: 0, total: 0, activeCount: 0 }
+            };
+
+            tableData.forEach(row => {
+                const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
+                const internshipStatus = row.internshipAction || "";
+                const isActive = internshipStatus.toLowerCase() === "resume";
+
+                totalSubscriptionWallet += subscriptionWallet;
+
+                const color = getColorCategory(subscriptionWallet);
+                if (colorCounts[color]) {
+                    colorCounts[color].count++;
+                    colorCounts[color].total += subscriptionWallet;
+                    if (isActive) {
+                        colorCounts[color].activeCount++;
+                    }
+                }
+            });
+
+            calculateForecastingMetrics(colorCounts, totalStudents, totalSubscriptionWallet);
+        }
+
+        function resetForecastingMetrics() {
+            $("#nwzInterns, #nwzAccounts, #nwzAvg").text("0");
+            $("#wzInterns, #wzAccounts, #wzAvg").text("0");
+            $("#czInterns, #czAccounts, #czAvg").text("0");
+            $("#totalInternsForecast, #totalAccountsForecast").text("0");
+
+            $("[id$='ResultBest'], [id$='ResultAvg'], [id$='ResultWorst']").text("0");
+            $("#totalResultBest, #totalResultAvg, #totalResultWorst").text("0");
+            $("#totalForecastBest, #totalForecastAvg, #totalForecastWorst").text("0");
+        }
+
+        function resetMetrics() {
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            aapiCard.css("background-color", "");
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            aapdCard.css("background-color", "");
+
+            $("#averageAccountsPerIntern").text("0");
+            $("#averageAccountsPerDay").text("0");
+            $("#totalActiveInterns").text("0/0");
+            $("#activeInternsPercent").text("0%");
+            $("#nonWorkingInternsCount").text("0");
+            $("#nonWorkingPercentage").text("0%");
+            $("#workingInternsCount").text("0");
+            $("#workingPercentage").text("0%");
+            $("#completedInternsCount").text("0");
+            $("#completedPercentage").text("0%");
+            $("#workingAccountsCount").text("0");
+            $("#completedAccountsCount").text("0");
+            $("#totalForecastBestAverage").text("0");
+            $("#totalForecastAvgAverage").text("0");
+            $("#totalForecastWorstAverage").text("0");
+
+            resetForecastingMetrics();
+            calculateAllMetrics();
+        }
+
+        function createManagerMultiSelect(managers) {
+            // Check if dropdown already exists
+            if ($("#managerSelectContainer").length > 0) {
+                // Just update the checkboxes, don't recreate the entire dropdown
+                updateManagerCheckboxes(managers);
+                return;
+            }
+
+            const containerHtml = `
+                <div id="managerSelectContainer" style="width: 30%; min-width: 200px; margin-left: 2%;">
+                    <div class="input-group">
+                        <button class="btn btn-outline-secondary" type="button" id="managerDropdownToggle" style="border-color: #ced4da; min-width: 250px;">
+                            Select Managers <i class="fas fa-caret-down ms-1"></i>
+                        </button>
+                        
+                    </div>
+                    <div class="dropdown-menu p-3" id="managerDropdown" style="display: none; width: 300px; max-height: 300px; overflow-y: auto; z-index: 1000;">
+                        <div id="managerCheckboxes" style="max-height: 180px; overflow-y: auto;">
+                            ${managers.map(manager => `
+                                <div class="form-check">
+                                    <input class="form-check-input manager-checkbox" type="checkbox" value="${manager.name}" id="manager_${manager.name.replace(/\s+/g, '_')}">
+                                    <label class="form-check-label" for="manager_${manager.name.replace(/\s+/g, '_')}" style="cursor: pointer;">
+                                        ${manager.name}
+                                    </label>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-sm btn-outline-primary" id="selectAllManagers">Select All</button>
+                            <button class="btn btn-sm btn-outline-secondary" id="deselectAllManagers">Deselect All</button>
+                            <button class="btn btn-sm btn-success" id="applyManagerFilter">Apply</button>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                #managerCheckboxes .form-check {
+                    align-items: flex-start;
+                }
+
+                #managerCheckboxes .form-check-label {
+                    white-space: normal;
+                    word-break: break-word;
+                    overflow-wrap: anywhere;
+                    line-height: 1.3;
+                    max-width: calc(100% - 22px);
+                    display: inline-block;
+                }
+            </style>
+            `;
+
+            $("#managerSelectWrapper").html(containerHtml);
+
+            initManagerMultiSelect();
+        }
+
+        function updateManagerCheckboxes(managers) {
+            const managerCheckboxes = $("#managerCheckboxes");
+            if (managerCheckboxes.length === 0) return;
+
+            const selectedManagersCopy = [...selectedManagers];
+
+            managerCheckboxes.empty();
+
+            managers.forEach(manager => {
+                const isChecked = selectedManagersCopy.includes(manager.name);
+                managerCheckboxes.append(`
+                    <div class="form-check">
+                        <input class="form-check-input manager-checkbox" type="checkbox" 
+                            value="${manager.name}" id="manager_${manager.name.replace(/\s+/g, '_')}"
+                            ${isChecked ? 'checked' : ''}>
+                        <label class="form-check-label" for="manager_${manager.name.replace(/\s+/g, '_')}" style="cursor: pointer;">
+                            ${manager.name}
+                        </label>
+                    </div>
+                `);
+            });
+
+            selectedManagers = selectedManagersCopy.filter(manager =>
+                managers.some(m => m.name === manager)
+            );
+            if (selectedManagers.length > 0) {
+                const displayText = selectedManagers.length === 1
+                    ? selectedManagers[0]
+                    : `${selectedManagers.length} managers selected`;
+                $("#managerDisplay").val(displayText).attr("placeholder", displayText);
+            } else {
+                $("#managerDisplay").val("").attr("placeholder", "All Managers");
+            }
+        }
+
+        function initManagerMultiSelect() {
+            const dropdownToggle = $("#managerDropdownToggle");
+            const dropdown = $("#managerDropdown");
+            const managerDisplay = $("#managerDisplay");
+            const clearBtn = $("#clearManagersBtn");
+            const managerSearch = $("#managerSearch");
+            const managerCheckboxes = $("#managerCheckboxes");
+            const selectAllBtn = $("#selectAllManagers");
+            const deselectAllBtn = $("#deselectAllManagers");
+            const applyBtn = $("#applyManagerFilter");
+
+            dropdownToggle.on("click", function (e) {
+                e.stopPropagation();
+                dropdown.toggle();
+                if (dropdown.is(":visible")) {
+                    managerSearch.focus();
+                }
+            });
+
+            clearBtn.on("click", function () {
+                selectedManagers = [];
+                $(".manager-checkbox").prop("checked", false);
+                managerDisplay.val("");
+                managerDisplay.attr("placeholder", "All Managers");
+                calculateAllMetrics();
+                applyFilters();
+            });
+
+            managerSearch.on("input", function () {
+                const searchTerm = $(this).val().toLowerCase();
+                managerCheckboxes.find(".form-check").each(function () {
+                    const label = $(this).find("label").text().toLowerCase();
+                    $(this).toggle(label.includes(searchTerm));
+                });
+            });
+
+            selectAllBtn.on("click", function () {
+                managerCheckboxes.find(".manager-checkbox").prop("checked", true);
+            });
+
+            deselectAllBtn.on("click", function () {
+                managerCheckboxes.find(".manager-checkbox").prop("checked", false);
+            });
+
+            applyBtn.on("click", function () {
+                selectedManagers = [];
+                managerCheckboxes.find(".manager-checkbox:checked").each(function () {
+                    selectedManagers.push($(this).val());
+                });
+
+                if (selectedManagers.length > 0) {
+                    const displayText = selectedManagers.length === 1
+                        ? selectedManagers[0]
+                        : `${selectedManagers.length} managers selected`;
+                    managerDisplay.val(displayText);
+                    managerDisplay.attr("placeholder", displayText);
+                } else {
+                    managerDisplay.val("");
+                    managerDisplay.attr("placeholder", "All Managers");
+                }
+
+                calculateManagerMetrics(selectedManagers);
+                applyFilters();
+                dropdown.hide();
+            });
+
+            $(document).on("click", function (e) {
+                if (!$(e.target).closest("#managerSelectContainer").length) {
+                    dropdown.hide();
+                }
+            });
+
+            dropdown.on("click", function (e) {
+                e.stopPropagation();
+            });
+        }
+
+        function formatDateForAPI(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function loadTableData() {
+            let url = `https://eduroom.in/api/v1/status/listall`;
+
+            if (selectedDateRange && selectedDateRange.startDate && selectedDateRange.endDate) {
+                const startDateStr = formatDateForAPI(selectedDateRange.startDate);
+                const endDateStr = formatDateForAPI(selectedDateRange.endDate);
+                url = `${url}?startDate=${startDateStr}&endDate=${endDateStr}`;
+            }
+
             console.log("Calling API URL:", url);
 
             $.ajax({
@@ -944,10 +2631,11 @@
                                 id: m.managerId,
                                 name: m.name
                             }));
+
+                            createManagerMultiSelect(managerList);
                         }
 
                         tableData = res.data
-                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                             .map((row, index) => ({
                                 id: row.id,
                                 sno: index + 1,
@@ -972,11 +2660,13 @@
                                 subscriptionLeft: row.subscriptionLeft,
                                 queryStatus: row.queryStatus || "",
                                 internshipAction: row.internshipStatus || "",
-                                teamManager: row.teamManager,
+                                teamManager: row.teamManager || "",
                                 createdAt: row.createdAt,
                                 referralCode: row.referralCode || "",
                                 selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
                                 offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
+                                pushto: row.pushto || "",
+                                pushComment: row.pushComment || "",
                             }));
 
                         $("#collegeCount").text(tableData.length);
@@ -987,6 +2677,12 @@
                         renderPagination();
                         renderColumnFilters();
 
+                        if (selectedManagers && selectedManagers.length > 0) {
+                            calculateManagerMetrics(selectedManagers);
+                        } else {
+                            calculateAllMetrics();
+                        }
+                        updateManagerPerformanceChart();
                         updateFilteredCount();
                     } else {
                         tableData = [];
@@ -995,6 +2691,7 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+                        resetMetrics();
                         updateFilteredCount();
                     }
                 },
@@ -1005,7 +2702,36 @@
         }
 
         $(document).ready(function () {
-            initMonthYearSelectors();
+            $("#averageAccountsPerIntern").text("0");
+            $("#averageAccountsPerDay").text("0");
+            $("#totalActiveInterns").text("0/0");
+            $("#activeInternsPercent").text("0%");
+            $("#nonWorkingInternsCount").text("0");
+            $("#nonWorkingPercentage").text("0%");
+            $("#workingInternsCount").text("0");
+            $("#workingPercentage").text("0%");
+            $("#completedInternsCount").text("0");
+            $("#completedPercentage").text("0%");
+            $("#workingAccountsCount").text("0");
+            $("#completedAccountsCount").text("0");
+            $("#totalForecastBestAverage").text("0");
+            $("#totalForecastAvgAverage").text("0");
+            $("#totalForecastWorstAverage").text("0");
+
+            const aapiCard = $("#averageAccountsPerIntern").closest(".card");
+            const initialAapiColor = getAAPIColorCategory(0);
+            if (initialAapiColor) {
+                aapiCard.css("background-color", initialAapiColor);
+            }
+
+            const aapdCard = $("#averageAccountsPerDay").closest(".card");
+            const initialAapdColor = getAAPDColorCategory(0);
+            if (initialAapdColor) {
+                aapdCard.css("background-color", initialAapdColor);
+            }
+
+            resetForecastingMetrics();
+            initDatePicker();
             loadTableData();
         });
 
@@ -1025,35 +2751,39 @@
             }
         }
 
+        function initDatePicker() {
+            flatpickr("#dateFilter", {
+                dateFormat: "d M Y",
+                mode: "range",
+                onChange: function (selectedDates, dateStr) {
+                    if (selectedDates.length === 2) {
+                        selectedDateRange = {
+                            startDate: selectedDates[0],
+                            endDate: selectedDates[1]
+                        };
+
+                        loadTableData();
+                    } else if (selectedDates.length === 1) {
+                        selectedDateRange = {
+                            startDate: selectedDates[0],
+                            endDate: selectedDates[0]
+                        };
+
+                        loadTableData();
+                    } else {
+                        selectedDateRange = null;
+                        loadTableData();
+                    }
+                }
+            });
+        }
+
         function formatDate(dateStr) {
             if (!dateStr) return "";
             const date = new Date(dateStr);
             const options = { day: '2-digit', month: 'short', year: 'numeric' };
             return date.toLocaleDateString('en-GB', options);
         }
-
-        flatpickr("#dateFilter", {
-            dateFormat: "d M Y",
-            mode: "range",
-            onChange: function (selectedDates, dateStr) {
-                if (!dateStr) {
-                    filteredData = [...tableData];
-                } else {
-
-                    const [start, end] = selectedDates.length === 2 ? selectedDates : [selectedDates[0], selectedDates[0]];
-
-                    filteredData = tableData.filter(row => {
-                        const rowDate = new Date(row.registeredAt);
-                        rowDate.setHours(0, 0, 0, 0);
-                        return rowDate >= start && rowDate <= end;
-                    });
-                }
-                currentPage = 1;
-                renderTable();
-                renderPagination();
-                updateFilteredCount();
-            }
-        });
 
         function escapeHtml(text) {
             return String(text || '').replace(/[&<>"'`\/=]/g, function (s) {
@@ -1088,56 +2818,48 @@
                 const rowBgStyle = getRowBgColor(row.subscriptionWallet);
 
                 let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
-                        <td>${start + index + 1}</td>
-                        <td>${nameCell}</td>
-                        <td>
-                            <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
-                                ${escapeHtml(row.phoneNumber || '')}
-                            </a>
-                        </td>
-                        <td>${escapeHtml(row.registeredAt || '')}</td>
-                        <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                        <td>${escapeHtml(row.selected || 'No')}</td>
-                        <td>${escapeHtml(row.email || '')}</td>
-                        <td>${escapeHtml(row.collegeName || '')}</td>
-                        <td>${escapeHtml(row.courses || '')}</td>
-                        <td>${escapeHtml(row.course || '')}</td>
-                        <td>${escapeHtml(row.duration || '')}</td>
-                        <td>${escapeHtml(row.startDate || '')}</td>
-                        <td>${escapeHtml(row.estEndDate || '')}</td>
-                        ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
-                        <td>${escapeHtml(row.referralCode || '')}</td>
-                        <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
-                        ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
-                        <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                        ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                        ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                        <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                        <td>
-                            <a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
-                                class="text-primary fw-bold" 
-                                style="cursor:pointer; text-decoration:underline;"
-                                target="_top">
-                                ${escapeHtml(row.queryStatus || '')}
-                            </a>
-                        </td>
-                        ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
-                        ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
-                    </tr>`;
+                    <td>${start + index + 1}</td>
+                    <td>${nameCell}</td>
+                    <td>
+                        <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                            ${escapeHtml(row.phoneNumber || '')}
+                        </a>
+                    </td>
+                    <td>${escapeHtml(row.registeredAt || '')}</td>
+                    <td>${escapeHtml(row.offerMessageExists || '')}</td>
+                    <td>${escapeHtml(row.selected || 'No')}</td>
+                    <td>${escapeHtml(row.email || '')}</td>
+                    ${makeInputCell("collegeName", row.collegeName, "Enter college name")}
+                    <td>${escapeHtml(row.courses || '')}</td>
+                    <td>${escapeHtml(row.course || '')}</td>
+                    <td>${escapeHtml(row.duration || '')}</td>
+                    <td>${escapeHtml(row.startDate || '')}</td>
+                    <td>${escapeHtml(row.estEndDate || '')}</td>
+                    ${makeDropdownCell("courseStatus", row.courseStatus, dropdowns.courseStatus, true)}
+                    <td>${escapeHtml(row.referralCode || '')}</td>
+                    <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
+                    ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
+                    <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
+                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
+                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
+                    <td>${escapeHtml(row.subscriptionLeft || '')}</td>
+                    <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                            class="text-primary fw-bold" 
+                            style="cursor:pointer; text-decoration:underline;"
+                            target="_top">
+                            ${escapeHtml(row.queryStatus || '')}    
+                        </a></td>
+                    ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
+                    ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
+                    ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
+                    ${makeDropdownCell("pushComment", row.pushComment, dropdowns.pushComment, true, true)}
+                </tr>`;
                 tbody.append(tr);
             });
 
             attachCellEvents();
             setStickyColumns();
         }
-
-        const columnKeys = [
-            "sno", "name", "phoneNumber", "registeredAt", "offerMessageExists", "selected", "email", "collegeName",
-            "domain", "course", "duration", "startDate", "estEndDate",
-            "courseStatus", "referralCode", "subscriptionWallet", "businessStatus", "workPercentage",
-            "certificateStatus", "internshipCertificateStatus",
-            "subscriptionLeft", "queryStatus", "internshipAction", "teamManager"
-        ];
 
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
@@ -1238,10 +2960,10 @@
                 if (i >= 0) {
                     const headerText = $(th).text().trim();
                     filterRow += `<th style="position: relative;">
-                        <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
-                            Apply filter <i class="fas fa-filter"></i>
-                        </button>
-                    </th>`;
+                    <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
+                        Apply filter <i class="fas fa-filter"></i>
+                    </button>
+                </th>`;
                 }
             });
             filterRow += "</tr>";
@@ -1252,33 +2974,6 @@
         }
 
         function getColumnValues(columnIndex) {
-            const columnMap = {
-                // 0: "sno",
-                1: "name",
-                2: "phoneNumber",
-                3: "registeredAt",
-                4: "offerMessageExists",
-                5: "selected",
-                6: "email",
-                7: "collegeName",
-                8: "courses",
-                9: "course",
-                10: "duration",
-                11: "startDate",
-                12: "estEndDate",
-                13: "courseStatus",
-                14: "referralCode",
-                15: "subscriptionWallet",
-                16: "businessStatus",
-                17: "workPercentage",
-                18: "certificateStatus",
-                19: "internshipCertificateStatus",
-                20: "subscriptionLeft",
-                21: "queryStatus",
-                22: "internshipAction",
-                23: "teamManager"
-            };
-
             const propertyName = columnMap[columnIndex];
             if (!propertyName) return [];
 
@@ -1328,7 +3023,7 @@
                         dropdownHtml += `
                             <div class="form-check">
                                 <input class="form-check-input filter-checkbox" type="checkbox" 
-                                       value="${value}" id="${safeId}" ${isChecked}>
+                                    value="${value}" id="${safeId}" ${isChecked}>
                                 <label class="form-check-label" for="${safeId}" title="${value}">
                                     ${displayText}
                                 </label>
@@ -1418,11 +3113,22 @@
         function applyFilters() {
             filteredData = [...tableData];
 
+            if (selectedManagers && selectedManagers.length > 0) {
+                filteredData = filteredData.filter(row => selectedManagers.includes(row.teamManager));
+            }
+
             if (Object.keys(columnFilters).length === 0) {
                 currentPage = 1;
                 renderTable();
                 renderPagination();
                 updateFilteredCount();
+                if (selectedManagers && selectedManagers.length > 0) {
+                    calculateManagerMetrics(selectedManagers);
+                    calculateManagerForecasting(selectedManagers);
+                } else {
+                    calculateAllMetrics();
+                    calculateAllForecasting();
+                }
                 return;
             }
 
@@ -1444,9 +3150,18 @@
             });
 
             currentPage = 1;
+            $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
             updateFilteredCount();
+
+            if (selectedManagers && selectedManagers.length > 0) {
+                calculateManagerMetrics(selectedManagers);
+                calculateManagerForecasting(selectedManagers);
+            } else {
+                calculateAllMetrics();
+                calculateAllForecasting();
+            }
         }
 
         function makeDropdownCell(field, selectedValue, options, isDefault = true, specialDropdown = false) {
@@ -1472,6 +3187,63 @@
             return html;
         }
 
+        function makeInputCell(field, value, placeholder = "") {
+            return `
+                <td data-field="${field}" class="editable-input">
+                    <span class="cell-display" style="font-weight:bold;">
+                        ${escapeHtml(value || '')}
+                    </span>
+                    <input 
+                        type="text"
+                        class="form-control form-control-sm cell-input"
+                        value="${escapeHtml(value || '')}"
+                        placeholder="${placeholder}"
+                        style="display:none;"
+                    />
+                </td>
+            `;
+        }
+
+        function updateRowData(tr) {
+            let id = tr.data("id");
+
+            let internshipStatus = tr.find('td[data-field="internshipAction"] select').val();
+            let managerName = tr.find('td[data-field="teamManager"] select').val();
+            let pushtoName = tr.find('td[data-field="pushto"] select').val();
+            let collegeName = tr.find('td[data-field="collegeName"] input').val();
+            let pushComment = tr.find('td[data-field="pushComment"] select').val();
+
+            let payload = {
+                internshipStatus: internshipStatus || "",
+                teamManager: managerName || "",
+                pushto: pushtoName || "",
+                collegeName: collegeName || "",
+                pushComment: pushComment || ""
+            };
+
+            console.log("payload:", payload);
+
+            $.ajax({
+                url: `https://eduroom.in/api/v1/status/update/${id}`,
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    console.log("Updated:", res);
+
+                    if (selectedManagers && selectedManagers.length > 0) {
+                        calculateManagerMetrics(selectedManagers);
+                    } else {
+                        calculateAllMetrics();
+                    }
+                    updateManagerPerformanceChart();
+                },
+                error: function (err) {
+                    console.error("Update failed", err);
+                }
+            });
+        }
+
         function attachCellEvents() {
             $("#leadsTable td").off("dblclick").on("dblclick", function () {
                 let td = $(this);
@@ -1479,49 +3251,39 @@
                 if (td.hasClass("special-dropdown")) {
                     td.find("span").hide();
                     td.find("select").show().focus();
-                } else {
-                    td.addClass("editing");
-                    td.find("input,select").focus();
+                    return;
+                }
+
+                if (td.hasClass("editable-input")) {
+                    td.find(".cell-display").hide();
+                    td.find(".cell-input").show().focus().select();
                 }
             });
 
             $("#leadsTable td select").off("change").on("change", function () {
                 let td = $(this).closest("td");
                 let tr = $(this).closest("tr");
-                let id = tr.data("id");
-                let field = td.data("field");
-
-                let internshipStatus = td.closest("tr").find('td[data-field="internshipAction"] select').val();
-                let managerName = td.closest("tr").find('td[data-field="teamManager"] select').val();
-
-                let managerObj = managerList.find(m => m.name === managerName);
-                let managerId = managerObj ? managerObj.id : null;
-
-                let payload = {
-                    internshipStatus: internshipStatus || "",
-                    teamManager: managerName || ""
-                };
-                console.log("payload:", payload);
-
-                $.ajax({
-                    url: `https://eduroom.in/api/v1/status/update/${id}`,
-                    method: "PUT",
-                    contentType: "application/json",
-                    data: JSON.stringify(payload),
-                    success: function (res3) {
-                        console.log("Updated:", res3);
-                        console.log("Url:", `https://eduroom.in/api/v1/status/update/${id}`);
-                    },
-                    error: function (err) {
-                        console.error("Update failed", err);
-                    }
-                });
 
                 td.find("span").text($(this).val());
                 td.find("select").hide();
                 td.find("span").show();
+
+                updateRowData(tr);
             });
 
+            $("#leadsTable .cell-input").off("blur keypress").on("blur keypress", function (e) {
+                if (e.type === "keypress" && e.which !== 13) return;
+
+                let input = $(this);
+                let td = input.closest("td");
+                let tr = input.closest("tr");
+
+                td.find(".cell-display").text(input.val());
+                input.hide();
+                td.find(".cell-display").show();
+
+                updateRowData(tr);
+            });
         }
 
         window.filterTable = function () {
@@ -1531,6 +3293,13 @@
                 renderTable();
                 renderPagination();
                 updateFilteredCount();
+                if (selectedManagers && selectedManagers.length > 0) {
+                    calculateManagerMetrics(selectedManagers);
+                    calculateManagerForecasting(selectedManagers);
+                } else {
+                    calculateAllMetrics();
+                    calculateAllForecasting();
+                }
                 return;
             }
 
@@ -1542,9 +3311,18 @@
             );
 
             currentPage = 1;
+            $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
             updateFilteredCount();
+
+            if (selectedManagers && selectedManagers.length > 0) {
+                calculateManagerMetrics(selectedManagers);
+                calculateManagerForecasting(selectedManagers);
+            } else {
+                calculateAllMetrics();
+                calculateAllForecasting();
+            }
         };
 
         window.printTable = function () {
@@ -1568,47 +3346,51 @@
                 "Start Date",
                 "Est. End Date",
                 "Course Status",
+                "Business Status",
                 "Referral Code",
                 "Total Subscriptions",
-                "Business Status",
                 "Work % Completed",
                 "Certificate Status",
                 "Internship Certificate Status",
                 "Subscription Left",
                 "Query Status",
                 "Internship Action",
-                "Team Manager"
+                "Team Manager",
+                "Push To",
+                "Push Comment"
             ];
             headers.forEach(h => html += `<th>${h}</th>`);
             html += "</tr></thead><tbody>";
 
             filteredData.forEach(row => {
                 html += `<tr>
-                    <td>${row.sno}</td>
-                    <td>${row.name}</td>
-                    <td>${row.phoneNumber}</td>
-                    <td>${row.registeredAt}</td>
-                    <td>${row.offerMessageExists}</td>
-                    <td>${row.selected || 'No'}</td>
-                    <td>${row.email}</td>
-                    <td>${row.collegeName}</td>
-                    <td>${row.courses}</td>
-                    <td>${row.course}</td>
-                    <td>${row.duration}</td>
-                    <td>${row.startDate}</td>
-                    <td>${row.estEndDate}</td>
-                    <td>${row.courseStatus}</td>
-                    <td>${row.referralCode || ''}</td>
-                    <td>${row.subscriptionWallet}</td>
-                    <td>${row.businessStatus}</td>
-                    <td>${row.workPercentage}</td>
-                    <td>${row.certificateStatus}</td>
-                    <td>${row.internshipCertificateStatus}</td>
-                    <td>${row.subscriptionLeft}</td>
-                    <td>${row.queryStatus}</td>
-                    <td>${row.internshipAction}</td>
-                    <td>${row.teamManager || ""}</td>
-                </tr>`;
+                <td>${row.sno}</td>
+                <td>${row.name}</td>
+                <td>${row.phoneNumber}</td>
+                <td>${row.registeredAt}</td>
+                <td>${row.offerMessageExists}</td>
+                <td>${row.selected || 'No'}</td>
+                <td>${row.email}</td>
+                <td>${row.collegeName}</td>
+                <td>${row.courses}</td>
+                <td>${row.course}</td>
+                <td>${row.duration}</td>
+                <td>${row.startDate}</td>
+                <td>${row.estEndDate}</td>
+                <td>${row.courseStatus}</td>
+                <td>${row.businessStatus}</td>
+                <td>${row.referralCode || ''}</td>
+                <td>${row.subscriptionWallet}</td>
+                <td>${row.workPercentage}</td>
+                <td>${row.certificateStatus}</td>
+                <td>${row.internshipCertificateStatus}</td>
+                <td>${row.subscriptionLeft}</td>
+                <td>${row.queryStatus}</td>
+                <td>${row.internshipAction}</td>
+                <td>${row.teamManager || ""}</td>
+                <td>${row.pushto || ""}</td>
+                <td>${row.pushComment || ""}</td>
+            </tr>`;
             });
 
             html += "</tbody></table>";
@@ -1618,7 +3400,52 @@
             printWindow.print();
         };
 
-        window.exportToExcel = function () {
+        window.exportToExcel = async function () {
+            const isVerified = sessionStorage.getItem("excel_export_verified");
+
+            if (!isVerified) {
+                try {
+                    const response = await fetch("/config.json");
+                    const config = await response.json();
+                    const correctPassword = config.exportPassword;
+
+                    const { value: enteredPassword } = await Swal.fire({
+                        title: "Enter Export Password",
+                        input: "password",
+                        inputPlaceholder: "Enter password",
+                        showCancelButton: true,
+                        confirmButtonText: "Verify",
+                        cancelButtonText: "Cancel",
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return "Password is required";
+                            }
+                        }
+                    });
+
+                    if (!enteredPassword) return;
+
+                    if (enteredPassword !== correctPassword) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Password",
+                            text: "You are not authorized to export this data"
+                        });
+                        return;
+                    }
+
+                    sessionStorage.setItem("excel_export_verified", "true");
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Unable to verify password"
+                    });
+                    return;
+                }
+            }
+
             const headers = [
                 "SR",
                 "Name",
@@ -1643,7 +3470,9 @@
                 "Subscription Left",
                 "Query Status",
                 "Internship Action",
-                "Team Manager"
+                "Team Manager",
+                "Push To",
+                "Push Comment"
             ];
 
             const data = [headers];
@@ -1673,7 +3502,9 @@
                     row.subscriptionLeft,
                     row.queryStatus,
                     row.internshipAction,
-                    row.teamManager || ""
+                    row.teamManager || "",
+                    row.pushto || "",
+                    row.pushComment || ""
                 ]);
             });
 
@@ -1682,9 +3513,33 @@
             XLSX.utils.book_append_sheet(workbook, worksheet, "OfferletterUsers");
             XLSX.writeFile(workbook, "OfferletterUsers_All.xlsx");
         };
+    </script>
+
+    <script>
+        function loadTodayAccounts(fromDate, toDate) {
+
+            const url = `https://eduroom.in/api/v1/bdsheet/payments-vs-target?from=${fromDate}&to=${toDate}`;
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    if (res.success && res.totals && res.totals.totalAccountsAchieved !== undefined) {
+                        $("#todayAccounts").text(res.totals.totalAccountsAchieved);
+                    } else {
+                        $("#todayAccounts").text(0);
+                    }
+                },
+                error: function () {
+                    $("#todayAccounts").text(0);
+                }
+            });
+        }
 
         $(document).ready(function () {
-            loadTableData();
+            const today = new Date().toISOString().split("T")[0];
+            loadTodayAccounts(today, today);
         });
     </script>
 
@@ -1730,10 +3585,7 @@
                     data: JSON.stringify({ id: userId }),
                     success: function (res) {
                         console.log("Logout success:", res);
-                        sessionStorage.removeItem("user_id");
-                        sessionStorage.removeItem("coursePasswordVerified");
-                        sessionStorage.removeItem("hr_verified");
-                        sessionStorage.removeItem("bd_verified");
+                        sessionStorage.clear();
 
                         Swal.fire({
                             icon: "success",
