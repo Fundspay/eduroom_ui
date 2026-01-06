@@ -1581,8 +1581,7 @@
                     <div class="px-2 w-100 d-flex align-items-center">
                         <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
                             placeholder="Subject"
-                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit"
-                            readonly>
+                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit">
                     </div>
 
                     <!-- Attachment Section -->
@@ -2614,7 +2613,7 @@
             const cc = $('[name="ccmailmodal"]').val() ? [$('[name="ccmailmodal"]').val()] : [];
             const bcc = $('[name="bccmailmodal"]').val() ? [$('[name="bccmailmodal"]').val()] : [];
             const emailBody = getFullEmailBody();
-            const subject = $('#subject-input').val() || "Internship Opportunity - FundsAudit Student Development Program";
+            const subject = $('#subject-input').val();
 
             const totalAttachmentSize = getTotalAttachmentSize();
             if (totalAttachmentSize > MAX_TOTAL_ATTACHMENT_SIZE) {

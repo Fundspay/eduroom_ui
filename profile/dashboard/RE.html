@@ -1756,7 +1756,7 @@
 
                     <div class="px-2 w-100 d-flex align-items-center">
                         <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
-                            placeholder="Subject" value="Reconfirmation of Live Project Process - FundsAudit" readonly>
+                            placeholder="Subject" value="Reconfirmation of Live Project Process - FundsAudit">
                     </div>
 
                     <!-- Email Body Container -->
@@ -2193,7 +2193,7 @@
             const cc = $('[name="ccmailmodal"]').val() ? [$('[name="ccmailmodal"]').val()] : [];
             const bcc = $('[name="bccmailmodal"]').val() ? [$('[name="bccmailmodal"]').val()] : [];
             const emailBody = getFullEmailBody();
-            const subject = $('#subject-input').val() || `Follow-up: Internship Opportunity - ${record.collegeName || 'College'}`;
+            const subject = $('#subject-input').val();
 
             Swal.fire({
                 title: "Send Follow-up Mail?",
@@ -2220,6 +2220,7 @@
                         subject: subject,
                         body: emailBody
                     };
+                    console.log("payload:",payload);
 
                     $.ajax({
                         url: "https://eduroom.in/api/v1/resumedetails/send-followup-email/" + recordId,
