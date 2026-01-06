@@ -1059,7 +1059,7 @@
 
                         const summary = response.summary;
                         $("#curriculumSummary").text(
-                            `${summary.totalSessions} Videos | ${summary.overallCompletionRate}% Completed`
+                            `${summary.totalSessions} Videos | ${summary.overallCompletionRate}% | ${summary.overallStatus}`
                         );
 
                         const accordion = $("#curriculumAccordion");
@@ -1077,11 +1077,11 @@
                             const uniqueSessionCount = uniqueSessions.length;
 
                             const allSessionsCompleted = uniqueSessions.every(
-                                (s) => (s.sessionCompletionPercentage || 0) >= 33
+                                (s) => (s.status || "") === "Completed"
                             );
 
                             const allSessionsZero = uniqueSessions.every(
-                                (s) => (s.sessionCompletionPercentage || 0) === 0
+                                (s) => (s.status || "") === "Not Started"
                             );
 
                             let dayStatusBadge = "";
@@ -1140,11 +1140,12 @@
                             uniqueSessions.forEach(function (session) {
                                 let statusLabel = "";
                                 const perc = session.sessionCompletionPercentage || 0;
+                                const status2 = session.status || "";
 
-                                if (perc === 0) {
+                                if (status2 == "Not Started") {
                                     statusLabel =
                                         `<span class="badge badge-pill badge-secondary text-white font-weight-bold">Not Started</span>`;
-                                } else if (perc >= 33) {
+                                } else if (status2 == "Completed") {
                                     statusLabel =
                                         `<span class="badge badge-pill badge-success text-white font-weight-bold">Completed</span>`;
                                 } else if (session.status) {
