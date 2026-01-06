@@ -1081,7 +1081,7 @@
                             );
 
                             const allSessionsZero = uniqueSessions.every(
-                                (s) => (s.status || "") === "Not Started"
+                                (s) => (s.sessionCompletionPercentage || 0) === 0
                             );
 
                             let dayStatusBadge = "";
@@ -1142,7 +1142,7 @@
                                 const perc = session.sessionCompletionPercentage || 0;
                                 const status2 = session.status || "";
 
-                                if (status2 == "Not Started") {
+                                if (perc === 0) {
                                     statusLabel =
                                         `<span class="badge badge-pill badge-secondary text-white font-weight-bold">Not Started</span>`;
                                 } else if (status2 == "Completed") {
