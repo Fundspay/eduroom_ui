@@ -650,6 +650,7 @@
                                                 <th>Connected by</th>
                                                 <th>Date of connect</th>
                                                 <th>Call Response</th>
+                                                <th>Comment</th>
                                                 <th>Type of INT</th>
                                                 <th>Detailed Response</th>
                                                 <th>Send JD</th>
@@ -2216,7 +2217,7 @@
             callResponse: ["connected", "not answered", "busy", "switch off", "invalid"],
             internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
             detailedResponse: [
-                "Send JD", "Not Interested", "January", "February", "March", "April",
+                "Send JD", "Not Interested", "CNA", "January", "February", "March", "April",
                 "May", "June", "July", "August", "September", "October", "November",
                 "December", "Cut the call"
             ],
@@ -3292,7 +3293,7 @@
             callResponse: ["connected", "not answered", "busy", "switch off", "invalid"],
             internshipType: ["fulltime", "sip", "liveproject", "wip", "others"],
             detailedResponse: [
-                "Send JD", "Not Interested", "January", "February", "March", "April",
+                "Send JD", "Not Interested", "CNA", "January", "February", "March", "April",
                 "May", "June", "July", "August", "September", "October", "November",
                 "December", "Cut the call"
             ]
@@ -3388,12 +3389,12 @@
                             city: row.city || "",
                             // collegeTier: row.collegeTier || "",
                             // collegeLevel: row.collegeLevel || "",
-                            // comment: row.comment || "",
                             // corporateRelations: row.corporateRelations || "",
                             course: row.course || "",
                             connectedBy: row.connectedBy || "",
                             dateOfConnect: row.dateOfConnect || "",
                             callResponse: row.callResponse || "",
+                            comment: row.comment || "",
                             internshipType: row.internshipType || "",
                             detailedResponse: row.detailedResponse || "",
                         }));
@@ -3481,6 +3482,7 @@
             ${makeDropdownCell2("connectedBy", row.connectedBy)}
             ${makeDateCell2("dateOfConnect", row.dateOfConnect)}
             ${makeDropdownCell2("callResponse", row.callResponse)}
+            ${makeCell2("comment", row.comment)}
             ${makeDropdownCell2("internshipType", row.internshipType)}
             ${makeDropdownCell2("detailedResponse", row.detailedResponse)}   
             <td>
@@ -3538,7 +3540,7 @@
 
             let filterRow = "<tr class='filters'>";
             $("#leadsTable2 thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 1 || i === 14) {
+                if (i === 0 || i === 1 || i === 15) {
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th><select class="column-filter2 form-select form-select-sm" data-index="${i}">
@@ -3870,6 +3872,7 @@
                 ${makeDropdownCell2("connectedBy", row.connectedBy)}
                 ${makeDateCell2("dateOfConnect", row.dateOfConnect)}
                     ${makeDropdownCell2("callResponse", row.callResponse)}
+                    ${makeCell2("comment", row.comment)}
                     ${makeDropdownCell2("internshipType", row.internshipType)}
                     ${makeDropdownCell2("detailedResponse", row.detailedResponse)}
                     <td>
@@ -3953,6 +3956,7 @@
                 "Connected By",
                 "Date of Connect",
                 "Call Response",
+                "Comment",
                 "Internship Type",
                 "Detailed Response"
             ];
@@ -3972,6 +3976,7 @@
                     row.connectedBy,
                     row.dateOfConnect,
                     row.callResponse,
+                    row.comment,
                     row.internshipType,
                     row.detailedResponse
                 ]);
@@ -4496,6 +4501,7 @@
                                 <option value="">Select</option>
                                 <option value="Send JD">Send JD</option>
                                 <option value="Not Interested">Not Interested</option>
+                                <option value="Not Interested">CNA</option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
                                 <option value="March">March</option>
@@ -4510,6 +4516,11 @@
                                 <option value="December">December</option>
                                 <option value="Cut the call">Cut the call</option>
                             </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">Comment</label>
+                            <textarea class="form-control" id="comment" rows="3"></textarea>
                         </div>
 
                     </div>
@@ -4566,8 +4577,9 @@
                 let callResponse = $("#callResponse").val();
                 let internshipType = $("#internshipType").val();
                 let detailedResponse = $("#detailedResponse").val();
+                let comment = $("#comment").val();
 
-                if (!collegeName || !coordinatorName || !mobileNumber || !emailId || !city || !state || !course || !connectedBy || !dateOfConnect || !callResponse || !internshipType || !detailedResponse) {
+                if (!collegeName || !coordinatorName || !mobileNumber || !emailId || !city || !state || !course || !connectedBy || !dateOfConnect || !callResponse || !internshipType || !detailedResponse || !comment) {
                     Swal.fire({
                         icon: "warning",
                         title: "Missing Fields",
@@ -4586,6 +4598,7 @@
                         city: city,
                         state: state,
                         course: course,
+                        comment: comment
                     },
                     connect: {
                         connectedBy: connectedBy,
