@@ -3581,46 +3581,48 @@
                 return;
             }
 
-            $(document).on("click", "#logoutBtn", function () {
-                Swal.fire({
-                    title: "Logging out...",
-                    text: "Please wait",
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
+            document.addEventListener("click", function (e) {
+                if (e.target.closest("#logoutBtn")) {
+                    Swal.fire({
+                        title: "Logging out...",
+                        text: "Please wait",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
 
-                $.ajax({
-                    url: "https://eduroom.in/api/v1/user/logout",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ id: userId }),
-                    success: function (res) {
-                        console.log("Logout success:", res);
-                        sessionStorage.clear();
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/user/logout",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ id: userId }),
+                        success: function (res) {
+                            console.log("Logout success:", res);
+                            sessionStorage.clear();
 
-                        Swal.fire({
-                            icon: "success",
-                            title: "Logged Out",
-                            text: "You have been logged out successfully!",
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            window.top.location.href = "/login.html";
-                        });
-                    },
-                    error: function (err) {
-                        console.error("Logout error:", err);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Logout Failed",
-                            text: "Something went wrong. Please try again!",
-                            allowOutsideClick: false,
-                            confirmButtonText: "OK"
-                        });
-                    }
-                });
+                            Swal.fire({
+                                icon: "success",
+                                title: "Logged Out",
+                                text: "You have been logged out successfully!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.top.location.href = "/login.html";
+                            });
+                        },
+                        error: function (err) {
+                            console.error("Logout error:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Logout Failed",
+                                text: "Something went wrong. Please try again!",
+                                allowOutsideClick: false,
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>
