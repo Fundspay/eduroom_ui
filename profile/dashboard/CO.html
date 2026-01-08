@@ -481,7 +481,8 @@
                                 <div class="fs-12 fw-medium text-muted mb-3">Total Calls</div>
                                 <div class="hstack justify-content-between lh-base">
                                     <div>
-                                        <h3><span id="totalCalls" style="color:#47b947">0</span>/<span id="targetCalls" style="color:#dc3545">0</span></h3>
+                                        <h3><span id="totalCalls" style="color:#47b947">0</span>/<span id="targetCalls"
+                                                style="color:#dc3545">0</span></h3>
                                         <!-- <div class="fs-11 text-muted">
                                             Remaining: <span id="remainingCalls">0</span>
                                         </div> -->
@@ -1147,12 +1148,13 @@
                     <div class="date-picker-container d-flex justify-content-center"
                         style="margin-top: 2%; margin-bottom: 2%; margin-right:2%;">
                         <input type="text" id="dateRangePicker2" class="form-control text-center fw-bold"
-                            placeholder="This Month"
-                            style="max-width:220px; font-weight:700; color:#000; opacity:1;" />
+                            placeholder="This Month" style="max-width:220px; font-weight:700; color:#000; opacity:1;" />
                     </div>
                     <div class="text-center mt-2 mb-3" style="font-size:13px; font-weight:bold; color:#6c757d;">
-                        Note: These metrics data is based on the selected date range (default shows current month), while the
-                        table onclick displays <span style="font-weight:bold; color:#ea1e1e;">Overall data</span> of that particlar category.
+                        Note: These metrics data is based on the selected date range (default shows current month),
+                        while the
+                        table onclick displays <span style="font-weight:bold; color:#ea1e1e;">Overall data</span> of
+                        that particlar category.
                     </div>
 
                     <style>
@@ -4408,6 +4410,32 @@
         });
     </script>
 
+    <style>
+        #manualEntryModal,
+        #manualEntryModal label,
+        #manualEntryModal input,
+        #manualEntryModal select,
+        #manualEntryModal textarea,
+        #manualEntryModal option {
+            color: #000 !important;
+            font-weight: 600;
+        }
+
+        #manualEntryModal .modal-title {
+            font-size: calc(1.25rem + 5px);
+            font-weight: 700;
+            color: #000;
+        }
+
+        #manualEntryModal .form-label {
+            font-weight: 600;
+        }
+
+        #manualEntryModal .btn {
+            font-weight: 600;
+        }
+    </style>
+
     <div class="modal fade" id="manualEntryModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
@@ -4415,52 +4443,59 @@
                     <h5 class="modal-title">Manual College Entry</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
 
+                <div class="modal-body">
                     <div class="row g-3">
+
                         <div class="col-md-6">
-                            <label class="form-label">Connected By</label>
+                            <label class="" style="font-size: 14px;">Connected By</label>
                             <select class="form-select" id="connectedBy">
                                 <option value="">Select</option>
                             </select>
                         </div>
+
                         <div class="col-md-6">
-                            <label class="form-label">Date of Connect</label>
+                            <label class="" style="font-size: 14px;">Date of Connect</label>
                             <input type="text" class="form-control flatpickr" id="dateOfConnect"
                                 placeholder="Select Date">
                         </div>
+
                         <div class="col-md-6">
-                            <label class="form-label">College Name</label>
+                            <label class="" style="font-size: 14px;">College Name</label>
                             <input type="text" class="form-control" id="collegeName">
                         </div>
+
                         <div class="col-md-6">
-                            <label class="form-label">Coordinator Name</label>
+                            <label class="" style="font-size: 14px;">Coordinator Name</label>
                             <input type="text" class="form-control" id="coordinatorName">
                         </div>
+
                         <div class="col-md-6">
-                            <label class="form-label">Mobile Number</label>
+                            <label class="" style="font-size: 14px;">Mobile Number</label>
                             <input type="text" class="form-control" id="mobileNumber">
                         </div>
+
                         <div class="col-md-6">
-                            <label class="form-label">Email ID</label>
+                            <label class="" style="font-size: 14px;">Email ID</label>
                             <input type="email" class="form-control" id="emailId">
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">State</label>
+                            <label class="" style="font-size: 14px;">State</label>
                             <select class="form-select" id="stateDropdown">
                                 <option value="">Select state</option>
                             </select>
                         </div>
+
                         <div class="col-md-6">
-                            <label class="form-label">City</label>
+                            <label class="" style="font-size: 14px;">City</label>
                             <select class="form-select" id="cityDropdown">
                                 <option value="">Please select state first</option>
                             </select>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Course</label>
+                            <label class="" style="font-size: 14px;">Course</label>
                             <select class="form-select" id="course">
                                 <option value="">Select</option>
                                 <option value="MBA">MBA</option>
@@ -4472,7 +4507,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Call Response</label>
+                            <label class="" style="font-size: 14px;">Call Response</label>
                             <select class="form-select" id="callResponse">
                                 <option value="">Select</option>
                                 <option value="connected">Connected</option>
@@ -4484,7 +4519,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Internship Type</label>
+                            <label class="" style="font-size: 14px;">Internship Type</label>
                             <select class="form-select" id="internshipType">
                                 <option value="">Select</option>
                                 <option value="fulltime">Fulltime</option>
@@ -4496,12 +4531,12 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Detailed Response</label>
+                            <label class="" style="font-size: 14px;">Detailed Response</label>
                             <select class="form-select" id="detailedResponse">
                                 <option value="">Select</option>
                                 <option value="Send JD">Send JD</option>
                                 <option value="Not Interested">Not Interested</option>
-                                <option value="Not Interested">CNA</option>
+                                <option value="CNA">CNA</option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
                                 <option value="March">March</option>
@@ -4519,13 +4554,13 @@
                         </div>
 
                         <div class="col-md-12">
-                            <label class="form-label">Comment</label>
+                            <label class="" style="font-size: 14px;">Comment</label>
                             <textarea class="form-control" id="comment" rows="3"></textarea>
                         </div>
 
                     </div>
-
                 </div>
+
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary" id="submitCollegeBtn">Submit</button>
