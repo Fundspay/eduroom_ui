@@ -2785,10 +2785,10 @@
                         $("#internsPercent").text(percent1 + "%");
 
                         $("#totalActiveInterns").text(sheet.totalActiveInterns || 0);
-                        $("#targetActiveInterns").text(target.totalInternsActive || 0);
+                        $("#targetActiveInterns").text(sheet.totalInterns || 0);
 
-                        let percent2 = (target.totalInternsActive > 0)
-                            ? ((sheet.totalActiveInterns / target.totalInternsActive) * 100).toFixed(1)
+                        let percent2 = (sheet.totalInterns > 0)
+                            ? ((sheet.totalActiveInterns / sheet.totalInterns) * 100).toFixed(1)
                             : 0;
                         $("#activeInternsPercent").text(percent2 + "%");
 
