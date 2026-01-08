@@ -558,7 +558,8 @@
                                 <div class="card-body">
                                     <div class="fs-12 fw-medium text-muted mb-3">Accounts</div>
                                     <div class="hstack justify-content-between lh-base">
-                                        <h3><span id="totalAccounts" style="color:#47b947">0</span>/<span id="targetAccounts" style="color:#dc3545">0</span></h3>
+                                        <h3><span id="totalAccounts" style="color:#47b947">0</span>/<span
+                                                id="targetAccounts" style="color:#dc3545">0</span></h3>
                                         <div class="hstack gap-2 fs-11">
                                             <span id="accountsPercent">0%</span>
                                         </div>
@@ -992,6 +993,7 @@
                                                     <th colspan="3" class="text-center">Active Interns</th>
                                                     <th colspan="3" class="text-center">Accounts</th>
                                                     <th rowspan="2">Rank</th>
+                                                    <th rowspan="2">Link</th>
                                                 </tr>
                                                 <tr class="border-b">
                                                     <!-- Interns Allotted sub-headers -->
@@ -1794,6 +1796,7 @@
 
     <script>
         const apiBase = "https://eduroom.in/api/v1/bdsheet/bd-tl-leaderboard";
+        const youtubeLinkApi = "https://eduroom.in/api/v1/bdsheet/youtubelink";
 
         let tableData = [];
         let filteredData = [];
@@ -1862,13 +1865,10 @@
         function loadTableData() {
             let url = `${apiBase}?from=${dateRange.startDate}&to=${dateRange.endDate}`;
 
-            console.log("Fetching data from:", url);
-
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function (res) {
-                    console.log("Performance data:", res);
                     if (res.success && res.leaderboard) {
                         tableData = res.leaderboard.map((tl, index) => {
                             const internsAllocated = parseInt(tl.totalInterns) || 0;
@@ -1887,20 +1887,17 @@
                                 id: index,
                                 name: tl.tlName || "",
                                 mobileNumber: tl.mobileNumber || "",
-
                                 internsAllocated: internsAllocated,
                                 totalInterns: totalInterns,
                                 internsAllocatedPercentage: internsAllocatedPercentage,
-
                                 activeInterns: activeInterns,
                                 internsActive: internsActive,
                                 activeInternsPercentage: activeInternsPercentage,
-
                                 accounts: accounts,
                                 accountsTarget: accountsTarget,
                                 accountsPercentage: accountsPercentage,
-
                                 rank: tl.rank || (index + 1),
+                                link: tl.link || "",
                                 efficiency: tl.efficiency || 0
                             };
                         });
@@ -1911,7 +1908,6 @@
                     }
                 },
                 error: function (err) {
-                    console.error("Failed to load data:", err);
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -1919,6 +1915,101 @@
                     });
                 }
             });
+        }
+
+        function saveYouTubeLink(tlName, link) {
+            var payload = {
+                tlName: tlName,
+                link: link
+            };
+            console.log(payload);
+
+            $.ajax({
+                url: youtubeLinkApi,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    loadTableData();
+                },
+                error: function (err) {
+                    loadTableData();
+                }
+            });
+        }
+
+        function makeLinkEditable(cell, link, tlName) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control form-control-sm';
+            input.value = link;
+
+            cell.innerHTML = '';
+            cell.appendChild(input);
+            input.focus();
+
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    saveLink(input.value, tlName, cell);
+                }
+            });
+
+            input.addEventListener('blur', function () {
+                saveLink(input.value, tlName, cell);
+            });
+        }
+
+        function saveLink(link, tlName, cell) {
+            if (link && !isValidURL(link)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid URL',
+                    text: 'Please enter a valid URL',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    allowOutsideClick: true,
+                    allowEscapeKey: true,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+
+                const input = cell.querySelector('input');
+                if (input) {
+                    input.focus();
+                }
+                return;
+            }
+
+            saveYouTubeLink(tlName, link);
+
+            if (link) {
+                cell.innerHTML = `<span class="link-display" title="${link}">${link}</span>`;
+            } else {
+                cell.innerHTML = '';
+            }
+
+            addDoubleClickListener(cell, tlName);
+        }
+
+        function isValidURL(url) {
+            try {
+                new URL(url);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function addDoubleClickListener(cell, tlName) {
+            cell.addEventListener('dblclick', function () {
+                const currentLink = cell.querySelector('.link-display') ?
+                    cell.querySelector('.link-display').getAttribute('title') ||
+                    cell.querySelector('.link-display').textContent : '';
+                makeLinkEditable(cell, currentLink, tlName);
+            });
+
+            cell.style.cursor = 'pointer';
+            cell.title = 'Double click to edit';
         }
 
         function renderTable() {
@@ -1932,7 +2023,10 @@
             const rows = filteredData.slice(start, end);
 
             rows.forEach((row, index) => {
-                let tr = `<tr data-id="${row.id}">
+                const tr = document.createElement('tr');
+                tr.setAttribute('data-id', row.id);
+
+                tr.innerHTML = `
                     <td>${start + index + 1}</td>
                     <td>${row.name}</td>
                     <td>
@@ -1940,24 +2034,25 @@
                             ${row.mobileNumber}
                         </a>
                     </td>
-                    
-                    <!-- Interns Allotted Columns -->
                     ${makePerformanceCell(row.internsAllocated, "internsAllocated")}
                     ${makeTargetCell(row.totalInterns, "internsAllocated")}
                     ${makePercentageCell(row.internsAllocatedPercentage, "internsAllocated")}
-                    
-                    <!-- Active Interns Columns -->
                     ${makePerformanceCell(row.activeInterns, "activeInterns")}
                     ${makeTargetCell(row.internsActive, "activeInterns")}
                     ${makePercentageCell(row.activeInternsPercentage, "activeInterns")}
-                    
-                    <!-- Accounts Columns -->
                     ${makePerformanceCell(row.accounts, "accounts")}
                     ${makeTargetCell(row.accountsTarget, "accounts")}
                     ${makePercentageCell(row.accountsPercentage, "accounts")}
-                    
                     <td>${row.rank}</td>
-                </tr>`;
+                `;
+
+                const linkCell = document.createElement('td');
+                if (row.link) {
+                    linkCell.innerHTML = `<span class="link-display" title="${row.link}">${row.link}</span>`;
+                }
+                addDoubleClickListener(linkCell, row.name);
+
+                tr.appendChild(linkCell);
                 tbody.append(tr);
             });
         }
@@ -2125,7 +2220,7 @@
                 "Interns Allotted", "Total Interns", "Interns Allotted %",
                 "Active Interns", "Interns Active", "Active Interns %",
                 "Accounts", "Accounts Target", "Accounts %",
-                "Rank"
+                "Rank", "YouTube Link"
             ];
 
             const data = [headers];
@@ -2139,7 +2234,7 @@
                     row.internsAllocated, row.totalInterns, row.internsAllocatedPercentage.toFixed(2) + '%',
                     row.activeInterns, row.internsActive, row.activeInternsPercentage.toFixed(2) + '%',
                     row.accounts, row.accountsTarget, row.accountsPercentage.toFixed(2) + '%',
-                    row.rank
+                    row.rank, row.link
                 ]);
             });
 
@@ -2180,6 +2275,27 @@
                 .low-percentage { background-color: #dc3545 !important; color: white; }
                 .performance-date-range-filter .input-group {
                     width: 300px;
+                }
+                #performanceTable td:last-child {
+                    cursor: pointer;
+                    max-width: 300px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                #performanceTable td:last-child:hover {
+                    background-color: #f0f0f0;
+                    overflow: visible;
+                    white-space: normal;
+                    word-break: break-all;
+                    z-index: 100;
+                    position: relative;
+                }
+                .link-display {
+                    display: inline-block;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             `).appendTo('head');
         });
