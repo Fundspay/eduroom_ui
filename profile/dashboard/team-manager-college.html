@@ -2635,7 +2635,7 @@
                     <td>${escapeHtml(row.offerMessageExists || '')}</td>
                     <td>${escapeHtml(row.selected || 'No')}</td>
                     <td>${escapeHtml(row.email || '')}</td>
-                    ${makeInputCell("collegeName", row.collegeName, "Enter college name")}
+                    <td>${escapeHtml(row.collegeName || '')}</td>
                     <td>${escapeHtml(row.courses || '')}</td>
                     <td>${escapeHtml(row.course || '')}</td>
                     <td>${escapeHtml(row.duration || '')}</td>
@@ -2838,7 +2838,7 @@
                 success: function (res) {
                     console.log("Updated:", res);
 
-                    loadTableData();
+                    // loadTableData();
                 },
                 error: function (err) {
                     console.error("Update failed", err);
