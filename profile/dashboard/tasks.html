@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+    <meta name="author" content="" />
+    <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
+    <!--! BEGIN: Apps Title-->
+    <title>Eduroom || Dashboard</title>
+    <!--! END:  Apps Title-->
+    <!--! BEGIN: Favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
+    <!--! END: Favicon-->
+    <!--! BEGIN: Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
+    <!--! END: Bootstrap CSS-->
+    <!--! BEGIN: Vendors CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/vendors.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/quill.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/daterangepicker.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--! END: Vendors CSS-->
+    <!--! BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+</head>
+
+<body>
+    <!--! ================================================================ !-->
+    <!--! [Start] Navigation Manu !-->
+    <!--! ================================================================ !-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <nav class="nxl-navigation">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="#" class="b-brand">
+                    <img src="/images/favicon.svg" alt="" class="logo logo-lg" />
+                    <img src="/images/favicon.svg" alt="" class="logo logo-sm" />
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="nxl-navbar">
+                    <li class="nxl-item nxl-caption">
+                        <label>Navigation</label>
+                    </li>
+
+                    <!-- PASSWORD PROTECTED DROPDOWN -->
+                    <li class="nxl-item nxl-hasmenu" id="protectedDropdown">
+                        <a href="javascript:void(0);" class="nxl-link protected-menu-trigger" id="protectedTrigger">
+                            <span class="nxl-micon"><i class="feather-upload"></i></span>
+                            <span class="nxl-mtext">CMS</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <!-- hidden by default -->
+                        <ul class="nxl-submenu protected-submenu" style="display: none;">
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION
+                                    QUESTIONS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
+                                    DOMAIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
+                                    COURSE</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-incentives.html">BD
+                                    INCENTIVES</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-targets-admin.html">HR
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets-admin.html">BD
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-master-sheet.html">HR
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-master-sheet.html">BD
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/tasks-admin.html">WORKSHEET ADMIN</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- OTHER MENU ITEMS UNCHANGED -->
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-user"></i></span>
+                            <span class="nxl-mtext">HR </span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item">
+                                <a class="nxl-link" id="hrTargetsBtn" href="javascript:void(0);">HR TARGETS</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">RISA SHEET</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-briefcase"></i></span>
+                            <span class="nxl-mtext">BD </span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item">
+                                <a class="nxl-link" id="bdTargetsBtn" href="javascript:void(0);">BD TARGETS</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/BD.html">BD SHEET</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">MASTER SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-file-text"></i></span>
+                            <span class="nxl-mtext">COLLEGE SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/tasks.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-file"></i></span>
+                            <span class="nxl-mtext">Worksheet</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-log-out"></i></span>
+                            <span class="nxl-mtext">Logout</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="feather-briefcase fs-4 text-dark"></i>
+                        <h6 class="mt-4 text-dark fw-bolder">Welcome to FundsRoom</h6>
+                        <p class="fs-11 my-3 text-dark">
+                            FundsRoom is your trusted financial partner, offering seamless solutions for managing
+                            investments, loans, and business funds with ease.
+                        </p>
+                        <!-- <a href="https://www.fundsroom.com/" class="btn btn-primary text-dark w-100" style="margin-bottom: 10%;">Fundsroom</a>
+                        <a href="https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&hl=en_IN" class="btn btn-success text-light w-100">Download FundsAudit</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--! ================================================================ !-->
+    <!--! [End]  Navigation Manu !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! [Start] Header !-->
+    <!--! ================================================================ !-->
+    <header class="nxl-header" style="margin-top: -25px;">
+        <div class="header-wrapper">
+            <!--! [Start] Header Left !-->
+            <div class="header-left d-flex align-items-center gap-4">
+                <!--! [Start] nxl-head-mobile-toggler !-->
+                <a href="javascript:void(0);" class="nxl-head-mobile-toggler" id="mobile-collapse">
+                    <div class="hamburger hamburger--arrowturn">
+                        <div class="hamburger-box">
+                            <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
+                </a>
+                <!--! [Start] nxl-head-mobile-toggler !-->
+                <!--! [Start] nxl-navigation-toggle !-->
+                <div class="nxl-navigation-toggle">
+                    <a href="javascript:void(0);" id="menu-mini-button">
+                        <i class="feather-align-left"></i>
+                    </a>
+                    <a href="javascript:void(0);" id="menu-expend-button" style="display: none">
+                        <i class="feather-arrow-right"></i>
+                    </a>
+                </div>
+                <!--! [End] nxl-navigation-toggle !-->
+                <!--! [Start] nxl-lavel-mega-menu-toggle !-->
+                <!-- <div class="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
+                    <a href="javascript:void(0);" id="nxl-lavel-mega-menu-open">
+                        <i class="feather-align-left"></i>
+                    </a>
+                </div> -->
+                <!--! [End] nxl-lavel-mega-menu-toggle !-->
+                <!--! [Start] nxl-lavel-mega-menu !-->
+                <div class="nxl-drp-link nxl-lavel-mega-menu">
+                    <div class="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
+                        <a href="javascript:void(0)" id="nxl-lavel-mega-menu-hide">
+                            <i class="feather-arrow-left me-2"></i>
+                            <span>Back</span>
+                        </a>
+                    </div>
+
+                    <!--! [End] nxl-lavel-mega-menu-wrapper !-->
+                </div>
+                <!--! [End] nxl-lavel-mega-menu !-->
+            </div>
+            <!--! [End] Header Left !-->
+            <!--! [Start] Header Right !-->
+            <div class="header-right ms-auto">
+                <div class="d-flex align-items-center">
+
+                    <!-- Full Screen Switcher -->
+                    <!-- <div class="nxl-h-item d-none d-sm-flex">
+                        <div class="full-screen-switcher">
+                            <a href="javascript:void(0);" class="nxl-head-link me-0"
+                                onclick="$('body').fullScreenHelper('toggle');">
+                                <i class="feather-maximize maximize"></i>
+                                <i class="feather-minimize minimize"></i>
+                            </a>
+                        </div>
+                    </div> -->
+                    <!-- Add this dropdown in your header section -->
+                    <!-- <select id="managerDropdown" class="form-select" style="min-width: 300px; margin-right: 10px;">
+                        <option value="">Loading managers...</option>
+                    </select> -->
+
+                    <!-- Dark/Light Theme Toggle -->
+                    <div class="nxl-h-item dark-light-theme" style="margin-right: 3%;">
+                        <!-- <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
+                            <i class="feather-moon"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
+                            <i class="feather-sun"></i>
+                        </a> -->
+                    </div>
+
+                    <!-- User Dropdown -->
+                    <div class="dropdown nxl-h-item">
+                        <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button"
+                            data-bs-auto-close="outside">
+                            <div class="avatar-text avatar-lg bg-gray-200">
+                                <i class="feather-user"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
+                            <div class="dropdown-header">
+                                <section id="user-header">
+                                    <div id="user-section" class="user-dropdown">
+                                        <a>
+                                            <i class="feather-user"></i>
+                                            <span id="manager-name">Fundsroom Tech</span></a>
+                                    </div>
+                                    <script>
+                                        const managerName2 = sessionStorage.getItem("userName");
+                                        const nameElement = document.getElementById("manager-name");
+                                        if (nameElement && managerName2 && managerName2.trim() !== "") {
+                                            nameElement.textContent = managerName2;
+                                        }
+                                    </script>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--! [End] Header Right !-->
+        </div>
+    </header>
+    <!--! ================================================================ !-->
+    <!--! [End] Header !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! [Start] Main Content !-->
+    <!--! ================================================================ !-->
+    <main class="nxl-container apps-container apps-email bg-white">
+        <div class="nxl-content without-header nxl-full-content">
+
+            <div class="card mt-4">
+                <div class="content-area bg-white" data-scrollbar-target="#psScrollbarInit"
+                    style="margin-left: 2%; margin-right: 2%; margin-top: 2%;" id="taskCalendarContainer">
+                    <div class="content-area-header bg-white sticky-top">
+                        <div
+                            class="page-header-left d-flex align-items-center justify-content-center position-relative w-100 flex-wrap">
+                            <div class="content-sidebar-header bg-white sticky-top hstack justify-content-center w-100 position-relative"
+                                style="z-index: 1;">
+                                <h3 class="fw-bolder mb-0 text-center w-100">
+                                    <span style="color: red;">TASK</span> PROGRESS CALENDAR
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid py-4">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card shadow-sm border-0 mb-4">
+                                    <div class="card-body p-4">
+                                        <div id="taskCalendar" class="fc"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4" id="dateDetailsContainer" style="display: none;">
+                            <!-- <div class="col-12">
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold mb-3">Task Progress for <span id="selectedDateText"></span>
+                                        </h6>
+                                        <div class="row align-items-center">
+                                            <div class="col-md-3 col-6 mb-3">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <div class="circular-progress mb-2" id="progressCircle">
+                                                        <svg width="80" height="80" viewBox="0 0 80 80">
+                                                            <circle class="progress-bg" cx="40" cy="40" r="36"
+                                                                stroke-width="8" fill="none" />
+                                                            <circle class="progress-bar" cx="40" cy="40" r="36"
+                                                                stroke-width="8" fill="none" stroke-linecap="round" />
+                                                            <text class="progress-text" x="40" y="45"
+                                                                text-anchor="middle" font-size="16"
+                                                                font-weight="bold">0%</text>
+                                                        </svg>
+                                                    </div>
+                                                    <span class="small text-muted">Overall Progress</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 col-6">
+                                                <p class="mb-2"><strong>Progress Value:</strong> <span
+                                                        id="progressValue">0</span>%</p>
+                                                <p class="mb-2"><strong>Day:</strong> <span id="dayName">-</span></p>
+                                                <p class="mb-0"><strong>Status:</strong> <span id="statusText"
+                                                        class="badge bg-light text-dark">No Data</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <style>
+                        .status-0 {
+                            background-color: #ffffff;
+                            color: #000000;
+                        }
+
+                        .status-30 {
+                            background-color: #ff4d4d;
+                            color: #ffffff;
+                        }
+
+                        .status-45 {
+                            background-color: #ffa500;
+                            color: #000000;
+                        }
+
+                        .status-60 {
+                            background-color: #ffff80;
+                            color: #000000;
+                        }
+
+                        .status-75 {
+                            background-color: #b3ffb3;
+                            color: #000000;
+                        }
+
+                        .status-90 {
+                            background-color: #5cdb5c;
+                            color: #ffffff;
+                        }
+
+                        .status-100 {
+                            background-color: #4da6ff;
+                            color: #ffffff;
+                        }
+
+                        body {
+                            background: #f8f9fa;
+                        }
+
+                        #taskCalendar {
+                            width: 100%;
+                            background: #ffffff;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 12px;
+                            padding: 20px;
+                        }
+
+                        .fc {
+                            font-family: "Poppins", sans-serif;
+                            color: #3c4043;
+                        }
+
+                        .fc-toolbar-title {
+                            font-size: 18px !important;
+                            font-weight: 500 !important;
+                            color: #202124 !important;
+                        }
+
+                        .fc-toolbar-chunk button {
+                            background: #ffffff !important;
+                            border: 1px solid #dadce0 !important;
+                            color: #3c4043 !important;
+                            border-radius: 20px !important;
+                            padding: 6px 14px !important;
+                            font-weight: 500 !important;
+                            transition: 0.2s ease;
+                            box-shadow: none !important;
+                            text-transform: capitalize;
+                        }
+
+                        .fc-today-button {
+                            background: #f1f3f4 !important;
+                            border: 1px solid #dadce0 !important;
+                            color: #202124 !important;
+                            border-radius: 9999px !important;
+                            padding: 6px 18px !important;
+                            font-weight: 500 !important;
+                            box-shadow: none !important;
+                        }
+
+                        .fc-today-button:hover {
+                            background: #e8eaed !important;
+                            border-color: #dadce0 !important;
+                        }
+
+                        .fc-button-active {
+                            background: #1a73e8 !important;
+                            color: white !important;
+                            border-color: #1a73e8 !important;
+                        }
+
+                        .fc-scrollgrid {
+                            border: none !important;
+                        }
+
+                        .fc-scrollgrid-section>td {
+                            border: none !important;
+                        }
+
+                        .fc-col-header-cell {
+                            background: #f8f9fa;
+                            color: #5f6368;
+                            font-weight: 500;
+                            border: none;
+                            border-bottom: 1px solid #e0e0e0 !important;
+                            font-size: 13px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.3px;
+                            padding: 12px 0 !important;
+                        }
+
+                        .fc-daygrid-day {
+                            border: none !important;
+                            border-top: 1px solid #e0e0e0 !important;
+                            border-left: 1px solid #e0e0e0 !important;
+                            position: relative;
+                        }
+
+                        .fc-daygrid-day-number {
+                            color: #3c4043;
+                            font-weight: 500;
+                            font-size: 14px;
+                            margin: 8px;
+                            z-index: 2;
+                            position: relative;
+                        }
+
+                        .fc-day-today {
+                            background-color: #e8f0fe !important;
+                        }
+
+                        .fc-day-today .fc-daygrid-day-number {
+                            color: #1967d2 !important;
+                            font-weight: 600;
+                        }
+
+                        .fc-daygrid-day:hover {
+                            background-color: #f8f9fa;
+                            transition: background 0.2s ease;
+                            cursor: pointer;
+                        }
+
+                        .progress-indicator {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            z-index: 1;
+                            border-radius: 0 !important;
+                        }
+
+                        .progress-indicator-text {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 16px;
+                            font-weight: 600;
+                            z-index: 3;
+                            color: #202124;
+                        }
+
+                        .circular-progress {
+                            position: relative;
+                        }
+
+                        .progress-bg {
+                            stroke: #e0e0e0;
+                        }
+
+                        .progress-bar {
+                            stroke: #1a73e8;
+                            stroke-dasharray: 226.1946710584651;
+                            stroke-dashoffset: 226.1946710584651;
+                            transform: rotate(-90deg);
+                            transform-origin: 50% 50%;
+                            transition: stroke-dashoffset 0.5s ease;
+                        }
+
+                        .progress-text {
+                            fill: #3c4043;
+                            font-family: "Poppins", sans-serif;
+                        }
+
+                        #taskCalendar.loading .fc-scrollgrid {
+                            opacity: 0.5;
+                        }
+
+                        #taskCalendar.loading::after {
+                            content: "Loading...";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            z-index: 10;
+                            background: rgba(255, 255, 255, 0.9);
+                            padding: 10px 20px;
+                            border-radius: 8px;
+                            font-weight: 500;
+                            color: #666;
+                        }
+
+                        @media (max-width: 768px) {
+                            #taskCalendar {
+                                padding: 10px;
+                                border-radius: 8px;
+                            }
+
+                            .fc-toolbar {
+                                flex-wrap: wrap !important;
+                                justify-content: center !important;
+                                gap: 8px;
+                            }
+
+                            .fc-toolbar-title {
+                                font-size: 15px !important;
+                                text-align: center !important;
+                                width: 100%;
+                                margin-bottom: 10px !important;
+                            }
+
+                            .fc-toolbar-chunk button {
+                                padding: 5px 10px !important;
+                                font-size: 12px !important;
+                                border-radius: 18px !important;
+                            }
+
+                            .fc-col-header-cell {
+                                font-size: 11px !important;
+                                padding: 8px 0 !important;
+                            }
+
+                            .fc-daygrid-day-number {
+                                font-size: 12px !important;
+                                margin: 4px !important;
+                            }
+
+                            .progress-indicator-text {
+                                font-size: 9px !important;
+                            }
+
+                            .fc-daygrid-day {
+                                min-height: 80px !important;
+                            }
+                        }
+
+                        @media (max-width: 576px) {
+                            .fc-daygrid-day {
+                                min-height: 70px !important;
+                            }
+
+                            .progress-indicator-text {
+                                font-size: 8px !important;
+                            }
+                        }
+                    </style>
+                </div>
+
+                <hr style="border: none; border-top: 10px dotted #4b4949; margin-top: 10px;">
+
+                <div class="card">
+                    <div class="card-header text-white d-flex justify-content-center align-items-center">
+                        <h3 class="mb-0 text-center" id="headerDateTitle">--</h3>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="text-center py-2 border" style="background-color: #ffffff; font-size: 20px;">
+                            <strong># 9:00 AM - 1:00 PM</strong>
+                        </div>
+                        <div class="table-responsive mb-0">
+                            <table class="table table-bordered mb-0" id="taskCalendarTable1">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 10%;"></th>
+                                        <th style="width: 20%; font-size: 14px;">TASK</th>
+                                        <th style="width: 35%; font-size: 14px;">COMMENT</th>
+                                        <th style="width: 15%; font-size: 14px;">PROGRESS</th>
+                                        <th style="width: 15%; font-size: 14px;">RESULT</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="taskCalendarBody1">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="text-center py-2 border" style="background-color: #ffffff; font-size: 20px;">
+                            <strong># 1:00 PM - 6:00 PM</strong>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0" id="taskCalendarTable2">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 10%;"></th>
+                                        <th style="width: 20%; font-size: 14px;">TASK</th>
+                                        <th style="width: 35%; font-size: 14px;">COMMENT</th>
+                                        <th style="width: 15%; font-size: 14px;">PROGRESS</th>
+                                        <th style="width: 15%; font-size: 14px;">RESULT</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="taskCalendarBody2">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center py-2 bg-light border">
+                            <strong style="font-size: 22px;">OVERALL PROGRESS:</strong><strong
+                                id="overallProgress">--</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .row-red {
+                        background-color: #ff7f7f !important;
+                    }
+
+                    .row-orange {
+                        background-color: #ffbc41 !important;
+                    }
+
+                    .row-yellow {
+                        background-color: #ffff80 !important;
+                    }
+
+                    .row-light-green {
+                        background-color: #b3ffb3 !important;
+                    }
+
+                    .row-green {
+                        background-color: #5cdb5c !important;
+                    }
+
+                    .row-blue {
+                        background-color: #88c3ff !important;
+                    }
+                </style>
+
+                <style>
+                    #taskCalendarTable1,
+                    #taskCalendarTable2 {
+                        margin-bottom: 0;
+                    }
+
+                    #taskCalendarTable1 thead th,
+                    #taskCalendarTable2 thead th {
+                        background-color: #f8f9fa;
+                        font-weight: 600;
+                        text-align: center;
+                        padding: 8px;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    #taskCalendarTable1 tbody td,
+                    #taskCalendarTable2 tbody td {
+                        padding: 8px;
+                        vertical-align: middle;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    .card-header {
+                        background-color: #343a40;
+                    }
+
+                    .task-title-display {
+                        cursor: pointer;
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                        display: inline-block;
+                        min-height: 32px;
+                        line-height: 24px;
+                    }
+
+                    /* .task-title-display:hover {
+                        background-color: #f0f0f0;
+                    } */
+
+                    .comment-display {
+                        cursor: pointer;
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                        min-height: 32px;
+                        display: block;
+                        line-height: 24px;
+                    }
+
+                    /* .comment-display:hover {
+                        background-color: #f0f0f0;
+                    } */
+
+                    .result-display {
+                        cursor: pointer;
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                        min-height: 32px;
+                        display: inline-block;
+                        line-height: 24px;
+                    }
+
+                    /* .result-display:hover {
+                        background-color: #f0f0f0;
+                    } */
+
+                    .d-none {
+                        display: none !important;
+                    }
+
+                    .progress-slider {
+                        cursor: pointer;
+                        height: 6px;
+                    }
+
+                    .progress-slider::-webkit-slider-thumb {
+                        background: #007bff;
+                        width: 18px;
+                        height: 18px;
+                    }
+
+                    .progress-slider::-moz-range-thumb {
+                        background: #007bff;
+                        width: 18px;
+                        height: 18px;
+                    }
+
+                    .progress-value {
+                        min-width: 40px;
+                        font-weight: 600;
+                    }
+
+                    .progress-display {
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        font-weight: 600;
+                        display: inline-block;
+                        background-color: #f8f9fa;
+                    }
+
+                    #overallProgress {
+                        font-size: 1.4rem;
+                        padding: 8px 16px;
+                        min-width: 80px;
+                    }
+
+                    /* .floating-task-dropdown .dropdown-option:hover {
+                        background-color: #e9ecef;
+                    } */
+
+                    .floating-task-dropdown .dropdown-option:last-child {
+                        border-bottom: none;
+                    }
+
+                    .comment-input,
+                    .result-input {
+                        font-size: 14px;
+                        padding: 4px 8px;
+                        height: 32px;
+                    }
+
+                    #taskCalendarTable1 td:nth-child(4),
+                    #taskCalendarTable1 td:nth-child(5),
+                    #taskCalendarTable2 td:nth-child(4),
+                    #taskCalendarTable2 td:nth-child(5) {
+                        text-align: center;
+                    }
+
+                    /* .bg-light.border {
+                        background-color: #f8f9fa !important;
+                        border-top: 1px solid #dee2e6 !important;
+                        border-bottom: 1px solid #dee2e6 !important;
+                    } */
+
+                    .progress-display-container .progress-display:hover,
+                    .progress-display:not(.text-muted):hover {
+                        cursor: pointer;
+                        /* background-color: #f0f0f0; */
+                        border-radius: 4px;
+                    }
+
+                    /* .progress-display:not([data-current-value]):hover {
+                        cursor: default;
+                        background-color: transparent;
+                    } */
+                </style>
+                <style>
+                    .table-responsive {
+                        overflow-x: auto;
+                        position: relative;
+                    }
+
+                    #leadsTable {
+                        border-collapse: collapse;
+                        width: max-content;
+                        font-family: 'Inter', sans-serif;
+                        font-size: 14px;
+                        background: #fff;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                        border-radius: 8px;
+                    }
+
+                    .column-filter {
+                        display: inline-block !important;
+                        width: 100%;
+                        margin-top: 4px;
+                    }
+
+
+                    #leadsTable th {
+                        font-weight: 600;
+                        text-align: left;
+                        padding: 8px 12px;
+                        border-bottom: 2px solid #e5e7eb;
+                        position: sticky;
+                        top: 0;
+                        z-index: 10;
+                    }
+
+                    #leadsTable th:nth-child(-n+3) {
+                        background: #fff;
+                        color: #000;
+                        z-index: 15;
+                    }
+
+                    #leadsTable th:nth-child(n+4) {
+                        background: #fff;
+                        color: #000;
+                        font-weight: bold;
+                        font-size: 13px;
+                    }
+
+                    #leadsTable td {
+                        vertical-align: middle;
+                        padding: 8px 12px;
+                        white-space: nowrap;
+                        border-bottom: 1px solid #f1f5f9;
+                    }
+
+                    /* #leadsTable tr:nth-child(even) td {
+                        background: #fafafa;
+                    } */
+
+                    #leadsTable tr:hover td {
+                        background: #f1f5ff;
+                    }
+
+                    #leadsTable th:nth-child(-n+3),
+                    #leadsTable td:nth-child(-n+3) {
+                        position: sticky;
+                        left: 0;
+                        z-index: 5;
+                        border-right: 1px solid #dee2e6;
+                        background: #fff;
+                        font-size: 13px;
+                    }
+
+                    #leadsTable input,
+                    #leadsTable select {
+                        display: none;
+                        width: 100%;
+                        font-size: 14px;
+                        padding: 6px 8px;
+                        border: 1px solid #cbd5e1;
+                        border-radius: 6px;
+                        background: #fff;
+                    }
+
+                    #leadsTable td.editing input,
+                    #leadsTable td.editing select {
+                        display: block;
+                    }
+
+                    #leadsTable td span {
+                        display: inline-block;
+                        width: 100%;
+                        min-height: 22px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        color: #1e293b;
+                    }
+
+                    #leadsTable td.editing {
+                        background: #ffffff;
+                        box-shadow: inset 0 0 0 2px #fff;
+                    }
+                </style>
+
+            </div>
+
+            <!-- [ Content Area ] end -->
+        </div>
+        <!-- [ Main Content ] end -->
+        </div>
+    </main>
+    <!--! ================================================================ !-->
+    <!--! [End] Main Content !-->
+    <!--! ================================================================ !-->
+
+    <!--! ================================================================ !-->
+    <!--! Footer Script !-->
+    <!--! ================================================================ !-->
+    <!--! BEGIN: Vendors JS !-->
+    <script src="./../assets/vendors/js/vendors.min.js"></script>
+    <!-- vendors.min.js {always must need to be top} -->
+    <script src="./../assets/vendors/js/daterangepicker.min.js"></script>
+    <script src="./../assets/vendors/js/apexcharts.min.js"></script>
+    <script src="./../assets/vendors/js/circle-progress.min.js"></script>
+    <script src="./../assets/vendors/js/jquery.calendar.min.js"></script>
+    <script src="./../assets/vendors/js/tagify.min.js"></script>
+    <script src="./../assets/vendors/js/tagify-data.min.js"></script>
+    <script src="./../assets/vendors/js/quill.min.js"></script>
+    <script src="./../assets/vendors/js/select2.min.js"></script>
+    <script src="./../assets/vendors/js/select2-active.min.js"></script>
+    <!--! END: Vendors JS !-->
+    <!--! BEGIN: Apps Init  !-->
+    <script src="./../assets/js/common-init.min.js"></script>
+    <!-- <script src="./../assets/js/dashboard-init.min.js"></script> -->
+    <!-- <script src="./../assets/js/reports-project-init.min.js"></script> -->
+    <!-- <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script> -->
+    <!--! END: Apps Init !-->
+    <!--! BEGIN: Theme Customizer  !-->
+    <script src="./../assets/js/theme-customizer-init.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--! END: Theme Customizer !-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let managerId = null;
+            let currentDate = new Date().toISOString().split('T')[0];
+            let managersList = [];
+            let currentManagerName = "";
+
+            updateHeaderDate(currentDate);
+
+            const userData = sessionStorage.getItem("user_id");
+            managerId = userData;
+
+            const taskOptions = [
+                "HR [COLLEGE CONNECT]",
+                "HR [JD SEND]",
+                "HR [FOLLOW UP]",
+                "HR [RESUME RECEVIED]",
+                "HR [SELECTED-COLLEGES]",
+                "HR [SELECTION]",
+                "HR [PRE-PLACEMENT TALK]",
+                "HR [SCHEDULLING & ALLOTMENT]",
+                "HR [INTERVIEW]",
+                "HR [ALLOTMENT]",
+                "HR [TRAINING & DEVELOPMENT]",
+                "HR [DATA WORK]",
+                "HR [CORPORATE RELATIONS]",
+                "HR [OFFICE WORK]",
+                "HR [HRMS]",
+                "HR [OTHER WORK]",
+
+                "BD [DAY 0]",
+                "BD [DAY 1]",
+                "BD [DAY 2]",
+                "BD [DAY 3]",
+                "BD [DAY 4]",
+                "BD [DAY 5]",
+                "BD [DAY 6]",
+                "BD [DAY 7]",
+                "BD [TRAINING & DEVELOPMENT]",
+                "BD [DATA WORK]",
+                "BD [PARTNER MODEL]",
+                "BD [OTHER WORK]",
+
+                "MODULE 2",
+                "PUSH",
+                "CROSS COLLBORATION",
+
+                "SALES [DATA WORK]",
+
+                "MARKETING [REVIEWS & RATINGS]",
+                "MARKETING [FOLLOWERS]",
+                "MARKETING [POST]",
+                "MARKETING [CONTENT]",
+                "MARKETING [CMS]",
+                "MARKETING [OTHERS]",
+
+                "LUNCH BREAK"
+            ];
+
+            const progressOptions = [];
+            for (let i = 0; i <= 100; i += 10) {
+                progressOptions.push(i);
+            }
+
+            const timeSlots1 = [
+                "9:00-9:25 AM",
+                "10:00-11:00 AM",
+                "2:00-3:00 PM"
+            ];
+
+            const taskLabels = ["TASK 1", "TASK 2", "TASK 3"];
+            const taskLabels2 = ["TASK 4", "TASK 5", "TASK 6"];
+
+            function formatHeaderDate(dateStr) {
+                const date = new Date(dateStr);
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
+                const year = date.getFullYear();
+                const dayName = date.toLocaleString('default', { weekday: 'long' }).toUpperCase();
+
+                return `# ${day} ${month} ${year} [${dayName}]`;
+            }
+
+            function updateHeaderDate(dateStr) {
+                const formattedDate = formatHeaderDate(dateStr);
+                $("#headerDateTitle").text(formattedDate);
+            }
+
+            loadManagers();
+
+            let currentTaskDropdown = null;
+            let currentTaskRow = null;
+            let currentProgressDropdown = null;
+            let currentProgressRow = null;
+
+            function loadManagers() {
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/teammanager/all",
+                    method: "GET",
+                    success: function (response) {
+                        console.log("Managers response:", response);
+                        if (response.success && response.data) {
+                            managersList = response.data;
+                            populateManagerDropdown(managersList);
+
+                            if (userData) {
+                                const sessionManager = managersList.find(manager => manager.id === userData);
+                                if (sessionManager) {
+                                    $("#managerDropdown").val(userData);
+                                    managerId = userData;
+                                    currentManagerName = sessionManager.name;
+                                    updateHeaderWithManagerName();
+                                } else {
+                                    if (managersList.length > 0) {
+                                        managerId = managersList[0].id;
+                                        currentManagerName = managersList[0].name;
+                                        $("#managerDropdown").val(managerId);
+                                        updateHeaderWithManagerName();
+                                    }
+                                }
+                            } else if (managersList.length > 0) {
+                                managerId = managersList[0].id;
+                                currentManagerName = managersList[0].name;
+                                $("#managerDropdown").val(managerId);
+                                updateHeaderWithManagerName();
+                            }
+
+                            loadTasks();
+                        } else {
+                            console.error("Failed to load managers:", response);
+                            $("#managerDropdown").html('<option value="">Error loading managers</option>');
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error loading managers:", error);
+                        $("#managerDropdown").html('<option value="">Error loading managers</option>');
+                    }
+                });
+            }
+
+            function populateManagerDropdown(managers) {
+                const dropdown = $("#managerDropdown");
+                dropdown.empty();
+
+                const sortedManagers = managers.sort((a, b) => a.name.localeCompare(b.name));
+
+                sortedManagers.forEach(manager => {
+                    const option = $("<option>")
+                        .val(manager.id)
+                        .text(`${manager.name} (${manager.department})`);
+                    dropdown.append(option);
+                });
+
+                if (sortedManagers.length === 0) {
+                    dropdown.html('<option value="">No managers found</option>');
+                }
+            }
+
+            function updateHeaderWithManagerName() {
+                const headerDateTitle = $("#headerDateTitle");
+                let currentText = headerDateTitle.text();
+
+                currentText = currentText.replace(/\[Manager: .*?\]\s*/, '');
+
+                if (currentManagerName) {
+                    headerDateTitle.text(`${currentText}`);
+                }
+            }
+
+            $("#managerDropdown").on("change", function () {
+                const selectedManagerId = $(this).val();
+                if (selectedManagerId) {
+                    managerId = selectedManagerId;
+                    const selectedManager = managersList.find(manager => manager.id === selectedManagerId);
+                    if (selectedManager) {
+                        currentManagerName = selectedManager.name;
+                        updateHeaderWithManagerName();
+                    }
+                    loadTasks();
+                }
+            });
+
+            function loadTasks() {
+                if (!managerId) {
+                    console.error("Manager ID not found");
+                    return;
+                }
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/taskcalendar/daytask?managerId=${managerId}&date=${currentDate}`,
+                    method: "GET",
+                    success: function (response) {
+                        console.log(response);
+                        if (response.success) {
+                            renderTasks(response.tasks);
+                            updateOverallProgress(response.dayProgress || 0);
+                        } else {
+                            console.error("Failed to load tasks:", response);
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error loading tasks:", error);
+                        renderTasks([]);
+                        updateOverallProgress(0);
+                    }
+                });
+            }
+
+            function updateDateFromCalendar(dateStr) {
+                currentDate = dateStr;
+                updateHeaderDate(dateStr);
+                loadTasks();
+            }
+
+            function getRowColorClass(resultValue) {
+                const result = parseInt(resultValue) || 0;
+
+                if (result >= 91 && result <= 100) {
+                    return 'row-blue';
+                } else if (result >= 76 && result <= 90) {
+                    return 'row-green';
+                } else if (result >= 61 && result <= 75) {
+                    return 'row-light-green';
+                } else if (result >= 46 && result <= 60) {
+                    return 'row-yellow';
+                } else if (result >= 31 && result <= 45) {
+                    return 'row-orange';
+                } else {
+                    return 'row-red';
+                }
+            }
+
+            function renderTasks(tasks) {
+                const tbody1 = $("#taskCalendarBody1");
+                const tbody2 = $("#taskCalendarBody2");
+                tbody1.empty();
+                tbody2.empty();
+
+                $(".floating-task-dropdown").remove();
+                $(".floating-progress-dropdown").remove();
+
+                for (let i = 0; i < 3; i++) {
+                    if (tasks && tasks[i]) {
+                        const row = createTaskRow(tasks[i], i, true);
+                        tbody1.append(row);
+                    } else {
+                        const emptyRow = createEmptyTaskRow(i, true);
+                        tbody1.append(emptyRow);
+                    }
+                }
+
+                for (let i = 3; i < 6; i++) {
+                    if (tasks && tasks[i]) {
+                        const row = createTaskRow(tasks[i], i, false);
+                        tbody2.append(row);
+                    } else {
+                        const emptyRow = createEmptyTaskRow(i, false);
+                        tbody2.append(emptyRow);
+                    }
+                }
+
+                attachTaskEvents();
+            }
+
+            function createTaskRow(task, index, isFirstTable) {
+                const isSystem = task.mode === "SYSTEM";
+                const progressValue = task.progress !== null ? task.progress : 0;
+                const resultValue = task.result || "0";
+                const taskTypeValue = task.taskType || "";
+                const commentValue = task.comment || "";
+                const rowColorClass = getRowColorClass(resultValue);
+
+                let progressDisplay = "";
+                if (isSystem) {
+                    progressDisplay = `<span class="progress-display">${progressValue}</span>`;
+                } else {
+                    progressDisplay = `
+                <div class="progress-display-container">
+                    <span class="progress-display" data-current-value="${progressValue}">${progressValue}%</span>
+                </div>`;
+                }
+
+                const taskNumber = index + 1;
+
+                if (isFirstTable) {
+                    const taskLabel = taskLabels[index] || `TASK ${taskNumber}`;
+                    return `
+                    <tr class="${rowColorClass}" data-task-id="${task.taskId}" data-task-type="${taskTypeValue}" data-mode="${task.mode}">
+                        <td class="fw-bold">${taskLabel}</td>
+                        <td>
+                            <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
+                        </td>
+                        <td>
+                            <span class="comment-display">${commentValue}</span>
+                            <input type="text" class="form-control form-control-sm comment-input d-none" 
+                                value="${commentValue}" 
+                                placeholder="Enter comment...">
+                        </td>
+                        <td class="text-center">
+                            ${progressDisplay}
+                        </td>
+                        <td class="text-center">
+                            <span class="result-display">${resultValue}%</span>
+                        </td>
+                    </tr>
+                `;
+                } else {
+                    const taskLabel2 = taskLabels2[index - 3] || `TASK ${taskNumber}`;
+                    return `
+                    <tr class="${rowColorClass}" data-task-id="${task.taskId}" data-task-type="${taskTypeValue}" data-mode="${task.mode}">
+                        <td class="fw-bold">${taskLabel2}</td>
+                        <td>
+                            <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
+                        </td>
+                        <td>
+                            <span class="comment-display">${commentValue}</span>
+                            <input type="text" class="form-control form-control-sm comment-input d-none" 
+                                value="${commentValue}" 
+                                placeholder="Enter comment...">
+                        </td>
+                        <td class="text-center">
+                            ${progressDisplay}
+                        </td>
+                        <td class="text-center">
+                            <span class="result-display">${resultValue}%</span>
+                        </td>
+                    </tr>
+                `;
+                }
+            }
+
+            function createEmptyTaskRow(index, isFirstTable) {
+                const taskNumber = index + 1;
+
+                if (isFirstTable) {
+                    const taskLabel = taskLabels[index] || `TASK ${taskNumber}`;
+
+                    return `
+                    <tr data-task-id="" data-task-type="" data-mode="">
+                        <td class="fw-bold">${taskLabel}</td>
+                        <td>
+                            <span class="task-title-display text-muted">No task assigned</span>
+                        </td>
+                        <td>
+                            <span class="comment-display text-muted">-</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="progress-display text-muted">-</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="result-display text-muted">-</span>
+                        </td>
+                    </tr>
+                `;
+                } else {
+                    const taskLabel2 = taskLabels2[index - 3] || `TASK ${taskNumber}`;
+
+                    return `
+                    <tr data-task-id="" data-task-type="" data-mode="">
+                        <td class="fw-bold">${taskLabel2}</td>
+                        <td>
+                            <span class="task-title-display text-muted">No task assigned</span>
+                        </td>
+                        <td>
+                            <span class="comment-display text-muted">-</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="progress-display text-muted">-</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="result-display text-muted">-</span>
+                        </td>
+                    </tr>
+                `;
+                }
+            }
+
+            function createFloatingDropdown(currentValue, position, isProgress = false) {
+                if (isProgress) {
+                    $(".floating-progress-dropdown").remove();
+                } else {
+                    $(".floating-task-dropdown").remove();
+                }
+
+                const options = isProgress ? progressOptions : taskOptions;
+                const dropdownClass = isProgress ? "floating-progress-dropdown" : "floating-task-dropdown";
+
+                const dropdownHTML = `
+                <div class="${dropdownClass}" style="
+                    position: absolute;
+                    z-index: 9999;
+                    background: white;
+                    border: 1px solid #ced4da;
+                    border-radius: 4px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    min-width: 100px;
+                    max-height: 300px;
+                    overflow-y: auto;
+                    display: none;
+                ">
+        ${options.map(option => {
+                    const displayValue = isProgress ? `${option}%` : option;
+                    const optionValue = isProgress ? option : option;
+                    const isSelected = isProgress ?
+                        (parseInt(currentValue) === option) :
+                        (currentValue === option);
+
+                    return `<div class="dropdown-option" data-value="${optionValue}" style="
+                    padding: 8px 12px;
+                    cursor: pointer;
+                    border-bottom: 1px solid #f0f0f0;
+                    ${isSelected ? 'background-color: #007bff; color: white;' : ''}
+                ">
+                    ${displayValue}
+                    </div>`;
+                }).join('')}
+                </div>
+            `;
+
+                $("body").append(dropdownHTML);
+
+                const dropdown = $(`.${dropdownClass}`);
+                dropdown.css({
+                    top: position.top + position.height,
+                    left: position.left,
+                    display: 'block'
+                });
+
+                return dropdown;
+            }
+
+            function attachTaskEvents() {
+                $(".task-title-display").off("dblclick").on("dblclick", function () {
+                    const row = $(this).closest("tr");
+                    const currentValue = $(this).attr("data-current-value");
+                    const position = $(this).offset();
+                    const height = $(this).outerHeight();
+
+                    currentTaskRow = row;
+
+                    currentTaskDropdown = createFloatingDropdown(currentValue, {
+                        top: position.top,
+                        left: position.left,
+                        height: height
+                    }, false);
+
+                    $(".floating-task-dropdown .dropdown-option").off("click").on("click", function () {
+                        const newTaskType = $(this).data("value");
+                        updateTaskType(currentTaskRow, newTaskType);
+                        currentTaskDropdown.remove();
+                        currentTaskDropdown = null;
+                        currentTaskRow = null;
+                        $(document).off("click.closeTaskDropdown");
+                    });
+
+                    $(document).off("click.closeTaskDropdown").on("click.closeTaskDropdown", function (e) {
+                        if (!$(e.target).closest('.floating-task-dropdown').length &&
+                            !$(e.target).closest('.task-title-display').length) {
+                            if (currentTaskDropdown) {
+                                currentTaskDropdown.remove();
+                                currentTaskDropdown = null;
+                                currentTaskRow = null;
+                                $(document).off("click.closeTaskDropdown");
+                            }
+                        }
+                    });
+                });
+
+                $(".progress-display-container .progress-display, .progress-display:not(.text-muted)").off("dblclick").on("dblclick", function () {
+                    const row = $(this).closest("tr");
+                    const isSystem = row.data("mode") === "SYSTEM";
+
+                    if (!isSystem) {
+                        const currentValue = $(this).attr("data-current-value") || "0";
+                        const position = $(this).offset();
+                        const height = $(this).outerHeight();
+
+                        currentProgressRow = row;
+
+                        currentProgressDropdown = createFloatingDropdown(currentValue, {
+                            top: position.top,
+                            left: position.left,
+                            height: height
+                        }, true);
+
+                        $(".floating-progress-dropdown .dropdown-option").off("click").on("click", function () {
+                            const newProgress = $(this).data("value");
+                            updateProgress(currentProgressRow, newProgress);
+                            currentProgressDropdown.remove();
+                            currentProgressDropdown = null;
+                            currentProgressRow = null;
+                            $(document).off("click.closeProgressDropdown");
+                        });
+
+                        $(document).off("click.closeProgressDropdown").on("click.closeProgressDropdown", function (e) {
+                            if (!$(e.target).closest('.floating-progress-dropdown').length &&
+                                !$(e.target).closest('.progress-display').length) {
+                                if (currentProgressDropdown) {
+                                    currentProgressDropdown.remove();
+                                    currentProgressDropdown = null;
+                                    currentProgressRow = null;
+                                    $(document).off("click.closeProgressDropdown");
+                                }
+                            }
+                        });
+                    }
+                });
+
+                $(".comment-display").off("dblclick").on("dblclick", function () {
+                    $(this).addClass("d-none");
+                    $(this).closest("td").find(".comment-input").removeClass("d-none").focus();
+                });
+
+                $(".comment-input").off("blur").on("blur", function () {
+                    const row = $(this).closest("tr");
+                    const taskId = row.data("task-id");
+                    const taskType = row.data("task-type");
+                    const isSystem = row.data("mode") === "SYSTEM";
+                    const newComment = $(this).val();
+
+                    row.find(".comment-display").text(newComment);
+
+                    $(this).addClass("d-none");
+                    row.find(".comment-display").removeClass("d-none");
+
+                    const payload = {
+                        managerId: managerId,
+                        date: currentDate,
+                        task: {
+                            taskId: taskId,
+                            taskType: taskType,
+                            title: taskType,
+                            comment: newComment
+                        }
+                    };
+                    console.log("payload:", payload);
+
+                    updateTask(payload);
+                });
+
+                $(".comment-input").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        $(this).blur();
+                    }
+                });
+            }
+
+            function updateTaskType(row, newTaskType) {
+                const taskId = row.data("task-id");
+                const currentTaskType = row.data("task-type");
+                const isSystem = row.data("mode") === "SYSTEM";
+
+                const displaySpan = row.find(".task-title-display");
+                displaySpan.text(newTaskType);
+                displaySpan.attr("data-current-value", newTaskType);
+
+                row.data("task-type", newTaskType);
+
+                const payload = {
+                    managerId: managerId,
+                    date: currentDate,
+                    task: {
+                        taskId: taskId,
+                        taskType: newTaskType,
+                        title: newTaskType,
+                        progress: 0
+                    }
+                };
+                console.log("payload:", payload);
+
+                updateTask(payload);
+            }
+
+            function updateProgress(row, newProgress) {
+                const taskId = row.data("task-id");
+                const taskType = row.data("task-type");
+                const isSystem = row.data("mode") === "SYSTEM";
+
+                if (!isSystem) {
+                    const displaySpan = row.find(".progress-display");
+                    displaySpan.text(`${newProgress}%`);
+                    displaySpan.attr("data-current-value", newProgress);
+
+                    const payload = {
+                        managerId: managerId,
+                        date: currentDate,
+                        task: {
+                            taskId: taskId,
+                            taskType: taskType,
+                            title: taskType,
+                            progress: parseInt(newProgress)
+                        }
+                    };
+                    console.log("payload:", payload);
+
+                    updateTask(payload);
+                }
+            }
+
+            function updateTask(payload) {
+                if (!managerId) {
+                    console.error("Manager ID not found");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Session Error",
+                        text: "Please select a manager from the dropdown."
+                    });
+                    return;
+                }
+
+                if (!payload.task.taskId && !payload.task.taskType) {
+                    console.error("Missing required fields for task update");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: "Missing required task information."
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/taskcalendar/upsert",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Task updated successfully");
+                            loadTasks();
+                        } else {
+                            console.error("Failed to update task");
+                        }
+                    },
+                    error: function (error) {
+                        console.error("An error occurred while updating the task");
+                    }
+                });
+            }
+
+            function updateOverallProgress(progress) {
+                const progressElement = $("#overallProgress");
+                const roundedProgress = Math.round(progress);
+                progressElement.text(`${roundedProgress}%`);
+
+                progressElement.removeClass("text-danger text-warning text-success text-primary");
+
+                if (roundedProgress < 30) {
+                    progressElement.addClass("text-danger");
+                } else if (roundedProgress < 60) {
+                    progressElement.addClass("text-warning");
+                } else if (roundedProgress < 85) {
+                    progressElement.addClass("text-success");
+                } else {
+                    progressElement.addClass("text-primary");
+                }
+            }
+
+            $("#addTaskBtn").off("click").on("click", function () {
+                addNewTask();
+            });
+
+            function addNewTask() {
+                if (!managerId) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Please select a manager from the dropdown first."
+                    });
+                    return;
+                }
+
+                const payload = {
+                    managerId: managerId,
+                    date: currentDate,
+                    task: {
+                        taskType: "OTHER",
+                        title: "New Task",
+                        progress: 0,
+                        result: "0"
+                    }
+                };
+                console.log("payload:", payload);
+
+                updateTask(payload);
+            }
+
+            window.reloadTasks = loadTasks;
+            window.addNewTask = addNewTask;
+            window.updateDateFromCalendar = updateDateFromCalendar;
+
+            $(window).on('beforeunload', function () {
+                $(".floating-task-dropdown").remove();
+                $(".floating-progress-dropdown").remove();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            const apiBaseUrl = "https://eduroom.in/api/v1/taskcalendar/calendar";
+            let currentManagerId = null;
+            let calendarInstance = null;
+
+            const userData = sessionStorage.getItem("user_id");
+            currentManagerId = userData;
+
+            function initCalendar() {
+                const calendarEl = document.getElementById("taskCalendar");
+
+                calendarInstance = new FullCalendar.Calendar(calendarEl, {
+                    initialView: "dayGridMonth",
+                    height: "auto",
+                    selectable: true,
+                    headerToolbar: {
+                        left: "today prev next",
+                        center: "title",
+                        right: ""
+                    },
+                    events: [],
+                    datesSet: function (dateInfo) {
+                        if (currentManagerId) {
+                            const currentDate = dateInfo.view.currentStart;
+                            const year = currentDate.getFullYear();
+                            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                            const monthString = `${year}-${month}`;
+
+                            console.log("Calendar view changed to:", monthString);
+                            loadCalendarData(monthString);
+                        }
+                    },
+                    dateClick: function (info) {
+                        showDateDetails(info.dateStr);
+                        // Call the function from first script to update tasks
+                        if (typeof updateDateFromCalendar !== 'undefined') {
+                            updateDateFromCalendar(info.dateStr);
+                        }
+                    }
+                });
+
+                calendarInstance.render();
+
+                startManagerMonitoring();
+            }
+
+            function startManagerMonitoring() {
+                console.log("Starting manager monitoring...");
+                const checkManagerId = setInterval(() => {
+                    if (typeof managerId !== 'undefined' && managerId) {
+                        if (currentManagerId !== managerId) {
+                            console.log("Manager ID changed to:", managerId);
+                            currentManagerId = managerId;
+                            clearInterval(checkManagerId);
+                            triggerInitialLoad();
+                        }
+                    }
+                }, 1000);
+
+                $(document).on('change', '#managerDropdown, select[name="manager"], .manager-select', function () {
+                    const newManagerId = $(this).val();
+                    if (newManagerId && newManagerId !== currentManagerId) {
+                        console.log("Dropdown manager changed to:", newManagerId);
+                        currentManagerId = newManagerId;
+                        triggerInitialLoad();
+                    }
+                });
+
+                $(document).on('managerChanged', function (event, managerId) {
+                    console.log("Manager changed via event to:", managerId);
+                    currentManagerId = managerId;
+                    triggerInitialLoad();
+                });
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlManagerId = urlParams.get('managerId');
+                if (urlManagerId && !currentManagerId) {
+                    currentManagerId = urlManagerId;
+                    triggerInitialLoad();
+                }
+            }
+
+            function getProgressColor(val) {
+                if (val === null || val === undefined) return '#ffffff';
+                if (val >= 0 && val <= 30) return '#ff7f7f';
+                if (val >= 31 && val <= 45) return '#ffa500';
+                if (val >= 46 && val <= 60) return '#ffff80';
+                if (val >= 61 && val <= 75) return '#b3ffb3';
+                if (val >= 76 && val <= 90) return '#5cdb5c';
+                if (val >= 91) return '#4da6ff';
+                return '#ffffff';
+            }
+
+            function getStatusText(progressValue) {
+                if (progressValue === null || progressValue === undefined) return 'Not Started';
+                if (progressValue >= 0 && progressValue <= 30) return 'Just Started';
+                if (progressValue >= 31 && progressValue <= 45) return 'In Progress';
+                if (progressValue >= 46 && progressValue <= 60) return 'In Progress';
+                if (progressValue >= 61 && progressValue <= 75) return 'In Progress';
+                if (progressValue >= 76 && progressValue <= 90) return 'Almost Done';
+                if (progressValue >= 91) return 'Completed';
+                return 'Completed';
+            }
+
+            function getStatusClass(val) {
+                if (val === null || val === undefined)
+                    return 'status-0';
+
+                if (val >= 0 && val <= 30)
+                    return 'status-30';
+
+                if (val >= 31 && val <= 45)
+                    return 'status-45';
+
+                if (val >= 46 && val <= 60)
+                    return 'status-60';
+
+                if (val >= 61 && val <= 75)
+                    return 'status-75';
+
+                if (val >= 76 && val <= 90)
+                    return 'status-90';
+
+                if (val >= 91)
+                    return 'status-100';
+
+                return 'status-0';
+            }
+
+            function triggerInitialLoad() {
+                if (calendarInstance && currentManagerId) {
+                    const currentDate = calendarInstance.view.currentStart;
+                    const year = currentDate.getFullYear();
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                    const monthString = `${year}-${month}`;
+
+                    console.log("Initial load for manager:", currentManagerId, "month:", monthString);
+                    loadCalendarData(monthString);
+                } else {
+                    console.log("Cannot trigger load - Calendar:", calendarInstance, "Manager ID:", currentManagerId);
+                }
+            }
+
+            function clearCalendar() {
+                $('.fc-daygrid-day').each(function () {
+                    $(this).find('.progress-indicator, .progress-indicator-text').remove();
+                    $(this).removeAttr('data-progress');
+                    $(this).removeAttr('data-day-name');
+                    $(this).removeAttr('data-has-data');
+
+                    const indicator = $('<div class="progress-indicator"></div>');
+                    const indicatorText = $('<div class="progress-indicator-text"></div>');
+
+                    indicator.css('background-color', '#ffffff');
+                    indicatorText.text('-');
+                    indicatorText.css('color', '#999');
+
+                    $(this).append(indicator);
+                    $(this).append(indicatorText);
+                });
+
+                $('#dateDetailsContainer').hide();
+            }
+
+            function loadCalendarData(month) {
+                if (!currentManagerId) {
+                    console.log("No manager ID selected yet");
+                    showInfoMessage("Please select a manager to view calendar data.");
+                    return;
+                }
+
+                const apiUrl = `${apiBaseUrl}?managerId=${currentManagerId}&month=${month}`;
+
+                console.log("Loading data from:", apiUrl);
+
+                $('#taskCalendar').addClass('loading.....');
+
+                $.ajax({
+                    url: apiUrl,
+                    type: "GET",
+                    success: function (response) {
+                        console.log("Calendar data loaded:", response);
+                        if (response.success && response.calendar) {
+                            renderProgressOnCalendar(response.calendar);
+                        }
+                        $('#taskCalendar').removeClass('loading');
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching calendar data:", xhr.status, xhr.statusText);
+                        $('#taskCalendar').removeClass('loading');
+                        showErrorMessage("Failed to load calendar data. Please try again.");
+                    }
+                });
+            }
+
+            function renderProgressOnCalendar(calendarData) {
+                $('.fc-daygrid-day').each(function () {
+                    $(this).find('.progress-indicator, .progress-indicator-text').remove();
+                });
+
+                const progressByDate = {};
+                calendarData.forEach(day => {
+                    progressByDate[day.date] = {
+                        progress: day.dayProgress,
+                        dayName: day.day
+                    };
+                });
+
+                $('.fc-daygrid-day').each(function () {
+                    const dayElement = $(this);
+                    const dateStr = dayElement.attr('data-date');
+
+                    if (dateStr && progressByDate[dateStr]) {
+                        const progress = progressByDate[dateStr].progress;
+                        const dayName = progressByDate[dateStr].dayName;
+
+                        const indicator = $('<div class="progress-indicator"></div>');
+                        const indicatorText = $('<div class="progress-indicator-text"></div>');
+
+                        const bgColor = getProgressColor(progress);
+
+                        if (progress !== null) {
+                            indicatorText.text(`${progress}%`);
+                            if (progress <= 30) {
+                                indicatorText.css('color', '#000000');
+                            } else if (progress <= 45) {
+                                indicatorText.css('color', '#000000');
+                            } else if (progress <= 60) {
+                                indicatorText.css('color', '#000000');
+                            } else if (progress <= 75) {
+                                indicatorText.css('color', '#000000');
+                            } else if (progress <= 90) {
+                                indicatorText.css('color', '#000000');
+                            } else {
+                                indicatorText.css('color', '#000000');
+                            }
+                        } else {
+                            indicatorText.text('-');
+                            indicatorText.css('color', '#666');
+                            indicator.css('border', '1px solid #dee2e6');
+                        }
+
+                        indicator.css('background-color', bgColor);
+                        dayElement.append(indicator);
+                        dayElement.append(indicatorText);
+
+                        dayElement.attr('data-progress', progress !== null ? progress : 'null');
+                        dayElement.attr('data-day-name', dayName);
+                        dayElement.attr('data-has-data', 'true');
+                        dayElement.off('click').on('click', function (e) {
+                            e.stopPropagation();
+                            showDateDetails(dateStr);
+                        });
+                    } else {
+                        const indicator = $('<div class="progress-indicator"></div>');
+                        const indicatorText = $('<div class="progress-indicator-text"></div>');
+
+                        indicator.css('background-color', '#ffffff');
+                        indicator.css('border', '1px solid #dee2e6');
+                        indicatorText.text('-');
+                        indicatorText.css('color', '#666');
+
+                        dayElement.append(indicator);
+                        dayElement.append(indicatorText);
+
+                        dayElement.attr('data-progress', 'null');
+                        dayElement.attr('data-day-name', '-');
+                        dayElement.attr('data-has-data', 'false');
+
+                        dayElement.off('click').on('click', function (e) {
+                            e.stopPropagation();
+                            showDateDetails(dateStr);
+                        });
+                    }
+                });
+            }
+
+            function showDateDetails(dateStr) {
+                const dayElement = $(`.fc-daygrid-day[data-date="${dateStr}"]`);
+                const progress = dayElement.attr('data-progress');
+                const dayName = dayElement.attr('data-day-name');
+
+                const date = new Date(dateStr);
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = date.toLocaleDateString('en-US', options);
+                $('#selectedDateText').text(formattedDate);
+                $('#dayName').text(dayName);
+
+                if (progress && progress !== 'null') {
+                    const progressValue = parseInt(progress);
+                    $('#progressValue').text(progressValue);
+
+                    updateCircularProgress(progressValue);
+
+                    const statusText = getStatusText(progressValue);
+                    const statusClass = getStatusClass(progressValue);
+
+                    $('#statusText').text(statusText).removeClass().addClass(`badge ${statusClass}`);
+
+                    $('#dateDetailsContainer').show();
+                } else {
+                    $('#progressValue').text('0');
+                    updateCircularProgress(0);
+                    $('#statusText').text('No Data').removeClass().addClass('badge bg-light text-dark');
+                    $('#dateDetailsContainer').show();
+                }
+
+                const target = document.getElementById('dateDetailsContainer');
+                const offset = 100;
+
+                const top =
+                    target.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    offset;
+
+                window.scrollTo({
+                    top,
+                    behavior: 'smooth'
+                });
+            }
+
+            function updateCircularProgress(progress) {
+                const circle = $('.progress-bar');
+                const text = $('.progress-text');
+
+                const radius = 36;
+                const circumference = 2 * Math.PI * radius;
+                const offset = circumference - (progress / 100) * circumference;
+
+                circle.css('stroke-dashoffset', offset);
+                text.text(`${progress}%`);
+
+                const color = getProgressColor(progress);
+                circle.css('stroke', color);
+            }
+
+            function showErrorMessage(message) {
+                const errorHTML = `
+                <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 9999;">
+                    <strong>Error!</strong> ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+                $('body').append(errorHTML);
+
+                setTimeout(() => {
+                    $('.alert').alert('close');
+                }, 5000);
+            }
+
+            function showInfoMessage(message) {
+                const infoHTML = `
+                <div class="alert alert-info alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 9999;">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+                $('body').append(infoHTML);
+
+                setTimeout(() => {
+                    $('.alert').alert('close');
+                }, 5000);
+            }
+
+            initCalendar();
+
+            if (typeof managerId !== 'undefined' && managerId) {
+                console.log("Found managerId from other script:", managerId);
+                currentManagerId = managerId;
+                setTimeout(() => {
+                    triggerInitialLoad();
+                }, 500);
+            }
+        });
+    </script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
+                });
+                return;
+            }
+
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        console.log("Logout success:", res);
+                        sessionStorage.clear();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            allowOutsideClick: false,
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
+
+    <script>
+        let passwords = {};
+
+        $(document).ready(function () {
+            $.getJSON("/config.json", function (data) {
+                passwords = data;
+            });
+
+            $("#hrTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "HR_PASSWORD",
+                    "hr_verified",
+                    "/profile/dashboard/targets.html"
+                );
+            });
+
+            $("#bdTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "BD_PASSWORD",
+                    "bd_verified",
+                    "/profile/dashboard/bd-targets.html"
+                );
+            });
+        });
+
+        function handleProtectedPage(passwordKey, sessionKey, redirectUrl) {
+            if (sessionStorage.getItem(sessionKey) === "true") {
+                window.location.href = redirectUrl;
+                return;
+            }
+
+            Swal.fire({
+                title: "Enter Password",
+                input: "password",
+                inputPlaceholder: "Enter access password",
+                showCancelButton: true,
+                confirmButtonText: "Verify",
+            }).then(result => {
+                if (!result.value) return;
+
+                const enteredPassword = result.value.trim();
+                const correctPassword = passwords[passwordKey];
+
+                if (enteredPassword === correctPassword) {
+                    sessionStorage.setItem(sessionKey, "true");
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Access Granted",
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = redirectUrl;
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Password",
+                        text: "Access denied!"
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
