@@ -1279,9 +1279,9 @@
                     progressDisplay = `<span class="progress-display">${progressValue}</span>`;
                 } else {
                     progressDisplay = `
-                <div class="progress-display-container">
-                    <span class="progress-display" data-current-value="${progressValue}">${progressValue}%</span>
-                </div>`;
+                    <div class="progress-display-container">
+                        <span class="progress-display" data-current-value="${progressValue}">${progressValue}%</span>
+                    </div>`;
                 }
 
                 const taskNumber = index + 1;
@@ -1289,47 +1289,47 @@
                 if (isFirstTable) {
                     const taskLabel = taskLabels[index] || `TASK ${taskNumber}`;
                     return `
-                    <tr class="${rowColorClass}" data-task-id="${task.taskId}" data-task-type="${taskTypeValue}" data-mode="${task.mode}">
-                        <td class="fw-bold">${taskLabel}</td>
-                        <td>
-                            <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
-                        </td>
-                        <td>
-                            <span class="comment-display">${commentValue}</span>
-                            <input type="text" class="form-control form-control-sm comment-input d-none" 
-                                value="${commentValue}" 
-                                placeholder="Enter comment...">
-                        </td>
-                        <td class="text-center">
-                            ${progressDisplay}
-                        </td>
-                        <td class="text-center">
-                            <span class="result-display">${resultValue}%</span>
-                        </td>
-                    </tr>
-                `;
+                        <tr class="${rowColorClass}" data-task-id="${task.taskId}" data-task-type="${taskTypeValue}" data-mode="${task.mode}">
+                            <td class="fw-bold">${taskLabel}</td>
+                            <td>
+                                <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
+                            </td>
+                            <td>
+                                <span class="comment-display">${commentValue}</span>
+                                <input type="text" class="form-control form-control-sm comment-input d-none" 
+                                    value="${commentValue}" 
+                                    placeholder="Enter comment...">
+                            </td>
+                            <td class="text-center">
+                                ${progressDisplay}
+                            </td>
+                            <td class="text-center">
+                                <span class="result-display">${resultValue}%</span>
+                            </td>
+                        </tr>
+                    `;
                 } else {
                     const taskLabel2 = taskLabels2[index - 3] || `TASK ${taskNumber}`;
                     return `
-                    <tr class="${rowColorClass}" data-task-id="${task.taskId}" data-task-type="${taskTypeValue}" data-mode="${task.mode}">
-                        <td class="fw-bold">${taskLabel2}</td>
-                        <td>
-                            <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
-                        </td>
-                        <td>
-                            <span class="comment-display">${commentValue}</span>
-                            <input type="text" class="form-control form-control-sm comment-input d-none" 
-                                value="${commentValue}" 
-                                placeholder="Enter comment...">
-                        </td>
-                        <td class="text-center">
-                            ${progressDisplay}
-                        </td>
-                        <td class="text-center">
-                            <span class="result-display">${resultValue}%</span>
-                        </td>
-                    </tr>
-                `;
+                        <tr class="${rowColorClass}" data-task-id="${task.taskId}" data-task-type="${taskTypeValue}" data-mode="${task.mode}">
+                            <td class="fw-bold">${taskLabel2}</td>
+                            <td>
+                                <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
+                            </td>
+                            <td>
+                                <span class="comment-display">${commentValue}</span>
+                                <input type="text" class="form-control form-control-sm comment-input d-none" 
+                                    value="${commentValue}" 
+                                    placeholder="Enter comment...">
+                            </td>
+                            <td class="text-center">
+                                ${progressDisplay}
+                            </td>
+                            <td class="text-center">
+                                <span class="result-display">${resultValue}%</span>
+                            </td>
+                        </tr>
+                    `;
                 }
             }
 
@@ -1340,42 +1340,42 @@
                     const taskLabel = taskLabels[index] || `TASK ${taskNumber}`;
 
                     return `
-                    <tr data-task-id="" data-task-type="" data-mode="">
-                        <td class="fw-bold">${taskLabel}</td>
-                        <td>
-                            <span class="task-title-display text-muted">No task assigned</span>
-                        </td>
-                        <td>
-                            <span class="comment-display text-muted">-</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="progress-display text-muted">-</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="result-display text-muted">-</span>
-                        </td>
-                    </tr>
-                `;
+                        <tr data-task-id="" data-task-type="" data-mode="">
+                            <td class="fw-bold">${taskLabel}</td>
+                            <td>
+                                <span class="task-title-display text-muted">No task assigned</span>
+                            </td>
+                            <td>
+                                <span class="comment-display text-muted">-</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="progress-display text-muted">-</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="result-display text-muted">-</span>
+                            </td>
+                        </tr>
+                    `;
                 } else {
                     const taskLabel2 = taskLabels2[index - 3] || `TASK ${taskNumber}`;
 
                     return `
-                    <tr data-task-id="" data-task-type="" data-mode="">
-                        <td class="fw-bold">${taskLabel2}</td>
-                        <td>
-                            <span class="task-title-display text-muted">No task assigned</span>
-                        </td>
-                        <td>
-                            <span class="comment-display text-muted">-</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="progress-display text-muted">-</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="result-display text-muted">-</span>
-                        </td>
-                    </tr>
-                `;
+                        <tr data-task-id="" data-task-type="" data-mode="">
+                            <td class="fw-bold">${taskLabel2}</td>
+                            <td>
+                                <span class="task-title-display text-muted">No task assigned</span>
+                            </td>
+                            <td>
+                                <span class="comment-display text-muted">-</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="progress-display text-muted">-</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="result-display text-muted">-</span>
+                            </td>
+                        </tr>
+                    `;
                 }
             }
 
@@ -1390,19 +1390,19 @@
                 const dropdownClass = isProgress ? "floating-progress-dropdown" : "floating-task-dropdown";
 
                 const dropdownHTML = `
-                <div class="${dropdownClass}" style="
-                    position: absolute;
-                    z-index: 9999;
-                    background: white;
-                    border: 1px solid #ced4da;
-                    border-radius: 4px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    min-width: 100px;
-                    max-height: 300px;
-                    overflow-y: auto;
-                    display: none;
-                ">
-        ${options.map(option => {
+                    <div class="${dropdownClass}" style="
+                        position: absolute;
+                        z-index: 9999;
+                        background: white;
+                        border: 1px solid #ced4da;
+                        border-radius: 4px;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        min-width: 100px;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        display: none;
+                    ">
+                ${options.map(option => {
                     const displayValue = isProgress ? `${option}%` : option;
                     const optionValue = isProgress ? option : option;
                     const isSelected = isProgress ?
@@ -1410,16 +1410,15 @@
                         (currentValue === option);
 
                     return `<div class="dropdown-option" data-value="${optionValue}" style="
-                    padding: 8px 12px;
-                    cursor: pointer;
-                    border-bottom: 1px solid #f0f0f0;
-                    ${isSelected ? 'background-color: #007bff; color: white;' : ''}
-                ">
-                    ${displayValue}
-                    </div>`;
-                }).join('')}
-                </div>
-            `;
+                            padding: 8px 12px;
+                            cursor: pointer;
+                            border-bottom: 1px solid #f0f0f0;
+                            ${isSelected ? 'background-color: #007bff; color: white;' : ''}">
+                            ${displayValue}
+                            </div>`;
+                        }).join('')}
+                    </div>
+                `;
 
                 $("body").append(dropdownHTML);
 
@@ -2038,11 +2037,11 @@
 
             function showErrorMessage(message) {
                 const errorHTML = `
-                <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 9999;">
-                    <strong>Error!</strong> ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            `;
+                    <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 9999;">
+                        <strong>Error!</strong> ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
                 $('body').append(errorHTML);
 
                 setTimeout(() => {
@@ -2052,11 +2051,11 @@
 
             function showInfoMessage(message) {
                 const infoHTML = `
-                <div class="alert alert-info alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 9999;">
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            `;
+                    <div class="alert alert-info alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 9999;">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
                 $('body').append(infoHTML);
 
                 setTimeout(() => {
