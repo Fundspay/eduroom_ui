@@ -1005,6 +1005,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
+            Swal.fire({
+                icon: "warning",
+                title: "Access Restricted",
+                text: "You are not permitted to use this page!",
+                confirmButtonText: "Go Back"
+            }).then(() => {
+                window.location.href = "/profile/dashboard/team-manager.html";
+            });
+        }
+    </script>
+    
+    <script>
         $(document).ready(function () {
             let managerId = null;
             let currentDate = new Date().toISOString().split('T')[0];
