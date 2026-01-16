@@ -26,9 +26,40 @@
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
+    <style>
+        #domainCourseWrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            max-height: 420px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        #domainCourseWrapper li {
+            list-style: none;
+            padding: 0;
+        }
+
+        #domainCourseWrapper li span {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        #domainCourseWrapper li a {
+            display: block;
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 6px;
+            text-decoration: none;
+        }
+
+        #domainCourseWrapper li a:hover {
+            color: #00a991;
+        }
+    </style>
 
     <!--  ====== preloader=============================================  -->
     <div id="preloader">
@@ -248,8 +279,8 @@
 
                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
                             <div class="home4-slider-img mt-140">
-                                <video src="images/hero/eduroom home page video.mp4" autoplay muted loop playsinline width="100%"
-                                    height="auto" style="max-width: 100%; border-radius: 8px;">
+                                <video src="images/hero/eduroom home page video.mp4" autoplay muted loop playsinline
+                                    width="100%" height="auto" style="max-width: 100%; border-radius: 8px;">
                                 </video>
                             </div>
                         </div>
@@ -808,7 +839,8 @@
                     <div class="col-xl-7 col-lg-7 col-md-10 col-sm-12 col-12">
                         <div class="title text-center">
                             <h2 class="mb-30">Kickstart Your Journey with <span class="f-700">Eduroom</span></h2>
-                            <p class="pb-30">Eduroom is a brand-new learning platform that blends online video Live Projects
+                            <p class="pb-30">Eduroom is a brand-new learning platform that blends online video Live
+                                Projects
                                 with practical business Live Projects.
                                 Complete real-world challenges, enhance your skills, and earn valuable certificates as
                                 you grow with us.</p>
@@ -872,7 +904,8 @@
                             <div class="col-xl-10 col-lg-9 col-md-10 col-sm-12 col-12">
                                 <div class="banner-content title text-center">
                                     <h2 class="text-white mb-0">
-                                        Accelerate Your Career with EduRoom – Enroll Today and Start your Live Project in
+                                        Accelerate Your Career with EduRoom – Enroll Today and Start your Live Project
+                                        in
                                         Engineering, MBA, and More from Anywhere!
                                     </h2>
                                     <p class="text-white mt-20 mb-0">
@@ -1041,7 +1074,8 @@
                                 </div><!-- /f-logo -->
 
                                 <p>Eduroom is a comprehensive online learning platform that connects students,
-                                    educators, and professionals. We provide quality live projects, interactive resources, and
+                                    educators, and professionals. We provide quality live projects, interactive
+                                    resources, and
                                     personalized learning paths to help learners.</p>
                             </div>
                         </div>
@@ -1056,8 +1090,8 @@
                                         Us</a>
                                 </li>
                                 <li>
-                                    <a href="/domain-list.html"
-                                        class="position-relative d-inline-block mb-2">Live Projects</a>
+                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Live
+                                        Projects</a>
                                 </li>
                                 <li>
                                     <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
@@ -1137,38 +1171,39 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
-                        let domainCourseWrapper = $("#domainCourseWrapper");
+
+                        const domainCourseWrapper = $("#domainCourseWrapper");
                         domainCourseWrapper.empty();
 
-                        let domainMap = {};
+                        const domainMap = {};
 
-                        response.data.forEach(function (course) {
-                            let domainName = course.Domain && course.Domain.name ? course.Domain.name : "Others";
+                        response.data.forEach(course => {
+                            const domainName = course.Domain?.name || "Others";
+
                             if (!domainMap[domainName]) {
                                 domainMap[domainName] = [];
                             }
                             domainMap[domainName].push(course);
                         });
 
-                        Object.keys(domainMap).forEach(function (domain) {
-                            let li = $('<li class="ml-xl-5 ml-lg-4 pl-xl-4"></li>');
+                        Object.keys(domainMap).forEach(domain => {
+                            const li = $('<li></li>');
 
                             li.append(`
-                            <a href="domain-list.html" class="mt-4 mt-lg-0">
-                                <span class="d-block f-700 main-color mb-10">${domain}</span>
-                            </a>
-                        `);
+                                <a href="domain-list.html">
+                                    <span class="d-block main-color">${domain}</span>
+                                </a>
+                            `);
 
-                            domainMap[domain].forEach(function (course) {
+                            domainMap[domain].forEach(course => {
                                 if (course.name) {
                                     li.append(`
-                                    <a href="course.html?domainId=${course.domainId}">
-                                        ${course.name}
-                                    </a>
-                                `);
+                                        <a href="course.html?domainId=${course.domainId}">
+                                            ${course.name}
+                                        </a>
+                                    `);
                                 }
                             });
 

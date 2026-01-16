@@ -27,9 +27,40 @@
 </head>
 
 <body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
+    <style>
+        #domainCourseWrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            max-height: 420px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        #domainCourseWrapper li {
+            list-style: none;
+            padding: 0;
+        }
+
+        #domainCourseWrapper li span {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        #domainCourseWrapper li a {
+            display: block;
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 6px;
+            text-decoration: none;
+        }
+
+        #domainCourseWrapper li a:hover {
+            color: #00a991;
+        }
+    </style>
 
     <!--  ====== preloader=============================================  -->
     <div id="preloader">
@@ -342,38 +373,39 @@
                 url: "https://eduroom.in/api/v1/course/courses?userId=1",
                 method: "GET",
                 success: function (response) {
-                    // console.log("API Response:", response);
 
                     if (response && response.data && Array.isArray(response.data)) {
-                        let domainCourseWrapper = $("#domainCourseWrapper");
+
+                        const domainCourseWrapper = $("#domainCourseWrapper");
                         domainCourseWrapper.empty();
 
-                        let domainMap = {};
+                        const domainMap = {};
 
-                        response.data.forEach(function (course) {
-                            let domainName = course.Domain && course.Domain.name ? course.Domain.name : "Others";
+                        response.data.forEach(course => {
+                            const domainName = course.Domain?.name || "Others";
+
                             if (!domainMap[domainName]) {
                                 domainMap[domainName] = [];
                             }
                             domainMap[domainName].push(course);
                         });
 
-                        Object.keys(domainMap).forEach(function (domain) {
-                            let li = $('<li class="ml-xl-5 ml-lg-4 pl-xl-4"></li>');
+                        Object.keys(domainMap).forEach(domain => {
+                            const li = $('<li></li>');
 
                             li.append(`
-                            <a href="domain-list.html" class="mt-4 mt-lg-0">
-                                <span class="d-block f-700 main-color mb-10">${domain}</span>
-                            </a>
-                        `);
+                                <a href="domain-list.html">
+                                    <span class="d-block main-color">${domain}</span>
+                                </a>
+                            `);
 
-                            domainMap[domain].forEach(function (course) {
+                            domainMap[domain].forEach(course => {
                                 if (course.name) {
                                     li.append(`
-                                    <a href="course.html?domainId=${course.domainId}">
-                                        ${course.name}
-                                    </a>
-                                `);
+                                        <a href="course.html?domainId=${course.domainId}">
+                                            ${course.name}
+                                        </a>
+                                    `);
                                 }
                             });
 
