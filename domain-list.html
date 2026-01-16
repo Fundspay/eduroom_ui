@@ -436,7 +436,7 @@
             const gridContainer = $(".courses-tab-grid");   // only grid view now
             const paginationContainer = $(".pagination ul"); // pagination ul
 
-            const itemsPerPage = 6;
+            const itemsPerPage = 100;
             let currentPage = 1;
             let domains = [];
 
@@ -528,6 +528,7 @@
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
+                    console.log(res);
                     if (res.success && res.data.length > 0) {
                         domains = res.data;
                         renderPage(currentPage);
