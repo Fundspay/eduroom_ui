@@ -134,6 +134,38 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card bg-soft-success text-success border-success border-dashed h-70"
+                                    style="margin-top: -2%;">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="flex-grow-1 me-2">
+                                                <span class="fw-bold d-block text-reset"
+                                                    style="font-size: 14px;">Portfolio Link:</span>
+
+                                                <div id="portfolioDisplay" style="display: block;">
+                                                    <a target="_blank" href="#" id="portfolioLink"
+                                                        class="text-success text-decoration-underline"
+                                                        style="font-size: 12px;">
+                                                        <span id="PfLink">--</span>
+                                                    </a>
+                                                </div>
+
+                                                <div id="portfolioEdit" style="display: none;">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" id="portfolioInput"
+                                                            class="form-control form-control-sm"
+                                                            placeholder="Enter portfolio link" style="font-size: 12px;">
+                                                        <!-- <button class="btn btn-sm btn-danger" id="savePortfolio">Save</button>
+                                                        <button class="btn btn-sm btn-outline-danger" id="cancelEdit">Cancel</button> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-success" id="editPortfolioBtn">
+                                                Edit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -370,6 +402,26 @@
                 </div>
 
                 <style>
+                    #PfLink {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 10;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100%;
+                        word-break: break-word;
+                    }
+
+                    #portfolioLink {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 10;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100%;
+                        word-break: break-word;
+                    }
+
                     .course-info-card,
                     .business-status-card {
                         background: #f8f9fa;
@@ -905,9 +957,7 @@
                 method: "GET",
                 success: function (response1) {
                     // console.log("business target updated:", response1);
-
                     // window.location.reload();
-
                 }
             });
 
@@ -916,7 +966,7 @@
                 method: "GET",
                 success: function (response) {
                     if (response.success && response.data) {
-                        // console.log(response);
+                        console.log(response);
                         const user = response.data;
 
                         const completion = user.ProfileCompletion || 0;
@@ -934,7 +984,12 @@
                         );
                         $("#referralCode").text(user.ReferralCode || "--");
                         $("#referralLink").text(user.ReferralLink || "--");
+                        $("#PfLink").text(user.PfLink || "--");
                         $("#referralLink").attr("href", user.ReferralLink || "#");
+
+                        const pfLink = user.PfLink || "--";
+                        $("#portfolioLink").attr("href", pfLink.startsWith('http') ? pfLink : `https://${pfLink}`);
+                        $("#portfolioInput").val(pfLink);
 
                         if (user.TeamManager) {
                             const email = user.TeamManager.email || "--";
@@ -954,6 +1009,72 @@
                     console.error("Failed to fetch user profile:", err);
                 }
             });
+
+            $("#editPortfolioBtn").click(function () {
+
+                $("#portfolioDisplay").hide();
+                $("#portfolioEdit").show();
+                $(this).hide();
+
+                $("#portfolioInput").focus();
+            });
+
+            $("#savePortfolio").click(function () {
+                savePortfolioLink();
+            });
+
+            $("#portfolioInput").keypress(function (e) {
+                if (e.which === 13) {
+                    savePortfolioLink();
+                }
+            });
+
+            $("#cancelEdit").click(function () {
+                $("#portfolioDisplay").show();
+                $("#portfolioEdit").hide();
+                $("#editPortfolioBtn").show();
+            });
+
+            function savePortfolioLink() {
+                const newLink = $("#portfolioInput").val().trim();
+
+                if (!newLink) {
+                    alert("Please enter a portfolio link");
+                    return;
+                }
+
+                $("#savePortfolio").prop("disabled", true).text("Saving...");
+
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/user/update/${userId}`,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        pfLink: newLink
+                    }),
+                    success: function (response) {
+                        if (response.success) {
+                            $("#PfLink").text(newLink);
+                            $("#portfolioLink").attr("href", newLink.startsWith('http') ? newLink : `https://${newLink}`);
+
+                            $("#portfolioDisplay").show();
+                            $("#portfolioEdit").hide();
+                            $("#editPortfolioBtn").show();
+
+                            // alert("Portfolio link updated successfully!");
+                        } else {
+                            alert("Failed to update portfolio link: " + (response.message || "Unknown error"));
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Failed to update portfolio link:", err);
+                        alert("Failed to update portfolio link. Please try again.");
+                    },
+                    complete: function () {
+                        $("#savePortfolio").prop("disabled", false).text("Save");
+                    }
+                });
+            }
         });
     </script>
 
