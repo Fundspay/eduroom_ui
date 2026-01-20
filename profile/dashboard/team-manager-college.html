@@ -326,14 +326,10 @@
                             </a>
                         </div>
                     </div> -->
+                    <div id="collegeSelectWrapper" style="width: 30%; min-width: 250px; margin-right: 4%;"></div>
+
                     <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter"
                         placeholder="Select date or range" class="form-control" />
-
-                    <div style="width: 50%; min-width: 250px; margin-left: 2%;">
-                        <select id="collegeSelect" class="form-select">
-                            <option value="">All Colleges</option>
-                        </select>
-                    </div>
 
                     <!-- Dark/Light Theme Toggle -->
                     <div class="nxl-h-item dark-light-theme" style="margin-right: 3%;">
@@ -1459,14 +1455,44 @@
             pushComment: ["Interested", "Not Interested", "Connected", "CNA", "Will do"]
         };
 
+        const columnMap = {
+            1: "name",
+            2: "phoneNumber",
+            3: "registeredAt",
+            4: "offerMessageExists",
+            5: "selected",
+            6: "email",
+            7: "collegeName",
+            8: "courses",
+            9: "course",
+            10: "duration",
+            11: "startDate",
+            12: "estEndDate",
+            13: "courseStatus",
+            14: "referralCode",
+            15: "subscriptionWallet",
+            16: "businessStatus",
+            17: "workPercentage",
+            18: "certificateStatus",
+            19: "internshipCertificateStatus",
+            20: "subscriptionLeft",
+            21: "queryStatus",
+            22: "internshipAction",
+            23: "teamManager",
+            24: "pushto",
+            25: "pushComment"
+        };
+
         let tableData = [];
         let filteredData = [];
         const rowsPerPage = 100;
         let currentPage = 1;
         let collegeList = [];
-        let selectedCollege = "";
+        let selectedColleges = [];
         let selectedDateRange = null;
         let managerList = [];
+        let columnFilters = {};
+        let activeFilterDropdown = null;
 
         $.ajax({
             url: `https://eduroom.in/api/v1/offerletter/users/all`,
@@ -1478,12 +1504,12 @@
 
         function getRowBgColor(subscriptionWallet) {
             const val = parseInt(subscriptionWallet, 10) || 0;
-            if (val === 0) return 'background-color: #ff4d4d;'; // red
-            if (val >= 1 && val <= 5) return 'background-color: #ffa500;'; // orange
-            if (val >= 6 && val <= 12) return 'background-color: #ffff80;'; // yellow
-            if (val >= 13 && val <= 18) return 'background-color: #b3ffb3;'; // light green
-            if (val >= 19 && val <= 25) return 'background-color: #5cdb5c;'; // green
-            if (val > 25) return 'background-color: #4da6ff;'; // blue
+            if (val === 0) return 'background-color: #ff4d4d;';
+            if (val >= 1 && val <= 5) return 'background-color: #ffa500;';
+            if (val >= 6 && val <= 12) return 'background-color: #ffff80;';
+            if (val >= 13 && val <= 18) return 'background-color: #b3ffb3;';
+            if (val >= 19 && val <= 25) return 'background-color: #5cdb5c;';
+            if (val > 25) return 'background-color: #4da6ff;';
             return '';
         }
 
@@ -1896,13 +1922,13 @@
             }
         }
 
-        function calculateCollegeMetrics(collegeName) {
-            if (!collegeName || collegeName === "") {
+        function calculateCollegeMetrics(collegeNames) {
+            if (!collegeNames || collegeNames.length === 0) {
                 calculateAllMetrics();
                 return;
             }
 
-            const collegeData = tableData.filter(row => row.collegeName === collegeName);
+            const collegeData = tableData.filter(row => collegeNames.includes(row.collegeName));
             const totalStudents = collegeData.length;
 
             let totalSubscriptionWallet = 0;
@@ -2040,7 +2066,7 @@
                     accountsPercentElement.text(accountsPercent);
                 }
             });
-            calculateCollegeForecasting(collegeName);
+            calculateCollegeForecasting(collegeNames);
         }
 
         function calculateAllMetrics() {
@@ -2281,13 +2307,13 @@
             $("#totalForecastWorstAverage").text(totalForecastWorstAverage);
         }
 
-        function calculateCollegeForecasting(collegeName) {
-            if (!collegeName || collegeName === "") {
+        function calculateCollegeForecasting(collegeNames) {
+            if (!collegeNames || collegeNames.length === 0) {
                 calculateAllForecasting();
                 return;
             }
 
-            const collegeData = tableData.filter(row => row.collegeName === collegeName);
+            const collegeData = tableData.filter(row => collegeNames.includes(row.collegeName));
             const totalStudents = collegeData.length;
 
             let totalSubscriptionWallet = 0;
@@ -2392,36 +2418,168 @@
             calculateAllMetrics();
         }
 
-        function createCollegeDropdown(colleges) {
-            const collegeSelect = $("#collegeSelect");
-
-            if (collegeSelect.length === 0) {
-                const dropdownHtml = `
-                    <div class="col-md-3 mb-3">
-                        <label for="collegeSelect" class="form-label">Select College</label>
-                        <select id="collegeSelect" class="form-select">
-                            <option value="">All Colleges</option>
-                            ${colleges.map(college =>
-                    `<option value="${college}">${college}</option>`
-                ).join('')}
-                        </select>
-                    </div>
-                `;
-
-                if ($("#teamManager").length) {
-                    $("#teamManager").prepend(`<div class="row">${dropdownHtml}</div>`);
-                }
-            } else {
-                collegeSelect.find("option:not(:first)").remove();
-
-                colleges.forEach(college => {
-                    collegeSelect.append(`<option value="${college}">${college}</option>`);
-                });
+        function createCollegeMultiSelect(colleges) {
+            if ($("#collegeSelectContainer").length > 0) {
+                updateCollegeCheckboxes(colleges);
+                return;
             }
 
-            $("#collegeSelect").off("change").on("change", function () {
-                selectedCollege = $(this).val();
+            const containerHtml = `
+                <div id="collegeSelectContainer" style="width: 30%; min-width: 200px; margin-left: 2%;">
+                    <div class="input-group">
+                        <button class="btn btn-outline-secondary" type="button" id="collegeDropdownToggle" style="border-color: #ced4da; min-width: 250px;">
+                            Select Colleges <i class="fas fa-caret-down ms-1"></i>
+                        </button>
+                        
+                    </div>
+                    <div class="dropdown-menu p-3" id="collegeDropdown" style="display: none; width: 350px; max-height: 300px; overflow-y: auto; z-index: 1000;">
+                        <div id="collegeCheckboxes" style="max-height: 180px; overflow-y: auto;">
+                            ${colleges.map(college => `
+                                <div class="form-check">
+                                    <input class="form-check-input college-checkbox" type="checkbox" value="${college}" id="college_${college.replace(/\s+/g, '_')}">
+                                    <label class="form-check-label" for="college_${college.replace(/\s+/g, '_')}" style="cursor: pointer;">
+                                        ${college}
+                                    </label>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-sm btn-outline-primary" id="selectAllColleges">Select All</button>
+                            <button class="btn btn-sm btn-outline-secondary" id="deselectAllColleges">Deselect All</button>
+                            <button class="btn btn-sm btn-success" id="applyCollegeFilter">Apply</button>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    #collegeCheckboxes .form-check {
+                        align-items: flex-start;
+                    }
+
+                    #collegeCheckboxes .form-check-label {
+                        white-space: normal;
+                        word-break: break-word;
+                        overflow-wrap: anywhere;
+                        line-height: 1.3;
+                        max-width: calc(100% - 22px);
+                        display: inline-block;
+                    }
+                </style>
+            `;
+
+            $("#collegeSelectWrapper").html(containerHtml);
+
+            initCollegeMultiSelect();
+        }
+
+        function updateCollegeCheckboxes(colleges) {
+            const collegeCheckboxes = $("#collegeCheckboxes");
+            if (collegeCheckboxes.length === 0) return;
+
+            const selectedCollegesCopy = [...selectedColleges];
+
+            collegeCheckboxes.empty();
+
+            colleges.forEach(college => {
+                const isChecked = selectedCollegesCopy.includes(college);
+                collegeCheckboxes.append(`
+                    <div class="form-check">
+                        <input class="form-check-input college-checkbox" type="checkbox" 
+                            value="${college}" id="college_${college.replace(/\s+/g, '_')}"
+                            ${isChecked ? 'checked' : ''}>
+                        <label class="form-check-label" for="college_${college.replace(/\s+/g, '_')}" style="cursor: pointer;">
+                            ${college}
+                        </label>
+                    </div>
+                `);
+            });
+
+            selectedColleges = selectedCollegesCopy.filter(college =>
+                colleges.includes(college)
+            );
+            if (selectedColleges.length > 0) {
+                const displayText = selectedColleges.length === 1
+                    ? selectedColleges[0]
+                    : `${selectedColleges.length} colleges selected`;
+                $("#collegeDisplay").val(displayText).attr("placeholder", displayText);
+            } else {
+                $("#collegeDisplay").val("").attr("placeholder", "All Colleges");
+            }
+        }
+
+        function initCollegeMultiSelect() {
+            const dropdownToggle = $("#collegeDropdownToggle");
+            const dropdown = $("#collegeDropdown");
+            const collegeDisplay = $("#collegeDisplay");
+            const clearBtn = $("#clearCollegesBtn");
+            const collegeSearch = $("#collegeSearch");
+            const collegeCheckboxes = $("#collegeCheckboxes");
+            const selectAllBtn = $("#selectAllColleges");
+            const deselectAllBtn = $("#deselectAllColleges");
+            const applyBtn = $("#applyCollegeFilter");
+
+            dropdownToggle.on("click", function (e) {
+                e.stopPropagation();
+                dropdown.toggle();
+                if (dropdown.is(":visible")) {
+                    collegeSearch.focus();
+                }
+            });
+
+            clearBtn.on("click", function () {
+                selectedColleges = [];
+                $(".college-checkbox").prop("checked", false);
+                collegeDisplay.val("");
+                collegeDisplay.attr("placeholder", "All Colleges");
+                calculateAllMetrics();
                 applyFilters();
+            });
+
+            collegeSearch.on("input", function () {
+                const searchTerm = $(this).val().toLowerCase();
+                collegeCheckboxes.find(".form-check").each(function () {
+                    const label = $(this).find("label").text().toLowerCase();
+                    $(this).toggle(label.includes(searchTerm));
+                });
+            });
+
+            selectAllBtn.on("click", function () {
+                collegeCheckboxes.find(".college-checkbox").prop("checked", true);
+            });
+
+            deselectAllBtn.on("click", function () {
+                collegeCheckboxes.find(".college-checkbox").prop("checked", false);
+            });
+
+            applyBtn.on("click", function () {
+                selectedColleges = [];
+                collegeCheckboxes.find(".college-checkbox:checked").each(function () {
+                    selectedColleges.push($(this).val());
+                });
+
+                if (selectedColleges.length > 0) {
+                    const displayText = selectedColleges.length === 1
+                        ? selectedColleges[0]
+                        : `${selectedColleges.length} colleges selected`;
+                    collegeDisplay.val(displayText);
+                    collegeDisplay.attr("placeholder", displayText);
+                } else {
+                    collegeDisplay.val("");
+                    collegeDisplay.attr("placeholder", "All Colleges");
+                }
+
+                calculateCollegeMetrics(selectedColleges);
+                applyFilters();
+                dropdown.hide();
+            });
+
+            $(document).on("click", function (e) {
+                if (!$(e.target).closest("#collegeSelectContainer").length) {
+                    dropdown.hide();
+                }
+            });
+
+            dropdown.on("click", function (e) {
+                e.stopPropagation();
             });
         }
 
@@ -2468,7 +2626,7 @@
                         )];
 
                         collegeList = uniqueColleges;
-                        createCollegeDropdown(collegeList);
+                        createCollegeMultiSelect(collegeList);
 
                         tableData = res.data.map((row, index) => ({
                             id: row.id,
@@ -2678,14 +2836,6 @@
             setStickyColumns();
         }
 
-        const columnKeys = [
-            "sno", "name", "phoneNumber", "registeredAt", "offerMessageExists", "selected", "email", "collegeName",
-            "domain", "course", "duration", "startDate", "estEndDate",
-            "courseStatus", "referralCode", "subscriptionWallet", "businessStatus", "workPercentage",
-            "certificateStatus", "internshipCertificateStatus",
-            "subscriptionLeft", "queryStatus", "internshipAction", "teamManager", "pushto", "pushComment"
-        ];
-
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
             const pagination = $("#pagination");
@@ -2723,49 +2873,268 @@
         };
 
         function renderColumnFilters() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .filter-dropdown {
+                    position: absolute;
+                    z-index: 1050 !important;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 10px;
+                    max-height: 300px;
+                    overflow-y: auto;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    min-width: 200px;
+                }
+                .filter-options {
+                    max-height: 200px;
+                    overflow-y: auto;
+                }
+                .filter-btn {
+                    width: 100%;
+                    text-align: left;
+                    position: relative;
+                    padding-right: 30px;
+                }
+                .filter-btn i {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .form-check {
+                    margin-bottom: 5px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .form-check-label {
+                    cursor: pointer;
+                    width: 100%;
+                    display: block;
+                }
+                .filter-controls {
+                    margin-top: 10px;
+                    display: flex;
+                    gap: 5px;
+                    border-top: 1px solid #eee;
+                    padding-top: 10px;
+                }
+                .filter-controls .btn {
+                    flex: 1;
+                    font-size: 12px;
+                    padding: 3px 8px;
+                }
+            `;
+            document.head.appendChild(style);
+
             const headerRow = $("#leadsTable thead tr.filters");
             headerRow.remove();
 
             let filterRow = "<tr class='filters'>";
-            columnKeys.forEach((key) => {
-                filterRow += `<th>
-                    <select class="column-filter form-select form-select-sm" data-field="${key}">
-                        <option value="">All</option>
-                    </select>
+            $("#leadsTable thead tr:first th").each(function (i, th) {
+                if (i >= 0) {
+                    const headerText = $(th).text().trim();
+                    filterRow += `<th style="position: relative;">
+                    <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
+                        Apply filter <i class="fas fa-filter"></i>
+                    </button>
                 </th>`;
+                }
             });
             filterRow += "</tr>";
             $("#leadsTable thead").append(filterRow);
 
-            columnKeys.forEach((key) => {
-                let values = [...new Set(tableData.map(row => row[key] || ""))];
-                values = values.filter(v => v !== "");
-                values.forEach(v => {
-                    $(`#leadsTable thead .column-filter[data-field="${key}"]`)
-                        .append(`<option value="${v}">${v}</option>`);
+            columnFilters = {};
+            setupFilterEvents();
+        }
+
+        function getColumnValues(columnIndex) {
+            const propertyName = columnMap[columnIndex];
+            if (!propertyName) return [];
+
+            let values = [...new Set(tableData.map(row => {
+                const val = row[propertyName];
+                return val !== null && val !== undefined ? val.toString().trim() : "";
+            }))];
+
+            values = values.filter(v => v && v !== "");
+            values.sort((a, b) => a.toString().localeCompare(b.toString()));
+
+            return values;
+        }
+
+        function setupFilterEvents() {
+            $(document).off('click', '.filter-btn');
+            $(document).off('click', '.apply-filter');
+            $(document).off('click', '.clear-filter');
+            $(document).off('click');
+            $(document).on('click', '.filter-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const index = parseInt($(this).data('index'));
+                const headerText = $(this).data('header');
+
+                if (activeFilterDropdown) {
+                    activeFilterDropdown.remove();
+                    activeFilterDropdown = null;
+                }
+
+                const values = getColumnValues(index);
+                const selectedValues = columnFilters[headerText] || [];
+
+                let dropdownHtml = `
+                    <div class="filter-dropdown" data-index="${index}" data-header="${headerText}">
+                        <div class="filter-options">
+                `;
+
+                if (values.length === 0) {
+                    dropdownHtml += `<div class="text-muted" style="font-size: 12px;">No values to filter</div>`;
+                } else {
+                    values.forEach(value => {
+                        const isChecked = selectedValues.includes(value) ? 'checked' : '';
+                        const safeId = `filter-${index}-${String(value).replace(/[^a-zA-Z0-9]/g, '-')}`;
+                        const displayText = formatDisplayText(value, index);
+                        dropdownHtml += `
+                            <div class="form-check">
+                                <input class="form-check-input filter-checkbox" type="checkbox" 
+                                    value="${value}" id="${safeId}" ${isChecked}>
+                                <label class="form-check-label" for="${safeId}" title="${value}">
+                                    ${displayText}
+                                </label>
+                            </div>
+                        `;
+                    });
+                }
+
+                dropdownHtml += `
+                    </div>
+                        <div class="filter-controls">
+                            <button class="btn btn-sm btn-primary apply-filter" data-index="${index}">Apply</button>
+                            <button class="btn btn-sm btn-secondary clear-filter" data-index="${index}">Clear</button>
+                        </div>
+                    </div>
+                `;
+
+                const $dropdown = $(dropdownHtml);
+                const $button = $(this);
+                const buttonRect = $button[0].getBoundingClientRect();
+
+                $('body').append($dropdown);
+                activeFilterDropdown = $dropdown;
+
+                const dropdownHeight = $dropdown.outerHeight();
+                const spaceBelow = window.innerHeight - buttonRect.bottom;
+                const spaceAbove = buttonRect.top;
+
+                let top;
+
+                if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+                    top = buttonRect.top - dropdownHeight;
+                } else {
+                    top = buttonRect.bottom;
+                }
+
+                $dropdown.css({
+                    position: 'fixed',
+                    top: top + 'px',
+                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
+                    zIndex: '9999'
+                });
+
+                $dropdown.find('.filter-checkbox').on('change', function (e) {
+                    e.stopPropagation();
+                });
+                $dropdown.find('.apply-filter').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+                    const checkboxes = $dropdown.find('.filter-checkbox:checked');
+                    const selectedVals = checkboxes.map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedVals.length > 0) {
+                        columnFilters[hdr] = selectedVals;
+                        $(`.filter-btn[data-index="${idx}"]`).addClass('btn-warning').removeClass('btn-light');
+                    } else {
+                        delete columnFilters[hdr];
+                        $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+                    }
+
+                    applyFilters();
+                    $dropdown.remove();
+                    activeFilterDropdown = null;
+                });
+
+                $dropdown.find('.clear-filter').on('click', function (e) {
+                    e.stopPropagation();
+                    const idx = $(this).data('index');
+                    const hdr = $dropdown.data('header');
+
+                    delete columnFilters[hdr];
+                    $(`.filter-btn[data-index="${idx}"]`).removeClass('btn-warning').addClass('btn-light');
+
+                    applyFilters();
+                    $dropdown.remove();
+                    activeFilterDropdown = null;
                 });
             });
 
-            $(".column-filter").off("change").on("change", function () {
-                applyFilters();
+            $(document).on('click', function (e) {
+                if (activeFilterDropdown && !$(e.target).closest('.filter-dropdown, .filter-btn').length) {
+                    activeFilterDropdown.remove();
+                    activeFilterDropdown = null;
+                }
             });
+        }
+
+        function formatDisplayText(value, index) {
+            const strValue = String(value);
+            if (strValue.length > 30) {
+                return strValue.substring(0, 27) + '...';
+            }
+            return strValue;
         }
 
         function applyFilters() {
             filteredData = [...tableData];
 
-            if (selectedCollege && selectedCollege !== "") {
-                filteredData = filteredData.filter(row => row.collegeName === selectedCollege);
+            if (selectedColleges && selectedColleges.length > 0) {
+                filteredData = filteredData.filter(row => selectedColleges.includes(row.collegeName));
             }
-            $("#leadsTable thead .column-filter").each(function () {
-                const value = $(this).val();
-                const field = $(this).data("field");
-                if (!value) return;
 
-                filteredData = filteredData.filter(row => {
-                    let cellValue = row[field] || "";
-                    return String(cellValue) === value;
-                });
+            if (Object.keys(columnFilters).length === 0) {
+                currentPage = 1;
+                renderTable();
+                renderPagination();
+                if (selectedColleges && selectedColleges.length > 0) {
+                    calculateCollegeMetrics(selectedColleges);
+                    calculateCollegeForecasting(selectedColleges);
+                } else {
+                    calculateAllMetrics();
+                    calculateAllForecasting();
+                }
+                return;
+            }
+
+            const headers = [];
+            $("#leadsTable thead tr:first th").each(function (i) {
+                headers[i] = $(this).text().trim();
+            });
+
+            Object.keys(columnFilters).forEach(header => {
+                const columnIndex = headers.indexOf(header);
+                if (columnIndex !== -1 && columnFilters[header].length > 0) {
+                    const propertyName = columnMap[columnIndex];
+                    filteredData = filteredData.filter(row => {
+                        const cellValue = row[propertyName];
+                        const cellStr = cellValue !== null && cellValue !== undefined ? cellValue.toString().trim() : "";
+                        return columnFilters[header].includes(cellStr);
+                    });
+                }
             });
 
             currentPage = 1;
@@ -2773,9 +3142,9 @@
             renderTable();
             renderPagination();
 
-            if (selectedCollege && selectedCollege !== "") {
-                calculateCollegeMetrics(selectedCollege);
-                calculateCollegeForecasting(selectedCollege);
+            if (selectedColleges && selectedColleges.length > 0) {
+                calculateCollegeMetrics(selectedColleges);
+                calculateCollegeForecasting(selectedColleges);
             } else {
                 calculateAllMetrics();
                 calculateAllForecasting();
@@ -2905,6 +3274,13 @@
                 filteredData = [...tableData];
                 renderTable();
                 renderPagination();
+                if (selectedColleges && selectedColleges.length > 0) {
+                    calculateCollegeMetrics(selectedColleges);
+                    calculateCollegeForecasting(selectedColleges);
+                } else {
+                    calculateAllMetrics();
+                    calculateAllForecasting();
+                }
                 return;
             }
 
@@ -2920,9 +3296,9 @@
             renderTable();
             renderPagination();
 
-            if (selectedCollege && selectedCollege !== "") {
-                calculateCollegeMetrics(selectedCollege);
-                calculateCollegeForecasting(selectedCollege);
+            if (selectedColleges && selectedColleges.length > 0) {
+                calculateCollegeMetrics(selectedColleges);
+                calculateCollegeForecasting(selectedColleges);
             } else {
                 calculateAllMetrics();
                 calculateAllForecasting();
@@ -3144,46 +3520,48 @@
                 return;
             }
 
-            $(document).on("click", "#logoutBtn", function () {
-                Swal.fire({
-                    title: "Logging out...",
-                    text: "Please wait",
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
+            document.addEventListener("click", function (e) {
+                if (e.target.closest("#logoutBtn")) {
+                    Swal.fire({
+                        title: "Logging out...",
+                        text: "Please wait",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
 
-                $.ajax({
-                    url: "https://eduroom.in/api/v1/user/logout",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ id: userId }),
-                    success: function (res) {
-                        console.log("Logout success:", res);
-                        sessionStorage.clear();
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/user/logout",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ id: userId }),
+                        success: function (res) {
+                            console.log("Logout success:", res);
+                            sessionStorage.clear();
 
-                        Swal.fire({
-                            icon: "success",
-                            title: "Logged Out",
-                            text: "You have been logged out successfully!",
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            window.top.location.href = "/login.html";
-                        });
-                    },
-                    error: function (err) {
-                        console.error("Logout error:", err);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Logout Failed",
-                            text: "Something went wrong. Please try again!",
-                            allowOutsideClick: false,
-                            confirmButtonText: "OK"
-                        });
-                    }
-                });
+                            Swal.fire({
+                                icon: "success",
+                                title: "Logged Out",
+                                text: "You have been logged out successfully!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.top.location.href = "/login.html";
+                            });
+                        },
+                        error: function (err) {
+                            console.error("Logout error:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Logout Failed",
+                                text: "Something went wrong. Please try again!",
+                                allowOutsideClick: false,
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>
