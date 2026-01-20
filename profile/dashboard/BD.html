@@ -2158,6 +2158,33 @@
             return categoryColors[category] || "#FFFFFF";
         }
 
+        function getActiveStatusColor(status) {
+            if (!status) return "";
+            status = status.toLowerCase();
+            if (status === "active") return "#90EE90";
+            if (status === "inactive") return "#ffff80";
+            if (status === "terminated" || status === "left") return "#f93939";
+            return "";
+        }
+
+        function getModule2StatusColor(status) {
+            if (!status) return "";
+            status = status.toLowerCase();
+            if (status === "promoted") return "#90EE90";
+            if (status === "on hold") return "#ffff80";
+            if (status === "not promoted") return "#f93939";
+            return "";
+        }
+
+        function getSessionAttendanceColor(attendance) {
+            if (!attendance) return "";
+            attendance = attendance.toLowerCase();
+            if (attendance === "active") return "#90EE90";
+            if (attendance === "inactive") return "#ffff80";
+            if (attendance === "terminated" || attendance === "left" || attendance === "not attended") return "#f93939";
+            return "";
+        }
+
         function renderTable() {
             let tbody = $("#leadsTable tbody");
             tbody.empty();
@@ -2171,52 +2198,77 @@
             rows.forEach((row, index) => {
                 const category = row.category || "";
                 const rowColor = getRowColor(category);
+                const activeStatusColor = getActiveStatusColor(row.activeStatus);
+                const module2StatusColor = getModule2StatusColor(row.module2Status);
 
-                let tr = `<tr data-id="${row.id}" data-bdsheet-id="${row.bdSheetId || ''}" style="background-color: ${rowColor};">
-                    <td>${start + index + 1}</td>
-                    <td>
+                const day1Color = getSessionAttendanceColor(row.day1SessionAttendance);
+                const day2Color = getSessionAttendanceColor(row.day2SessionAttendance);
+                const day3Color = getSessionAttendanceColor(row.day3SessionAttendance);
+                const day4Color = getSessionAttendanceColor(row.day4SessionAttendance);
+                const day5Color = getSessionAttendanceColor(row.day5SessionAttendance);
+                const day6Color = getSessionAttendanceColor(row.day6SessionAttendance);
+                const day7Color = getSessionAttendanceColor(row.day7SessionAttendance);
+
+                let tr = `<tr data-id="${row.id}" data-bdsheet-id="${row.bdSheetId || ''}">`;
+
+                tr += `
+                    <td style="background-color: ${rowColor};">${start + index + 1}</td>
+                    <td style="background-color: ${rowColor};">
                         <a class="text-primary fw-bold" target="_blank" href="/intern-profile.html?userId=${encodeURIComponent(row.userId)}" target="_self">
                             ${row.studentName || ""}
                         </a>
                     </td>   
-                    <td>${row.mobileNumber || ""}</td>
-                    <td>${row.collegeName || ""}</td>
-                    <td>${row.emailId || ""}</td>
-                    ${makeDropdownCell("activeStatus", row.activeStatus || "", null, dropdowns.activeStatus)}
-                    <td>${row.businessTask || 0}</td>
-                    <td>${row.category ? row.category.charAt(0).toUpperCase() + row.category.slice(1) : ""}</td>
-                    <td>${row.domain || ""}</td>
-                    ${makeDateCell("startDate", row.startDate || "")}
-                    ${makeDateCell("endDate", row.endDate || "")}
-                    ${makeDateCell("connectDate", row.connectDate || "")}
-                    ${makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus)}
-                    ${makeReadonlyCell("registration", (row.registration || "").charAt(0).toUpperCase() + (row.registration || "").slice(1).toLowerCase())}
-                    ${makeReadonlyCell("selectionTest", row.selectionTest || "")}
-                    ${makeDropdownCell("whatsappGroup", row.whatsappGroup || "", null, dropdowns.whatsappGroup)}
-                    ${makeDropdownCell("day1SessionAttendance", row.day1SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day1Date", row.day1Date || "")}
-                    ${makeDropdownCell("day1DomainTask", row.day1DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("day2SessionAttendance", row.day2SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day2Date", row.day2Date || "")}
-                    ${makeDropdownCell("day2DomainTask", row.day2DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("day3SessionAttendance", row.day3SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day3Date", row.day3Date || "")}
-                    ${makeDropdownCell("day3DomainTask", row.day3DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("day4SessionAttendance", row.day4SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day4Date", row.day4Date || "")}
-                    ${makeDropdownCell("day4DomainTask", row.day4DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("day5SessionAttendance", row.day5SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day5Date", row.day5Date || "")}
-                    ${makeDropdownCell("day5DomainTask", row.day5DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("day6SessionAttendance", row.day6SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day6Date", row.day6Date || "")}
-                    ${makeDropdownCell("day6DomainTask", row.day6DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("day7SessionAttendance", row.day7SessionAttendance || "", null, dropdowns.sessionAttendance)}
-                    ${makeDateCell("day7Date", row.day7Date || "")}
-                    ${makeDropdownCell("day7DomainTask", row.day7DomainTask || "", null, dropdowns.domainTask)}
-                    ${makeDropdownCell("module2Status", row.module2Status || "", null, dropdowns.module2Status)}
-                    ${makeDropdownCell("tlAllocated", row.tlAllocated || "", null, managers.map(m => m.name))}
-                    ${makeDropdownCell("pushto", row.pushto || "", null, managers.map(m => m.name))}
+                    <td style="background-color: ${rowColor};">${row.mobileNumber || ""}</td>
+                    <td style="background-color: ${rowColor};">${row.collegeName || ""}</td>
+                    <td style="background-color: ${rowColor};">${row.emailId || ""}</td>
+                    ${makeDropdownCell("activeStatus", row.activeStatus || "", null, dropdowns.activeStatus, rowColor)}
+                    <td style="background-color: ${rowColor};">${row.businessTask || 0}</td>
+                    <td style="background-color: ${rowColor};">${row.category ? row.category.charAt(0).toUpperCase() + row.category.slice(1) : ""}</td>
+                    <td style="background-color: ${rowColor};">${row.domain || ""}</td>`;
+
+                    tr += `
+                    ${makeDateCell("startDate", row.startDate || "", activeStatusColor)}
+                    ${makeDateCell("endDate", row.endDate || "", activeStatusColor)}
+                    ${makeDateCell("connectDate", row.connectDate || "", activeStatusColor)}
+                    ${makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus, activeStatusColor)}
+                    ${makeReadonlyCell("registration", (row.registration || "").charAt(0).toUpperCase() + (row.registration || "").slice(1).toLowerCase(), activeStatusColor)}
+                    ${makeReadonlyCell("selectionTest", row.selectionTest || "", activeStatusColor)}
+                    ${makeDropdownCell("whatsappGroup", row.whatsappGroup || "", null, dropdowns.whatsappGroup, activeStatusColor)}`;
+
+                    tr += `
+                    ${makeDropdownCell("day1SessionAttendance", row.day1SessionAttendance || "", null, dropdowns.sessionAttendance, day1Color)}
+                    ${makeDateCell("day1Date", row.day1Date || "", day1Color)}
+                    ${makeDropdownCell("day1DomainTask", row.day1DomainTask || "", null, dropdowns.domainTask, day1Color)}`;
+                    tr += `
+                    ${makeDropdownCell("day2SessionAttendance", row.day2SessionAttendance || "", null, dropdowns.sessionAttendance, day2Color)}
+                    ${makeDateCell("day2Date", row.day2Date || "", day2Color)}
+                    ${makeDropdownCell("day2DomainTask", row.day2DomainTask || "", null, dropdowns.domainTask, day2Color)}`;
+                    tr += `
+                    ${makeDropdownCell("day3SessionAttendance", row.day3SessionAttendance || "", null, dropdowns.sessionAttendance, day3Color)}
+                    ${makeDateCell("day3Date", row.day3Date || "", day3Color)}
+                    ${makeDropdownCell("day3DomainTask", row.day3DomainTask || "", null, dropdowns.domainTask, day3Color)}`;
+
+                    tr += `
+                    ${makeDropdownCell("day4SessionAttendance", row.day4SessionAttendance || "", null, dropdowns.sessionAttendance, day4Color)}
+                    ${makeDateCell("day4Date", row.day4Date || "", day4Color)}
+                    ${makeDropdownCell("day4DomainTask", row.day4DomainTask || "", null, dropdowns.domainTask, day4Color)}`;
+                    tr += `
+                    ${makeDropdownCell("day5SessionAttendance", row.day5SessionAttendance || "", null, dropdowns.sessionAttendance, day5Color)}
+                    ${makeDateCell("day5Date", row.day5Date || "", day5Color)}
+                    ${makeDropdownCell("day5DomainTask", row.day5DomainTask || "", null, dropdowns.domainTask, day5Color)}`;
+                    tr += `
+                    ${makeDropdownCell("day6SessionAttendance", row.day6SessionAttendance || "", null, dropdowns.sessionAttendance, day6Color)}
+                    ${makeDateCell("day6Date", row.day6Date || "", day6Color)}
+                    ${makeDropdownCell("day6DomainTask", row.day6DomainTask || "", null, dropdowns.domainTask, day6Color)}`;
+
+                    tr += `
+                    ${makeDropdownCell("day7SessionAttendance", row.day7SessionAttendance || "", null, dropdowns.sessionAttendance, day7Color)}
+                    ${makeDateCell("day7Date", row.day7Date || "", day7Color)}
+                    ${makeDropdownCell("day7DomainTask", row.day7DomainTask || "", null, dropdowns.domainTask, day7Color)}`;
+                    tr += `
+                    ${makeDropdownCell("module2Status", row.module2Status || "", null, dropdowns.module2Status, module2StatusColor)}
+                    ${makeDropdownCell("tlAllocated", row.tlAllocated || "", null, managers.map(m => m.name), module2StatusColor)}
+                    ${makeDropdownCell("pushto", row.pushto || "", null, managers.map(m => m.name), module2StatusColor)}
                 </tr>`;
 
                 tbody.append(tr);
@@ -2313,10 +2365,10 @@
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th>
-                <select class="column-filter form-select form-select-sm" data-field="${key}">
-                    <option value="">All</option>
-                </select>
-            </th>`;
+                        <select class="column-filter form-select form-select-sm" data-field="${key}">
+                            <option value="">All</option>
+                        </select>
+                    </th>`;
                 }
             });
             filterRow += "</tr>";
@@ -2382,32 +2434,35 @@
             renderPagination();
         }
 
-        function makeCell(field, value) {
+        function makeCell(field, value, bgColor = "") {
             let displayValue = value || "";
             const safeVal = String(displayValue).replace(/"/g, "&quot;");
-            return `<td data-field="${field}">
-        <span>${displayValue}</span>
-        <input type="text" value="${safeVal}">
-    </td>`;
+            const style = bgColor ? `style="background-color: ${bgColor};"` : "";
+            return `<td data-field="${field}" ${style}>
+                <span>${displayValue}</span>
+                <input type="text" value="${safeVal}">
+            </td>`;
         }
 
-        function makeReadonlyCell(field, value) {
+        function makeReadonlyCell(field, value, bgColor = "") {
             let displayValue = value || "";
-            return `<td data-field="${field}">
-        <span>${displayValue}</span>
-    </td>`;
+            const style = bgColor ? `style="background-color: ${bgColor};"` : "";
+            return `<td data-field="${field}" ${style}>
+                <span>${displayValue}</span>
+            </td>`;
         }
 
-        function makeDateCell(field, value) {
+        function makeDateCell(field, value, bgColor = "") {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
-            return `<td data-field="${field}">
-        <span>${displayValue}</span>
-        <input type="text" class="date-picker" value="${rawValue}">
-    </td>`;
+            const style = bgColor ? `style="background-color: ${bgColor};"` : "";
+            return `<td data-field="${field}" ${style}>
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker" value="${rawValue}">
+            </td>`;
         }
 
-        function makeDropdownCell(field, selectedValue, stateFilter = null, optionsList = null) {
+        function makeDropdownCell(field, selectedValue, stateFilter = null, optionsList = null, bgColor = "") {
             let options = optionsList || dropdowns[field] || [];
 
             const formatLabel = (val) => {
@@ -2416,10 +2471,11 @@
             };
 
             let displaySelected = formatLabel(selectedValue);
+            const style = bgColor ? `style="background-color: ${bgColor};"` : "";
 
-            let html = `<td data-field="${field}">
-        <span style="font-weight:bold;">${displaySelected}</span>
-        <select class="form-control select2">`;
+            let html = `<td data-field="${field}" ${style}>
+                <span style="font-weight:bold;">${displaySelected}</span>
+                <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
             options.forEach(opt => {
@@ -2440,9 +2496,9 @@
                 td.find("input,select").focus();
             });
 
-            $("#leadsTable td input, #leadsTable td select")
+            $("#leadsTable td input:not(.date-picker), #leadsTable td select")
                 .off("blur change")
-                .on("blur change", function (ev) {
+                .on("blur", function (ev) {
                     if ($(this).hasClass("date-picker")) return;
 
                     let td = $(this).closest("td");
@@ -2458,8 +2514,26 @@
                     updateBdSheetRecord(id, bdSheetId, field, value);
                 });
 
+            $("#leadsTable td select").off("change").on("change", function (ev) {
+                let td = $(this).closest("td");
+                let tr = $(this).closest("tr");
+                let id = tr.data("id");
+                let bdSheetId = tr.data("bdsheet-id");
+                let field = td.data("field");
+                let value = $(this).val();
+
+                td.find("span").text(value);
+                td.removeClass("editing");
+
+                updateBdSheetRecord(id, bdSheetId, field, value);
+            });
+
             $(".date-picker").each(function () {
                 const input = $(this);
+                if (input.data("flatpickr")) {
+                    input.flatpickr().destroy();
+                }
+
                 input.flatpickr({
                     dateFormat: "Y-m-d",
                     onChange: function (selectedDates, dateStr) {
@@ -2482,6 +2556,9 @@
 
             $("#leadsTable td select.select2").each(function () {
                 if ($(this).select2) {
+                    if ($(this).data('select2')) {
+                        $(this).select2('destroy');
+                    }
                     $(this).select2({ width: '100%' });
                 }
             });
@@ -2552,14 +2629,11 @@
                 data: JSON.stringify(payload),
                 success: function (res) {
                     console.log("UPSERT success:", res);
-
-                    if (!bdSheetId && res.data && res.data.id) {
-                        loadTableData();
-                    }
+                    loadTableData();
                 },
                 error: function (err) {
                     console.error("UPSERT failed", err);
-                    alert("Failed to update record. Please try again.");
+                    // alert("Failed to update record. Please try again.");
                 }
             });
         }
