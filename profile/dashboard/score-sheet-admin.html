@@ -1168,7 +1168,7 @@
             });
         }
     </script>
-    
+
     <script>
         document.getElementById("downloadExample").addEventListener("click", function () {
             const fileUrl = "/excel-files/CO-Upload-sheet.xlsx";
@@ -1536,12 +1536,12 @@
             rows.forEach((row, index) => {
                 let tr = `<tr data-id="${row.id || 'new'}" ${row.isNew ? 'class="new-row"' : ''}>
                     <td>${start + index + 1}</td>
-                    ${makeDropdownCell("department", row.department)}
-                    ${makeDropdownCell("session", row.session)}
-                    ${makeCell("link", row.link)}
-                    ${makeCell("portfoliolink", row.portfoliolink)}
-                    ${makeCell("videolink", row.videolink)}
-                    ${makeDropdownCell("managerName", row.managerName)}
+                    ${makeReadOnlyDisplayCell("department", row.department)}
+                    ${makeReadOnlyDisplayCell("session", row.session)}
+                    ${makeReadOnlyDisplayCell("link", row.link)}
+                    ${makeReadOnlyDisplayCell("portfoliolink", row.portfoliolink)}
+                    ${makeReadOnlyDisplayCell("videolink", row.videolink)}
+                    ${makeReadOnlyDisplayCell("managerName", row.managerName)}
                     ${makeDropdownCell("score1", row.score1)}
                     ${makeDropdownCell("score2", row.score2)}
                     ${makeDropdownCell("score3", row.score3)}
@@ -1932,6 +1932,14 @@
             </td>`;
         }
 
+        function makeReadOnlyDisplayCell(field, value) {
+            let displayValue = value || "";
+            return `<td data-field="${field}" class="readonly-cell">
+                <span>${displayValue}</span>
+                <input type="hidden" value="${displayValue}">
+            </td>`;
+        }
+
         function makeDropdownCell(field, selectedValue) {
             let options = dropdowns[field] || [];
 
@@ -1958,6 +1966,9 @@
             $("#leadsTable td input").off("keypress");
 
             $("#leadsTable td").on("dblclick", function () {
+                if ($(this).hasClass('readonly-cell')) {
+                    return;
+                }
                 let td = $(this);
                 td.addClass("editing");
                 td.find("input,select").focus();
@@ -1993,7 +2004,7 @@
                     const score2 = parseInt(tr.find('[data-field="score2"] span').text()) || 0;
                     const score3 = parseInt(tr.find('[data-field="score3"] span').text()) || 0;
                     const totalScore = ((score1 + score2 + score3) / 3).toFixed(0);
-                    tr.find('td:last').text(totalScore);
+                    tr.find('td:nth-last-child(2)').text(totalScore);
                 }
 
                 let payload = {

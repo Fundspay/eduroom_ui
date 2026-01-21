@@ -1310,11 +1310,11 @@
                     ${makeCell("portfoliolink", row.portfoliolink)}
                     ${makeCell("videolink", row.videolink)}
                     ${makeDropdownCell("managerName", row.managerName)}
-                    ${makeDropdownCell("score1", row.score1)}
-                    ${makeDropdownCell("score2", row.score2)}
-                    ${makeDropdownCell("score3", row.score3)}
+                    ${makeReadOnlyDisplayCell("score1", row.score1)}
+                    ${makeReadOnlyDisplayCell("score2", row.score2)}
+                    ${makeReadOnlyDisplayCell("score3", row.score3)}
                     <td>${row.totalscore || calculateTotal(row)}</td>
-                    ${makeCell("comment", row.comment)}
+                    ${makeReadOnlyDisplayCell("comment", row.comment)}
                 </tr>`;
                 tbody.append(tr);
             });
@@ -1700,6 +1700,14 @@
             </td>`;
         }
 
+        function makeReadOnlyDisplayCell(field, value) {
+            let displayValue = value || "";
+            return `<td data-field="${field}" class="readonly-cell">
+                <span>${displayValue}</span>
+                <input type="hidden" value="${displayValue}">
+            </td>`;
+        }
+
         function makeDropdownCell(field, selectedValue) {
             let options = dropdowns[field] || [];
 
@@ -1726,6 +1734,9 @@
             $("#leadsTable td input").off("keypress");
 
             $("#leadsTable td").on("dblclick", function () {
+                if ($(this).hasClass('readonly-cell')) {
+                    return;
+                }
                 let td = $(this);
                 td.addClass("editing");
                 td.find("input,select").focus();
@@ -1761,7 +1772,7 @@
                     const score2 = parseInt(tr.find('[data-field="score2"] span').text()) || 0;
                     const score3 = parseInt(tr.find('[data-field="score3"] span').text()) || 0;
                     const totalScore = ((score1 + score2 + score3) / 3).toFixed(0);
-                    tr.find('td:last').text(totalScore);
+                    tr.find('td:nth-last-child(2)').text(totalScore);
                 }
 
                 let payload = {
