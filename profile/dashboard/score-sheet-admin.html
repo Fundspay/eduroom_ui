@@ -450,7 +450,7 @@
                     </div> -->
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="CO.html">Home</a></li>
-                        <li class="breadcrumb-item">Score Sheet</li>
+                        <li class="breadcrumb-item">Training Module</li>
                     </ul>
                 </div>
                 <div class="page-header-right ms-auto">
@@ -709,8 +709,7 @@
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">SCORE SHEET (Total Count: <span id="collegeCount">
-                                            0</span>)</h5>
+                                    <h5 class="card-title">TRAINING MODULE ADMIN</h5>
                                 </div>
                                 <div class="card-header-action">
                                     <!-- <div data-bs-toggle="tooltip" title="Refresh">
@@ -1422,8 +1421,8 @@
                             console.log("manager options:", dropdowns.managerName);
                         }
 
-                        const totalRecords = tableData.length;
-                        document.getElementById("collegeCount").textContent = totalRecords;
+                        // const totalRecords = tableData.length;
+                        // document.getElementById("collegeCount").textContent = totalRecords;
 
                         filteredData = [...tableData];
                         renderTable();
@@ -1488,15 +1487,15 @@
             const filteredCount = filteredData.length;
             const countElement = document.getElementById("collegeCount");
 
-            if (filteredCount === totalCount) {
-                countElement.textContent = totalCount;
-                countElement.style.color = "";
-                countElement.style.fontWeight = "";
-            } else {
-                countElement.textContent = `${filteredCount} / ${totalCount}`;
-                countElement.style.color = "#dc3545";
-                countElement.style.fontWeight = "bold";
-            }
+            // if (filteredCount === totalCount) {
+            //     countElement.textContent = totalCount;
+            //     countElement.style.color = "";
+            //     countElement.style.fontWeight = "";
+            // } else {
+            //     countElement.textContent = `${filteredCount} / ${totalCount}`;
+            //     countElement.style.color = "#dc3545";
+            //     countElement.style.fontWeight = "bold";
+            // }
         }
 
         function renderTable() {
