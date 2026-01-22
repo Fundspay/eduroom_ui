@@ -1170,6 +1170,17 @@
         const apiList = `${apiBase}/list`;
         const apiAdd = `${apiBase}/add`;
 
+        function getRowBgColor(totalScore) {
+            const val = parseInt(totalScore, 10) || 0;
+            if (val === 0) return 'background-color: #ff4d4d;';
+            if (val >= 1 && val <= 3) return 'background-color: #ffa500;';
+            if (val >= 4 && val <= 5) return 'background-color: #ffff80;';
+            if (val >= 6 && val <= 7) return 'background-color: #b3ffb3;';
+            if (val >= 8 && val <= 9) return 'background-color: #5cdb5c;';
+            if (val > 9) return 'background-color: #4da6ff;';
+            return '';
+        }
+
         const dropdowns = {
             department: ["HR", "BD", "TECH", "SALES", "MARKETING", "FINANCE", "OTHERS"],
             session: [
@@ -1359,7 +1370,9 @@
             const rows = filteredData.slice(start, end);
 
             rows.forEach((row, index) => {
-                let tr = `<tr data-id="${row.id || 'new'}" ${row.isNew ? 'class="new-row"' : ''}>
+                const rowBgStyle = getRowBgColor(row.totalscore);
+
+                let tr = `<tr data-id="${row.id || 'new'}" ${row.isNew ? 'class="new-row"' : ''} style="${rowBgStyle}">
                     <td>${start + index + 1}</td>
                     ${makeDropdownCell("department", row.department)}
                     ${makeDropdownCell("session", row.session)}
