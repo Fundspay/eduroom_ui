@@ -1615,7 +1615,9 @@
                     ${makeDropdownCell("score1", row.score1)}
                     ${makeDropdownCell("score2", row.score2)}
                     ${makeDropdownCell("score3", row.score3)}
-                    <td>${row.totalscore || calculateTotal(row)}</td>
+                    <td style="text-align: center; font-weight: 800;">
+                        ${row.totalscore || calculateTotal(row)}
+                    </td>
                     ${makeCell("comment", row.comment)}
                 </tr>`;
                 tbody.append(tr);

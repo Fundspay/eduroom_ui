@@ -1383,7 +1383,9 @@
                     ${makeReadOnlyDisplayCell("score1", row.score1)}
                     ${makeReadOnlyDisplayCell("score2", row.score2)}
                     ${makeReadOnlyDisplayCell("score3", row.score3)}
-                    <td>${row.totalscore || calculateTotal(row)}</td>
+                    <td style="text-align: center; font-weight: 800;">
+                        ${row.totalscore || calculateTotal(row)}
+                    </td>
                     ${makeReadOnlyDisplayCell("comment", row.comment)}
                 </tr>`;
                 tbody.append(tr);
