@@ -1644,6 +1644,16 @@
                 </td>`;
             }
 
+            function getRowBgColor(hasPaidHtml) {
+                if (hasPaidHtml.includes('bg-soft-success')) {
+                    return 'background-color: #5cdb5c;';
+                }
+                if (hasPaidHtml.includes('bg-soft-danger')) {
+                    return 'background-color: #ff4d4d;';
+                }
+                return '';
+            }
+
             function renderTable() {
                 const tbody = $("#leadsTable tbody");
                 tbody.empty();
@@ -1652,11 +1662,13 @@
                 const rows = tableData.slice(start, end);
 
                 rows.forEach((row) => {
+                    const rowColor = getRowBgColor(row.hasPaid);
+
                     const tr = `<tr>
-                        <td>${row.sno}</td>
-                        <td>${row.name}</td>
-                        <td><a href="tel:${row.phone}">${row.phone}</a></td>
-                        <td><a href="mailto:${row.email}">${row.email}</a></td>
+                        <td style="${rowColor}">${row.sno}</td>
+                        <td style="${rowColor}">${row.name}</td>
+                        <td style="${rowColor}"><a href="tel:${row.phone}">${row.phone}</a></td>
+                        <td style="${rowColor}"><a href="mailto:${row.email}">${row.email}</a></td>
                         <td>${row.isDownloaded}</td>
                         <td>${row.downloadDateDisplay}</td>
                         <td>${row.occupation}</td>
