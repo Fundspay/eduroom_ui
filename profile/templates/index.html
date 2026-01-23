@@ -863,6 +863,17 @@
             display: inline-block;
             margin-right: 8px;
         }
+
+        .active-badge {
+            margin-left: 6px;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #16a34a;
+            background: #dcfce7;
+            border-radius: 12px;
+            vertical-align: middle;
+        }
     </style>
 
     <!--! ================================================================ !-->
@@ -984,7 +995,8 @@
                             Number($("#walletRemainingDisplay").text()) || 0,
                             registeredEmail
                         );
-                        $("#referralCode").text(user.ReferralCode || "--");
+                        sessionStorage.setItem("referralCode", user.ReferralCode);
+                        // $("#referralCode").text(user.ReferralCode || "--");
                         $("#referralLink").text(user.ReferralLink || "--");
                         $("#PfLink").text(user.PfLink || "--");
                         $("#referralLink").attr("href", user.ReferralLink || "#");
@@ -2886,6 +2898,18 @@
 
                         let total = res.data.subscriptionWalletTotal || 0;
                         let left = res.data.subscriptionLeft || 0;
+
+                        let referralCode = sessionStorage.getItem("referralCode") || "--";
+
+                        if (total > 0) {
+                            $("#referralCode")
+                                .html(`<span class="active-badge">Active</span> ${referralCode}`)
+                                .css("color", "#16a34a");
+                        } else {
+                            $("#referralCode")
+                                .text(referralCode || "--")
+                                .css("color", "");
+                        }
 
                         $("#walletRemainingDisplay").text(total);
                         $("#totalSubscriptionsLarge").text(total);
