@@ -302,13 +302,21 @@
                             </div>
 
                             <div class="row course-describe-wrapper">
-                                <div class="col-xl-8  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4">
+                                <div class="col-xl-12  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4">
                                     <!-- Description -->
                                     <h3>Description</h3>
                                     <div class="course-description-left" id="courseDescription">
 
                                     </div>
                                 </div><!-- /col -->
+
+                                <div id="driveLinkContainer" class="col-xl-12  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4" style="margin-top: 20px; margin-bottom: 20px; display: none;">
+                                    <!-- Description -->
+                                    <h3>Drive Link for pdf</h3>
+                                    <div class="course-description-left" id="driveLink">
+
+                                    </div>
+                                </div>
 
                                 <!-- <div class="col-xl-4 col-lg-5 col-md-4 col-sm- col- pl-md-0">
                                     <div class="course-description-right mt-lg-1 text-center pl-20 pr-20 pt-20 pb-15">
@@ -918,6 +926,20 @@
                         descContainer.append('<p>' + course.description + '</p>');
                     }
 
+                    var descContainer2 = $('#driveLink');
+                    descContainer2.empty();
+
+                    if (course.driveLink) {
+                        $("#driveLinkContainer").show();
+                        descContainer2.append(
+                            '<p>' +
+                                '<a href="' + course.driveLink + '" target="_blank" rel="noopener noreferrer">' +
+                                    course.driveLink +
+                                '</a>' +
+                            '</p>'
+                        );
+                    }
+
                     var quizContainer = $('#accordion-quiz');
                     quizContainer.empty();
 
@@ -1180,7 +1202,7 @@
                         fetchSavedCaseStudyAnswer();
                     } else {
                         $caseWrapper.hide();
-                        console.warn(response.message || "No Case Study available.");
+                        // console.warn(response.message || "No Case Study available.");
                     }
                 },
                 error: function (xhr, status, error) {
@@ -1709,7 +1731,7 @@
                 url: `https://eduroom.in/api/v1/course/wallet/${userId2}`,
                 type: "GET",
                 success: function (res) {
-                    console.log("API Response:", res);
+                    // console.log("API Response:", res);
 
                     if (res.success && res.data) {
 
