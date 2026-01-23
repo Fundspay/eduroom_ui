@@ -402,6 +402,12 @@
                                         placeholder="Enter the Minimum Business Tasks to be completed">
                                 </div>
 
+                                <div class="mb-4">
+                                    <label class="form-label">Drive Link</label>
+                                    <input type="text" class="form-control" id="driveLink"
+                                        placeholder="Enter the Drive Link">
+                                </div>
+
                                 <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
 
                                 <!-- Question Section -->
@@ -1101,6 +1107,7 @@
                                 {
                                     sessionNumber: parseInt($("#sessionSelect").val(), 10),
                                     minBusinessTarget: $("#minBusinessTarget").val().trim(),
+                                    driveLink: $("#driveLink").val().trim(),
                                     title: $("#title").val().trim(),
                                     description: $("#description").val().trim(),
                                     youtubeLink: $("#youtubeLink").val().trim(),

@@ -411,6 +411,12 @@
                                         placeholder="Enter the Minimum Business Tasks to be completed">
                                 </div>
 
+                                <div class="mb-4">
+                                    <label class="form-label">Drive Link</label>
+                                    <input type="text" class="form-control" id="driveLink"
+                                        placeholder="Enter the Drive Link">
+                                </div>
+
                                 <hr style="border: 1px solid #3d3c3c; margin: 20px 0;">
 
                                 <!-- Question Section -->
@@ -1135,7 +1141,8 @@
                                 $("#title").val(preview.title || "");
                                 $("#description").val(preview.description || "");
                                 $("#youtubeLink").val(preview.youtubeLink || "");
-                                $("#minBusinessTarget").val(preview.minBusinessTarget || "");
+                                $("#minBusinessTarget").val(preview.minBusinessTarget || 0);
+                                $("#driveLink").val(preview.driveLink || "");
 
                                 if (preview.QuestionModels && preview.QuestionModels.length > 0) {
                                     preview.QuestionModels.forEach((q, idx) => {
@@ -1239,6 +1246,7 @@
                                 {
                                     sessionNumber: selectedSession,
                                     minBusinessTarget: $("#minBusinessTarget").val().trim(),
+                                    driveLink: $("#driveLink").val().trim(),
                                     title: $("#title").val().trim(),
                                     description: $("#description").val().trim(),
                                     youtubeLink: $("#youtubeLink").val().trim(),
