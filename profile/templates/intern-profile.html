@@ -746,7 +746,7 @@
                                                     <th>Email</th>
                                                     <th>Downloaded</th>
                                                     <th>Date of Download</th>
-                                                    <th>Occupation</th>
+                                                    <th>UTR</th>
                                                     <th>Subscribed</th>
                                                     <th>Date of Payment</th>
                                                     <!-- <th>Raise Query</th> -->
@@ -1533,7 +1533,7 @@
 
                                 const downloadDateRaw = user.date_of_download || null;
                                 const paymentDateRaw = user.date_of_payment || null;
-                                const occupation = user.occupation || null;
+                                const occupation = user.utr || null;
 
                                 const downloadDateDisplay = downloadDateRaw
                                     ? formatDate(downloadDateRaw)
