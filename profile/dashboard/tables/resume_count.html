@@ -500,25 +500,25 @@
         //     }
         // };
 
-        // function getRowBgColor(finalSelectionStatus) {
-        //     if (finalSelectionStatus === null || finalSelectionStatus === "") return 'background-color: #fff;';
-
-        //     const val = finalSelectionStatus.toLowerCase();
-        //     if (val === "selected") return 'background-color: #5cdb5c;';
-        //     if (val === "not selected") return 'background-color: #ff4d4d;';
-        //     if (val === "on hold") return 'background-color: #ffff80;';
-        //     return 'background-color: #fff;';
-        // }
-
         function getRowBgColor(finalSelectionStatus) {
             if (finalSelectionStatus === null || finalSelectionStatus === "") return 'background-color: #fff;';
 
             const val = finalSelectionStatus.toLowerCase();
-            if (val === "selected") return 'background-color: #fff;';
-            if (val === "not selected") return 'background-color: #fff;';
-            if (val === "on hold") return 'background-color: #fff;';
+            if (val === "selected") return 'background-color: #5cdb5c;';
+            if (val === "not selected") return 'background-color: #ff4d4d;';
+            if (val === "on hold") return 'background-color: #ffff80;';
             return 'background-color: #fff;';
         }
+
+        // function getRowBgColor(finalSelectionStatus) {
+        //     if (finalSelectionStatus === null || finalSelectionStatus === "") return 'background-color: #fff;';
+
+        //     const val = finalSelectionStatus.toLowerCase();
+        //     if (val === "selected") return 'background-color: #fff;';
+        //     if (val === "not selected") return 'background-color: #fff;';
+        //     if (val === "on hold") return 'background-color: #fff;';
+        //     return 'background-color: #fff;';
+        // }
 
         let tableData = [];
         let filteredData = [];
