@@ -1436,7 +1436,7 @@
                     success: function (res) {
                         // console.log("Logout success:", res);
 
-                        sessionStorage.removeItem("user_id");
+                        sessionStorage.clear();
 
                         Swal.fire({
                             icon: "success",
@@ -1515,6 +1515,74 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function getQueryParams() {
+                const url = window.location.href;
+                const queryString = url.split("?")[1];
+                if (!queryString) return {};
+
+                const fixedQuery = queryString.replace(/\?/g, "&");
+                const params = new URLSearchParams(fixedQuery);
+
+                let result = {};
+                for (const [key, value] of params.entries()) {
+                    result[key] = value;
+                }
+                return result;
+            }
+
+        const params = getQueryParams();
+        const courseId = params.courseId || 1;
+        if (courseId == 29) {
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const TRAINING_PASSWORD = config.TRAINING_PASSWORD || "";
+                const SESSION_KEY = "trainingPasswordVerified";
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    return;
+                }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        text: "You are not allowed to access this course, Please enter the password to access this course",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: false,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === TRAINING_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                }).then(() => {
+                                    window.location.href = "/domain-list.html";
+                                });
+                            }
+                        }
+                    });
+                });
+            }
     </script>
 
 </body>
