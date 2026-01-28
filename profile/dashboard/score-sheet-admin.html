@@ -2282,9 +2282,9 @@
                     <td>${start + index + 1}</td>
                     ${makeReadOnlyDisplayCell("department", row.department)}
                     ${makeReadOnlyDisplayCell("session", row.session)}
-                    ${makeReadOnlyDisplayCell("link", row.link)}
-                    ${makeReadOnlyDisplayCell("portfoliolink", row.portfoliolink)}
-                    ${makeReadOnlyDisplayCell("videolink", row.videolink)}
+                    ${makeReadOnlyLinkCell("link", row.link)}
+                    ${makeReadOnlyLinkCell("portfoliolink", row.portfoliolink)}
+                    ${makeReadOnlyLinkCell("videolink", row.videolink)}
                     ${makeDateCell("startdate", row.startdate)}
                     ${makeDateCell("enddate", row.enddate)}
                     ${makeReadOnlyDisplayCell("daysremaining", row.daysremaining)}
@@ -2711,17 +2711,17 @@
             </td>`;
         }
 
-        function makeLinkCell(field, value) {
+        function makeReadOnlyLinkCell(field, value) {
             let displayValue = value || "";
             if (displayValue && (displayValue.startsWith('http://') || displayValue.startsWith('https://'))) {
-                return `<td data-field="${field}" class="link-cell">
+                return `<td data-field="${field}" class="readonly-cell link-cell">
                     <span onclick="window.open('${displayValue}', '_blank')" title="${displayValue}">${displayValue}</span>
-                    <input type="text" value="${displayValue}" placeholder="Enter ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}">
+                    <input type="hidden" value="${displayValue}">
                 </td>`;
             } else {
-                return `<td data-field="${field}">
+                return `<td data-field="${field}" class="readonly-cell">
                     <span>${displayValue}</span>
-                    <input type="text" value="${displayValue}" placeholder="Enter ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}">
+                    <input type="hidden" value="${displayValue}">
                 </td>`;
             }
         }
