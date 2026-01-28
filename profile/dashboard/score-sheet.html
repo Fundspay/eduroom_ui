@@ -386,6 +386,11 @@
             <div class="header-right ms-auto">
                 <div class="d-flex align-items-center">
 
+                    <select id="managerSelect" class="form-select" onchange="handleManagerChange()"
+                        style="margin-right: 10px; display: none;">
+                        <option value="" disabled>Loading managers...</option>
+                    </select>
+
                     <!-- Full Screen Switcher -->
                     <!-- <div class="nxl-h-item d-none d-sm-flex">
                         <div class="full-screen-switcher">
@@ -493,6 +498,325 @@
             <!-- [ page-header ] end -->
             <!-- [ Main Content ] start -->
             <div class="main-content">
+
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="course-info-card">
+                                            <div class="row">
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label text-center">Total Sessions</span>
+                                                        <span class="info-value badge" id="totalSessions"
+                                                            style="font-size: 19px;">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label text-center">Start Date</span>
+                                                        <span
+                                                            class="info-value text-center d-block w-100"
+                                                            id="startDate" style="font-size: 20px;">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="info-box" data-field="end_date"
+                                                        id="endDateContainer">
+                                                        <span class="info-label text-center">End Date</span>
+                                                        <span
+                                                            class="info-value text-center d-block w-100"
+                                                            id="endDateDisplay" style="font-size: 20px;">--</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <div class="info-box" id="daysLeft2">
+                                                        <span class="info-label text-center"
+                                                            style="color: rgb(78, 76, 76);">Days
+                                                            Left</span>
+                                                        <span class="info-value badge" id="daysLeft"
+                                                            style="font-size: 20px;">--</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="business-status-card">
+                                            <div class="row">
+                                                <div class="col-md-12 mb-4">
+                                                    <div class="progress-box">
+                                                        <div class="d-flex justify-content-between mb-2">
+                                                            <span class="progress-label">Task Status</span>
+                                                            <span class="progress-percentage"
+                                                                id="taskStatusPercentage">0%</span>
+                                                        </div>
+                                                        <div class="progress" style="height: 20px;">
+                                                            <div class="progress-bar" id="taskStatusProgress"
+                                                                role="progressbar" style="width: 0%"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    #PfLink {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 10;
+                        line-clamp: 10;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100%;
+                        word-break: break-word;
+                    }
+
+                    #portfolioLink {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 10;
+                        line-clamp: 10;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100%;
+                        word-break: break-word;
+                    }
+
+                    .course-info-card,
+                    .business-status-card {
+                        background: #f8f9fa;
+                        border-radius: 10px;
+                        padding: 20px;
+                        height: 100%;
+                    }
+
+                    .info-box {
+                        background: white;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #e9ecef;
+                        transition: all 0.3s ease;
+                    }
+
+                    .info-box.editable-field:hover {
+                        background: #f8f9ff;
+                        cursor: pointer;
+                        border-color: #4d94ff;
+                    }
+
+                    .info-label {
+                        display: block;
+                        font-size: 12px;
+                        color: #6c757d;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        margin-bottom: 5px;
+                    }
+
+                    .info-value {
+                        display: block;
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #343a40;
+                    }
+
+                    .progress-box {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #e9ecef;
+                    }
+
+                    .progress-label {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #343a40;
+                    }
+
+                    .progress-percentage {
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+
+                    .business-task-box {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #e9ecef;
+                    }
+
+                    .task-box {
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    .task-label {
+                        display: block;
+                        font-size: 12px;
+                        color: #6c757d;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        margin-bottom: 8px;
+                    }
+
+                    .task-value {
+                        display: block;
+                        font-size: 24px;
+                        font-weight: 700;
+                    }
+
+                    .editable-display {
+                        cursor: pointer;
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                        transition: background-color 0.3s;
+                    }
+
+                    .editable-display:hover {
+                        background-color: #f1f3ff;
+                    }
+
+                    .days-left-green {
+                        background-color: #5cdb5c !important;
+                        color: white !important;
+                    }
+
+                    .days-left-light-green {
+                        background-color: #b3ffb3 !important;
+                        color: #212529 !important;
+                    }
+
+                    .days-left-yellow {
+                        background-color: #ffff80 !important;
+                        color: #212529 !important;
+                    }
+
+                    .days-left-orange {
+                        background-color: #ffa500 !important;
+                        color: white !important;
+                    }
+
+                    .days-left-red {
+                        background-color: #ff4d4d !important;
+                        color: white !important;
+                    }
+
+                    .progress-red {
+                        background-color: #ff4d4d !important;
+                    }
+
+                    .progress-orange {
+                        background-color: #ffa500 !important;
+                    }
+
+                    .progress-yellow {
+                        background-color: #ffff80 !important;
+                    }
+
+                    .progress-light-green {
+                        background-color: #b3ffb3 !important;
+                    }
+
+                    .progress-green {
+                        background-color: #5cdb5c !important;
+                    }
+
+                    .progress-blue {
+                        background-color: #4da6ff !important;
+                    }
+
+                    .status-card-red {
+                        background: linear-gradient(135deg, #ff4d4d 0%, #ff4d4d 100%) !important;
+                        border: 1px solid #ff4d4d !important;
+                    }
+
+                    .status-card-orange {
+                        background: linear-gradient(135deg, #ffa500 0%, #ffa500 100%) !important;
+                        border: 1px solid #ffa500 !important;
+                    }
+
+                    .status-card-yellow {
+                        background: linear-gradient(135deg, #ffff80 0%, #ffff80 100%) !important;
+                        border: 1px solid #ffff80 !important;
+                    }
+
+                    .status-card-light-green {
+                        background: linear-gradient(135deg, #b3ffb3 0%, #b3ffb3 100%) !important;
+                        border: 1px solid #b3ffb3 !important;
+                    }
+
+                    .status-card-green {
+                        background: linear-gradient(135deg, #5cdb5c 0%, #5cdb5c 100%) !important;
+                        border: 1px solid #5cdb5c !important;
+                    }
+
+                    .status-card-blue {
+                        background: linear-gradient(135deg, #4da6ff 0%, #4da6ff 100%) !important;
+                        border: 1px solid #4da6ff !important;
+                    }
+
+                    .percentage-red {
+                        color: #ff4d4d !important;
+                    }
+
+                    .percentage-orange {
+                        color: #ffa500 !important;
+                    }
+
+                    .percentage-yellow {
+                        color: #ffff80 !important;
+                    }
+
+                    .percentage-light-green {
+                        color: #b3ffb3 !important;
+                    }
+
+                    .percentage-green {
+                        color: #5cdb5c !important;
+                    }
+
+                    .percentage-blue {
+                        color: #4da6ff !important;
+                    }
+
+                    .row-today {
+                        background-color: #adf390 !important;
+                    }
+
+                    .row-past {
+                        background-color: #f1f4f8 !important;
+                        color: #444447 !important;
+                    }
+
+                    .day-separator td {
+                        height: 32px;
+                        padding: 0;
+                        background: transparent;
+                        position: relative;
+                    }
+
+                    .day-separator td::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        width: 100%;
+                        border-top: 2px dotted #999;
+                        transform: translateY(-50%);
+                    }
+                </style>
 
                 <div class="row" style="margin-bottom: 3%;">
                     <style>
@@ -698,12 +1022,13 @@
                             box-shadow: inset 0 0 0 2px #f97316;
                         }
                     </style>
+                    <!-- Add this HTML code wherever you want the manager selector to appear -->
 
                     <div class="col-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">TRAINING MODULE</h5>
+                                    <h5 class="card-title">TRAINING MODULE ADMIN</h5>
                                 </div>
                                 <div class="card-header-action">
                                     <!-- <div data-bs-toggle="tooltip" title="Refresh">
@@ -742,6 +1067,9 @@
                                                 <th>Session Link</th>
                                                 <th>My Portfolio Link</th>
                                                 <th>My Session Video Link</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Days Remaining</th>
                                                 <th>Manager</th>
                                                 <!-- <th>MBA Batch Strength Approx</th> -->
                                                 <th>Clarity (Understanding & Thinking)</th>
@@ -1150,6 +1478,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
+            Swal.fire({
+                icon: "warning",
+                title: "Access Restricted",
+                text: "You are not permitted to use this page!",
+                confirmButtonText: "Go Back"
+            }).then(() => {
+                window.location.href = "/profile/dashboard/team-manager.html";
+            });
+        }
+    </script>
+
+    <script>
         document.getElementById("downloadExample").addEventListener("click", function () {
             const fileUrl = "/excel-files/CO-Upload-sheet.xlsx";
 
@@ -1163,12 +1504,23 @@
     </script>
 
     <script>
-        const teamManagerId2 = sessionStorage.getItem("user_id");
-        console.log(teamManagerId2);
-
         const apiBase = "https://eduroom.in/api/v1/scoresheet";
         const apiList = `${apiBase}/list`;
         const apiAdd = `${apiBase}/add`;
+        const apiManagers = "https://eduroom.in/api/v1/teammanager/all";
+
+        let selectedManagerId = sessionStorage.getItem("user_id");
+        let selectedManagerName = "";
+        let allManagers = [];
+
+        let metricsData = {
+            startDate: null,
+            endDate: null,
+            daysRemaining: null,
+            totalSessions: 0,
+            successfulSessions: 0,
+            successPercentage: 0
+        };
 
         function getRowBgColor(totalScore) {
             const val = parseInt(totalScore, 10) || 0;
@@ -1257,25 +1609,553 @@
         let activeFilterDropdown = null;
         let isSaving = false;
 
-        function loadTableData() {
+        function loadAllManagers() {
             $.ajax({
-                url: apiList + "/" + teamManagerId2,
+                url: apiManagers,
                 method: "GET",
                 success: function (res) {
-                    console.log("master sheet:", res);
+                    console.log("All managers response:", res);
 
-                    if (res.success) {
+                    if (res && Array.isArray(res)) {
+                        allManagers = res;
+                    } else if (res && typeof res === 'object' && Array.isArray(res.data)) {
+                        allManagers = res.data;
+                    } else if (res && typeof res === 'object' && res.success && Array.isArray(res.managers)) {
+                        allManagers = res.managers;
+                    } else if (res && typeof res === 'object') {
+                        allManagers = Object.values(res);
+                    } else {
+                        console.error("Unexpected response format:", res);
+                        allManagers = [];
+                    }
+
+                    console.log("Processed managers:", allManagers);
+
+                    const managerSelect = document.getElementById('managerSelect');
+                    managerSelect.innerHTML = '';
+
+                    if (allManagers.length === 0) {
+                        const option = document.createElement('option');
+                        option.value = "";
+                        option.textContent = "No managers found";
+                        option.disabled = true;
+                        managerSelect.appendChild(option);
+
+                        selectedManagerName = "No Manager Selected";
+                        updateManagerDisplay();
+                        return;
+                    }
+
+                    const currentUserId = sessionStorage.getItem("user_id");
+                    let currentUserFound = false;
+
+                    if (currentUserId) {
+                        const currentUser = allManagers.find(m => m.id === currentUserId || m._id === currentUserId);
+                        if (currentUser) {
+                            const defaultOption = document.createElement('option');
+                            defaultOption.value = currentUser.id || currentUser._id;
+                            defaultOption.textContent = `${currentUser.name || 'Current User'}`;
+                            defaultOption.selected = true;
+                            managerSelect.appendChild(defaultOption);
+
+                            selectedManagerId = currentUser.id || currentUser._id;
+                            selectedManagerName = currentUser.name || 'Current User';
+                            currentUserFound = true;
+                        }
+                    }
+
+                    if (!currentUserFound && currentUserId) {
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = currentUserId;
+                        defaultOption.textContent = "Current User (You)";
+                        defaultOption.selected = true;
+                        managerSelect.appendChild(defaultOption);
+
+                        selectedManagerId = currentUserId;
+                        selectedManagerName = "Current User";
+                    }
+
+                    allManagers.forEach(manager => {
+                        const managerId = manager.id || manager._id;
+                        const managerName = manager.name || 'Unnamed Manager';
+                        const managerDept = manager.department || manager.dept || 'No Dept';
+
+                        if (currentUserFound && managerId === selectedManagerId) {
+                            return;
+                        }
+
+                        const option = document.createElement('option');
+                        option.value = managerId;
+                        option.textContent = `${managerName} (${managerDept})`;
+                        managerSelect.appendChild(option);
+                    });
+
+                    if (managerSelect.options.length === 0) {
+                        const option = document.createElement('option');
+                        option.value = currentUserId || "";
+                        option.textContent = "Current User";
+                        option.selected = true;
+                        managerSelect.appendChild(option);
+
+                        selectedManagerId = currentUserId || "";
+                        selectedManagerName = "Current User";
+                    }
+
+                    updateManagerDisplay();
+
+                    loadTableData();
+                },
+                error: function (error) {
+                    console.error("Error loading managers:", error);
+                    const managerSelect = document.getElementById('managerSelect');
+                    managerSelect.innerHTML = `
+                        <option value="${sessionStorage.getItem("user_id") || ""}" selected>
+                            Current User (API Error)
+                        </option>
+                    `;
+
+                    selectedManagerId = sessionStorage.getItem("user_id") || "";
+                    selectedManagerName = "Current User";
+                    updateManagerDisplay();
+                    loadTableData();
+                }
+            });
+        }
+
+        function updateManagerDisplay() {
+            const displayElement = document.getElementById('selectedManagerDisplay');
+            if (displayElement) {
+                displayElement.innerHTML = `
+                    <i class="fas fa-user-tie me-2"></i>
+                    Viewing data for: <strong>${selectedManagerName}</strong>
+                    <span class="text-muted ms-2">(ID: ${selectedManagerId})</span>
+                `;
+            }
+        }
+
+        function handleManagerChange() {
+            const select = document.getElementById('managerSelect');
+            const selectedId = select.value;
+            const selectedText = select.options[select.selectedIndex].textContent;
+
+            let managerName = selectedText;
+            if (selectedText.includes(' - ')) {
+                managerName = selectedText.split(' - ')[0];
+            }
+            if (selectedText.includes('(Current)')) {
+                managerName = selectedText.replace(' (Current)', '');
+            }
+            if (selectedText.includes('(You)')) {
+                managerName = selectedText.replace(' (You)', '');
+            }
+
+            selectedManagerId = selectedId;
+            selectedManagerName = managerName.trim();
+
+            console.log(`Manager changed to: ${selectedManagerName} (ID: ${selectedManagerId})`);
+
+            updateManagerDisplay();
+
+            loadTableData();
+        }
+
+        function calculateSessionMetrics() {
+            let totalSessions = 0;
+            let successfulSessions = 0;
+
+            tableData.forEach(row => {
+                if (!row.isNew && (row.department || row.session || row.score1 || row.score2 || row.score3)) {
+                    totalSessions++;
+
+                    const totalScore = parseInt(row.totalscore) || 0;
+                    if (totalScore >= 7) {
+                        successfulSessions++;
+                    }
+                }
+            });
+
+            const successPercentage = totalSessions > 0 ? Math.round((successfulSessions / totalSessions) * 100) : 0;
+
+            metricsData.totalSessions = totalSessions;
+            metricsData.successfulSessions = successfulSessions;
+            metricsData.successPercentage = successPercentage;
+        }
+
+        function updateMetricsUI() {
+            calculateSessionMetrics();
+
+            const startDateElement = document.getElementById('startDate');
+            if (startDateElement) {
+                if (metricsData.startDate) {
+                    startDateElement.textContent = formatDateForDisplay(metricsData.startDate);
+                } else {
+                    startDateElement.textContent = "--";
+                }
+            }
+
+            const endDateDisplayElement = document.getElementById('endDateDisplay');
+            if (endDateDisplayElement) {
+                if (metricsData.endDate) {
+                    endDateDisplayElement.textContent = formatDateForDisplay(metricsData.endDate);
+                } else {
+                    endDateDisplayElement.textContent = "--";
+                }
+            }
+
+            const daysLeftElement = document.getElementById('daysLeft');
+            if (daysLeftElement) {
+                if (metricsData.daysRemaining !== null && metricsData.daysRemaining !== undefined) {
+                    daysLeftElement.textContent = metricsData.daysRemaining;
+
+                    const days = parseInt(metricsData.daysRemaining);
+                    daysLeftElement.className = 'info-value badge';
+
+                    if (days <= 0) {
+                        daysLeftElement.classList.add('days-left-red');
+                    } else if (days <= 3) {
+                        daysLeftElement.classList.add('days-left-orange');
+                    } else if (days <= 7) {
+                        daysLeftElement.classList.add('days-left-yellow');
+                    } else if (days <= 14) {
+                        daysLeftElement.classList.add('days-left-light-green');
+                    } else {
+                        daysLeftElement.classList.add('days-left-green');
+                    }
+                } else {
+                    daysLeftElement.textContent = "--";
+                    daysLeftElement.className = 'info-value badge';
+                }
+            }
+
+            const totalSessionsElement = document.getElementById('totalSessions');
+            if (totalSessionsElement) {
+                totalSessionsElement.textContent = `${metricsData.successfulSessions}/${metricsData.totalSessions}`;
+            }
+
+            const taskStatusPercentageElement = document.getElementById('taskStatusPercentage');
+            const taskStatusProgressElement = document.getElementById('taskStatusProgress');
+
+            if (taskStatusPercentageElement && taskStatusProgressElement) {
+                const progressPercentage = metricsData.successPercentage;
+
+                taskStatusPercentageElement.textContent = `${progressPercentage}%`;
+                taskStatusProgressElement.style.width = `${progressPercentage}%`;
+
+                taskStatusProgressElement.className = 'progress-bar';
+                if (progressPercentage < 25) {
+                    taskStatusProgressElement.classList.add('progress-red');
+                } else if (progressPercentage < 50) {
+                    taskStatusProgressElement.classList.add('progress-orange');
+                } else if (progressPercentage < 75) {
+                    taskStatusProgressElement.classList.add('progress-yellow');
+                } else if (progressPercentage < 90) {
+                    taskStatusProgressElement.classList.add('progress-light-green');
+                } else {
+                    taskStatusProgressElement.classList.add('progress-green');
+                }
+            }
+        }
+
+        function formatDateForDisplay(dateString) {
+            if (!dateString) return "--";
+
+            try {
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return dateString;
+
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' });
+                const year = date.getFullYear();
+                return `${day} ${month} ${year}`;
+            } catch (error) {
+                return dateString;
+            }
+        }
+
+        function formatDateForInput(dateString) {
+            if (!dateString) return "";
+
+            try {
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return dateString;
+
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            } catch (error) {
+                return dateString;
+            }
+        }
+
+        function extractMetricsFromData(data) {
+            if (!data || !data.scoresheets || data.scoresheets.length === 0) {
+                return {
+                    startDate: null,
+                    endDate: null,
+                    daysRemaining: null,
+                    totalSessions: 0,
+                    successfulSessions: 0,
+                    successPercentage: 0
+                };
+            }
+
+            const firstScoresheet = data.scoresheets[0];
+
+            return {
+                startDate: firstScoresheet.startdate1 || firstScoresheet.startdate || null,
+                endDate: firstScoresheet.enddate1 || firstScoresheet.enddate || null,
+                daysRemaining: firstScoresheet.daysremaining1 || firstScoresheet.daysremaining || null,
+                totalSessions: 0,
+                successfulSessions: 0,
+                successPercentage: 0
+            };
+        }
+
+        function setupMetricsEditEvents() {
+            const startDateElement = document.getElementById('startDate');
+            if (startDateElement) {
+                $(startDateElement).off('dblclick');
+
+                $(startDateElement).on('dblclick', function (e) {
+                    return;
+                    e.stopPropagation();
+
+                    const currentDate = metricsData.startDate || new Date().toISOString().split('T')[0];
+                    const formattedDate = formatDateForInput(currentDate);
+                    const element = $(this);
+
+                    const input = $(`<input type="text" class="form-control form-control-sm metrics-date-input" 
+                    value="${formattedDate}" style="width: 120px; display: inline-block;" readonly>`);
+                    element.html(input);
+
+                    const flatpickrInstance = input.flatpickr({
+                        dateFormat: "Y-m-d",
+                        allowInput: false,
+                        onChange: function (selectedDates, dateStr, instance) {
+                            if (dateStr) {
+                                saveMetricsDate('startDate', dateStr, element, input);
+                            }
+                        },
+                        onClose: function (selectedDates, dateStr, instance) {
+                            if (dateStr && selectedDates.length > 0) {
+                                saveMetricsDate('startDate', dateStr, element, input);
+                            } else {
+                                element.text(formatDateForDisplay(metricsData.startDate) || "--");
+                            }
+                        }
+                    });
+
+                    setTimeout(() => {
+                        flatpickrInstance.open();
+                    }, 100);
+                });
+            }
+
+            const endDateElement = document.getElementById('endDateDisplay');
+            if (endDateElement) {
+                $(endDateElement).off('dblclick');
+
+                $(endDateElement).on('dblclick', function (e) {
+                    return;
+                    e.stopPropagation();
+
+                    const currentDate = metricsData.endDate || new Date().toISOString().split('T')[0];
+                    const formattedDate = formatDateForInput(currentDate);
+                    const element = $(this);
+
+                    const input = $(`<input type="text" class="form-control form-control-sm metrics-date-input" 
+                    value="${formattedDate}" style="width: 120px; display: inline-block;" readonly>`);
+                    element.html(input);
+
+                    const flatpickrInstance = input.flatpickr({
+                        dateFormat: "Y-m-d",
+                        allowInput: false,
+                        onChange: function (selectedDates, dateStr, instance) {
+                            if (dateStr) {
+                                saveMetricsDate('endDate', dateStr, element, input);
+                            }
+                        },
+                        onClose: function (selectedDates, dateStr, instance) {
+                            if (dateStr && selectedDates.length > 0) {
+                                saveMetricsDate('endDate', dateStr, element, input);
+                            } else {
+                                element.text(formatDateForDisplay(metricsData.endDate) || "--");
+                            }
+                        }
+                    });
+
+                    setTimeout(() => {
+                        flatpickrInstance.open();
+                    }, 100);
+                });
+            }
+        }
+
+        function saveMetricsDate(field, newDateValue, element, inputElement) {
+            if (!newDateValue) return;
+
+            console.log(`Saving ${field}: ${newDateValue}`);
+
+            metricsData[field] = newDateValue;
+
+            element.text(formatDateForDisplay(newDateValue));
+
+            updateMetricsUI();
+
+            let payload = null;
+            let rowId = null;
+
+            if (tableData.length > 0) {
+                const firstRow = tableData.find(row => !row.isNew) || tableData[0];
+                rowId = firstRow.id;
+
+                payload = {
+                    id: rowId,
+                    department: firstRow.department || "",
+                    session: firstRow.session || "",
+                    link: firstRow.link || "",
+                    portfoliolink: firstRow.portfoliolink || "",
+                    videolink: firstRow.videolink || "",
+                    startdate: firstRow.startdate || "",
+                    enddate: firstRow.enddate || "",
+                    manager: selectedManagerId,
+                    managerName: firstRow.managerName || selectedManagerName,
+                    score1: parseInt(firstRow.score1) || 0,
+                    score2: parseInt(firstRow.score2) || 0,
+                    score3: parseInt(firstRow.score3) || 0,
+                    comment: firstRow.comment || "",
+                    startdate1: metricsData.startDate,
+                    enddate1: metricsData.endDate,
+                    daysremaining1: metricsData.daysRemaining
+                };
+
+                if (!firstRow.department && !firstRow.session && rowId === null) {
+                    payload.department = "METRICS";
+                    payload.session = "Metrics Data";
+                    payload.comment = "Metrics tracking entry";
+                }
+            } else {
+                payload = {
+                    department: "METRICS",
+                    session: "Metrics Data",
+                    link: "",
+                    portfoliolink: "",
+                    videolink: "",
+                    startdate: "",
+                    enddate: "",
+                    manager: selectedManagerId,
+                    managerName: selectedManagerName,
+                    score1: 0,
+                    score2: 0,
+                    score3: 0,
+                    comment: "Metrics tracking entry",
+                    startdate1: metricsData.startDate,
+                    enddate1: metricsData.endDate,
+                    daysremaining1: metricsData.daysRemaining
+                };
+            }
+
+            console.log("Saving updated metrics:", payload);
+
+            $.ajax({
+                url: apiAdd,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    console.log("Metrics updated successfully:", res);
+
+                    if (res.id && tableData.length > 0) {
+                        const rowIndex = tableData.findIndex(row => row.id === rowId || (!row.id && !row.department && !row.session));
+                        if (rowIndex !== -1) {
+                            tableData[rowIndex].id = res.id;
+                            tableData[rowIndex].isNew = false;
+                        }
+                    }
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Updated',
+                        text: 'Date has been updated successfully',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+                error: function (err) {
+                    console.error("Failed to update metrics", err);
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to save date to server',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+
+            if (inputElement && inputElement.data('flatpickr')) {
+                inputElement.flatpickr().destroy();
+            }
+
+            setupMetricsEditEvents();
+        }
+
+        function loadTableData() {
+            if (!selectedManagerId) {
+                console.error("No manager ID selected");
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'No Manager Selected',
+                    text: 'Please select a manager from the dropdown',
+                    timer: 2000
+                });
+                return;
+            }
+
+            console.log(`Loading data for manager ID: ${selectedManagerId}`);
+
+            const tbody = $("#leadsTable tbody");
+            tbody.html(`
+                <tr>
+                    <td colspan="15" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading data for ${selectedManagerName}...</p>
+                    </td>
+                </tr>
+            `);
+
+            $.ajax({
+                url: apiList + "/" + selectedManagerId,
+                method: "GET",
+                success: function (res) {
+                    console.log(`Data for manager ${selectedManagerId}:`, res);
+
+                    metricsData = extractMetricsFromData(res);
+                    console.log("Extracted metrics:", metricsData);
+
+                    updateMetricsUI();
+
+                    setTimeout(setupMetricsEditEvents, 100);
+
+                    if (res && res.success) {
                         if (!res.scoresheets || res.scoresheets.length === 0) {
                             tableData = [createEmptyRow()];
                         } else {
                             tableData = res.scoresheets.map((row, index) => ({
                                 sno: index + 1,
-                                id: row.id,
+                                id: row.id || row._id,
                                 department: row.department || "",
                                 session: row.session || "",
                                 link: row.link || "",
                                 portfoliolink: row.portfoliolink || "",
                                 videolink: row.videolink || "",
+                                startdate: row.startdate || "",
+                                enddate: row.enddate || "",
+                                daysremaining: row.daysremaining || "",
                                 managerName: row.managerName || "",
                                 score1: row.score1 || "",
                                 score2: row.score2 || "",
@@ -1294,14 +2174,27 @@
                             console.log("manager options:", dropdowns.managerName);
                         }
 
-                        // const totalRecords = tableData.length;
-                        // document.getElementById("collegeCount").textContent = totalRecords;
-
                         filteredData = [...tableData];
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
                         updateFilteredCount();
+
+                        updateMetricsUI();
+                    } else {
+                        console.error("API returned unsuccessful response:", res);
+                        tableData = [createEmptyRow()];
+                        filteredData = [...tableData];
+                        renderTable();
+                        renderPagination();
+                        updateFilteredCount();
+
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'No Data',
+                            text: `No data found for ${selectedManagerName}`,
+                            timer: 2000
+                        });
                     }
                 },
                 error: function (error) {
@@ -1311,6 +2204,13 @@
                     renderTable();
                     renderPagination();
                     updateFilteredCount();
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Load Error',
+                        text: 'Failed to load data from server',
+                        timer: 2000
+                    });
                 }
             });
         }
@@ -1324,6 +2224,9 @@
                 link: "",
                 portfoliolink: "",
                 videolink: "",
+                startdate: "",
+                enddate: "",
+                daysremaining: "",
                 managerName: "",
                 score1: "",
                 score2: "",
@@ -1338,16 +2241,6 @@
             const totalCount = tableData.length;
             const filteredCount = filteredData.length;
             const countElement = document.getElementById("collegeCount");
-
-            // if (filteredCount === totalCount) {
-            //     countElement.textContent = totalCount;
-            //     countElement.style.color = "";
-            //     countElement.style.fontWeight = "";
-            // } else {
-            //     countElement.textContent = `${filteredCount} / ${totalCount}`;
-            //     countElement.style.color = "#dc3545";
-            //     countElement.style.fontWeight = "bold";
-            // }
         }
 
         function renderTable() {
@@ -1369,6 +2262,21 @@
             const end = start + rowsPerPage;
             const rows = filteredData.slice(start, end);
 
+            if (rows.length === 0) {
+                tbody.html(`
+                    <tr>
+                        <td colspan="15" class="text-center py-4">
+                            <i class="fas fa-database fa-2x text-muted mb-3"></i>
+                            <p>No data available for ${selectedManagerName}</p>
+                            <button onclick="addNewRow()" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus me-1"></i> Add First Row
+                            </button>
+                        </td>
+                    </tr>
+                `);
+                return;
+            }
+
             rows.forEach((row, index) => {
                 const rowBgStyle = getRowBgColor(row.totalscore);
 
@@ -1379,6 +2287,9 @@
                     ${makeCell("link", row.link)}
                     ${makeCell("portfoliolink", row.portfoliolink)}
                     ${makeCell("videolink", row.videolink)}
+                    ${makeReadOnlyDisplayCell("startdate", row.startdate)}
+                    ${makeReadOnlyDisplayCell("enddate", row.enddate)}
+                    ${makeReadOnlyDisplayCell("daysremaining", row.daysremaining)}
                     ${makeDropdownCell("managerName", row.managerName)}
                     ${makeReadOnlyDisplayCell("score1", row.score1)}
                     ${makeReadOnlyDisplayCell("score2", row.score2)}
@@ -1393,6 +2304,8 @@
 
             attachCellEvents();
             setStickyColumns();
+
+            initializeFlatpickr();
         }
 
         function calculateTotal(row) {
@@ -1474,7 +2387,7 @@
                     transform: translateY(-50%);
                 }
                 .form-check {
-                    margin-bottom: 5px;
+                        margin-bottom: 5px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -1499,6 +2412,20 @@
                 }
                 .new-row {
                     background-color: #f0f8ff;
+                }
+                .link-cell span {
+                    color: #0066cc;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+                .link-cell span:hover {
+                    color: #004499;
+                }
+                .date-input {
+                    width: 100%;
+                    border: none;
+                    background: transparent;
+                    padding: 2px;
                 }
             `;
             document.head.appendChild(style);
@@ -1533,12 +2460,15 @@
                 3: "link",
                 4: "portfoliolink",
                 5: "videolink",
-                6: "managerName",
-                7: "score1",
-                8: "score2",
-                9: "score3",
-                10: "totalscore",
-                11: "comment"
+                6: "startdate",
+                7: "enddate",
+                8: "daysremaining",
+                9: "managerName",
+                10: "score1",
+                11: "score2",
+                12: "score3",
+                13: "totalscore",
+                14: "comment"
             };
 
             const field = fieldMap[columnIndex];
@@ -1559,8 +2489,8 @@
                 e.preventDefault();
                 e.stopPropagation();
 
-                const index = parseInt($(this).data('index'));
-                const headerText = $(this).data('header');
+                const index = parseInt($(this).attr('data-index'));
+                const headerText = $(this).attr('data-header');
 
                 if (activeFilterDropdown) {
                     activeFilterDropdown.remove();
@@ -1653,8 +2583,8 @@
 
                 $dropdown.find('.apply-filter').on('click', function (e) {
                     e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
+                    const idx = $(this).attr('data-index');
+                    const hdr = $dropdown.attr('data-header');
 
                     const selectedVals = $dropdown.find('.filter-checkbox:checked')
                         .map(function () { return $(this).val(); })
@@ -1679,8 +2609,8 @@
 
                 $dropdown.find('.clear-filter').on('click', function (e) {
                     e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
+                    const idx = $(this).attr('data-index');
+                    const hdr = $dropdown.attr('data-header');
 
                     delete columnFilters[hdr];
                     $(`.filter-btn[data-index="${idx}"]`)
@@ -1754,12 +2684,15 @@
                 3: "link",
                 4: "portfoliolink",
                 5: "videolink",
-                6: "managerName",
-                7: "score1",
-                8: "score2",
-                9: "score3",
-                10: "totalscore",
-                11: "comment"
+                6: "startdate",
+                7: "enddate",
+                8: "daysremaining",
+                9: "managerName",
+                10: "score1",
+                11: "score2",
+                12: "score3",
+                13: "totalscore",
+                14: "comment"
             };
             return fieldMap[columnIndex];
         }
@@ -1780,14 +2713,55 @@
             </td>`;
         }
 
+        function makeLinkCell(field, value) {
+            let displayValue = value || "";
+            if (displayValue && (displayValue.startsWith('http://') || displayValue.startsWith('https://'))) {
+                return `<td data-field="${field}" class="link-cell">
+                    <span onclick="window.open('${displayValue}', '_blank')" title="${displayValue}">${displayValue}</span>
+                    <input type="text" value="${displayValue}" placeholder="Enter ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}">
+                </td>`;
+            } else {
+                return `<td data-field="${field}">
+                    <span>${displayValue}</span>
+                    <input type="text" value="${displayValue}" placeholder="Enter ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}">
+                </td>`;
+            }
+        }
+
+        function makeDateCell(field, value) {
+            let displayValue = value || "";
+
+            let formattedDisplay = "";
+            if (displayValue) {
+                try {
+                    const date = new Date(displayValue);
+                    if (!isNaN(date)) {
+                        const day = date.getDate();
+                        const month = date.toLocaleString('default', { month: 'short' });
+                        const year = date.getFullYear();
+                        formattedDisplay = `${day} ${month} ${year}`;
+                    } else {
+                        formattedDisplay = displayValue;
+                    }
+                } catch {
+                    formattedDisplay = displayValue;
+                }
+            }
+
+            return `<td data-field="${field}">
+                <span>${formattedDisplay}</span>
+                <input type="text" class="date-input" value="${displayValue}" placeholder="DD MMM YYYY" readonly>
+            </td>`;
+        }
+
         function makeDropdownCell(field, selectedValue) {
             let options = dropdowns[field] || [];
 
             let displaySelected = selectedValue || "";
 
             let html = `<td data-field="${field}">
-                <span style="color:black; font-weight:bold;">${displaySelected}</span>
-                <select class="form-control select2">`;
+            <span style="color:black; font-weight:bold;">${displaySelected}</span>
+            <select class="form-control select2">`;
 
             html += `<option value="" ${!selectedValue ? "selected" : ""}></option>`;
 
@@ -1800,6 +2774,38 @@
             return html;
         }
 
+        function initializeFlatpickr() {
+            $('.date-input').each(function () {
+                if (!$(this).data('flatpickr')) {
+                    $(this).flatpickr({
+                        dateFormat: "d M Y",
+                        allowInput: false,
+                        onChange: function (selectedDates, dateStr, instance) {
+                            const input = instance.input;
+                            const td = $(input).closest('td');
+
+                            if (selectedDates[0]) {
+                                const date = selectedDates[0];
+                                const day = date.getDate();
+                                const month = date.toLocaleString('default', { month: 'short' });
+                                const year = date.getFullYear();
+                                const formattedDate = `${day} ${month} ${year}`;
+                                td.find('span').text(formattedDate);
+                            } else {
+                                td.find('span').text(dateStr);
+                            }
+
+                            td.removeClass('editing');
+
+                            $(input).blur();
+
+                            $(input).trigger('blur');
+                        }
+                    });
+                }
+            });
+        }
+
         function attachCellEvents() {
             $("#leadsTable td").off("dblclick");
             $("#leadsTable td input, #leadsTable td select").off("blur change");
@@ -1809,9 +2815,15 @@
                 if ($(this).hasClass('readonly-cell')) {
                     return;
                 }
+
                 let td = $(this);
                 td.addClass("editing");
-                td.find("input,select").focus();
+
+                if (td.find('.date-input').length > 0) {
+                    td.find('.date-input').flatpickr().open();
+                } else {
+                    td.find("input,select").focus();
+                }
             });
 
             $("#leadsTable td input, #leadsTable td select").on("blur change", function (e) {
@@ -1845,6 +2857,8 @@
                     const score3 = parseInt(tr.find('[data-field="score3"] span').text()) || 0;
                     const totalScore = ((score1 + score2 + score3) / 3).toFixed(0);
                     tr.find('td:nth-last-child(2)').text(totalScore);
+
+                    setTimeout(updateMetricsUI, 100);
                 }
 
                 let payload = {
@@ -1853,20 +2867,26 @@
                     link: tr.find('[data-field="link"] span').text(),
                     portfoliolink: tr.find('[data-field="portfoliolink"] span').text(),
                     videolink: tr.find('[data-field="videolink"] span').text(),
-                    manager: teamManagerId2,
+                    startdate: tr.find('[data-field="startdate"] span').text(),
+                    enddate: tr.find('[data-field="enddate"] span').text(),
+                    manager: selectedManagerId,
                     managerName: tr.find('[data-field="managerName"] span').text(),
                     score1: parseInt(tr.find('[data-field="score1"] span').text()) || 0,
                     score2: parseInt(tr.find('[data-field="score2"] span').text()) || 0,
                     score3: parseInt(tr.find('[data-field="score3"] span').text()) || 0,
                     comment: tr.find('[data-field="comment"] span').text(),
+                    startdate1: metricsData.startDate,
+                    enddate1: metricsData.endDate,
+                    daysremaining1: metricsData.daysRemaining
                 };
 
-                console.log("Payload to save:", payload);
+                console.log("Payload to save for manager:", selectedManagerId, payload);
 
                 if (rowId === 'new' || tr.hasClass('new-row')) {
                     const hasData = payload.department || payload.session || payload.link ||
                         payload.portfoliolink || payload.videolink ||
-                        payload.score1 || payload.score2 || payload.score3 || payload.comment;
+                        payload.startdate || payload.enddate ||
+                        payload.score1 || payload.score2 || payload.score3;
 
                     if (hasData) {
                         $.ajax({
@@ -1910,6 +2930,7 @@
                             if (res.id && res.id !== rowId) {
                                 tr.data("id", res.id);
                             }
+                            updateMetricsUI();
                         },
                         error: function (err) {
                             console.error("Update failed", err);
@@ -2024,12 +3045,15 @@
                 "Session Link",
                 "My Portfolio Link",
                 "My Session Video Link",
+                "Start Date",
+                "End Date",
+                "Days Remaining",
                 "Manager",
                 "Clarity (Understanding & Thinking)",
                 "Conveyance (Communication & Pitch)",
                 "Contribution (Business & Role Alignment)",
                 "Total Average Score",
-                "Comments"
+                "Comment"
             ];
 
             const data = [headers];
@@ -2042,6 +3066,9 @@
                     row.link,
                     row.portfoliolink,
                     row.videolink,
+                    row.startdate,
+                    row.enddate,
+                    row.daysremaining,
                     row.managerName,
                     row.score1,
                     row.score2,
@@ -2054,11 +3081,26 @@
             const worksheet = XLSX.utils.aoa_to_sheet(data);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "ScoreSheet");
-            XLSX.writeFile(workbook, "ScoreSheet_All.xlsx");
+            XLSX.writeFile(workbook, `ScoreSheet_${selectedManagerName.replace(/\s+/g, '_')}.xlsx`);
         };
 
         $(document).ready(function () {
-            loadTableData();
+            if (!$('link[href*="flatpickr"]').length) {
+                $('head').append('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">');
+            }
+
+            if (!window.flatpickr) {
+                $.getScript('https://cdn.jsdelivr.net/npm/flatpickr')
+                    .done(function () {
+                        loadAllManagers();
+                    })
+                    .fail(function () {
+                        console.error('Failed to load flatpickr');
+                        loadAllManagers();
+                    });
+            } else {
+                loadAllManagers();
+            }
 
             $("#searchInput").on("keypress", function (e) {
                 if (e.which === 13) {
