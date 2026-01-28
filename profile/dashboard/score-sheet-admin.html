@@ -2487,8 +2487,8 @@
                 e.preventDefault();
                 e.stopPropagation();
 
-                const index = parseInt($(this).data('index'));
-                const headerText = $((this).data('header'));
+                const index = parseInt($(this).attr('data-index'));
+                const headerText = $(this).attr('data-header');
 
                 if (activeFilterDropdown) {
                     activeFilterDropdown.remove();
@@ -2581,8 +2581,8 @@
 
                 $dropdown.find('.apply-filter').on('click', function (e) {
                     e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
+                    const idx = $(this).attr('data-index');
+                    const hdr = $dropdown.attr('data-header');
 
                     const selectedVals = $dropdown.find('.filter-checkbox:checked')
                         .map(function () { return $(this).val(); })
@@ -2607,8 +2607,8 @@
 
                 $dropdown.find('.clear-filter').on('click', function (e) {
                     e.stopPropagation();
-                    const idx = $(this).data('index');
-                    const hdr = $dropdown.data('header');
+                    const idx = $(this).attr('data-index');
+                    const hdr = $dropdown.attr('data-header');
 
                     delete columnFilters[hdr];
                     $(`.filter-btn[data-index="${idx}"]`)
