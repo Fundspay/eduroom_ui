@@ -468,7 +468,7 @@
                                     <div class="sidebar-widget cd-sidebar business-target mt-45"
                                         id="businessTargetWidget">
                                         <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
-                                             style="background: #000;">Business Task Details
+                                            style="background: #000;">Business Task Details
                                         </h4>
 
                                         <div class="about-instructor-wrapper text-center">
@@ -487,13 +487,15 @@
                                                 https://www.youtube.com/watch?v=QwbcAvI_BOY
                                             </a>
 
-                                            <h2 class="mb-3" style="font-size: 16px; font-weight:700; padding-top: 10%;">
+                                            <h2 class="mb-3"
+                                                style="font-size: 16px; font-weight:700; padding-top: 10%;">
                                                 Your Referral Link</h2>
-                                            <a href="#" target="_blank" id="referralLink" style="color: #00c897; font-weight: 600; text-decoration: none;
+                                            <a href="#" target="_blank" id="referralLink"
+                                                style="color: #00c897; font-weight: 600; text-decoration: none;
                                                 font-size: 12px; display: inline-block; 
                                                 word-wrap: break-word; overflow-wrap: anywhere;
                                                 max-width: 100%; white-space: normal; text-align: center; word-break: break-all; padding-left: 2%; padding-right: 2%;">
-                                                                                        --
+                                                --
                                             </a>
 
                                             <h4 class="sidebar-instructor-title sidebar-title mb-35 text-white text-center"
@@ -610,6 +612,14 @@
             </div><!-- /container -->
         </div><!-- /course-page2-tab-area -->
         <!-- course-area-end  -->
+
+        <style>
+            .swal2-container {
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                background: rgba(0, 0, 0, 0.35) !important;
+            }
+        </style>
 
     </main>
 
@@ -1519,32 +1529,32 @@
 
     <script>
         function getQueryParams() {
-                const url = window.location.href;
-                const queryString = url.split("?")[1];
-                if (!queryString) return {};
+            const url = window.location.href;
+            const queryString = url.split("?")[1];
+            if (!queryString) return {};
 
-                const fixedQuery = queryString.replace(/\?/g, "&");
-                const params = new URLSearchParams(fixedQuery);
+            const fixedQuery = queryString.replace(/\?/g, "&");
+            const params = new URLSearchParams(fixedQuery);
 
-                let result = {};
-                for (const [key, value] of params.entries()) {
-                    result[key] = value;
-                }
-                return result;
+            let result = {};
+            for (const [key, value] of params.entries()) {
+                result[key] = value;
             }
+            return result;
+        }
 
         const params = getQueryParams();
         const courseId = params.courseId || 1;
         if (courseId == 29) {
-        fetch("/config.json")
-            .then(response => response.json())
-            .then(config => {
-                const TRAINING_PASSWORD = config.TRAINING_PASSWORD || "";
-                const SESSION_KEY = "trainingPasswordVerified";
+            fetch("/config.json")
+                .then(response => response.json())
+                .then(config => {
+                    const TRAINING_PASSWORD = config.TRAINING_PASSWORD || "";
+                    const SESSION_KEY = "trainingPasswordVerified";
 
-                if (sessionStorage.getItem(SESSION_KEY) === "true") {
-                    return;
-                }
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        return;
+                    }
 
                     Swal.fire({
                         title: "Enter Password",
