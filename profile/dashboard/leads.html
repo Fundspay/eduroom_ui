@@ -631,8 +631,8 @@
                     <div class="col-xxl-3 col-lg-2 col-md-6">
                         <div class="card stretch stretch-full">
                             <div class="card-body">
-                                <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Today's Leads / Today's
-                                    Accounts</div>
+                                <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Today's Accounts / Today's
+                                    Leads</div>
                                 <div class="hstack justify-content-between lh-base">
                                     <div>
                                         <h3><span id="todayLeadsAccounts">0/0</span></h3>
@@ -1194,7 +1194,7 @@
                 const todayConversionRateText = todayData.conversionRateText || "0%";
 
                 if (todayLeadsAccountsElement) {
-                    todayLeadsAccountsElement.textContent = `${todayDownloads}/${todayPayments}`;
+                    todayLeadsAccountsElement.textContent = `${todayPayments}/${todayDownloads}`;
                 }
 
                 if (todayConversionPercentElement) {
