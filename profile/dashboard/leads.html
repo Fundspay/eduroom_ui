@@ -583,6 +583,95 @@
                         }
                     </style>
 
+                    <!-- Total Leads (Total Downloads) -->
+                    <div class="col-xxl-3 col-lg-2 col-md-6">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium text-muted mb-3">Total Leads</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <div>
+                                        <h3><span id="totalLeads">0</span></h3>
+                                    </div>
+                                    <div class="hstack gap-2 fs-11" id="totalLeadsTrend">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Accounts (Total Payments) -->
+                    <div class="col-xxl-3 col-lg-2 col-md-6">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <div>
+                                        <h3><span id="totalAccounts">0</span></h3>
+                                    </div>
+                                    <div class="hstack gap-2 fs-11" id="totalAccountsTrend">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Rate -->
+                    <div class="col-xxl-3 col-lg-2 col-md-6">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Total Conversion Rate</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <h3><span id="conversionRate">0%</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Leads/Accounts -->
+                    <div class="col-xxl-3 col-lg-2 col-md-6">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Today's Leads / Today's
+                                    Accounts</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <div>
+                                        <h3><span id="todayLeadsAccounts">0/0</span></h3>
+                                    </div>
+                                    <div class="hstack gap-2 fs-11" id="todayLeadsAccountsTrend">
+                                        <span id="activeInternsPercent" style="color:#5c5757;">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Chart Section -->
+                    <div class="col-xxl-12">
+                        <div class="card stretch stretch-full overflow-hidden">
+                            <div class="bg-success text-white">
+                                <div class="p-4 d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">ANALYTICS</h5>
+                                </div>
+                                <div id="chartContainer" style="
+                                        width: 100%;
+                                        overflow-x: auto;
+                                        display: flex;
+                                        justify-content: center;
+                                        padding: 15px 0;
+                                    ">
+                                    <div id="conversionAnalyticsChart"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <h6 class="mb-3">Analytics ( Leads / Accounts )</h6>
+                                <div style="max-height: 250px; overflow-y: auto; padding-right: 5px;">
+                                    <ul class="list-group" id="analyticsList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
@@ -991,6 +1080,7 @@
         let dateRangePicker = null;
         let currentStartDate = null;
         let currentEndDate = null;
+        let analyticsChart = null;
 
         function getCurrentMonthRange() {
             const now = new Date();
@@ -1024,6 +1114,280 @@
             return `<span class="badge bg-soft-danger text-danger">${text}</span>`;
         }
 
+        function getDayAndMonth(dateStr) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            if (isNaN(date)) return dateStr;
+
+            const day = date.getUTCDate();
+            const month = date.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" });
+            return `${day} ${month}`;
+        }
+
+        function formatDateWithDay(dateStr) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            if (isNaN(date)) return dateStr;
+
+            const dayName = date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" });
+            const day = date.getUTCDate();
+            const month = date.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" });
+            const year = date.getUTCFullYear();
+
+            return `${dayName}, ${day} ${month} ${year}`;
+        }
+
+        function loadAnalyticsData(startDate = null, endDate = null) {
+            let url = "https://eduroom.in/api/v1/fundsaudit/downloads-vs-payments";
+
+            if (startDate && endDate) {
+                url += `?startDate=${startDate}&endDate=${endDate}`;
+            } else if (currentStartDate && currentEndDate) {
+                url += `?startDate=${currentStartDate}&endDate=${currentEndDate}`;
+            }
+
+            console.log("Loading analytics from:", url);
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    console.log("Analytics response:", res);
+
+                    if (res.success) {
+                        updateMetrics(res.summary, res.today);
+
+                        updateChart(res.dayWiseBreakdown);
+
+                        updateAnalyticsList(res.dayWiseBreakdown);
+                    }
+                },
+                error: function (error) {
+                    console.error("Error loading analytics data:", error);
+                }
+            });
+        }
+
+        function updateMetrics(summary, todayData = null) {
+            const totalLeadsElement = document.getElementById("totalLeads");
+            if (totalLeadsElement && summary.totalDownloads !== undefined) {
+                totalLeadsElement.textContent = summary.totalDownloads;
+            }
+
+            const totalAccountsElement = document.getElementById("totalAccounts");
+            if (totalAccountsElement && summary.totalPayments !== undefined) {
+                totalAccountsElement.textContent = summary.totalPayments;
+            }
+
+            const conversionRateElement = document.getElementById("conversionRate");
+            if (conversionRateElement && summary.conversionRateText !== undefined) {
+                conversionRateElement.textContent = summary.conversionRateText;
+            }
+
+            const todayLeadsAccountsElement = document.getElementById("todayLeadsAccounts");
+            const todayConversionPercentElement = document.getElementById("activeInternsPercent");
+
+            if (todayData) {
+                const todayDownloads = todayData.downloads || 0;
+                const todayPayments = todayData.payments || 0;
+                const todayConversionRateText = todayData.conversionRateText || "0%";
+
+                if (todayLeadsAccountsElement) {
+                    todayLeadsAccountsElement.textContent = `${todayDownloads}/${todayPayments}`;
+                }
+
+                if (todayConversionPercentElement) {
+                    todayConversionPercentElement.textContent = todayConversionRateText;
+                }
+            } else {
+                const analyticsList = document.getElementById("analyticsList");
+                if (analyticsList && analyticsList.children.length > 0) {
+                    const firstItem = analyticsList.children[0];
+                    const text = firstItem.textContent;
+                    const matches = text.match(/Downloads:\s*(\d+).*?Payments:\s*(\d+)/);
+
+                    if (matches && matches.length >= 3) {
+                        const todayDownloads = matches[1];
+                        const todayPayments = matches[2];
+
+                        if (todayLeadsAccountsElement) {
+                            todayLeadsAccountsElement.textContent = `${todayDownloads}/${todayPayments}`;
+                        }
+
+                        if (todayConversionPercentElement && todayDownloads > 0) {
+                            const todayConversionRate = ((todayPayments / todayDownloads) * 100).toFixed(1);
+                            todayConversionPercentElement.textContent = `${todayConversionRate}%`;
+                        }
+                    }
+                }
+            }
+        }
+
+        function updateChart(dayWiseBreakdown) {
+            if (!dayWiseBreakdown || dayWiseBreakdown.length === 0) {
+                if (analyticsChart) {
+                    analyticsChart.updateOptions({
+                        series: [
+                            { name: "Leads", data: [] },
+                            { name: "Accounts", data: [] }
+                        ],
+                        xaxis: { categories: [] }
+                    });
+                }
+                return;
+            }
+
+            const sortedData = [...dayWiseBreakdown].sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
+
+            const chartLabels = sortedData.map(item => getDayAndMonth(item.date));
+            const downloadsData = sortedData.map(item => item.downloads);
+            const paymentsData = sortedData.map(item => item.payments);
+
+            const totalItems = sortedData.length;
+
+            const widthPerItem = 60;
+            const chartContentWidth = totalItems * widthPerItem;
+            const minChartWidth = 800;
+
+            const finalChartWidth = Math.max(chartContentWidth, minChartWidth);
+
+            const chartDiv = document.getElementById("conversionAnalyticsChart");
+            if (chartDiv) {
+                chartDiv.style.width = finalChartWidth + "px";
+            }
+
+            if (analyticsChart) {
+                analyticsChart.updateOptions({
+                    series: [
+                        { name: "Leads", data: downloadsData },
+                        { name: "Accounts", data: paymentsData }
+                    ],
+                    xaxis: {
+                        categories: chartLabels,
+                        labels: {
+                            style: {
+                                colors: "#fff",
+                                fontSize: "13px"
+                            },
+                            rotate: totalItems > 30 ? -45 : 0
+                        }
+                    },
+                    chart: {
+                        width: finalChartWidth
+                    },
+                    plotOptions: {
+                        bar: {
+                            columnWidth: totalItems > 30 ? "30%" : "45%"
+                        }
+                    }
+                });
+            } else {
+                analyticsChart = new ApexCharts(
+                    document.querySelector("#conversionAnalyticsChart"),
+                    {
+                        series: [
+                            { name: "Leads", data: downloadsData },
+                            { name: "Accounts", data: paymentsData }
+                        ],
+                        chart: {
+                            type: "bar",
+                            height: 240,
+                            toolbar: { show: false },
+                            width: finalChartWidth
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: totalItems > 30 ? "30%" : "45%",
+                                endingShape: "rounded",
+                                dataLabels: {
+                                    position: "top"
+                                }
+                            }
+                        },
+                        colors: ["#fff", "#ffcc66"],
+                        grid: { show: false },
+                        legend: {
+                            show: true,
+                            position: 'top',
+                            labels: {
+                                colors: '#fff'
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        xaxis: {
+                            categories: chartLabels,
+                            labels: {
+                                style: {
+                                    colors: "#fff",
+                                    fontSize: "13px"
+                                },
+                                rotate: totalItems > 30 ? -45 : 0
+                            },
+                            axisBorder: { show: false }
+                        },
+                        yaxis: {
+                            decimalsInFloat: 0,
+                            labels: {
+                                style: { colors: "#fff" },
+                                formatter: val => Math.trunc(val)
+                            }
+                        },
+                        tooltip: {
+                            theme: "dark",
+                            y: {
+                                formatter: val => Math.trunc(val)
+                            }
+                        }
+                    }
+                );
+                analyticsChart.render();
+            }
+
+            const chartContainer = document.getElementById("chartContainer");
+            if (chartContainer) {
+                chartContainer.style.overflowX = totalItems > 20 ? "auto" : "hidden";
+                chartContainer.style.justifyContent = totalItems > 20 ? "flex-start" : "center";
+            }
+        }
+
+        function updateAnalyticsList(dayWiseBreakdown) {
+            const analyticsList = document.getElementById("analyticsList");
+            if (!analyticsList) return;
+
+            analyticsList.innerHTML = "";
+
+            if (!dayWiseBreakdown || dayWiseBreakdown.length === 0) {
+                analyticsList.innerHTML = `<li class="list-group-item">No Data Available</li>`;
+                return;
+            }
+
+            const sortedData = [...dayWiseBreakdown].sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+
+            sortedData.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+
+                const dateSpan = document.createElement("span");
+                dateSpan.textContent = formatDateWithDay(item.date);
+
+                const statsSpan = document.createElement("span");
+                statsSpan.className = "fw-bold";
+                statsSpan.textContent = `Leads: ${item.downloads} | Accounts: ${item.payments}`;
+
+                listItem.appendChild(dateSpan);
+                listItem.appendChild(statsSpan);
+                analyticsList.appendChild(listItem);
+            });
+        }
+
         function loadTableData(useDateRange = false) {
             let apiUrl = `https://eduroom.in/api/v1/fundsaudit/fundsaudit`;
 
@@ -1032,11 +1396,13 @@
             }
             console.log("Loading data from:", apiUrl);
 
+            loadAnalyticsData(currentStartDate, currentEndDate);
+
             $.ajax({
                 url: apiUrl,
                 method: "GET",
                 success: function (res) {
-                    console.log("master sheet:", res);
+                    console.log("leads data:", res);
                     const users = res.data || res;
 
                     if (res.success || Array.isArray(users)) {
@@ -1046,7 +1412,7 @@
                             const email = user.email || "--";
                             const firstName = user.first_name || "--";
                             const lastName = user.last_name || "--";
-                            const managerName = user.managerName || "--";
+                            const managerName = user.referrer || "--";
 
                             const isDownloadedText = user.isDownloaded ? "Yes" : "No";
                             const isDownloadedBadge = user.isDownloaded
