@@ -619,7 +619,7 @@
                     <div class="col-xxl-3 col-lg-2 col-md-6">
                         <div class="card stretch stretch-full">
                             <div class="card-body">
-                                <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Total Conversion Rate</div>
+                                <div class="fs-12 fw-medium mb-3" style="color:#222121;">Total Conversion Rate</div>
                                 <div class="hstack justify-content-between lh-base">
                                     <h3><span id="conversionRate">0%</span></h3>
                                 </div>
@@ -631,14 +631,14 @@
                     <div class="col-xxl-3 col-lg-2 col-md-6">
                         <div class="card stretch stretch-full">
                             <div class="card-body">
-                                <div class="fs-12 fw-medium mb-3" style="color:#5c5757;">Today's Accounts / Today's
+                                <div class="fs-12 fw-medium mb-3" style="color:#272626;">Today's Accounts / Today's
                                     Leads</div>
                                 <div class="hstack justify-content-between lh-base">
                                     <div>
                                         <h3><span id="todayLeadsAccounts">0/0</span></h3>
                                     </div>
                                     <div class="hstack gap-2 fs-11" id="todayLeadsAccountsTrend">
-                                        <span id="activeInternsPercent" style="color:#5c5757;">0%</span>
+                                        <span id="todayLeadsAccountsPercent" style="color:#2a2828;">0%</span>
                                     </div>
                                 </div>
                             </div>
@@ -710,8 +710,9 @@
                                         <thead class="table-light">
                                             <tr class="border-b">
                                                 <th scope="row" style="min-width: 100px;">S No.</th>
+                                                <th style="min-width: 150px;">Manager Name</th>
                                                 <th style="min-width: 150px;">Referred By</th>
-                                                <th style="min-width: 150px;">Name</th>
+                                                <th style="min-width: 150px;">Customer Name</th>
                                                 <th style="min-width: 150px;">Mobile No.</th>
                                                 <th style="min-width: 150px;">Email</th>
                                                 <th style="min-width: 150px;">Downloaded</th>
@@ -1082,6 +1083,17 @@
         let currentEndDate = null;
         let analyticsChart = null;
 
+        function getAAPDColorCategory(aapdValue) {
+            const val = parseFloat(aapdValue) || 0;
+            if (val >= 0 && val <= 30) return '#ff4d4d';
+            if (val >= 30 && val <= 45) return '#ffa500';
+            if (val >= 45 && val <= 60) return '#ffff80';
+            if (val >= 60 && val <= 75) return '#b3ffb3';
+            if (val >= 75 && val <= 90) return '#5cdb5c';
+            if (val >= 90) return '#4da6ff';
+            return '';
+        }
+
         function getCurrentMonthRange() {
             const now = new Date();
             const start = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -1184,9 +1196,16 @@
             if (conversionRateElement && summary.conversionRateText !== undefined) {
                 conversionRateElement.textContent = summary.conversionRateText;
             }
+            const aapdCard = $("#conversionRate").closest(".card");
+            const aapdColor = getAAPDColorCategory(summary.conversionRateText);
+            if (aapdColor) {
+                aapdCard.css("background-color", aapdColor);
+            } else {
+                aapdCard.css("background-color", "");
+            }
 
             const todayLeadsAccountsElement = document.getElementById("todayLeadsAccounts");
-            const todayConversionPercentElement = document.getElementById("activeInternsPercent");
+            const todayConversionPercentElement = document.getElementById("todayLeadsAccountsPercent");
 
             if (todayData) {
                 const todayDownloads = todayData.downloads || 0;
@@ -1199,6 +1218,14 @@
 
                 if (todayConversionPercentElement) {
                     todayConversionPercentElement.textContent = todayConversionRateText;
+
+                    const aapdCard = $("#todayLeadsAccountsPercent").closest(".card");
+                    const aapdColor = getAAPDColorCategory(todayConversionRateText);
+                    if (aapdColor) {
+                        aapdCard.css("background-color", aapdColor);
+                    } else {
+                        aapdCard.css("background-color", "");
+                    }
                 }
             } else {
                 const analyticsList = document.getElementById("analyticsList");
@@ -1413,6 +1440,7 @@
                             const firstName = user.first_name || "--";
                             const lastName = user.last_name || "--";
                             const managerName = user.managerName || "--";
+                            const referrer = user.referrer || "--";
 
                             const isDownloadedText = user.isDownloaded ? "Yes" : "No";
                             const isDownloadedBadge = user.isDownloaded
@@ -1440,6 +1468,7 @@
                                 id: user.id || index,
                                 sno: index + 1,
                                 managerName,
+                                referrer,
                                 name: fullName,
                                 phone,
                                 email,
@@ -1454,6 +1483,7 @@
                                 paymentDateRaw: paymentDateRaw,
                                 rawData: {
                                     managerName,
+                                    referrer,
                                     name: fullName,
                                     phone,
                                     email,
@@ -1576,6 +1606,7 @@
                 let tr = `<tr>
                     <td style="${rowColor}">${index + 1}</td>
                     <td style="${rowColor}">${row.managerName}</td>
+                    <td style="${rowColor}">${row.referrer}</td>
                     <td style="${rowColor}">${row.name}</td>
                     <td style="${rowColor}"><a href="tel:${row.phone}">${row.phone}</a></td>
                     <td style="${rowColor}"><a href="mailto:${row.email}">${row.email}</a></td>
@@ -1722,14 +1753,15 @@
 
             const columnMapping = {
                 1: "managerName",
-                2: "name",
-                3: "phone",
-                4: "email",
-                5: "isDownloadedText",
-                6: "downloadDateRaw",
-                7: "occupation",
-                8: "hasPaidText",
-                9: "paymentDateRaw"
+                2: "referrer",
+                3: "name",
+                4: "phone",
+                5: "email",
+                6: "isDownloadedText",
+                7: "downloadDateRaw",
+                8: "occupation",
+                9: "hasPaidText",
+                10: "paymentDateRaw"
             };
 
             const property = columnMapping[columnIndex];
@@ -1982,14 +2014,15 @@
                     filteredData = filteredData.filter(row => {
                         const columnMapping = {
                             1: "managerName",
-                            2: "name",
-                            3: "phone",
-                            4: "email",
-                            5: "isDownloadedText",
-                            6: "downloadDateRaw",
-                            7: "occupation",
-                            8: "hasPaidText",
-                            9: "paymentDateRaw"
+                            2: "referrer",
+                            3: "name",
+                            4: "phone",
+                            5: "email",
+                            6: "isDownloadedText",
+                            7: "downloadDateRaw",
+                            8: "occupation",
+                            9: "hasPaidText",
+                            10: "paymentDateRaw"
                         };
 
                         const property = columnMapping[columnIndex];
@@ -2124,6 +2157,7 @@
             const headers = [
                 "S No.",
                 "Manager Name",
+                "Referrer",
                 "Name",
                 "Mobile Number",
                 "Email ID",
@@ -2140,6 +2174,7 @@
                 data.push([
                     index + 1,
                     row.rawData.managerName || "--",
+                    row.rawData.referrer || "--",
                     row.rawData.name || "--",
                     row.rawData.phone || "--",
                     row.rawData.email || "--",
