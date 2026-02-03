@@ -734,7 +734,7 @@
                                                 <th style="font-size: 15px;">My business task</th>
                                                 <th style="font-size: 15px;">My target</th>
                                                 <th style="font-size: 15px;">Percentage of work</th>
-                                                <th style="font-size: 15px;">Category</th>
+                                                <!-- <th style="font-size: 15px;">Category</th> -->
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -3304,7 +3304,7 @@
                 const end = start + rowsPerPage;
                 const rows = tableData.slice(start, end);
 
-                rows.forEach((row, index) => {
+                rows.slice(0, 5).forEach((row, index) => {
                     const bgColor = getRowColorByPercentage(row.colorPercentage);
 
                     const tr = `<tr style="background-color: ${bgColor};">
@@ -3316,19 +3316,19 @@
                         <td>${row.businessTask}</td>
                         <td>${row.dailyTarget}</td>
                         <td>${row.percentOfWork}</td>
-                        <td>${row.category}</td>
+                        <!-- <td>${row.category}</td> -->
                     </tr>`;
 
                     tbody.append(tr);
 
-                    if (row.sr === 5) {
-                        const separatorRow = `
-                            <tr class="day-separator">
-                                <td colspan="9"></td>
-                            </tr>
-                        `;
-                        tbody.append(separatorRow);
-                    }
+                    // if (row.sr === 5) {
+                    //     const separatorRow = `
+                    //         <tr class="day-separator">
+                    //             <td colspan="9"></td>
+                    //         </tr>
+                    //     `;
+                    //     tbody.append(separatorRow);
+                    // }
                 });
             }
 
@@ -3560,7 +3560,7 @@
                         <td>${row.businessTask}</td>
                         <td>${row.dailyTarget}</td>
                         <td>${row.percentOfWork}</td>
-                        <td>${row.category}</td>
+                        <!-- <td>${row.category}</td> -->
                     </tr>`;
                     tbody.append(tr);
                 });
@@ -3579,10 +3579,10 @@
             };
 
             window.exportToExcel2 = function () {
-                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work", "Category"];
+                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work"];
                 const data = [headers];
 
-                tableData.forEach((row) => {
+                tableData.slice(0, 5).forEach((row) => {
                     data.push([
                         row.sr,
                         row.dayOfWork,
@@ -3592,7 +3592,7 @@
                         row.businessTask,
                         row.dailyTarget,
                         row.percentOfWork,
-                        row.category
+                        // row.category
                     ]);
                 });
 
