@@ -2249,8 +2249,8 @@
                     ${makeDateCell("endDate", row.endDate || "", activeStatusColor)}
                     ${makeDateCell("connectDate", row.connectDate || "", activeStatusColor)}
                     ${makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus, activeStatusColor)}
-                    ${makeReadonlyCell("registration", (row.registration || "").charAt(0).toUpperCase() + (row.registration || "").slice(1).toLowerCase(), activeStatusColor)}
-                    ${makeReadonlyCell("selectionTest", row.selectionTest || "", activeStatusColor)}
+                    ${makeReadonlyCell("registration", (row.registration || "--").charAt(0).toUpperCase() + (row.registration || "--").slice(1).toLowerCase(), activeStatusColor)}
+                    ${makeReadonlyCell("selectionTest", row.selectionTest || "--", activeStatusColor)}
                     ${makeDropdownCell("whatsappGroup", row.whatsappGroup || "", null, dropdowns.whatsappGroup, activeStatusColor)}`;
 
                     tr += `
