@@ -1,0 +1,835 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Eduroom || HomePage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" href="images/logo/shape-1.png" type="image/x-icon">
+
+    <!-- All css here -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/meanmenu.css">
+    <link rel="stylesheet" href="css/all-animations.css">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <style>
+        #domainCourseWrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            max-height: 420px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        #domainCourseWrapper li {
+            list-style: none;
+            padding: 0;
+        }
+
+        #domainCourseWrapper li span {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        #domainCourseWrapper li a {
+            display: block;
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 6px;
+            text-decoration: none;
+        }
+
+        #domainCourseWrapper li a:hover {
+            color: #00a991;
+        }
+    </style>
+
+    <!--  ====== preloader=============================================  -->
+    <div id="preloader">
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_one"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_three"></div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /preloader -->
+
+    <!--  ====== header-area-start=======================================  -->
+    <header>
+        <div id="header-sticky" class="transparent-header header-area home2 home4 white-color-header">
+            <div class="header">
+                <div class="container-wrapper">
+                    <div class="row align-items-center justify-content-between position-relative">
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-5 col-6">
+                            <div class="logo">
+                                <a href="index.html" class="d-block"><img src="images/logo/logo4.png" alt="Larna"></a>
+                            </div>
+                        </div><!-- /col -->
+                        <div class="col-xl-6 col-lg-7 col-md-1 col-sm-1 col-1 pl-lg-4 d-none d-lg-flex position-static">
+                            <div class="main-menu">
+                                <nav id="mobile-menu">
+                                    <ul class="d-block">
+                                        <li><a class="active" href="index.html">Home</a></li>
+
+                                        <li><a href="about.html">About</a>
+                                        </li><!-- /About -->
+                                        <li><a href="careers.html">Careers</a>
+                                        </li>
+
+                                        <li class="full-mega-menu-position">
+                                            <a href="/domain-list.html">Live Projects</a>
+                                            <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
+                                                id="domainCourseWrapper">
+                                                <!-- Domains & Courses will be populated here dynamically -->
+                                            </ul>
+                                        </li><!-- /Course -->
+                                        <li><a href="profile.html">Profile</a>
+
+                                        <li><a href="contact.html">Contact</a>
+                                        </li><!-- /Contact -->
+                                    </ul>
+                                </nav>
+                            </div><!-- /main-menu -->
+                        </div>
+                        <!-- <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                            <div class="header-right d-flex align-items-center justify-content-end">
+                                <ul class="header-login mr-15 d-none d-sm-block">
+                                    <li>
+                                        <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
+                                            data-selector="true" data-placement="bottom" title="Login / Register">
+                                            Login</a>
+                                    </li>
+                                </ul>
+
+                                <div class="my-btn d-none d-sm-block">
+                                    <a href="register.html" class="btn white-bg">sign up</a>
+                                </div>
+
+                                <div class="d-block d-sm-none pl-20">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
+                                            class="far fa-bars"></i></a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div id="header-auth-section" class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                            <div class="header-right d-flex align-items-center justify-content-end">
+                                <!-- Dynamic login/register or logout will be injected here -->
+                                <div id="auth-buttons" class="d-flex align-items-center"></div>
+
+                                <div class="d-block d-sm-none pl-20">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);">
+                                        <i class="far fa-bars"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="col-xl-2  col-lg-2  col-md-3  col-sm-1 col-12 d-none d-sm-block d-lg-none d-xl-block">
+                            <div
+                                class="header-right-right-content text-right d-flex align-items-center justify-content-end">
+                                <!-- <div class="mobile-menu"></div> -->
+                                <ul class="social-link d-none d-md-block">
+                                    <li class="d-inline-block">
+                                        <a class="facebook-color text-center pr-15 d-inline-block transition-3"
+                                            href="https://www.facebook.com/fundsroom/"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="twitter-color text-center pr-15 d-inline-block transition-3"
+                                            href="https://x.com/fundsroom"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="youtube-color text-center pr-15 d-inline-block transition-3"
+                                            href="https://www.youtube.com/@FundsAuditSafe"><i
+                                                class="fab fa-youtube"></i></a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="instagram-color text-center d-inline-block transition-3"
+                                            href="https://www.instagram.com/funds_audit/"><i
+                                                class="fab fa-instagram"></i></a>
+                                    </li>
+                                </ul><!-- social-link -->
+                                <div class="d-block d-lg-none pl-3">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
+                                            class="far fa-bars"></i></a>
+                                </div><!-- /mobile-menubar -->
+                            </div><!-- /header-right-left-content -->
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div>
+        </div><!-- /header-bottom -->
+    </header>
+    <!--  header-area-end  -->
+
+    <!--  ====== header extra info start================================== -->
+    <!-- side-mobile-menu start -->
+    <div class="side-mobile-menu white-bg pt-10 pb-30 pl-35 pr-30 pb-100">
+        <div class="d-fle justify-content-between w-100">
+            <div class="close-icon d-inline-block float-right clear-both mt-15 mb-10">
+                <a href="javascript:void(0);"><span class="icon-clear theme-color"><i
+                            class="fa fa-times"></i></span></a>
+            </div>
+        </div>
+        <!-- <div class="side-menu-search header-search-content mt-80 pr-15">
+            <form action="#" class="position-relative">
+                <input class="w-100 rounded-0 pb-2" type="text" placeholder="Type Keyword...">
+                <a class="position-absolute right-0 top-0 dark-black-color d-block" href="#"><i
+                        class="fas fa-search"></i></a>
+            </form>
+        </div> -->
+
+        <div class="mobile-menu mt-50 w-100"></div>
+        <ul class="social-link pt-85 clear-both">
+            <li class="d-inline-block">
+                <a class="facebook-color text-center pr-15 d-inline-block transition-3"
+                    href="https://www.facebook.com/fundsroom/"><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li class="d-inline-block">
+                <a class="twitter-color text-center pr-15 d-inline-block transition-3" href="https://x.com/fundsroom"><i
+                        class="fab fa-twitter"></i></a>
+            </li>
+            <li class="d-inline-block">
+                <a class="youtube-color text-center pr-15 d-inline-block transition-3"
+                    href="https://www.youtube.com/@FundsAuditSafe"><i class="fab fa-youtube"></i></a>
+            </li>
+            <li class="d-inline-block">
+                <a class="instagram-color text-center d-inline-block transition-3"
+                    href="https://www.instagram.com/funds_audit/"><i class="fab fa-instagram"></i></a>
+            </li>
+        </ul><!-- social-link -->
+
+        <!-- mobile phone area -->
+
+        <!-- mobile subscribe area -->
+        <!-- <div class="mobile-subscribe pb-55">
+            <h6 class="mb-1">Subscribe to Our Newsletter</h6>
+            <form action="#">
+                <div class="subscribe-info mt-15 position-relative">
+                    <input class="sub-name w-100 primary-border2 pl-20 pt-15 pb-15 pr-10 secondary-color rounded-0"
+                        type="email" name="email" id="m-email" placeholder="Submit email">
+                    <span class="secondary-color d-inline-block position-absolute pointer"><i
+                            class="far fa-envelope"></i></span>
+                </div>
+            </form>
+        </div> -->
+
+    </div><!-- /side-mobile-menu -->
+    <div class="body-overlay"></div>
+
+    <!-- header extra info end  -->
+
+
+    <main>
+        <!-- ======other-page-area-start=========================================== -->
+        <div class="other-page-area">
+            <div class="page-height d-flex align-items-center position-relative">
+                <div class="other-page-bg position-absolute w-100 h-100 bg-no-repeat bg-cover z-index-1"
+                    data-background="images/about-page/about-page-hero1.png"></div><!-- home2 slider bg -->
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12 d-flex align-items-center justify-content-center">
+                            <div class="page-content text-center mt-110">
+
+                                <h1 class="text-white mb-15 text-capitalize" data-aos="fade-up" data-aos-duration="2000"
+                                    data-aos-delay="150" style="color: teal !important;"><span
+                                        class="f-700">Frequently Asked Questions</span></h1>
+                                <!-- <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb justify-content-center bg-transparent">
+                                        <li class="breadcrumb-item"><a class="text-white" href="index.html" style="color: black !important;">Home</a></li>
+                                        <li class="breadcrumb-item active text-capitalize text-white" aria-current="page" style="color: black !important;">About Us</li>
+                                        </ol>
+                                    </nav> -->
+
+                            </div>
+                        </div><!-- /col -->
+
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div>
+        </div>
+        <!-- slider-area-end  -->
+
+
+
+        <!-- ====== faq-page-area-start============================================ -->
+        <div class="faq-page-area pt-165 mb-115 over-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="faq-page-content mb-60">
+                            <div class="nav nav-pills flex-column faq-nav primary-border2" id="faq-tabs" role="tablist"
+                                aria-orientation="vertical">
+                                <a href="#tab1" class="nav-link active" data-toggle="pill" role="tab"
+                                    aria-controls="tab1" aria-selected="true">Admission</a>
+
+                                <a href="#tab2" class="nav-link" data-toggle="pill" role="tab" aria-controls="tab2"
+                                    aria-selected="false">Subjects</a>
+
+                                <a href="#tab3" class="nav-link" data-toggle="pill" role="tab" aria-controls="tab3"
+                                    aria-selected="false">Career</a>
+
+                                <a href="#tab4" class="nav-link" data-toggle="pill" role="tab" aria-controls="tab4"
+                                    aria-selected="false">Students</a>
+
+                                <a href="#tab5" class="nav-link" data-toggle="pill" role="tab" aria-controls="tab5"
+                                    aria-selected="false">Scholarships</a>
+
+                                <a href="#tab5" class="nav-link border-bottom-0" data-toggle="pill" role="tab"
+                                    aria-controls="tab6" aria-selected="false">Others</a>
+                            </div>
+                        </div><!-- /faq-content -->
+                    </div><!-- /col -->
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="faq-wrapper mt--5 pl-xl-4 pl-lg-3">
+                            <div class="tab-content" id="faq-tab-content">
+                                <div class="tab-pane show active" id="tab1" role="tabpanel" aria-labelledby="tab1">
+                                    <div class="faq-page-wrapper">
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco labonsequuntur magni dolores
+                                                eos qui rati one voluptatem sequi nesciunt. Neque porro quisquam non
+                                                numquam eius modi tempora incidunt ut labore et dolor.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco labonsequuntur magni dolores.
+                                            </p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2" role="tabpanel" aria-labelledby="tab2">
+                                    <div class="faq-page-wrapper">
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores officia
+                                                sed officiis odio placeat impedit obcaecati. Dolores a excepturi fuga
+                                                nostrum recusandae voluptatem doloribus quasi quis ab quisquam.
+                                                Accusantium laborum hic maiores ipsa dolorum in dolor natus numquam
+                                                expedita distinctio reiciendis corrupti, rerum illo corporis voluptatem
+                                                sit amet itaque rem totam ad dolores officia possimus? Quisquam
+                                                quibusdam est, ipsam fugit vel veniam officiis aliquid odit quidem ex
+                                                iste quia voluptatibus, optio sint ut temporibus id nulla enim
+                                                reiciendis deserunt nam. Animi praesentium vel optio quisquam,
+                                                recusandae suscipit officiis corrupti omnis labore, nesciunt architecto
+                                                cupiditate magnam, esse aliquid explicabo voluptates reprehenderit?</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad commodo.
+                                            </p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt utlabore et.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab3" role="tabpanel" aria-labelledby="tab3">
+                                    <div class="faq-page-wrapper">
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco labonsequuntur magni dolores
+                                                eos qui rati one voluptatem sequi nesciunt. Neque porro quisquam non
+                                                numquam eius modi tempora incidunt ut labore et dolor.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco labonsequuntur magni dolores.
+                                            </p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab4" role="tabpanel" aria-labelledby="tab4">
+                                    <div class="faq-page-wrapper">
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores officia
+                                                sed officiis odio placeat impedit obcaecati. Dolores a excepturi fuga
+                                                nostrum recusandae voluptatem doloribus quasi quis ab quisquam.
+                                                Accusantium laborum hic maiores ipsa dolorum in dolor natus numquam
+                                                expedita distinctio reiciendis corrupti, rerum illo corporis voluptatem
+                                                sit amet itaque rem totam ad dolores officia possimus? Quisquam
+                                                quibusdam est, ipsam fugit vel veniam officiis aliquid odit quidem ex
+                                                iste quia voluptatibus, optio sint ut temporibus id nulla enim
+                                                reiciendis deserunt nam. Animi praesentium vel optio quisquam,
+                                                recusandae suscipit officiis corrupti omnis labore, nesciunt architecto
+                                                cupiditate magnam, esse aliquid explicabo voluptates reprehenderit?</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad commodo.
+                                            </p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt utlabore et.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab5" role="tabpanel" aria-labelledby="tab5">
+                                    <div class="faq-page-wrapper">
+                                        <div class="faq-text mb-45">
+                                            <div class="faq-text mb-45">
+                                                <h3 class="mb-20">What is the benefits of taking admission in Larna ?
+                                                </h3>
+                                                <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                                    commodo.</p>
+                                            </div><!-- /faq-text -->
+
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores officia
+                                                sed officiis odio placeat impedit obcaecati. Dolores a excepturi fuga
+                                                nostrum recusandae voluptatem doloribus quasi quis ab quisquam.
+                                                Accusantium laborum hic maiores ipsa dolorum in dolor natus numquam
+                                                expedita distinctio reiciendis corrupti, rerum illo corporis voluptatem
+                                                sit amet itaque rem totam ad dolores officia possimus? Quisquam
+                                                quibusdam est, ipsam fugit vel veniam officiis aliquid odit quidem ex
+                                                iste quia voluptatibus, optio sint ut temporibus id nulla enim
+                                                reiciendis deserunt nam. Animi praesentium vel optio quisquam,
+                                                recusandae suscipit officiis corrupti omnis labore, nesciunt architecto
+                                                cupiditate magnam, esse aliquid explicabo voluptates reprehenderit?</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt utlabore et.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab6" role="tabpanel" aria-labelledby="tab6">
+                                    <div class="faq-page-wrapper">
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores officia
+                                                sed officiis odio placeat impedit obcaecati. Dolores a excepturi fuga
+                                                nostrum recusandae voluptatem doloribus quasi quis ab quisquam.
+                                                Accusantium laborum hic maiores ipsa dolorum in dolor natus numquam
+                                                expedita distinctio reiciendis corrupti, rerum illo corporis voluptatem
+                                                sit amet itaque rem totam ad dolores officia possimus? Quisquam
+                                                quibusdam est, ipsam fugit vel veniam officiis aliquid odit quidem ex
+                                                iste quia voluptatibus, optio sint ut temporibus id nulla enim
+                                                reiciendis deserunt nam. Animi praesentium vel optio quisquam,
+                                                recusandae suscipit officiis corrupti omnis labore, nesciunt architecto
+                                                cupiditate magnam, esse aliquid explicabo voluptates reprehenderit?</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad commodo.
+                                            </p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">Why should we take admission on Larna ?</h3>
+                                            <p>Ampor incididunt utlabore et.</p>
+                                        </div><!-- /faq-text -->
+
+                                        <div class="faq-text mb-45">
+                                            <h3 class="mb-20">What is the benefits of taking admission in Larna ?</h3>
+                                            <p>Ampor incididunt ut labore et dolore magna aliqua. Ut enim ad minim Lorem
+                                                ipsum dolor sunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo.</p>
+                                        </div><!-- /faq-text -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /faq-wrapper -->
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </div>
+        <!-- faq-area-end -->
+
+    </main>
+
+    <!-- ====== footer-area-start ============================================ -->
+    <footer>
+        <div class="footer-area home4-footer-bg home2 pt-100 pb-10">
+
+            <div class="footer-top home4 pt-5 pb-70">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="footer-widget f-about pb-5">
+
+                                <div class="f-logo text-left mb-5">
+                                    <img src="images/logo/logo4.png" alt="Eduroom">
+                                </div><!-- /f-logo -->
+
+                                <p>Eduroom is a comprehensive online learning platform that connects students,
+                                    educators, and professionals. We provide quality live projects, interactive
+                                    resources, and
+                                    personalized learning paths to help learners.</p>
+                            </div>
+                        </div>
+                        <!-- /col -->
+                        <div class="col-xl-4 offset-lg-1  col-lg-4  col-md-7  col-sm-6 col-12">
+
+                        </div><!-- /col -->
+                        <div class="col-xl-3  col-lg-3  col-md-5  col-sm-6 col-12 px-lg-0">
+                            <ul class="pl-65">
+                                <li>
+                                    <a href="about.html" class="position-relative d-inline-block mb-2">About
+                                        Us</a>
+                                </li>
+                                <li>
+                                    <a href="/domain-list.html" class="position-relative d-inline-block mb-2">Live
+                                        Projects</a>
+                                </li>
+                                <li>
+                                    <a href="contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
+                                </li>
+                                <li>
+                                    <a href="login.html" class="position-relative d-inline-block mb-2">Login</a>
+                                </li>
+                            </ul>
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="copyright-area mt-22">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-xl-6  col-lg-5  col-md-12  col-sm-12 col-12">
+                                <div class="copyright-text text-center text-lg-left mt-20 mb-20">
+                                    <p class="mb-0">All rights reserved
+                                        <a class="c-theme main-color f-500">Eduroom</a> © 2025
+                                    </p>
+                                </div>
+                            </div><!-- /col -->
+                            <!-- <div class="col-xl-6  col-lg-7  col-md-12  col-sm-12 col-12">
+                                <ul class="useful-link text-center text-lg-right mt-20">
+                                    <li class="d-inline-block mb-20">
+                                        <a href="about.html" class="secondary-color d-inline-block">Terms &amp;
+                                            Condition</a>
+                                    </li>
+                                    <li class="d-inline-block pl-45 mb-20">
+                                        <a href="about.html" class="secondary-color d-inline-block">Privacy</a>
+                                    </li>
+                                    <li class="d-inline-block pl-45 mb-20">
+                                        <a href="about.html" class="secondary-color d-inline-block">Cookes</a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </div>
+                    </div><!-- /copyright-area -->
+                </div><!-- /container -->
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- back top -->
+    <div id="scroll" class="scroll-up">
+        <div class="top text-center"><span class="white-bg theme-color d-block"><i
+                    class="fa fa-arrow-alt-up"></i></span></div>
+    </div>
+
+
+    <!-- All js here -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/image-loaded.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/waypoint.js"></script>
+    <script src="js/counterup-min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/tilt.jquery.min.js"></script>
+    <script src="js/countdown.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
+                method: "GET",
+                success: function (response) {
+
+                    if (response && response.data && Array.isArray(response.data)) {
+
+                        const domainCourseWrapper = $("#domainCourseWrapper");
+                        domainCourseWrapper.empty();
+
+                        const domainMap = {};
+
+                        response.data.forEach(course => {
+                            const domainName = course.Domain?.name || "Others";
+
+                            if (!domainMap[domainName]) {
+                                domainMap[domainName] = [];
+                            }
+                            domainMap[domainName].push(course);
+                        });
+
+                        Object.keys(domainMap).forEach(domain => {
+                            const li = $('<li></li>');
+
+                            li.append(`
+                                <a href="domain-list.html">
+                                    <span class="d-block main-color">${domain}</span>
+                                </a>
+                            `);
+
+                            domainMap[domain].forEach(course => {
+                                if (course.name) {
+                                    li.append(`
+                                        <a href="course.html?domainId=${course.domainId}">
+                                            ${course.name}
+                                        </a>
+                                    `);
+                                }
+                            });
+
+                            domainCourseWrapper.append(li);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching courses:", error);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            const loginRegisterHTML = `
+            <ul class="header-login mr-15 d-none d-sm-block">
+                <li>
+                    <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
+                        data-selector="true" data-placement="bottom" title="Login / Register">
+                        LOGIN</a>
+                </li>
+            </ul>
+
+            <div class="my-btn d-none d-sm-block">
+                <a href="register.html" class="btn white-bg">Register</a>
+            </div>
+
+            <div class="d-block d-sm-none w-100 mt-0 mobile-login-btn">
+                <div class="home4-btn1 w-100 text-center">
+                    <a href="login.html" class="btn text-uppercase f-500 text-white transition5 w-100">Login</a>
+                </div>
+            </div>
+
+            <style>
+            .mobile-login-btn .home4-btn1 .btn {
+                background: linear-gradient(105deg, #4f46e5, #6366f1); /* same gradient as your hero button */
+                padding: 6px 0;
+                border-radius: 30px;
+                font-size: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-login-btn .home4-btn1 .btn:hover {
+                background: linear-gradient(105deg, #6366f1, #4f46e5);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            }
+            </style>
+        `;
+
+            const logoutHTML = `
+            <div class="my-btn d-none d-sm-block">
+                <a href="javascript:void(0);" id="logoutBtn" class="btn white-bg">Logout</a>
+            </div>
+
+            <div class="d-block d-sm-none w-100 mobile-logout-btn">
+                <div class="home4-btn1 w-100 text-center">
+                    <a href="javascript:void(0);" id="logoutBtn" class="btn text-uppercase f-500 text-white transition5 w-100">Logout</a>
+                </div>
+            </div>
+
+            <style>
+            .mobile-logout-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%; /* ensures vertical alignment */
+            }
+
+            .mobile-logout-btn .home4-btn1 .btn {
+                background: linear-gradient(105deg, #4f46e5, #6366f1);
+                padding: 8px 0;
+                border-radius: 30px;
+                font-size: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-logout-btn .home4-btn1 .btn:hover {
+                background: linear-gradient(105deg, #6366f1, #4f46e5);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            }
+            </style>
+        `;
+
+            if (userId) {
+                $("#auth-buttons").html(logoutHTML);
+            } else {
+                $("#auth-buttons").html(loginRegisterHTML);
+            }
+
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        // console.log("Logout success:", res);
+
+                        sessionStorage.clear();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
