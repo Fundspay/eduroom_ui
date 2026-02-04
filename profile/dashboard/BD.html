@@ -2112,7 +2112,7 @@
                                 connectDate: bdSheet.connectDate || "",
                                 callStatus: bdSheet.callStatus || "",
                                 registration: bdSheet.registration || "",
-                                selectionTest: bdSheet.selectionTest || "",
+                                selectionTest: bdSheet.registration || "",
                                 whatsappGroup: bdSheet.whatsappGroup || "",
                                 // Day 1
                                 day1Date: day1.date || "",
@@ -2250,7 +2250,7 @@
                     ${makeDateCell("connectDate", row.connectDate || "", activeStatusColor)}
                     ${makeDropdownCell("callStatus", row.callStatus || "", null, dropdowns.callStatus, activeStatusColor)}
                     ${makeReadonlyCell("registration", (row.registration || "--").charAt(0).toUpperCase() + (row.registration || "--").slice(1).toLowerCase(), activeStatusColor)}
-                    ${makeReadonlyCell("selectionTest", row.selectionTest || "--", activeStatusColor)}
+                    ${makeReadonlyCell("selectionTest", (row.selectionTest || "--").charAt(0).toUpperCase() + (row.selectionTest || "--").slice(1).toLowerCase(), activeStatusColor)}
                     ${makeDropdownCell("whatsappGroup", row.whatsappGroup || "", null, dropdowns.whatsappGroup, activeStatusColor)}`;
 
                     tr += `
