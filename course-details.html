@@ -89,23 +89,23 @@
                             <div class="main-menu">
                                 <nav id="mobile-menu">
                                     <ul class="d-block">
-                                        <li><a class="active" href="index.html">Home</a></li>
+                                        <li><a class="active" href="index.html" style="font-size: 14px;">Home</a></li>
 
-                                        <li><a href="about.html">About</a>
+                                        <li><a href="about.html" style="font-size: 14px;">About</a>
                                         </li><!-- /About -->
-                                        <li><a href="careers.html">Careers</a>
+                                        <li><a href="careers.html" style="font-size: 14px;">Careers</a>
                                         </li>
 
                                         <li class="full-mega-menu-position">
-                                            <a href="/domain-list.html">Live Projects</a>
+                                            <a href="/domain-list.html" style="font-size: 14px;">Live Projects</a>
                                             <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
                                                 id="domainCourseWrapper">
                                                 <!-- Domains & Courses will be populated here dynamically -->
                                             </ul>
                                         </li><!-- /Course -->
-                                        <li><a href="profile.html">Profile</a>
-
-                                        <li><a href="contact.html">Contact</a>
+                                        <li><a href="profile.html" style="font-size: 14px;">Profile</a>
+                                        <li><a href="faq.html" style="font-size: 14px;">FundsAudit</a>
+                                        <li><a href="contact.html" style="font-size: 14px;">Contact</a>
                                         </li><!-- /Contact -->
                                     </ul>
                                 </nav>
@@ -310,7 +310,9 @@
                                     </div>
                                 </div><!-- /col -->
 
-                                <div id="driveLinkContainer" class="col-xl-12  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4" style="margin-top: 20px; margin-bottom: 20px; display: none;">
+                                <div id="driveLinkContainer"
+                                    class="col-xl-12  col-lg-7  col-md-8  col-sm- col- pr-xl-5 pr-lg-3 pr-md-4"
+                                    style="margin-top: 20px; margin-bottom: 20px; display: none;">
                                     <!-- Description -->
                                     <h3>Drive Link for pdf</h3>
                                     <div class="course-description-left" id="driveLink">
@@ -933,9 +935,9 @@
                         $("#driveLinkContainer").show();
                         descContainer2.append(
                             '<p>' +
-                                '<a href="' + course.driveLink + '" target="_blank" rel="noopener noreferrer">' +
-                                    course.driveLink +
-                                '</a>' +
+                            '<a href="' + course.driveLink + '" target="_blank" rel="noopener noreferrer">' +
+                            course.driveLink +
+                            '</a>' +
                             '</p>'
                         );
                     }
