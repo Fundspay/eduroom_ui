@@ -2232,10 +2232,15 @@
                 tr += `
                     <td style="background-color: ${rowColor};">${start + index + 1}</td>
                     <td style="background-color: ${rowColor};">
-                        <a class="text-primary fw-bold" target="_blank" href="/intern-profile.html?userId=${encodeURIComponent(row.userId)}" target="_self">
-                            ${row.studentName || ""}
-                        </a>
-                    </td>   
+                        ${
+                            row.userId
+                            ? `<a class="text-primary fw-bold" target="_blank"
+                                href="/intern-profile.html?userId=${encodeURIComponent(row.userId)}">
+                                ${row.studentName || ""}
+                            </a>`
+                            : `<span class="fw-bold">${row.studentName || ""}</span>`
+                        }
+                    </td>
                     <td style="background-color: ${rowColor};">${row.mobileNumber || ""}</td>
                     <td style="background-color: ${rowColor};">${row.collegeName || ""}</td>
                     <td style="background-color: ${rowColor};">${row.emailId || ""}</td>
