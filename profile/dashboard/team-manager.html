@@ -1225,12 +1225,12 @@
                                         <tr class="border-b">
                                             <th>SR</th>
                                             <th>NAME</th>
-                                            <th>MOBILE NUMBER</th>
                                             <th>REGISTRATION DATE</th>
+                                            <th>COLLEGE NAME</th>
+                                            <th>MOBILE NUMBER</th>
                                             <th>OFFER MESSAGE</th>
                                             <th>SELECTION STATUS</th>
                                             <th>EMAIL</th>
-                                            <th>COLLEGE NAME</th>
                                             <th>DOMAIN</th>
                                             <th>COURSE</th>
                                             <th>DURATION</th>
@@ -1499,12 +1499,12 @@
 
         const columnMap = {
             1: "name",
-            2: "phoneNumber",
-            3: "registeredAt",
-            4: "offerMessageExists",
-            5: "selected",
-            6: "email",
-            7: "collegeName",
+            2: "registeredAt",
+            3: "collegeName",
+            4: "phoneNumber",
+            5: "offerMessageExists",
+            6: "selected",
+            7: "email",
             8: "courses",
             9: "course",
             10: "duration",
@@ -2670,10 +2670,10 @@
                                 sno: index + 1,
                                 userId: row.userId,
                                 name: row.userName || "",
-                                phoneNumber: row.phoneNumber || "",
                                 registeredAt: formatDate(row.registeredAt) || "",
-                                email: row.email || "",
                                 collegeName: row.collegeName || "",
+                                phoneNumber: row.phoneNumber || "",
+                                email: row.email || "",
                                 courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
                                 domain: row.domainName || "",
                                 course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
@@ -2849,16 +2849,16 @@
                 let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
                     <td>${start + index + 1}</td>
                     <td>${nameCell}</td>
+                    <td>${escapeHtml(row.registeredAt || '')}</td>
+                    <td>${escapeHtml(row.collegeName || '')}</td>
                     <td>
                         <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
                             ${escapeHtml(row.phoneNumber || '')}
                         </a>
                     </td>
-                    <td>${escapeHtml(row.registeredAt || '')}</td>
                     <td>${escapeHtml(row.offerMessageExists || '')}</td>
                     <td>${escapeHtml(row.selected || 'No')}</td>
                     <td>${escapeHtml(row.email || '')}</td>
-                    <td>${escapeHtml(row.collegeName || '')}</td>
                     <td>${escapeHtml(row.courses || '')}</td>
                     <td>${escapeHtml(row.course || '')}</td>
                     <td>${escapeHtml(row.duration || '')}</td>
@@ -3375,12 +3375,12 @@
             const headers = [
                 "SR",
                 "Name",
-                "Phone Number",
                 "Registration Date",
+                "College Name",
+                "Phone Number",
                 "Offer Message",
                 "Selected",
                 "Email",
-                "College Name",
                 "Courses",
                 "Course",
                 "Duration",
@@ -3407,12 +3407,12 @@
                 html += `<tr>
                 <td>${row.sno}</td>
                 <td>${row.name}</td>
-                <td>${row.phoneNumber}</td>
                 <td>${row.registeredAt}</td>
+                <td>${row.collegeName}</td>
+                <td>${row.phoneNumber}</td>
                 <td>${row.offerMessageExists}</td>
                 <td>${row.selected || 'No'}</td>
                 <td>${row.email}</td>
-                <td>${row.collegeName}</td>
                 <td>${row.courses}</td>
                 <td>${row.course}</td>
                 <td>${row.duration}</td>
@@ -3490,12 +3490,12 @@
             const headers = [
                 "SR",
                 "Name",
-                "Phone Number",
                 "Registration Date",
+                "College Name",
+                "Phone Number",
                 "Offer Message",
                 "Selected",
                 "Email",
-                "College Name",
                 "Courses",
                 "Course",
                 "Duration",
@@ -3522,12 +3522,12 @@
                 data.push([
                     row.sno,
                     row.name,
+                    row.registeredAt,
+                    row.collegeName,
                     row.phoneNumber,
                     row.offerMessageExists,
-                    row.registeredAt,
                     row.selected || 'No',
                     row.email,
-                    row.collegeName,
                     row.courses,
                     row.course,
                     row.duration,
