@@ -379,6 +379,14 @@
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/mailer.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-mail"></i></span>
+                            <span class="nxl-mtext">MAILER</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-log-out"></i></span>
                             <span class="nxl-mtext">Logout</span>
@@ -1789,6 +1797,54 @@
                             placeholder="Subject" value="Reconfirmation of Live Project Process - FundsAudit">
                     </div>
 
+                    <div class="px-3 py-2 border-bottom">
+                        <div class="d-flex align-items-center mb-2">
+
+                            <!-- Right aligned container -->
+                            <div class="d-flex align-items-center gap-2 ms-auto">
+
+                                <button type="button" id="addAttachmentBtn" class="btn btn-sm btn-outline-primary"
+                                    style="font-size: 12px; border-radius: 6px; white-space: nowrap; display: none;">
+                                    <i class="feather-paperclip me-1"></i> Add Attachment
+                                </button>
+
+                                <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
+                                    <option value="default">Default</option>
+                                    <option value="promotional">Promotional</option>
+                                    <option value="followup">Follow-Up</option>
+                                    <option value="connect">Connect</option>
+                                    <option value="marketing">Marketing</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        .custom-btn {
+                            height: 38px;
+                            font-size: 13px;
+                            border-radius: 6px;
+                            padding: 0 12px;
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .custom-select {
+                            height: 38px;
+                            font-size: 13px;
+                            border-radius: 6px;
+                            padding: 0 10px;
+                            width: 150px;
+                        }
+
+                        /* Fix vertical alignment issue */
+                        .custom-select,
+                        .custom-btn {
+                            line-height: 1.2;
+                        }
+                    </style>
+
                     <!-- Email Body Container -->
                     <div class="email-body-container p-3">
                         <!-- Fixed Top Part -->
@@ -1966,40 +2022,6 @@
                 "unprofessional"]
         };
 
-        // const colorMap = {
-        //     callResponse: {
-        //         "connected": "#28a745",
-        //         "not answered": "#dc3545",
-        //         "busy": "#ffc107",
-        //         "switch off": "#0d6efd",
-        //         "invalid": "#6c757d"
-        //     },
-        //     internshipType: {
-        //         "fulltime": "#28a745",
-        //         "sip": "#0d6efd",
-        //         "liveproject": "#ffc107",
-        //         "wip": "#0d6efd",
-        //         "others": "#adb5bd"
-        //     },
-        //     detailedResponse: {
-        //         "send jd": "#28a745",
-        //         "not interested": "#dc3545",
-        //         "cut the call": "#ffc107",
-        //         "january": "#0d6efd",
-        //         "february": "#0d6efd",
-        //         "march": "#0d6efd",
-        //         "april": "#0d6efd",
-        //         "may": "#0d6efd",
-        //         "june": "#0d6efd",
-        //         "july": "#0d6efd",
-        //         "august": "#0d6efd",
-        //         "september": "#0d6efd",
-        //         "october": "#0d6efd",
-        //         "november": "#0d6efd",
-        //         "december": "#0d6efd"
-        //     }
-        // };
-
         function getRowBgColor(followUpResponse) {
             if (followUpResponse === null || followUpResponse === "") return 'background-color: #fff;';
 
@@ -2010,16 +2032,6 @@
             return 'background-color: #ff4d4d;';
         }
 
-        // function getRowBgColor(followUpResponse) {
-        //     if (followUpResponse === null || followUpResponse === "") return 'background-color: #fff;';
-
-        //     const val = followUpResponse.toLowerCase();
-        //     if (val === "resumes received") return 'background-color: #fff;';
-        //     if (val === "sending in 1-2 days") return 'background-color: #fff;';
-        //     if (val === "delayed") return 'background-color: #fff;';
-        //     return 'background-color: #fff;';
-        // }
-
         let citiesData = [];
         let tableData = [];
         let filteredData = [];
@@ -2027,43 +2039,188 @@
         let currentPage = 1;
         let currentRecord = null;
 
-        const emailTemplate = {
-            fixedTop: (record) => `
-            <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
-            <p>Greetings from FundsAudit!</p>
-            <p>I hope this message finds you well.</p>`,
+        let activeTemplateKey = "default";
 
-            editableMiddle: `
-            <p>This is to reconfirm the points discussed during our recent call held on <b>22nd August 2025</b> regarding the Live Project process:</p>
+        const emailTemplates = {
 
-            <ul>
+            // DEFAULT 
+            default: {
+                label: "Default",
+                subject: () => `Reconfirmation of Live Project Process - FundsAudit`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from FundsAudit!</p>
+                    <p>I hope this message finds you well.</p>`,
+                editableMiddle: `
+                    <p>This is to reconfirm the points discussed during our recent call held on <b>22nd August 2025</b> regarding the Live Project process:</p>
+                    <ul>
+                        <li><b>Student Responses -</b> As discussed, the list of interested students will be shared by your end on <b>1st September 2025</b></li>
+                        <li><b>Pre-Placement Talk -</b> The pre-placement talk will be successfully conducted on <b>1st September 2025</b>, during which all necessary roles, responsibilities, and expectations were clearly communicated.</li>
+                        <li><b>Interview Schedule -</b> Interviews for the shortlisted students are scheduled immediately after the Pre-Placement Talk.</li>
+                        <li><b>Internship Commencement -</b> The selected students will begin their internship from <b>2nd September 2025</b>, with sessions scheduled to start between <b>11 a.m to 5 p.m.</b></li>
+                        <li><b>Student Commitment -</b> As agreed, the selected students are expected to actively participate and commit to the <b>1-hour session time</b> allotted by the college.</li>
+                    </ul>
+                    <p>We request you to kindly acknowledge this mail and confirm the same from your end, so we can proceed with the required arrangements accordingly.</p>
+                    <p>As I have been unable to reach you regarding the further proceedings, I kindly request you to let us know the updates at your earliest convenience.</p>`,
+                fixedBottom: `
+                    <p>Looking forward to your response and hoping to establish a fruitful collaboration.</p>
+                    <p>Pooja M. Shedge<br/>
+                    Branch Manager - Pune<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
 
-                <li><b>Student Responses -</b> As discussed, the list of interested students will be shared by your end on <b>1st September 2025</b></li>
+            // 2. PROMOTIONAL
+            promotional: {
+                label: "Promotional",
+                subject: (record) => `Exclusive Student Internship Program | FundsAudit x ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from <b>FundsAudit</b> – India's fastest-growing ISO-certified Fintech Startup!</p>
+                    <p>We are thrilled to present an <b>exclusive, limited-seat Student Development Program (SDP)</b> for the talented students of <span class="email-template-variable">${record.collegeName || "your esteemed institute"}</span>. This is a golden opportunity for your MBA/PGDM students to gain real-world fintech experience while still in college.</p>`,
+                editableMiddle: `
+                    <p><b>Why This Program Stands Out:</b></p>
+                    <ul>
+                        <li><b>Earn While You Learn:</b> Performance-based stipend of INR 1,000 – INR 7,000 per month</li>
+                        <li><b>Industry-Recognized Certifications:</b> POWER-BI + Financial/Marketing Modelling certificate included</li>
+                        <li><b>Flexible Schedule:</b> Only 2 hours/day — fits seamlessly with college timetable</li>
+                        <li><b>Top Performer Recognition:</b> Special awards and fast-track placement consideration</li>
+                        <li><b>Career Pathway:</b> Interns considered for SIP, PPO, and Final Placements</li>
+                    </ul>
+                    <p><b>Limited Seats Available — First Come, First Served!</b></p>
+                    <p>We are partnering with select premier institutions this season. Your college has been shortlisted based on its academic reputation and student caliber. We would love to onboard your Finance & Marketing students into this transformative program.</p>
+                    <p><b>Roles Available:</b> Marketing Analyst | Financial Analyst<br/>
+                    <b>Eligibility:</b> MBA/PGDM 1st & 2nd Year Students</p>
+                    <p>Please find the detailed Job Description attached for your reference.</p>
+                    <p>Kindly confirm your interest at the earliest so we can reserve seats for your students before the deadline.</p>`,
+                fixedBottom: `
+                    <p>Don't miss this opportunity to give your students a competitive edge!</p>
+                    <p>Warm regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
 
-                <li><b>Pre-Placement Talk -</b> The pre-placement talk will be successfully conducted on <b>1st September 2025</b>, during which all necessary roles, responsibilities, and expectations were clearly communicated.</li>
+            // 3. FOLLOW-UP
+            followup: {
+                label: "Follow-Up",
+                subject: (record) => `Follow-Up: Internship Collaboration Proposal – FundsAudit x ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Hope this email finds you well!</p>
+                    <p>I am writing to follow up on the internship collaboration proposal we shared earlier regarding <span class="email-template-variable">${record.collegeName || "your institute"}</span>. We reached out previously with details about our <b>Student Development Program (SDP)</b> at FundsAudit and wanted to check if you had a chance to review the information.</p>`,
+                editableMiddle: `
+                    <p>As a quick recap, here's what we proposed:</p>
+                    <ul>
+                        <li><b>Program:</b> Live Fintech Project-based Internship (SDP)</li>
+                        <li><b>Duration:</b> Flexible — 2 hours/day alongside regular college schedule</li>
+                        <li><b>Stipend:</b> INR 1,000 – INR 7,000 based on performance</li>
+                        <li><b>Certifications:</b> POWER-BI + Financial/Marketing Modelling</li>
+                        <li><b>Career Benefits:</b> SIP, PPO, and Final Placement consideration</li>
+                    </ul>
+                    <p>We truly believe this program will add significant value to your students and strengthen the industry-academia connect for your institution.</p>
+                    <p>We understand you may be busy, but we would appreciate just a brief response to understand your interest level. We are happy to schedule a call at your convenience to address any queries or customize the program to suit your institute's needs.</p>
+                    <p>The Job Description is re-attached for your easy reference.</p>
+                    <p>Could you kindly share your feedback or preferred time to connect?</p>`,
+                fixedBottom: `
+                    <p>Looking forward to hearing from you soon.</p>
+                    <p>Best regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
 
-                <li><b>Interview Schedule -</b> Interviews for the shortlisted students are scheduled immediately after the Pre-Placement Talk.</li>
+            // 4. CONNECT
+            connect: {
+                label: "Connect",
+                subject: (record) => `Let's Connect – FundsAudit x ${record.collegeName || "Your Institute"} | Student Internship Initiative`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from FundsAudit!</p>
+                    <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsAudit, Pune. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
+                editableMiddle: `
+                    <p>At FundsAudit, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
+                    <p>We would love to explore how we can work together to benefit your students through our <b>Student Development Program (SDP)</b>:</p>
+                    <ul>
+                        <li>Real-time live fintech projects — not simulations</li>
+                        <li>Mentorship from industry professionals</li>
+                        <li>Performance-linked stipend: INR 1,000 – INR 7,000</li>
+                        <li>POWER-BI & domain-specific certifications</li>
+                        <li>Pathway to SIP, PPO, and Final Placement</li>
+                    </ul>
+                    <p>I would love to schedule a brief introductory call or meeting at a time convenient to you — even 15–20 minutes would be a great start to explore the potential of this collaboration.</p>
+                    <p>I have attached our internship JD for your initial review.</p>
+                    <p>Please feel free to reach me directly at <b>+91 7385234536</b> or reply to this email to set up a time.</p>`,
+                fixedBottom: `
+                    <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
+                    <p>Warm regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
 
-                <li><b>Internship Commencement -</b> The selected students will begin their internship from <b>2nd September 2025</b>, with sessions scheduled to start between <b>11 a.m to 5 p.m.</b></li>
-
-                <li><b>Student Commitment -</b> As agreed, the selected students are expected to actively participate and commit to the <b>1-hour session time</b> allotted by the college.</li>
-
-            </ul>
-
-            <p>We request you to kindly acknowledge this mail and confirm the same from your end, so we can proceed with the required arrangements accordingly.</p>
-
-            <p>As I have been unable to reach you regarding the further proceedings, I kindly request you to let us know the updates at your earliest convenience.</p>`,
-
-            fixedBottom: `
-            <p>Looking forward to your response and hoping to establish a fruitful collaboration.</p>
-            <p>Pooja M. Shedge<br/>
-            Branch Manager - Pune<br/>
-            +91 7385234536 | +91 9322509539<br/>
-            Pune, Maharashtra<br/>
-            <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
-            <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
-            </p>`
+            // 5. MARKETING
+            marketing: {
+                label: "Marketing",
+                subject: (record) => `Boost Your Students' Employability | FundsAudit SDP for ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from <b>FundsAudit</b>!</p>
+                    <p>In today's competitive job market, academic knowledge alone is no longer enough. Students of <span class="email-template-variable">${record.collegeName || "your institution"}</span> deserve an edge — and that's exactly what FundsAudit's <b>Student Development Program (SDP)</b> delivers.</p>`,
+                editableMiddle: `
+                    <p><b>What Makes FundsAudit Different?</b></p>
+                    <ul>
+                        <li><b>ISO-Certified</b> Fintech Startup | Startup India Registered</li>
+                        <li><b>4,00,000+ Active Customers</b> | AMFI, SEBI, BSE & NSE Member</li>
+                        <li><b>Real Live Projects</b> — not classroom assignments</li>
+                        <li><b>Stipend-Based:</b> INR 1,000 – INR 7,000 per month (performance-linked)</li>
+                        <li><b>Dual Certifications:</b> POWER-BI + Financial/Marketing Modelling</li>
+                        <li><b>Post-Program Opportunities:</b> SIP → PPO → Final Placement</li>
+                    </ul>
+                    <p><b>The Impact We Create:</b></p>
+                    <ul>
+                        <li>Students develop real analytical, financial, and marketing skills</li>
+                        <li>Resume-worthy fintech experience that recruiters value</li>
+                        <li>Institutions strengthen their placement records and industry ties</li>
+                        <li>MoU-based formal collaboration — adding institutional credibility</li>
+                    </ul>
+                    <p>We are currently onboarding partner institutes for the upcoming batch. Your institute fits our ideal partner profile and we are keen to collaborate.</p>
+                    <p>Detailed JD is attached. We would appreciate a quick confirmation of interest so we can proceed with formalizing the MoU.</p>`,
+                fixedBottom: `
+                    <p>Let's build future-ready finance and marketing professionals — together.</p>
+                    <p>Best regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            }
         };
+
+        // kept for any legacy references
+        const emailTemplate = {
+            fixedTop: (record) => emailTemplates.default.fixedTop(record),
+            editableMiddle: emailTemplates.default.editableMiddle,
+            fixedBottom: emailTemplates.default.fixedBottom
+        };
+        // END TEMPLATES
 
         function loadCities() {
             return fetch("/profile/dashboard/cities.json")
@@ -2127,6 +2284,13 @@
 
         function initEmailModalEvents() {
             $('#composeMail').on('show.bs.modal', function (e) {
+                // Reset template to default on every modal open
+                activeTemplateKey = "default";
+                $('#emailTemplateSelect').val("default");
+                $('#selectedTemplateName').text('Default');
+                $('.template-option').removeClass('active');
+                $('.template-option[data-value="default"]').addClass('active');
+
                 const button = $(e.relatedTarget);
                 const recordId = button.data('id');
                 const record = tableData.find(row => row.id == recordId);
@@ -2150,6 +2314,25 @@
                 }
             });
 
+            // Template switcher — updates modal content on dropdown change
+            $('#emailTemplateSelect').off('change').on('change', function () {
+                activeTemplateKey = $(this).val();
+                if (currentRecord) {
+                    loadEmailModal(currentRecord);
+                }
+            });
+
+            // Styled dropdown click handler
+            $(document).off('click', '.template-option').on('click', '.template-option', function (e) {
+                e.preventDefault();
+                var val = $(this).data('value');
+                var label = $(this).data('label');
+                $('#selectedTemplateName').text(label);
+                $('.template-option').removeClass('active');
+                $(this).addClass('active');
+                $('#emailTemplateSelect').val(val).trigger('change');
+            });
+
             $('#mailEditorModal').on('input', function () {
                 updateEmailPreview();
             });
@@ -2164,17 +2347,15 @@
         }
 
         function loadEmailModal(record) {
+            const tpl = emailTemplates[activeTemplateKey];
+
             $('#currentRecordId').val(record.id);
-
             $('#email-input').val(record.emailId || '');
-
-            $('#email-fixed-top').html(emailTemplate.fixedTop(record));
-
-            $('#mailEditorModal').html(emailTemplate.editableMiddle);
-
-            $('#email-fixed-bottom').html(emailTemplate.fixedBottom);
-
-            $('#subject-input').val(`Reconfirmation of Live Project Process - FundsAudit`);
+            window.toMail = record.emailId || '';
+            $('#email-fixed-top').html(tpl.fixedTop(record));
+            $('#mailEditorModal').html(tpl.editableMiddle);
+            $('#email-fixed-bottom').html(tpl.fixedBottom);
+            $('#subject-input').val(tpl.subject(record));
 
             updateEmailPreview();
         }
@@ -2183,13 +2364,14 @@
             const record = currentRecord;
             if (!record) return;
 
+            const tpl = emailTemplates[activeTemplateKey];
             const editableContent = $('#mailEditorModal').html();
 
             const fullEmailBody = `
-            ${emailTemplate.fixedTop(record)}
-            ${editableContent}
-            ${emailTemplate.fixedBottom}
-        `;
+                ${tpl.fixedTop(record)}
+                ${editableContent}
+                ${tpl.fixedBottom}
+            `;
 
             $('#emailPreview').html(fullEmailBody);
         }
@@ -2200,13 +2382,7 @@
 
             const editableContent = $('#mailEditorModal').html();
 
-            const fixedTopHtml = emailTemplate.fixedTop(record)
-                .replace(/<span class="email-template-variable">/g, '')
-                .replace(/<\/span>/g, '');
-
-            return `
-            ${editableContent}
-        `;
+            return `${editableContent}`;
         }
 
         function sendFollowUpEmail() {
@@ -2246,9 +2422,11 @@
                     });
 
                     const payload = {
+                        userId: 2577,
+                        fromAddress: "connect@fundsaudit.com",
+                        toAddress: window.toMail,
                         cc: cc,
                         bcc: bcc,
-                        teamManagerId: teamManagerId,
                         subject: subject,
                         body: emailBody
                     };
@@ -2266,8 +2444,6 @@
                                 text: "The follow-up mail was sent successfully."
                             });
                             $('#composeMail').modal('hide');
-
-                            // updateFollowUpFields(recordId);
                         },
                         error: function (err) {
                             console.error("Error sending email:", err);
@@ -2281,29 +2457,6 @@
                 }
             });
         }
-
-        // function updateFollowUpFields(recordId) {
-        //     const today = new Date().toISOString().split('T')[0];
-        //     const payload = {
-        //         followUpBy: managerName || "System",
-        //         followUpDate: today,
-        //         followUpResponse: "follow-up sent"
-        //     };
-
-        //     $.ajax({
-        //         url: `https://eduroom.in/api/v1/resumedetails/update/` + recordId,
-        //         method: "PUT",
-        //         contentType: "application/json",
-        //         data: JSON.stringify(payload),
-        //         success: function (res) {
-        //             console.log("Updated follow-up fields");
-        //             loadTableData();
-        //         },
-        //         error: function (err) {
-        //             console.error("Failed to update follow-up fields", err);
-        //         }
-        //     });
-        // }
 
         function copyEmailBody() {
             const emailBody = getFullEmailBody();
@@ -2610,9 +2763,6 @@
                     if ($(this).is("select")) {
                         let displayText = capitalize(value);
                         let bgColor = "";
-                        // if (colorMap[field] && value) {
-                        //     bgColor = colorMap[field][value.toLowerCase()] || "";
-                        // }
                         td.css("background-color", bgColor);
                         td.find("span").css("color", "black").css("font-weight", "bold").text(displayText);
                     } else {
@@ -2715,8 +2865,6 @@
                 </button>
                 </td>
                 <td>${row.sno}</td>
-
-                <!-- keep all these NON-editable / dropdown as before -->
                 <td>${row.collegeName || ""}</td>
                 <td>${row.coordinatorName || ""}</td>
                 <td>${row.mobileNumber || ""}</td>

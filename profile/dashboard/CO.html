@@ -317,6 +317,14 @@
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/mailer.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-mail"></i></span>
+                            <span class="nxl-mtext">MAILER</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-log-out"></i></span>
                             <span class="nxl-mtext">Logout</span>
@@ -1383,6 +1391,7 @@
                                             <th>Call Response</th>
                                             <th>Type of INT</th>
                                             <th>Detailed Response</th>
+                                            <th>Send JD</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -1619,16 +1628,56 @@
                     <div class="px-3 py-2 border-bottom">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <label class="fw-semibold text-dark mb-0">Attachments:</label>
-                            <button type="button" id="addAttachmentBtn" class="btn btn-sm btn-outline-primary">
-                                <i class="feather-paperclip me-1"></i> Add Attachment
-                            </button>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <!-- Button -->
+                                <button type="button" id="addAttachmentBtn" class="btn btn-sm btn-outline-primary"
+                                    style="font-size: 12px; border-radius: 6px; white-space: nowrap;"> <i
+                                        class="feather-paperclip me-1"></i> Add Attachment </button>
+
+                                <!-- Dropdown -->
+                                <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
+                                    <option value="default" style="text-align: center;">Default</option>
+                                    <option value="promotional" style="text-align: center;">Promotional</option>
+                                    <option value="followup" style="text-align: center;">Follow-Up</option>
+                                    <option value="connect" style="text-align: center;">Connect</option>
+                                    <option value="marketing" style="text-align: center;">Marketing</option>
+                                </select>
+
+                            </div>
                         </div>
-                        <div id="attachmentContainer" class="mt-2">
-                            <!-- Attachments will be displayed here -->
-                        </div>
+
+                        <div id="attachmentContainer" class="mt-2"></div>
+
                         <input type="file" id="fileInput" multiple style="display: none;"
                             accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                     </div>
+
+                    <style>
+                        .custom-btn {
+                            height: 38px;
+                            font-size: 13px;
+                            border-radius: 6px;
+                            padding: 0 12px;
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .custom-select {
+                            height: 38px;
+                            font-size: 13px;
+                            border-radius: 6px;
+                            padding: 0 10px;
+                            width: 150px;
+                        }
+
+                        /* Fix vertical alignment issue */
+                        .custom-select,
+                        .custom-btn {
+                            line-height: 1.2;
+                        }
+                    </style>
 
                     <!-- Email Body Container -->
                     <div class="email-body-container p-3">
@@ -2316,48 +2365,200 @@
         let attachments = [];
         const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
 
-        const emailTemplate = {
-            fixedTop: (record) => `
-                <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
-                <p>Warm greetings from FundsAudit!</p>
-                <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
-                <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+        let activeTemplateKey = "default";
 
-            editableMiddle: `
-                <p><b>Collaboration Proposal:</b></p>
-                <ul>
-                    <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
-                    <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
-                    <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-Bi & Financial/Marketing Modelling certificate; recognition for top performers</li>
-                    <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
-                </ul>
-                <p>Next Steps: JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
-                <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
-                <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
-                <b>Eligibility:</b> Management Students</p>
-                <p>Following the live project, students may also be considered for:</p>
-                <ul>
-                    <li>Summer/Winter Internships</li>
-                    <li>Pre-placement offers (PPOs)</li>
-                    <li>Final placement opportunities</li>
-                </ul>
-                <p>Perks of the collaboration:</p>
-                <ul>
-                    <li>Exposure to real-time fintech operations</li>
-                    <li>Skill development aligned with industry expectations</li>
-                    <li>Improved employability and practical insight alongside academics</li>
-                    <li>Final placement opportunities</li>
-                </ul>`,
+        const emailTemplates = {
 
-            fixedBottom: `
-                <p>Looking forward to a meaningful and mutually beneficial association.</p>
-                <p>Pooja M. Shedge<br/>
-                Branch Manager - Pune<br/>
-                +91 7385234536 | +91 9322509539<br/>
-                Pune, Maharashtra<br/>
-                <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
-                <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+            // original template
+            default: {
+                label: "Default",
+                subject: (record) => `Internship Collaboration Opportunity – FundsAudit × ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from FundsAudit!</p>
+                    <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
+                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+                    editableMiddle: `
+                    <p><b>Collaboration Proposal:</b></p>
+                    <ul>
+                        <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                        <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                        <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-Bi & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                        <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                    </ul>
+                    <p>Next Steps: JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+                    <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
+                    <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                    <b>Eligibility:</b> Management Students</p>
+                    <p>Following the live project, students may also be considered for:</p>
+                    <ul>
+                        <li>Summer/Winter Internships</li>
+                        <li>Pre-placement offers (PPOs)</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+                    <p>Perks of the collaboration:</p>
+                    <ul>
+                        <li>Exposure to real-time fintech operations</li>
+                        <li>Skill development aligned with industry expectations</li>
+                        <li>Improved employability and practical insight alongside academics</li>
+                        <li>Final placement opportunities</li>
+                    </ul>`,
+                    fixedBottom: `
+                    <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                    <p>Pooja M. Shedge<br/>
+                    Branch Manager - Pune<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
                 </p>`
+            },
+
+            // PROMOTIONAL
+            promotional: {
+                label: "Promotional",
+                subject: (record) => `Exclusive Student Internship Program | FundsAudit x ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from <b>FundsAudit</b> – India's fastest-growing ISO-certified Fintech Startup!</p>
+                    <p>We are thrilled to present an <b>exclusive, limited-seat Student Development Program (SDP)</b> for the talented students of <span class="email-template-variable">${record.collegeName || "your esteemed institute"}</span>. This is a golden opportunity for your ${record.course || "MBA/PGDM"} students to gain real-world fintech experience while still in college.</p>`,
+                    editableMiddle: `
+                    <p><b>Why This Program Stands Out:</b></p>
+                    <ul>
+                        <li><b>Earn While You Learn:</b> Performance-based stipend of INR 1,000 – INR 7,000 per month</li>
+                        <li><b>Industry-Recognized Certifications:</b> POWER-BI + Financial/Marketing Modelling certificate included</li>
+                        <li><b>Flexible Schedule:</b> Only 2 hours/day — fits seamlessly with college timetable</li>
+                        <li><b>Top Performer Recognition:</b> Special awards and fast-track placement consideration</li>
+                        <li><b>Career Pathway:</b> Interns considered for SIP, PPO, and Final Placements</li>
+                    </ul>
+                    <p><b>Limited Seats Available — First Come, First Served!</b></p>
+                    <p>We are partnering with select premier institutions this season. Your college has been shortlisted based on its academic reputation and student caliber. We would love to onboard your Finance & Marketing students into this transformative program.</p>
+                    <p><b>Roles Available:</b> Marketing Analyst | Financial Analyst<br/>
+                    <b>Eligibility:</b> MBA/PGDM 1st & 2nd Year Students</p>
+                    <p>Please find the detailed Job Description attached for your reference.</p>
+                    <p>Kindly confirm your interest at the earliest so we can reserve seats for your students before the deadline.</p>`,
+                    fixedBottom: `
+                    <p>Don't miss this opportunity to give your students a competitive edge!</p>
+                    <p>Warm regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+
+            // FOLLOW-UP
+            followup: {
+                label: "Follow-Up",
+                subject: (record) => `Follow-Up: Internship Collaboration Proposal – FundsAudit x ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Hope this email finds you well!</p>
+                    <p>I am writing to follow up on the internship collaboration proposal we shared earlier regarding <span class="email-template-variable">${record.collegeName || "your institute"}</span>. We reached out previously with details about our <b>Student Development Program (SDP)</b> at FundsAudit and wanted to check if you had a chance to review the information.</p>`,
+                    editableMiddle: `
+                    <p>As a quick recap, here's what we proposed:</p>
+                    <ul>
+                        <li><b>Program:</b> Live Fintech Project-based Internship (SDP)</li>
+                        <li><b>Duration:</b> Flexible — 2 hours/day alongside regular college schedule</li>
+                        <li><b>Stipend:</b> INR 1,000 – INR 7,000 based on performance</li>
+                        <li><b>Certifications:</b> POWER-BI + Financial/Marketing Modelling</li>
+                        <li><b>Career Benefits:</b> SIP, PPO, and Final Placement consideration</li>
+                    </ul>
+                    <p>We truly believe this program will add significant value to your students and strengthen the industry-academia connect for your institution.</p>
+                    <p>We understand you may be busy, but we would appreciate just a brief response to understand your interest level. We are happy to schedule a call at your convenience to address any queries or customize the program to suit your institute's needs.</p>
+                    <p>The Job Description is re-attached for your easy reference.</p>
+                    <p>Could you kindly share your feedback or preferred time to connect?</p>`,
+                    fixedBottom: `
+                    <p>Looking forward to hearing from you soon.</p>
+                    <p>Best regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+
+            // CONNECT
+            connect: {
+                label: "Connect",
+                subject: (record) => `Let's Connect – FundsAudit x ${record.collegeName || "Your Institute"} | Student Internship Initiative`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from FundsAudit!</p>
+                    <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsAudit, Pune. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
+                    editableMiddle: `
+                    <p>At FundsAudit, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
+                    <p>We would love to explore how we can work together to benefit your students through our <b>Student Development Program (SDP)</b>:</p>
+                    <ul>
+                        <li>Real-time live fintech projects — not simulations</li>
+                        <li>Mentorship from industry professionals</li>
+                        <li>Performance-linked stipend: INR 1,000 – INR 7,000</li>
+                        <li>POWER-BI & domain-specific certifications</li>
+                        <li>Pathway to SIP, PPO, and Final Placement</li>
+                    </ul>
+                    <p>I would love to schedule a brief introductory call or meeting at a time convenient to you — even 15–20 minutes would be a great start to explore the potential of this collaboration.</p>
+                    <p>I have attached our internship JD for your initial review.</p>
+                    <p>Please feel free to reach me directly at <b>+91 7385234536</b> or reply to this email to set up a time.</p>`,
+                    fixedBottom: `
+                    <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
+                    <p>Warm regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`,
+            },
+
+            // MARKETING
+            marketing: {
+                label: "Marketing",
+                subject: (record) => `Boost Your Students' Employability | FundsAudit SDP for ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from <b>FundsAudit</b>!</p>
+                    <p>In today's competitive job market, academic knowledge alone is no longer enough. Students of <span class="email-template-variable">${record.collegeName || "your institution"}</span> deserve an edge — and that's exactly what FundsAudit's <b>Student Development Program (SDP)</b> delivers.</p>`,
+                    editableMiddle: `
+                    <p><b>What Makes FundsAudit Different?</b></p>
+                    <ul>
+                        <li><b>ISO-Certified</b> Fintech Startup | Startup India Registered</li>
+                        <li><b>4,00,000+ Active Customers</b> | AMFI, SEBI, BSE & NSE Member</li>
+                        <li><b>Real Live Projects</b> — not classroom assignments</li>
+                        <li><b>Stipend-Based:</b> INR 1,000 – INR 7,000 per month (performance-linked)</li>
+                        <li><b>Dual Certifications:</b> POWER-BI + Financial/Marketing Modelling</li>
+                        <li><b>Post-Program Opportunities:</b> SIP → PPO → Final Placement</li>
+                    </ul>
+                    <p><b>The Impact We Create:</b></p>
+                    <ul>
+                        <li>Students develop real analytical, financial, and marketing skills</li>
+                        <li>Resume-worthy fintech experience that recruiters value</li>
+                        <li>Institutions strengthen their placement records and industry ties</li>
+                        <li>MoU-based formal collaboration — adding institutional credibility</li>
+                    </ul>
+                    <p>We are currently onboarding partner institutes for the upcoming batch. Your institute fits our ideal partner profile and we are keen to collaborate.</p>
+                    <p>Detailed JD is attached. We would appreciate a quick confirmation of interest so we can proceed with formalizing the MoU.</p>`,
+                    fixedBottom: `
+                    <p>Let's build future-ready finance and marketing professionals — together.</p>
+                    <p>Best regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            }
+        };
+
+        const emailTemplate = {
+            fixedTop: (record) => emailTemplates.default.fixedTop(record),
+            editableMiddle: emailTemplates.default.editableMiddle,
+            fixedBottom: emailTemplates.default.fixedBottom
         };
 
         function loadCities() {
@@ -2438,6 +2639,10 @@
                 attachments = [];
                 $('#attachmentContainer').empty();
 
+                // Reset template to default on every modal open
+                activeTemplateKey = "default";
+                $('#emailTemplateSelect').val("default");
+
                 const button = $(e.relatedTarget);
                 const recordId = button.data('id');
                 const record = tableData.find(row => row.id == recordId);
@@ -2458,6 +2663,14 @@
                             selection.addRange(range);
                         }
                     }, 100);
+                }
+            });
+
+            // NEW: template switcher
+            $('#emailTemplateSelect').off('change').on('change', function () {
+                activeTemplateKey = $(this).val();
+                if (currentRecord) {
+                    loadEmailModal(currentRecord);
                 }
             });
 
@@ -2590,11 +2803,16 @@
         }
 
         function loadEmailModal(record) {
+            const tpl = emailTemplates[activeTemplateKey];
             $('#currentRecordId').val(record.id);
             $('#email-input').val(record.emailId || '');
-            $('#email-fixed-top').html(emailTemplate.fixedTop(record));
-            $('#mailEditorModal').html(emailTemplate.editableMiddle);
-            $('#email-fixed-bottom').html(emailTemplate.fixedBottom);
+            // NEW: set subject from active template
+            if ($('#subject-input').length) {
+                $('#subject-input').val(tpl.subject(record));
+            }
+            $('#email-fixed-top').html(tpl.fixedTop(record));
+            $('#mailEditorModal').html(tpl.editableMiddle);
+            $('#email-fixed-bottom').html(tpl.fixedBottom);
             updateEmailPreview();
         }
 
@@ -2602,12 +2820,13 @@
             const record = currentRecord;
             if (!record) return;
 
+            const tpl = emailTemplates[activeTemplateKey];
             const editableContent = $('#mailEditorModal').html();
 
             const fullEmailBody = `
-            ${emailTemplate.fixedTop(record)}
+            ${tpl.fixedTop(record)}
             ${editableContent}
-            ${emailTemplate.fixedBottom}
+            ${tpl.fixedBottom}
         `;
 
             $('#emailPreview').html(fullEmailBody);
@@ -2619,7 +2838,7 @@
 
             const editableContent = $('#mailEditorModal').html();
 
-            const fixedTopHtml = emailTemplate.fixedTop(record)
+            const fixedTopHtml = emailTemplates[activeTemplateKey].fixedTop(record)
                 .replace(/<span class="email-template-variable">/g, '')
                 .replace(/<\/span>/g, '');
 
@@ -2696,9 +2915,11 @@
                     });
 
                     const payload = {
+                        userId: 2577,
+                        fromAddress: "connect@fundsaudit.com",
                         cc: cc,
                         bcc: bcc,
-                        teamManagerId: teamManagerId2,
+                        // teamManagerId: teamManagerId2,
                         subject: subject,
                         body: emailBody,
                         attachment: attachmentPayload
@@ -3169,7 +3390,7 @@
                     ${makeDropdownCell("collegeTier", row.collegeTier)}
                     ${makeDropdownCell("collegeLevel", row.collegeLevel)}
                     ${makeCell("comment", row.comment)}
-                    ${makeDropdownCell("corporateRelations", row.corporateRelations)}
+                    ${makeCell("corporateRelations", row.corporateRelations)}
                     ${makeDropdownCell("course", row.course)}
                     ${makeDropdownCell("connectedBy", row.connectedBy)}
                     ${makeDateCell("dateOfConnect", row.dateOfConnect)}
@@ -4114,6 +4335,12 @@
                 <td>${capitalize(item.callResponse)}</td>
                 <td>${capitalize(item.internshipType)}</td>
                 <td>${item.detailedResponse || ""}</td>
+                <td>
+                <button class="btn btn-sm btn-success" data-id="${item.id}" data-bs-toggle="modal" 
+                        data-bs-target="#composeMail" title="Send JD">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </td>
             </tr>`;
             });
 
