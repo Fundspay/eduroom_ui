@@ -1,0 +1,1408 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Eduroom || HomePage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" href="assets/images/logo/shape-1.png" type="image/x-icon">
+
+    <!-- All css here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/aos.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.css">
+    <link rel="stylesheet" href="assets/css/all-animations.css">
+    <link rel="stylesheet" href="assets/css/default.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body>
+    <style>
+        #domainCourseWrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            max-height: 420px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        #domainCourseWrapper li {
+            list-style: none;
+            padding: 0;
+        }
+
+        #domainCourseWrapper li span {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        #domainCourseWrapper li a {
+            display: block;
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 6px;
+            text-decoration: none;
+        }
+
+        #domainCourseWrapper li a:hover {
+            color: #00a991;
+        }
+    </style>
+
+    <!--  ====== preloader=============================================  -->
+    <div id="preloader">
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_one"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_three"></div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /preloader -->
+
+    <!--  ====== header-area-start=======================================  -->
+    <header>
+        <div id="header-sticky" class="transparent-header header-area home2 home4 white-color-header">
+            <div class="header">
+                <div class="container-wrapper">
+                    <div class="row align-items-center justify-content-between position-relative">
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-5 col-6">
+                            <div class="logo">
+                                <a href="https://eduroom.in/index.html" class="d-block"><img src="assets/images/logo/logo4.png" alt="Larna"></a>
+                            </div>
+                        </div><!-- /col -->
+                        <div class="col-xl-6 col-lg-7 col-md-1 col-sm-1 col-1 pl-lg-4 d-none d-lg-flex position-static">
+                            <div class="main-menu">
+                                <nav id="mobile-menu">
+                                    <ul class="d-block">
+                                        <li><a class="active" href="https://eduroom.in/index.html" style="font-size: 14px;">Home</a></li>
+
+                                        <li><a href="https://eduroom.in/about.html" style="font-size: 14px;">About</a>
+                                        </li><!-- /About -->
+                                        <li><a href="https://eduroom.in/careers.html" style="font-size: 14px;">Careers</a>
+                                        </li>
+
+                                        <li class="full-mega-menu-position">
+                                            <a href="https://eduroom.in/domain-list.html" style="font-size: 14px;">Live Projects</a>
+                                            <ul class="mega-menu full-mega-menu full-mega-menu1 d-lg-flex white-bg pt-35 pb-25 pl-30 pr-70 ml-0"
+                                                id="domainCourseWrapper">
+                                                <!-- Domains & Courses will be populated here dynamically -->
+                                            </ul>
+                                        </li><!-- /Course -->
+                                        <li><a href="https://eduroom.in/profile.html" style="font-size: 14px;">Profile</a>
+                                        <li><a href="https://eduroom.in/faq.html" style="font-size: 14px;">FundsAudit</a>
+                                        <li><a href="https://eduroom.in/contact.html" style="font-size: 14px;">Contact</a>
+                                        </li><!-- /Contact -->
+                                    </ul>
+                                </nav>
+                            </div><!-- /main-menu -->
+                        </div>
+                        <!-- <div class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                            <div class="header-right d-flex align-items-center justify-content-end">
+                                <ul class="header-login mr-15 d-none d-sm-block">
+                                    <li>
+                                        <a class="d-inline-block main-color" href="login.html" data-toggle="tooltip"
+                                            data-selector="true" data-placement="bottom" title="Login / Register">
+                                            Login</a>
+                                    </li>
+                                </ul>
+
+                                <div class="my-btn d-none d-sm-block">
+                                    <a href="register.html" class="btn white-bg">sign up</a>
+                                </div>
+
+                                <div class="d-block d-sm-none pl-20">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
+                                            class="far fa-bars"></i></a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div id="header-auth-section" class="col-xl-2 col-lg-3 col-md-6 col-sm-4 col-4 pl-lg-0">
+                            <div class="header-right d-flex align-items-center justify-content-end">
+                                <!-- Dynamic login/register or logout will be injected here -->
+                                <div id="auth-buttons" class="d-flex align-items-center"></div>
+
+                                <div class="d-block d-sm-none pl-20">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);">
+                                        <i class="far fa-bars"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="col-xl-2  col-lg-2  col-md-3  col-sm-1 col-12 d-none d-sm-block d-lg-none d-xl-block">
+                            <div
+                                class="header-right-right-content text-right d-flex align-items-center justify-content-end">
+                                <!-- <div class="mobile-menu"></div> -->
+                                <ul class="social-link d-none d-md-block">
+                                    <li class="d-inline-block">
+                                        <a class="facebook-color text-center pr-15 d-inline-block transition-3"
+                                            href="https://www.facebook.com/fundsroom/"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="twitter-color text-center pr-15 d-inline-block transition-3"
+                                            href="https://x.com/fundsroom"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="youtube-color text-center pr-15 d-inline-block transition-3"
+                                            href="https://www.youtube.com/@FundsAuditSafe"><i
+                                                class="fab fa-youtube"></i></a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="instagram-color text-center d-inline-block transition-3"
+                                            href="https://www.instagram.com/funds_audit/"><i
+                                                class="fab fa-instagram"></i></a>
+                                    </li>
+                                </ul><!-- social-link -->
+                                <div class="d-block d-lg-none pl-3">
+                                    <a class="mobile-menubar theme-color" href="javascript:void(0);"><i
+                                            class="far fa-bars"></i></a>
+                                </div><!-- /mobile-menubar -->
+                            </div><!-- /header-right-left-content -->
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div>
+        </div><!-- /header-bottom -->
+    </header>
+    <!--  header-area-end  -->
+
+    <!--  ====== header extra info start================================== -->
+    <!-- side-mobile-menu start -->
+    <div class="side-mobile-menu white-bg pt-10 pb-30 pl-35 pr-30 pb-100">
+        <div class="d-fle justify-content-between w-100">
+            <div class="close-icon d-inline-block float-right clear-both mt-15 mb-10">
+                <a href="javascript:void(0);"><span class="icon-clear theme-color"><i
+                            class="fa fa-times"></i></span></a>
+            </div>
+        </div>
+        <!-- <div class="side-menu-search header-search-content mt-80 pr-15">
+            <form action="#" class="position-relative">
+                <input class="w-100 rounded-0 pb-2" type="text" placeholder="Type Keyword...">
+                <a class="position-absolute right-0 top-0 dark-black-color d-block" href="#"><i
+                        class="fas fa-search"></i></a>
+            </form>
+        </div> -->
+
+        <div class="mobile-menu mt-50 w-100"></div>
+        <ul class="social-link pt-85 clear-both">
+            <li class="d-inline-block">
+                <a class="facebook-color text-center pr-15 d-inline-block transition-3"
+                    href="https://www.facebook.com/fundsroom/"><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li class="d-inline-block">
+                <a class="twitter-color text-center pr-15 d-inline-block transition-3" href="https://x.com/fundsroom"><i
+                        class="fab fa-twitter"></i></a>
+            </li>
+            <li class="d-inline-block">
+                <a class="youtube-color text-center pr-15 d-inline-block transition-3"
+                    href="https://www.youtube.com/@FundsAuditSafe"><i class="fab fa-youtube"></i></a>
+            </li>
+            <li class="d-inline-block">
+                <a class="instagram-color text-center d-inline-block transition-3"
+                    href="https://www.instagram.com/funds_audit/"><i class="fab fa-instagram"></i></a>
+            </li>
+        </ul><!-- social-link -->
+
+        <!-- mobile phone area -->
+
+        <!-- mobile subscribe area -->
+        <!-- <div class="mobile-subscribe pb-55">
+            <h6 class="mb-1">Subscribe to Our Newsletter</h6>
+            <form action="#">
+                <div class="subscribe-info mt-15 position-relative">
+                    <input class="sub-name w-100 primary-border2 pl-20 pt-15 pb-15 pr-10 secondary-color rounded-0"
+                        type="email" name="email" id="m-email" placeholder="Submit email">
+                    <span class="secondary-color d-inline-block position-absolute pointer"><i
+                            class="far fa-envelope"></i></span>
+                </div>
+            </form>
+        </div> -->
+
+    </div><!-- /side-mobile-menu -->
+    <div class="body-overlay"></div>
+
+    <!-- header extra info end  -->
+
+
+    <main>
+        <!-- ======slider-area-start=========================================== -->
+        <div class="slider-area home2 home4 over-hidden">
+            <div class="single-slider slider-height4 d-flex align-items-center position-relative">
+                <div class="home2-slider-bg position-absolute right-0 bg-no-repeat bg-cover z-index-1 d-none"
+                    data-background="assets/images/hero/home2-hero-img.jpg"></div><!-- home4 slider bg -->
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-xl-5  col-lg-5  col-md-5  col-sm-12 col-12 d-flex align-items-center pr-lg-0">
+                            <div class="slider-content slider-content">
+
+                                <span class="theme-color text-uppercase f-500 d-block mb-6" data-aos="fade-right"
+                                    data-aos-duration="2000" data-aos-delay="150">Grow with EDUROOM</span>
+                                <h1 class="mb-30 text-capitalize" data-aos="fade-right" data-aos-duration="2000"
+                                    data-aos-delay="150">YOUR <span class="f-700">LEARNING, </span><span
+                                        class="f-700">OUR MISSION</span></h1>
+
+                                <p data-aos="fade-right" data-aos-duration="2000">
+                                    Eduroom offers expert-led video live projects combined with real projects.
+                                    Learn, achieve your targets, and earn a certificate to boost your career.
+                                </p>
+
+                                <div
+                                    class="home4-hero-bottom d-flex align-items-center justify-content-center justify-content-md-start pt-18">
+                                    <div class="home4-btn1 transition5 mr-30">
+                                        <a href="https://eduroom.in/register.html"
+                                            class="btn text-uppercase f-500 text-white transition5">Join Now</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /col -->
+
+                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
+                            <div class="home4-slider-img mt-140">
+                                <video src="assets/images/hero/eduroom home page video.mp4" autoplay muted loop playsinline
+                                    width="100%" height="auto" style="max-width: 100%; border-radius: 8px;">
+                                </video>
+                            </div>
+                        </div>
+                        <!-- /col -->
+
+                    </div><!-- /row -->
+                </div><!-- /container -->
+
+                <div class="hm4-slider-bg-circle-shape position-absolute rounded-circle d-none d-md-inline-block"></div>
+                <div
+                    class="hm4-slider-bg-circle-shape2 position-absolute rounded-circle bounce-animate2 d-none d-lg-inline-block">
+                </div>
+
+                <div class="hm4-slider-dotted position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-dotted.png" alt="">
+                </div><!-- /dotted -->
+
+                <div class="hm4-slider-shape1 position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-shape1.png" alt="">
+                </div><!-- /hm2-slider-shape -->
+                <div class="hm4-slider-shape2 position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-shape2.png" alt="">
+                </div><!-- /hm2-slider-shape -->
+                <div class="hm4-slider-shape3 position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-shape3.png" alt="">
+                </div><!-- /hm2-slider-shape -->
+                <div class="hm4-slider-shape4 position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-shape4.png" alt="">
+                </div><!-- /hm2-slider-shape -->
+                <div class="hm4-slider-shape5 position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-shape5.png" alt="">
+                </div><!-- /hm2-slider-shape -->
+                <div class="hm4-slider-shape6 position-absolute z-index-1 d-none d-lg-inline-block">
+                    <img src="assets/images/shape/hm4-slider-shape6.png" alt="">
+                </div><!-- /hm2-slider-shape -->
+
+
+            </div>
+        </div>
+        <!-- slider-area-end  -->
+
+
+
+
+        <!-- ====== intro-area-start=============================================== -->
+        <div class="intro-area home4 mt-145 mb-100 over-hidden">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-7 col-md-10 col-sm-12 col-12">
+                        <div class="title text-center">
+                            <span class="sub-title theme-color f-500 text-uppercase d-block mb-15">Welcome to
+                                Eduroom</span>
+                            <h2 class="mb-30">
+                                <span class="f-700">Practical</span> Learning for <span class="f-700">Students</span> to
+                                Earn
+                                <span class="f-700">Live Projects</span> & <span class="f-700">Certificates</span>
+                            </h2>
+                            <p class="pb-30">
+                                Eduroom is a platform built for students to learn by completing real-world tasks.
+                                Instead of just watching videos, you apply knowledge, build projects,
+                                and earn certificates that unlock exciting Live project opportunities.
+                            </p>
+                        </div><!-- /title -->
+                    </div><!-- /col -->
+                </div><!-- /row -->
+
+                <div class="row single-intro-service-wrapper pt-65 pb-35 justify-content-center">
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                        <div class="single-intro-content text-center white-bg transition5 mb-30 tilt">
+                            <div class="intro-ser-icon d-inline-block text-center mb-40  transition5">
+                                <img src="assets/images/icon/hm4-intro-icon1.png" alt="Learn with Tasks">
+                            </div><!-- /intro ser-icon -->
+                            <div class="intro-service-text">
+                                <h6 class="mb-22">Learn by Doing</h6>
+                                <p>
+                                    Gain hands-on skills by working on tasks and projects designed to
+                                    simulate real-world challenges faced in industries.
+                                </p>
+                                <!-- <a href="#courses" class="pt-20 d-block text-uppercase primary-color f-500">Explore
+                                    More</a> -->
+                            </div>
+                        </div><!-- /single-service-content -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                        <div class="single-intro-content text-center white-bg transition5 mb-30 tilt">
+                            <div class="intro-ser-icon d-inline-block text-center mb-40  transition5">
+                                <img src="assets/images/icon/hm4-intro-icon2.png" alt="Quality Learning">
+                            </div><!-- /intro ser-icon -->
+                            <div class="intro-service-text">
+                                <h6 class="mb-22">Quality Learning Experience</h6>
+                                <p>
+                                    Our structured tasks and expert guidance ensure that
+                                    students get practical knowledge beyond traditional classrooms.
+                                </p>
+                                <!-- <a href="#about" class="pt-20 d-block text-uppercase primary-color f-500">Learn More</a> -->
+                            </div>
+                        </div><!-- /single-service-content -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                        <div class="single-intro-content text-center white-bg transition5 mb-30 tilt">
+                            <div class="intro-ser-icon d-inline-block text-center mb-40  transition5">
+                                <img src="assets/images/icon/hm4-intro-icon3.png" alt="Certificates & Internships">
+                            </div><!-- /intro ser-icon -->
+                            <div class="intro-service-text">
+                                <h6 class="mb-22">Get Live Projects</h6>
+                                <p>
+                                    Complete your tasks, earn certificates, and open doors to live projects
+                                    that enhance your career prospects.
+                                </p>
+                                <!-- <a href="#internships" class="pt-20 d-block text-uppercase primary-color f-500">Get
+                                    Started</a> -->
+                            </div>
+                        </div><!-- /single-service-content -->
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </div>
+        <!-- intro-area-end  -->
+
+        <!-- ====== course-category-area-start
+            ==================================================== -->
+        <div class="home4-category-bg bg-no-repeat" data-background="assets/images/bg/home4-course-bg.png">
+            <div class="home4-course-category-area home4-course-category-padding over-hidden">
+                <div class="course-category-wrapper position-relative">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-6 col-lg-8  col-md-10  col-sm-12 col-12">
+                                <div class="title mb-6 text-center">
+                                    <h2 class="mb-30">Choose Your <span class="f-700">Learning Path</span> By <span
+                                            class="f-700">Category</span></h2>
+                                    <p class="mb-0">At Eduroom, explore categories that give you real-world skills,
+                                        practical tasks,
+                                        and certifications to launch your career.</p>
+                                </div><!-- /title -->
+                            </div><!-- /col -->
+                        </div><!-- /row -->
+
+                        <div class="row course-category mt-105 grid">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1000">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg1 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/mba.jpg" alt="course-image01">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">MBA</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1200">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg2 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/marketing.jpg" alt="course-image02">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">Marketing</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1500">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg3 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/BD.JPG" alt="course-image03">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">Business
+                                                developemnt</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1000">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg4 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/portfolio management.jpg"
+                                            alt="course-image04">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">Portfolio
+                                                Management</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1200">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg5 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/finance.jpg" alt="course-image05">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase"
+                                                href="https://eduroom.in/domain-list.html">Finance[MBA]</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1500">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg6 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/digital marketing.jpg"
+                                            alt="course-image06">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">Digital
+                                                Marketing</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1500">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg8 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/business managment.jpg"
+                                            alt="course-image08">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">Business &
+                                                Management</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 grid-item aos-init aos-animate"
+                                data-aos="fade-up" data-aos-duration="1500">
+                                <div
+                                    class="hm4-single-course-category hm4-s-course-cat-bg7 position-relative over-hidden mb-30">
+                                    <div class="single-img">
+                                        <img class="w-100" src="assets/images/course/engineering.jpg" alt="course-image07">
+                                    </div>
+                                    <div
+                                        class="hm4-course-category-content position-absolute left-0 bottom-0 pb-20 pt-10 pl-30 pr-30 z-index1 transition5">
+                                        <h3>
+                                            <a class="text-white text-uppercase" href="https://eduroom.in/domain-list.html">Engineering</a>
+                                        </h3>
+                                        <span class="text-white mb-2 d-block text-uppercase">Live Projects</span>
+                                    </div>
+                                </div><!-- /single-course-category -->
+                            </div><!-- /col -->
+
+                        </div><!-- /row -->
+
+                    </div><!-- /container -->
+                </div><!-- /course-category-wrapper -->
+            </div>
+            <!-- course-category-area-end -->
+
+        </div><!-- /home4-intro-and-category-bg -->
+        <!-- popular-course-area-end -->
+
+
+        <!-- ====== about-area-start=========================================== -->
+        <div class="about-area home4 position-relative over-hidden pb-0">
+            <div class="about-bg position-absolute h-100 w-100 bg-no-repeat bg-cover"
+                data-background="assets/images/bg/home4-about-bg.png"></div>
+            <div class="container">
+                <div class="row home4-about-wrapper pt-95 pb-165 align-items-end justify-content-center">
+
+                    <div class="col-xl-5 col-lg-6  col-md-11  col-sm-12 col-12" data-aos="fade-right"
+                        data-aos-duration="2000" data-aos-delay="150">
+                        <div class="home4-about-img-wrapper position-relative pr-70">
+                            <div class="home4-about-img-bg position-absolute z-index-1">
+                                <img class="border-0" src="assets/images/about/home4-about-dots.png" alt="">
+                            </div>
+                            <div class="hm4-about-img1 tilt position-absolute z-index-1">
+                                <img src="assets/images/about/online1.jpg" class="mr-3" alt="">
+                            </div>
+                            <div class="hm4-about-img2 tilt text-right position-relative">
+                                <img src="assets/images/about/online2.jpg" alt="">
+                            </div>
+                        </div>
+                    </div><!-- /col -->
+
+                    <div class="col-xl-6 offset-xl-1 col-lg-6 col-md-12 col-sm-12 col-12" data-aos="fade-left"
+                        data-aos-duration="2000" data-aos-delay="150">
+                        <div class="about-content home4-about-content pt-80 pb-90 title2 pl-0 pr-xl-5">
+                            <span class="text-uppercase theme-color f-500 mb-2 d-block">Empower Your Future</span>
+                            <h2 class="mb-30">Learn. Practice. Get Certified with EduRoom</h2>
+                            <p class="pb-10">
+                                At <strong>EduRoom</strong>, we go beyond traditional learning. Our platform offers
+                                students the chance to not just study, but also apply knowledge through
+                                <strong>real-world tasks and projects</strong>. Complete these tasks to unlock
+                                skill-based certifications that matter in the industry.
+                            </p>
+                            <p>
+                                Whether you're preparing for your first live project or looking to grow in your career,
+                                EduRoom bridges the gap between <strong>learning and doing</strong>. With every
+                                completed
+                                challenge, you move closer to becoming job-ready.
+                            </p>
+                            <div class="home4-btn1 transition5 mt-55">
+                                <a href="https://eduroom.in/register.html" class="btn text-white text-uppercase f-500 transition5">Sign
+                                    Up</a>
+                            </div><!-- /btn -->
+                        </div><!-- /about-content -->
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+
+            <div class="hm4-about-shape1 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape1.png" alt="">
+            </div><!-- /hm4-about-shape -->
+            <div class="hm4-about-shape2 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape2.png" alt="">
+            </div><!-- /hm4-about-shape -->
+            <div class="hm4-about-shape3 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape3.png" alt="">
+            </div><!-- /hm4-about-shape -->
+            <div class="hm4-about-shape4 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape4.png" alt="">
+            </div><!-- /hm4-about-shape -->
+            <div class="hm4-about-shape5 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape5.png" alt="">
+            </div><!-- /hm4-about-shape -->
+            <div class="hm4-about-shape6 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape6.png" alt="">
+            </div><!-- /hm4-about-shape -->
+            <div class="hm4-about-shape7 position-absolute d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-about-shape7.png" alt="">
+            </div><!-- /hm4-about-shape -->
+
+        </div>
+        <!-- about-area -end -->
+        <!-- ====== home4-feature-area-start=========================================== -->
+        <div class="home4-feature-area home4 home4-feature-margin-top position-relative over-hidden">
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-7 col-md-10 col-sm-12 col-12">
+                        <div class="title text-center">
+                            <span class="sub-title theme-color f-500 text-uppercase d-block mb-15">We are awesome</span>
+                            <h2 class="mb-30"><span class="f-700">World Class</span> Education for <span
+                                    class="f-700">Everyone</span></h2>
+                            <p class="pb-0 mb-0">
+                                EduRoom bridges the gap between learning and doing. Students gain practical experience,
+                                complete real tasks, and earn certifications to boost their careers.
+                            </p>
+                        </div><!-- /title -->
+                    </div><!-- /col -->
+                </div><!-- /row -->
+
+                <div
+                    class="row home4-feature1 mt-100 align-items-center justify-content-center flex-column-reverse flex-lg-row">
+
+                    <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12 col-12 pr-lg-0">
+                        <div class="home4-feature-content">
+                            <div class="hm4-feature-icon mb-40">
+                                <img class="rounded-circle" src="assets/images/icon/hm4-feature-icon1.jpg" alt="">
+                            </div>
+                            <h3 class="mb-25 mt--20">Award-Winning Live Projects Management</h3>
+                            <p>
+                                Manage your learning journey effortlessly with EduRoom. Track tasks, submit projects,
+                                and monitor progress, ensuring you always stay on top of your skill development.
+                            </p>
+                        </div><!-- /home4-feature-content -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-6 col-lg-6  col-md-9  col-sm-12 col-12 aos-init aos-animate" data-aos="fade-left"
+                        data-aos-duration="1000">
+                        <div class="home4-feature-img pl-90">
+                            <img src="assets/images/icon/internship.jpg" alt="feature-image1">
+                        </div><!-- /home4-feature-img -->
+                    </div><!-- /col -->
+                </div><!-- /row home4-feature1 -->
+
+                <div class="row home4-feature2 mt-100 align-items-center justify-content-center">
+                    <div class="col-xl-6 col-lg-6  col-md-9  col-sm-12 col-12 aos-init aos-animate"
+                        data-aos="fade-right" data-aos-duration="1000">
+                        <div class="home4-feature-img hm4-right-f-img mr-0 pr-90">
+                            <img src="assets/images/icon/edu.jpg" alt="feature-image2">
+                        </div><!-- /home4-feature-img -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12 col-12 pr-lg-0">
+                        <div class="home4-feature-content">
+                            <div class="hm4-feature-icon mb-40">
+                                <img class="rounded-circle" src="assets/images/icon/hm4-feature-icon2.jpg" alt="">
+                            </div>
+                            <h3 class="mb-25 mt--20">Learn Anything, Anywhere, Anytime</h3>
+                            <p>
+                                EduRoom offers flexible learning for engineering, MBA, and other verticals. Access
+                                tasks, projects, and resources online anytime to enhance your skills at your own pace.
+                            </p>
+                        </div><!-- /home4-feature-content -->
+                    </div><!-- /col -->
+                </div><!-- /row home4-feature1 -->
+
+                <div
+                    class="row home4-feature3 mt-100 align-items-center justify-content-center flex-column-reverse flex-lg-row">
+
+                    <div class="col-xl-6 col-lg-5 col-md-12 col-sm-12 col-12 pr-lg-0">
+                        <div class="home4-feature-content">
+                            <div class="hm4-feature-icon mb-40">
+                                <img class="rounded-circle" src="assets/images/icon/hm4-feature-icon3.jpg" alt="">
+                            </div>
+                            <h3 class="mb-25 mt--20">Certifications for Career Growth</h3>
+                            <p>
+                                Complete real-world tasks and earn verified certificates from EduRoom. Showcase your
+                                achievements and strengthen your career prospects with skill-based certifications.
+                            </p>
+                        </div><!-- /home4-feature-content -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-6 col-lg-6  col-md-9  col-sm-12 col-12 aos-init aos-animate" data-aos="fade-left"
+                        data-aos-duration="1000">
+                        <div class="home4-feature-img pl-90">
+                            <img src="assets/images/icon/certification.jpg" alt="feature-image3">
+                        </div><!-- /home4-feature-img -->
+                    </div><!-- /col -->
+                </div><!-- /row home4-feature1 -->
+            </div><!-- /container -->
+
+            <div class="hm4-feature-shape1 rounded-circle position- z-index-1 d-none d-lg-inline-block"></div>
+            <!-- /hm4-feature-shape -->
+            <div class="hm4-feature-shape2 position-absolute z-index-1 d-none d-lg-inline-block">
+                <img src="assets/images/shape/hm4-feature-shape1.png" alt="">
+            </div><!-- /hm4-feature-shape -->
+
+        </div>
+        <!-- home4-feature-area -end -->
+        <!-- ====== home4-facts-area-start=========================================== -->
+        <div class="home4-facts-area home4-facts-bg position-relative over-hidden bg-no-repeat mx-auto mt-140 mb-170"
+            data-background="assets/images/bg/home4-fact-bg.png">
+
+            <div class="community-area position-relative mt-90 mb-150">
+                <div class="position-absolute community-person1 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st12.png" alt="">
+                </div>
+                <div class="position-absolute community-person2 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st2.png" alt="">
+                </div>
+                <div class="position-absolute community-person3 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st3.png" alt="">
+                </div>
+                <div class="position-absolute community-person4 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st4.png" alt="">
+                </div>
+                <div class="position-absolute community-person5 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st5.png" alt="">
+                </div>
+                <div class="position-absolute community-person6 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st6.png" alt="">
+                </div>
+                <div class="position-absolute community-person7 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st7.png" alt="">
+                </div>
+                <div class="position-absolute community-person8 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st8.png" alt="">
+                </div>
+                <div class="position-absolute community-person9 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st9.png" alt="">
+                </div>
+                <div class="position-absolute community-person10 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st10.png" alt="">
+                </div>
+                <div class="position-absolute community-person11 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st11.png" alt="">
+                </div>
+                <div class="position-absolute community-person12 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st12.png" alt="">
+                </div>
+                <div class="position-absolute community-person14 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st4.png" alt="">
+                </div>
+                <div class="position-absolute community-person15 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st13.png" alt="">
+                </div>
+                <div class="position-absolute community-person16 aos-init aos-animate" data-aos="fade-up"
+                    data-aos-duration="2500">
+                    <img class="rounded-circle" src="assets/images/fact/st14.png" alt="">
+                </div>
+
+                <div
+                    class="hm4-community-shape-circle1 position-absolute rounded-circle heartbeat2 d-none d-lg-inline-block">
+                </div><!-- shape circle -->
+                <div
+                    class="hm4-community-shape-circle2 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
+                </div><!-- shape circle -->
+                <div
+                    class="hm4-community-shape-circle3 position-absolute rounded-circle heartbeat22 d-none d-md-inline-block">
+                </div><!-- shape circle -->
+                <div
+                    class="hm4-community-shape-circle4 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
+                </div><!-- shape circle -->
+                <div
+                    class="hm4-community-shape-circle5 position-absolute rounded-circle heartbeat2 d-none d-lg-inline-block">
+                </div><!-- shape circle -->
+                <div
+                    class="hm4-community-shape-circle6 position-absolute rounded-circle heartbeat2 d-none d-md-inline-block">
+                </div><!-- shape circle -->
+                <div
+                    class="hm4-community-shape-circle7 position-absolute rounded-circle heartbeat22 d-none d-md-inline-block">
+                </div><!-- shape circle -->
+            </div><!-- /community-area -->
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-7 col-md-10 col-sm-12 col-12">
+                        <div class="title text-center">
+                            <h2 class="mb-30">Kickstart Your Journey with <span class="f-700">Eduroom</span></h2>
+                            <p class="pb-30">Eduroom is a brand-new learning platform that blends online video Live
+                                Projects
+                                with practical business Live Projects.
+                                Complete real-world challenges, enhance your skills, and earn valuable certificates as
+                                you grow with us.</p>
+                        </div><!-- /title -->
+                    </div><!-- /col -->
+                </div><!-- /row -->
+
+                <div class="row home4-fact-wrapper mt-50 justify-content-center">
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-4 col-12 justify-content-center">
+                        <div class="home4-single-fact hm4-fact1 text-center mb-30 tilt">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="main-color f-500 d-inline-block counter">50</span><span
+                                    class="main-color f-500">+</span>
+                            </div>
+                            <h5 class="secondary-color mt-2 f-400">Video Lessons</h5>
+                        </div> <!-- /single-fact -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-4 col-12 justify-content-center">
+                        <div class="home4-single-fact hm4-fact2 text-center mb-30 tilt">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="main-color f-500 d-inline-block counter">10</span>
+                            </div>
+                            <h5 class="secondary-color mt-2 f-400">Business Live Projects</h5>
+                        </div> <!-- /single-fact -->
+                    </div><!-- /col -->
+
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-4 col-12 justify-content-center">
+                        <div class="home4-single-fact hm4-fact3 text-center mb-30 tilt">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="main-color f-500 d-inline-block counter">10</span>
+                                <span class="per main-color d-inline-block f-500">K+</span>
+                            </div>
+                            <h5 class="secondary-color mt-2 f-400">Live Projects Provided</h5>
+                        </div> <!-- /single-fact -->
+                    </div>
+                    <!-- /col -->
+                </div><!-- /row -->
+            </div>
+            <!-- /container -->
+
+            <div class="hm2-facts-shape1 position-absolute">
+                <img src="assets/images/shape/hm2-fact-shape1.png" alt="">
+            </div><!-- shape -->
+            <div class="hm2-facts-shape2 position-absolute">
+                <img src="assets/images/shape/hm2-fact-shape2.png" alt="">
+            </div><!-- shape -->
+
+        </div>
+        <!-- home4-facts-area -end -->
+
+
+        <!-- ====== banner-area-start 
+        =================================================== -->
+        <div class="banner-area home4">
+            <div class="home4-banner-bg primary-overlay bg-no-repeat bg-cover position-relative"
+                data-background="assets/images/bg/home4-banner-bg-style.png">
+                <div class="container">
+                    <div class="home4-banner-wrapper pt-170 pb-180 transition3">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-xl-10 col-lg-9 col-md-10 col-sm-12 col-12">
+                                <div class="banner-content title text-center">
+                                    <h2 class="text-white mb-0">
+                                        Accelerate Your Career with EduRoom – Enroll Today and Start your Live Project
+                                        in
+                                        Engineering, MBA, and More from Anywhere!
+                                    </h2>
+                                    <p class="text-white mt-20 mb-0">
+                                        Join thousands of learners gaining practical skills, completing real-world
+                                        tasks, and earning verified certificates to boost their careers.
+                                    </p>
+                                    <div class="home4-banner-btn text-center mt-60">
+                                        <div class="home4-btn2">
+                                            <a href="https://eduroom.in/register.html" class="btn text-white f-500 text-uppercase">Sign Up
+                                                Now</a>
+                                        </div><!-- /my-btn -->
+                                    </div><!-- /work-banner-content -->
+                                </div><!-- /work-banner-content -->
+                            </div><!-- /col -->
+                        </div><!-- /row -->
+                    </div><!-- /banner-wrapper -->
+                </div><!-- /container -->
+            </div><!-- home4-banner-bg -->
+        </div>
+        <!-- banner-area-end  -->
+
+        <!-- ====== testimonial-area-start=========================================== -->
+        <div
+            class="testimonial-area home4-testimonial-area home4-testimonial-margin-top home4 position-relative over-hidden">
+            <div class="home4-testimonial-bg pb-150 bg-no-repeat bg-cover mx-auto"
+                data-background="assets/images/bg/hm4-testimonial-dotted.png">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-7 col-md-10 col-sm-12 col-12">
+                            <div class="title text-center">
+                                <h2 class="mb-30">What Our <span class="f-700">Learners</span> Say</h2>
+                                <p class="pb-30">Hear from early learners who have kickstarted their careers with
+                                    Eduroom's
+                                    Live Projects, real-world Live Projects, and recognized certificates.</p>
+                            </div><!-- /title -->
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+
+                    <div class="testimonial-wrapper testimonial-wrapper4 pt-65">
+                        <div class="row testimonial-active4">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                <div
+                                    class="single-testimonial bg-white text-center pt-60 pb-60 pl-40 pr-40 mb-20 transition5">
+                                    <div class="quit d-inline-block mb-22">
+                                        <img src="assets/images/testimonial/quote-icon.png" alt="icon">
+                                    </div><!-- /quit -->
+
+                                    <h3 class="mb-12">Learned at My Own Pace</h3>
+                                    <p>The Live Project allowed me to learn on my schedule, while the Live Project gave
+                                        me real business experience.</p>
+
+                                    <ul class="review-ratting mt-25">
+                                        <li>
+                                            <span><i class="fa fa-star"></i></span><span><i
+                                                    class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span><span><i
+                                                    class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        </li>
+                                    </ul><!-- /review-ratting -->
+
+                                    <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
+                                        <div class="d-flex">
+                                            <!-- /testi-avatar -->
+                                            <div class="avatar-info text-left">
+                                                <h6 class="f-500 text-uppercase mb-0">Ananya Sharma</h6>
+                                                <p class="mb-0">Marketing Intern</p>
+                                            </div>
+                                        </div><!-- /testi-info -->
+                                    </div>
+                                </div><!-- /single-testimonial -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                <div
+                                    class="single-testimonial bg-white text-center pt-60 pb-60 pl-40 pr-40 mb-20 transition5">
+                                    <div class="quit d-inline-block mb-22">
+                                        <img src="assets/images/testimonial/quote-icon.png" alt="icon">
+                                    </div><!-- /quit -->
+
+                                    <h3 class="mb-12">Practical and Engaging</h3>
+                                    <p>The Live projects gave me hands-on experience. I loved how each Live Projects
+                                        built practical skills that I can directly apply to real work.</p>
+
+                                    <ul class="review-ratting mt-25">
+                                        <li>
+                                            <span><i class="fa fa-star"></i></span><span><i
+                                                    class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span><span><i
+                                                    class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        </li>
+                                    </ul><!-- /review-ratting -->
+
+                                    <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
+                                        <div class="d-flex">
+                                            <!-- /testi-avatar -->
+                                            <div class="avatar-info text-left">
+                                                <h6 class="f-500 text-uppercase mb-0">Rohan Mehta</h6>
+                                                <p class="mb-0">Business Intern</p>
+                                            </div>
+                                        </div><!-- /testi-info -->
+                                    </div>
+                                </div><!-- /single-testimonial -->
+                            </div><!-- /col -->
+
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                <div
+                                    class="single-testimonial bg-white text-center pt-60 pb-60 pl-40 pr-40 mb-20 transition5">
+                                    <div class="quit d-inline-block mb-22">
+                                        <img src="assets/images/testimonial/quote-icon.png" alt="icon">
+                                    </div><!-- /quit -->
+
+                                    <h3 class="mb-12">Kickstarted My Career</h3>
+                                    <p>Thanks to Eduroom's certificate and Live Projects, I gained confidence and real
+                                        experience. It really helped me stand out while applying for jobs.</p>
+
+                                    <ul class="review-ratting mt-25">
+                                        <li>
+                                            <span><i class="fa fa-star"></i></span><span><i
+                                                    class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span><span><i
+                                                    class="fa fa-star"></i></span>
+                                            <span><i class="fa fa-star"></i></span>
+                                        </li>
+                                    </ul><!-- /review-ratting -->
+
+                                    <div class="testi-info mt-30 d-flex align-items-center justify-content-center">
+                                        <div class="d-flex">
+                                            <!-- /testi-avatar -->
+                                            <div class="avatar-info text-left">
+                                                <h6 class="f-500 text-uppercase mb-0">Tara Singh</h6>
+                                                <p class="mb-0">Engineering Intern</p>
+                                            </div>
+                                        </div><!-- /testi-info -->
+                                    </div>
+                                </div><!-- /single-testimonial -->
+                            </div><!-- /col -->
+
+                        </div><!-- /row -->
+                    </div><!-- /testimonial-wrapper -->
+                </div><!-- /container -->
+            </div><!-- /testimonial bg -->
+
+            <div
+                class="hm4-testimonial-shape-circle rounded-circle position-absolute heartbeat2 d-none d-lg-inline-block">
+            </div>
+        </div>
+
+        <!-- testimonial-area -end -->
+
+    </main>
+
+    <!-- ====== footer-area-start ============================================ -->
+    <footer>
+        <div class="footer-area home4-footer-bg home2 pt-100 pb-10">
+
+            <div class="footer-top home4 pt-5 pb-70">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="footer-widget f-about pb-5">
+
+                                <div class="f-logo text-left mb-5">
+                                    <img src="assets/images/logo/logo4.png" alt="Eduroom">
+                                </div><!-- /f-logo -->
+
+                                <p>Eduroom is a comprehensive online learning platform that connects students,
+                                    educators, and professionals. We provide quality live projects, interactive
+                                    resources, and
+                                    personalized learning paths to help learners.</p>
+                            </div>
+                        </div>
+                        <!-- /col -->
+                        <div class="col-xl-4 offset-lg-1  col-lg-4  col-md-7  col-sm-6 col-12">
+
+                        </div><!-- /col -->
+                        <div class="col-xl-3  col-lg-3  col-md-5  col-sm-6 col-12 px-lg-0">
+                            <ul class="pl-65">
+                                <li>
+                                    <a href="https://eduroom.in/about.html" class="position-relative d-inline-block mb-2">About
+                                        Us</a>
+                                </li>
+                                <li>
+                                    <a href="https://eduroom.in/domain-list.html" class="position-relative d-inline-block mb-2">Live
+                                        Projects</a>
+                                </li>
+                                <li>
+                                    <a href="https://eduroom.in/contact.html" class="position-relative d-inline-block mb-2">Contact Us</a>
+                                </li>
+                                <li>
+                                    <a href="https://eduroom.in/login.html" class="position-relative d-inline-block mb-2">Login</a>
+                                </li>
+                            </ul>
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="copyright-area mt-22">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-xl-6  col-lg-5  col-md-12  col-sm-12 col-12">
+                                <div class="copyright-text text-center text-lg-left mt-20 mb-20">
+                                    <p class="mb-0">All rights reserved
+                                        <a class="c-theme main-color f-500">Eduroom</a> © 2025
+                                    </p>
+                                </div>
+                            </div><!-- /col -->
+                            <!-- <div class="col-xl-6  col-lg-7  col-md-12  col-sm-12 col-12">
+                                <ul class="useful-link text-center text-lg-right mt-20">
+                                    <li class="d-inline-block mb-20">
+                                        <a href="about.html" class="secondary-color d-inline-block">Terms &amp;
+                                            Condition</a>
+                                    </li>
+                                    <li class="d-inline-block pl-45 mb-20">
+                                        <a href="about.html" class="secondary-color d-inline-block">Privacy</a>
+                                    </li>
+                                    <li class="d-inline-block pl-45 mb-20">
+                                        <a href="about.html" class="secondary-color d-inline-block">Cookes</a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </div>
+                    </div><!-- /copyright-area -->
+                </div><!-- /container -->
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- back top -->
+    <div id="scroll" class="scroll-up">
+        <div class="top text-center"><span class="white-bg theme-color d-block"><i
+                    class="fa fa-arrow-alt-up"></i></span></div>
+    </div>
+
+
+    <!-- All js here -->
+    <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <script src="assets/js/image-loaded.min.js"></script>
+    <script src="assets/js/jquery.fancybox.min.js"></script>
+    <script src="assets/js/waypoint.js"></script>
+    <script src="assets/js/counterup-min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/tilt.jquery.min.js"></script>
+    <script src="assets/js/countdown.min.js"></script>
+    <script src="assets/js/aos.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "https://eduroom.in/api/v1/course/courses?userId=1",
+                method: "GET",
+                success: function (response) {
+
+                    if (response && response.data && Array.isArray(response.data)) {
+
+                        const domainCourseWrapper = $("#domainCourseWrapper");
+                        domainCourseWrapper.empty();
+
+                        const domainMap = {};
+
+                        response.data.forEach(course => {
+                            const domainName = course.Domain?.name || "Others";
+
+                            if (!domainMap[domainName]) {
+                                domainMap[domainName] = [];
+                            }
+                            domainMap[domainName].push(course);
+                        });
+
+                        Object.keys(domainMap).forEach(domain => {
+                            const li = $('<li></li>');
+
+                            li.append(`
+                                <a href="https://eduroom.in/domain-list.html">
+                                    <span class="d-block main-color">${domain}</span>
+                                </a>
+                            `);
+
+                            domainMap[domain].forEach(course => {
+                                if (course.name) {
+                                    li.append(`
+                                        <a href="https://eduroom.in/course.html?domainId=${course.domainId}">
+                                            ${course.name}
+                                        </a>
+                                    `);
+                                }
+                            });
+
+                            domainCourseWrapper.append(li);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching courses:", error);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            const loginRegisterHTML = `
+            <ul class="header-login mr-15 d-none d-sm-block">
+                <li>
+                    <a class="d-inline-block main-color" href="https://eduroom.in/login.html" data-toggle="tooltip"
+                        data-selector="true" data-placement="bottom" title="Login / Register">
+                        LOGIN</a>
+                </li>
+            </ul>
+
+            <div class="my-btn d-none d-sm-block">
+                <a href="https://eduroom.in/register.html" class="btn white-bg">Register</a>
+            </div>
+
+            <div class="d-block d-sm-none w-100 mt-0 mobile-login-btn">
+                <div class="home4-btn1 w-100 text-center">
+                    <a href="https://eduroom.in/login.html" class="btn text-uppercase f-500 text-white transition5 w-100">Login</a>
+                </div>
+            </div>
+
+            <style>
+            .mobile-login-btn .home4-btn1 .btn {
+                background: linear-gradient(105deg, #4f46e5, #6366f1); /* same gradient as your hero button */
+                padding: 6px 0;
+                border-radius: 30px;
+                font-size: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-login-btn .home4-btn1 .btn:hover {
+                background: linear-gradient(105deg, #6366f1, #4f46e5);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            }
+            </style>
+        `;
+
+            const logoutHTML = `
+            <div class="my-btn d-none d-sm-block">
+                <a href="javascript:void(0);" id="logoutBtn" class="btn white-bg">Logout</a>
+            </div>
+
+            <div class="d-block d-sm-none w-100 mobile-logout-btn">
+                <div class="home4-btn1 w-100 text-center">
+                    <a href="javascript:void(0);" id="logoutBtn" class="btn text-uppercase f-500 text-white transition5 w-100">Logout</a>
+                </div>
+            </div>
+
+            <style>
+            .mobile-logout-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%; /* ensures vertical alignment */
+            }
+
+            .mobile-logout-btn .home4-btn1 .btn {
+                background: linear-gradient(105deg, #4f46e5, #6366f1);
+                padding: 8px 0;
+                border-radius: 30px;
+                font-size: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-logout-btn .home4-btn1 .btn:hover {
+                background: linear-gradient(105deg, #6366f1, #4f46e5);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            }
+            </style>
+        `;
+
+            if (userId) {
+                $("#auth-buttons").html(logoutHTML);
+            } else {
+                $("#auth-buttons").html(loginRegisterHTML);
+            }
+
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        // console.log("Logout success:", res);
+
+                        sessionStorage.clear();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "https://eduroom.in/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            function getCleanUrl() {
+                let protocol = "https:";
+                let hostname = window.location.hostname;
+
+                hostname = hostname.replace(/^www\./, '');
+
+                return `${protocol}//eduroomindia.com`;
+            }
+
+            const cleanUrl = getCleanUrl();
+            console.log('Clean URL:', cleanUrl);
+
+            $.ajax({
+                url: 'https://api.fundsweb.in/api/v1/user/gtag-by-domain',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    websiteUrl: cleanUrl
+                }),
+                success: function (response) {
+                    console.log("gtag for client:", response);
+                    const gcode = response.measurementId;
+
+                    if (response.seoKeywords) {
+                        $('meta[name="description"]').attr('content', response.seoKeywords);
+                        console.log("Meta description updated with:", response.seoKeywords);
+                    }
+
+                    if (gcode) {
+
+                        const gtagScript = document.createElement('script');
+                        gtagScript.setAttribute('async', '');
+                        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gcode}`;
+                        document.head.appendChild(gtagScript);
+
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag() { dataLayer.push(arguments); }
+                        window.gtag = gtag;
+                        gtag('js', new Date());
+                        gtag('config', gcode);
+                    }
+                },
+                error: function (err) {
+                    console.error('Error fetching gtag code:', err);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
