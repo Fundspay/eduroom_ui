@@ -1595,6 +1595,57 @@
         }
     </script>
 
+    <script>
+        $(document).ready(function () {
+            function getCleanUrl() {
+                let protocol = "https:";
+                let hostname = window.location.hostname;
+
+                hostname = hostname.replace(/^www\./, '');
+
+                return `${protocol}//eduroomindia.com`;
+            }
+
+            const cleanUrl = getCleanUrl();
+            console.log('Clean URL:', cleanUrl);
+
+            $.ajax({
+                url: 'https://api.fundsweb.in/api/v1/user/gtag-by-domain',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    websiteUrl: cleanUrl
+                }),
+                success: function (response) {
+                    console.log("gtag for client:", response);
+                    const gcode = response.measurementId;
+
+                    if (response.seoKeywords) {
+                        $('meta[name="description"]').attr('content', response.seoKeywords);
+                        console.log("Meta description updated with:", response.seoKeywords);
+                    }
+
+                    if (gcode) {
+
+                        const gtagScript = document.createElement('script');
+                        gtagScript.setAttribute('async', '');
+                        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gcode}`;
+                        document.head.appendChild(gtagScript);
+
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag() { dataLayer.push(arguments); }
+                        window.gtag = gtag;
+                        gtag('js', new Date());
+                        gtag('config', gcode);
+                    }
+                },
+                error: function (err) {
+                    console.error('Error fetching gtag code:', err);
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
