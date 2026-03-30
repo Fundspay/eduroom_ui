@@ -2098,10 +2098,14 @@
                     payload.targetCoins = toNum(targetCoinsStr, 0);
                 }
 
+                // Always include the current period for backend-required fields.
+                const now = new Date();
+                payload.periodMonth = now.getMonth() + 1;
+                payload.periodYear = now.getFullYear();
+
                 const retentionRateStr = (byId("retentionRate")?.value ?? "").toString().trim();
-                if (retentionRateStr !== "" && Number.isFinite(parseFloat(retentionRateStr))) {
-                    payload.retentionRate = clamp(toNum(retentionRateStr, 0), 0, 100);
-                }
+                const hasRetention = retentionRateStr !== "" && Number.isFinite(parseFloat(retentionRateStr));
+                payload.retentionRate = hasRetention ? clamp(toNum(retentionRateStr, 0), 0, 100) : 0;
 
                 const departments = buildDepartmentsPayload();
                 if (departments.length) payload.departments = departments;
