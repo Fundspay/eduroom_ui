@@ -1,0 +1,2336 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+    <meta name="author" content="" />
+    <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
+    <!--! BEGIN: Apps Title-->
+    <title>Eduroom || FundsCoin</title>
+    <!--! END:  Apps Title-->
+    <!--! BEGIN: Favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
+    <!--! END: Favicon-->
+    <!--! BEGIN: Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
+    <!--! END: Bootstrap CSS-->
+    <!--! BEGIN: Vendors CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/vendors.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/quill.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/select2-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/daterangepicker.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--! END: Vendors CSS-->
+    <!--! BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
+    <!--! END: Custom CSS-->
+    <!--! HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries !-->
+    <!--! WARNING: Respond.js doesn"t work if you view the page via file: !-->
+    <!--[if lt IE 9]>
+			<script src="https:oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https:oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+    <!--! ================================================================ !-->
+    <!--! [Start] Navigation Manu !-->
+    <!--! ================================================================ !-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <nav class="nxl-navigation">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="#" class="b-brand">
+                    <img src="/images/favicon.svg" alt="" class="logo logo-lg" />
+                    <img src="/images/favicon.svg" alt="" class="logo logo-sm" />
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="nxl-navbar">
+                    <li class="nxl-item nxl-caption">
+                        <label>Navigation</label>
+                    </li>
+
+                    <!-- PASSWORD PROTECTED DROPDOWN -->
+                    <li class="nxl-item nxl-hasmenu" id="protectedDropdown">
+                        <a href="javascript:void(0);" class="nxl-link protected-menu-trigger" id="protectedTrigger">
+                            <span class="nxl-micon"><i class="feather-upload"></i></span>
+                            <span class="nxl-mtext">CMS</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <!-- hidden by default -->
+                        <ul class="nxl-submenu protected-submenu" style="display: none;">
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-domain.html">ADD SELECTION DOMAIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-domain.html">UPDATE SELECTION DOMAIN</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-selection-questions.html">ADD SELECTION QUESTIONS</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-selection-questions.html">UPDATE SELECTION
+                                    QUESTIONS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/index.html">ADD DOMAIN</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/add-course.html">ADD
+                                    COURSE</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-preview.html">ADD COURSE PREVIEW</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/add-course-details.html">ADD COURSE DETAILS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-domain.html">UPDATE
+                                    DOMAIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/update-course.html">UPDATE
+                                    COURSE</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-preview.html">UPDATE COURSE PREVIEW</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/update-course-details.html">UPDATE COURSE DETAILS</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-incentives.html">BD
+                                    INCENTIVES</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-targets-admin.html">HR
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-targets-admin.html">BD
+                                    TARGETS ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/hr-master-sheet.html">HR
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/bd-master-sheet.html">BD
+                                    MASTER SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/tasks-admin.html">WORKSHEET ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/fundscoin.html">TRAINING MODULE ADMIN</a></li>
+                            <li class="nxl-item"><a class="nxl-link"
+                                    href="/profile/dashboard/fundscoin.html">FUNDSCOIN</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- OTHER MENU ITEMS UNCHANGED -->
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-user"></i></span>
+                            <span class="nxl-mtext">HR </span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item">
+                                <a class="nxl-link" id="hrTargetsBtn" href="javascript:void(0);">HR TARGETS</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/CO.html">CO SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/RE.html">RE SHEET</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/R.html">RISA SHEET</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-briefcase"></i></span>
+                            <span class="nxl-mtext">BD </span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item">
+                                <a class="nxl-link" id="bdTargetsBtn" href="javascript:void(0);">BD TARGETS</a>
+                            </li>
+                            <li class="nxl-item"><a class="nxl-link" href="/profile/dashboard/BD.html">BD SHEET</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
+                            <span class="nxl-mtext">MASTER SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-file-text"></i></span>
+                            <span class="nxl-mtext">COLLEGE SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/tasks.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-file"></i></span>
+                            <span class="nxl-mtext">WORKSHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/score-sheet.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-layers"></i></span>
+                            <span class="nxl-mtext">TRAINING MODULE</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/leads.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-user-check"></i></span>
+                            <span class="nxl-mtext">LEADS</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/mailer.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-mail"></i></span>
+                            <span class="nxl-mtext">MAILER</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="javascript:void(0);" id="logoutBtn" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-log-out"></i></span>
+                            <span class="nxl-mtext">Logout</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="feather-briefcase fs-4 text-dark"></i>
+                        <h6 class="mt-4 text-dark fw-bolder">Welcome to FundsRoom</h6>
+                        <p class="fs-11 my-3 text-dark">
+                            FundsRoom is your trusted financial partner, offering seamless solutions for managing
+                            investments, loans, and business funds with ease.
+                        </p>
+                        <!-- <a href="https://www.fundsroom.com/" class="btn btn-primary text-dark w-100" style="margin-bottom: 10%;">Fundsroom</a>
+                        <a href="https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&hl=en_IN" class="btn btn-success text-light w-100">Download FundsAudit</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--! ================================================================ !-->
+    <!--! [End]  Navigation Manu !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! [Start] Header !-->
+    <!--! ================================================================ !-->
+    <header class="nxl-header">
+        <div class="header-wrapper">
+            <!--! [Start] Header Left !-->
+            <div class="header-left d-flex align-items-center gap-4">
+                <!--! [Start] nxl-head-mobile-toggler !-->
+                <a href="javascript:void(0);" class="nxl-head-mobile-toggler" id="mobile-collapse">
+                    <div class="hamburger hamburger--arrowturn">
+                        <div class="hamburger-box">
+                            <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
+                </a>
+                <!--! [Start] nxl-head-mobile-toggler !-->
+                <!--! [Start] nxl-navigation-toggle !-->
+                <div class="nxl-navigation-toggle">
+                    <a href="javascript:void(0);" id="menu-mini-button">
+                        <i class="feather-align-left"></i>
+                    </a>
+                    <a href="javascript:void(0);" id="menu-expend-button" style="display: none">
+                        <i class="feather-arrow-right"></i>
+                    </a>
+                </div>
+                <!--! [End] nxl-navigation-toggle !-->
+                <!--! [Start] nxl-lavel-mega-menu-toggle !-->
+                <!-- <div class="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
+                    <a href="javascript:void(0);" id="nxl-lavel-mega-menu-open">
+                        <i class="feather-align-left"></i>
+                    </a>
+                </div> -->
+                <!--! [End] nxl-lavel-mega-menu-toggle !-->
+                <!--! [Start] nxl-lavel-mega-menu !-->
+                <div class="nxl-drp-link nxl-lavel-mega-menu">
+                    <div class="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
+                        <a href="javascript:void(0)" id="nxl-lavel-mega-menu-hide">
+                            <i class="feather-arrow-left me-2"></i>
+                            <span>Back</span>
+                        </a>
+                    </div>
+
+                    <!--! [End] nxl-lavel-mega-menu-wrapper !-->
+                </div>
+                <!--! [End] nxl-lavel-mega-menu !-->
+            </div>
+            <!--! [End] Header Left !-->
+            <!--! [Start] Header Right !-->
+            <div class="header-right ms-auto">
+                <div class="d-flex align-items-center">
+
+                    <!-- Full Screen Switcher -->
+                    <!-- <div class="nxl-h-item d-none d-sm-flex">
+                        <div class="full-screen-switcher">
+                            <a href="javascript:void(0);" class="nxl-head-link me-0"
+                                onclick="$('body').fullScreenHelper('toggle');">
+                                <i class="feather-maximize maximize"></i>
+                                <i class="feather-minimize minimize"></i>
+                            </a>
+                        </div>
+                    </div> -->
+
+                    <!-- Dark/Light Theme Toggle -->
+                    <div class="nxl-h-item dark-light-theme">
+                        <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
+                            <i class="feather-moon"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
+                            <i class="feather-sun"></i>
+                        </a>
+                    </div>
+
+                    <!-- User Dropdown -->
+                    <div class="dropdown nxl-h-item">
+                        <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button"
+                            data-bs-auto-close="outside">
+                            <div class="avatar-text avatar-lg bg-gray-200">
+                                <i class="feather-user"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
+                            <div class="dropdown-header">
+                                <section id="user-header">
+                                    <div id="user-section" class="user-dropdown">
+                                        <a>
+                                            <i class="feather-user"></i>
+                                            <span id="manager-name">Fundsroom Tech</span></a>
+                                    </div>
+                                    <script>
+                                        const managerName2 = sessionStorage.getItem("userName");
+                                        const nameElement = document.getElementById("manager-name");
+                                        if (nameElement && managerName2 && managerName2.trim() !== "") {
+                                            nameElement.textContent = managerName2;
+                                        }
+                                    </script>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--! [End] Header Right !-->
+        </div>
+    </header>
+    <!--! ================================================================ !-->
+    <!--! [End] Header !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! [Start] Main Content !-->
+    <!--! ================================================================ !-->
+    <main class="nxl-container">
+        <div class="nxl-content">
+            <!-- [ page-header ] start -->
+            <div class="page-header">
+                <div class="page-header-left d-flex align-items-center">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">FundsCoin Dashboard</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">FundsCoin</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- [ page-header ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="main-content pb-5 pb-md-0" style="margin-bottom: 5%;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card stretch stretch-full mb-4">
+                            <div class="card-body">
+                                <h6 class="mb-1">Overview</h6>
+                                <p class="text-muted mb-0 fs-11">
+                                    A structured workspace for employee signals, department performance, retention
+                                    insights, and a final FundsCoin summary.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="employee-information">
+                        <div class="card stretch stretch-full mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Employee Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                     <div class="col-md-4">
+                                         <label class="form-label" for="employeeName">Employee Name</label>
+                                         <input type="text" class="form-control" id="employeeName"
+                                            list="employeeNameManagers" placeholder="Select Manager" value="">
+                                         <datalist id="employeeNameManagers"></datalist>
+                                          <div class="mt-1 fs-11 text-muted">
+                                              <span id="employeeNameLoading" class="d-none">Loading...</span>
+                                          </div>
+                                          <div class="form-text text-warning d-none" id="employeeNameInlineMsg">Please select a valid manager from the suggestions.</div>
+                                      </div>
+                                     <div class="col-md-4">
+                                         <label class="form-label" for="employeeEmail">Email</label>
+                                         <input type="email" class="form-control" id="employeeEmail"
+                                             placeholder="name@company.com" value="">
+                                         <div class="form-text text-warning d-none" id="employeeEmailInlineMsg">Employee Email is required.</div>
+                                     </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label" for="employeeRole">Position / Role</label>
+                                         <select class="form-select" id="employeeRole">
+                                             <option value="" selected>Select role</option>
+                                             <option>Intern</option>
+                                             <option>Junior Team Leader</option>
+                                             <option>Senior Team Leader</option>
+                                             <option>Manager</option>
+                                             <option>Branch Manager</option>
+                                         </select>
+                                         <div class="form-text text-warning d-none" id="employeeRoleInlineMsg">Select a role if you want to save Position.</div>
+                                     </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label" for="targetCoins">Target Coins (Base Salary)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Coins</span>
+                                            <input type="number" class="form-control" id="targetCoins" min="0" step="1"
+                                                value="0">
+                                         </div>
+                                         <div class="form-text">
+                                             Baseline target used for FundsCoin evaluation (placeholder for wiring).
+                                         </div>
+                                         <div class="form-text text-warning d-none" id="targetCoinsInlineMsg">Target Coins should be a valid non-negative number.</div>
+                                     </div>
+                                 </div>
+                                 <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
+                                     <button type="button" class="btn btn-sm btn-outline-primary" id="saveEmployeeInfoBtn" disabled>Save Employee Info</button>
+                                 </div>
+                                 <div class="mt-2 d-flex flex-wrap gap-3 align-items-center fs-11">
+                                     <div id="fundConfigStatusMessage" class="text-muted"></div>
+                                     <div class="text-muted">Last fetched: <span class="fw-semibold" id="lastFetchedAt">--</span></div>
+                                     <div class="text-muted">Last saved: <span class="fw-semibold" id="lastSavedAt">--</span></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                    <div class="col-12" id="department-performance">
+                        <div class="card stretch stretch-full mb-4">
+                            <div class="card-header">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 w-100">
+                                    <h5 class="card-title mb-0">Department Performance</h5>
+                                    <ul class="nav nav-tabs" id="fundscoinDeptTabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="tab-bd" data-bs-toggle="tab"
+                                                data-bs-target="#pane-bd" type="button" role="tab"
+                                                aria-controls="pane-bd" aria-selected="true">BD</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="tab-hr" data-bs-toggle="tab"
+                                                data-bs-target="#pane-hr" type="button" role="tab"
+                                                aria-controls="pane-hr" aria-selected="false">HR</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="tab-marketing" data-bs-toggle="tab"
+                                                data-bs-target="#pane-marketing" type="button" role="tab"
+                                                aria-controls="pane-marketing"
+                                                aria-selected="false">Marketing</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center mb-2">
+                                    <div class="text-muted fs-11">Department weights should total 100%.</div>
+                                    <span id="deptWeightIndicator" class="badge bg-success">Total: 100%</span>
+                                </div>
+                                <div class="tab-content" id="fundscoinDeptTabContent">
+                                    <div class="tab-pane fade show active" id="pane-bd" role="tabpanel"
+                                        aria-labelledby="tab-bd" tabindex="0">
+                                        <div class="row g-3 align-items-end mb-3">
+                                            <div class="col-md-4">
+                                                <label class="form-label" for="deptWeightBd">Department Weight</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="deptWeightBd" min="0"
+                                                        max="100" step="1" value="40">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="form-text">Weight of BD in the overall score.</div>
+                                            </div>
+                                            <div class="col-md-8 text-md-end">
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                    id="addMetricBdBtn">Add metric</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover mb-0" id="metricsTableBd">
+                                                <thead class="table-light">
+                                                    <tr class="border-b">
+                                                        <th style="min-width: 260px;">Metric Name</th>
+                                                        <th style="min-width: 160px;">Quantity / Value</th>
+                                                        <th style="min-width: 140px;">Multiplier</th>
+                                                        <th style="min-width: 170px;">Weight (Dept %)</th>
+                                                        <th style="min-width: 150px;">Coins Earned</th>
+                                                        <th style="min-width: 120px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="pane-hr" role="tabpanel" aria-labelledby="tab-hr"
+                                        tabindex="0">
+                                        <div class="row g-3 align-items-end mb-3">
+                                            <div class="col-md-4">
+                                                <label class="form-label" for="deptWeightHr">Department Weight</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="deptWeightHr" min="0"
+                                                        max="100" step="1" value="35">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="form-text">Weight of HR in the overall score.</div>
+                                            </div>
+                                            <div class="col-md-8 text-md-end">
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                    id="addMetricHrBtn">Add metric</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover mb-0" id="metricsTableHr">
+                                                <thead class="table-light">
+                                                    <tr class="border-b">
+                                                        <th style="min-width: 260px;">Metric Name</th>
+                                                        <th style="min-width: 160px;">Quantity / Value</th>
+                                                        <th style="min-width: 140px;">Multiplier</th>
+                                                        <th style="min-width: 170px;">Weight (Dept %)</th>
+                                                        <th style="min-width: 150px;">Coins Earned</th>
+                                                        <th style="min-width: 120px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="pane-marketing" role="tabpanel"
+                                        aria-labelledby="tab-marketing" tabindex="0">
+                                        <div class="row g-3 align-items-end mb-3">
+                                            <div class="col-md-4">
+                                                <label class="form-label"
+                                                    for="deptWeightMarketing">Department Weight</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="deptWeightMarketing"
+                                                        min="0" max="100" step="1" value="25">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="form-text">Weight of Marketing in the overall score.</div>
+                                            </div>
+                                            <div class="col-md-8 text-md-end">
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                    id="addMetricMarketingBtn">Add metric</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover mb-0"
+                                                id="metricsTableMarketing">
+                                                <thead class="table-light">
+                                                    <tr class="border-b">
+                                                        <th style="min-width: 260px;">Metric Name</th>
+                                                        <th style="min-width: 160px;">Quantity / Value</th>
+                                                        <th style="min-width: 140px;">Multiplier</th>
+                                                        <th style="min-width: 170px;">Weight (Dept %)</th>
+                                                        <th style="min-width: 150px;">Coins Earned</th>
+                                                        <th style="min-width: 120px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="saveFundConfigBtn" disabled>Save FundConfig</button>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="saveRetentionBehaviorBtn" disabled>Save FundConfig</button>
+                                    <button type="button" class="btn btn-sm btn-primary" id="calculateFundsCoinBtn">Calculate FundsCoin</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="retention-behavior">
+                        <div class="card stretch stretch-full mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Retention and Behavior Rating</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-lg-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <h6 class="mb-2">Retention</h6>
+                                            <label class="form-label" for="retentionRate">Retention Rate (%)</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="retentionRate" min="0"
+                                                    max="100" step="0.1" value="85">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                            <div class="form-text">Multiplier range (placeholder): 0.80x to 1.20x</div>
+                                            <div class="mt-3">
+                                                <label class="form-label" for="retentionMultiplier">Retention
+                                                    Multiplier</label>
+                                                <input type="text" class="form-control" id="retentionMultiplier"
+                                                    value="1.00x" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-8">
+                                        <div class="border rounded p-3 h-100">
+                                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                                                 <h6 class="mb-0">Behavior Weights</h6>
+                                                 <span class="badge bg-light text-dark">%</span>
+                                             </div>
+                                             <div class="mt-2 fs-11">
+                                                 <span class="text-muted">Total Weight:</span>
+                                                 <span id="behaviorWeightTotalValue" class="fw-semibold text-success">100%</span>
+                                             </div>
+                                             <div class="row g-3 mt-1">
+                                                 <div class="col-md-6">
+                                                     <label class="form-label" for="ratingIntern">Intern Weight (%)</label>
+                                                     <input type="number" class="form-control" id="ratingIntern" min="0"
+                                                        max="100" step="1" value="30">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="ratingPeer">Peer Weight (%)</label>
+                                                    <input type="number" class="form-control" id="ratingPeer" min="0"
+                                                        max="100" step="1" value="20">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="ratingCrossDept">Cross Department Weight (%)</label>
+                                                    <input type="number" class="form-control" id="ratingCrossDept"
+                                                        min="0" max="100" step="1" value="15">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="ratingManager">Manager Weight (%)</label>
+                                                    <input type="number" class="form-control" id="ratingManager" min="0"
+                                                        max="100" step="1" value="20">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="ratingLeadership">Leadership Weight (%)</label>
+                                                    <input type="number" class="form-control" id="ratingLeadership"
+                                                        min="0" max="100" step="1" value="15">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="behaviorMultiplier">Behavior
+                                                        Multiplier</label>
+                                                    <input type="text" class="form-control" id="behaviorMultiplier"
+                                                        value="1.00x" readonly>
+                                                    <div class="form-text">Placeholder until behavior scoring is backend-driven.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-12" id="final-funds-summary">
+                        <div class="card stretch stretch-full mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Final Funds Summary</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">BD Coins</div><div class="fs-18 fw-bold" id="summaryBdCoins">0</div></div></div>
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">HR Coins</div><div class="fs-18 fw-bold" id="summaryHrCoins">0</div></div></div>
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">Marketing Coins</div><div class="fs-18 fw-bold" id="summaryMarketingCoins">0</div></div></div>
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">Weighted Total</div><div class="fs-18 fw-bold" id="summaryWeightedTotal">0</div></div></div>
+
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">Retention Multiplier</div><div class="fs-18 fw-bold" id="summaryRetentionMultiplier">1.00x</div></div></div>
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">Behavior Multiplier</div><div class="fs-18 fw-bold" id="summaryBehaviorMultiplier">1.00x</div></div></div>
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">Final Coins</div><div class="fs-18 fw-bold" id="summaryFinalCoins">0</div></div></div>
+                                    <div class="col-md-3"><div class="border rounded p-3 h-100"><div class="text-muted fs-11">Final Salary</div><div class="fs-18 fw-bold" id="summaryFinalSalary">0</div></div></div>
+
+                                    <div class="col-12">
+                                        <div class="border rounded p-3">
+                                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                                                <div>
+                                                    <div class="text-muted fs-11">Performance Category</div>
+                                                    <div class="fs-16 fw-bold" id="summaryPerformanceCategory">Pending</div>
+                                                    <div class="text-muted fs-11 mt-1">Achievement: <span
+                                                            id="summaryAchievementPct">0%</span></div>
+                                                </div>
+                                                <span class="badge bg-light text-dark">Local preview</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-muted fs-11">
+                                    Click <span class="fw-semibold">Calculate FundsCoin</span> to refresh the summary.
+                                    <span class="ms-1">TODO(API): Replace dummy values with live payloads later.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-12" id="fundscoin-actions">
+                        <div class="card stretch stretch-full mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Actions</h5>
+                            </div>
+                             <div class="card-body">
+                                 <div class="d-flex flex-wrap justify-content-end gap-2">
+                                     <button type="button" class="btn btn-outline-secondary" id="resetFundsCoinBtn">Reset</button>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- [ Main Content ] end -->
+        </div>
+        <!-- [ Footer ] start -->
+        <footer class="footer">
+            <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+                <span>Copyright Fundsroom &copy;</span>
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+            </p>
+            <div class="d-flex align-items-center gap-4"></div>
+        </footer>
+        <!-- [ Footer ] end -->
+    </main>
+    <!--! ================================================================ !-->
+    <!--! [End] Main Content !-->
+    <!--! ================================================================ !-->
+
+    <!--! ================================================================ !-->
+    <!--! Footer Script !-->
+    <!--! ================================================================ !-->
+    <div class="d-md-none position-fixed bottom-0 start-0 end-0 border-top bg-white" style="z-index: 1030;">
+        <div class="d-flex gap-2 p-2">
+            <button type="button" class="btn btn-sm btn-outline-primary flex-fill" id="stickySaveBtn" disabled>Save</button>
+            <button type="button" class="btn btn-sm btn-primary flex-fill" id="stickyCalculateBtn">Calculate</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill" id="stickyResetBtn">Reset</button>
+        </div>
+    </div>
+    <!--! BEGIN: Vendors JS !-->
+    <script src="./../assets/vendors/js/vendors.min.js"></script>
+    <!-- vendors.min.js {always must need to be top} -->
+    <script src="./../assets/vendors/js/daterangepicker.min.js"></script>
+    <script src="./../assets/vendors/js/apexcharts.min.js"></script>
+    <script src="./../assets/vendors/js/circle-progress.min.js"></script>
+    <script src="./../assets/vendors/js/jquery.calendar.min.js"></script>
+    <script src="./../assets/vendors/js/tagify.min.js"></script>
+    <script src="./../assets/vendors/js/tagify-data.min.js"></script>
+    <script src="./../assets/vendors/js/quill.min.js"></script>
+    <script src="./../assets/vendors/js/select2.min.js"></script>
+    <script src="./../assets/vendors/js/select2-active.min.js"></script>
+    <!--! END: Vendors JS !-->
+    <!--! BEGIN: Apps Init  !-->
+    <script src="./../assets/js/common-init.min.js"></script>
+    <!-- <script src="./../assets/js/dashboard-init.min.js"></script> -->
+    <!-- <script src="./../assets/js/reports-project-init.min.js"></script> -->
+    <!-- <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script> -->
+    <!--! END: Apps Init !-->
+    <!--! BEGIN: Theme Customizer  !-->
+    <script src="./../assets/js/theme-customizer-init.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--! END: Theme Customizer !-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+        // Reload on BFCache restore to keep client state consistent.
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        // Guard login and provide a logout flow.
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
+                });
+                return;
+            }
+
+            $(document).on("click", "#logoutBtn", function () {
+                Swal.fire({
+                    title: "Logging out...",
+                    text: "Please wait",
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/user/logout",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: userId }),
+                    success: function (res) {
+                        console.log("Logout success:", res);
+                        sessionStorage.clear();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Logged Out",
+                            text: "You have been logged out successfully!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.top.location.href = "/login.html";
+                        });
+                    },
+                    error: function (err) {
+                        console.error("Logout error:", err);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Logout Failed",
+                            text: "Something went wrong. Please try again!",
+                            allowOutsideClick: false,
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                // Open the protected submenu when access is verified.
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                // Close the protected submenu when access is not verified.
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
+
+    <script>
+        let passwords = {};
+
+        // Load access passwords and wire protected navigation clicks.
+        $(document).ready(function () {
+            $.getJSON("/config.json", function (data) {
+                passwords = data;
+            });
+
+            $("#hrTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "HR_PASSWORD",
+                    "hr_verified",
+                    "/profile/dashboard/targets.html"
+                );
+            });
+
+            $("#bdTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "BD_PASSWORD",
+                    "bd_verified",
+                    "/profile/dashboard/bd-targets.html"
+                );
+            });
+        });
+
+        // Gate protected pages behind a simple password prompt.
+        function handleProtectedPage(passwordKey, sessionKey, redirectUrl) {
+            if (sessionStorage.getItem(sessionKey) === "true") {
+                window.location.href = redirectUrl;
+                return;
+            }
+
+            Swal.fire({
+                title: "Enter Password",
+                input: "password",
+                inputPlaceholder: "Enter access password",
+                showCancelButton: true,
+                confirmButtonText: "Verify",
+            }).then(result => {
+                if (!result.value) return;
+
+                const enteredPassword = result.value.trim();
+                const correctPassword = passwords[passwordKey];
+
+                if (enteredPassword === correctPassword) {
+                    sessionStorage.setItem(sessionKey, "true");
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Access Granted",
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = redirectUrl;
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Password",
+                        text: "Access denied!"
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        (function () {
+            // FundsCoin page script (isolated scope with UI + API wiring).
+            const DEPTS = {
+                bd: {
+                    tabId: "tab-bd",
+                    paneId: "pane-bd",
+                    tableId: "metricsTableBd",
+                    weightId: "deptWeightBd",
+                    addBtnId: "addMetricBdBtn"
+                },
+                hr: {
+                    tabId: "tab-hr",
+                    paneId: "pane-hr",
+                    tableId: "metricsTableHr",
+                    weightId: "deptWeightHr",
+                    addBtnId: "addMetricHrBtn"
+                },
+                marketing: {
+                    tabId: "tab-marketing",
+                    paneId: "pane-marketing",
+                    tableId: "metricsTableMarketing",
+                    weightId: "deptWeightMarketing",
+                    addBtnId: "addMetricMarketingBtn"
+                }
+            };
+
+            // Dummy/local defaults.
+            // TODO(API): Replace these defaults with an API response mapping in one place.
+            // Default values used for reset and first load.
+            const DEFAULT_EMPLOYEE = { name: "", email: "", role: "", targetCoins: 50000 };
+            const DEFAULT_DEPT_WEIGHTS = { bd: 40, hr: 35, marketing: 25 };
+            const DEFAULT_RETENTION_RATE = 85;
+            const DEFAULT_BEHAVIOR_RATINGS = { intern: 30, peer: 20, cross: 15, manager: 20, leadership: 15 };
+            const DEFAULT_DEPT_METRICS = {
+                bd: [
+                    { name: "Paid Accounts", value: 12, multiplier: 10, weight: 35 },
+                    { name: "Active Interns", value: 18, multiplier: 4, weight: 35 },
+                    { name: "Team Accounts Override", value: 3, multiplier: 25, weight: 30 }
+                ],
+                hr: [
+                    { name: "Applications", value: 120, multiplier: 0.2, weight: 15 },
+                    { name: "Interviews", value: 48, multiplier: 1, weight: 20 },
+                    { name: "Selections", value: 22, multiplier: 3, weight: 25 },
+                    { name: "Active Interns Joined", value: 16, multiplier: 6, weight: 25 },
+                    { name: "College Reviews", value: 8, multiplier: 8, weight: 15 }
+                ],
+                marketing: [
+                    { name: "Qualified Leads", value: 65, multiplier: 1.2, weight: 25 },
+                    { name: "Reviews / Ratings", value: 24, multiplier: 2, weight: 20 },
+                    { name: "Email Positive Responses", value: 14, multiplier: 3, weight: 20 },
+                    { name: "Followers Growth", value: 800, multiplier: 0.05, weight: 15 },
+                    { name: "Engagement", value: 4.2, multiplier: 5, weight: 20 }
+                ]
+            };
+
+            // Clone default metrics so resets always start clean.
+            function cloneMetrics(metricsByDept) {
+                return {
+                    bd: (metricsByDept.bd ?? []).map(m => ({ ...m })),
+                    hr: (metricsByDept.hr ?? []).map(m => ({ ...m })),
+                    marketing: (metricsByDept.marketing ?? []).map(m => ({ ...m }))
+                };
+            }
+
+            // Centralized defaults, returned as a fresh copy each time.
+            // TODO(API): The object returned here is the single place to inject API payloads later.
+            // Build a fresh default state for resetting the UI.
+            function getDefaultState() {
+                return {
+                    employee: { ...DEFAULT_EMPLOYEE },
+                    deptWeights: { ...DEFAULT_DEPT_WEIGHTS },
+                    retentionRate: DEFAULT_RETENTION_RATE,
+                    ratings: { ...DEFAULT_BEHAVIOR_RATINGS },
+                    metrics: cloneMetrics(DEFAULT_DEPT_METRICS)
+                };
+            }
+
+            // Small DOM helper.
+            function byId(id) {
+                return document.getElementById(id);
+            }
+
+            // Parse number inputs safely.
+            function toNum(value, fallback = 0) {
+                const n = parseFloat(value);
+                return Number.isFinite(n) ? n : fallback;
+            }
+
+            // Clamp values into a safe range.
+            function clamp(n, min, max) {
+                return Math.min(max, Math.max(min, n));
+            }
+
+            // Format a number with 2 decimals for display.
+            function fmt2(n) {
+                if (!Number.isFinite(n)) return "0.00";
+                return n.toFixed(2);
+            }
+
+            // Render one editable metric row.
+            function metricRowHtml(metric) {
+                const name = (metric.name ?? "New Metric").toString();
+                const rawValue = metric.value;
+                const rawMultiplier = metric.multiplier;
+                const rawWeight = metric.weight;
+
+                const valueStr = rawValue === undefined || rawValue === null || rawValue === "" ? "" : `${toNum(rawValue, 0)}`;
+                const multiplierStr = rawMultiplier === undefined || rawMultiplier === null || rawMultiplier === "" ? "" : `${toNum(rawMultiplier, 0)}`;
+                const weightStr = rawWeight === undefined || rawWeight === null || rawWeight === "" ? "" : `${toNum(rawWeight, 0)}`;
+
+                const valueNum = toNum(valueStr, 0);
+                const multiplierNum = toNum(multiplierStr, 0);
+                const coins = valueNum * multiplierNum;
+                return `<tr>
+<td><input class="form-control" data-field="name" value="${escapeHtml(name)}"></td>
+<td><input type="number" class="form-control" data-field="value" value="${escapeHtml(valueStr)}" min="0" step="0.1"></td>
+<td><input type="number" class="form-control" data-field="multiplier" value="${escapeHtml(multiplierStr)}" min="0" step="0.1"></td>
+<td><input type="number" class="form-control" data-field="weight" value="${escapeHtml(weightStr)}" min="0" max="100" step="1"></td>
+<td><input type="number" class="form-control" data-field="coins" value="${fmt2(coins)}" readonly></td>
+<td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger metric-remove">Remove</button></td>
+</tr>`;
+            }
+
+            // Escape text for safe HTML insertion.
+            function escapeHtml(str) {
+                return str
+                    .replaceAll("&", "&amp;")
+                    .replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")
+                    .replaceAll("\"", "&quot;")
+                    .replaceAll("'", "&#039;");
+            }
+
+            // Resolve a department metrics table element.
+            function getTable(deptKey) {
+                const cfg = DEPTS[deptKey];
+                return cfg ? byId(cfg.tableId) : null;
+            }
+
+            // Get the tbody for a metrics table.
+            function getTbody(tableEl) {
+                return tableEl ? tableEl.querySelector("tbody") : null;
+            }
+
+            // Recalculate coins for a single row.
+            function updateRowCoins(rowEl) {
+                const value = toNum(rowEl.querySelector('input[data-field="value"]')?.value, 0);
+                const multiplier = toNum(rowEl.querySelector('input[data-field="multiplier"]')?.value, 0);
+                const coins = value * multiplier;
+                const coinsInput = rowEl.querySelector('input[data-field="coins"]');
+                if (coinsInput) coinsInput.value = fmt2(coins);
+                return coins;
+            }
+
+            // Recalculate coins for the whole table.
+            function updateTableCoins(tableEl) {
+                if (!tableEl) return 0;
+                let total = 0;
+                const rows = tableEl.querySelectorAll("tbody tr");
+                rows.forEach(row => {
+                    total += updateRowCoins(row);
+                });
+                return total;
+            }
+
+            // Sum department weights to validate the total.
+            function deptWeightSum() {
+                const bd = toNum(byId(DEPTS.bd.weightId)?.value, 0);
+                const hr = toNum(byId(DEPTS.hr.weightId)?.value, 0);
+                const marketing = toNum(byId(DEPTS.marketing.weightId)?.value, 0);
+                return bd + hr + marketing;
+            }
+
+            // Update the department weight total badge.
+            function updateDeptWeightIndicator() {
+                const total = deptWeightSum();
+                const indicator = byId("deptWeightIndicator");
+                if (!indicator) return;
+
+                const ok = Math.abs(total - 100) < 0.01;
+                indicator.textContent = ok ? `Total: ${total.toFixed(0)}%` : `Total: ${total.toFixed(0)}% (not 100%)`;
+                indicator.classList.remove("bg-success", "bg-warning", "text-dark");
+                if (ok) {
+                    indicator.classList.add("bg-success");
+                } else {
+                    indicator.classList.add("bg-warning", "text-dark");
+                }
+            }
+
+            // Convert retention rate (%) into a multiplier.
+            function retentionMultiplierFromRate(ratePct) {
+                return 0.5 + (ratePct / 100) * 0.7;
+            }
+
+            // Refresh retention multiplier UI from the current input.
+            function updateRetention() {
+                const rate = clamp(toNum(byId("retentionRate")?.value, 0), 0, 100);
+                const mult = retentionMultiplierFromRate(rate);
+                const multStr = `${mult.toFixed(2)}x`;
+
+                const multInput = byId("retentionMultiplier");
+                if (multInput) multInput.value = multStr;
+                const summary = byId("summaryRetentionMultiplier");
+                if (summary) summary.textContent = multStr;
+
+                return mult;
+            }
+
+            // Convert a behavior score into a multiplier slab.
+            function behaviorMultiplierFromAvg(avg) {
+                if (avg >= 4.5) return 1.2;
+                if (avg >= 4.0) return 1.0;
+                if (avg >= 3.5) return 0.9;
+                if (avg >= 3.0) return 0.75;
+                return 0.5;
+            }
+
+            // Keep behavior multiplier stable until scoring is backend-driven.
+            function updateBehavior() {
+                const mult = 1.0;
+                const multStr = `${mult.toFixed(2)}x`;
+
+                const multInput = byId("behaviorMultiplier");
+                if (multInput) multInput.value = multStr;
+                const summary = byId("summaryBehaviorMultiplier");
+                if (summary) summary.textContent = multStr;
+
+                updateBehaviorWeightTotal();
+                return mult;
+            }
+
+            // Display a live total of behavior weights (visual feedback only).
+            function updateBehaviorWeightTotal() {
+                const weightIds = ["ratingIntern", "ratingPeer", "ratingCrossDept", "ratingManager", "ratingLeadership"];
+                const total = weightIds.reduce(function (sum, id) {
+                    return sum + clamp(toNum(byId(id)?.value, 0), 0, 100);
+                }, 0);
+
+                const el = byId("behaviorWeightTotalValue");
+                if (!el) return total;
+                el.textContent = `${Math.round(total)}%`;
+                el.classList.toggle("text-success", Math.round(total) === 100);
+                el.classList.toggle("text-danger", Math.round(total) !== 100);
+                return total;
+            }
+
+            // Write a summary field text by element id.
+            function setSummaryText(id, value) {
+                const el = byId(id);
+                if (!el) return;
+                el.textContent = value;
+            }
+
+            // Write a summary field number with formatting.
+            function setSummaryNumber(id, n) {
+                setSummaryText(id, fmt2(n));
+            }
+
+            // Calculate current coins totals for each department table.
+            function getDeptTotals() {
+                return {
+                    bd: updateTableCoins(getTable("bd")),
+                    hr: updateTableCoins(getTable("hr")),
+                    marketing: updateTableCoins(getTable("marketing"))
+                };
+            }
+
+            // Read department weight inputs as fractions.
+            function getDeptWeightFractions() {
+                return {
+                    bd: toNum(byId(DEPTS.bd.weightId)?.value, 0) / 100,
+                    hr: toNum(byId(DEPTS.hr.weightId)?.value, 0) / 100,
+                    marketing: toNum(byId(DEPTS.marketing.weightId)?.value, 0) / 100
+                };
+            }
+
+            // Classify performance based on target coins.
+            function performanceCategory(finalCoins, targetCoins) {
+                if (!(targetCoins > 0)) return "Pending";
+                if (finalCoins >= targetCoins * 1.2) return "Gold";
+                if (finalCoins >= targetCoins) return "Silver";
+                return "Bronze";
+            }
+
+            // Summary values are calculated from the current form + table state (DOM as source-of-truth).
+            // TODO(API): Later this can be replaced by mapping an API response into the summary fields.
+            // Run the full FundsCoin calculation and refresh summary fields.
+            function calculateFundsCoin() {
+                const totals = getDeptTotals();
+                const weights = getDeptWeightFractions();
+                const weightedTotal = totals.bd * weights.bd + totals.hr * weights.hr + totals.marketing * weights.marketing;
+
+                const retentionMult = updateRetention();
+                const behaviorMult = updateBehavior();
+
+                const afterRetention = weightedTotal * retentionMult;
+                const finalCoins = afterRetention * behaviorMult;
+                const finalSalary = finalCoins;
+
+                const targetCoins = toNum(byId("targetCoins")?.value, 0);
+                const category = performanceCategory(finalCoins, targetCoins);
+
+                const achievement = targetCoins > 0 ? (finalCoins / targetCoins) * 100 : 0;
+
+                setSummaryNumber("summaryBdCoins", totals.bd);
+                setSummaryNumber("summaryHrCoins", totals.hr);
+                setSummaryNumber("summaryMarketingCoins", totals.marketing);
+                setSummaryNumber("summaryWeightedTotal", weightedTotal);
+                setSummaryNumber("summaryFinalCoins", finalCoins);
+                setSummaryNumber("summaryFinalSalary", finalSalary);
+                setSummaryText("summaryPerformanceCategory", category);
+                setSummaryText("summaryAchievementPct", `${achievement.toFixed(1)}%`);
+
+                updateDeptWeightIndicator();
+            }
+
+            // Reset summary values to safe defaults.
+            function resetSummary() {
+                setSummaryNumber("summaryBdCoins", 0);
+                setSummaryNumber("summaryHrCoins", 0);
+                setSummaryNumber("summaryMarketingCoins", 0);
+                setSummaryNumber("summaryWeightedTotal", 0);
+                setSummaryText("summaryRetentionMultiplier", "1.00x");
+                setSummaryText("summaryBehaviorMultiplier", "1.00x");
+                setSummaryNumber("summaryFinalCoins", 0);
+                setSummaryNumber("summaryFinalSalary", 0);
+                setSummaryText("summaryPerformanceCategory", "Pending");
+                setSummaryText("summaryAchievementPct", "0%");
+            }
+
+            // Render a full department table from metric data.
+            function renderDept(deptKey, metrics) {
+                const table = getTable(deptKey);
+                const tbody = getTbody(table);
+                if (!tbody) return;
+                tbody.innerHTML = metrics.map(metricRowHtml).join("");
+                updateTableCoins(table);
+            }
+
+            // Add a new blank metric row to the selected department.
+            function addMetric(deptKey) {
+                const table = getTable(deptKey);
+                const tbody = getTbody(table);
+                if (!tbody) return;
+                tbody.insertAdjacentHTML("beforeend", metricRowHtml({ name: "New Metric", value: 0, multiplier: 0, weight: 0 }));
+                const lastRow = tbody.querySelector("tr:last-child");
+                if (lastRow) {
+                    updateRowCoins(lastRow);
+                    lastRow.querySelector("td input")?.focus();
+                }
+            }
+
+            // Switch the visible department tab/pane.
+            function activateDept(deptKey) {
+                Object.keys(DEPTS).forEach(key => {
+                    const cfg = DEPTS[key];
+                    const tab = byId(cfg.tabId);
+                    const pane = byId(cfg.paneId);
+                    if (tab) {
+                        tab.classList.toggle("active", key === deptKey);
+                        tab.setAttribute("aria-selected", key === deptKey ? "true" : "false");
+                    }
+                    if (pane) {
+                        pane.classList.toggle("show", key === deptKey);
+                        pane.classList.toggle("active", key === deptKey);
+                    }
+                });
+            }
+
+            // Wire department tab click handling.
+            function wireTabs() {
+                Object.keys(DEPTS).forEach(deptKey => {
+                    const tab = byId(DEPTS[deptKey].tabId);
+                    if (!tab) return;
+                    tab.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        activateDept(deptKey);
+                    });
+                });
+            }
+
+            // Wire metric row edits and remove buttons.
+            function wireTables() {
+                Object.keys(DEPTS).forEach(deptKey => {
+                    const table = getTable(deptKey);
+                    if (!table) return;
+
+                    table.addEventListener("input", function (e) {
+                        const row = e.target.closest("tr");
+                        if (!row) return;
+                        updateRowCoins(row);
+                    });
+
+                    table.addEventListener("click", function (e) {
+                        const btn = e.target.closest("button.metric-remove");
+                        if (!btn) return;
+                        const row = btn.closest("tr");
+                        if (row) row.remove();
+                    });
+                });
+            }
+
+            // Wire department weight inputs to keep the total indicator updated.
+            function wireWeightInputs() {
+                [DEPTS.bd.weightId, DEPTS.hr.weightId, DEPTS.marketing.weightId].forEach(id => {
+                    const el = byId(id);
+                    if (!el) return;
+                    el.addEventListener("input", updateDeptWeightIndicator);
+                });
+            }
+
+            // Clamp rating weight inputs to a reasonable 0–100 range.
+            function clampRatingInputs() {
+                const ids = ["ratingIntern", "ratingPeer", "ratingCrossDept", "ratingManager", "ratingLeadership"];
+                ids.forEach(id => {
+                    const el = byId(id);
+                    if (!el) return;
+                    el.addEventListener("blur", function () {
+                        if (el.value === "") return;
+                        const n = clamp(toNum(el.value, 0), 0, 100);
+                        el.value = n.toFixed(0);
+                    });
+                    el.addEventListener("input", updateBehavior);
+                });
+            }
+
+            // Wire retention input to update multiplier live.
+            function wireRetention() {
+                const el = byId("retentionRate");
+                if (!el) return;
+                el.addEventListener("input", updateRetention);
+            }
+
+            // Wire the "Add metric" buttons for each department.
+            function wireAddButtons() {
+                Object.keys(DEPTS).forEach(deptKey => {
+                    const btn = byId(DEPTS[deptKey].addBtnId);
+                    if (!btn) return;
+                    btn.addEventListener("click", function () {
+                        addMetric(deptKey);
+                    });
+                });
+            }
+
+            // Cached manager list for search and lookups.
+            let TEAM_MANAGERS = [];
+            let TEAM_MANAGER_EMAIL_BY_NAME_LC = new Map();
+            let TEAM_MANAGER_BY_NAME_LC = new Map();
+            let FUND_CONFIG_SAVE_IN_FLIGHT = false;
+            let LAST_VALIDATION_ENABLED = null;
+
+            // Show/hide a small loading indicator near Employee Name.
+            function setEmployeeNameLoading(isLoading, message) {
+                const el = byId("employeeNameLoading");
+                if (!el) return;
+                if (isLoading) {
+                    el.textContent = message || "Loading...";
+                    el.classList.remove("d-none");
+                } else {
+                    el.classList.add("d-none");
+                }
+            }
+
+            // Update the small config status text under Employee Information.
+            function setFundConfigStatusMessage(state) {
+                const el = byId("fundConfigStatusMessage");
+                if (!el) return;
+                const s = (state ?? "").toString();
+
+                el.classList.remove("text-muted", "text-danger");
+                el.classList.add(s === "error" ? "text-danger" : "text-muted");
+
+                if (s === "loaded") el.textContent = "Config loaded";
+                else if (s === "none") el.textContent = "No saved config found";
+                else if (s === "error") el.textContent = "Error loading config";
+                else el.textContent = "";
+            }
+
+            // Enable save buttons only when minimum employee info is valid.
+            function updateSaveButtonValidationState() {
+                const manager = getSelectedManagerFromEmployeeName();
+                const employeeName = (byId("employeeName")?.value ?? "").toString().trim();
+                const employeeEmail = (byId("employeeEmail")?.value ?? "").toString().trim();
+
+                const enabled = !!(manager && employeeName && employeeEmail) && !FUND_CONFIG_SAVE_IN_FLIGHT;
+                const btns = [
+                    byId("saveFundConfigBtn"),
+                    byId("saveEmployeeInfoBtn"),
+                    byId("saveRetentionBehaviorBtn"),
+                    byId("stickySaveBtn")
+                ].filter(Boolean);
+                btns.forEach(function (b) { b.disabled = !enabled; });
+
+                if (LAST_VALIDATION_ENABLED !== enabled) {
+                    LAST_VALIDATION_ENABLED = enabled;
+                    console.log("FundsCoin UI: validation state updated =>", { enabled });
+                }
+
+                updateEmployeeInlineValidation();
+                return enabled;
+            }
+
+            let INLINE_VALIDATION_SNAPSHOT = "";
+            let SHOW_EMPLOYEE_SAVE_HINTS = false;
+
+            // Format a simple local timestamp for UI status display.
+            function formatLocalTimestamp(d) {
+                try {
+                    return d.toLocaleString();
+                } catch (e) {
+                    return `${d}`;
+                }
+            }
+
+            // Update the "Last fetched" status field (display-only).
+            function setLastFetchedNow() {
+                const el = byId("lastFetchedAt");
+                if (!el) return;
+                const ts = formatLocalTimestamp(new Date());
+                el.textContent = ts;
+                console.log("FundsCoin UI: last fetched updated =>", ts);
+            }
+
+            // Update the "Last saved" status field (display-only).
+            function setLastSavedNow() {
+                const el = byId("lastSavedAt");
+                if (!el) return;
+                const ts = formatLocalTimestamp(new Date());
+                el.textContent = ts;
+                console.log("FundsCoin UI: last saved updated =>", ts);
+            }
+
+            // Toggle a compact inline helper message under an employee info field.
+            function setInlineMsg(id, show) {
+                const el = byId(id);
+                if (!el) return;
+                el.classList.toggle("d-none", !show);
+            }
+
+            // Update employee info inline validation messages (UI-only).
+            function updateEmployeeInlineValidation(opts) {
+                const saveAttempt = !!opts?.saveAttempt;
+                if (saveAttempt) SHOW_EMPLOYEE_SAVE_HINTS = true;
+
+                const name = (byId("employeeName")?.value ?? "").toString().trim();
+                const email = (byId("employeeEmail")?.value ?? "").toString().trim();
+                const role = (byId("employeeRole")?.value ?? "").toString().trim();
+                const targetStr = (byId("targetCoins")?.value ?? "").toString().trim();
+                const targetNum = targetStr === "" ? NaN : toNum(targetStr, NaN);
+                const manager = getSelectedManagerFromEmployeeName();
+
+                const showName = !!name && !manager;
+                const showEmail = (!!name || SHOW_EMPLOYEE_SAVE_HINTS) && !email;
+                const showRole = SHOW_EMPLOYEE_SAVE_HINTS && !role;
+                const showTarget = SHOW_EMPLOYEE_SAVE_HINTS && (!Number.isFinite(targetNum) || targetNum < 0);
+
+                setInlineMsg("employeeNameInlineMsg", showName);
+                setInlineMsg("employeeEmailInlineMsg", showEmail);
+                setInlineMsg("employeeRoleInlineMsg", showRole);
+                setInlineMsg("targetCoinsInlineMsg", showTarget);
+
+                const snapshot = JSON.stringify({ showName, showEmail, showRole, showTarget });
+                if (INLINE_VALIDATION_SNAPSHOT !== snapshot) {
+                    INLINE_VALIDATION_SNAPSHOT = snapshot;
+                    console.log("FundsCoin UI: inline validation updated =>", { showName, showEmail, showRole, showTarget });
+                }
+            }
+
+            const FUND_CONFIG_GET_BASE_URL = "https://eduroom.in/api/v1/fundconfig/fetch";
+
+            // Build FundConfig GET URL for list or a specific manager.
+            function fundConfigGetUrl(teamManagerId) {
+                if (!teamManagerId) return FUND_CONFIG_GET_BASE_URL;
+                return `${FUND_CONFIG_GET_BASE_URL}/${encodeURIComponent(teamManagerId)}`;
+            }
+
+            // Normalize and cache managers for fast search/autofill.
+            function setTeamManagers(managers) {
+                TEAM_MANAGERS = [];
+                TEAM_MANAGER_EMAIL_BY_NAME_LC = new Map();
+                TEAM_MANAGER_BY_NAME_LC = new Map();
+
+                (Array.isArray(managers) ? managers : []).forEach(function (m) {
+                    const id = (m?.id ?? m?._id ?? "").toString().trim();
+                    const managerId = (m?.managerId ?? m?.teamManagerId ?? "").toString().trim();
+                    const name = (m?.name ?? m?.managerName ?? "").toString().trim();
+                    const email = (m?.email ?? m?.managerEmail ?? "").toString().trim();
+                    if (!name) return;
+
+                    const normalized = { id, managerId, name, email };
+                    TEAM_MANAGERS.push(normalized);
+                    TEAM_MANAGER_EMAIL_BY_NAME_LC.set(name.toLowerCase(), email);
+                    TEAM_MANAGER_BY_NAME_LC.set(name.toLowerCase(), normalized);
+                });
+            }
+
+            // Resolve the manager id used for FundConfig GET.
+            function getManagerConfigLookupId(manager) {
+                if (!manager) return "";
+                // IMPORTANT: FundConfig GET expects the Team Manager `id` (not `managerId` / `teamManagerId`).
+                return (manager.id || "").toString().trim();
+            }
+
+            // Map backend department key to the current UI department key.
+            function deptKeyFromApiKey(apiKey) {
+                const k = (apiKey ?? "").toString().trim().toLowerCase();
+                if (k === "bd") return "bd";
+                if (k === "hr") return "hr";
+                if (k === "marketing") return "marketing";
+                return "";
+            }
+
+            // Preserve already-typed metric Quantity/Value by name when needed.
+            function existingMetricValueMap(deptKey) {
+                const table = getTable(deptKey);
+                const map = new Map();
+                if (!table) return map;
+                table.querySelectorAll("tbody tr").forEach(function (row) {
+                    const name = (row.querySelector('input[data-field="name"]')?.value ?? "").toString().trim();
+                    const val = (row.querySelector('input[data-field="value"]')?.value ?? "").toString();
+                    if (!name) return;
+                    map.set(name.toLowerCase(), val);
+                });
+                return map;
+            }
+
+            // Filter manager suggestions based on the typed query.
+            function renderTeamManagerSuggestions(query) {
+                const listEl = byId("employeeNameManagers");
+                if (!listEl) return;
+
+                const q = (query ?? "").toString().trim().toLowerCase();
+                let options = "";
+                let count = 0;
+
+                TEAM_MANAGERS.forEach(function (m) {
+                    const name = (m?.name ?? "").toString().trim();
+                    if (!name) return;
+                    if (q && !name.toLowerCase().includes(q)) return;
+                    options += `<option value="${escapeHtml(name)}"></option>`;
+                    count += 1;
+                });
+
+                // Use jQuery pattern already used across dashboard pages.
+                if (window.$ && $("#employeeNameManagers").length) {
+                    $("#employeeNameManagers").html(options);
+                } else {
+                    listEl.innerHTML = options;
+                }
+
+                return count;
+            }
+
+            // Handle manager selection, email autofill, and config fetch.
+            function wireEmployeeManagerDropdown() {
+                const selectEl = byId("employeeName");
+                const emailEl = byId("employeeEmail");
+                if (!selectEl || !emailEl) return;
+
+                // Keep Employee Email in sync with the selected manager name.
+                function syncEmailFromName() {
+                    const name = (selectEl.value ?? "").toString().trim();
+                    if (!name) {
+                        emailEl.value = "";
+                        setFundConfigStatusMessage("");
+                        updateSaveButtonValidationState();
+                        return;
+                    }
+
+                    const email = TEAM_MANAGER_EMAIL_BY_NAME_LC.get(name.toLowerCase());
+                    emailEl.value = email || "";
+                    updateSaveButtonValidationState();
+                }
+
+                // Fetch saved config for the selected manager and apply it to the UI.
+                function loadSelectedManagerFundConfig() {
+                    const typedName = (selectEl.value ?? "").toString().trim();
+                    if (!typedName) return;
+
+                    const manager = TEAM_MANAGER_BY_NAME_LC.get(typedName.toLowerCase());
+                    const lookupId = getManagerConfigLookupId(manager);
+                    if (!manager || !lookupId) return;
+
+                     // Fill immediately from manager list.
+                     selectEl.value = manager.name;
+                     emailEl.value = manager.email || "";
+                     updateSaveButtonValidationState();
+
+                    // Map a FundConfig fetch response into the current form fields.
+                    function applyFundConfigResponse(res) {
+                        const data = res?.data;
+                        const rec =
+                            Array.isArray(data) ? (data[0] ?? null) :
+                                (data && typeof data === "object" ? data : null);
+                        if (!rec) return false;
+
+                        console.log("FundsCoin Fetch: config data =>", rec);
+
+                        const employeeName = (rec?.employeeName ?? "").toString().trim();
+                        const employeeEmail = (rec?.employeeEmail ?? "").toString().trim();
+                        const position = (rec?.position ?? "").toString().trim();
+                        const targetCoins = rec?.targetCoins;
+
+                        console.log("FundsCoin Fetch: applying employee info =>", { employeeName, employeeEmail, position, targetCoins });
+
+                        if (employeeName) selectEl.value = employeeName;
+                        if (employeeEmail) emailEl.value = employeeEmail;
+                        if (position && byId("employeeRole")) byId("employeeRole").value = position;
+                        if (targetCoins !== null && targetCoins !== undefined && `${targetCoins}`.trim() !== "" && byId("targetCoins")) {
+                            byId("targetCoins").value = `${targetCoins}`;
+                        }
+
+                        const departments = Array.isArray(rec?.departments) ? rec.departments : [];
+                        if (departments.length) {
+                            console.log("FundsCoin Fetch: departments from API =>", departments);
+                        }
+
+                        departments.forEach(function (d) {
+                            const deptKey = deptKeyFromApiKey(d?.key);
+                            if (!deptKey) return;
+
+                            const deptWeight = d?.weight;
+                            if (deptWeight !== null && deptWeight !== undefined && `${deptWeight}`.trim() !== "") {
+                                const weightEl = byId(DEPTS[deptKey].weightId);
+                                if (weightEl) weightEl.value = `${deptWeight}`;
+                            }
+
+                            const existingValues = existingMetricValueMap(deptKey);
+                            const metrics = Array.isArray(d?.metrics) ? d.metrics : [];
+                            if (!metrics.length) return;
+
+                            const mapped = metrics
+                                .map(function (m) {
+                                    const metricName = (m?.name ?? "").toString().trim();
+                                    if (!metricName) return null;
+                                    const metric = {
+                                        name: metricName,
+                                        multiplier: m?.multiplier,
+                                        weight: m?.weight
+                                    };
+
+                                    // Backend sends quantity/value as `target`; map it into the existing frontend Quantity/Value field.
+                                    const target = m?.target;
+                                    if (target !== null && target !== undefined && `${target}`.trim() !== "") {
+                                        metric.value = `${target}`;
+                                        console.log("FundsCoin Fetch: applying metric target =>", { dept: d?.key, name: metricName, target });
+                                    } else {
+                                        // If target is missing, preserve any existing typed value (do not invent).
+                                        const existingVal = existingValues.get(metricName.toLowerCase());
+                                        if (existingVal !== undefined) metric.value = existingVal;
+                                    }
+                                    return metric;
+                                })
+                                .filter(Boolean);
+
+                            if (mapped.length) renderDept(deptKey, mapped);
+                        });
+
+                        const ratings = Array.isArray(rec?.ratings) ? rec.ratings : [];
+                        if (ratings.length) {
+                            console.log("FundsCoin Fetch: ratings from API =>", ratings);
+
+                            const ratingIdByKey = {
+                                intern: "ratingIntern",
+                                peer: "ratingPeer",
+                                cross: "ratingCrossDept",
+                                manager: "ratingManager",
+                                leadership: "ratingLeadership"
+                            };
+
+                            console.log("FundsCoin Fetch: applying rating weights =>", ratings.map(r => ({ key: r?.key, weight: r?.weight })));
+                            ratings.forEach(function (r) {
+                                const k = (r?.key ?? "").toString().trim().toLowerCase();
+                                const weight = r?.weight;
+                                const id = ratingIdByKey[k];
+                                if (!id) return;
+                                if (weight === null || weight === undefined || `${weight}`.trim() === "") return;
+                                const input = byId(id);
+                                if (input) input.value = `${weight}`;
+                            });
+
+                            updateBehavior();
+                        }
+
+                        updateDeptWeightIndicator();
+                        updateSaveButtonValidationState();
+                        return true;
+                    }
+
+                    // Call FundConfig GET for a given manager id.
+                    function fetchConfigForId(idValue, onDone) {
+                        console.log("FundsCoin UI: loading config =>", { managerId: idValue });
+                        setEmployeeNameLoading(true, "Loading config...");
+                        setFundConfigStatusMessage("");
+                        $.ajax({
+                            url: fundConfigGetUrl(idValue),
+                            type: "GET",
+                            success: function (res) {
+                                const applied = applyFundConfigResponse(res);
+                                setLastFetchedNow();
+                                onDone && onDone(applied ? "loaded" : "none");
+                            },
+                            error: function (xhr, status, err) {
+                                console.error("FundsCoin: Failed to fetch FundConfig for selected manager:", status, err || xhr);
+                                onDone && onDone("error");
+                            },
+                            complete: function () {
+                                setEmployeeNameLoading(false);
+                                updateSaveButtonValidationState();
+                            }
+                        });
+                    }
+
+                    fetchConfigForId(lookupId, function (status) {
+                        if (status === "loaded") console.log("FundsCoin UI: config loaded");
+                        else if (status === "none") console.log("FundsCoin UI: no config found");
+                        else if (status === "error") console.log("FundsCoin UI: error loading config");
+                        setFundConfigStatusMessage(status);
+                    });
+                }
+
+                selectEl.addEventListener("input", function () {
+                    renderTeamManagerSuggestions(selectEl.value);
+                    syncEmailFromName();
+                });
+                selectEl.addEventListener("change", function () {
+                    syncEmailFromName();
+                    if (window.$ && $.ajax) loadSelectedManagerFundConfig();
+                });
+
+                emailEl.addEventListener("input", updateSaveButtonValidationState);
+            }
+
+            // Populate manager suggestions from the fetched manager list.
+            function populateEmployeeManagerDropdown(managers) {
+                if (!Array.isArray(managers)) return;
+                setTeamManagers(managers);
+                renderTeamManagerSuggestions("");
+            }
+
+            // Fetch manager list for the selector (FundConfig GET without id).
+            function fetchFundConfigManagerListForEmployeeDropdown() {
+                if (!window.$ || !$.ajax) return;
+
+                console.log("FundsCoin UI: loading manager list");
+                setEmployeeNameLoading(true, "Loading managers...");
+                $.ajax({
+                    url: fundConfigGetUrl(""),
+                    type: "GET",
+                    success: function (res) {
+                        const managers = res?.teamManagers ?? [];
+
+                        if (Array.isArray(managers)) {
+                            populateEmployeeManagerDropdown(managers);
+                        } else {
+                            console.error("FundsCoin: Unexpected FundConfig manager-list response shape:", res);
+                        }
+                    },
+                    error: function (xhr, status, err) {
+                        console.error("FundsCoin: Failed to fetch FundConfig manager list:", status, err || xhr);
+                    },
+                    complete: function () {
+                        setEmployeeNameLoading(false);
+                        updateSaveButtonValidationState();
+                    }
+                });
+            }
+
+            // Wire page-level action buttons.
+            function wireActions() {
+                byId("calculateFundsCoinBtn")?.addEventListener("click", calculateFundsCoin);
+                byId("resetFundsCoinBtn")?.addEventListener("click", function () {
+                    const runReset = function () { resetFundsCoin(); };
+
+                    if (window.Swal && typeof Swal.fire === "function") {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Reset",
+                            text: "Are you sure you want to reset all fields?",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes, reset",
+                            cancelButtonText: "Cancel"
+                        }).then(function (result) {
+                            if (result && result.isConfirmed) runReset();
+                        });
+                        return;
+                    }
+
+                    if (confirm("Are you sure you want to reset all fields?")) runReset();
+                });
+
+                byId("stickySaveBtn")?.addEventListener("click", function () {
+                    console.log("FundsCoin UI: sticky action triggered =>", "save");
+                });
+                byId("stickyCalculateBtn")?.addEventListener("click", function () {
+                    console.log("FundsCoin UI: sticky action triggered =>", "calculate");
+                    byId("calculateFundsCoinBtn")?.click();
+                });
+                byId("stickyResetBtn")?.addEventListener("click", function () {
+                    console.log("FundsCoin UI: sticky action triggered =>", "reset");
+                    byId("resetFundsCoinBtn")?.click();
+                });
+            }
+
+            // Show a user-facing message using the existing alert pattern.
+            function showUiMessage(type, title, text) {
+                if (window.Swal && typeof Swal.fire === "function") {
+                    Swal.fire({ icon: type, title, text });
+                    return;
+                }
+                // Fallback if SweetAlert is unavailable for any reason.
+                alert(`${title}\n\n${text}`);
+            }
+
+            // Normalize manager id to a stable JSON payload value.
+            function normalizeManagerId(idValue) {
+                const raw = (idValue ?? "").toString().trim();
+                if (!raw) return "";
+                if (/^\d+$/.test(raw)) return parseInt(raw, 10);
+                return raw;
+            }
+
+            // Resolve the selected manager from the current Employee Name/Email fields.
+            function getSelectedManagerFromEmployeeName() {
+                const typedName = (byId("employeeName")?.value ?? "").toString().trim();
+                if (typedName) {
+                    const byName = TEAM_MANAGER_BY_NAME_LC.get(typedName.toLowerCase());
+                    if (byName) return byName;
+                }
+
+                // If config autofill changed the visible name, fall back to matching by email.
+                const email = (byId("employeeEmail")?.value ?? "").toString().trim().toLowerCase();
+                if (!email) return null;
+                return TEAM_MANAGERS.find(m => (m?.email ?? "").toString().trim().toLowerCase() === email) || null;
+            }
+
+            // Build departments payload from the current Department Performance UI.
+            function buildDepartmentsPayload() {
+                const deptMeta = {
+                    bd: { key: "BD", name: "Business Development", icon: "💼" },
+                    hr: { key: "HR", name: "Human Resources", icon: "👥" },
+                    marketing: { key: "MARKETING", name: "Marketing", icon: "📣" }
+                };
+
+                // Resolve a backend source code from a metric name.
+                function metricSourceForName(metricName) {
+                    const n = (metricName ?? "").toString().trim().toLowerCase();
+                    const map = new Map([
+                        // BD
+                        ["paid accounts", "BD_ACCOUNTS"],
+                        ["active interns", "BD_INTERNS_ACTIVE"],
+                        ["team accounts", "MANUAL"],
+                        ["team accounts (override)", "MANUAL"],
+                        ["team accounts override", "MANUAL"],
+
+                        // HR
+                        ["applications", "HR_COLLEGE_CONNECT"],
+                        ["interviews conducted", "HR_JD_SEND"],
+                        ["interviews", "HR_JD_SEND"],
+                        ["selections / hires", "HR_SELECTION"],
+                        ["selections", "HR_SELECTION"],
+                        ["active interns joined", "BD_INTERNS_ACTIVE"],
+                        ["college reviews", "HR_SELECTED_COLLEGES"],
+
+                        // MARKETING
+                        ["qualified leads", "MANUAL"],
+                        ["reviews / ratings", "MANUAL"],
+                        ["email positive responses", "MANUAL"],
+                        ["followers growth", "MANUAL"],
+                        ["followers growth (per 10)", "MANUAL"],
+                        ["engagement rate", "MANUAL"],
+                        ["engagement rate (%)", "MANUAL"],
+                        ["engagement", "MANUAL"]
+                    ]);
+
+                    return map.get(n) ?? "MANUAL";
+                }
+
+                const out = [];
+                Object.keys(deptMeta).forEach(function (deptKey) {
+                    const meta = deptMeta[deptKey];
+                    const table = getTable(deptKey);
+                    const rows = table ? table.querySelectorAll("tbody tr") : [];
+                    const metrics = [];
+
+                    rows.forEach(function (row) {
+                        const name = (row.querySelector('input[data-field="name"]')?.value ?? "").toString().trim();
+                        if (!name) return;
+
+                        const targetStr = (row.querySelector('input[data-field="value"]')?.value ?? "").toString().trim();
+                        const multiplierStr = (row.querySelector('input[data-field="multiplier"]')?.value ?? "").toString().trim();
+                        const weightStr = (row.querySelector('input[data-field="weight"]')?.value ?? "").toString().trim();
+
+                        const source = metricSourceForName(name);
+                        const metric = { name, source };
+
+                        // Frontend "Quantity / Value" is sent to backend as `target` (UI label remains unchanged).
+                        metric.target = targetStr === "" ? 0 : toNum(targetStr, 0);
+
+                        if (multiplierStr !== "") metric.multiplier = toNum(multiplierStr, 0);
+                        if (weightStr !== "") metric.weight = toNum(weightStr, 0);
+
+                        // For MANUAL sources backend expects `value` alongside `target`.
+                        if (source === "MANUAL") metric.value = 0;
+
+                        console.log("FundsCoin Save: metric mapping =>", { dept: meta.key, name, source, target: metric.target });
+
+                        metrics.push(metric);
+                    });
+
+                    const weightStr = (byId(DEPTS[deptKey].weightId)?.value ?? "").toString().trim();
+                    const dept = { key: meta.key, name: meta.name, icon: meta.icon };
+                    if (weightStr !== "") dept.weight = toNum(weightStr, 0);
+                    if (metrics.length) dept.metrics = metrics;
+
+                    // Include department only if it has something meaningful to persist.
+                    if (dept.weight !== undefined || (dept.metrics && dept.metrics.length)) out.push(dept);
+                });
+
+                console.log("FundsCoin Save: departments payload =>", out);
+                return out;
+            }
+
+            // Build ratings weight config for the save payload.
+            function buildRatingsPayload() {
+                // Read a weight input with a sensible fallback.
+                function weightFromInput(id, fallback) {
+                    const raw = (byId(id)?.value ?? "").toString().trim();
+                    if (raw === "") return fallback;
+                    return clamp(toNum(raw, fallback), 0, 100);
+                }
+
+                return [
+                    { key: "intern", name: "Intern Rating", weight: weightFromInput("ratingIntern", DEFAULT_BEHAVIOR_RATINGS.intern) },
+                    { key: "peer", name: "Peer Rating", weight: weightFromInput("ratingPeer", DEFAULT_BEHAVIOR_RATINGS.peer) },
+                    { key: "cross", name: "Cross Department Rating", weight: weightFromInput("ratingCrossDept", DEFAULT_BEHAVIOR_RATINGS.cross) },
+                    { key: "manager", name: "Manager Rating", weight: weightFromInput("ratingManager", DEFAULT_BEHAVIOR_RATINGS.manager) },
+                    { key: "leadership", name: "Leadership Rating", weight: weightFromInput("ratingLeadership", DEFAULT_BEHAVIOR_RATINGS.leadership) }
+                ];
+            }
+
+            // Build the FundConfig POST payload from current UI state.
+            function buildFundConfigPayload() {
+                const manager = getSelectedManagerFromEmployeeName();
+                const lookupId = getManagerConfigLookupId(manager);
+
+                const employeeName = (byId("employeeName")?.value ?? "").toString().trim();
+                const employeeEmail = (byId("employeeEmail")?.value ?? "").toString().trim();
+
+                if (!manager || !lookupId) {
+                    return { error: "Please select a valid manager from the suggestions before saving." };
+                }
+                if (!employeeName) {
+                    return { error: "Employee Name is required before saving." };
+                }
+                if (!employeeEmail) {
+                    return { error: "Employee Email is required before saving." };
+                }
+
+                const payload = {
+                    managerId: normalizeManagerId(lookupId),
+                    employeeName,
+                    employeeEmail
+                };
+
+                const position = (byId("employeeRole")?.value ?? "").toString().trim();
+                if (position) payload.position = position;
+
+                const targetCoinsStr = (byId("targetCoins")?.value ?? "").toString().trim();
+                if (targetCoinsStr !== "" && Number.isFinite(parseFloat(targetCoinsStr))) {
+                    payload.targetCoins = toNum(targetCoinsStr, 0);
+                }
+
+                const retentionRateStr = (byId("retentionRate")?.value ?? "").toString().trim();
+                if (retentionRateStr !== "" && Number.isFinite(parseFloat(retentionRateStr))) {
+                    payload.retentionRate = clamp(toNum(retentionRateStr, 0), 0, 100);
+                }
+
+                const departments = buildDepartmentsPayload();
+                if (departments.length) payload.departments = departments;
+
+                const ratings = buildRatingsPayload();
+                if (ratings.length) {
+                    payload.ratings = ratings;
+                    console.log("FundsCoin Save: ratings payload =>", ratings);
+                }
+
+                return { payload };
+            }
+
+            // Send POST request to create/update FundConfig.
+            function saveFundConfig() {
+                if (!window.$ || !$.ajax) return;
+
+                console.log("FundsCoin Save: click");
+                updateEmployeeInlineValidation({ saveAttempt: true });
+                const selectedManager = getSelectedManagerFromEmployeeName();
+                console.log("FundsCoin Save: selected manager =>", selectedManager);
+                console.log("FundsCoin Save: resolved managerId =>", getManagerConfigLookupId(selectedManager));
+
+                const btns = [
+                    byId("saveFundConfigBtn"),
+                    byId("saveEmployeeInfoBtn"),
+                    byId("saveRetentionBehaviorBtn"),
+                    byId("stickySaveBtn")
+                ].filter(Boolean);
+                const built = buildFundConfigPayload();
+                if (built.error) {
+                    showUiMessage("warning", "Cannot Save", built.error);
+                    return;
+                }
+
+                const payload = built.payload;
+                if (!payload || !payload.managerId || !payload.employeeName || !payload.employeeEmail) {
+                    showUiMessage("warning", "Cannot Save", "Missing required fields (manager, name, email).");
+                    return;
+                }
+
+                console.log("FundsCoin Save: endpoint =>", "https://eduroom.in/api/v1/fundconfig/create");
+                console.log("FundsCoin Save: payload =>", payload);
+
+                FUND_CONFIG_SAVE_IN_FLIGHT = true;
+                btns.forEach(b => (b.disabled = true));
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/fundconfig/create",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        console.log("FundsCoin Save: POST success =>", res);
+                        const ok = res?.success === true || res?.status === true;
+                        if (ok) {
+                            showUiMessage("success", "Saved", "FundConfig saved successfully.");
+                            setLastSavedNow();
+                        } else {
+                            console.error("FundsCoin Save: POST non-success =>", res);
+                            showUiMessage("error", "Save Failed", "FundConfig could not be saved. Please try again.");
+                        }
+                    },
+                    error: function (xhr, status, err) {
+                        console.error("FundsCoin Save: POST error =>", status, err || xhr, xhr?.responseText);
+                        showUiMessage("error", "Save Failed", "Network/server error while saving FundConfig.");
+                    },
+                    complete: function () {
+                        FUND_CONFIG_SAVE_IN_FLIGHT = false;
+                        updateSaveButtonValidationState();
+                    }
+                });
+            }
+
+            // Wire both save buttons to the same handler.
+            function wireSaveFundConfig() {
+                [
+                    { id: "saveEmployeeInfoBtn", source: "employee" },
+                    { id: "saveFundConfigBtn", source: "department" },
+                    { id: "saveRetentionBehaviorBtn", source: "retention" },
+                    { id: "stickySaveBtn", source: "sticky" }
+                ].forEach(function (item) {
+                    const el = byId(item.id);
+                    if (!el) return;
+                    el.addEventListener("click", function () {
+                        console.log("FundsCoin UI: section save triggered =>", item.source);
+                    });
+                    el.addEventListener("click", saveFundConfig);
+                });
+            }
+
+            // Reset the full page back to default values.
+            function resetFundsCoin() {
+                const defaults = getDefaultState();
+
+                byId("employeeName") && (byId("employeeName").value = defaults.employee.name);
+                byId("employeeEmail") && (byId("employeeEmail").value = defaults.employee.email);
+                byId("employeeRole") && (byId("employeeRole").value = defaults.employee.role);
+                byId("targetCoins") && (byId("targetCoins").value = defaults.employee.targetCoins.toString());
+
+                byId(DEPTS.bd.weightId) && (byId(DEPTS.bd.weightId).value = defaults.deptWeights.bd.toString());
+                byId(DEPTS.hr.weightId) && (byId(DEPTS.hr.weightId).value = defaults.deptWeights.hr.toString());
+                byId(DEPTS.marketing.weightId) && (byId(DEPTS.marketing.weightId).value = defaults.deptWeights.marketing.toString());
+
+                byId("retentionRate") && (byId("retentionRate").value = defaults.retentionRate.toString());
+                byId("ratingIntern") && (byId("ratingIntern").value = defaults.ratings.intern.toString());
+                byId("ratingPeer") && (byId("ratingPeer").value = defaults.ratings.peer.toString());
+                byId("ratingCrossDept") && (byId("ratingCrossDept").value = defaults.ratings.cross.toString());
+                byId("ratingManager") && (byId("ratingManager").value = defaults.ratings.manager.toString());
+                byId("ratingLeadership") && (byId("ratingLeadership").value = defaults.ratings.leadership.toString());
+
+                renderDept("bd", defaults.metrics.bd);
+                renderDept("hr", defaults.metrics.hr);
+                renderDept("marketing", defaults.metrics.marketing);
+
+                activateDept("bd");
+                resetSummary();
+                updateDeptWeightIndicator();
+                updateRetention();
+                updateBehavior();
+                setEmployeeNameLoading(false);
+                setFundConfigStatusMessage("");
+                SHOW_EMPLOYEE_SAVE_HINTS = false;
+                INLINE_VALIDATION_SNAPSHOT = "";
+                updateSaveButtonValidationState();
+            }
+
+            // Wire events and set the initial page state.
+            function init() {
+                wireTabs();
+                wireTables();
+                wireWeightInputs();
+                wireRetention();
+                clampRatingInputs();
+                wireAddButtons();
+                wireEmployeeManagerDropdown();
+                wireActions();
+                wireSaveFundConfig();
+
+                byId("employeeRole")?.addEventListener("change", updateEmployeeInlineValidation);
+                byId("targetCoins")?.addEventListener("input", updateEmployeeInlineValidation);
+
+                fetchFundConfigManagerListForEmployeeDropdown();
+                resetFundsCoin();
+            }
+
+            // Initialize once the DOM is ready.
+            document.addEventListener("DOMContentLoaded", init);
+        })();
+    </script>
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
+    <!-- <script>
+        if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
+            Swal.fire({
+                icon: "warning",
+                title: "Access Restricted",
+                text: "You are not permitted to use this page!",
+                confirmButtonText: "Go Back"
+            }).then(() => {
+                window.location.href = "/profile/dashboard/team-manager.html";
+            });
+        }
+    </script> -->
+</body>
+
+</html>
