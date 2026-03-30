@@ -641,11 +641,13 @@
 
                         let userId = null;
                         let userName = null;
+                        let fundConfigId = null;
                         let redirectUrl = "/profile.html";
 
                         if (res.account && res.account.managerId) {
                             userId = res.account.managerId;
                             userName = res.account.name || "Manager";
+                            fundConfigId = res.account.fundConfigId;
                             redirectUrl = "/profile/dashboard/team-manager.html";
                         } else if (res.user && res.user.user_id) {
                             userId = res.user.user_id;
@@ -676,6 +678,7 @@
 
                         if (userId) {
                             sessionStorage.setItem("user_id", userId);
+                            sessionStorage.setItem("fundConfigId", fundConfigId);
                         }
                         if (userName) {
                             sessionStorage.setItem("userName", userName.trim());

@@ -110,10 +110,18 @@
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/tasks-admin.html">WORKSHEET ADMIN</a></li>
                             <li class="nxl-item"><a class="nxl-link"
-                                    href="/profile/dashboard/fundscoin.html">TRAINING MODULE ADMIN</a></li>
+                                    href="/profile/dashboard/score-sheet-admin.html">TRAINING MODULE ADMIN</a></li>
                             <li class="nxl-item"><a class="nxl-link"
                                     href="/profile/dashboard/fundscoin.html">FUNDSCOIN</a></li>
                         </ul>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/manager-profile.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-user-check"></i></span>
+                            <span class="nxl-mtext">MY PROFILE</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
                     </li>
 
                     <!-- OTHER MENU ITEMS UNCHANGED -->
@@ -170,6 +178,14 @@
                         <a href="/profile/dashboard/tasks.html" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-file"></i></span>
                             <span class="nxl-mtext">WORKSHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
+                        <a href="/profile/dashboard/reviews.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-star"></i></span>
+                            <span class="nxl-mtext">REVIEWS</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                     </li>
@@ -2319,7 +2335,7 @@
             display: block !important;
         }
     </style>
-    <!-- <script>
+    <script>
         if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
             Swal.fire({
                 icon: "warning",
@@ -2330,7 +2346,7 @@
                 window.location.href = "/profile/dashboard/team-manager.html";
             });
         }
-    </script> -->
+    </script>
 </body>
 
 </html>

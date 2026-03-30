@@ -715,10 +715,16 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card stretch stretch-full">
-                            <div class="card-header">
+                            <div class="card-header flex-wrap" style="gap: 10px;">
                                 <h3 class="card-title" style="font-size: 25px;">My Daily Task Sheet</h3>
-                                <div class="d-flex justify-content-between align-items-center"></div>
-                                <div class="card-header-action"></div>
+                                <div class="w-100 mt-2">
+                                    <div class="alert alert-primary mb-0 py-2 px-3"
+                                        style="font-size: 13px; border-left: 4px solid #0d6efd;">
+                                        <i class="fa fa-info-circle"></i> <b>Note:</b> You can click directly on the
+                                        <b>Manager Rating</b> and <b>Manager Comment</b> cells to edit and submit your
+                                        evaluations automatically.
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body custom-card-action p-0">
                                 <div class="table-responsive">
@@ -729,10 +735,12 @@
                                                 <th style="font-size: 15px;">Day of week</th>
                                                 <th style="font-size: 15px;">Date</th>
                                                 <th style="font-size: 15px;">My work status</th>
-                                                <th style="font-size: 15px;">Comment</th>
+                                                <th style="font-size: 15px;">Comment for me</th>
                                                 <th style="font-size: 15px;">My business task</th>
                                                 <th style="font-size: 15px;">My target</th>
                                                 <th style="font-size: 15px;">Percentage of work</th>
+                                                <th style="font-size: 15px;">Manager Rating</th>
+                                                <th style="font-size: 15px;">Manager Comment</th>
                                                 <!-- <th style="font-size: 15px;">Category</th> -->
                                             </tr>
                                         </thead>
@@ -1454,6 +1462,8 @@
                                                 <th style="font-size: 15px;">My business task</th>
                                                 <th style="font-size: 15px;">My target</th>
                                                 <th style="font-size: 15px;">Percentage of work</th>
+                                                <th style="font-size: 15px;">Ratings</th>
+                                                <th style="font-size: 15px;">Comments</th>
                                                 <th style="font-size: 15px;">Category</th>
                                             </tr>
                                         </thead>
@@ -3316,7 +3326,9 @@
                                     dailyTarget: item.DAILY_TARGET,
                                     percentOfWork: item.PERCENT_OF_WORK,
                                     category: item.CATEGORY,
-                                    colorPercentage: item.COLOR_PERCENTAGE
+                                    colorPercentage: item.COLOR_PERCENTAGE,
+                                    rating: item.starRating || item.STAR_RATING || item.rating || item.RATING,
+                                    managerComment: item.ratingComment || item.RATING_COMMENT || item.manager_comment || item.MANAGER_COMMENT
                                 };
                             });
 
@@ -3364,6 +3376,61 @@
                 return `${category} ${emoji}`;
             }
 
+            function makeRatingCell(rating, sr) {
+                rating = rating != null ? rating : '';
+                return `<td class="rating-cell" data-field="rating" data-sr="${sr}" style="cursor: pointer;">
+                    <span class="rating-display">${rating || '--'}</span>
+                    <div class="rating-edit" style="display: none;">
+                        <input type="number" class="rating-input form-control form-control-sm" value="${rating}" min="0" max="5" step="0.1" placeholder="Max 5">
+                    </div>
+                </td>`;
+            }
+
+            function makeManagerCommentCell(comment, sr) {
+                comment = comment != null ? comment : '';
+                return `<td class="manager-comment-cell" data-field="manager_comment" data-sr="${sr}" style="cursor: pointer;">
+                    <span class="manager-comment-display">${comment || '--'}</span>
+                    <div class="manager-comment-edit" style="display: none;">
+                        <input type="text" class="manager-comment-input form-control form-control-sm" value="${escJS(comment)}" maxlength="100" placeholder="Max 100 chars">
+                    </div>
+                </td>`;
+            }
+
+            function saveRating(input) {
+                const cell = input.closest(".rating-cell");
+                let newValue = parseFloat(input.val());
+                if (isNaN(newValue) || newValue < 0) newValue = 0;
+                if (newValue > 5) newValue = 5;
+
+                const displaySpan = cell.find(".rating-display");
+                const sr = cell.data("sr");
+
+                displaySpan.text(newValue);
+                cell.find(".rating-edit").hide();
+                displaySpan.show();
+
+                const index = tableData.findIndex(item => item.sr === sr);
+                if (index !== -1) tableData[index].rating = newValue;
+
+                updateField(sr, "starRating", newValue);
+            }
+
+            function saveManagerComment(input) {
+                const cell = input.closest(".manager-comment-cell");
+                const newValue = input.val().trim().substring(0, 100);
+                const displaySpan = cell.find(".manager-comment-display");
+                const sr = cell.data("sr");
+
+                displaySpan.text(newValue || '--');
+                cell.find(".manager-comment-edit").hide();
+                displaySpan.show();
+
+                const index = tableData.findIndex(item => item.sr === sr);
+                if (index !== -1) tableData[index].managerComment = newValue;
+
+                updateField(sr, "ratingComment", newValue);
+            }
+
             function renderTable() {
                 const tbody = $("#leadsTable2 tbody");
                 tbody.empty();
@@ -3385,6 +3452,8 @@
                             <td>${row.businessTask}</td>
                             <td>${row.dailyTarget}</td>
                             <td>${row.percentOfWork}</td>
+                            ${makeRatingCell(row.rating, row.sr)}
+                            ${makeManagerCommentCell(row.managerComment, row.sr)}
                         </tr>
                     `;
                     tbody.append(tr);
@@ -3452,8 +3521,28 @@
                     }
                 });
 
+                $(".rating-cell").off("click").on("click", function () {
+                    const cell = $(this);
+                    cell.find(".rating-display").hide();
+                    cell.find(".rating-edit").show();
+                    cell.find(".rating-input").focus().select();
+                });
+
+                $(".rating-input").off("blur").on("blur", function () { saveRating($(this)); });
+                $(".rating-input").off("keypress").on("keypress", function (e) { if (e.which === 13) saveRating($(this)); });
+
+                $(".manager-comment-cell").off("click").on("click", function () {
+                    const cell = $(this);
+                    cell.find(".manager-comment-display").hide();
+                    cell.find(".manager-comment-edit").show();
+                    cell.find(".manager-comment-input").focus().select();
+                });
+
+                $(".manager-comment-input").off("blur").on("blur", function () { saveManagerComment($(this)); });
+                $(".manager-comment-input").off("keypress").on("keypress", function (e) { if (e.which === 13) saveManagerComment($(this)); });
+
                 $(document).on("click", function (e) {
-                    if (!$(e.target).closest(".work-status-cell, .comment-cell, .daily-target-cell").length) {
+                    if (!$(e.target).closest(".work-status-cell, .comment-cell, .daily-target-cell, .rating-cell, .manager-comment-cell").length) {
                         closeAllEditModes();
                     }
                 });
@@ -3525,6 +3614,18 @@
                         saveDailyTarget(input);
                     }
                 });
+
+                $(".rating-cell").each(function () {
+                    const cell = $(this);
+                    const editDiv = cell.find(".rating-edit");
+                    if (editDiv.is(":visible")) saveRating(cell.find(".rating-input"));
+                });
+
+                $(".manager-comment-cell").each(function () {
+                    const cell = $(this);
+                    const editDiv = cell.find(".manager-comment-edit");
+                    if (editDiv.is(":visible")) saveManagerComment(cell.find(".manager-comment-input"));
+                });
             }
 
             function updateField(sr, fieldName, fieldValue) {
@@ -3533,6 +3634,7 @@
                     day_no: sr,
                     [fieldName]: fieldValue
                 };
+                console.log("Payload:", payload);
 
                 const url = `https://eduroom.in/api/v1/analysis1/user/day-work`;
                 // console.log("Updating field with URL:", url, "Payload:", payload);
@@ -3624,6 +3726,8 @@
                         <td>${row.businessTask}</td>
                         <td>${row.dailyTarget}</td>
                         <td>${row.percentOfWork}</td>
+                        ${makeRatingCell(row.rating, row.sr)}
+                        ${makeManagerCommentCell(row.managerComment, row.sr)}
                         <!-- <td>${row.category}</td> -->
                     </tr>`;
                     tbody.append(tr);
@@ -3643,7 +3747,7 @@
             };
 
             window.exportToExcel2 = function () {
-                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work"];
+                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work", "Rating", "Manager Comment"];
                 const data = [headers];
 
                 tableData.slice(0, 5).forEach((row) => {
@@ -3656,6 +3760,8 @@
                         row.businessTask,
                         row.dailyTarget,
                         row.percentOfWork,
+                        row.rating || '',
+                        row.managerComment || ''
                         // row.category
                     ]);
                 });
