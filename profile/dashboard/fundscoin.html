@@ -2102,6 +2102,7 @@
                 const now = new Date();
                 payload.periodMonth = now.getMonth() + 1;
                 payload.periodYear = now.getFullYear();
+                console.log("FundsCoin Save: periodMonth/periodYear =>", { periodMonth: payload.periodMonth, periodYear: payload.periodYear });
 
                 const retentionRateStr = (byId("retentionRate")?.value ?? "").toString().trim();
                 const hasRetention = retentionRateStr !== "" && Number.isFinite(parseFloat(retentionRateStr));
@@ -2154,6 +2155,8 @@
 
                 FUND_CONFIG_SAVE_IN_FLIGHT = true;
                 btns.forEach(b => (b.disabled = true));
+
+                console.log("FundsCoin Save: payload FULL =>", payload);
 
                 $.ajax({
                     url: "https://eduroom.in/api/v1/fundconfig/create",
