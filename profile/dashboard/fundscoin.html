@@ -428,9 +428,9 @@
                                          <div class="form-text text-warning d-none" id="targetCoinsInlineMsg">Target Coins should be a valid non-negative number.</div>
                                      </div>
                                  </div>
-                                 <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
+                                 <!-- <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
                                      <button type="button" class="btn btn-sm btn-outline-primary" id="saveEmployeeInfoBtn" disabled>Save Employee Info</button>
-                                 </div>
+                                 </div> -->
                                  <div class="mt-2 d-flex flex-wrap gap-3 align-items-center fs-11">
                                      <div id="fundConfigStatusMessage" class="text-muted"></div>
                                      <div class="text-muted">Last fetched: <span class="fw-semibold" id="lastFetchedAt">--</span></div>
@@ -496,7 +496,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
-                                                        <th style="min-width: 220px;">Comment</th>
+                                                        <th style="min-width: 220px;">Target Achieved</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -531,7 +531,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
-                                                        <th style="min-width: 220px;">Comment</th>
+                                                        <th style="min-width: 220px;">Target Achieved</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -568,7 +568,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
-                                                        <th style="min-width: 220px;">Comment</th>
+                                                        <th style="min-width: 220px;">Target Achieved</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -592,7 +592,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row g-3">
-                                    <div class="col-lg-4">
+                                    <!-- <div class="col-lg-4">
                                         <div class="border rounded p-3 h-100">
                                             <h6 class="mb-2">Retention</h6>
                                             <label class="form-label" for="retentionRate">Retention Rate (%)</label>
@@ -609,9 +609,9 @@
                                                     value="" placeholder="--" readonly>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-12">
                                         <div class="border rounded p-3 h-100">
                                              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
                                                  <h6 class="mb-0">Behavior Weights</h6>
@@ -704,7 +704,7 @@
                         </div>
                     </div> -->
 
-                    <div class="col-12" id="fundscoin-actions">
+                    <!-- <div class="col-12" id="fundscoin-actions">
                         <div class="card stretch stretch-full mb-4">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Actions</h5>
@@ -715,7 +715,7 @@
                                  </div>
                              </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -1118,7 +1118,7 @@
 <td><input type="number" class="form-control" data-field="value" value="${escapeHtml(valueStr)}" min="0" step="0.1" placeholder="0"></td>
 <td><input type="number" class="form-control" data-field="multiplier" value="${escapeHtml(multiplierStr)}" min="0" step="0.1" placeholder="0"></td>
 <td><input type="number" class="form-control" data-field="weight" value="${escapeHtml(weightStr)}" min="0" max="100" step="1" placeholder="0"></td>
-<td><input class="form-control" data-field="comment" value="${escapeHtml(commentStr)}" placeholder="Comment"></td>
+<td><input class="form-control" data-field="comment" value="${escapeHtml(commentStr)}" placeholder="Target Achieved"></td>
 <td><input type="number" class="form-control" data-field="coins" value="${escapeHtml(coinsStr)}" readonly placeholder="--"></td>
 <td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger metric-remove">Remove</button></td>
 </tr>`;
