@@ -10,7 +10,7 @@
     <meta name="author" content="Fundsroom" />
     <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
     <!--! BEGIN: Apps Title-->
-    <title>Fundsroom HR || CO</title>
+    <title>Fundsroom || Dashboard</title>
     <!--! END:  Apps Title-->
     <!--! BEGIN: Favicon-->
     <link rel="shortcut icon" type="image/x-icon" href="./../assets/images/FundsAuditLogo.png" />
@@ -305,6 +305,8 @@
                         </div>
                     </div> -->
 
+                    <!-- Removed Manager Dropdown from Header -->
+
                     <!-- User Dropdown -->
                     <div class="dropdown nxl-h-item">
                         <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button"
@@ -345,38 +347,133 @@
     <!--! ================================================================ !-->
     <main class="nxl-container">
         <div class="main-content">
+            <div class="page-header">
+                <div class="page-header-left d-flex align-items-center">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">DASHBOARD</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <!-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> -->
+                        <li class="breadcrumb-item">REVIEWS</li>
+                    </ul>
+                </div>
+
+            </div>
             <div class="row" style="margin-left: 2%; margin-right: 1%;">
                 <div class="col-lg-12" style="margin-top: 2%;">
                     <div class="card border-top-0">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="profileTab" role="tabpanel">
-                                <div class="card-body personal-info">
-                                    <div class="mb-4 d-flex align-items-center justify-content-between">
-                                        <h5 class="fw-bold mb-0 me-4">
-                                            <span class="d-block mb-2">Targets:</span>
-                                        </h5>
-                                        <div class="date-picker-container">
-                                            <input type="text" id="dateRangePicker" class="form-control"
-                                                placeholder="Select date or range" style="max-width:220px;" />
-                                        </div>
+                        <div class="card-header p-4">
+                            <h5 class="fw-bold mb-0">Submit Review</h5>
+                        </div>
+                        <div class="card-body personal-info p-4">
+                            <form id="reviewForm">
+                                <div class="row mb-4">
+                                    <div class="col-lg-6">
+                                        <label class="form-label fw-semibold">Target User</label>
+                                        <select id="managerSelect" class="form-select" required>
+                                            <option value="">Select User</option>
+                                        </select>
                                     </div>
-
-
-                                    <!-- Dynamic target rows will load here -->
-                                    <div id="targetsContainer"></div>
-
+                                    <div class="col-lg-6">
+                                        <label class="form-label fw-semibold">Reviewer Type</label>
+                                        <select id="reviewerType" class="form-select" required>
+                                            <option value="">Select Type</option>
+                                            <option value="peer">Peer</option>
+                                            <option value="cross">Cross</option>
+                                            <option value="manager">Manager</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <hr class="my-0">
-                            </div>
+                                <div class="row mb-4">
+                                    <div class="col-lg-6">
+                                        <label class="form-label fw-semibold">Review Date</label>
+                                        <input type="text" id="reviewDate" class="form-control"
+                                            placeholder="Select Date" required />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label fw-semibold">Star Rating (out of 5)</label>
+                                        <input type="number" id="starRating" class="form-control" min="0" max="5"
+                                            step="0.1" placeholder="e.g., 4.5" required />
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-lg-12">
+                                        <label class="form-label fw-semibold"
+                                            style="margin-bottom: 7px;">Comment</label>
+                                        <textarea id="comment" class="form-control" rows="3" placeholder="Enter comment"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary" id="submitReviewBtn">Submit
+                                        Review</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- [ Main Content ] end -->
+            <!-- Reviews List Section -->
+            <div class="row" style="margin-left: 2%; margin-right: 1%; margin-top: 2%;">
+                <div class="col-12 flex-fill">
+                    <div class="card stretch stretch-full">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0" style="margin-bottom: 0;">My Reviews</h5>
+                            <div class="card-header-action d-flex align-items-center gap-2">
+                                <select id="filterMonth" class="form-select" style="width: auto; min-width: 120px;">
+                                    <option value="">Select Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <select id="filterYear" class="form-select" style="width: auto; min-width: 100px;">
+                                    <option value="">Select Year</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="card-body custom-card-action p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0" id="reviewsTable">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th>Sr No</th>
+                                            <th>Reviewer Type</th>
+                                            <th>Star Rating</th>
+                                            <th>Comment</th>
+                                            <th>Review Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">Select month and year to view
+                                                reviews</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- [ Footer ] end -->
     </main>
+
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
@@ -416,8 +513,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <script>
-        if (sessionStorage.getItem("hr_verified") !== "true") {
+    <!-- <script>
+        if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
             Swal.fire({
                 icon: "warning",
                 title: "Access Restricted",
@@ -427,216 +524,178 @@
                 window.location.href = "/profile/dashboard/team-manager.html";
             });
         }
-    </script>
+    </script> -->
 
     <script>
-        let fromDate = null;
-        let toDate = null;
-        const teamManagerId = sessionStorage.getItem("user_id");
-        const managerName = sessionStorage.getItem("userName");
-        console.log("Manager Name:", managerName);
-        const postUrl = `https://eduroom.in/api/v1/mytarget/add`;
+        const postUrl = `https://eduroom.in/api/v1/managerreview/submit`;
 
-        function formatDateForUI(dateStr) {
-            const parts = dateStr.split("-");
-            if (parts.length !== 3) return dateStr;
-            return `${parts[2]}-${parts[1]}-${parts[0]}`;
-        }
-
-        function getDefaultDateRange() {
-            const now = new Date();
-            const firstDay = new Date(now.getFullYear(), now.getMonth(), 2);
-            const lastDay = new Date(now.getFullYear(), now.getMonth() + 2, 0);
-
-            return {
-                from: firstDay.toISOString().split("T")[0],
-                to: lastDay.toISOString().split("T")[0]
-            };
-        }
-
-        function renderTargetRows(data) {
-            const container = $("#targetsContainer");
-            container.empty();
-
-            if (!data || data.length === 0) {
-                container.append(`<p class="text-muted">No targets found for this date range.</p>`);
-                return;
-            }
-
-            data.forEach((item, index) => {
-                let btnClass = (parseInt(item.jds) > 0 || parseInt(item.calls) > 0 || parseInt(item.followUps) > 0 || parseInt(item.resumetarget) > 0
-                    || parseInt(item.collegeTarget) > 0 || parseInt(item.interviewsTarget) > 0 || parseInt(item.resumesReceivedTarget) > 0) // 🔥 added new fields
-                    ? "btn-success"
-                    : "btn-primary";
-
-                const row = `
-                <div class="row mb-3 align-items-center border-bottom pb-2">
-                    <!-- Left side: Date + Day -->
-                    <div class="col-lg-2 fw-semibold" style="margin-bottom: 5px;">
-                        ${formatDateForUI(item.date)}
-                        <small class="text-muted">(${item.day})</small> :
-                    </div>
-
-                    <div class="row mb-3 align-items-center pb-2">
-
-                    <!-- JDs input -->
-                    <div class="col-lg-2">JDs:
-                        <input type="number" class="form-control" id="jds-${index}" value="${item.jds}" />
-                    </div>
-
-                    <!-- Calls input -->
-                    <div class="col-lg-2">Calls:
-                        <input type="number" class="form-control" id="calls-${index}" value="${item.calls}" />
-                    </div>
-
-                    <!-- Follow Ups input -->
-                    <div class="col-lg-2">Follow Ups:
-                        <input type="number" class="form-control" id="followUps-${index}" value="${item.followUps}" />
-                    </div>
-
-                    <!-- Resume Target input -->
-                    <div class="col-lg-2">Resumes:
-                        <input type="number" class="form-control" id="resumetarget-${index}" value="${item.resumetarget}" />
-                    </div>
-
-                    <!-- New Fields -->
-                    <div class="col-lg-2">Colleges:
-                        <input type="number" class="form-control" id="collegeTarget-${index}" value="${item.collegeTarget || 0}" />
-                    </div>
-
-                    <div class="col-lg-2">Selected:
-                        <input type="number" class="form-control" id="resumesReceivedTarget-${index}" value="${item.resumesReceivedTarget || 0}" />
-                    </div>
-
-                    <!-- Save button -->
-                    <div class="col-lg-1 text-end" style="margin-top: 10px;">
-                        <button class="btn ${btnClass} btn-save" data-date="${item.date}" data-index="${index}">
-                            Save
-                        </button>
-                    </div>
-                    </div>
-                </div>
-            `;
-                container.append(row);
-            });
-
-            $(".btn-save").on("click", function () {
-                const date = $(this).data("date");
-                const index = $(this).data("index");
-
-                const jdsVal = $(`#jds-${index}`).val();
-                const callsVal = $(`#calls-${index}`).val();
-                const followUpsVal = $(`#followUps-${index}`).val();
-                const resumeVal = $(`#resumetarget-${index}`).val();
-
-                const collegeTargetVal = $(`#collegeTarget-${index}`).val();
-                const interviewsTargetVal = $(`#interviewsTarget-${index}`).val();
-                const resumesReceivedTargetVal = $(`#resumesReceivedTarget-${index}`).val();
-
-                saveTarget(date, jdsVal, callsVal, followUpsVal, resumeVal, collegeTargetVal, interviewsTargetVal, resumesReceivedTargetVal);
-            });
-        }
-
-        function fetchTargetData(startDate, endDate) {
-            const apiUrl = `https://eduroom.in/api/v1/mytarget/fetch?teamManagerId=${teamManagerId}&startDate=${startDate}&endDate=${endDate}`;
-            console.log("Calling API:", apiUrl);
-
+        function loadManagers() {
             $.ajax({
-                url: apiUrl,
+                url: "https://eduroom.in/api/v1/teammanager/all",
                 type: "GET",
-                success: function (response) {
-                    console.log("GET response:", response);
-                    if (response.success && response.dates && response.dates.length > 0) {
-                        renderTargetRows(response.dates);
-                    } else {
-                        $("#targetsContainer").html("<p class='text-muted'>No targets found.</p>");
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Error loading target:", xhr.responseText);
-                }
-            });
-        }
-
-        function saveTarget(date, jds, calls, followUps, resumetarget, collegeTarget, interviewsTarget, resumesReceivedTarget) {
-            Swal.fire({
-                title: "Saving Target...",
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-
-            const payload = {
-                teamManagerId: teamManagerId,
-                targets: [
-                    {
-                        date: date,
-                        jds: parseInt(jds),
-                        calls: parseInt(calls),
-                        followUps: parseInt(followUps),
-                        resumetarget: parseInt(resumetarget),
-                        collegeTarget: parseInt(collegeTarget),
-                        interviewsTarget: parseInt(interviewsTarget),
-                        resumesReceivedTarget: parseInt(resumesReceivedTarget)
-                    }
-                ]
-            };
-            console.log("payload:", payload);
-
-            $.ajax({
-                url: postUrl,
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(payload),
                 success: function (res) {
-                    console.log("Save response:", res);
-                    Swal.fire({
-                        icon: "success",
-                        title: "Target saved successfully!",
-                        confirmButtonColor: "#3085d6"
-                    });
-                    fetchTargetData(fromDate, toDate);
+                    if (res.data?.length) {
+                        res.data.forEach(m => {
+                            $("#managerSelect").append(`
+                            <option value="${m.id}">
+                                ${m.name} (${m.department})
+                            </option>
+                        `);
+                        });
+                    }
                 },
-                error: function (xhr) {
-                    console.error("Save error:", xhr.responseText);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Save failed!",
-                        text: xhr.responseText
-                    });
-                }
+                error: err => console.error("Manager load error:", err)
             });
         }
 
         $(document).ready(function () {
-            const teamManagerId = sessionStorage.getItem("user_id");
-            console.log("UserData:", teamManagerId);
+            loadManagers();
 
-            const defaultRange = getDefaultDateRange();
-            fromDate = defaultRange.from;
-            toDate = defaultRange.to;
-
-            flatpickr("#dateRangePicker", {
-                mode: "range",
+            // Initialize Flatpickr for reviewDate
+            flatpickr("#reviewDate", {
                 dateFormat: "Y-m-d",
-                defaultDate: [fromDate, toDate],
-                onClose: function (selectedDates, dateStr, instance) {
-                    if (selectedDates.length === 2) {
-                        fromDate = instance.formatDate(selectedDates[0], "Y-m-d");
-                        toDate = instance.formatDate(selectedDates[1], "Y-m-d");
-                    } else {
-                        fromDate = defaultRange.from;
-                        toDate = defaultRange.to;
-                    }
-                    console.log("From:", fromDate, "To:", toDate);
-                    fetchTargetData(fromDate, toDate);
-                }
+                defaultDate: "today"
             });
 
-            fetchTargetData(fromDate, toDate);
+            $("#reviewForm").on("submit", function (e) {
+                e.preventDefault();
+
+                const targetManagerId = $("#managerSelect").val();
+
+                if (!targetManagerId) {
+                    Swal.fire({ icon: "warning", title: "Missing Information", text: "Please select a target manager from the top dropdown." });
+                    return;
+                }
+
+                const reviewerType = $("#reviewerType").val();
+                const starRating = parseFloat($("#starRating").val());
+                const comment = $("#comment").val();
+                const reviewDate = $("#reviewDate").val();
+
+                if (!reviewerType || !starRating || !comment || !reviewDate) {
+                    Swal.fire({ icon: "warning", title: "Missing Information", text: "Please fill all required fields." });
+                    return;
+                }
+
+                // Get reviewerManagerId from session
+                const reviewerManagerId = sessionStorage.getItem("user_id");
+
+                if (!reviewerManagerId) {
+                    Swal.fire({ icon: "error", title: "Authentication Error", text: "Reviewer ID not found in session. Please login again." });
+                    return;
+                }
+
+                // Extract periodMonth and periodYear from reviewDate
+                const dateObj = new Date(reviewDate);
+                const periodMonth = dateObj.getMonth() + 1; // getMonth() is 0-indexed
+                const periodYear = dateObj.getFullYear();
+
+                const payload = {
+                    targetManagerId: parseInt(targetManagerId),
+                    reviewerManagerId: parseInt(reviewerManagerId),
+                    reviewerType: reviewerType,
+                    starRating: starRating,
+                    comment: comment,
+                    reviewDate: reviewDate,
+                    periodMonth: periodMonth,
+                    periodYear: periodYear
+                };
+                console.log("Payload:", payload);
+
+                Swal.fire({
+                    title: "Submitting Review...",
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+
+                $.ajax({
+                    url: postUrl,
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Review Response:", response);
+                            Swal.fire({ icon: "success", title: "Success", text: "Review submitted successfully!" })
+                                .then(() => {
+                                    // Clear form fields
+                                    $("#reviewForm")[0].reset();
+                                    document.querySelector("#reviewDate")._flatpickr.setDate("today");
+                                    // Refresh data table
+                                    fetchReviews();
+                                });
+                        } else {
+                            Swal.fire({ icon: "error", title: "Submission Failed", text: response.message || "Something went wrong." });
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error(xhr.responseText);
+                        Swal.fire({ icon: "error", title: "Submission Error", text: "You have already submitted your review for this user." });
+                    }
+                });
+            });
+
+            // Set current month and year
+            const currentMonth = new Date().getMonth() + 1;
+            const currentYear = new Date().getFullYear();
+            $("#filterMonth").val(currentMonth);
+            $("#filterYear").val(currentYear);
+
+            $("#filterMonth, #filterYear").on("change", function () {
+                fetchReviews();
+            });
+
+            // Call manually once on load to fetch for current month/year
+            fetchReviews();
         });
+
+        function fetchReviews() {
+            const targetManagerId = sessionStorage.getItem("user_id");
+            console.log("Manager ID:", targetManagerId);
+            const periodMonth = $("#filterMonth").val();
+            const periodYear = $("#filterYear").val();
+
+            if (!targetManagerId || !periodMonth || !periodYear) return;
+
+            const tbody = $("#reviewsTable tbody");
+            tbody.html(`<tr><td colspan="5" class="text-center">Loading...</td></tr>`);
+
+            var payload = {
+                targetManagerId: parseInt(targetManagerId),
+                periodMonth: parseInt(periodMonth),
+                periodYear: parseInt(periodYear)
+            };
+            console.log("Payload:", payload);
+
+            $.ajax({
+                url: "https://eduroom.in/api/v1/managerreview/list",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (response) {
+                    if (response.success && response.data && response.data.length > 0) {
+                        tbody.empty();
+                        response.data.forEach((item, index) => {
+                            tbody.append(`
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td class="text-capitalize">${item.reviewerType || '-'}</td>
+                                    <td>${item.starRating || '-'}</td>
+                                    <td>${item.comment || '-'}</td>
+                                    <td>${item.reviewDate || '-'}</td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        tbody.html(`<tr><td colspan="5" class="text-center text-muted">No reviews found for this period.</td></tr>`);
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Fetch Error:", xhr.responseText);
+                    tbody.html(`<tr><td colspan="5" class="text-center text-danger">Failed to load data.</td></tr>`);
+                }
+            });
+        }
     </script>
 
     <script>

@@ -730,10 +730,12 @@
                                                 <th style="font-size: 15px;">Day of week</th>
                                                 <th style="font-size: 15px;">Date</th>
                                                 <th style="font-size: 15px;">My work status</th>
-                                                <th style="font-size: 15px;">Comment</th>
+                                                <th style="font-size: 15px;">Comment for intern</th>
                                                 <th style="font-size: 15px;">My business task</th>
                                                 <th style="font-size: 15px;">My target</th>
                                                 <th style="font-size: 15px;">Percentage of work</th>
+                                                <th style="font-size: 15px;">Manager Rating</th>
+                                                <th style="font-size: 15px;">Manager Comment</th>
                                                 <!-- <th style="font-size: 15px;">Category</th> -->
                                             </tr>
                                         </thead>
@@ -1016,8 +1018,7 @@
                                 style="margin-top: -2%;">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <a target="_top"
-                                            class="fw-bold d-block text-reset me-2">
+                                        <a target="_top" class="fw-bold d-block text-reset me-2">
                                             <span class="d-block" style="font-size: 13px;">Profile Completion</span>
                                         </a>
                                         <!-- <a href="/profile/profile-update/profile1.html" target="_top"
@@ -1431,6 +1432,8 @@
                                                 <th style="font-size: 15px;">My business task</th>
                                                 <th style="font-size: 15px;">My target</th>
                                                 <th style="font-size: 15px;">Percentage of work</th>
+                                                <th style="font-size: 15px;">Manager Rating</th>
+                                                <th style="font-size: 15px;">Manager Comment</th>
                                                 <th style="font-size: 15px;">Category</th>
                                             </tr>
                                         </thead>
@@ -3248,7 +3251,9 @@
                                     dailyTarget: item.DAILY_TARGET,
                                     percentOfWork: item.PERCENT_OF_WORK,
                                     category: item.CATEGORY,
-                                    colorPercentage: item.COLOR_PERCENTAGE
+                                    colorPercentage: item.COLOR_PERCENTAGE,
+                                    starRating: item.starRating || item.STAR_RATING || item.rating || item.RATING,
+                                    ratingComment: item.ratingComment || item.RATING_COMMENT || item.manager_comment || item.MANAGER_COMMENT
                                 };
                             });
 
@@ -3316,6 +3321,8 @@
                         <td>${row.businessTask}</td>
                         <td>${row.dailyTarget}</td>
                         <td>${row.percentOfWork}</td>
+                        <td>${row.starRating || '--'}</td>
+                        <td>${row.ratingComment || '--'}</td>
                         <!-- <td>${row.category}</td> -->
                     </tr>`;
 
@@ -3560,6 +3567,8 @@
                         <td>${row.businessTask}</td>
                         <td>${row.dailyTarget}</td>
                         <td>${row.percentOfWork}</td>
+                        <td>${row.starRating || '--'}</td>
+                        <td>${row.ratingComment || '--'}</td>
                         <!-- <td>${row.category}</td> -->
                     </tr>`;
                     tbody.append(tr);
@@ -3579,7 +3588,7 @@
             };
 
             window.exportToExcel2 = function () {
-                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work"];
+                const headers = ["SR", "Day of Work", "Date", "Work Status", "Comment", "Business Task", "Daily Target", "Percent of Work", "Manager Rating", "Manager Comment"];
                 const data = [headers];
 
                 tableData.slice(0, 5).forEach((row) => {
@@ -3592,6 +3601,8 @@
                         row.businessTask,
                         row.dailyTarget,
                         row.percentOfWork,
+                        row.starRating || '',
+                        row.ratingComment || ''
                         // row.category
                     ]);
                 });
