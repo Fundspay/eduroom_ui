@@ -806,7 +806,7 @@
                 }).fail(function (err) {
                     console.error("Error fetching data:", err);
                     $("#dataLoader").removeClass("d-flex").addClass("d-none");
-                    $("#dataSections").html('<p class="text-danger fw-bold text-center mt-5 mb-5 fs-16">Failed to load manager dashboard data. Please refresh.</p>').show();
+                    $("#dataSections").html('<p class="text-grey fw-bold text-center mt-5 mb-5 fs-16">Your tasks are yet to be assigned. Please contact your Manager to assign tasks.</p>').show();
                 });
             }
 
@@ -860,7 +860,7 @@
                             rows += `
                                 <tr>
                                     <td>${m.name}</td>
-                                    <td>${m.achievedValue || 0}</td>
+                                    <td>${m.target || 0}</td>
                                     <td>${m.multiplier}</td>
                                     <td>${m.weight}</td>
                                     <td>${m.coinsEarned || 0}</td>
