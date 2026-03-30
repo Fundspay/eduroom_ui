@@ -496,6 +496,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
+                                                        <th style="min-width: 220px;">Comment</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -530,6 +531,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
+                                                        <th style="min-width: 220px;">Comment</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -566,6 +568,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
+                                                        <th style="min-width: 220px;">Comment</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -1099,10 +1102,12 @@
                 const rawValue = metric.value;
                 const rawMultiplier = metric.multiplier;
                 const rawWeight = metric.weight;
+                const rawComment = metric.comment;
 
                 const valueStr = rawValue === undefined || rawValue === null || rawValue === "" ? "" : `${toNum(rawValue, 0)}`;
                 const multiplierStr = rawMultiplier === undefined || rawMultiplier === null || rawMultiplier === "" ? "" : `${toNum(rawMultiplier, 0)}`;
                 const weightStr = rawWeight === undefined || rawWeight === null || rawWeight === "" ? "" : `${toNum(rawWeight, 0)}`;
+                const commentStr = rawComment === undefined || rawComment === null ? "" : `${rawComment}`.toString();
 
                 const valueNum = toNum(valueStr, 0);
                 const multiplierNum = toNum(multiplierStr, 0);
@@ -1113,6 +1118,7 @@
 <td><input type="number" class="form-control" data-field="value" value="${escapeHtml(valueStr)}" min="0" step="0.1" placeholder="0"></td>
 <td><input type="number" class="form-control" data-field="multiplier" value="${escapeHtml(multiplierStr)}" min="0" step="0.1" placeholder="0"></td>
 <td><input type="number" class="form-control" data-field="weight" value="${escapeHtml(weightStr)}" min="0" max="100" step="1" placeholder="0"></td>
+<td><input class="form-control" data-field="comment" value="${escapeHtml(commentStr)}" placeholder="Comment"></td>
 <td><input type="number" class="form-control" data-field="coins" value="${escapeHtml(coinsStr)}" readonly placeholder="--"></td>
 <td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger metric-remove">Remove</button></td>
 </tr>`;
@@ -2017,6 +2023,7 @@
                         const targetStr = (row.querySelector('input[data-field="value"]')?.value ?? "").toString().trim();
                         const multiplierStr = (row.querySelector('input[data-field="multiplier"]')?.value ?? "").toString().trim();
                         const weightStr = (row.querySelector('input[data-field="weight"]')?.value ?? "").toString().trim();
+                        const commentStr = (row.querySelector('input[data-field="comment"]')?.value ?? "").toString().trim();
 
                         const source = metricSourceForName(name);
                         const metric = { name, source };
@@ -2027,8 +2034,9 @@
                         if (multiplierStr !== "") metric.multiplier = toNum(multiplierStr, 0);
                         if (weightStr !== "") metric.weight = toNum(weightStr, 0);
 
-                        // For MANUAL sources backend expects `value` alongside `target`.
-                        if (source === "MANUAL") metric.value = 0;
+                        // If a comment is provided, send it to backend as `value`.
+                        // If empty, do not send `value` at all.
+                        if (commentStr !== "") metric.value = commentStr;
 
                         console.log("FundsCoin Save: metric mapping =>", { dept: meta.key, name, source, target: metric.target });
 
