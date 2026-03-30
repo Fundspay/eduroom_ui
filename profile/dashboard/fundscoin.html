@@ -387,34 +387,37 @@
                             </div>
                             <div class="card-body">
                                 <div class="row g-3">
-                                     <div class="col-md-4">
-                                         <label class="form-label" for="employeeName">Employee Name</label>
-                                         <input type="text" class="form-control" id="employeeName"
+                                    <div class="col-md-4">
+                                        <label class="form-label" for="employeeName">Employee Name</label>
+                                        <input type="text" class="form-control" id="employeeName"
                                             list="employeeNameManagers" placeholder="Select Manager" value="">
-                                         <datalist id="employeeNameManagers"></datalist>
-                                          <div class="mt-1 fs-11 text-muted">
-                                              <span id="employeeNameLoading" class="d-none">Loading...</span>
-                                          </div>
-                                          <div class="form-text text-warning d-none" id="employeeNameInlineMsg">Please select a valid manager from the suggestions.</div>
-                                      </div>
-                                     <div class="col-md-4">
-                                         <label class="form-label" for="employeeEmail">Email</label>
-                                         <input type="email" class="form-control" id="employeeEmail"
-                                             placeholder="name@company.com" value="">
-                                         <div class="form-text text-warning d-none" id="employeeEmailInlineMsg">Employee Email is required.</div>
-                                     </div>
+                                        <datalist id="employeeNameManagers"></datalist>
+                                        <div class="mt-1 fs-11 text-muted">
+                                            <span id="employeeNameLoading" class="d-none">Loading...</span>
+                                        </div>
+                                        <div class="form-text text-warning d-none" id="employeeNameInlineMsg">Please
+                                            select a valid manager from the suggestions.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label" for="employeeEmail">Email</label>
+                                        <input type="email" class="form-control" id="employeeEmail"
+                                            placeholder="name@company.com" value="">
+                                        <div class="form-text text-warning d-none" id="employeeEmailInlineMsg">Employee
+                                            Email is required.</div>
+                                    </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="employeeRole">Position / Role</label>
-                                         <select class="form-select" id="employeeRole">
-                                             <option value="" selected>Select role</option>
-                                             <option>Intern</option>
-                                             <option>Junior Team Leader</option>
-                                             <option>Senior Team Leader</option>
-                                             <option>Manager</option>
-                                             <option>Branch Manager</option>
-                                         </select>
-                                         <div class="form-text text-warning d-none" id="employeeRoleInlineMsg">Select a role if you want to save Position.</div>
-                                     </div>
+                                        <select class="form-select" id="employeeRole">
+                                            <option value="" selected>Select role</option>
+                                            <option>Intern</option>
+                                            <option>Junior Team Leader</option>
+                                            <option>Senior Team Leader</option>
+                                            <option>Manager</option>
+                                            <option>Branch Manager</option>
+                                        </select>
+                                        <div class="form-text text-warning d-none" id="employeeRoleInlineMsg">Select a
+                                            role if you want to save Position.</div>
+                                    </div>
                                     <div class="col-md-4">
                                         <label class="form-label" for="targetCoins">Target Coins (Base Salary)</label>
                                         <div class="input-group">
@@ -422,23 +425,26 @@
                                             <input type="number" class="form-control" id="targetCoins" min="0" step="1"
                                                 value="" placeholder="35000">
                                         </div>
-                                         <div class="form-text">
-                                             Baseline target used for FundsCoin evaluation (placeholder for wiring).
-                                         </div>
-                                         <div class="form-text text-warning d-none" id="targetCoinsInlineMsg">Target Coins should be a valid non-negative number.</div>
-                                     </div>
-                                 </div>
-                                 <!-- <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
+                                        <div class="form-text">
+                                            Baseline target used for FundsCoin evaluation (placeholder for wiring).
+                                        </div>
+                                        <div class="form-text text-warning d-none" id="targetCoinsInlineMsg">Target
+                                            Coins should be a valid non-negative number.</div>
+                                    </div>
+                                </div>
+                                <!-- <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
                                      <button type="button" class="btn btn-sm btn-outline-primary" id="saveEmployeeInfoBtn" disabled>Save Employee Info</button>
                                  </div> -->
-                                 <div class="mt-2 d-flex flex-wrap gap-3 align-items-center fs-11">
-                                     <div id="fundConfigStatusMessage" class="text-muted"></div>
-                                     <div class="text-muted">Last fetched: <span class="fw-semibold" id="lastFetchedAt">--</span></div>
-                                     <div class="text-muted">Last saved: <span class="fw-semibold" id="lastSavedAt">--</span></div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+                                <div class="mt-2 d-flex flex-wrap gap-3 align-items-center fs-11">
+                                    <div id="fundConfigStatusMessage" class="text-muted"></div>
+                                    <div class="text-muted">Last fetched: <span class="fw-semibold"
+                                            id="lastFetchedAt">--</span></div>
+                                    <div class="text-muted">Last saved: <span class="fw-semibold"
+                                            id="lastSavedAt">--</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-12" id="department-performance">
                         <div class="card stretch stretch-full mb-4">
@@ -459,8 +465,7 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="tab-marketing" data-bs-toggle="tab"
                                                 data-bs-target="#pane-marketing" type="button" role="tab"
-                                                aria-controls="pane-marketing"
-                                                aria-selected="false">Marketing</button>
+                                                aria-controls="pane-marketing" aria-selected="false">Marketing</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -545,8 +550,8 @@
                                         aria-labelledby="tab-marketing" tabindex="0">
                                         <div class="row g-3 align-items-end mb-3">
                                             <div class="col-md-4">
-                                                <label class="form-label"
-                                                    for="deptWeightMarketing">Department Weight</label>
+                                                <label class="form-label" for="deptWeightMarketing">Department
+                                                    Weight</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control" id="deptWeightMarketing"
                                                         min="0" max="100" step="1" value="" placeholder="25">
@@ -579,7 +584,8 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" id="saveFundConfigBtn" disabled>Save FundConfig</button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="saveFundConfigBtn"
+                                        disabled>Save FundConfig</button>
                                 </div>
                             </div>
                         </div>
@@ -613,18 +619,21 @@
 
                                     <div class="col-lg-12">
                                         <div class="border rounded p-3 h-100">
-                                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-                                                 <h6 class="mb-0">Behavior Weights</h6>
-                                                 <span class="badge bg-light text-dark">%</span>
-                                             </div>
-                                             <div class="mt-2 fs-11">
-                                                 <span class="text-muted">Total Weight:</span>
-                                                 <span id="behaviorWeightTotalValue" class="fw-semibold text-success">100%</span>
-                                             </div>
-                                             <div class="row g-3 mt-1">
-                                                 <div class="col-md-6">
-                                                     <label class="form-label" for="ratingIntern">Intern Weight (%)</label>
-                                                     <input type="number" class="form-control" id="ratingIntern" min="0"
+                                            <div
+                                                class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                                                <h6 class="mb-0">Behavior Weights</h6>
+                                                <span class="badge bg-light text-dark">%</span>
+                                            </div>
+                                            <div class="mt-2 fs-11">
+                                                <span class="text-muted">Total Weight:</span>
+                                                <span id="behaviorWeightTotalValue"
+                                                    class="fw-semibold text-success">100%</span>
+                                            </div>
+                                            <div class="row g-3 mt-1">
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="ratingIntern">Intern Weight
+                                                        (%)</label>
+                                                    <input type="number" class="form-control" id="ratingIntern" min="0"
                                                         max="100" step="1" value="" placeholder="30">
                                                 </div>
                                                 <div class="col-md-6">
@@ -633,17 +642,20 @@
                                                         max="100" step="1" value="" placeholder="20">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label" for="ratingCrossDept">Cross Department Weight (%)</label>
+                                                    <label class="form-label" for="ratingCrossDept">Cross Department
+                                                        Weight (%)</label>
                                                     <input type="number" class="form-control" id="ratingCrossDept"
                                                         min="0" max="100" step="1" value="" placeholder="15">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label" for="ratingManager">Manager Weight (%)</label>
+                                                    <label class="form-label" for="ratingManager">Manager Weight
+                                                        (%)</label>
                                                     <input type="number" class="form-control" id="ratingManager" min="0"
                                                         max="100" step="1" value="" placeholder="20">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label" for="ratingLeadership">Leadership Weight (%)</label>
+                                                    <label class="form-label" for="ratingLeadership">Leadership Weight
+                                                        (%)</label>
                                                     <input type="number" class="form-control" id="ratingLeadership"
                                                         min="0" max="100" step="1" value="" placeholder="15">
                                                 </div>
@@ -652,14 +664,16 @@
                                                         Multiplier</label>
                                                     <input type="text" class="form-control" id="behaviorMultiplier"
                                                         value="1.00x" readonly>
-                                                    <div class="form-text">Placeholder until behavior scoring is backend-driven.</div>
+                                                    <div class="form-text">Placeholder until behavior scoring is
+                                                        backend-driven.</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-wrap justify-content-end gap-2 mt-3">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" id="saveRetentionBehaviorBtn" disabled>Save FundConfig</button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                        id="saveRetentionBehaviorBtn" disabled>Save FundConfig</button>
                                 </div>
                             </div>
                         </div>
@@ -742,7 +756,8 @@
     <!--! ================================================================ !-->
     <div class="d-md-none position-fixed bottom-0 start-0 end-0 border-top bg-white" style="z-index: 1030;">
         <div class="d-flex gap-2 p-2">
-            <button type="button" class="btn btn-sm btn-outline-primary flex-fill" id="stickySaveBtn" disabled>Save</button>
+            <button type="button" class="btn btn-sm btn-outline-primary flex-fill" id="stickySaveBtn"
+                disabled>Save</button>
             <button type="button" class="btn btn-sm btn-outline-secondary flex-fill" id="stickyResetBtn">Reset</button>
         </div>
     </div>
@@ -1102,7 +1117,7 @@
                 const rawValue = metric.value;
                 const rawMultiplier = metric.multiplier;
                 const rawWeight = metric.weight;
-                const rawComment = metric.comment;
+                const rawComment = metric.value;
 
                 const valueStr = rawValue === undefined || rawValue === null || rawValue === "" ? "" : `${toNum(rawValue, 0)}`;
                 const multiplierStr = rawMultiplier === undefined || rawMultiplier === null || rawMultiplier === "" ? "" : `${toNum(rawMultiplier, 0)}`;
@@ -1695,10 +1710,10 @@
                     const lookupId = getManagerConfigLookupId(manager);
                     if (!manager || !lookupId) return;
 
-                     // Fill immediately from manager list.
-                     selectEl.value = manager.name;
-                     emailEl.value = manager.email || "";
-                     updateSaveButtonValidationState();
+                    // Fill immediately from manager list.
+                    selectEl.value = manager.name;
+                    emailEl.value = manager.email || "";
+                    updateSaveButtonValidationState();
 
                     // Map a FundConfig fetch response into the current form fields.
                     function applyFundConfigResponse(res) {
