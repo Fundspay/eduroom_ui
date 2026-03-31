@@ -559,7 +559,7 @@
                                                 </div>
                                                 <div class="form-text">Weight of Marketing in the overall score.</div>
                                             </div>
-                                            <div class="col-md-8 text-md-end">
+                                            <div class="col-md-8 text-md-end", style="margin-bottom: 10%;">
                                                 <button type="button" class="btn btn-sm btn-primary"
                                                     id="addMetricMarketingBtn">Add metric</button>
                                             </div>
@@ -628,6 +628,7 @@
                                                 <span class="text-muted">Total Weight:</span>
                                                 <span id="behaviorWeightTotalValue"
                                                     class="fw-semibold text-success">100%</span>
+                                                <div class="form-text mt-1">Note: Total weight must be 100% to enable saving.</div>
                                             </div>
                                             <div class="row g-3 mt-1">
                                                 <div class="col-md-6">
@@ -1254,16 +1255,29 @@
                 const summary = byId("summaryBehaviorMultiplier");
                 if (summary) summary.textContent = multStr;
 
-                updateBehaviorWeightTotal();
+                enforceBehaviorWeightsLimit();
                 return mult;
+            }
+
+            // Read a behavior weight input as a number (empty => 0).
+            function behaviorWeightValue(id) {
+                const raw = (byId(id)?.value ?? "").toString().trim();
+                if (raw === "") return 0;
+                return clamp(toNum(raw, 0), 0, 100);
+            }
+
+            // Sum all behavior weight inputs.
+            function behaviorWeightsTotal() {
+                return behaviorWeightValue("ratingIntern")
+                    + behaviorWeightValue("ratingPeer")
+                    + behaviorWeightValue("ratingCrossDept")
+                    + behaviorWeightValue("ratingManager")
+                    + behaviorWeightValue("ratingLeadership");
             }
 
             // Display a live total of behavior weights (visual feedback only).
             function updateBehaviorWeightTotal() {
-                const weightIds = ["ratingIntern", "ratingPeer", "ratingCrossDept", "ratingManager", "ratingLeadership"];
-                const total = weightIds.reduce(function (sum, id) {
-                    return sum + clamp(toNum(byId(id)?.value, 0), 0, 100);
-                }, 0);
+                const total = behaviorWeightsTotal();
 
                 const el = byId("behaviorWeightTotalValue");
                 if (!el) return total;
@@ -1271,6 +1285,50 @@
                 el.classList.toggle("text-success", Math.round(total) === 100);
                 el.classList.toggle("text-danger", Math.round(total) !== 100);
                 return total;
+            }
+
+            // Prevent behavior weights from exceeding a total of 100% by clamping per-field max dynamically.
+            function enforceBehaviorWeightsLimit(changedId) {
+                const ids = ["ratingIntern", "ratingPeer", "ratingCrossDept", "ratingManager", "ratingLeadership"];
+
+                // Clamp the changed input first so we never go above 100% total.
+                if (changedId) {
+                    const changedEl = byId(changedId);
+                    if (changedEl) {
+                        const othersSum = ids
+                            .filter(id => id !== changedId)
+                            .reduce((s, id) => s + behaviorWeightValue(id), 0);
+                        const maxAllowed = clamp(100 - othersSum, 0, 100);
+                        changedEl.max = `${maxAllowed}`;
+                        const raw = (changedEl.value ?? "").toString().trim();
+                        if (raw !== "") {
+                            const v = behaviorWeightValue(changedId);
+                            if (v > maxAllowed) changedEl.value = `${maxAllowed}`;
+                        }
+                    }
+                }
+
+                // Now recompute and set a sane max for all fields.
+                const totalNow = behaviorWeightsTotal();
+                ids.forEach(function (id) {
+                    const el = byId(id);
+                    if (!el) return;
+                    const othersSum = ids.filter(x => x !== id).reduce((s, x) => s + behaviorWeightValue(x), 0);
+                    const maxAllowed = clamp(100 - othersSum, 0, 100);
+                    el.max = `${maxAllowed}`;
+
+                    const raw = (el.value ?? "").toString().trim();
+                    if (raw !== "") {
+                        const v = behaviorWeightValue(id);
+                        if (v > maxAllowed) el.value = `${maxAllowed}`;
+                    }
+
+                    // If total is already 100%, don't allow adding weight in empty fields.
+                    const vNow = behaviorWeightValue(id);
+                    el.disabled = (Math.round(totalNow) === 100 && vNow === 0 && maxAllowed === 0);
+                });
+
+                updateBehaviorWeightTotal();
             }
 
             // Write a summary field text by element id.
@@ -1448,8 +1506,14 @@
                         if (el.value === "") return;
                         const n = clamp(toNum(el.value, 0), 0, 100);
                         el.value = n.toFixed(0);
+                        enforceBehaviorWeightsLimit(id);
+                        updateSaveButtonValidationState();
                     });
-                    el.addEventListener("input", updateBehavior);
+                    el.addEventListener("input", function () {
+                        enforceBehaviorWeightsLimit(id);
+                        updateBehavior();
+                        updateSaveButtonValidationState();
+                    });
                 });
             }
 
@@ -1511,7 +1575,9 @@
                 const employeeName = (byId("employeeName")?.value ?? "").toString().trim();
                 const employeeEmail = (byId("employeeEmail")?.value ?? "").toString().trim();
 
-                const enabled = !!(manager && employeeName && employeeEmail) && !FUND_CONFIG_SAVE_IN_FLIGHT;
+                const hasBehaviorWeights = !!(byId("ratingIntern") || byId("ratingPeer") || byId("ratingCrossDept") || byId("ratingManager") || byId("ratingLeadership"));
+                const behaviorOk = !hasBehaviorWeights || Math.round(behaviorWeightsTotal()) === 100;
+                const enabled = !!(manager && employeeName && employeeEmail) && behaviorOk && !FUND_CONFIG_SAVE_IN_FLIGHT;
                 const btns = [
                     byId("saveFundConfigBtn"),
                     byId("saveEmployeeInfoBtn"),
@@ -2073,19 +2139,19 @@
 
             // Build ratings weight config for the save payload.
             function buildRatingsPayload() {
-                // Read a weight input with a sensible fallback.
-                function weightFromInput(id, fallback) {
+                // Read a weight input (empty => 0).
+                function weightFromInput(id) {
                     const raw = (byId(id)?.value ?? "").toString().trim();
-                    if (raw === "") return fallback;
-                    return clamp(toNum(raw, fallback), 0, 100);
+                    if (raw === "") return 0;
+                    return clamp(toNum(raw, 0), 0, 100);
                 }
 
                 return [
-                    { key: "intern", name: "Intern Rating", weight: weightFromInput("ratingIntern", DEFAULT_BEHAVIOR_RATINGS.intern) },
-                    { key: "peer", name: "Peer Rating", weight: weightFromInput("ratingPeer", DEFAULT_BEHAVIOR_RATINGS.peer) },
-                    { key: "cross", name: "Cross Department Rating", weight: weightFromInput("ratingCrossDept", DEFAULT_BEHAVIOR_RATINGS.cross) },
-                    { key: "manager", name: "Manager Rating", weight: weightFromInput("ratingManager", DEFAULT_BEHAVIOR_RATINGS.manager) },
-                    { key: "leadership", name: "Leadership Rating", weight: weightFromInput("ratingLeadership", DEFAULT_BEHAVIOR_RATINGS.leadership) }
+                    { key: "intern", name: "Intern Rating", weight: weightFromInput("ratingIntern") },
+                    { key: "peer", name: "Peer Rating", weight: weightFromInput("ratingPeer") },
+                    { key: "cross", name: "Cross Department Rating", weight: weightFromInput("ratingCrossDept") },
+                    { key: "manager", name: "Manager Rating", weight: weightFromInput("ratingManager") },
+                    { key: "leadership", name: "Leadership Rating", weight: weightFromInput("ratingLeadership") }
                 ];
             }
 
@@ -2146,6 +2212,14 @@
             // Send POST request to create/update FundConfig.
             function saveFundConfig() {
                 if (!window.$ || !$.ajax) return;
+
+                const behaviorTotal = Math.round(behaviorWeightsTotal());
+                if (behaviorTotal !== 100) {
+                    console.log("FundsCoin Save: blocked => behavior weights total =>", behaviorTotal);
+                    showUiMessage("warning", "Cannot Save", `Behavior weights must total 100%. Current total: ${behaviorTotal}%.`);
+                    updateSaveButtonValidationState();
+                    return;
+                }
 
                 console.log("FundsCoin Save: section triggered =>", LAST_SAVE_SECTION || "Unknown");
                 updateEmployeeInlineValidation({ saveAttempt: true });
