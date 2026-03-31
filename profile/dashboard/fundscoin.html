@@ -685,14 +685,14 @@
                                                     <input type="number" class="form-control" id="ratingLeadership"
                                                         min="0" max="100" step="1" value="" placeholder="15">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <label class="form-label" for="behaviorMultiplier">Behavior
                                                         Multiplier</label>
                                                     <input type="text" class="form-control" id="behaviorMultiplier"
                                                         value="1.00x" readonly>
                                                     <div class="form-text">Placeholder until behavior scoring is
                                                         backend-driven.</div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -1279,18 +1279,18 @@
             }
 
             // Keep behavior multiplier stable until scoring is backend-driven.
-            function updateBehavior() {
-                const mult = 1.0;
-                const multStr = `${mult.toFixed(2)}x`;
+            // function updateBehavior() {
+            //     const mult = 1.0;
+            //     const multStr = `${mult.toFixed(2)}x`;
 
-                const multInput = byId("behaviorMultiplier");
-                if (multInput) multInput.value = multStr;
-                const summary = byId("summaryBehaviorMultiplier");
-                if (summary) summary.textContent = multStr;
+            //     const multInput = byId("behaviorMultiplier");
+            //     if (multInput) multInput.value = multStr;
+            //     const summary = byId("summaryBehaviorMultiplier");
+            //     if (summary) summary.textContent = multStr;
 
-                enforceBehaviorWeightsLimit();
-                return mult;
-            }
+            //     enforceBehaviorWeightsLimit();
+            //     return mult;
+            // }
 
             // Read a behavior weight input as a number (empty => 0).
             function behaviorWeightValue(id) {
