@@ -475,6 +475,31 @@
                                     <div class="text-muted fs-11">Department weights should total 100%.</div>
                                     <span id="deptWeightIndicator" class="badge bg-success">Total: 100%</span>
                                 </div>
+                                <datalist id="metricNameOptionsBd">
+                                    <option value="Paid Accounts"></option>
+                                    <option value="Active Interns"></option>
+                                    <option value="Team Meetings"></option>
+                                    <option value="Team Sessions"></option>
+                                </datalist>
+                                <datalist id="metricNameOptionsHr">
+                                    <option value="College Connect"></option>
+                                    <option value="JD Send"></option>
+                                    <option value="Interviews Conducted"></option>
+                                    <option value="Interviews"></option>
+                                    <option value="Selections"></option>
+                                    <option value="Active Interns Joined"></option>
+                                    <option value="College Reviews"></option>
+                                </datalist>
+                                <datalist id="metricNameOptionsMarketing">
+                                    <option value="Qualified Leads"></option>
+                                    <option value="Reviews / Ratings"></option>
+                                    <option value="Email Positive Responses"></option>
+                                    <option value="Followers Growth"></option>
+                                    <option value="Followers Growth (per 10)"></option>
+                                    <option value="Engagement Rate"></option>
+                                    <option value="Engagement Rate (%)"></option>
+                                    <option value="Engagement"></option>
+                                </datalist>
                                 <div class="tab-content" id="fundscoinDeptTabContent">
                                     <div class="tab-pane fade show active" id="pane-bd" role="tabpanel"
                                         aria-labelledby="tab-bd" tabindex="0">
@@ -501,7 +526,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
-                                                        <th style="min-width: 220px;">Target Achieved</th>
+                                                        <th style="min-width: 220px;">Target Alloted</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -536,7 +561,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
-                                                        <th style="min-width: 220px;">Target Achieved</th>
+                                                        <th style="min-width: 220px;">Target Alloted</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -573,7 +598,7 @@
                                                         <th style="min-width: 160px;">Quantity / Value</th>
                                                         <th style="min-width: 140px;">Multiplier</th>
                                                         <th style="min-width: 170px;">Weight (Dept %)</th>
-                                                        <th style="min-width: 220px;">Target Achieved</th>
+                                                        <th style="min-width: 220px;">Target Alloted</th>
                                                         <th style="min-width: 150px;">Coins Earned</th>
                                                         <th style="min-width: 120px;">Action</th>
                                                     </tr>
@@ -1112,8 +1137,15 @@
                 return n.toFixed(2);
             }
 
+            function metricNameDatalistIdForDept(deptKey) {
+                if (deptKey === "bd") return "metricNameOptionsBd";
+                if (deptKey === "hr") return "metricNameOptionsHr";
+                if (deptKey === "marketing") return "metricNameOptionsMarketing";
+                return "";
+            }
+
             // Render one editable metric row.
-            function metricRowHtml(metric) {
+            function metricRowHtml(metric, deptKey) {
                 const name = (metric.name ?? "New Metric").toString();
                 const rawValue = metric.value;
                 const rawMultiplier = metric.multiplier;
@@ -1129,12 +1161,13 @@
                 const multiplierNum = toNum(multiplierStr, 0);
                 const coins = valueNum * multiplierNum;
                 const coinsStr = valueStr === "" || multiplierStr === "" ? "" : fmt2(coins);
+                const listId = metricNameDatalistIdForDept(deptKey);
                 return `<tr>
-<td><input class="form-control" data-field="name" value="${escapeHtml(name)}" placeholder="Metric Name"></td>
+<td><input class="form-control" data-field="name" ${listId ? `list="${escapeHtml(listId)}"` : ""} value="${escapeHtml(name)}" placeholder="Select or type metric name" autocomplete="off"></td>
 <td><input type="number" class="form-control" data-field="value" value="${escapeHtml(valueStr)}" min="0" step="0.1" placeholder="0"></td>
 <td><input type="number" class="form-control" data-field="multiplier" value="${escapeHtml(multiplierStr)}" min="0" step="0.1" placeholder="0"></td>
 <td><input type="number" class="form-control" data-field="weight" value="${escapeHtml(weightStr)}" min="0" max="100" step="1" placeholder="0"></td>
-<td><input class="form-control" data-field="comment" value="${escapeHtml(commentStr)}" placeholder="Target Achieved"></td>
+<td><input class="form-control" data-field="comment" value="${escapeHtml(commentStr)}" placeholder="Target Alloted"></td>
 <td><input type="number" class="form-control" data-field="coins" value="${escapeHtml(coinsStr)}" readonly placeholder="--"></td>
 <td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger metric-remove">Remove</button></td>
 </tr>`;
@@ -1420,7 +1453,7 @@
                 const table = getTable(deptKey);
                 const tbody = getTbody(table);
                 if (!tbody) return;
-                tbody.innerHTML = metrics.map(metricRowHtml).join("");
+                tbody.innerHTML = metrics.map(m => metricRowHtml(m, deptKey)).join("");
                 updateTableCoins(table);
             }
 
@@ -1429,7 +1462,7 @@
                 const table = getTable(deptKey);
                 const tbody = getTbody(table);
                 if (!tbody) return;
-                tbody.insertAdjacentHTML("beforeend", metricRowHtml({ name: "", value: "", multiplier: "", weight: "" }));
+                tbody.insertAdjacentHTML("beforeend", metricRowHtml({ name: "", value: "", multiplier: "", weight: "" }, deptKey));
                 const lastRow = tbody.querySelector("tr:last-child");
                 if (lastRow) {
                     updateRowCoins(lastRow);
@@ -2064,17 +2097,16 @@
                         ["paid accounts", "BD_ACCOUNTS"],
                         ["active interns", "BD_INTERNS_ACTIVE"],
                         ["team accounts", "MANUAL"],
-                        ["team accounts (override)", "MANUAL"],
-                        ["team accounts override", "MANUAL"],
+                        ["team sessions", "MANUAL"],
+                        ["team meetings", "MANUAL"],
 
                         // HR
-                        ["applications", "HR_COLLEGE_CONNECT"],
-                        ["interviews conducted", "HR_JD_SEND"],
-                        ["interviews", "HR_JD_SEND"],
+                        ["college connect", "HR_COLLEGE_CONNECT"],
+                        ["jd send", "HR_JD_SEND"],
                         ["selections / hires", "HR_SELECTION"],
                         ["selections", "HR_SELECTION"],
                         ["active interns joined", "BD_INTERNS_ACTIVE"],
-                        ["college reviews", "HR_SELECTED_COLLEGES"],
+                        ["selected colleges", "HR_SELECTED_COLLEGES"],
 
                         // MARKETING
                         ["qualified leads", "MANUAL"],
