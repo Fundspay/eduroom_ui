@@ -779,6 +779,7 @@
                                                 <th>DATE OF C4</th>
                                                 <th>C4 STATUS</th>
                                                 <th>COMMENT FOR C4</th>
+                                                <th>SEND MAIL</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -1392,6 +1393,7 @@
                                                 <th>DATE OF C4</th>
                                                 <th>C4 STATUS</th>
                                                 <th>COMMENT FOR C4</th>
+                                                <th>SEND MAIL</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1621,6 +1623,7 @@
                                             <th>DATE OF C4</th>
                                             <th>C4 STATUS</th>
                                             <th>COMMENT FOR C4</th>
+                                            <th>SEND MAIL</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -2202,6 +2205,191 @@
         const rowsPerPage = 100;
         let currentPage = 1;
 
+        // ── Mailer variables ──────────────────────────────────────────────
+        let currentRecord = null;
+        let attachments = [];
+        const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
+        let activeTemplateKey = "default";
+
+        const emailTemplates = {
+            default: {
+                label: "Default",
+                subject: (record) => `Internship Collaboration Opportunity – FundsAudit × ${record.businessName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.contactPersonName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from FundsAudit!</p>
+                    <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.businessName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
+                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+                editableMiddle: `
+                    <p><b>Collaboration Proposal:</b></p>
+                    <ul>
+                        <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                        <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                        <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-Bi & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                        <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                    </ul>
+                    <p>Next Steps: JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+                    <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
+                    <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                    <b>Eligibility:</b> Management Students</p>
+                    <p>Following the live project, students may also be considered for:</p>
+                    <ul>
+                        <li>Summer/Winter Internships</li>
+                        <li>Pre-placement offers (PPOs)</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+                    <p>Perks of the collaboration:</p>
+                    <ul>
+                        <li>Exposure to real-time fintech operations</li>
+                        <li>Skill development aligned with industry expectations</li>
+                        <li>Improved employability and practical insight alongside academics</li>
+                        <li>Final placement opportunities</li>
+                    </ul>`,
+                fixedBottom: `
+                    <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                    <p>Pooja M. Shedge<br/>
+                    Branch Manager - Pune<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+            promotional: {
+                label: "Promotional",
+                subject: (record) => `Exclusive Student Internship Program | FundsAudit x ${record.businessName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.contactPersonName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from <b>FundsAudit</b> – India's fastest-growing ISO-certified Fintech Startup!</p>
+                    <p>We are thrilled to present an <b>exclusive, limited-seat Student Development Program (SDP)</b> for the talented students of <span class="email-template-variable">${record.businessName || "your esteemed institute"}</span>. This is a golden opportunity for your students to gain real-world fintech experience while still in college.</p>`,
+                editableMiddle: `
+                    <p><b>Why This Program Stands Out:</b></p>
+                    <ul>
+                        <li><b>Earn While You Learn:</b> Performance-based stipend of INR 1,000 – INR 7,000 per month</li>
+                        <li><b>Industry-Recognized Certifications:</b> POWER-BI + Financial/Marketing Modelling certificate included</li>
+                        <li><b>Flexible Schedule:</b> Only 2 hours/day — fits seamlessly with college timetable</li>
+                        <li><b>Top Performer Recognition:</b> Special awards and fast-track placement consideration</li>
+                        <li><b>Career Pathway:</b> Interns considered for SIP, PPO, and Final Placements</li>
+                    </ul>
+                    <p><b>Limited Seats Available — First Come, First Served!</b></p>
+                    <p>We are partnering with select premier institutions this season. We would love to onboard your Finance & Marketing students into this transformative program.</p>
+                    <p><b>Roles Available:</b> Marketing Analyst | Financial Analyst<br/>
+                    <b>Eligibility:</b> MBA/PGDM 1st & 2nd Year Students</p>
+                    <p>Please find the detailed Job Description attached for your reference.</p>
+                    <p>Kindly confirm your interest at the earliest so we can reserve seats for your students before the deadline.</p>`,
+                fixedBottom: `
+                    <p>Don't miss this opportunity to give your students a competitive edge!</p>
+                    <p>Warm regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+            followup: {
+                label: "Follow-Up",
+                subject: (record) => `Follow-Up: Internship Collaboration Proposal – FundsAudit x ${record.businessName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.contactPersonName || "Sir/Madam"}</span>,</p>
+                    <p>Hope this email finds you well!</p>
+                    <p>I am writing to follow up on the internship collaboration proposal we shared earlier regarding <span class="email-template-variable">${record.businessName || "your institute"}</span>. We reached out previously with details about our <b>Student Development Program (SDP)</b> at FundsAudit and wanted to check if you had a chance to review the information.</p>`,
+                editableMiddle: `
+                    <p>As a quick recap, here's what we proposed:</p>
+                    <ul>
+                        <li><b>Program:</b> Live Fintech Project-based Internship (SDP)</li>
+                        <li><b>Duration:</b> Flexible — 2 hours/day alongside regular college schedule</li>
+                        <li><b>Stipend:</b> INR 1,000 – INR 7,000 based on performance</li>
+                        <li><b>Certifications:</b> POWER-BI + Financial/Marketing Modelling</li>
+                        <li><b>Career Benefits:</b> SIP, PPO, and Final Placement consideration</li>
+                    </ul>
+                    <p>We truly believe this program will add significant value to your students and strengthen the industry-academia connect for your institution.</p>
+                    <p>We understand you may be busy, but we would appreciate just a brief response to understand your interest level. We are happy to schedule a call at your convenience to address any queries or customize the program to suit your institute's needs.</p>
+                    <p>The Job Description is re-attached for your easy reference.</p>
+                    <p>Could you kindly share your feedback or preferred time to connect?</p>`,
+                fixedBottom: `
+                    <p>Looking forward to hearing from you soon.</p>
+                    <p>Best regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+            connect: {
+                label: "Connect",
+                subject: (record) => `Let's Connect – FundsAudit x ${record.businessName || "Your Institute"} | Student Internship Initiative`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.contactPersonName || "Sir/Madam"}</span>,</p>
+                    <p>Greetings from FundsAudit!</p>
+                    <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsAudit, Pune. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.businessName || "your esteemed institution"}</span>.</p>`,
+                editableMiddle: `
+                    <p>At FundsAudit, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
+                    <p>We would love to explore how we can work together to benefit your students through our <b>Student Development Program (SDP)</b>:</p>
+                    <ul>
+                        <li>Real-time live fintech projects — not simulations</li>
+                        <li>Mentorship from industry professionals</li>
+                        <li>Performance-linked stipend: INR 1,000 – INR 7,000</li>
+                        <li>POWER-BI & domain-specific certifications</li>
+                        <li>Pathway to SIP, PPO, and Final Placement</li>
+                    </ul>
+                    <p>I would love to schedule a brief introductory call or meeting at a time convenient to you — even 15–20 minutes would be a great start to explore the potential of this collaboration.</p>
+                    <p>I have attached our internship JD for your initial review.</p>
+                    <p>Please feel free to reach me directly at <b>+91 7385234536</b> or reply to this email to set up a time.</p>`,
+                fixedBottom: `
+                    <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
+                    <p>Warm regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+            marketing: {
+                label: "Marketing",
+                subject: (record) => `Boost Your Students' Employability | FundsAudit SDP for ${record.businessName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.contactPersonName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from <b>FundsAudit</b>!</p>
+                    <p>In today's competitive job market, academic knowledge alone is no longer enough. Students of <span class="email-template-variable">${record.businessName || "your institution"}</span> deserve an edge — and that's exactly what FundsAudit's <b>Student Development Program (SDP)</b> delivers.</p>`,
+                editableMiddle: `
+                    <p><b>What Makes FundsAudit Different?</b></p>
+                    <ul>
+                        <li><b>ISO-Certified</b> Fintech Startup | Startup India Registered</li>
+                        <li><b>4,00,000+ Active Customers</b> | AMFI, SEBI, BSE & NSE Member</li>
+                        <li><b>Real Live Projects</b> — not classroom assignments</li>
+                        <li><b>Stipend-Based:</b> INR 1,000 – INR 7,000 per month (performance-linked)</li>
+                        <li><b>Dual Certifications:</b> POWER-BI + Financial/Marketing Modelling</li>
+                        <li><b>Post-Program Opportunities:</b> SIP → PPO → Final Placement</li>
+                    </ul>
+                    <p><b>The Impact We Create:</b></p>
+                    <ul>
+                        <li>Students develop real analytical, financial, and marketing skills</li>
+                        <li>Resume-worthy fintech experience that recruiters value</li>
+                        <li>Institutions strengthen their placement records and industry ties</li>
+                        <li>MoU-based formal collaboration — adding institutional credibility</li>
+                    </ul>
+                    <p>We are currently onboarding partner institutes for the upcoming batch. We are keen to collaborate.</p>
+                    <p>Detailed JD is attached. We would appreciate a quick confirmation of interest so we can proceed with formalizing the MoU.</p>`,
+                fixedBottom: `
+                    <p>Let's build future-ready finance and marketing professionals — together.</p>
+                    <p>Best regards,<br/>
+                    <b>Pooja M. Shedge</b><br/>
+                    Branch Manager - Pune | FundsAudit<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            }
+        };
+        // ── End mailer variables ───────────────────────────────────────────────
+
         function loadTableData() {
             $.ajax({
                 url: apiBase,
@@ -2245,10 +2433,379 @@
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
+
+                        initEmailModalEvents();
                     }
                 }
             });
         }
+
+        // ── Mailer Functions ──────────────────────────────────────────────
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const base64String = reader.result.split(',')[1];
+                    resolve(base64String);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function initEmailModalEvents() {
+            $('#composeMail').on('show.bs.modal', function (e) {
+                attachments = [];
+                $('#attachmentContainer').empty();
+
+                activeTemplateKey = "default";
+                $('#emailTemplateSelect').val("default");
+
+                const button = $(e.relatedTarget);
+                const recordId = button.data('id');
+                const record = tableData.find(row => row.id == recordId);
+
+                if (record) {
+                    currentRecord = record;
+                    loadEmailModal(record);
+
+                    setTimeout(() => {
+                        const editableDiv = document.getElementById('mailEditorModal');
+                        if (editableDiv) {
+                            editableDiv.focus();
+                            const range = document.createRange();
+                            range.selectNodeContents(editableDiv);
+                            range.collapse(true);
+                            const selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }, 100);
+                }
+            });
+
+            $('#emailTemplateSelect').off('change').on('change', function () {
+                activeTemplateKey = $(this).val();
+                if (currentRecord) {
+                    loadEmailModal(currentRecord);
+                }
+            });
+
+            $('#addAttachmentBtn').off('click').on('click', function () {
+                $('#fileInput').click();
+            });
+
+            $('#fileInput').off('change').on('change', function (e) {
+                const files = Array.from(e.target.files);
+                if (files.length === 0) return;
+
+                const totalCurrentSize = attachments.reduce((sum, att) => sum + att.size, 0);
+                const newFilesTotalSize = files.reduce((sum, file) => sum + file.size, 0);
+                const projectedTotalSize = totalCurrentSize + newFilesTotalSize;
+
+                if (projectedTotalSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'File Size Limit Exceeded',
+                        html: `Cannot add these files. Total size would be ${formatFileSize(projectedTotalSize)}, which exceeds the limit of ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}.<br><br>
+                           Current attachments: ${formatFileSize(totalCurrentSize)}<br>
+                           New files: ${formatFileSize(newFilesTotalSize)}<br>
+                           Please reduce file sizes or select fewer files.`,
+                        confirmButtonText: 'OK'
+                    });
+                    $(this).val('');
+                    return;
+                }
+
+                files.forEach(file => {
+                    addAttachment(file);
+                });
+
+                $(this).val('');
+            });
+
+            $('#mailEditorModal').on('input', function () {
+                updateEmailPreview();
+            });
+
+            $('#sendEmailBtn').off('click').on('click', function () {
+                sendJDEmail();
+            });
+
+            $('#copyEmailBtn').off('click').on('click', function () {
+                copyEmailBody();
+            });
+        }
+
+        function getTotalAttachmentSize() {
+            return attachments.reduce((total, att) => total + att.size, 0);
+        }
+
+        async function addAttachment(file) {
+            try {
+                const fileId = Date.now() + Math.random().toString(36).substr(2, 9);
+
+                const base64Content = await fileToBase64(file);
+                attachments.push({
+                    id: fileId,
+                    filename: file.name,
+                    size: file.size,
+                    type: file.type,
+                    content: base64Content,
+                    file: file
+                });
+
+                const attachmentElement = `
+                    <div class="attachment-item d-flex align-items-center justify-content-between p-2 mb-1 border rounded" data-id="${fileId}">
+                        <div class="d-flex align-items-center">
+                            <i class="feather-file-text me-2 text-primary"></i>
+                            <div>
+                                <div class="small fw-semibold">${file.name}</div>
+                                <div class="text-muted small">${formatFileSize(file.size)}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-link text-danger remove-attachment" data-id="${fileId}">
+                            <i class="feather-x"></i>
+                        </button>
+                    </div>
+                `;
+
+                $('#attachmentContainer').append(attachmentElement);
+
+                $(`.remove-attachment[data-id="${fileId}"]`).off('click').on('click', function () {
+                    const id = $(this).data('id');
+                    removeAttachment(id);
+                });
+
+                updateAttachmentSizeInfo();
+
+            } catch (error) {
+                console.error('Error adding attachment:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to add attachment. Please try again.'
+                });
+            }
+        }
+
+        function removeAttachment(fileId) {
+            attachments = attachments.filter(att => att.id !== fileId);
+            $(`.attachment-item[data-id="${fileId}"]`).remove();
+            updateAttachmentSizeInfo();
+        }
+
+        function updateAttachmentSizeInfo() {
+            const totalSize = getTotalAttachmentSize();
+            const sizeInfo = `Total: ${formatFileSize(totalSize)} / ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}`;
+
+            let sizeInfoElement = $('#attachmentSizeInfo');
+            if (sizeInfoElement.length === 0) {
+                $('#attachmentContainer').before(`
+                <div id="attachmentSizeInfo" class="small text-muted mb-2 px-1">
+                    ${sizeInfo}
+                </div>
+            `);
+            } else {
+                sizeInfoElement.text(sizeInfo);
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function loadEmailModal(record) {
+            const tpl = emailTemplates[activeTemplateKey];
+            $('#currentRecordId').val(record.id);
+            $('#email-input').val(record.email || '');
+            window.toMail = record.email || '';
+            if ($('#subject-input').length) {
+                $('#subject-input').val(tpl.subject(record));
+            }
+            $('#email-fixed-top').html(tpl.fixedTop(record));
+            $('#mailEditorModal').html(tpl.editableMiddle);
+            $('#email-fixed-bottom').html(tpl.fixedBottom);
+            updateEmailPreview();
+        }
+
+        function updateEmailPreview() {
+            const record = currentRecord;
+            if (!record) return;
+
+            const tpl = emailTemplates[activeTemplateKey];
+            const editableContent = $('#mailEditorModal').html();
+
+            const fullEmailBody = `
+            ${tpl.fixedTop(record)}
+            ${editableContent}
+            ${tpl.fixedBottom}
+        `;
+
+            $('#emailPreview').html(fullEmailBody);
+        }
+
+        function getFullEmailBody() {
+            const record = currentRecord;
+            if (!record) return '';
+
+            const editableContent = $('#emailPreview').html();
+
+            return `
+            ${editableContent}
+        `;
+        }
+
+        async function sendJDEmail() {
+            const recordId = $('#currentRecordId').val();
+            const record = tableData.find(row => row.id == recordId);
+
+            if (!record) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Record not found!"
+                });
+                return;
+            }
+
+            const cc = $('[name="ccmailmodal"]').val() ? [$('[name="ccmailmodal"]').val()] : [];
+            const bcc = $('[name="bccmailmodal"]').val() ? [$('[name="bccmailmodal"]').val()] : [];
+            const emailBody = getFullEmailBody();
+            const subject = $('#subject-input').val();
+
+            const totalAttachmentSize = getTotalAttachmentSize();
+            if (totalAttachmentSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Attachment Size Limit Exceeded",
+                    html: `Total attachment size (${formatFileSize(totalAttachmentSize)}) exceeds the limit of ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}.<br><br>
+                       Please remove some attachments to proceed.`,
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+
+            const attachmentPayload = [];
+            for (const att of attachments) {
+                attachmentPayload.push({
+                    filename: att.filename,
+                    content: att.content
+                });
+            }
+
+            Swal.fire({
+                title: "Send JD Mail?",
+                html: `<div class="text-start">
+                    <p>Send internship JD to ${record.contactPersonName || 'contact'} at ${record.businessName || 'business'}?</p>
+                    ${attachments.length > 0 ? `
+                    <p><strong>Attachments (${attachments.length}):</strong></p>
+                    <ul class="small mb-0">
+                        ${attachments.map(att => `<li>${att.filename} (${formatFileSize(att.size)})</li>`).join('')}
+                    </ul>
+                    <p class="small text-muted mt-2">Total size: ${formatFileSize(totalAttachmentSize)} / ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}</p>
+                    ` : ''}
+                </div>`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Send",
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Sending...",
+                        text: attachments.length > 0 ? "Sending email with attachments..." : "Sending email...",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    const payload = {
+                        userId: 2577,
+                        fromAddress: "connect@fundsaudit.com",
+                        toAddress: window.toMail,
+                        cc: cc,
+                        bcc: bcc,
+                        subject: subject,
+                        body: emailBody,
+                        attachment: attachmentPayload
+                    };
+
+                    console.log("Sending payload with attachments:", {
+                        ...payload,
+                        attachment: attachmentPayload.map(att => ({
+                            filename: att.filename,
+                            content: att.content.substring(0, 50) + '...'
+                        }))
+                    });
+
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/bdsheet/send-generic",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(payload),
+                        success: function (res) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Mail Sent!",
+                                text: attachments.length > 0 ?
+                                    `Email with ${attachments.length} attachment(s) sent successfully.` :
+                                    "The JD mail was sent successfully."
+                            });
+
+                            attachments = [];
+                            $('#attachmentContainer').empty();
+                            $('#attachmentSizeInfo').remove();
+
+                            $('#composeMail').modal('hide');
+                        },
+                        error: function (err) {
+                            console.error("Error sending email:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Failed to send the JD mail. Please try again."
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        function copyEmailBody() {
+            const emailBody = getFullEmailBody();
+            const plainText = emailBody.replace(/<[^>]*>/g, '')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .trim();
+
+            navigator.clipboard.writeText(plainText).then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Copied!",
+                    text: "Email body copied to clipboard",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(err => {
+                console.error("Failed to copy:", err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to copy to clipboard"
+                });
+            });
+        }
+        // ── End Mailer Functions ──────────────────────────────────────────────
 
         const columnKeys = [
             "sno",
@@ -2317,7 +2874,13 @@
                 ${makeDateCell("dateOfC4Customer", row.dateOfC4Customer)}
                 ${makeDropdownCell("c4Status", row.c4Status, dropdowns.c4Status)}
                 ${makeEditableComment("c4Comment", row.c4Comment)}
-            </tr>`;
+                <td>
+                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
+                            data-bs-target="#composeMail" title="Send JD">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                 </td>
+              </tr>`;
                 tbody.append(tr);
             });
 
@@ -2330,7 +2893,7 @@
             return `<td data-field="${field}">
             <span>${displayValue}</span>
                 <input type="text" value="${displayValue}" style="display:none;">
-            </td>`;
+             </td>`;
         }
 
         function makeDropdownCell(field, selectedValue, optionsList = null) {
@@ -2351,7 +2914,7 @@
             return `<td data-field="${field}">
             <span>${displayValue}</span>
                 <input type="text" value="${displayValue}" style="display:none;">
-            </td>`;
+             </td>`;
         }
 
         function makeDateCell(field, value) {
@@ -2360,7 +2923,7 @@
             return `<td data-field="${field}">
             <span>${displayValue}</span>
                 <input type="text" class="date-picker" value="${rawValue}" style="display:none;">
-            </td>`;
+             </td>`;
         }
 
         function formatDate(dateStr) {
@@ -2389,7 +2952,6 @@
 
                 let payload = {};
                 payload[field] = value;
-                // payload.userId = userData.user_id;
 
                 $.ajax({
                     url: "https://eduroom.in/api/v1/isheet/update-followup/" + id,
@@ -2416,7 +2978,6 @@
 
                     let payload = {};
                     payload[field] = dateStr;
-                    // payload.userId = userData.user_id;
 
                     $.ajax({
                         url: "https://eduroom.in/api/v1/isheet/update-followup/" + id,
@@ -2484,7 +3045,7 @@
 
             let filterRow = "<tr class='filters'>";
             columnKeys.forEach((key, i) => {
-                if (i === 0) {
+                if (i === 0 || i === columnKeys.length - 0) {
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `
@@ -2496,8 +3057,8 @@
             `;
                 }
             });
-            filterRow += "</tr>";
-
+            filterRow += "<th></th>";
+            filterRow += "";
             $("#leadsTable thead").append(filterRow);
 
             populateColumnFilterOptions();
@@ -2559,7 +3120,6 @@
                 return;
             }
 
-            // Exclude the internal 'id' field
             const headers = Object.keys(tableData[0]).filter(k => k !== "id");
             const data = [headers];
 
@@ -2737,6 +3297,12 @@
                 ${makeDateCell2("dateOfC4Customer", row.dateOfC4Customer)}
                 ${makeDropdownCell2("c4Status", row.c4Status, dropdowns2.c4Status)}
                 ${makeEditableComment2("c4Comment", row.c4Comment)}
+                <td>
+                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
+                            data-bs-target="#composeMail" title="Send JD">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                 </td>
             </tr>`;
                 tbody.append(tr);
             });
@@ -3156,6 +3722,12 @@
                 ${makeDateCell3("dateOfC4Customer", row.dateOfC4Customer)}
                 ${makeDropdownCell3("c4Status", row.c4Status, dropdowns3.c4Status)}
                 ${makeEditableComment3("c4Comment", row.c4Comment)}
+                <td>
+                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
+                            data-bs-target="#composeMail" title="Send JD">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                 </td>
             </tr>`;
                 tbody.append(tr);
             });
@@ -3794,6 +4366,452 @@
                 });
             });
         });
+    </script>
+
+    <div class="modal fade-scale" id="composeMail" tabindex="-1" aria-labelledby="composeMail" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="d-flex flex-column mb-0">
+                        <span class="fs-18 fw-bold mb-1">Compose JD Mail</span>
+                        <small class="d-block fs-11 fw-normal text-muted">Send Internship JD to College
+                            Coordinator</small>
+                    </h2>
+                    <a href="javascript:void(0)" class="avatar-text avatar-md bg-soft-danger close-icon"
+                        data-bs-dismiss="modal">
+                        <i class="feather-x text-danger"></i>
+                    </a>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="position-relative border-bottom">
+                        <div class="col-lg-12 mb-4">
+                            <input id="from" class="form-control border-0 text-dark flex-grow-1" name="from"
+                                placeholder="From: connect@fundsaudit.com" style="min-width: 150px;" readonly>
+                        </div>
+                        <div class="px-2 d-flex align-items-center">
+                            <div class="p-0 w-100 d-flex flex-wrap align-items-center gap-1" id="email-chip-wrapper">
+                                <input id="email-input" class="form-control border-0 text-dark flex-grow-1"
+                                    name="tomailmodal" placeholder="To" style="min-width: 150px;" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom mail-cc-bcc-fields" id="ccbccToggleModalFileds" style="display: none">
+                        <div class="px-2 w-100 d-flex align-items-center border-bottom">
+                            <input class="form-control border-0 text-dark" name="ccmailmodal" placeholder="CC">
+                        </div>
+                        <div class="px-2 w-100 d-flex align-items-center">
+                            <input class="form-control border-0 text-dark" name="bccmailmodal" placeholder="BCC">
+                        </div>
+                    </div>
+
+                    <div class="px-2 w-100 d-flex align-items-center">
+                        <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
+                            placeholder="Subject"
+                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit">
+                    </div>
+
+                    <!-- Attachment Section -->
+                    <div class="px-3 py-2 border-bottom">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <label class="fw-semibold text-dark mb-0">Attachments:</label>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <!-- Button -->
+                                <button type="button" id="addAttachmentBtn" class="btn btn-sm btn-outline-primary"
+                                    style="font-size: 12px; border-radius: 6px; white-space: nowrap;"> <i
+                                        class="feather-paperclip me-1"></i> Add Attachment </button>
+
+                                <!-- Dropdown -->
+                                <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
+                                    <option value="default" style="text-align: center;">Default</option>
+                                    <option value="promotional" style="text-align: center;">Promotional</option>
+                                    <option value="followup" style="text-align: center;">Follow-Up</option>
+                                    <option value="connect" style="text-align: center;">Connect</option>
+                                    <option value="marketing" style="text-align: center;">Marketing</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div id="attachmentContainer" class="mt-2"></div>
+
+                        <input type="file" id="fileInput" multiple style="display: none;"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                    </div>
+
+                    <!-- Email Body Container -->
+                    <div class="email-body-container p-3">
+                        <!-- Fixed Top Part -->
+                        <div id="email-fixed-top" class="email-fixed-part mb-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+
+                        <!-- Editable Middle Part -->
+                        <div class="email-editable-part mb-3">
+                            <label class="fw-semibold text-dark mb-2 d-block">Customize Email:</label>
+                            <div id="mailEditorModal" class="ht-200 border rounded p-3 bg-white" contenteditable="true">
+                                <!-- Editable content will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Fixed Bottom Part -->
+                        <div id="email-fixed-bottom" class="email-fixed-part mt-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="mt-4 px-3" id="emailPreviewContainer">
+                        <label class="fw-semibold text-dark mb-2 d-block">Email Preview:</label>
+                        <div id="emailPreview" class="border rounded p-3 bg-light"
+                            style="max-height: 400px; overflow-y: auto;">
+                            <!-- Live preview will be injected here -->
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="currentRecordId" value="">
+                    <input type="hidden" id="currentRecordData" value="">
+                </div>
+
+                <div class="modal-footer d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <button id="sendEmailBtn" class="btn btn-primary me-2" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" title="Send Message with Attachments">
+                            <i class="feather-send me-1"></i> Send JD Mail
+                        </button>
+
+                        <button type="button" id="copyEmailBtn" class="btn btn-outline-secondary me-2">
+                            <i class="feather-copy me-1"></i> Copy Body
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-outline-danger">
+                            <i class="feather-x me-1"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .custom-btn {
+            height: 38px;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-select {
+            height: 38px;
+            font-size: 13px;
+            border-radius: 6px;
+            padding: 0 10px;
+            width: 150px;
+        }
+
+        .custom-select,
+        .custom-btn {
+            line-height: 1.2;
+        }
+
+        .email-body-container {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px;
+        }
+
+        .email-fixed-part {
+            font-size: 14px;
+            line-height: 1.6;
+            user-select: none;
+            cursor: default;
+        }
+
+        .email-editable-part {
+            border-left: 3px solid #0d6efd;
+            padding-left: 15px;
+        }
+
+        #mailEditorModal {
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ced4da !important;
+            background-color: #fff !important;
+        }
+
+        #mailEditorModal:focus {
+            outline: none;
+            border-color: #86b7fe !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+        }
+
+        #emailPreview {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #emailPreview h4 {
+            color: #59595d;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        #emailPreview ul {
+            padding-left: 20px;
+        }
+
+        #emailPreview li {
+            margin-bottom: 5px;
+        }
+
+        .email-template-variable {
+            background-color: #e7f1ff;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
+                });
+                return;
+            }
+
+            document.addEventListener("click", function (e) {
+                if (e.target.closest("#logoutBtn")) {
+                    Swal.fire({
+                        title: "Logging out...",
+                        text: "Please wait",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/user/logout",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ id: userId }),
+                        success: function (res) {
+                            console.log("Logout success:", res);
+                            sessionStorage.clear();
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Logged Out",
+                                text: "You have been logged out successfully!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.top.location.href = "/login.html";
+                            });
+                        },
+                        error: function (err) {
+                            console.error("Logout error:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Logout Failed",
+                                text: "Something went wrong. Please try again!",
+                                allowOutsideClick: false,
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
+
+    <script>
+        let passwords = {};
+
+        $(document).ready(function () {
+            $.getJSON("/config.json", function (data) {
+                passwords = data;
+            });
+
+            $("#hrTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "HR_PASSWORD",
+                    "hr_verified",
+                    "/profile/dashboard/targets.html"
+                );
+            });
+
+            $("#bdTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "BD_PASSWORD",
+                    "bd_verified",
+                    "/profile/dashboard/bd-targets.html"
+                );
+            });
+        });
+
+        function handleProtectedPage(passwordKey, sessionKey, redirectUrl) {
+            if (sessionStorage.getItem(sessionKey) === "true") {
+                window.location.href = redirectUrl;
+                return;
+            }
+
+            Swal.fire({
+                title: "Enter Password",
+                input: "password",
+                inputPlaceholder: "Enter access password",
+                showCancelButton: true,
+                confirmButtonText: "Verify",
+            }).then(result => {
+                if (!result.value) return;
+
+                const enteredPassword = result.value.trim();
+                const correctPassword = passwords[passwordKey];
+
+                if (enteredPassword === correctPassword) {
+                    sessionStorage.setItem(sessionKey, "true");
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Access Granted",
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = redirectUrl;
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Password",
+                        text: "Access denied!"
+                    });
+                }
+            });
+        }
     </script>
 
 </body>

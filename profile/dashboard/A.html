@@ -719,7 +719,7 @@
                                                 <th>EXISTING WEBSITE</th>
                                                 <th>SMM PRESENCE</th>
                                                 <th>MEETING STATUS</th>
-                                                <th>SEND JD</th>
+                                                <th>SEND MAIL</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -1219,7 +1219,7 @@
                                                 <th>EXISTING WEBSITE</th>
                                                 <th>SMM PRESENCE</th>
                                                 <th>MEETING STATUS</th>
-                                                <th>SEND JD</th>
+                                                <th>SEND MAIL</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1437,6 +1437,7 @@
                                             <th>EXISTING WEBSITE</th>
                                             <th>SMM PRESENCE</th>
                                             <th>MEETING STATUS</th>
+                                            <th>SEND MAIL</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -1994,7 +1995,6 @@
         const rowsPerPage = 100;
         let currentPage = 1;
 
-        // ── Mailer variables (from second script) ──────────────────────────────
         let currentRecord = null;
         let attachments = [];
         const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
@@ -2177,7 +2177,6 @@
                 </p>`
             }
         };
-        // ── End mailer variables ───────────────────────────────────────────────
 
         function loadTableData() {
             $.ajax({
@@ -2583,7 +2582,6 @@
                 });
             });
         }
-        // ── End mailer functions ───────────────────────────────────────────────
 
         function renderTable() {
             let tbody = $("#leadsTable tbody");
@@ -4012,6 +4010,241 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+                window.location.reload();
+            }
+        });
+
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem("user_id");
+
+            if (!userId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
+                });
+                return;
+            }
+
+            document.addEventListener("click", function (e) {
+                if (e.target.closest("#logoutBtn")) {
+                    Swal.fire({
+                        title: "Logging out...",
+                        text: "Please wait",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/user/logout",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ id: userId }),
+                        success: function (res) {
+                            console.log("Logout success:", res);
+                            sessionStorage.clear();
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Logged Out",
+                                text: "You have been logged out successfully!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.top.location.href = "/login.html";
+                            });
+                        },
+                        error: function (err) {
+                            console.error("Logout error:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Logout Failed",
+                                text: "Something went wrong. Please try again!",
+                                allowOutsideClick: false,
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        fetch("/config.json")
+            .then(response => response.json())
+            .then(config => {
+                const HARD_CODED_PASSWORD = config.HARD_CODED_PASSWORD || "";
+                const SESSION_KEY = "coursePasswordVerified";
+
+                const protectedLi = document.getElementById("protectedDropdown");
+                const trigger = document.getElementById("protectedTrigger");
+                const submenu = protectedLi.querySelector(".protected-submenu");
+
+                function openProtectedMenu() {
+                    protectedLi.classList.add("is-open");
+                    submenu.style.display = "block";
+                }
+
+                function closeProtectedMenu() {
+                    protectedLi.classList.remove("is-open");
+                    submenu.style.display = "none";
+                }
+
+                if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                    openProtectedMenu();
+                } else {
+                    closeProtectedMenu();
+                }
+
+                trigger.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    ev.stopImmediatePropagation();
+
+                    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+                        if (protectedLi.classList.contains("is-open")) {
+                            closeProtectedMenu();
+                        } else {
+                            openProtectedMenu();
+                        }
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Enter Password",
+                        input: "password",
+                        inputPlaceholder: "Enter access password",
+                        showCancelButton: true,
+                        confirmButtonText: "Submit",
+                        allowOutsideClick: false,
+                        inputValidator: (value) => {
+                            if (!value) return "Password cannot be empty!";
+                            return null;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const userPassword = result.value;
+
+                            if (userPassword === HARD_CODED_PASSWORD) {
+                                sessionStorage.setItem(SESSION_KEY, "true");
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Access Granted",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => openProtectedMenu());
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Invalid Password",
+                                    text: "You are not allowed to access this section."
+                                });
+                                closeProtectedMenu();
+                            }
+                        } else {
+                            closeProtectedMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener("click", function (e) {
+                    const inside = protectedLi.contains(e.target);
+                    if (!inside && !sessionStorage.getItem(SESSION_KEY)) {
+                        closeProtectedMenu();
+                    }
+                });
+
+            })
+            .catch(err => {
+                console.error("Could not load config.json:", err);
+            });
+    </script>
+
+    <style>
+        #protectedDropdown.is-open>.protected-submenu {
+            display: block !important;
+        }
+    </style>
+
+    <script>
+        let passwords = {};
+
+        $(document).ready(function () {
+            $.getJSON("/config.json", function (data) {
+                passwords = data;
+            });
+
+            $("#hrTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "HR_PASSWORD",
+                    "hr_verified",
+                    "/profile/dashboard/targets.html"
+                );
+            });
+
+            $("#bdTargetsBtn").click(function () {
+                handleProtectedPage(
+                    "BD_PASSWORD",
+                    "bd_verified",
+                    "/profile/dashboard/bd-targets.html"
+                );
+            });
+        });
+
+        function handleProtectedPage(passwordKey, sessionKey, redirectUrl) {
+            if (sessionStorage.getItem(sessionKey) === "true") {
+                window.location.href = redirectUrl;
+                return;
+            }
+
+            Swal.fire({
+                title: "Enter Password",
+                input: "password",
+                inputPlaceholder: "Enter access password",
+                showCancelButton: true,
+                confirmButtonText: "Verify",
+            }).then(result => {
+                if (!result.value) return;
+
+                const enteredPassword = result.value.trim();
+                const correctPassword = passwords[passwordKey];
+
+                if (enteredPassword === correctPassword) {
+                    sessionStorage.setItem(sessionKey, "true");
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Access Granted",
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = redirectUrl;
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Password",
+                        text: "Access denied!"
+                    });
+                }
+            });
+        }
     </script>
 
     <!-- ========================================== -->
