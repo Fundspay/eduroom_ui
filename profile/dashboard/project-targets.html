@@ -13,13 +13,14 @@
     <title>Eduroom || Dashboard</title>
     <!--! END:  Apps Title-->
     <!--! BEGIN: Favicon-->
-    <link rel="shortcut icon" type="image/x-icon" href="" />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
     <!--! END: Favicon-->
     <!--! BEGIN: Bootstrap CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
     <!--! END: Bootstrap CSS-->
     <!--! BEGIN: Vendors CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/vendors.min.css" />
+    <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify.min.css">
     <link rel="stylesheet" type="text/css" href="./../assets/vendors/css/tagify-data.min.css">
@@ -31,6 +32,133 @@
     <!--! END: Vendors CSS-->
     <!--! BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/theme.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+    <script>
+        function setStickyColumns() {
+            const table = document.getElementById("leadsTable");
+            if (!table) return;
+
+            const stickyCols = 3;
+            let leftOffsets = [];
+
+            let total = 0;
+            const firstRow = table.querySelector("thead tr:first-child");
+            for (let i = 0; i < stickyCols; i++) {
+                const th = firstRow.querySelector(`th:nth-child(${i + 1})`);
+                if (th) {
+                    leftOffsets[i] = total;
+                    total += th.offsetWidth;
+                }
+            }
+
+            requestAnimationFrame(() => {
+                const headerRows = table.querySelectorAll("thead tr");
+                let cumulativeTop = 0;
+
+                headerRows.forEach(row => {
+                    const rowHeight = row.offsetHeight;
+
+                    row.querySelectorAll("th").forEach(th => {
+                        th.style.position = "sticky";
+                        th.style.top = cumulativeTop + "px";
+                        th.style.background = "#fff";
+                        th.style.zIndex = 12;
+                    });
+
+                    for (let i = 0; i < stickyCols; i++) {
+                        const th = row.querySelector(`th:nth-child(${i + 1})`);
+                        if (th) {
+                            th.style.left = leftOffsets[i] + "px";
+                            th.style.zIndex = 16;
+                        }
+                    }
+
+                    cumulativeTop += rowHeight;
+                });
+
+                const rows = table.querySelectorAll("tbody tr");
+                rows.forEach(row => {
+                    for (let i = 0; i < stickyCols; i++) {
+                        const td = row.querySelector(`td:nth-child(${i + 1})`);
+                        if (td) {
+                            td.style.position = "sticky";
+                            td.style.left = leftOffsets[i] + "px";
+                            td.style.background = "#fff";
+                            td.style.zIndex = 6;
+                        }
+                    }
+                });
+            });
+        }
+
+        window.addEventListener("load", setStickyColumns);
+        window.addEventListener("resize", setStickyColumns);
+    </script>
+
+    <script>
+        function setStickyColumns2() {
+            const table = document.getElementById("leadsTable2");
+            if (!table) return;
+
+            const stickyCols = 3;
+            let leftOffsets = [];
+
+            let total = 0;
+            const firstRow = table.querySelector("thead tr:first-child");
+            for (let i = 0; i < stickyCols; i++) {
+                const th = firstRow.querySelector(`th:nth-child(${i + 1})`);
+                if (th) {
+                    leftOffsets[i] = total;
+                    total += th.offsetWidth;
+                }
+            }
+
+            requestAnimationFrame(() => {
+                const headerRows = table.querySelectorAll("thead tr");
+                let cumulativeTop = 0;
+
+                headerRows.forEach(row => {
+                    const rowHeight = row.offsetHeight;
+
+                    row.querySelectorAll("th").forEach(th => {
+                        th.style.position = "sticky";
+                        th.style.top = cumulativeTop + "px";
+                        th.style.background = "#fff";
+                        th.style.zIndex = 12;
+                    });
+
+                    for (let i = 0; i < stickyCols; i++) {
+                        const th = row.querySelector(`th:nth-child(${i + 1})`);
+                        if (th) {
+                            th.style.left = leftOffsets[i] + "px";
+                            th.style.zIndex = 16;
+                        }
+                    }
+
+                    cumulativeTop += rowHeight;
+                });
+
+                const rows = table.querySelectorAll("tbody tr");
+                rows.forEach(row => {
+                    for (let i = 0; i < stickyCols; i++) {
+                        const td = row.querySelector(`td:nth-child(${i + 1})`);
+                        if (td) {
+                            td.style.position = "sticky";
+                            td.style.left = leftOffsets[i] + "px";
+                            td.style.background = "#fff";
+                            td.style.zIndex = 6;
+                        }
+                    }
+                });
+            });
+        }
+
+        window.addEventListener("load", setStickyColumns2);
+        window.addEventListener("resize", setStickyColumns2);
+    </script>
     <!--! END: Custom CSS-->
     <!--! HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries !-->
     <!--! WARNING: Respond.js doesn"t work if you view the page via file: !-->
@@ -320,16 +448,6 @@
                         </div>
                     </div> -->
 
-                    <!-- Dark/Light Theme Toggle -->
-                    <div class="nxl-h-item dark-light-theme">
-                        <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
-                            <i class="feather-moon"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
-                            <i class="feather-sun"></i>
-                        </a>
-                    </div>
-
                     <!-- User Dropdown -->
                     <div class="dropdown nxl-h-item">
                         <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button"
@@ -369,45 +487,29 @@
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
     <main class="nxl-container">
-        <div class="nxl-content">
-            <!-- [ page-header ] start -->
-            <div class="page-header">
-                <div class="page-header-left d-flex align-items-center">
-                    <div class="page-header-title">
-                        <h5 class="m-b-10">DASHBOARD</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <!-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> -->
-                        <li class="breadcrumb-item">ADD SELECTION DOMAIN</li>
-                    </ul>
-                </div>
+        <div class="main-content">
+            <div class="row" style="margin-left: 2%; margin-right: 1%;">
+                <div class="col-lg-12" style="margin-top: 2%;">
+                    <div class="card border-top-0">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="profileTab" role="tabpanel">
+                                <div class="card-body personal-info">
+                                    <div class="mb-4 d-flex align-items-center justify-content-between">
+                                        <h5 class="fw-bold mb-0 me-4">
+                                            <span class="d-block mb-2">Targets:</span>
+                                        </h5>
+                                        <div class="date-picker-container">
+                                            <input type="text" id="dateRangePicker" class="form-control"
+                                                placeholder="Select date or range" style="max-width:220px;" />
+                                        </div>
+                                    </div>
 
-            </div>
-            <!-- [ page-header ] end -->
-            <!-- [ Main Content ] start -->
-            <div class="main-content" style="margin-bottom: 5%;">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card stretch stretch-full shadow-sm border-0">
-                            <div class="card-body">
 
-                                <!-- Domain Name -->
-                                <div class="mb-4">
-                                    <label class="form-label">Domain Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="domainName"
-                                        placeholder="Enter domain name">
+                                    <!-- Dynamic target rows will load here -->
+                                    <div id="targetsContainer"></div>
+
                                 </div>
-
-                                <!-- Form Message -->
-                                <div id="formMessage" class="mb-3"></div>
-
-                                <!-- Submit -->
-                                <div class="text-end">
-                                    <button type="button" class="btn btn-primary px-4 fw-bold" id="submitBtn">
-                                        Add Domain
-                                    </button>
-                                </div>
-
+                                <hr class="my-0">
                             </div>
                         </div>
                     </div>
@@ -416,14 +518,18 @@
 
             <!-- [ Main Content ] end -->
         </div>
-        <!-- [ Footer ] start -->
-
         <!-- [ Footer ] end -->
     </main>
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
     <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! BEGIN: Theme Customizer !-->
+    <!--! ================================================================ !-->
 
+    <!--! ================================================================ !-->
+    <!--! [End] Theme Customizer !-->
+    <!--! ================================================================ !-->
     <!--! ================================================================ !-->
     <!--! Footer Script !-->
     <!--! ================================================================ !-->
@@ -434,82 +540,241 @@
     <script src="./../assets/vendors/js/apexcharts.min.js"></script>
     <script src="./../assets/vendors/js/circle-progress.min.js"></script>
     <script src="./../assets/vendors/js/jquery.calendar.min.js"></script>
-    <script src="./../assets/vendors/js/tagify.min.js"></script>
-    <script src="./../assets/vendors/js/tagify-data.min.js"></script>
-    <script src="./../assets/vendors/js/quill.min.js"></script>
     <script src="./../assets/vendors/js/select2.min.js"></script>
     <script src="./../assets/vendors/js/select2-active.min.js"></script>
+    <script src="./../assets/js/common-init.min.js"></script>
+    <script src="./../assets/vendors/js/lslstrength.min.js"></script>
     <!--! END: Vendors JS !-->
     <!--! BEGIN: Apps Init  !-->
     <script src="./../assets/js/common-init.min.js"></script>
-    <!-- <script src="./../assets/js/dashboard-init.min.js"></script> -->
-    <!-- <script src="./../assets/js/reports-project-init.min.js"></script> -->
-    <!-- <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script> -->
+    <script src="./../assets/js/reports-project-init.min.js"></script>
+    <script src="./../assets/js/widgets-charts-init.min.js"></script>
+    <script src="./../assets/js/widgets-miscellaneous-init.min.js"></script>
     <!--! END: Apps Init !-->
     <!--! BEGIN: Theme Customizer  !-->
     <script src="./../assets/js/theme-customizer-init.min.js"></script>
+    <!--! END: Theme Customizer !-->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!--! END: Theme Customizer !-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
-        if (sessionStorage.getItem("coursePasswordVerified") !== "true") {
-            Swal.fire({
-                icon: "warning",
-                title: "Access Restricted",
-                text: "You are not permitted to use this page!",
-                confirmButtonText: "Go Back"
-            }).then(() => {
-                window.location.href = "/profile/dashboard/team-manager.html";
+        let fromDate = null;
+        let toDate = null;
+        var userId = sessionStorage.getItem("user_id");
+        const postUrl = `https://eduroom.in/api/v1/mytarget/add`;
+
+        function formatDateForUI(dateStr) {
+            const parts = dateStr.split("-");
+            if (parts.length !== 3) return dateStr;
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        function getDefaultDateRange() {
+            const now = new Date();
+            const firstDay = new Date(now.getFullYear(), now.getMonth(), 2);
+            const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+            return {
+                from: firstDay.toISOString().split("T")[0],
+                to: lastDay.toISOString().split("T")[0]
+            };
+        }
+
+        function renderTargetRows(data) {
+            const container = $("#targetsContainer");
+            container.empty();
+
+            if (!data || data.length === 0) {
+                container.append(`<p class="text-muted">No targets found for this date range.</p>`);
+                return;
+            }
+
+            data.forEach((item, index) => {
+                let btnClass = (parseInt(item.c1Target) > 0 || parseInt(item.c2Target) > 0 || parseInt(item.c3Target) > 0 || parseInt(item.c4Target) > 0
+                    || parseInt(item.target) > 0 || parseInt(item.subscriptionTarget) > 0)
+                    ? "btn-success"
+                    : "btn-primary";
+
+                const row = `
+                    <div class="row mb-3 align-items-center border-bottom pb-2">
+                        <!-- Left side: Date + Day -->
+                        <div class="col-lg-2 fw-semibold text-center">
+                            ${formatDateForUI(item.date)} <br>
+                            <small class="text-muted">(${item.day})</small>
+                        </div>
+
+                        <!-- Target Inputs -->
+                        <div class="col-lg-10">
+                            <div class="row g-3">
+                                <!-- c1 Target -->
+                                <div class="col-md-2">
+                                    <label class="form-label fw-semibold mb-1">c1 Target:</label>
+                                    <input type="number" class="form-control" id="c1Target-${index}" value="${item.c1Target}" />
+                                </div>
+
+                                <!-- c2 Target -->
+                                <div class="col-md-2">
+                                    <label class="form-label fw-semibold mb-1">c2 Target:</label>
+                                    <input type="number" class="form-control" id="c2Target-${index}" value="${item.c2Target}" />
+                                </div>
+
+                                <!-- c3 Target -->
+                                <div class="col-md-2">
+                                    <label class="form-label fw-semibold mb-1">c3 Target:</label>
+                                    <input type="number" class="form-control" id="c3Target-${index}" value="${item.c3Target}" />
+                                </div>
+
+                                <!-- c4 Target -->
+                                <div class="col-md-2">
+                                    <label class="form-label fw-semibold mb-1">c4 Target:</label>
+                                    <input type="number" class="form-control" id="c4Target-${index}" value="${item.c4Target}" />
+                                </div>
+
+                                <!-- Token Target (below c1) -->
+                                <div class="col-md-2">
+                                    <label class="form-label fw-semibold mb-1">Token Target:</label>
+                                    <input type="number" class="form-control" id="token-${index}" value="${item.token || 0}" />
+                                </div>
+
+                                <!-- Subscription Target (last one) -->
+                                <div class="col-md-2">
+                                    <label class="form-label fw-semibold mb-1">Subscription Target:</label>
+                                    <input type="number" class="form-control" id="subscriptionTarget-${index}" value="${item.subscriptionTarget || 0}" />
+                                </div>
+
+                                <!-- Save button -->
+                                <div class="col-md-2 d-flex align-items-end justify-content-end">
+                                    <button class="btn ${btnClass} btn-save w-100" data-date="${item.date}" data-index="${index}">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.append(row);
+            });
+
+            $(".btn-save").on("click", function () {
+                const date = $(this).data("date");
+                const index = $(this).data("index");
+
+                const c1Target = $(`#c1Target-${index}`).val();
+                const c2Target = $(`#c2Target-${index}`).val();
+                const c3Target = $(`#c3Target-${index}`).val();
+                const c4Target = $(`#c4Target-${index}`).val();
+
+                const token = $(`#token-${index}`).val();
+                const subscriptionTarget = $(`#subscriptionTarget-${index}`).val();
+                // const interviewsTargetVal = $(`#interviewsTarget-${index}`).val();
+                // const resumesReceivedTargetVal = $(`#resumesReceivedTarget-${index}`).val();
+
+                saveTarget(date, c1Target, c2Target, c3Target, c4Target, token, subscriptionTarget);
             });
         }
-    </script>
 
-    <script>
-        $(document).ready(function () {
-            $("#submitBtn").click(function (e) {
-                e.preventDefault();
+        function fetchTargetData(startDate, endDate) {
+            const apiUrl = `https://eduroom.in/api/v1/mytarget/fetch/?teamManagerId=${userId}&startDate=${startDate}&endDate=${endDate}`;
+            console.log("Calling API:", apiUrl);
 
-                const domainName = $("#domainName").val().trim();
-                const description = "kuch Bhi.";
-                const userId = 1;
-
-                if (!domainName) {
-                    $("#formMessage").html('<span class="text-danger">⚠ Please enter a domain name.</span>');
-                    return;
-                }
-
-                const payload = {
-                    name: domainName,
-                    description: description,
-                    userId: userId
-                };
-
-                console.log("Submitting:", payload);
-
-                $.ajax({
-                    url: "https://eduroom.in/api/v1/selection-domain/add",
-                    type: "POST",
-                    data: JSON.stringify(payload),
-                    contentType: "application/json",
-                    success: function (res) {
-                        console.log("Response:", res);
-                        if (res.success) {
-                            $("#formMessage").html('<span class="text-success">✅ Domain added successfully!</span>');
-                            $("#domainName").val("");
-                        } else {
-                            $("#formMessage").html('<span class="text-danger">❌ Failed to add domain.</span>');
-                        }
-                    },
-                    error: function (xhr) {
-                        console.error("Error:", xhr);
-                        $("#formMessage").html('<span class="text-danger">❌ Error submitting form: ' + xhr.responseText + '</span>');
+            $.ajax({
+                url: apiUrl,
+                type: "GET",
+                success: function (response) {
+                    console.log("GET response:", response);
+                    if (response.success && response.dates && response.dates.length > 0) {
+                        renderTargetRows(response.dates);
+                    } else {
+                        $("#targetsContainer").html("<p class='text-muted'>No targets found.</p>");
                     }
-                });
+                },
+                error: function (xhr) {
+                    console.error("Error loading target:", xhr.responseText);
+                }
             });
+        }
+
+        function saveTarget(date, c1Target, c2Target, c3Target, c4Target, token, subscriptionTarget) {
+            Swal.fire({
+                title: "Saving Target...",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            const payload = {
+                teamManagerId: userId,
+                targets: [
+                    {
+                        date: date,
+                        c1Target: parseInt(c1Target),
+                        c2Target: parseInt(c2Target),
+                        c3Target: parseInt(c3Target),
+                        c4Target: parseInt(c4Target),
+                        token: parseInt(token),
+                        subscriptionTarget: parseInt(subscriptionTarget)
+                        // interviewsTarget: parseInt(interviewsTarget),
+                        // resumesReceivedTarget: parseInt(resumesReceivedTarget)
+                    }
+                ]
+            };
+            console.log("payload:", payload);
+
+            $.ajax({
+                url: postUrl,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    console.log("Save response:", res);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Target saved successfully!",
+                        confirmButtonColor: "#3085d6"
+                    });
+                    fetchTargetData(fromDate, toDate);
+                },
+                error: function (xhr) {
+                    console.error("Save error:", xhr.responseText);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Save failed!",
+                        text: xhr.responseText
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            var userId = sessionStorage.getItem("user_id");
+            console.log("UserData:", userId);
+
+            const defaultRange = getDefaultDateRange();
+            fromDate = defaultRange.from;
+            toDate = defaultRange.to;
+
+            flatpickr("#dateRangePicker", {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                defaultDate: [fromDate, toDate],
+                onClose: function (selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 2) {
+                        fromDate = instance.formatDate(selectedDates[0], "Y-m-d");
+                        toDate = instance.formatDate(selectedDates[1], "Y-m-d");
+                    } else {
+                        fromDate = defaultRange.from;
+                        toDate = defaultRange.to;
+                    }
+                    console.log("From:", fromDate, "To:", toDate);
+                    fetchTargetData(fromDate, toDate);
+                }
+            });
+
+            fetchTargetData(fromDate, toDate);
         });
     </script>
 
@@ -523,61 +788,63 @@
         $(document).ready(function () {
             const userId = sessionStorage.getItem("user_id");
 
-            // if (!userId) {
-            //     Swal.fire({
-            //         icon: "warning",
-            //         title: "Login Required",
-            //         text: "You must log in to access this page.",
-            //         allowOutsideClick: false,
-            //         allowEscapeKey: false,
-            //         showConfirmButton: true,
-            //         confirmButtonText: "Go to Login"
-            //     }).then(() => {
-            //         window.top.location.href = "/login.html";
-            //     });
-            //     return;
-            // }
-
-            $(document).on("click", "#logoutBtn", function () {
+            if (!userId) {
                 Swal.fire({
-                    title: "Logging out...",
-                    text: "Please wait",
+                    icon: "warning",
+                    title: "Login Required",
+                    text: "You must log in to access this page.",
                     allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
+                    allowEscapeKey: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "Go to Login"
+                }).then(() => {
+                    window.top.location.href = "/login.html";
                 });
+                return;
+            }
 
-                $.ajax({
-                    url: "https://eduroom.in/api/v1/user/logout",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ id: userId }),
-                    success: function (res) {
-                        console.log("Logout success:", res);
-                        sessionStorage.clear();
+            document.addEventListener("click", function (e) {
+                if (e.target.closest("#logoutBtn")) {
+                    Swal.fire({
+                        title: "Logging out...",
+                        text: "Please wait",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
 
-                        Swal.fire({
-                            icon: "success",
-                            title: "Logged Out",
-                            text: "You have been logged out successfully!",
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            window.top.location.href = "/login.html";
-                        });
-                    },
-                    error: function (err) {
-                        console.error("Logout error:", err);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Logout Failed",
-                            text: "Something went wrong. Please try again!",
-                            allowOutsideClick: false,
-                            confirmButtonText: "OK"
-                        });
-                    }
-                });
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/user/logout",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ id: userId }),
+                        success: function (res) {
+                            console.log("Logout success:", res);
+                            sessionStorage.clear();
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Logged Out",
+                                text: "You have been logged out successfully!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                window.top.location.href = "/login.html";
+                            });
+                        },
+                        error: function (err) {
+                            console.error("Logout error:", err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Logout Failed",
+                                text: "Something went wrong. Please try again!",
+                                allowOutsideClick: false,
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>

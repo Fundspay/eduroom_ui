@@ -13,7 +13,7 @@
     <title>Eduroom || Dashboard</title>
     <!--! END:  Apps Title-->
     <!--! BEGIN: Favicon-->
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" /> -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/FundsAuditLogo.png" />
     <!--! END: Favicon-->
     <!--! BEGIN: Bootstrap CSS-->
     <link rel="stylesheet" type="text/css" href="./../assets/css/bootstrap.min.css" />
@@ -559,7 +559,7 @@
                     </div> -->
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a>Home</a></li>
-                        <li class="breadcrumb-item">Attract</li>
+                        <li class="breadcrumb-item">Manage</li>
                     </ul>
                 </div>
                 <div class="page-header-right ms-auto">
@@ -586,63 +586,106 @@
                         </span>
                     </label>
                 </div> -->
-                <div class="position-relative border-bottom">
+                <!-- <div class="position-relative border-bottom">
                     <label for="excelUpload" class="dropdown-item upload-trigger" style="cursor:pointer;">
                         <span class="btn btn-icon" data-bs-toggle="tooltip" data-bs-trigger="hover"
                             title="Upload Excel files (Less than 5MB)">
-                            <i class="feather-upload"></i> Upload Data
+                            <i class="feather-upload"></i> Upload College Data
                         </span>
                     </label>
                     <input type="file" id="excelUpload" accept=".csv,.xls,.xlsx" style="display:none;">
 
-                </div>
-                <div class="date-picker-container" style="margin-left: 1%;">
+                </div> -->
+                <!-- <div class="date-picker-container" style="margin-left: 1%;">
                     <input type="text" id="dateRangePicker" class="form-control" placeholder="Select date or range"
                         style="max-width:220px;" />
-                </div>
+                </div> -->
             </div>
             <!-- [ page-header ] end -->
             <!-- [ Main Content ] start -->
             <div class="main-content">
-                <div class="row">
-                    <!-- C1 Target -->
-                    <div class="col-xxl-6 col-lg-6 col-md-6">
+                <!-- <div class="row">
+                    <div class="col-xxl-4 col-lg-6 col-md-6 mb-3">
                         <div class="card stretch stretch-full">
                             <div class="card-body">
-                                <div class="fs-12 fw-medium text-muted mb-3">C1 Target Achieved</div>
+                                <div class="fs-12 fw-medium text-muted mb-3">C1 Target</div>
                                 <div class="hstack justify-content-between lh-base">
                                     <div>
-                                        <h3>
-                                            <span id="targetAchieved">0</span>/<span id="targetTotal">0</span>
-                                        </h3>
+                                        <h3><span id="c1Achieved">0</span>/<span id="c1Total">0</span></h3>
                                     </div>
-                                    <div class="hstack gap-2 fs-11" id="targetTrend">
-                                        <span id="targetPercent" class="fw-bold text-success">0%</span>
+                                    <div class="hstack gap-2 fs-11" id="c1Trend">
+                                        <span id="c1Percent">0%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tokens -->
-                    <div class="col-xxl-6 col-lg-6 col-md-6">
+                    <div class="col-xxl-4 col-lg-6 col-md-6 mb-3">
                         <div class="card stretch stretch-full">
                             <div class="card-body">
-                                <div class="fs-12 fw-medium text-muted mb-3">Tokens</div>
+                                <div class="fs-12 fw-medium text-muted mb-3">C2 Target</div>
                                 <div class="hstack justify-content-between lh-base">
                                     <div>
-                                        <h3>
-                                            <span id="tokesAchieved">0</span>/<span id="tokesTotal">0</span>
-                                        </h3>
+                                        <h3><span id="c2Achieved">0</span>/<span id="c2Total">0</span></h3>
                                     </div>
-                                    <div class="hstack gap-2 fs-11" id="tokesTrend">
-                                        <span id="tokesPercent" class="fw-bold text-success">0%</span>
+                                    <div class="hstack gap-2 fs-11" id="c2Trend">
+                                        <span id="c2Percent">0%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="col-xxl-4 col-lg-6 col-md-6 mb-3">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium text-muted mb-3">C3 Target</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <div>
+                                        <h3><span id="c3Achieved">0</span>/<span id="c3Total">0</span></h3>
+                                    </div>
+                                    <div class="hstack gap-2 fs-11" id="c3Trend">
+                                        <span id="c3Percent">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-lg-6 col-md-6 mb-3">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium text-muted mb-3">C4 Target</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <div>
+                                        <h3><span id="c4Achieved">0</span>/<span id="c4Total">0</span></h3>
+                                    </div>
+                                    <div class="hstack gap-2 fs-11" id="c4Trend">
+                                        <span id="c4Percent">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-lg-6 col-md-6 mb-3">
+                        <div class="card stretch stretch-full">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium text-muted mb-3">Subscription Target</div>
+                                <div class="hstack justify-content-between lh-base">
+                                    <div>
+                                        <h3><span id="subscriptionAchieved">0</span>/<span
+                                                id="subscriptionTotal">0</span></h3>
+                                    </div>
+                                    <div class="hstack gap-2 fs-11" id="subscriptionTrend">
+                                        <span id="subscriptionPercent">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
 
                 <!-- <div class="col-xxl-12 col-lg-12 col-md-12 d-flex justify-content-center align-items-center">
                     <div class="card stretch stretch-full" id="remainingCallsCard"
@@ -673,7 +716,7 @@
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">"A" INDIVIDUAL SHEET (Total Count: <span id="collegeCount2">
+                                    <h5 class="card-title">"M" INDIVIDUAL SHEET (Total Count: <span id="collegeCount2">
                                             0</span>)</h5>
                                 </div>
                                 <div class="card-header-action d-flex align-items-center gap-2">
@@ -719,6 +762,28 @@
                                                 <th>EXISTING WEBSITE</th>
                                                 <th>SMM PRESENCE</th>
                                                 <th>MEETING STATUS</th>
+                                                <th>DATE OF C1</th>
+                                                <th>C1 STATUS</th>
+                                                <th>COMMENT FOR C1</th>
+                                                <th>DATE OF C2</th>
+                                                <th>C2 STATUS</th>
+                                                <th>COMMENT FOR C2</th>
+                                                <th>DATE OF C3</th>
+                                                <th>C3 STATUS</th>
+                                                <th>COMMENT FOR C3</th>
+                                                <th>DATE OF C4</th>
+                                                <th>C4 STATUS</th>
+                                                <th>COMMENT FOR C4</th>
+                                                <th>RM ASSIGNED</th>
+                                                <th>RM CONTACT NUMBER</th>
+                                                <th>DOMAIN NAME</th>
+                                                <th>WEBSITE CREATION[START DATE]</th>
+                                                <th>WEBSITE COMPLETION[END DATE]</th>
+                                                <th>TRAINING & HANDOVER STATUS</th>
+                                                <th>SERVICES OPTED</th>
+                                                <th>CLIENT FEEDBACK</th>
+                                                <th>RENEWAL DATE</th>
+                                                <th>RENEWAL STATUS</th>
                                                 <th>SEND MAIL</th>
                                             </tr>
                                         </thead>
@@ -841,22 +906,22 @@
                     </div> -->
                     <!-- [Project Calendar] end -->
 
-                    <div class="col-xxl-12">
+                    <!-- <div class="col-xxl-12">
                         <div class="card stretch stretch-full overflow-hidden">
                             <div class="bg-success text-white">
                                 <div class="p-4 d-flex justify-content-between align-items-center">
-                                    <h5 class="text-reset">C1 ANALYTICS</h5>
+                                    <h5 class="text-reset">ANALYTICS</h5>
                                 </div>
                                 <div id="conversion-statistic-bar-chart"></div>
                             </div>
                             <div class="card-body">
-                                <h6 class="mb-3">C1 Target Achieved</h6>
+                                <h6 class="mb-3">Subscription Targets Achieved</h6>
                                 <ul class="list-group" id="jdList">
-                                    <!-- Dates and JD counts will be appended here -->
+
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
@@ -961,6 +1026,55 @@
                             background: #fff7ed;
                             box-shadow: inset 0 0 0 2px #f97316;
                         }
+
+                        /* Color groups for phase headers (C2–C4) */
+                        #leadsTable th:nth-child(19),
+                        #leadsTable th:nth-child(20),
+                        #leadsTable th:nth-child(21) {
+                            background-color: #fff0e1 !important;
+                            /* Orange */
+                            color: #7c2d12;
+                        }
+
+                        #leadsTable th:nth-child(22),
+                        #leadsTable th:nth-child(23),
+                        #leadsTable th:nth-child(24) {
+                            background-color: #e0f2ff !important;
+                            /* Blue */
+                            color: #0c4a6e;
+                        }
+
+                        #leadsTable th:nth-child(25),
+                        #leadsTable th:nth-child(26),
+                        #leadsTable th:nth-child(27) {
+                            background-color: #dbffdd !important;
+                            /* Yellow */
+                            color: #127128;
+                        }
+
+                        /* Optional: for C1 section */
+                        #leadsTable th:nth-child(16),
+                        #leadsTable th:nth-child(17),
+                        #leadsTable th:nth-child(18) {
+                            background-color: #ffe5e5 !important;
+                            /* Red */
+                            color: #7f1d1d;
+                        }
+
+                        #leadsTable th:nth-child(28),
+                        #leadsTable th:nth-child(29),
+                        #leadsTable th:nth-child(30),
+                        #leadsTable th:nth-child(31),
+                        #leadsTable th:nth-child(32),
+                        #leadsTable th:nth-child(33),
+                        #leadsTable th:nth-child(34),
+                        #leadsTable th:nth-child(35),
+                        #leadsTable th:nth-child(36),
+                        #leadsTable th:nth-child(37) {
+                            background-color: #faffdb !important;
+                            /* Yellow */
+                            color: #667112;
+                        }
                     </style>
 
                     <style>
@@ -1062,6 +1176,55 @@
                         #leadsTable2 td.editing {
                             background: #fff7ed;
                             box-shadow: inset 0 0 0 2px #f97316;
+                        }
+
+                        /* Color groups for phase headers (C2–C4) */
+                        #leadsTable2 th:nth-child(19),
+                        #leadsTable2 th:nth-child(20),
+                        #leadsTable2 th:nth-child(21) {
+                            background-color: #fff0e1 !important;
+                            /* Orange */
+                            color: #7c2d12;
+                        }
+
+                        #leadsTable2 th:nth-child(22),
+                        #leadsTable2 th:nth-child(23),
+                        #leadsTable2 th:nth-child(24) {
+                            background-color: #e0f2ff !important;
+                            /* Blue */
+                            color: #0c4a6e;
+                        }
+
+                        #leadsTable2 th:nth-child(25),
+                        #leadsTable2 th:nth-child(26),
+                        #leadsTable2 th:nth-child(27) {
+                            background-color: #dbffdd !important;
+                            /* Yellow */
+                            color: #127128;
+                        }
+
+                        /* Optional: for C1 section */
+                        #leadsTable2 th:nth-child(16),
+                        #leadsTable2 th:nth-child(17),
+                        #leadsTable2 th:nth-child(18) {
+                            background-color: #ffe5e5 !important;
+                            /* Red */
+                            color: #7f1d1d;
+                        }
+
+                        #leadsTable2 th:nth-child(28),
+                        #leadsTable2 th:nth-child(29),
+                        #leadsTable2 th:nth-child(30),
+                        #leadsTable2 th:nth-child(31),
+                        #leadsTable2 th:nth-child(32),
+                        #leadsTable2 th:nth-child(33),
+                        #leadsTable2 th:nth-child(34),
+                        #leadsTable2 th:nth-child(35),
+                        #leadsTable2 th:nth-child(36),
+                        #leadsTable2 th:nth-child(37) {
+                            background-color: #faffdb !important;
+                            /* Yellow */
+                            color: #667112;
                         }
                     </style>
 
@@ -1165,20 +1328,50 @@
                             background: #fff7ed;
                             box-shadow: inset 0 0 0 2px #f97316;
                         }
+
+                        /* Color groups for phase headers (C2–C4) */
+                        #leadsTable3 th:nth-child(19),
+                        #leadsTable3 th:nth-child(20),
+                        #leadsTable3 th:nth-child(21) {
+                            background-color: #fff0e1 !important;
+                            /* Orange */
+                            color: #7c2d12;
+                        }
+
+                        #leadsTable3 th:nth-child(22),
+                        #leadsTable3 th:nth-child(23),
+                        #leadsTable3 th:nth-child(24) {
+                            background-color: #e0f2ff !important;
+                            /* Blue */
+                            color: #0c4a6e;
+                        }
+
+                        #leadsTable3 th:nth-child(25),
+                        #leadsTable3 th:nth-child(26),
+                        #leadsTable3 th:nth-child(27) {
+                            background-color: #dbffdd !important;
+                            /* Yellow */
+                            color: #127128;
+                        }
+
+                        /* Optional: for C1 section */
+                        #leadsTable3 th:nth-child(16),
+                        #leadsTable3 th:nth-child(17),
+                        #leadsTable3 th:nth-child(18) {
+                            background-color: #ffe5e5 !important;
+                            /* Red */
+                            color: #7f1d1d;
+                        }
                     </style>
 
                     <div class="col-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">"A" MASTER SHEET (Total Data: <span id="collegeCount">
+                                    <h5 class="card-title">"M" MASTER SHEET (Total Data: <span id="collegeCount">
                                             0</span>)</h5>
                                 </div>
                                 <div class="card-header-action">
-                                    <!-- <div data-bs-toggle="tooltip" title="Refresh">
-                                        <a href="javascript:void(0);" class="avatar-text avatar-xs bg-warning"
-                                            onclick="loadTableData()"> </a>
-                                    </div> -->
 
                                     <div class="search-wrapper" id="searchWrapper">
                                         <button id="searchToggle" class="search-icon">
@@ -1219,6 +1412,28 @@
                                                 <th>EXISTING WEBSITE</th>
                                                 <th>SMM PRESENCE</th>
                                                 <th>MEETING STATUS</th>
+                                                <th>DATE OF C1</th>
+                                                <th>C1 STATUS</th>
+                                                <th>COMMENT FOR C1</th>
+                                                <th>DATE OF C2</th>
+                                                <th>C2 STATUS</th>
+                                                <th>COMMENT FOR C2</th>
+                                                <th>DATE OF C3</th>
+                                                <th>C3 STATUS</th>
+                                                <th>COMMENT FOR C3</th>
+                                                <th>DATE OF C4</th>
+                                                <th>C4 STATUS</th>
+                                                <th>COMMENT FOR C4</th>
+                                                <th>RM ASSIGNED</th>
+                                                <th>RM CONTACT NUMBER</th>
+                                                <th>DOMAIN NAME</th>
+                                                <th>WEBSITE CREATION[START DATE]</th>
+                                                <th>WEBSITE COMPLETION[END DATE]</th>
+                                                <th>TRAINING & HANDOVER STATUS</th>
+                                                <th>SERVICES OPTED</th>
+                                                <th>CLIENT FEEDBACK</th>
+                                                <th>RENEWAL DATE</th>
+                                                <th>RENEWAL STATUS</th>
                                                 <th>SEND MAIL</th>
                                             </tr>
                                         </thead>
@@ -1246,13 +1461,13 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
+                    <!-- <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
                     <div class="date-picker-container d-flex justify-content-center"
                         style="margin-top: 2%; margin-bottom: 2%; margin-right:2%;">
                         <input type="text" id="dateRangePicker2" class="form-control text-center fw-bold"
                             placeholder="Select date or range"
                             style="max-width:220px; font-weight:700; color:#000; opacity:1;" />
-                    </div>
+                    </div> -->
 
                     <style>
                         #dateRangePicker2::placeholder {
@@ -1316,25 +1531,10 @@
                         });
                     </script>
 
-                    <div class="col-lg-6">
+                    <!-- <div class="col-lg-6">
                         <div class="row g-3 h-100">
-                            <!-- First Row of Cards -->
-                            <div class="col-md-6">
-                                <a class="text-decoration-none">
-                                    <div class="card bg-danger text-white h-100">
-                                        <div class="card-body">
-                                            <div class="text-start">
-                                                <p class="text-reset m-0">
-                                                    CNA:
-                                                <h4 class="text-reset" id="cnaCount">0</h4>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6">
-                                <a class="text-decoration-none">
+                            <div class="col-md-12">
+                                <a href="tables/not-interested-2.html" class="text-decoration-none">
                                     <div class="card bg-warning text-white h-100">
                                         <div class="card-body">
                                             <div class="text-start">
@@ -1353,28 +1553,13 @@
 
                     <div class="col-lg-6">
                         <div class="row g-3 h-100">
-                            <!-- Second Row of Cards -->
-                            <div class="col-md-6">
-                                <a class="text-decoration-none">
-                                    <div class="card bg-secondary text-white h-100">
-                                        <div class="card-body">
-                                            <div class="text-start">
-                                                <p class="text-reset m-0">
-                                                    Wrong Number:
-                                                <h4 class="text-reset" id="wrongNumberCount">0</h4>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6">
-                                <a class="text-decoration-none">
+                            <div class="col-md-12">
+                                <a href="tables/dicey.html" class="text-decoration-none">
                                     <div class="card bg-primary text-white h-100">
                                         <div class="card-body">
                                             <div class="text-start">
                                                 <p class="text-reset m-0">
-                                                    Switch off:
+                                                    Dicey:
                                                 <h4 class="text-reset" id="switchOffCount">0</h4>
                                                 </p>
                                             </div>
@@ -1385,9 +1570,9 @@
                         </div>
                     </div>
                 </div>
-                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
+                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;"> -->
 
-                <div class="col-12 flex-fill">
+                    <!-- <div class="col-12 flex-fill">
                     <div class="card stretch stretch-full">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
@@ -1395,10 +1580,7 @@
                                         0</span>)</h5>
                             </div>
                             <div class="card-header-action d-flex align-items-center gap-2">
-                                <!-- <div data-bs-toggle="tooltip" title="Refresh">
-                                        <a href="javascript:void(0);" class="avatar-text avatar-xs bg-warning"
-                                            onclick="loadTableData2()"> </a>
-                                    </div> -->
+
                                 <div class="search-wrapper3" id="searchWrapper3">
                                     <button id="searchToggle3" class="search-icon">
                                         <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search"
@@ -1423,12 +1605,12 @@
                                     <thead>
                                         <tr class="border-b">
                                             <th>SR</th>
-                                            <th>CONTACT PERSON NAME</th>
-                                            <th>MOBILE NUMBER</th>
                                             <th>SOURCED FROM</th>
                                             <th>SOURCED BY</th>
                                             <th>DATE OF CONNECT</th>
                                             <th>BUSINESS NAME</th>
+                                            <th>CONTACT PERSON NAME</th>
+                                            <th>MOBILE NUMBER</th>
                                             <th>ADDRESS</th>
                                             <th>EMAIL</th>
                                             <th>BUSINESS SECTOR</th>
@@ -1437,7 +1619,18 @@
                                             <th>EXISTING WEBSITE</th>
                                             <th>SMM PRESENCE</th>
                                             <th>MEETING STATUS</th>
-                                            <th>SEND MAIL</th>
+                                            <th>DATE OF C1</th>
+                                            <th>C1 STATUS</th>
+                                            <th>COMMENT FOR C1</th>
+                                            <th>DATE OF C2</th>
+                                            <th>C2 STATUS</th>
+                                            <th>COMMENT FOR C2</th>
+                                            <th>DATE OF C3</th>
+                                            <th>C3 STATUS</th>
+                                            <th>COMMENT FOR C3</th>
+                                            <th>DATE OF C4</th>
+                                            <th>C4 STATUS</th>
+                                            <th>COMMENT FOR C4</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -1450,9 +1643,6 @@
                                 <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
                                     id="pagination3"></ul>
                                 <div class="d-flex gap-2">
-                                    <!-- <button class="btn btn-primary" onclick="printTable3()">
-                                        <i class="bi bi-printer"></i> Print
-                                    </button> -->
                                     <button class="btn btn-success" onclick="exportToExcel3()">
                                         <i class="bi bi-file-earmark-excel"></i> Excel
                                     </button>
@@ -1460,71 +1650,71 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <style>
-                    #dateRangePicker3::placeholder {
-                        font-weight: 700;
-                        color: #000;
-                        opacity: 1;
-                    }
-
-                    .search-wrapper3 {
-                        position: relative;
-                        display: flex;
-                        align-items: center;
-                    }
-
-                    .search-icon {
-                        background: none;
-                        border: none;
-                        cursor: pointer;
-                        margin-right: 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 4px;
-                    }
-
-                    .search-bar3 {
-                        display: none;
-                    }
-
-                    .search-bar3.active {
-                        display: block;
-                    }
-
-                    #searchInput3 {
-                        padding: 6px 10px;
-                        border: 1px solid #ccc;
-                        border-radius: 6px;
-                    }
-                </style>
-
-                <script>
-                    const searchToggle3 = document.getElementById("searchToggle3");
-                    const searchBar3 = document.getElementById("searchBar3");
-                    const searchWrapper3 = document.getElementById("searchWrapper3");
-
-                    searchToggle3.addEventListener("click", () => {
-                        const isActive = searchBar3.classList.toggle("active");
-
-                        if (isActive) {
-                            document.getElementById("searchInput3").focus();
-
-                            loadTableData();
-                            loadTableData3();
+                    <style>
+                        #dateRangePicker3::placeholder {
+                            font-weight: 700;
+                            color: #000;
+                            opacity: 1;
                         }
-                    });
 
-                    document.addEventListener("click", (event) => {
-                        if (!searchWrapper3.contains(event.target)) {
-                            searchBar3.classList.remove("active");
+                        .search-wrapper3 {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
                         }
-                    });
-                </script>
 
-                <!-- <style>
+                        .search-icon {
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            margin-right: 8px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 4px;
+                        }
+
+                        .search-bar3 {
+                            display: none;
+                        }
+
+                        .search-bar3.active {
+                            display: block;
+                        }
+
+                        #searchInput3 {
+                            padding: 6px 10px;
+                            border: 1px solid #ccc;
+                            border-radius: 6px;
+                        }
+                    </style>
+
+                    <script>
+                        const searchToggle3 = document.getElementById("searchToggle3");
+                        const searchBar3 = document.getElementById("searchBar3");
+                        const searchWrapper3 = document.getElementById("searchWrapper3");
+
+                        searchToggle3.addEventListener("click", () => {
+                            const isActive = searchBar3.classList.toggle("active");
+
+                            if (isActive) {
+                                document.getElementById("searchInput3").focus();
+
+                                loadTableData();
+                                loadTableData3();
+                            }
+                        });
+
+                        document.addEventListener("click", (event) => {
+                            if (!searchWrapper3.contains(event.target)) {
+                                searchBar3.classList.remove("active");
+                            }
+                        });
+                    </script>
+
+                    <!-- <style>
                     .card-header-action {
                         gap: 10px;
                     }
@@ -1565,66 +1755,66 @@
                 </style> -->
 
 
-                <!-- [ Main Content ] end -->
-            </div>
-            <!-- [ Footer ] start -->
-            <footer class="footer">
-                <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
-                    <span>Copyright Fundsroom ©</span>
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                </p>
-                <div class="d-flex align-items-center gap-4">
-                    <!-- <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Help</a>
+                    <!-- [ Main Content ] end -->
+                </div>
+                <!-- [ Footer ] start -->
+                <footer class="footer">
+                    <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+                        <span>Copyright Fundsroom ©</span>
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                    </p>
+                    <div class="d-flex align-items-center gap-4">
+                        <!-- <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Help</a>
 					<a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
 					<a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a> -->
-                </div>
-            </footer>
-            <style>
-                .flatpickr-calendar,
-                .flatpickr-calendar * {
-                    font-family: 'Inter', sans-serif !important;
-                    font-size: 14px;
-                }
+                    </div>
+                </footer>
+                <style>
+                    .flatpickr-calendar,
+                    .flatpickr-calendar * {
+                        font-family: 'Inter', sans-serif !important;
+                        font-size: 14px;
+                    }
 
-                .flatpickr-months .flatpickr-month {
-                    font-weight: 600;
-                    color: #155fcf;
-                }
+                    .flatpickr-months .flatpickr-month {
+                        font-weight: 600;
+                        color: #155fcf;
+                    }
 
-                .flatpickr-weekday {
-                    color: #1e293b;
-                    font-weight: 500;
-                }
+                    .flatpickr-weekday {
+                        color: #1e293b;
+                        font-weight: 500;
+                    }
 
-                .flatpickr-day.selected,
-                .flatpickr-day.startRange,
-                .flatpickr-day.endRange {
-                    background: #155fcf !important;
-                    color: #fff !important;
-                    border-radius: 6px;
-                }
+                    .flatpickr-day.selected,
+                    .flatpickr-day.startRange,
+                    .flatpickr-day.endRange {
+                        background: #155fcf !important;
+                        color: #fff !important;
+                        border-radius: 6px;
+                    }
 
-                .flatpickr-day.inRange {
-                    background: #e0ebff;
-                    color: #155fcf;
-                }
+                    .flatpickr-day.inRange {
+                        background: #e0ebff;
+                        color: #155fcf;
+                    }
 
-                .flatpickr-day.today {
-                    border: 1px solid #155fcf;
-                }
+                    .flatpickr-day.today {
+                        border: 1px solid #155fcf;
+                    }
 
-                #dateRangePicker {
-                    font-family: 'Inter', sans-serif;
-                    font-size: 14px;
-                    border-radius: 6px;
-                    border: 1px solid #cbd5e1;
-                    padding: 6px 10px;
-                    color: #1e293b;
-                }
-            </style>
-            <!-- [ Footer ] end -->
+                    #dateRangePicker {
+                        font-family: 'Inter', sans-serif;
+                        font-size: 14px;
+                        border-radius: 6px;
+                        border: 1px solid #cbd5e1;
+                        padding: 6px 10px;
+                        color: #1e293b;
+                    }
+                </style>
+                <!-- [ Footer ] end -->
     </main>
     <!--! ================================================================ !-->
     <!--! [End] Main Content !-->
@@ -1700,17 +1890,15 @@
                             let d = new Date(item.date);
                             let day = d.getDate();
                             let weekday = d.toLocaleDateString("en-US", { weekday: "short" });
-                            // fallback for missing 'day' field
                             item.day = weekday;
                             return `${day}`;
                         });
 
-                        const jdCounts = res.data.map(item => item.achieved || 0);
+                        const jdCounts = res.data.map(item => item.achievedSubscription || 0);
 
-                        // list display (showing per-day values)
                         res.data.forEach(item => {
-                            let target = item.c1Target || 0;
-                            let achieved = item.achieved || 0;
+                            let target = item.subscriptionTarget || 0;
+                            let achieved = item.achievedSubscription || 0;
                             jdList.append(`
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>${formatDateUI(item.date)} (${item.day})</span>
@@ -1719,15 +1907,14 @@
                     `);
                         });
 
-                        // chart rendering or updating (unchanged UI)
                         if (analysisChart) {
                             analysisChart.updateOptions({
-                                series: [{ name: "Achieved C1 Target", data: jdCounts }],
+                                series: [{ name: "Achieved Subscription Target", data: jdCounts }],
                                 xaxis: { categories: dates }
                             });
                         } else {
                             analysisChart = new ApexCharts(document.querySelector("#conversion-statistic-bar-chart"), {
-                                series: [{ name: "Achieved C1 Target", data: jdCounts }],
+                                series: [{ name: "Achieved Subscription Target", data: jdCounts }],
                                 chart: { type: "bar", height: 200, toolbar: { show: false } },
                                 plotOptions: { bar: { horizontal: false, endingShape: "rounded", columnWidth: "20%" } },
                                 colors: ["#fff"],
@@ -1740,7 +1927,8 @@
                                         show: true,
                                         style: { colors: "#fff", fontFamily: "Roboto" }
                                     },
-                                    axisBorder: { show: false }
+                                    axisBorder: { show: false },
+                                    axisTicks: { show: false }
                                 },
                                 yaxis: {
                                     labels: {
@@ -1761,7 +1949,7 @@
                         jdList.append(`<li><span class="date">No Data</span><span class="count">0/0</span></li>`);
                         if (analysisChart) {
                             analysisChart.updateOptions({
-                                series: [{ name: "Achieved C1 Target", data: [] }],
+                                series: [{ name: "Achieved Subscription Target", data: [] }],
                                 xaxis: { categories: [] }
                             });
                         }
@@ -1773,6 +1961,7 @@
             });
         }
 
+        // Utility function to format date for UI
         function formatDateUI(dateString) {
             const d = new Date(dateString);
             const options = { day: "numeric", month: "short" };
@@ -1793,33 +1982,25 @@
                     console.log("Dashboard API response:", response);
 
                     if (response.success) {
+                        // Extract totals and achieved values
                         const totalC1Target = response.totalC1Target || 0;
+                        const totalC2Target = response.totalC2Target || 0;
+                        const totalC3Target = response.totalC3Target || 0;
+                        const totalC4Target = response.totalC4Target || 0;
+                        const totalSubscriptionTarget = response.totalsubscriptionTarget || 0;
+
                         const achievedC1Target = response.achievedC1Target || 0;
-                        const totalToken = response.totalToken || 0;
-                        const achievedToken = response.achievedToken || 0;
+                        const achievedC2Target = response.achievedC2Target || 0;
+                        const achievedC3Target = response.achievedC3Target || 0;
+                        const achievedC4Target = response.achievedC4Target || 0;
+                        const achievedSubscriptionTarget = response.achievedSubscriptionTarget || 0;
 
-                        const targetPercent = totalC1Target > 0
-                            ? ((achievedC1Target / totalC1Target) * 100).toFixed(1)
-                            : 0;
-                        const tokenPercent = totalToken > 0
-                            ? ((achievedToken / totalToken) * 100).toFixed(1)
-                            : 0;
-
-                        $("#targetAchieved").text(achievedC1Target);
-                        $("#targetTotal").text(totalC1Target);
-                        $("#targetPercent")
-                            .text(targetPercent + "%")
-                            .removeClass("text-success text-danger")
-                            .addClass(targetPercent >= 50 ? "text-success" : "text-danger");
-
-                        $("#tokesAchieved").text(achievedToken);
-                        $("#tokesTotal").text(totalToken);
-                        $("#tokesPercent")
-                            .text(tokenPercent + "%")
-                            .removeClass("text-success text-danger")
-                            .addClass(tokenPercent >= 50 ? "text-success" : "text-danger");
-                    } else {
-                        console.warn("Dashboard response not successful");
+                        // Update each card with data
+                        updateCard("#c1Achieved", "#c1Total", "#c1Percent", achievedC1Target, totalC1Target);
+                        updateCard("#c2Achieved", "#c2Total", "#c2Percent", achievedC2Target, totalC2Target);
+                        updateCard("#c3Achieved", "#c3Total", "#c3Percent", achievedC3Target, totalC3Target);
+                        updateCard("#c4Achieved", "#c4Total", "#c4Percent", achievedC4Target, totalC4Target);
+                        updateCard("#subscriptionAchieved", "#subscriptionTotal", "#subscriptionPercent", achievedSubscriptionTarget, totalSubscriptionTarget);
                     }
                 },
                 error: function (err) {
@@ -1827,34 +2008,102 @@
                 }
             });
         }
+
+        // Helper function to update a target card
+        function updateCard(achievedId, totalId, percentId, achieved, total) {
+            $(achievedId).text(achieved);
+            $(totalId).text(total);
+            const percent = total > 0 ? ((achieved / total) * 100).toFixed(1) : 0;
+            $(percentId).text(percent + "%");
+        }
         $(document).ready(function () {
             loadAnalysisChart();
             loadDashboardData();
         });
     </script>
 
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <style>
+        /* Calendar styling for holiday display */
+        .holiday-day {
+            background-color: #ffe6e6 !important;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .holiday-label {
+            display: block;
+            font-size: 9px;
+            color: #d63333;
+            font-weight: 600;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        /* Make the calendar date smaller so text fits */
+        .flatpickr-day {
+            height: 38px !important;
+            line-height: 20px !important;
+            font-size: 12px !important;
+        }
+    </style>
+
     <script>
+        // 🎉 List of major Indian holidays for 2025
+        const indianHolidays = [
+            { date: "2025-01-26", name: "Republic Day" },
+            { date: "2025-03-14", name: "Holi" },
+            { date: "2025-04-14", name: "Ambedkar Jayanti" },
+            { date: "2025-08-15", name: "Independence" },
+            { date: "2025-10-02", name: "Gandhi Jayanti" },
+            { date: "2025-10-21", name: "Dussehra" },
+            { date: "2025-10-31", name: "Diwali" },
+            { date: "2025-12-25", name: "Christmas" }
+        ];
+
         let fromDate = null;
         let toDate = null;
 
+        // 🗓️ Initialize Flatpickr
         flatpickr("#dateRangePicker", {
             mode: "range",
             dateFormat: "Y-m-d",
+
+            // Highlight and label holidays
+            onDayCreate: function (dObj, dStr, fp, dayElem) {
+                const date = dayElem.dateObj.toISOString().split("T")[0];
+                const holiday = indianHolidays.find(h => h.date === date);
+
+                if (holiday) {
+                    dayElem.classList.add("holiday-day");
+                    // Append holiday name below the date
+                    const label = document.createElement("span");
+                    label.classList.add("holiday-label");
+                    label.textContent = holiday.name;
+                    dayElem.appendChild(label);
+                }
+            },
+
+            // When user selects range
             onClose: function (selectedDates, dateStr, instance) {
                 if (selectedDates.length === 2) {
                     fromDate = instance.formatDate(selectedDates[0], "Y-m-d");
                     toDate = instance.formatDate(selectedDates[1], "Y-m-d");
-
                     console.log("From:", fromDate, "To:", toDate);
 
+                    // Trigger your existing scripts
                     loadAnalysisChart(fromDate, toDate);
-
                     loadDashboardData(fromDate, toDate);
-                    loadTableData2(fromDate, toDate);
+                    if (typeof loadTableData2 === "function") {
+                        loadTableData2(fromDate, toDate);
+                    }
                 }
             }
         });
     </script>
+
 
     <script>
         var userData = JSON.parse(sessionStorage.getItem("user_data"));
@@ -1980,21 +2229,54 @@
         var userData = JSON.parse(sessionStorage.getItem("user_data"));
         console.log(userData);
 
-        const apiBase = "https://eduroom.in/api/v1/asheet/list";
+        const apiBase = "https://eduroom.in/api/v1/isheet/fetchSubscriptionDetails";
 
         const dropdowns = {
-            businessSector: ["", "Lawyers / Advocates", "CA / CS / Accountant", "Real Estate Brokers / Developers", "Event Management / Wedding Planner", "Interior Designer / Architect", "Tours & Travel / Vehicle Rental", "Agro-Based Products / Agri Services", "Salon / Beauty shop", "Consultancy / Advisory", "Insurance / Investment Agents", "Product-Based Company", "Doctor / Dentist / Clinics", "Articraft / Gifts & Decor", "Fashion / Clothing", "Education & Training Institutes", "Fitness & Wellness", "Food & Beverages", "Jewellery / Makeup / Perfumes", "Manufacturing & Industrial Units", "E-commerce & Online Stores"],
+            businessSector: [
+                "",
+                "Lawyers / Advocates",
+                "CA / CS / Accountant",
+                "Real Estate Brokers / Developers",
+                "Event Management / Wedding Planner",
+                "Interior Designer / Architect",
+                "Tours & Travel / Vehicle Rental",
+                "Agro-Based Products / Agri Services",
+                "Salon / Beauty shop",
+                "Consultancy / Advisory",
+                "Insurance / Investment Agents",
+                "Product-Based Company",
+                "Doctor / Dentist / Clinics",
+                "Articraft / Gifts & Decor",
+                "Fashion / Clothing",
+                "Education & Training Institutes",
+                "Fitness & Wellness",
+                "Food & Beverages",
+                "Jewellery / Makeup / Perfumes",
+                "Manufacturing & Industrial Units",
+                "E-commerce & Online Stores"
+            ],
             existingWebsite: ["", "YES", "NO"],
-            meetingStatus: ["", "C1 Scheduled", "Follow Up", "CNA", "Switch Off", "Not Interested", "Wrong Number"],
             smmPresence: ["", "YES", "NO"],
-            sourcedBy: []
+            meetingStatus: ["", "C1 Scheduled", "Follow Up", "CNA", "Switch Off", "Not Interested", "Wrong Number"],
+            sourcedBy: [],
+            c1Status: ["", "C2 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c2Status: ["", "C3 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c3Status: ["", "C4 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c4Status: ["", "Premium", "Gold", "Standard", "Reference Given"],
+            // New hardcoded dropdowns
+            trainingAndHandoverStatus: ["", "Pending", "In Progress", "Completed"],
+            servicesOpted: ["", "Website Development", "SEO", "Social Media Marketing", "Hosting", "Other"],
+            clientFeedback: ["", "Excellent", "Good", "Average", "Poor"],
+            renewalStatus: ["", "Pending", "Completed", "In Process"]
         };
 
         let tableData = [];
         let filteredData = [];
+        let rmNames = [];
         const rowsPerPage = 100;
         let currentPage = 1;
 
+        // ── Mailer variables ──────────────────────────────────────────────
         let currentRecord = null;
         let attachments = [];
         const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
@@ -2177,37 +2459,73 @@
                 </p>`
             }
         };
+        // ── End mailer variables ───────────────────────────────────────────────
 
         function loadTableData() {
             $.ajax({
                 url: apiBase,
                 method: "GET",
                 success: function (res) {
-                    console.log("res:", res);
                     if (res.success && res.data) {
-                        tableData = res.data.map((row, index) => ({
-                            sno: index + 1,
-                            id: row.id,
-                            address: row.address || "",
-                            businessName: row.businessName || "",
-                            businessSector: row.businessSector || "",
-                            contactPersonName: row.contactPersonName || "",
-                            dateOfConnect: row.dateOfConnect || "",
-                            email: row.email || "",
-                            existingWebsite: row.existingWebsite || "",
-                            landmark: row.landmark || "",
-                            meetingStatus: row.meetingStatus || "",
-                            mobileNumber: row.mobileNumber || "",
-                            smmPresence: row.smmPresence || "",
-                            sourcedBy: row.sourcedBy || "",
-                            sourcedFrom: row.sourcedFrom || "",
-                            zone: row.zone || ""
-                        }));
+                        console.log("GET response new:", res);
 
-                        dropdowns.sourcedBy = res.managers.map(u => u.name);
+                        // collect RM names from users array
+                        rmNames = res.managers ? res.managers.map(u => u.name) : [];
+                        dropdowns.rmAssignedName = rmNames;
+
+                        tableData = res.data.map((row, index) => {
+                            const m = row.MSheet || {};
+                            const domain = row.fundsWebData?.Domain || {};
+                            const sub = row.fundsWebData?.subscriptionStatus || {};
+
+                            return {
+                                sno: index + 1,
+                                id: row.id,
+                                sr: row.sr || "",
+                                sourcedFrom: row.sourcedFrom || "",
+                                sourcedBy: row.sourcedBy || "",
+                                dateOfConnect: row.dateOfConnect || "",
+                                businessName: row.businessName || "",
+                                contactPersonName: row.contactPersonName || "",
+                                mobileNumber: row.mobileNumber || "",
+                                address: row.address || "",
+                                email: row.email || "",
+                                businessSector: row.businessSector || "",
+                                zone: row.zone || "",
+                                landmark: row.landmark || "",
+                                existingWebsite: row.existingWebsite || "",
+                                smmPresence: row.smmPresence || "",
+                                meetingStatus: row.meetingStatus || "",
+                                dateOfC1Connect: row.dateOfC1Connect || "",
+                                c1Status: row.c1Status || "",
+                                c1Comment: row.c1Comment || "",
+                                dateOfC2Clarity: row.dateOfC2Clarity || "",
+                                c2Status: row.c2Status || "",
+                                c2Comment: row.c2Comment || "",
+                                dateOfC3Clarity: row.dateOfC3Clarity || "",
+                                c3Status: row.c3Status || "",
+                                c3Comment: row.c3Comment || "",
+                                dateOfC4Customer: row.dateOfC4Customer || "",
+                                c4Status: row.c4Status || "",
+                                c4Comment: row.c4Comment || "",
+
+                                // New fields
+                                id2: m.id || "",
+                                rmAssignedName: m.rmAssignedName || "",
+                                rmAssignedContact: m.rmAssignedContact || "",
+                                domainName: domain.name || "",
+                                websiteStartDate: m.websiteStartDate || "",
+                                websiteCompletionDate: m.websiteCompletionDate || "",
+                                trainingAndHandoverStatus: m.trainingAndHandoverStatus || "",
+                                servicesOpted: m.servicesOpted || "",
+                                clientFeedback: m.clientFeedback || "",
+                                renewalDate: sub.endDate || "",
+                                renewalStatus: m.renewalStatus || ""
+                            };
+                        });
 
                         filteredData = [...tableData];
-                        updateCollegeCount();
+                        updateCount();
                         renderTable();
                         renderPagination();
                         renderColumnFilters();
@@ -2218,6 +2536,7 @@
             });
         }
 
+        // ── Mailer Functions ──────────────────────────────────────────────
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -2582,6 +2901,21 @@
                 });
             });
         }
+        // ── End Mailer Functions ──────────────────────────────────────────────
+
+        const columnKeys = [
+            "sno", "contactPersonName",
+            "mobileNumber", "sourcedFrom", "sourcedBy", "dateOfConnect", "businessName", "address", "email", "businessSector", "zone", "landmark",
+            "existingWebsite", "smmPresence", "meetingStatus",
+            "dateOfC1Connect", "c1Status", "c1Comment", "dateOfC2Clarity", "c2Status", "c2Comment",
+            "dateOfC3Clarity", "c3Status", "c3Comment", "dateOfC4Customer", "c4Status", "c4Comment",
+
+            // New columns
+            "rmAssignedName", "rmAssignedContact", "domainName",
+            "websiteStartDate", "websiteCompletionDate",
+            "trainingAndHandoverStatus", "servicesOpted", "clientFeedback",
+            "renewalDate", "renewalStatus"
+        ];
 
         function renderTable() {
             let tbody = $("#leadsTable tbody");
@@ -2591,30 +2925,55 @@
             const end = start + rowsPerPage;
             const rows = filteredData.slice(start, end);
 
-            rows.forEach((row, index) => {
-                let tr = `<tr data-id="${row.id}">
+            rows.forEach((row) => {
+                let tr = `<tr data-id="${row.id}" data-id2="${row.id2}">`;
+                tr += `
                 <td>${row.sno}</td>
-                    ${makeCell("contactPersonName", row.contactPersonName)}
-                    ${makeCell("mobileNumber", row.mobileNumber)}
-                    ${makeCell("sourcedFrom", row.sourcedFrom)}
-                    ${makeDropdownCell("sourcedBy", row.sourcedBy)}
-                    ${makeDateCell("dateOfConnect", row.dateOfConnect)}
-                    ${makeCell("businessName", row.businessName)}
-                    ${makeCell("address", row.address)}
-                    ${makeCell("email", row.email)}
-                    ${makeDropdownCell("businessSector", row.businessSector)}
-                    ${makeCell("zone", row.zone)}
-                    ${makeCell("landmark", row.landmark)}
-                    ${makeDropdownCell("existingWebsite", row.existingWebsite)}
-                    ${makeDropdownCell("smmPresence", row.smmPresence)}
-                    ${makeDropdownCell("meetingStatus", row.meetingStatus)}
-                    <td>
-                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
-                                data-bs-target="#composeMail" title="Send JD">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </td>
-                </tr>`;
+                <td>${row.contactPersonName || ""}</td>
+                <td>${row.mobileNumber || ""}</td>
+                <td>${row.sourcedFrom || ""}</td>
+                <td>${row.sourcedBy || ""}</td>
+                <td>${row.dateOfConnect || ""}</td>
+                <td>${row.businessName || ""}</td>
+                <td>${row.address || ""}</td>
+                <td>${row.email || ""}</td>
+                <td>${row.businessSector || ""}</td>
+                <td>${row.zone || ""}</td>
+                <td>${row.landmark || ""}</td>
+                <td>${row.existingWebsite || ""}</td>
+                <td>${row.smmPresence || ""}</td>
+                <td>${row.meetingStatus || ""}</td>
+
+                <td>${row.dateOfC1Connect || ""}</td>
+                <td>${row.c1Status || ""}</td>
+                <td>${row.c1Comment || ""}</td>
+                <td>${row.dateOfC2Clarity || ""}</td>
+                <td>${row.c2Status || ""}</td>
+                <td>${row.c2Comment || ""}</td>
+                <td>${row.dateOfC3Clarity || ""}</td>
+                <td>${row.c3Status || ""}</td>
+                <td>${row.c3Comment || ""}</td>
+                <td>${row.dateOfC4Customer || ""}</td>
+                <td>${row.c4Status || ""}</td>
+                <td>${row.c4Comment || ""}</td>
+
+                ${makeDropdownCell("rmAssignedName", row.rmAssignedName, dropdowns.rmAssignedName)}
+                ${makeCell("rmAssignedContact", row.rmAssignedContact)}
+                <td>${row.domainName || ""}</td>
+                ${makeDateCell("websiteStartDate", row.websiteStartDate)}
+                ${makeDateCell("websiteCompletionDate", row.websiteCompletionDate)}
+                ${makeDropdownCell("trainingAndHandoverStatus", row.trainingAndHandoverStatus, dropdowns.trainingAndHandoverStatus)}
+                ${makeDropdownCell("servicesOpted", row.servicesOpted, dropdowns.servicesOpted)}
+                ${makeDropdownCell("clientFeedback", row.clientFeedback, dropdowns.clientFeedback)}
+                <td>${formatDate(row.renewalDate)}</td>
+                ${makeDropdownCell("renewalStatus", row.renewalStatus, dropdowns.renewalStatus)}
+                <td>
+                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
+                            data-bs-target="#composeMail" title="Send JD">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                 </td>
+             </tr>`;
                 tbody.append(tr);
             });
 
@@ -2622,37 +2981,19 @@
             setStickyColumns();
         }
 
-        const columnKeys = [
-            "sno",
-            "contactPersonName",
-            "mobileNumber",
-            "sourcedFrom",
-            "sourcedBy",
-            "dateOfConnect",
-            "businessName",
-            "address",
-            "email",
-            "businessSector",
-            "zone",
-            "landmark",
-            "existingWebsite",
-            "smmPresence",
-            "meetingStatus"
-        ];
-
         function makeCell(field, value) {
             let displayValue = value || "";
             return `<td data-field="${field}">
             <span>${displayValue}</span>
-                <input type="text" value="${displayValue}" style="display:none;">
-            </td>`;
+            <input type="text" value="${displayValue}" style="display:none;">
+         </td>`;
         }
 
-        function makeDropdownCell(field, selectedValue) {
-            let options = dropdowns[field] || [];
+        function makeDropdownCell(field, selectedValue, optionsList = null) {
+            let options = optionsList || dropdowns[field] || [];
             let html = `<td data-field="${field}">
             <span style="font-weight:bold;">${selectedValue || ""}</span>
-                <select style="display:none;" class="form-control">`;
+            <select style="display:none;" class="form-control form-control-sm">`;
             options.forEach(opt => {
                 let sel = (opt === selectedValue) ? "selected" : "";
                 html += `<option value="${opt}" ${sel}>${opt}</option>`;
@@ -2661,71 +3002,69 @@
             return html;
         }
 
+        function makeEditableComment(field, value) {
+            let displayValue = value || "";
+            return `<td data-field="${field}">
+            <span>${displayValue}</span>
+            <input type="text" value="${displayValue}" style="display:none;">
+         </td>`;
+        }
+
         function makeDateCell(field, value) {
             let displayValue = formatDate(value);
             let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
             <span>${displayValue}</span>
-                <input type="text" class="date-picker" value="${rawValue}" style="display:none;">
-            </td>`;
+            <input type="text" class="date-picker" value="${rawValue}" style="display:none;">
+         </td>`;
         }
 
         function formatDate(dateStr) {
             if (!dateStr) return "";
             let date = new Date(dateStr);
             if (isNaN(date)) return dateStr;
-            return date.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-            });
-        }
-
-        function updateCollegeCount() {
-            $("#collegeCount").text(filteredData.length || 0);
+            return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
         }
 
         function attachCellEvents() {
             $("#leadsTable td").off("dblclick").on("dblclick", function () {
                 let td = $(this);
-                td.addClass("editing");
+                if (td.find("select,input").length === 0) return;
                 td.find("input,select").show().focus();
                 td.find("span").hide();
-                console.log("Editing cell for field:", td.data("field"));
             });
 
-            $("#leadsTable td input, #leadsTable td select")
-                .off("blur change")
-                .on("blur change", function () {
-                    let td = $(this).closest("td");
-                    let tr = $(this).closest("tr");
-                    let id = tr.data("id");
-                    let field = td.data("field");
-                    let value = $(this).val();
+            $("#leadsTable td input, #leadsTable td select").off("blur change").on("blur change", function () {
+                let td = $(this).closest("td");
+                let tr = $(this).closest("tr");
+                let id = tr.data("id");
+                let id2 = tr.data("id2");
+                let field = td.data("field");
+                let value = $(this).val();
 
-                    td.find("span").text(value).show();
-                    td.find("input,select").hide();
-                    td.removeClass("editing");
+                // Update visible text in cell
+                td.find("span").text(field.includes("dateOf") ? formatDate(value) : value).show();
+                td.find("input,select").hide();
 
-                    let payload = {};
-                    payload[field] = value;
-                    payload.teamManagerId = userId;
+                // Prepare payload including ID
+                let payload = {
+                    aSheetId: id
+                };
+                payload[field] = value;
 
-                    console.log("Updating row ID:", id, "Field:", field, "Value:", value, "Payload:", payload);
-
-                    $.ajax({
-                        url: "https://eduroom.in/api/v1/asheet/update/" + id,
-                        method: "PUT",
-                        contentType: "application/json",
-                        data: JSON.stringify(payload),
-                        success: function (res) {
-                            console.log("Updated successfully:", res);
-                        },
-                        error: function (err) {
-                            console.error("Update failed:", err);
-                        }
-                    });
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/msheet/update/" + id2,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        console.log("Updated:", field, res);
+                    },
+                    error: function (xhr) {
+                        console.error("Update failed:", xhr.responseText);
+                    }
                 });
+            });
 
             $(".date-picker").flatpickr({
                 dateFormat: "Y-m-d",
@@ -2734,29 +3073,25 @@
                     let td = input.closest("td");
                     let tr = input.closest("tr");
                     let id = tr.data("id");
+                    let id2 = tr.data("id2");
                     let field = td.data("field");
-                    let value = dateStr;
 
-                    td.find("span").text(formatDate(value)).show();
+                    td.find("span").text(formatDate(dateStr)).show();
                     input.hide();
-                    td.removeClass("editing");
 
-                    let payload = {};
-                    payload[field] = value;
-                    payload.teamManagerId = userId;
-
-                    console.log("Date change for row ID:", id, "Field:", field, "Value:", value, "Payload:", payload);
+                    let payload = {
+                        aSheetId: id
+                    };
+                    payload[field] = dateStr;
+                    console.log("Date changed payload:", payload);
 
                     $.ajax({
-                        url: "https://eduroom.in/api/v1/asheet/update/" + id,
+                        url: "https://eduroom.in/api/v1/msheet/update/" + id2,
                         method: "PUT",
                         contentType: "application/json",
                         data: JSON.stringify(payload),
                         success: function (res) {
-                            console.log("Date Updated successfully:", res);
-                        },
-                        error: function (err) {
-                            console.error("Date update failed:", err);
+                            console.log("Date updated:", field, res);
                         }
                     });
                 }
@@ -2815,19 +3150,23 @@
             headerRow.remove();
 
             let filterRow = "<tr class='filters'>";
-            $("#leadsTable thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 15) {
+            columnKeys.forEach((key, i) => {
+                if (i === 0 || i === columnKeys.length - 0) {
                     filterRow += "<th></th>";
                 } else {
-                    filterRow += `<th><select class="column-filter form-select form-select-sm" data-index="${i}">
+                    filterRow += `
+                <th>
+                    <select class="column-filter form-select form-select-sm" data-index="${i}">
                         <option value="">All</option>
-                    </select></th>`;
+                    </select>
+                </th>
+                `;
                 }
             });
-
+            filterRow += "<th></th>";
             filterRow += "</tr>";
-            $("#leadsTable thead").append(filterRow);
 
+            $("#leadsTable thead").append(filterRow);
             populateColumnFilterOptions();
         }
 
@@ -2836,12 +3175,13 @@
                 const index = $(this).data("index");
                 let field = columnKeys[index];
                 let values = [...new Set(tableData.map(row => row[field]))].filter(v => v);
-
                 values.forEach(v => {
-                    const displayValue = columnKeys[index] === "dateOfConnect" ? formatDate(v) : v;
-                    $(this).append(`<option value="${v}">${displayValue}</option>`);
+                    const isDateField = field.includes("dateOf") || field.includes("Date");
+                    const formatted = isDateField ? formatDate(v) : v;
+                    const displayValue = formatted;
+                    const valueToUse = formatted;
+                    $(this).append(`<option value="${valueToUse}">${displayValue}</option>`);
                 });
-
             });
 
             $(".column-filter").off("change").on("change", function () {
@@ -2856,14 +3196,23 @@
                 const index = $(this).data("index");
                 if (value) {
                     let field = columnKeys[index];
-                    filteredData = filteredData.filter(row => row[field] == value);
+                    filteredData = filteredData.filter(row => {
+                        const isDateField = field.includes("dateOf") || field.includes("Date");
+                        if (isDateField) {
+                            return formatDate(row[field]) === value;
+                        }
+                        return row[field] == value;
+                    });
                 }
             });
-
             currentPage = 1;
-            updateCollegeCount();
+            updateCount();
             renderTable();
             renderPagination();
+        }
+
+        function updateCount() {
+            $("#collegeCount").text(filteredData.length || 0);
         }
 
         window.filterTable = function () {
@@ -2872,13 +3221,21 @@
                 Object.values(row).some(field => (field + "").toLowerCase().includes(value))
             );
             currentPage = 1;
-            updateCollegeCount();
             renderTable();
             renderPagination();
         };
 
         window.exportToExcel = function () {
-            const headers = Object.keys(tableData[0] || {}).filter(k => k !== "id");
+            if (!tableData || tableData.length === 0) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "No Data",
+                    text: "There is no data to export.",
+                });
+                return;
+            }
+
+            const headers = Object.keys(tableData[0]).filter(k => k !== "id");
             const data = [headers];
 
             tableData.forEach(row => {
@@ -2897,21 +3254,52 @@
     </script>
 
     <script>
-        var userId = sessionStorage.getItem("user_id");
-        console.log(userId);
+        var userData2 = JSON.parse(sessionStorage.getItem("user_data"));
+        console.log(userData2);
 
-        const apiBase2 = `https://eduroom.in/api/v1/asheet/individual/${userId}`;
+        const apiBase2 = `https://eduroom.in/api/v1/msheet/byname?name=${userData2.name}`;
 
         const dropdowns2 = {
-            businessSector: ["", "Lawyers / Advocates", "CA / CS / Accountant", "Real Estate Brokers / Developers", "Event Management / Wedding Planner", "Interior Designer / Architect", "Tours & Travel / Vehicle Rental", "Agro-Based Products / Agri Services", "Salon / Beauty shop", "Consultancy / Advisory", "Insurance / Investment Agents", "Product-Based Company", "Doctor / Dentist / Clinics", "Articraft / Gifts & Decor", "Fashion / Clothing", "Education & Training Institutes", "Fitness & Wellness", "Food & Beverages", "Jewellery / Makeup / Perfumes", "Manufacturing & Industrial Units", "E-commerce & Online Stores"],
+            businessSector: [
+                "",
+                "Lawyers / Advocates",
+                "CA / CS / Accountant",
+                "Real Estate Brokers / Developers",
+                "Event Management / Wedding Planner",
+                "Interior Designer / Architect",
+                "Tours & Travel / Vehicle Rental",
+                "Agro-Based Products / Agri Services",
+                "Salon / Beauty shop",
+                "Consultancy / Advisory",
+                "Insurance / Investment Agents",
+                "Product-Based Company",
+                "Doctor / Dentist / Clinics",
+                "Articraft / Gifts & Decor",
+                "Fashion / Clothing",
+                "Education & Training Institutes",
+                "Fitness & Wellness",
+                "Food & Beverages",
+                "Jewellery / Makeup / Perfumes",
+                "Manufacturing & Industrial Units",
+                "E-commerce & Online Stores"
+            ],
             existingWebsite: ["", "YES", "NO"],
-            meetingStatus: ["", "C1 Scheduled", "Follow Up", "CNA", "Switch Off", "Not Interested", "Wrong Number"],
             smmPresence: ["", "YES", "NO"],
-            sourcedBy: []
+            meetingStatus: ["", "C1 Scheduled", "Follow Up", "CNA", "Switch Off", "Not Interested", "Wrong Number"],
+            sourcedBy: [],
+            c1Status: ["", "C2 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c2Status: ["", "C3 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c3Status: ["", "C4 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c4Status: ["", "Premium", "Gold", "Standard", "Reference Given"],
+            trainingAndHandoverStatus: ["", "Pending", "In Progress", "Completed"],
+            servicesOpted: ["", "Website Development", "SEO", "Social Media Marketing", "Hosting", "Other"],
+            clientFeedback: ["", "Excellent", "Good", "Average", "Poor"],
+            renewalStatus: ["", "Pending", "Completed", "In Process"]
         };
 
         let tableData2 = [];
         let filteredData2 = [];
+        let rmNames2 = [];
         const rowsPerPage2 = 25;
         let currentPage2 = 1;
 
@@ -2921,29 +3309,62 @@
                 method: "GET",
                 success: function (res) {
                     if (res.success && res.data) {
-                        tableData2 = res.data.map((row, index) => ({
-                            sno: index + 1,
-                            id: row.id,
-                            address: row.address || "",
-                            businessName: row.businessName || "",
-                            businessSector: row.businessSector || "",
-                            contactPersonName: row.contactPersonName || "",
-                            dateOfConnect: row.dateOfConnect || "",
-                            email: row.email || "",
-                            existingWebsite: row.existingWebsite || "",
-                            landmark: row.landmark || "",
-                            meetingStatus: row.meetingStatus || "",
-                            mobileNumber: row.mobileNumber || "",
-                            smmPresence: row.smmPresence || "",
-                            sourcedBy: row.sourcedBy || "",
-                            sourcedFrom: row.sourcedFrom || "",
-                            zone: row.zone || ""
-                        }));
+                        console.log("GET response new 2:", res);
 
-                        dropdowns2.sourcedBy = res.managers.map(u => u.name);
+                        rmNames2 = res.managers ? res.managers.map(u => u.name) : [];
+                        dropdowns2.rmAssignedName = rmNames2;
+
+                        tableData2 = res.data.map((row, index) => {
+                            const m = row.MSheet || {};
+                            const domain = row.fundsWebData?.Domain || {};
+                            const sub = row.fundsWebData?.subscriptionStatus || {};
+
+                            return {
+                                sno: index + 1,
+                                id: row.id,
+                                sr: row.sr || "",
+                                sourcedFrom: row.sourcedFrom || "",
+                                sourcedBy: row.sourcedBy || "",
+                                dateOfConnect: row.dateOfConnect || "",
+                                businessName: row.businessName || "",
+                                contactPersonName: row.contactPersonName || "",
+                                mobileNumber: row.mobileNumber || "",
+                                address: row.address || "",
+                                email: row.email || "",
+                                businessSector: row.businessSector || "",
+                                zone: row.zone || "",
+                                landmark: row.landmark || "",
+                                existingWebsite: row.existingWebsite || "",
+                                smmPresence: row.smmPresence || "",
+                                meetingStatus: row.meetingStatus || "",
+                                dateOfC1Connect: row.dateOfC1Connect || "",
+                                c1Status: row.c1Status || "",
+                                c1Comment: row.c1Comment || "",
+                                dateOfC2Clarity: row.dateOfC2Clarity || "",
+                                c2Status: row.c2Status || "",
+                                c2Comment: row.c2Comment || "",
+                                dateOfC3Clarity: row.dateOfC3Clarity || "",
+                                c3Status: row.c3Status || "",
+                                c3Comment: row.c3Comment || "",
+                                dateOfC4Customer: row.dateOfC4Customer || "",
+                                c4Status: row.c4Status || "",
+                                c4Comment: row.c4Comment || "",
+                                id2: m.id || "",
+                                rmAssignedName: m.rmAssignedName || "",
+                                rmAssignedContact: m.rmAssignedContact || "",
+                                domainName: domain.name || "",
+                                websiteStartDate: m.websiteStartDate || "",
+                                websiteCompletionDate: m.websiteCompletionDate || "",
+                                trainingAndHandoverStatus: m.trainingAndHandoverStatus || "",
+                                servicesOpted: m.servicesOpted || "",
+                                clientFeedback: m.clientFeedback || "",
+                                renewalDate: sub.endDate || "",
+                                renewalStatus: m.renewalStatus || ""
+                            };
+                        });
 
                         filteredData2 = [...tableData2];
-                        updateCollegeCount2();
+                        updateCount2();
                         renderTable2();
                         renderPagination2();
                         renderColumnFilters2();
@@ -2952,180 +3373,172 @@
             });
         }
 
+        const columnKeys2 = [
+            "sno", "contactPersonName", "mobileNumber", "sourcedFrom", "sourcedBy", "dateOfConnect", "businessName", "address", "email", "businessSector", "zone", "landmark",
+            "existingWebsite", "smmPresence", "meetingStatus",
+            "dateOfC1Connect", "c1Status", "c1Comment", "dateOfC2Clarity", "c2Status", "c2Comment",
+            "dateOfC3Clarity", "c3Status", "c3Comment", "dateOfC4Customer", "c4Status", "c4Comment",
+            "rmAssignedName", "rmAssignedContact", "domainName",
+            "websiteStartDate", "websiteCompletionDate",
+            "trainingAndHandoverStatus", "servicesOpted", "clientFeedback",
+            "renewalDate", "renewalStatus"
+        ];
+
         function renderTable2() {
-            let tbody2 = $("#leadsTable2 tbody");
-            tbody2.empty();
+            let tbody = $("#leadsTable2 tbody");
+            tbody.empty();
 
-            const start2 = (currentPage2 - 1) * rowsPerPage2;
-            const end2 = start2 + rowsPerPage2;
-            const rows2 = filteredData2.slice(start2, end2);
+            const start = (currentPage2 - 1) * rowsPerPage2;
+            const end = start + rowsPerPage2;
+            const rows = filteredData2.slice(start, end);
 
-            rows2.forEach((row, index) => {
-                let tr2 = `<tr data-id="${row.id}">
-                <td>${row.sno}</td>
-                ${makeCell2("contactPersonName", row.contactPersonName)}
-                ${makeCell2("mobileNumber", row.mobileNumber)}
-                ${makeCell2("sourcedFrom", row.sourcedFrom)}
-                ${makeDropdownCell2("sourcedBy", row.sourcedBy)}
-                ${makeDateCell2("dateOfConnect", row.dateOfConnect)}
-                ${makeCell2("businessName", row.businessName)}
-                ${makeCell2("address", row.address)}
-                ${makeCell2("email", row.email)}
-                ${makeDropdownCell2("businessSector", row.businessSector)}
-                ${makeCell2("zone", row.zone)}
-                ${makeCell2("landmark", row.landmark)}
-                ${makeDropdownCell2("existingWebsite", row.existingWebsite)}
-                ${makeDropdownCell2("smmPresence", row.smmPresence)}
-                ${makeDropdownCell2("meetingStatus", row.meetingStatus)}
-                <td>
-                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
-                        data-bs-target="#composeMail" title="Send JD">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </td>
-            </tr>`;
-                tbody2.append(tr2);
+            rows.forEach((row) => {
+                let tr = `<tr data-id="${row.id}" data-id2="${row.id2}">`;
+                tr += `
+                    <td>${row.sno}</td>
+                    <td>${row.contactPersonName || ""}</td>
+                    <td>${row.mobileNumber || ""}</td>
+                    <td>${row.sourcedFrom || ""}</td>
+                    <td>${row.sourcedBy || ""}</td>
+                    <td>${row.dateOfConnect || ""}</td>
+                    <td>${row.businessName || ""}</td>
+                    <td>${row.address || ""}</td>
+                    <td>${row.email || ""}</td>
+                    <td>${row.businessSector || ""}</td>
+                    <td>${row.zone || ""}</td>
+                    <td>${row.landmark || ""}</td>
+                    <td>${row.existingWebsite || ""}</td>
+                    <td>${row.smmPresence || ""}</td>
+                    <td>${row.meetingStatus || ""}</td>
+
+                    <td>${row.dateOfC1Connect || ""}</td>
+                    <td>${row.c1Status || ""}</td>
+                    <td>${row.c1Comment || ""}</td>
+                    <td>${row.dateOfC2Clarity || ""}</td>
+                    <td>${row.c2Status || ""}</td>
+                    <td>${row.c2Comment || ""}</td>
+                    <td>${row.dateOfC3Clarity || ""}</td>
+                    <td>${row.c3Status || ""}</td>
+                    <td>${row.c3Comment || ""}</td>
+                    <td>${row.dateOfC4Customer || ""}</td>
+                    <td>${row.c4Status || ""}</td>
+                    <td>${row.c4Comment || ""}</td>
+
+                    ${makeDropdownCell2("rmAssignedName", row.rmAssignedName, dropdowns2.rmAssignedName)}
+                    ${makeCell2("rmAssignedContact", row.rmAssignedContact)}
+                    <td>${row.domainName || ""}</td>
+                    ${makeDateCell2("websiteStartDate", row.websiteStartDate)}
+                    ${makeDateCell2("websiteCompletionDate", row.websiteCompletionDate)}
+                    ${makeDropdownCell2("trainingAndHandoverStatus", row.trainingAndHandoverStatus, dropdowns2.trainingAndHandoverStatus)}
+                    ${makeDropdownCell2("servicesOpted", row.servicesOpted, dropdowns2.servicesOpted)}
+                    ${makeDropdownCell2("clientFeedback", row.clientFeedback, dropdowns2.clientFeedback)}
+                    <td>${formatDate2(row.renewalDate)}</td>
+                    ${makeDropdownCell2("renewalStatus", row.renewalStatus, dropdowns2.renewalStatus)}
+                </tr>`;
+                tbody.append(tr);
             });
 
             attachCellEvents2();
             setStickyColumns2();
         }
 
-        const columnKeys2 = [
-            "sno",
-            "contactPersonName",
-            "mobileNumber",
-            "sourcedFrom",
-            "sourcedBy",
-            "dateOfConnect",
-            "businessName",
-            "address",
-            "email",
-            "businessSector",
-            "zone",
-            "landmark",
-            "existingWebsite",
-            "smmPresence",
-            "meetingStatus"
-        ];
-
         function makeCell2(field, value) {
-            let displayValue2 = value || "";
+            let displayValue = value || "";
             return `<td data-field="${field}">
-            <span>${displayValue2}</span>
-            <input type="text" value="${displayValue2}" style="display:none;">
-        </td>`;
+            <span>${displayValue}</span>
+                <input type="text" value="${displayValue}" style="display:none;">
+            </td>`;
         }
 
-        function makeDropdownCell2(field, selectedValue) {
-            let options2 = dropdowns2[field] || [];
-            let html2 = `<td data-field="${field}">
+        function makeDropdownCell2(field, selectedValue, optionsList = null) {
+            let options = optionsList || dropdowns2[field] || [];
+            let html = `<td data-field="${field}">
             <span style="font-weight:bold;">${selectedValue || ""}</span>
-            <select style="display:none;" class="form-control">`;
-            options2.forEach(opt => {
-                let sel2 = (opt === selectedValue) ? "selected" : "";
-                html2 += `<option value="${opt}" ${sel2}>${opt}</option>`;
+            <select style="display:none;" class="form-control form-control-sm">`;
+            options.forEach(opt => {
+                let sel = (opt === selectedValue) ? "selected" : "";
+                html += `<option value="${opt}" ${sel}>${opt}</option>`;
             });
-            html2 += `</select></td>`;
-            return html2;
+            html += `</select></td>`;
+            return html;
         }
 
         function makeDateCell2(field, value) {
-            let displayValue2 = formatDate2(value);
-            let rawValue2 = value ? new Date(value).toISOString().split("T")[0] : "";
+            let displayValue = formatDate2(value);
+            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-            <span>${displayValue2}</span>
-            <input type="text" class="date-picker2" value="${rawValue2}" style="display:none;">
-        </td>`;
+            <span>${displayValue}</span>
+                <input type="text" class="date-picker2" value="${rawValue}" style="display:none;">
+            </td>`;
         }
 
         function formatDate2(dateStr) {
             if (!dateStr) return "";
-            let date2 = new Date(dateStr);
-            if (isNaN(date2)) return dateStr;
-            return date2.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-            });
-        }
-
-        function updateCollegeCount2() {
-            $("#collegeCount2").text(filteredData2.length || 0);
+            let date = new Date(dateStr);
+            if (isNaN(date)) return dateStr;
+            return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
         }
 
         function attachCellEvents2() {
             $("#leadsTable2 td").off("dblclick").on("dblclick", function () {
-                let td2 = $(this);
-                td2.addClass("editing");
-                td2.find("input,select").show().focus();
-                td2.find("span").hide();
-                console.log("Editing cell for field:", td2.data("field"));
+                let td = $(this);
+                if (td.find("select,input").length === 0) return;
+                td.find("input,select").show().focus();
+                td.find("span").hide();
             });
 
-            $("#leadsTable2 td input, #leadsTable2 td select")
-                .off("blur change")
-                .on("blur change", function () {
-                    let td2 = $(this).closest("td");
-                    let tr2 = $(this).closest("tr");
-                    let id2 = tr2.data("id");
-                    let field2 = td2.data("field");
-                    let value2 = $(this).val();
+            $("#leadsTable2 td input, #leadsTable2 td select").off("blur change").on("blur change", function () {
+                let td = $(this).closest("td");
+                let tr = $(this).closest("tr");
+                let id = tr.data("id");
+                let id2 = tr.data("id2");
+                let field = td.data("field");
+                let value = $(this).val();
 
-                    td2.find("span").text(value2).show();
-                    td2.find("input,select").hide();
-                    td2.removeClass("editing");
+                td.find("span").text(field.includes("dateOf") ? formatDate2(value) : value).show();
+                td.find("input,select").hide();
 
-                    let payload2 = {};
-                    payload2[field2] = value2;
-                    payload2.teamManagerId = userId;
+                let payload = { aSheetId: id };
+                payload[field] = value;
 
-                    console.log("Updating row ID:", id2, "Field:", field2, "Value:", value2, "Payload:", payload2);
-
-                    $.ajax({
-                        url: "https://eduroom.in/api/v1/asheet/update/" + id2,
-                        method: "PUT",
-                        contentType: "application/json",
-                        data: JSON.stringify(payload2),
-                        success: function (res) {
-                            console.log("Updated successfully:", res);
-                        },
-                        error: function (err) {
-                            console.error("Update failed:", err);
-                        }
-                    });
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/msheet/update/" + id2,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        console.log("Updated 2:", field, res);
+                    },
+                    error: function (xhr) {
+                        console.error("Update failed 2:", xhr.responseText);
+                    }
                 });
+            });
 
             $(".date-picker2").flatpickr({
                 dateFormat: "Y-m-d",
                 onChange: function (selectedDates, dateStr, instance) {
-                    let input2 = $(instance.input);
-                    let td2 = input2.closest("td");
-                    let tr2 = input2.closest("tr");
-                    let id2 = tr2.data("id");
-                    let field2 = td2.data("field");
-                    let value2 = dateStr;
+                    let input = $(instance.input);
+                    let td = input.closest("td");
+                    let tr = input.closest("tr");
+                    let id = tr.data("id");
+                    let id2 = tr.data("id2");
+                    let field = td.data("field");
 
-                    td2.find("span").text(formatDate2(value2)).show();
-                    input2.hide();
-                    td2.removeClass("editing");
+                    td.find("span").text(formatDate2(dateStr)).show();
+                    input.hide();
 
-                    let payload2 = {};
-                    payload2[field2] = value2;
-                    payload2.teamManagerId = userId;
-
-                    console.log("Date change for row ID:", id2, "Field:", field2, "Value:", value2, "Payload:", payload2);
+                    let payload = { aSheetId: id };
+                    payload[field] = dateStr;
+                    console.log("Date changed payload 2:", payload);
 
                     $.ajax({
-                        url: "https://eduroom.in/api/v1/asheet/update/" + id2,
+                        url: "https://eduroom.in/api/v1/msheet/update/" + id2,
                         method: "PUT",
                         contentType: "application/json",
-                        data: JSON.stringify(payload2),
+                        data: JSON.stringify(payload),
                         success: function (res) {
-                            console.log("Date Updated successfully:", res);
-                        },
-                        error: function (err) {
-                            console.error("Date update failed", err);
+                            console.log("Date updated 2:", field, res);
                         }
                     });
                 }
@@ -3133,82 +3546,86 @@
         }
 
         function renderPagination2() {
-            const totalPages2 = Math.ceil(filteredData2.length / rowsPerPage2);
-            const pagination2 = $("#pagination2");
-            pagination2.empty();
+            const totalPages = Math.ceil(filteredData2.length / rowsPerPage2);
+            const pagination = $("#pagination2");
+            pagination.empty();
 
-            const prevDisabled2 = currentPage2 === 1 ? 'disabled' : '';
-            const nextDisabled2 = currentPage2 === totalPages2 ? 'disabled' : '';
+            const prevDisabled = currentPage2 === 1 ? 'disabled' : '';
+            const nextDisabled = currentPage2 === totalPages ? 'disabled' : '';
 
-            pagination2.append(`<li><a href="javascript:void(0);" class="${prevDisabled2}" onclick="changePage2(${currentPage2 - 1})">&laquo;</a></li>`);
+            pagination.append(`<li><a href="javascript:void(0);" class="${prevDisabled}" onclick="changePage2(${currentPage2 - 1})">&laquo;</a></li>`);
 
             let startPage = Math.max(1, currentPage2 - 1);
-            let endPage = Math.min(totalPages2, startPage + 3);
+            let endPage = Math.min(totalPages, startPage + 3);
 
             if (endPage - startPage < 3) {
                 startPage = Math.max(1, endPage - 3);
             }
 
             if (startPage > 1) {
-                pagination2.append(`<li><a href="javascript:void(0);" onclick="changePage2(1)">1</a></li>`);
+                pagination.append(`<li><a href="javascript:void(0);" onclick="changePage2(1)">1</a></li>`);
                 if (startPage > 2) {
-                    pagination2.append(`<li><span class="ellipsis">...</span></li>`);
+                    pagination.append(`<li><span class="ellipsis">...</span></li>`);
                 }
             }
 
             for (let i = startPage; i <= endPage; i++) {
-                const active2 = i === currentPage2 ? "active" : "";
-                pagination2.append(`<li><a href="javascript:void(0);" class="${active2}" onclick="changePage2(${i})">${i}</a></li>`);
+                const active = i === currentPage2 ? "active" : "";
+                pagination.append(`<li><a href="javascript:void(0);" class="${active}" onclick="changePage2(${i})">${i}</a></li>`);
             }
 
-            if (endPage < totalPages2) {
-                if (endPage < totalPages2 - 1) {
-                    pagination2.append(`<li><span class="ellipsis">...</span></li>`);
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    pagination.append(`<li><span class="ellipsis">...</span></li>`);
                 }
-                pagination2.append(`<li><a href="javascript:void(0);" onclick="changePage2(${totalPages2})">${totalPages2}</a></li>`);
+                pagination.append(`<li><a href="javascript:void(0);" onclick="changePage2(${totalPages})">${totalPages}</a></li>`);
             }
 
-            pagination2.append(`<li><a href="javascript:void(0);" class="${nextDisabled2}" onclick="changePage2(${currentPage2 + 1})">&raquo;</a></li>`);
+            pagination.append(`<li><a href="javascript:void(0);" class="${nextDisabled}" onclick="changePage2(${currentPage2 + 1})">&raquo;</a></li>`);
         }
 
-        window.changePage2 = function (page2) {
-            const totalPages2 = Math.ceil(filteredData2.length / rowsPerPage2);
-            if (page2 < 1 || page2 > totalPages2) return;
-            currentPage2 = page2;
+        window.changePage2 = function (page) {
+            const totalPages = Math.ceil(filteredData2.length / rowsPerPage2);
+            if (page < 1 || page > totalPages) return;
+            currentPage2 = page;
             renderTable2();
             renderPagination2();
         };
 
         function renderColumnFilters2() {
-            const headerRow2 = $("#leadsTable2 thead tr.filters");
-            headerRow2.remove();
+            const headerRow = $("#leadsTable2 thead tr.filters2");
+            headerRow.remove();
 
-            let filterRow2 = "<tr class='filters'>";
-            $("#leadsTable2 thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 15) {
-                    filterRow2 += "<th></th>";
+            let filterRow = "<tr class='filters2'>";
+            columnKeys2.forEach((key, i) => {
+                if (i === 0) {
+                    filterRow += "<th></th>";
                 } else {
-                    filterRow2 += `<th><select class="column-filter2 form-select form-select-sm" data-index="${i}">
-                    <option value="">All</option>
-                </select></th>`;
+                    filterRow += `
+                    <th>
+                        <select class="column-filter2 form-select form-select-sm" data-index="${i}">
+                            <option value="">All</option>
+                        </select>
+                    </th>`;
                 }
             });
+            filterRow += "</tr>";
 
-            filterRow2 += "</tr>";
-            $("#leadsTable2 thead").append(filterRow2);
-
+            $("#leadsTable2 thead").append(filterRow);
             populateColumnFilterOptions2();
         }
 
         function populateColumnFilterOptions2() {
             $("#leadsTable2 thead .column-filter2").each(function () {
-                const index2 = $(this).data("index");
-                let field2 = columnKeys2[index2];
-                let values2 = [...new Set(tableData2.map(row => row[field2]))].filter(v => v);
-
-                values2.forEach(v => {
-                    const displayValue2 = columnKeys2[index2] === "dateOfConnect" ? formatDate2(v) : v;
-                    $(this).append(`<option value="${v}">${displayValue2}</option>`);
+                const index = $(this).data("index");
+                let field = columnKeys2[index];
+                let values = [...new Set(tableData2.map(row => row[field]))].filter(v => v);
+                values.forEach(v => {
+                    const isDateField = field.includes("dateOf") || field.includes("Date");
+                    const formatted = isDateField ? formatDate2(v) : v;
+                    const displayValue = formatted;
+                    const valueToUse = formatted;
+                    $(this).append(`<option value="${valueToUse}">${displayValue}</option>`);
                 });
             });
 
@@ -3220,18 +3637,27 @@
         function applyFilters2() {
             filteredData2 = [...tableData2];
             $("#leadsTable2 thead .column-filter2").each(function () {
-                const value2 = $(this).val();
-                const index2 = $(this).data("index");
-                if (value2) {
-                    let field2 = columnKeys2[index2];
-                    filteredData2 = filteredData2.filter(row => row[field2] == value2);
+                const value = $(this).val();
+                const index = $(this).data("index");
+                if (value) {
+                    let field = columnKeys2[index];
+                    filteredData2 = filteredData2.filter(row => {
+                        const isDateField = field.includes("dateOf") || field.includes("Date");
+                        if (isDateField) {
+                            return formatDate2(row[field]) === value;
+                        }
+                        return row[field] == value;
+                    });
                 }
             });
-
             currentPage2 = 1;
-            updateCollegeCount2();
+            updateCount2();
             renderTable2();
             renderPagination2();
+        }
+
+        function updateCount2() {
+            $("#collegeCount2").text(filteredData2.length || 0);
         }
 
         window.filterTable2 = function () {
@@ -3240,23 +3666,31 @@
                 Object.values(row).some(field => (field + "").toLowerCase().includes(value2))
             );
             currentPage2 = 1;
-            updateCollegeCount2();
             renderTable2();
             renderPagination2();
         };
 
         window.exportToExcel2 = function () {
-            const headers2 = Object.keys(tableData2[0] || {}).filter(k => k !== "id");
-            const data2 = [headers2];
+            if (!tableData2 || tableData2.length === 0) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "No Data",
+                    text: "There is no data to export.",
+                });
+                return;
+            }
+
+            const headers = Object.keys(tableData2[0]).filter(k => k !== "id");
+            const data = [headers];
 
             tableData2.forEach(row => {
-                data2.push(headers2.map(h => row[h]));
+                data.push(headers.map(h => row[h]));
             });
 
-            const worksheet2 = XLSX.utils.aoa_to_sheet(data2);
-            const workbook2 = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook2, worksheet2, "BusinessDetails2");
-            XLSX.writeFile(workbook2, "BusinessDetails2.xlsx");
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "BusinessDetails2");
+            XLSX.writeFile(workbook, "BusinessDetails2.xlsx");
         };
 
         $(document).ready(function () {
@@ -3268,14 +3702,39 @@
         var userData3 = JSON.parse(sessionStorage.getItem("user_data"));
         console.log(userData3);
 
-        const apiBase3 = `https://eduroom.in/api/v1/asheet/followup`;
+        const apiBase3 = `https://eduroom.in/api/v1/isheet/follow-ups`;
 
         const dropdowns3 = {
-            businessSector: ["", "Lawyers / Advocates", "CA / CS / Accountant", "Real Estate Brokers / Developers", "Event Management / Wedding Planner", "Interior Designer / Architect", "Tours & Travel / Vehicle Rental", "Agro-Based Products / Agri Services", "Salon / Beauty shop", "Consultancy / Advisory", "Insurance / Investment Agents", "Product-Based Company", "Doctor / Dentist / Clinics", "Articraft / Gifts & Decor", "Fashion / Clothing", "Education & Training Institutes", "Fitness & Wellness", "Food & Beverages", "Jewellery / Makeup / Perfumes", "Manufacturing & Industrial Units", "E-commerce & Online Stores"],
-            existingWebsite: ["", "YES", "NO"],
-            meetingStatus: ["", "C1 Scheduled", "Follow Up", "CNA", "Switch Off", "Not Interested", "Wrong Number"],
-            smmPresence: ["", "YES", "NO"],
-            sourcedBy: []
+            businessSector: [
+                "Lawyers / Advocates",
+                "CA / CS / Accountant",
+                "Real Estate Brokers / Developers",
+                "Event Management / Wedding Planner",
+                "Interior Designer / Architect",
+                "Tours & Travel / Vehicle Rental",
+                "Agro-Based Products / Agri Services",
+                "Salon / Beauty shop",
+                "Consultancy / Advisory",
+                "Insurance / Investment Agents",
+                "Product-Based Company",
+                "Doctor / Dentist / Clinics",
+                "Articraft / Gifts & Decor",
+                "Fashion / Clothing",
+                "Education & Training Institutes",
+                "Fitness & Wellness",
+                "Food & Beverages",
+                "Jewellery / Makeup / Perfumes",
+                "Manufacturing & Industrial Units",
+                "E-commerce & Online Stores"
+            ],
+            existingWebsite: ["YES", "NO"],
+            smmPresence: ["YES", "NO"],
+            meetingStatus: ["C1 Scheduled", "Follow Up", "CNA", "Switch Off", "Not Interested", "Wrong Number"],
+            sourcedBy: [],
+            c1Status: ["C2 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c2Status: ["C3 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c3Status: ["C4 Scheduled", "Follow Up", "Dicey", "Not Interested", "Token"],
+            c4Status: ["Premium", "Gold", "Standard", "Reference Given"]
         };
 
         let tableData3 = [];
@@ -3289,6 +3748,7 @@
                 method: "GET",
                 success: function (res) {
                     if (res.success && res.data) {
+                        console.log("GET response2:", res);
                         tableData3 = res.data.map((row, index) => ({
                             sno: index + 1,
                             id: row.id,
@@ -3305,13 +3765,23 @@
                             smmPresence: row.smmPresence || "",
                             sourcedBy: row.sourcedBy || "",
                             sourcedFrom: row.sourcedFrom || "",
-                            zone: row.zone || ""
+                            zone: row.zone || "",
+                            dateOfC1Connect: row.dateOfC1Connect || "",
+                            c1Status: row.c1Status || "",
+                            c1Comment: row.c1Comment || "",
+                            dateOfC2Clarity: row.dateOfC2Clarity || "",
+                            c2Status: row.c2Status || "",
+                            c2Comment: row.c2Comment || "",
+                            dateOfC3Clarity: row.dateOfC3Clarity || "",
+                            c3Status: row.c3Status || "",
+                            c3Comment: row.c3Comment || "",
+                            dateOfC4Customer: row.dateOfC4Customer || "",
+                            c4Status: row.c4Status || "",
+                            c4Comment: row.c4Comment || ""
                         }));
 
-                        dropdowns3.sourcedBy = res.managers.map(u => u.name);
-
                         filteredData3 = [...tableData3];
-                        updateCollegeCount3();
+                        updateCount3();
                         renderTable3();
                         renderPagination3();
                         renderColumnFilters3();
@@ -3320,53 +3790,14 @@
             });
         }
 
-        function renderTable3() {
-            let tbody3 = $("#leadsTable3 tbody");
-            tbody3.empty();
-
-            const start3 = (currentPage3 - 1) * rowsPerPage3;
-            const end3 = start3 + rowsPerPage3;
-            const rows3 = filteredData3.slice(start3, end3);
-
-            rows3.forEach((row, index) => {
-                let tr3 = `<tr data-id="${row.id}">
-                <td>${row.sno}</td>
-                ${makeCell3("contactPersonName", row.contactPersonName)}
-                ${makeCell3("mobileNumber", row.mobileNumber)}
-                ${makeCell3("sourcedFrom", row.sourcedFrom)}
-                ${makeDropdownCell3("sourcedBy", row.sourcedBy)}
-                ${makeDateCell3("dateOfConnect", row.dateOfConnect)}
-                ${makeCell3("businessName", row.businessName)}
-                ${makeCell3("address", row.address)}
-                ${makeCell3("email", row.email)}
-                ${makeDropdownCell3("businessSector", row.businessSector)}
-                ${makeCell3("zone", row.zone)}
-                ${makeCell3("landmark", row.landmark)}
-                ${makeDropdownCell3("existingWebsite", row.existingWebsite)}
-                ${makeDropdownCell3("smmPresence", row.smmPresence)}
-                ${makeDropdownCell3("meetingStatus", row.meetingStatus)}
-                <td>
-                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
-                        data-bs-target="#composeMail" title="Send JD">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </td>
-            </tr>`;
-                tbody3.append(tr3);
-            });
-
-            attachCellEvents3();
-            setStickyColumns3();
-        }
-
         const columnKeys3 = [
             "sno",
-            "contactPersonName",
-            "mobileNumber",
             "sourcedFrom",
             "sourcedBy",
             "dateOfConnect",
             "businessName",
+            "contactPersonName",
+            "mobileNumber",
             "address",
             "email",
             "businessSector",
@@ -3374,126 +3805,170 @@
             "landmark",
             "existingWebsite",
             "smmPresence",
-            "meetingStatus"
+            "meetingStatus",
+            "dateOfC1Connect",
+            "c1Status",
+            "c1Comment",
+            "dateOfC2Clarity",
+            "c2Status",
+            "c2Comment",
+            "dateOfC3Clarity",
+            "c3Status",
+            "c3Comment",
+            "dateOfC4Customer",
+            "c4Status",
+            "c4Comment"
         ];
 
-        function makeCell3(field, value) {
-            let displayValue3 = value || "";
-            return `<td data-field="${field}">
-            <span>${displayValue3}</span>
-            <input type="text" value="${displayValue3}" style="display:none;">
-        </td>`;
+        function renderTable3() {
+            let tbody = $("#leadsTable3 tbody");
+            tbody.empty();
+
+            const start = (currentPage3 - 1) * rowsPerPage3;
+            const end = start + rowsPerPage3;
+            const rows = filteredData3.slice(start, end);
+
+            rows.forEach((row) => {
+                let tr = `<tr data-id="${row.id}">
+                <td>${row.sno}</td>
+                <td>${row.sourcedFrom || ""}</td>
+                <td>${row.sourcedBy || ""}</td>
+                <td>${row.dateOfConnect || ""}</td>
+                <td>${row.businessName || ""}</td>
+                <td>${row.contactPersonName || ""}</td>
+                <td>${row.mobileNumber || ""}</td>
+                <td>${row.address || ""}</td>
+                <td>${row.email || ""}</td>
+                <td>${row.businessSector || ""}</td>
+                <td>${row.zone || ""}</td>
+                <td>${row.landmark || ""}</td>
+                <td>${row.existingWebsite || ""}</td>
+                <td>${row.smmPresence || ""}</td>
+                <td>${row.meetingStatus || ""}</td>
+                ${makeDateCell3("dateOfC1Connect", row.dateOfC1Connect)}
+                ${makeDropdownCell3("c1Status", row.c1Status, dropdowns3.c1Status)}
+                ${makeEditableComment3("c1Comment", row.c1Comment)}
+                ${makeDateCell3("dateOfC2Clarity", row.dateOfC2Clarity)}
+                ${makeDropdownCell3("c2Status", row.c2Status, dropdowns3.c2Status)}
+                ${makeEditableComment3("c2Comment", row.c2Comment)}
+                ${makeDateCell3("dateOfC3Clarity", row.dateOfC3Clarity)}
+                ${makeDropdownCell3("c3Status", row.c3Status, dropdowns3.c3Status)}
+                ${makeEditableComment3("c3Comment", row.c3Comment)}
+                ${makeDateCell3("dateOfC4Customer", row.dateOfC4Customer)}
+                ${makeDropdownCell3("c4Status", row.c4Status, dropdowns3.c4Status)}
+                ${makeEditableComment3("c4Comment", row.c4Comment)}
+                <td>
+                    <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal"
+                            data-bs-target="#composeMail" title="Send JD">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                 </td>
+            </tr>`;
+                tbody.append(tr);
+            });
+
+            attachCellEvents3();
+            setStickyColumns3();
         }
 
-        function makeDropdownCell3(field, selectedValue) {
-            let options3 = dropdowns3[field] || [];
-            let html3 = `<td data-field="${field}">
+        function makeCell3(field, value) {
+            let displayValue = value || "";
+            return `<td data-field="${field}">
+            <span>${displayValue}</span>
+                <input type="text" value="${displayValue}" style="display:none;">
+            </td>`;
+        }
+
+        function makeDropdownCell3(field, selectedValue, optionsList = null) {
+            let options = optionsList || dropdowns3[field] || [];
+            let html = `<td data-field="${field}">
             <span style="font-weight:bold;">${selectedValue || ""}</span>
-            <select style="display:none;" class="form-control">`;
-            options3.forEach(opt => {
-                let sel3 = (opt === selectedValue) ? "selected" : "";
-                html3 += `<option value="${opt}" ${sel3}>${opt}</option>`;
+            <select style="display:none;" class="form-control form-control-sm">`;
+            options.forEach(opt => {
+                let sel = (opt === selectedValue) ? "selected" : "";
+                html += `<option value="${opt}" ${sel}>${opt}</option>`;
             });
-            html3 += `</select></td>`;
-            return html3;
+            html += `</select></td>`;
+            return html;
+        }
+
+        function makeEditableComment3(field, value) {
+            let displayValue = value || "";
+            return `<td data-field="${field}">
+            <span>${displayValue}</span>
+                <input type="text" value="${displayValue}" style="display:none;">
+            </td>`;
         }
 
         function makeDateCell3(field, value) {
-            let displayValue3 = formatDate3(value);
-            let rawValue3 = value ? new Date(value).toISOString().split("T")[0] : "";
+            let displayValue = formatDate3(value);
+            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
             return `<td data-field="${field}">
-            <span>${displayValue3}</span>
-            <input type="text" class="date-picker3" value="${rawValue3}" style="display:none;">
-        </td>`;
+            <span>${displayValue}</span>
+                <input type="text" class="date-picker3" value="${rawValue}" style="display:none;">
+            </td>`;
         }
 
         function formatDate3(dateStr) {
             if (!dateStr) return "";
-            let date3 = new Date(dateStr);
-            if (isNaN(date3)) return dateStr;
-            return date3.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-            });
-        }
-
-        function updateCollegeCount3() {
-            $("#collegeCount3").text(filteredData3.length || 0);
+            let date = new Date(dateStr);
+            if (isNaN(date)) return dateStr;
+            return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
         }
 
         function attachCellEvents3() {
             $("#leadsTable3 td").off("dblclick").on("dblclick", function () {
-                let td3 = $(this);
-                td3.addClass("editing");
-                td3.find("input,select").show().focus();
-                td3.find("span").hide();
-                console.log("Editing cell for field:", td3.data("field"));
+                let td = $(this);
+                td.find("input,select").show().focus();
+                td.find("span").hide();
             });
 
-            $("#leadsTable3 td input, #leadsTable3 td select")
-                .off("blur change")
-                .on("blur change", function () {
-                    let td3 = $(this).closest("td");
-                    let tr3 = $(this).closest("tr");
-                    let id3 = tr3.data("id");
-                    let field3 = td3.data("field");
-                    let value3 = $(this).val();
+            $("#leadsTable3 td input, #leadsTable3 td select").off("blur change").on("blur change", function () {
+                let td = $(this).closest("td");
+                let tr = $(this).closest("tr");
+                let id = tr.data("id");
+                let field = td.data("field");
+                let value = $(this).val();
 
-                    td3.find("span").text(value3).show();
-                    td3.find("input,select").hide();
-                    td3.removeClass("editing");
+                td.find("span").text(field.includes("dateOf") ? formatDate3(value) : value).show();
+                td.find("input,select").hide();
 
-                    let payload3 = {};
-                    payload3[field3] = value3;
-                    payload3.teamManagerId = userId;
+                let payload = {};
+                payload[field] = value;
 
-                    console.log("Updating row ID:", id3, "Field:", field3, "Value:", value3, "Payload:", payload3);
-
-                    $.ajax({
-                        url: "https://eduroom.in/api/v1/asheet/update/" + id3,
-                        method: "PUT",
-                        contentType: "application/json",
-                        data: JSON.stringify(payload3),
-                        success: function (res) {
-                            console.log("Updated successfully:", res);
-                        },
-                        error: function (err) {
-                            console.error("Update failed:", err);
-                        }
-                    });
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/isheet/update-followup/" + id,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        console.log("Updated:", field, res);
+                    }
                 });
+            });
 
             $(".date-picker3").flatpickr({
                 dateFormat: "Y-m-d",
                 onChange: function (selectedDates, dateStr, instance) {
-                    let input3 = $(instance.input);
-                    let td3 = input3.closest("td");
-                    let tr3 = input3.closest("tr");
-                    let id3 = tr3.data("id");
-                    let field3 = td3.data("field");
-                    let value3 = dateStr;
+                    let input = $(instance.input);
+                    let td = input.closest("td");
+                    let tr = input.closest("tr");
+                    let id = tr.data("id");
+                    let field = td.data("field");
 
-                    td3.find("span").text(formatDate3(value3)).show();
-                    input3.hide();
-                    td3.removeClass("editing");
+                    td.find("span").text(formatDate3(dateStr)).show();
+                    input.hide();
 
-                    let payload3 = {};
-                    payload3[field3] = value3;
-                    payload3.teamManagerId = userId;
-
-                    console.log("Date change for row ID:", id3, "Field:", field3, "Value:", value3, "Payload:", payload3);
+                    let payload = {};
+                    payload[field] = dateStr;
 
                     $.ajax({
-                        url: "https://eduroom.in/api/v1/asheet/update/" + id3,
+                        url: "https://eduroom.in/api/v1/isheet/update-followup/" + id,
                         method: "PUT",
                         contentType: "application/json",
-                        data: JSON.stringify(payload3),
+                        data: JSON.stringify(payload),
                         success: function (res) {
-                            console.log("Date Updated successfully:", res);
-                        },
-                        error: function (err) {
-                            console.error("Date update failed", err);
+                            console.log("Date updated:", field, res);
                         }
                     });
                 }
@@ -3501,61 +3976,64 @@
         }
 
         function renderPagination3() {
-            const totalPages3 = Math.ceil(filteredData3.length / rowsPerPage3);
-            const pagination3 = $("#pagination3");
-            pagination3.empty();
+            const totalPages = Math.ceil(filteredData3.length / rowsPerPage3);
+            const pagination = $("#pagination3");
+            pagination.empty();
 
-            const prevDisabled3 = currentPage3 === 1 ? 'disabled' : '';
-            const nextDisabled3 = currentPage3 === totalPages3 ? 'disabled' : '';
+            const prevDisabled = currentPage3 === 1 ? 'disabled' : '';
+            const nextDisabled = currentPage3 === totalPages ? 'disabled' : '';
 
-            pagination3.append(`<li><a href="javascript:void(0);" class="${prevDisabled3}" onclick="changePage3(${currentPage3 - 1})">&laquo;</a></li>`);
+            pagination.append(`<li><a href="javascript:void(0);" class="${prevDisabled}" onclick="changePage3(${currentPage3 - 1})">&laquo;</a></li>`);
 
-            for (let i = 1; i <= totalPages3; i++) {
-                const active3 = i === currentPage3 ? "active" : "";
-                pagination3.append(`<li><a href="javascript:void(0);" class="${active3}" onclick="changePage3(${i})">${i}</a></li>`);
+            for (let i = 1; i <= totalPages; i++) {
+                const active = i === currentPage3 ? "active" : "";
+                pagination.append(`<li><a href="javascript:void(0);" class="${active}" onclick="changePage3(${i})">${i}</a></li>`);
             }
 
-            pagination3.append(`<li><a href="javascript:void(0);" class="${nextDisabled3}" onclick="changePage3(${currentPage3 + 1})">&raquo;</a></li>`);
+            pagination.append(`<li><a href="javascript:void(0);" class="${nextDisabled}" onclick="changePage3(${currentPage3 + 1})">&raquo;</a></li>`);
         }
 
-        window.changePage3 = function (page3) {
-            const totalPages3 = Math.ceil(filteredData3.length / rowsPerPage3);
-            if (page3 < 1 || page3 > totalPages3) return;
-            currentPage3 = page3;
+        window.changePage3 = function (page) {
+            const totalPages = Math.ceil(filteredData3.length / rowsPerPage3);
+            if (page < 1 || page > totalPages) return;
+            currentPage3 = page;
             renderTable3();
             renderPagination3();
         };
 
         function renderColumnFilters3() {
-            const headerRow3 = $("#leadsTable3 thead tr.filters");
-            headerRow3.remove();
+            const headerRow = $("#leadsTable3 thead tr.filters");
+            headerRow.remove();
 
-            let filterRow3 = "<tr class='filters'>";
-            $("#leadsTable3 thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 15) {
-                    filterRow3 += "<th></th>";
+            let filterRow = "<tr class='filters'>";
+            columnKeys3.forEach((key, i) => {
+                if (i === 0) {
+                    filterRow += "<th></th>";
                 } else {
-                    filterRow3 += `<th><select class="column-filter3 form-select form-select-sm" data-index="${i}">
-                    <option value="">All</option>
-                </select></th>`;
+                    filterRow += `
+                <th>
+                    <select class="column-filter3 form-select form-select-sm" data-index="${i}">
+                        <option value="">All</option>
+                    </select>
+                </th>
+            `;
                 }
             });
+            filterRow += "</tr>";
 
-            filterRow3 += "</tr>";
-            $("#leadsTable3 thead").append(filterRow3);
+            $("#leadsTable3 thead").append(filterRow);
 
             populateColumnFilterOptions3();
         }
 
         function populateColumnFilterOptions3() {
             $("#leadsTable3 thead .column-filter3").each(function () {
-                const index3 = $(this).data("index");
-                let field3 = columnKeys3[index3];
-                let values3 = [...new Set(tableData3.map(row => row[field3]))].filter(v => v);
-
-                values3.forEach(v => {
-                    const displayValue3 = columnKeys3[index3] === "dateOfConnect" ? formatDate3(v) : v;
-                    $(this).append(`<option value="${v}">${displayValue3}</option>`);
+                const index = $(this).data("index");
+                let field = columnKeys3[index];
+                let values = [...new Set(tableData3.map(row => row[field]))].filter(v => v);
+                values.forEach(v => {
+                    const displayValue = field.includes("dateOf") ? formatDate3(v) : v;
+                    $(this).append(`<option value="${v}">${displayValue}</option>`);
                 });
             });
 
@@ -3567,43 +4045,46 @@
         function applyFilters3() {
             filteredData3 = [...tableData3];
             $("#leadsTable3 thead .column-filter3").each(function () {
-                const value3 = $(this).val();
-                const index3 = $(this).data("index");
-                if (value3) {
-                    let field3 = columnKeys3[index3];
-                    filteredData3 = filteredData3.filter(row => row[field3] == value3);
+                const value = $(this).val();
+                const index = $(this).data("index");
+                if (value) {
+                    let field = columnKeys3[index];
+                    filteredData3 = filteredData3.filter(row => row[field] == value);
                 }
             });
-
             currentPage3 = 1;
-            updateCollegeCount3();  // <-- add this line
+            updateCount3();
             renderTable3();
             renderPagination3();
         }
 
-        window.filterTable3 = function () {
-            const value3 = $("#searchInput3").val().toLowerCase().trim();
-            filteredData3 = tableData3.filter(row =>
-                Object.values(row).some(field => (field + "").toLowerCase().includes(value3))
-            );
-            currentPage3 = 1;
-            updateCollegeCount3();  // <-- add this line
-            renderTable3();
-            renderPagination3();
-        };
+        function updateCount3() {
+            $("#collegeCount3").text(filteredData3.length || 0);
+        }
 
-        window.exportToExcel3 = function () {
-            const headers3 = Object.keys(tableData3[0] || {}).filter(k => k !== "id");
-            const data3 = [headers3];
+        window.exportToExcel3 = function (useFiltered = true) {
+            const dataSource = useFiltered ? filteredData3 : tableData3;
 
-            tableData3.forEach(row => {
-                data3.push(headers3.map(h => row[h]));
+            if (!dataSource || dataSource.length === 0) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "No Data",
+                    text: "There is no data to export.",
+                });
+                return;
+            }
+
+            const headers = Object.keys(dataSource[0]).filter(k => k !== "id");
+            const data = [headers];
+
+            dataSource.forEach(row => {
+                data.push(headers.map(h => row[h]));
             });
 
-            const worksheet3 = XLSX.utils.aoa_to_sheet(data3);
-            const workbook3 = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook3, worksheet3, "BusinessDetails3");
-            XLSX.writeFile(workbook3, "BusinessDetails3.xlsx");
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "BusinessDetails3");
+            XLSX.writeFile(workbook, "BusinessDetails3.xlsx");
         };
 
         $(document).ready(function () {
@@ -4247,9 +4728,6 @@
         }
     </script>
 
-    <!-- ========================================== -->
-    <!-- MAIL MODAL -->
-    <!-- ========================================== -->
     <div class="modal fade-scale" id="composeMail" tabindex="-1" aria-labelledby="composeMail" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
