@@ -842,6 +842,58 @@
                 </div>
                 <!-- [Leads] end -->
 
+                <!-- [Marketing] start -->
+                <div class="main-content" style="margin-top: 2%; margin-bottom: 2%;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card stretch stretch-full">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title">Marketing</h5>
+                                    </div>
+                                </div>
+                                <div class="card-body custom-card-action p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0" id="marketingTable">
+                                            <thead>
+                                                <tr class="border-b">
+                                                    <th scope="row">S. No.</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Mobile No.</th>
+                                                    <th>Rating / Review</th>
+                                                    <th>Followers</th>
+                                                    <th>Post</th>
+                                                    <th>Google Reviews</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Read-only UI placeholder row (no API/AJAX yet in this step) -->
+                                                <tr>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>--</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm marketing-verified-btn"
+                                                            data-marketing-id="" disabled>Verified</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [Marketing] end -->
+
                 <script>
                     window.viewDetails = function () {
                         window.top.location.href = "business-sales-overview.html";
@@ -1748,6 +1800,189 @@
             // const userId = 2;
 
             // console.log("user_id:", userId);
+
+                function renderMarketingTable(rows) {
+                    const $tbody = $("#marketingTable tbody");
+                    if (!$tbody.length) return;
+
+                    $tbody.empty();
+
+                const platformIconMap = {
+                    instagram: { icon: "bi-instagram", title: "Instagram", color: "#E1306C" },
+                    facebook: { icon: "bi-facebook", title: "Facebook", color: "#1877F2" },
+                    youtube: { icon: "bi-youtube", title: "YouTube", color: "#FF0000" },
+                    linkedin: { icon: "bi-linkedin", title: "LinkedIn", color: "#0A66C2" },
+                    x: { icon: "bi-twitter-x", title: "X", color: "#111827" }
+                };
+
+                function applyVerifyRowColor($tr, verifyState) {
+                    $tr.css("background-color", "");
+                    if (verifyState === "verified") {
+                        $tr.css("background-color", "#dcfce7");
+                    } else if (verifyState === "pending") {
+                        $tr.css("background-color", "#fee2e2");
+                    }
+                }
+
+                function applyVerifyButtonState($btn, verifyState) {
+                    if (verifyState === "verified") {
+                        $btn.prop("disabled", true).text("Verified");
+                    } else {
+                        $btn.prop("disabled", false).text("Verified");
+                    }
+                }
+
+                function appendPlatformIcons($td, items) {
+                    if (!Array.isArray(items) || items.length === 0) {
+                        $td.text("--");
+                        return;
+                    }
+
+                    const cleaned = items
+                        .filter((v) => v !== null && v !== undefined && String(v).trim() !== "")
+                        .map((v) => String(v).trim());
+
+                    if (cleaned.length === 0) {
+                        $td.text("--");
+                        return;
+                    }
+
+                    const $wrap = $('<div class="d-flex flex-wrap gap-2"></div>');
+                    cleaned.forEach((rawLabel) => {
+                        const key = String(rawLabel).toLowerCase();
+                        const def = platformIconMap[key];
+
+                        if (def) {
+                            $("<i>")
+                                .addClass(`bi ${def.icon} fs-5`)
+                                .attr("title", def.title)
+                                .attr("aria-label", def.title)
+                                .css("color", def.color)
+                                .appendTo($wrap);
+                            return;
+                        }
+
+                        $('<span class="badge bg-soft-secondary text-muted"></span>').text(rawLabel).appendTo($wrap);
+                    });
+                    $td.append($wrap);
+                }
+
+                    if (!Array.isArray(rows) || rows.length === 0) {
+                        const $tr = $("<tr>");
+                    for (let i = 0; i < 8; i++) {
+                        $("<td>").text("--").appendTo($tr);
+                    }
+                    $("<td>")
+                        .append($('<button type="button" class="btn btn-success btn-sm marketing-verified-btn" data-marketing-id="" disabled>Verified</button>'))
+                        .appendTo($tr);
+                    $tbody.append($tr);
+                    return;
+                }
+
+                rows.forEach((row, idx) => {
+                    const $tr = $("<tr>");
+                    applyVerifyRowColor($tr, row?.isVerified);
+                    $("<td>").text(idx + 1).appendTo($tr);
+                    $("<td>").text(row?.name ?? "--").appendTo($tr);
+                    $("<td>").text(row?.email ?? "--").appendTo($tr);
+                    $("<td>").text(row?.mobileNumber ?? "--").appendTo($tr);
+                    $("<td>").text(row?.ratingReviewStatus ?? "--").appendTo($tr);
+                    const $followersTd = $("<td>");
+                    const $postsTd = $("<td>");
+                    appendPlatformIcons($followersTd, row?.followers);
+                    appendPlatformIcons($postsTd, row?.posts);
+                    $followersTd.appendTo($tr);
+                    $postsTd.appendTo($tr);
+                    $("<td>").text(row?.googleReviews ?? "--").appendTo($tr);
+                    const rowId = row?.id ?? "";
+                    const $verifiedBtn = $('<button type="button" class="btn btn-success btn-sm marketing-verified-btn">Verified</button>')
+                        .attr("data-marketing-id", rowId);
+                    applyVerifyButtonState($verifiedBtn, row?.isVerified);
+                    $("<td>").append($verifiedBtn).appendTo($tr);
+                    $tbody.append($tr);
+                });
+            }
+
+            // Marketing (read-only) fetch
+            const marketingUserId = urlUserId;
+            console.log("Marketing userId:", urlUserId);
+            if (marketingUserId) {
+                console.log("Calling Marketing API...");
+                $.ajax({
+                    url: `https://eduroom.in/api/v1/marketing/marketing/fetch/${marketingUserId}`,
+                    method: "GET",
+                    success: function (response) {
+                        window.marketingFetchResponse = response;
+                        console.log("Marketing API response:", response);
+                        console.log("Marketing data:", response?.data);
+                        renderMarketingTable(response?.data);
+                    },
+                    error: function (err) {
+                        console.error("Failed to fetch marketing data:", err);
+                    }
+                });
+            } else {
+                console.warn("Marketing fetch skipped: userId not found in URL.");
+            }
+
+            // Marketing "Verified" button
+            $(document).on("click", "#marketingTable .marketing-verified-btn", function () {
+                const $btn = $(this);
+                const rowId = $(this).attr("data-marketing-id") || "";
+                const userId = urlUserId;
+                const $row = $(this).closest("tr");
+
+                if ($btn.prop("disabled")) return;
+
+                if (!rowId) {
+                    console.warn("Marketing verify clicked, but row id is missing.");
+                    return;
+                }
+                if (!userId) {
+                    console.warn("Marketing verify clicked, but userId is missing in URL.");
+                    return;
+                }
+
+                const payload = {
+                    id: rowId,
+                    userId: userId,
+                    isVerified: "verified"
+                };
+
+                window.marketingVerifyPayload = payload;
+                console.log("Verify payload:", payload);
+
+                // Prevent multiple clicks while request is in-flight
+                $btn.prop("disabled", true).text("Verified");
+
+                $.ajax({
+                    url: "https://eduroom.in/api/v1/marketing/marketing/verify",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (response) {
+                        console.log("Verify response:", response);
+
+                        const verifyState = response?.data?.isVerified;
+                        $row.css("background-color", "");
+                        if (verifyState === "verified") {
+                            $row.css("background-color", "#dcfce7");
+                        } else if (verifyState === "pending") {
+                            $row.css("background-color", "#fee2e2");
+                        }
+
+                        if (verifyState === "verified") {
+                            $btn.prop("disabled", true).text("Verified");
+                        } else {
+                            $btn.prop("disabled", false).text("Verified");
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Verify error:", err);
+                        $btn.prop("disabled", false).text("Verified");
+                    }
+                });
+            });
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/business-target/${urlUserId}`,
