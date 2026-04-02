@@ -665,6 +665,68 @@
                     </div>
                 </div>
 
+                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 20px;">
+
+                <h5 class="card-title" style="margin-left: 10px;">MAIL METRICS
+                </h5>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3"
+                    style="margin-top: 15px; margin-left: 0px; margin-right: 0px;">
+
+                    <!-- Total Sent -->
+                    <div class="col">
+                        <div class="card stretch stretch-full" style="background-color: #3454d1;">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3 text-white">Total Sent</div>
+                                <h3 class="text-white"><span id="totalSent">0</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Delivered -->
+                    <div class="col">
+                        <div class="card stretch stretch-full" style="background-color: #e49e3d;">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3 text-white">Total Delivered</div>
+                                <h3 class="text-white"><span id="totalDelivered">0</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Opened -->
+                    <div class="col">
+                        <div class="card stretch stretch-full" style="background-color: #25b865;">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3 text-white">Total Opened</div>
+                                <h3 class="text-white"><span id="totalOpened">0</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Bounces -->
+                    <div class="col">
+                        <div class="card stretch stretch-full" style="background-color: #7b7a79;">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3 text-white">Total Bounces</div>
+                                <h3 class="text-white"><span id="totalBounces">0</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Spam -->
+                    <div class="col">
+                        <div class="card stretch stretch-full" style="background-color: #d13b4c;">
+                            <div class="card-body">
+                                <div class="fs-12 fw-medium mb-3 text-white">Total Spam</div>
+                                <h3 class="text-white"><span id="totalSpam">0</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 20px; margin-bottom: 20px;">
+
                 <div class="row">
                     <!-- Add this button at the top of your page -->
                     <!-- <div class="text-end mb-3">
@@ -726,6 +788,8 @@
                                                 <th>Type of INT</th>
                                                 <th>Detailed Response</th>
                                                 <th>Send JD</th>
+                                                <th>Email Status</th>
+                                                <th>Check</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -1189,6 +1253,8 @@
                                                 <th>Type of INT</th>
                                                 <th>Detailed Response</th>
                                                 <th>Send JD</th>
+                                                <th>Email Status</th>
+                                                <th>Check</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -2161,43 +2227,52 @@
     </script>
 
     <script>
-        let fromDate = null;
-        let toDate = null;
+        $(document).ready(function () {
 
-        function formatDate(date) {
-            const y = date.getFullYear();
-            const m = String(date.getMonth() + 1).padStart(2, '0');
-            const d = String(date.getDate()).padStart(2, '0');
-            return `${y}-${m}-${d}`;
-        }
+            let fromDate = null;
+            let toDate = null;
 
-        const today = new Date();
-        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            function formatDate(date) {
+                const y = date.getFullYear();
+                const m = String(date.getMonth() + 1).padStart(2, '0');
+                const d = String(date.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            }
 
-        fromDate = formatDate(firstDayOfMonth);
-        toDate = formatDate(today);
+            const today = new Date();
+            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-        flatpickr("#dateRangePicker", {
-            mode: "range",
-            dateFormat: "Y-m-d",
-            defaultDate: [firstDayOfMonth, today],
-            onReady: function () {
+            fromDate = formatDate(firstDayOfMonth);
+            toDate = formatDate(today);
+
+            flatpickr("#dateRangePicker", {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                defaultDate: [firstDayOfMonth, today],
+
+                onClose: function (selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 2) {
+                        fromDate = instance.formatDate(selectedDates[0], "Y-m-d");
+                        toDate = instance.formatDate(selectedDates[1], "Y-m-d");
+
+                        console.log("From:", fromDate, "To:", toDate);
+
+                        triggerAllAPIs();
+                    }
+                }
+            });
+
+            function triggerAllAPIs() {
                 loadAnalysisChart(fromDate, toDate);
                 loadDashboardData(fromDate, toDate);
                 loadTableData2(fromDate, toDate);
-            },
-            onClose: function (selectedDates, dateStr, instance) {
-                if (selectedDates.length === 2) {
-                    fromDate = instance.formatDate(selectedDates[0], "Y-m-d");
-                    toDate = instance.formatDate(selectedDates[1], "Y-m-d");
-
-                    console.log("From:", fromDate, "To:", toDate);
-
-                    loadAnalysisChart(fromDate, toDate);
-                    loadDashboardData(fromDate, toDate);
-                    loadTableData2(fromDate, toDate);
-                }
+                loadEmailSummary(fromDate, toDate);
             }
+
+            setTimeout(function () {
+                triggerAllAPIs();
+            }, 200);
+
         });
     </script>
 
@@ -2339,40 +2414,6 @@
             collegeLevel: ["Platinum", "Diamond", "Gold", "Silver", "Bronze", "Black"],
         };
 
-        // const colorMap = {
-        //     callResponse: {
-        //         "connected": "#28a745",
-        //         "not answered": "#dc3545",
-        //         "busy": "#ffc107",
-        //         "switch off": "#0d6efd",
-        //         "invalid": "#6c757d"
-        //     },
-        //     internshipType: {
-        //         "fulltime": "#28a745",
-        //         "sip": "#0d6efd",
-        //         "liveproject": "#ffc107",
-        //         "wip": "#0d6efd",
-        //         "others": "#adb5bd"
-        //     },
-        //     detailedResponse: {
-        //         "send jd": "#28a745",
-        //         "not interested": "#dc3545",
-        //         "cut the call": "#ffc107",
-        //         "january": "#0d6efd",
-        //         "february": "#0d6efd",
-        //         "march": "#0d6efd",
-        //         "april": "#0d6efd",
-        //         "may": "#0d6efd",
-        //         "june": "#0d6efd",
-        //         "july": "#0d6efd",
-        //         "august": "#0d6efd",
-        //         "september": "#0d6efd",
-        //         "october": "#0d6efd",
-        //         "november": "#0d6efd",
-        //         "december": "#0d6efd"
-        //     }
-        // };
-
         function getRowBgColor(detailedResponse) {
             if (detailedResponse === "" || detailedResponse === null) return 'background-color: #fff;';
 
@@ -2381,15 +2422,6 @@
             if (val === "not interested") return 'background-color: #ff4d4d;';
             return 'background-color: #ffff80;';
         }
-
-        // function getRowBgColor(detailedResponse) {
-        //     if (detailedResponse === null) return '';
-
-        //     const val = detailedResponse.toLowerCase();
-        //     if (val === "send jd") return 'background-color: #fff;';
-        //     if (val === "not interested") return 'background-color: #fff;';
-        //     return 'background-color: #fff;';
-        // }
 
         let citiesData = [];
         let tableData = [];
@@ -2413,7 +2445,7 @@
                     <p>Warm greetings from FundsAudit!</p>
                     <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
                     <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
-                    editableMiddle: `
+                editableMiddle: `
                     <p><b>Collaboration Proposal:</b></p>
                     <ul>
                         <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
@@ -2438,7 +2470,7 @@
                         <li>Improved employability and practical insight alongside academics</li>
                         <li>Final placement opportunities</li>
                     </ul>`,
-                    fixedBottom: `
+                fixedBottom: `
                     <p>Looking forward to a meaningful and mutually beneficial association.</p>
                     <p>Pooja M. Shedge<br/>
                     Branch Manager - Pune<br/>
@@ -2457,7 +2489,7 @@
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
                     <p>Greetings from <b>FundsAudit</b> – India's fastest-growing ISO-certified Fintech Startup!</p>
                     <p>We are thrilled to present an <b>exclusive, limited-seat Student Development Program (SDP)</b> for the talented students of <span class="email-template-variable">${record.collegeName || "your esteemed institute"}</span>. This is a golden opportunity for your ${record.course || "MBA/PGDM"} students to gain real-world fintech experience while still in college.</p>`,
-                    editableMiddle: `
+                editableMiddle: `
                     <p><b>Why This Program Stands Out:</b></p>
                     <ul>
                         <li><b>Earn While You Learn:</b> Performance-based stipend of INR 1,000 – INR 7,000 per month</li>
@@ -2472,7 +2504,7 @@
                     <b>Eligibility:</b> MBA/PGDM 1st & 2nd Year Students</p>
                     <p>Please find the detailed Job Description attached for your reference.</p>
                     <p>Kindly confirm your interest at the earliest so we can reserve seats for your students before the deadline.</p>`,
-                    fixedBottom: `
+                fixedBottom: `
                     <p>Don't miss this opportunity to give your students a competitive edge!</p>
                     <p>Warm regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
@@ -2492,7 +2524,7 @@
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
                     <p>Hope this email finds you well!</p>
                     <p>I am writing to follow up on the internship collaboration proposal we shared earlier regarding <span class="email-template-variable">${record.collegeName || "your institute"}</span>. We reached out previously with details about our <b>Student Development Program (SDP)</b> at FundsAudit and wanted to check if you had a chance to review the information.</p>`,
-                    editableMiddle: `
+                editableMiddle: `
                     <p>As a quick recap, here's what we proposed:</p>
                     <ul>
                         <li><b>Program:</b> Live Fintech Project-based Internship (SDP)</li>
@@ -2505,7 +2537,7 @@
                     <p>We understand you may be busy, but we would appreciate just a brief response to understand your interest level. We are happy to schedule a call at your convenience to address any queries or customize the program to suit your institute's needs.</p>
                     <p>The Job Description is re-attached for your easy reference.</p>
                     <p>Could you kindly share your feedback or preferred time to connect?</p>`,
-                    fixedBottom: `
+                fixedBottom: `
                     <p>Looking forward to hearing from you soon.</p>
                     <p>Best regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
@@ -2525,7 +2557,7 @@
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
                     <p>Greetings from FundsAudit!</p>
                     <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsAudit, Pune. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
-                    editableMiddle: `
+                editableMiddle: `
                     <p>At FundsAudit, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
                     <p>We would love to explore how we can work together to benefit your students through our <b>Student Development Program (SDP)</b>:</p>
                     <ul>
@@ -2538,7 +2570,7 @@
                     <p>I would love to schedule a brief introductory call or meeting at a time convenient to you — even 15–20 minutes would be a great start to explore the potential of this collaboration.</p>
                     <p>I have attached our internship JD for your initial review.</p>
                     <p>Please feel free to reach me directly at <b>+91 7385234536</b> or reply to this email to set up a time.</p>`,
-                    fixedBottom: `
+                fixedBottom: `
                     <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
                     <p>Warm regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
@@ -2547,7 +2579,7 @@
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
                     <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
-                </p>`,
+                </p>`
             },
 
             // MARKETING
@@ -2558,7 +2590,7 @@
                 <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
                     <p>Warm greetings from <b>FundsAudit</b>!</p>
                     <p>In today's competitive job market, academic knowledge alone is no longer enough. Students of <span class="email-template-variable">${record.collegeName || "your institution"}</span> deserve an edge — and that's exactly what FundsAudit's <b>Student Development Program (SDP)</b> delivers.</p>`,
-                    editableMiddle: `
+                editableMiddle: `
                     <p><b>What Makes FundsAudit Different?</b></p>
                     <ul>
                         <li><b>ISO-Certified</b> Fintech Startup | Startup India Registered</li>
@@ -2577,7 +2609,7 @@
                     </ul>
                     <p>We are currently onboarding partner institutes for the upcoming batch. Your institute fits our ideal partner profile and we are keen to collaborate.</p>
                     <p>Detailed JD is attached. We would appreciate a quick confirmation of interest so we can proceed with formalizing the MoU.</p>`,
-                    fixedBottom: `
+                fixedBottom: `
                     <p>Let's build future-ready finance and marketing professionals — together.</p>
                     <p>Best regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
@@ -2635,6 +2667,7 @@
                             callResponse: row.callResponse || "",
                             internshipType: row.internshipType || "",
                             detailedResponse: row.detailedResponse || "",
+                            jdEmailIsOpened: row.jdEmailIsOpened || false
                         }));
 
                         dropdowns.connectedBy = res.managers.map(u => u.name);
@@ -3087,17 +3120,91 @@
                     ${makeDropdownCell("internshipType", row.internshipType)}
                     ${makeDropdownCell("detailedResponse", row.detailedResponse)} 
                     <td>
-                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                        <button class="btn btn-sm btn-success send-jd-btn" data-id="${row.id}" data-bs-toggle="modal" 
                                 data-bs-target="#composeMail" title="Send JD">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
-                    </tr>`;
+                    <td class="email-status-col" data-field="jdEmailIsOpened" data-id="${row.id}" data-email="${row.emailId}">
+                        <span class="email-status-badge">${row.jdEmailIsOpened ? '<span class="badge bg-success">Opened</span>' : '<span class="badge bg-secondary">Not Opened</span>'}</span>
+                        
+                     </td>
+                     <td>
+                        <button class="btn btn-sm btn-outline-primary check-status-btn ms-2" data-id="${row.id}" data-email="${row.emailId}" title="Check Status">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                     </td>
+                <tr>`;
                 tbody.append(tr);
             });
 
             attachCellEvents();
+            attachEmailStatusEvents();
             setStickyColumns();
+        }
+
+        function attachEmailStatusEvents() {
+            $(".check-status-btn").off("click").on("click", function() {
+                const rowId = $(this).data("id");
+                const email = $(this).data("email");
+                const btn = $(this);
+                const originalIcon = btn.html();
+                btn.html('<i class="fas fa-spinner fa-spin"></i>');
+                btn.prop("disabled", true);
+                
+                $.ajax({
+                    url: `${apiBase}/cosheet/email-status?rowId=${rowId}&email=${encodeURIComponent(email)}`,
+                    method: "GET",
+                    success: function(response) {
+                        console.log("Email status response:", response);
+                        if (response && typeof response.jdEmailIsOpened !== 'undefined') {
+                            const isOpened = response.jdEmailIsOpened;
+                            const row = $(`tr[data-id="${rowId}"]`);
+                            const statusCell = row.find(".email-status-col");
+                            const statusBadge = statusCell.find(".email-status-badge");
+                            
+                            if (isOpened) {
+                                statusBadge.html('<span class="badge bg-success">Opened</span>');
+                            } else {
+                                statusBadge.html('<span class="badge bg-secondary">Not Opened</span>');
+                            }
+                            
+                            const rowData = tableData.find(r => r.id == rowId);
+                            if (rowData) {
+                                rowData.jdEmailIsOpened = isOpened;
+                            }
+                            
+                            Swal.fire({
+                                icon: "success",
+                                title: "Status Updated",
+                                text: `Email status has been updated to ${isOpened ? "Opened" : "Not Opened"}`,
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "info",
+                                title: "No Change",
+                                text: "Email status remains unchanged",
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        }
+                        btn.html(originalIcon);
+                        btn.prop("disabled", false);
+                    },
+                    error: function(err) {
+                        console.error("Error checking email status:", err);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Failed to check email status. Please try again."
+                        });
+                        btn.html(originalIcon);
+                        btn.prop("disabled", false);
+                    }
+                });
+            });
         }
 
         function renderPagination() {
@@ -3140,7 +3247,8 @@
 
             let filterRow = "<tr class='filters'>";
             $("#leadsTable thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 1 || i === 21) {
+                // Skip filter for Action (index 0), S.No (index 1), Send JD (index 22), and Email Status (index 23)
+                if (i === 0 || i === 1 || i === 21 || i === 22 || i === 23) {
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th><select class="column-filter form-select form-select-sm" data-index="${i}">
@@ -3267,9 +3375,6 @@
             let displaySelected = selectedValue ? capitalize(selectedValue) : "";
 
             let bgColor = "";
-            // if (colorMap[field] && selectedValue) {
-            //     bgColor = colorMap[field][selectedValue.toLowerCase()] || "";
-            // }
 
             let html = `<td data-field="${field}" style="background-color:${bgColor};">
             <span style="color:black; font-weight:bold;">${displaySelected}</span>
@@ -3318,9 +3423,6 @@
                     if ($(this).is("select")) {
                         let displayText = capitalize(value);
                         let bgColor = "";
-                        // if (colorMap[field] && value) {
-                        //     bgColor = colorMap[field][value.toLowerCase()] || "";
-                        // }
                         td.css("background-color", bgColor);
                         td.find("span").css("color", "black").css("font-weight", "bold").text(displayText);
                     } else {
@@ -3433,17 +3535,24 @@
                     ${makeDropdownCell("internshipType", row.internshipType)}
                     ${makeDropdownCell("detailedResponse", row.detailedResponse)}
                     <td>
-                        <button class="btn btn-sm btn-success" data-id="${row.id}" data-bs-toggle="modal" 
+                        <button class="btn btn-sm btn-success send-jd-btn" data-id="${row.id}" data-bs-toggle="modal" 
                                 data-bs-target="#composeMail" title="Send JD">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
+                    <td class="email-status-col" data-field="jdEmailIsOpened" data-id="${row.id}" data-email="${row.emailId}">
+                        <span class="email-status-badge">${row.jdEmailIsOpened ? '<span class="badge bg-success">Opened</span>' : '<span class="badge bg-secondary">Not Opened</span>'}</span>
+                        <button class="btn btn-sm btn-outline-primary check-status-btn ms-2" data-id="${row.id}" data-email="${row.emailId}" title="Check Status">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                     </td>
                 </tr>`;
                 tbody.append(tr);
             });
 
             $("#pagination").hide();
             attachCellEvents();
+            attachEmailStatusEvents();
         };
 
         window.printTable = function () {
@@ -3521,7 +3630,8 @@
                 "Date of Connect",
                 "Call Response",
                 "Internship Type",
-                "Detailed Response"
+                "Detailed Response",
+                "Email Status"
             ];
 
             const data = [headers];
@@ -3547,7 +3657,8 @@
                     row.dateOfConnect,
                     row.callResponse,
                     row.internshipType,
-                    row.detailedResponse
+                    row.detailedResponse,
+                    row.jdEmailIsOpened ? "Opened" : "Not Opened"
                 ]);
             });
 
@@ -3683,6 +3794,7 @@
                             comment: row.comment || "",
                             internshipType: row.internshipType || "",
                             detailedResponse: row.detailedResponse || "",
+                            jdEmailIsOpened: row.jdEmailIsOpened || false
                         }));
 
                         dropdowns2.connectedBy = res.managers.map(u => u.name);
@@ -3777,6 +3889,15 @@
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </td>
+            <td class="email-status-col" data-field="jdEmailIsOpened" data-id="${row.id}" data-email="${row.emailId}">
+                <span class="email-status-badge">${row.jdEmailIsOpened ? '<span class="badge bg-success">Opened</span>' : '<span class="badge bg-secondary">Not Opened</span>'}</span>
+                        
+            </td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary check-status-btn ms-2" data-id="${row.id}" data-email="${row.emailId}" title="Check Status">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </td>
             </tr>`;
                 tbody.append(tr);
             });
@@ -3826,7 +3947,7 @@
 
             let filterRow = "<tr class='filters'>";
             $("#leadsTable2 thead tr:first th").each(function (i, th) {
-                if (i === 0 || i === 1 || i === 15) {
+                if (i === 0 || i === 1 || i === 15 || i === 16 || i === 17) {
                     filterRow += "<th></th>";
                 } else {
                     filterRow += `<th><select class="column-filter2 form-select form-select-sm" data-index="${i}">
@@ -5257,6 +5378,41 @@
                 chipWrapper.insertBefore(chip, emailInput);
             };
         });
+    </script>
+
+    <script>
+        function loadEmailSummary(fromDate, toDate) {
+            $.ajax({
+                url: `https://api.fundsweb.in/api/v1/emailtracking/analytics/summary?domain=fundsaudit.com&from=${fromDate}&to=${toDate}`,
+                type: 'GET',
+                dataType: 'json',
+
+                success: function (response) {
+                    console.log("mail analytics response:", response);
+
+                    $('#totalSent').text(response.totalSent || 0);
+                    $('#totalDelivered').text(response.totalDelivered || 0);
+                    $('#totalBounces').text(response.totalBounces || 0);
+                    $('#totalSpam').text(response.totalSpam || 0);
+                    $('#totalOpened').text(response.totalOpened || 0);
+                    $('#uniqueOpened').text(response.uniqueOpened || 0);
+                    $('#totalOpens').text(response.totalOpens || 0);
+                    $('#openRate').text(response.openRate || '0.00');
+                    $('#deliveryRate').text(response.deliveryRate || '0.00');
+                    $('#bounceRate').text(response.bounceRate || '0.00');
+                    $('#spamRate').text(response.spamRate || '0.00');
+                    $('#domain').text(response.domain || '-');
+
+                    // updateDonutChart(response);
+                    // createBarChart(response);
+                },
+
+                error: function (xhr, status, error) {
+                    console.error('Error fetching email analytics:', error);
+                    alert('Failed to fetch email analytics data. Please try again.');
+                }
+            });
+        }
     </script>
 
 </body>
