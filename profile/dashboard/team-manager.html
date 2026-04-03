@@ -2519,6 +2519,9 @@
                         
                     </div>
                     <div class="dropdown-menu p-3" id="managerDropdown" style="display: none; width: 300px; max-height: 300px; overflow-y: auto; z-index: 1000;">
+                        <div class="mb-2">
+                            <input type="text" class="form-control form-control-sm" id="managerSearch" placeholder="Search managers..." style="height: 30px;">
+                        </div>
                         <div id="managerCheckboxes" style="max-height: 180px; overflow-y: auto;">
                             ${managers.map(manager => `
                                 <div class="form-check">
@@ -2981,6 +2984,7 @@
                     overflow-y: auto;
                     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
                     min-width: 200px;
+                    max-width: 350px; /* Added max-width for better control */
                 }
                 .filter-options {
                     max-height: 200px;
@@ -2999,15 +3003,36 @@
                     transform: translateY(-50%);
                 }
                 .form-check {
-                    margin-bottom: 5px;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
+                    margin-bottom: 8px; /* Increased margin for better separation */
+                    display: flex;
+                    align-items: flex-start; /* Align items at the top */
+                }
+                .form-check-input {
+                    margin-top: 0.25rem; /* Adjust checkbox vertical alignment */
+                    flex-shrink: 0; /* Prevent checkbox from shrinking */
                 }
                 .form-check-label {
                     cursor: pointer;
-                    width: 100%;
                     display: block;
+                    white-space: normal; /* Changed from nowrap to normal */
+                    word-break: break-word; /* Break long words */
+                    overflow-wrap: break-word; /* Alternative for better word breaking */
+                    max-height: 5.6em; /* Allow up to 4 lines (4 * 1.4em line-height) */
+                    line-height: 1.4em; /* Set line height */
+                    overflow: hidden; /* Hide excess beyond 4 lines */
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 4; /* Limit to 4 lines */
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    padding-left: 5px; /* Add some space between checkbox and text */
+                }
+                .form-check-label:hover {
+                    overflow: visible;
+                    max-height: none; /* Show full text on hover */
+                    -webkit-line-clamp: unset;
+                    background-color: #f8f9fa; /* Light background on hover */
+                    position: relative;
+                    z-index: 1;
                 }
                 .filter-controls {
                     margin-top: 10px;
@@ -3021,6 +3046,10 @@
                     font-size: 12px;
                     padding: 3px 8px;
                 }
+                .filter-search {
+                    height: 30px;
+                    margin-bottom: 8px;
+                }
             `;
             document.head.appendChild(style);
 
@@ -3032,10 +3061,10 @@
                 if (i >= 0) {
                     const headerText = $(th).text().trim();
                     filterRow += `<th style="position: relative;">
-                    <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
-                        Apply filter <i class="fas fa-filter"></i>
-                    </button>
-                </th>`;
+                        <button class="btn btn-sm btn-light filter-btn" data-index="${i}" data-header="${headerText}">
+                            Apply filter <i class="fas fa-filter"></i>
+                        </button>
+                    </th>`;
                 }
             });
             filterRow += "</tr>";
@@ -3065,6 +3094,7 @@
             $(document).off('click', '.apply-filter');
             $(document).off('click', '.clear-filter');
             $(document).off('click');
+
             $(document).on('click', '.filter-btn', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -3082,7 +3112,9 @@
 
                 let dropdownHtml = `
                     <div class="filter-dropdown" data-index="${index}" data-header="${headerText}">
-                        <div class="filter-options">
+                        <input type="text" class="form-control form-control-sm filter-search mb-2"
+                            placeholder="Search..." autocomplete="off">
+                    <div class="filter-options">
                 `;
 
                 if (values.length === 0) {
@@ -3094,7 +3126,7 @@
                         const displayText = formatDisplayText(value, index);
                         dropdownHtml += `
                             <div class="form-check">
-                                <input class="form-check-input filter-checkbox" type="checkbox" 
+                                <input class="form-check-input filter-checkbox" type="checkbox"
                                     value="${value}" id="${safeId}" ${isChecked}>
                                 <label class="form-check-label" for="${safeId}" title="${value}">
                                     ${displayText}
@@ -3121,33 +3153,53 @@
                 activeFilterDropdown = $dropdown;
 
                 const dropdownHeight = $dropdown.outerHeight();
+                const dropdownWidth = $dropdown.outerWidth();
                 const spaceBelow = window.innerHeight - buttonRect.bottom;
                 const spaceAbove = buttonRect.top;
+                const spaceRight = window.innerWidth - buttonRect.left;
 
                 let top;
+                let left;
 
                 if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
-                    top = buttonRect.top - dropdownHeight;
+                    top = buttonRect.top - dropdownHeight - 5;
                 } else {
-                    top = buttonRect.bottom;
+                    top = buttonRect.bottom + 5;
                 }
+
+                if (spaceRight < dropdownWidth && spaceRight < buttonRect.left) {
+                    left = buttonRect.right - dropdownWidth;
+                } else {
+                    left = buttonRect.left;
+                }
+
+                top = Math.max(5, Math.min(top, window.innerHeight - dropdownHeight - 5));
+                left = Math.max(5, Math.min(left, window.innerWidth - dropdownWidth - 5));
 
                 $dropdown.css({
                     position: 'fixed',
                     top: top + 'px',
-                    left: Math.min(buttonRect.left, window.innerWidth - 250) + 'px',
+                    left: left + 'px',
                     zIndex: '9999'
+                });
+
+                $dropdown.find('.filter-search').on('keyup', function () {
+                    const val = $(this).val().toLowerCase();
+                    $dropdown.find('.form-check').each(function () {
+                        const text = $(this).text().toLowerCase();
+                        $(this).toggle(text.includes(val));
+                    });
                 });
 
                 $dropdown.find('.filter-checkbox').on('change', function (e) {
                     e.stopPropagation();
                 });
+
                 $dropdown.find('.apply-filter').on('click', function (e) {
                     e.stopPropagation();
                     const idx = $(this).data('index');
                     const hdr = $dropdown.data('header');
-                    const checkboxes = $dropdown.find('.filter-checkbox:checked');
-                    const selectedVals = checkboxes.map(function () {
+                    const selectedVals = $dropdown.find('.filter-checkbox:checked').map(function () {
                         return $(this).val();
                     }).get();
 
@@ -3189,7 +3241,7 @@
         function formatDisplayText(value, index) {
             const strValue = String(value);
             if (strValue.length > 30) {
-                return strValue.substring(0, 27) + '...';
+                return strValue;
             }
             return strValue;
         }
