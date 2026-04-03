@@ -429,6 +429,24 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-4 mb-4">
+                                        <label class="form-label">Follower Target</label>
+                                        <input type="number" class="form-control" id="followerTarget"
+                                            placeholder="Enter follower target">
+                                    </div>
+                                    <div class="col-lg-4 mb-4">
+                                        <label class="form-label">Post Target</label>
+                                        <input type="number" class="form-control" id="postTarget"
+                                            placeholder="Enter post target">
+                                    </div>
+                                    <div class="col-lg-4 mb-4">
+                                        <label class="form-label">Reviews and Ratings Target</label>
+                                        <input type="number" class="form-control" id="reviewAndRatingTarget"
+                                            placeholder="Enter reviews and ratings target">
+                                    </div>
+                                </div>
+
                                 <!-- Total Days + Duration -->
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
@@ -710,6 +728,9 @@
                 const courseName = $("#courseName").val().toUpperCase().trim();
                 const description = $("#description").val().trim();
                 const businessTarget = $("#businessTarget").val().trim();
+                const followerTarget = $("#followerTarget").val().trim() || null;
+                const postTarget = $("#postTarget").val().trim() || null;
+                const reviewAndRatingTarget = $("#reviewAndRatingTarget").val().trim() || null;
                 const totalDays = $("#totalDays").val().trim();
                 const duration = $("#duration").val().trim();
                 const certificateCount = $("#certificateCount").val().trim();
@@ -730,6 +751,9 @@
                 formData.append("domainId", domainId);
                 formData.append("description", description);
                 formData.append("businessTarget", businessTarget);
+                formData.append("followerTarget", followerTarget);
+                formData.append("postTarget", postTarget);
+                formData.append("reviewAndRatingTarget", reviewAndRatingTarget);
                 formData.append("totalDays", totalDays);
                 formData.append("duration", duration);
                 formData.append("certificateCount", certificateCount);
@@ -753,6 +777,9 @@
                         $("#courseName").val('');
                         $("#description").val('');
                         $("#businessTarget").val('');
+                        $("#followerTarget").val('');
+                        $("#postTarget").val('');
+                        $("#reviewAndRatingTarget").val('');
                         $("#totalDays").val('');
                         $("#duration").val('');
                         $("#imageInput").val('');

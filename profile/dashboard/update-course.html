@@ -424,6 +424,22 @@
                   </div>
                 </div>
 
+                <div class="row">
+                  <div class="col-lg-4 mb-4">
+                    <label class="form-label">Follower Target</label>
+                    <input type="number" class="form-control" id="followerTarget" placeholder="Enter follower target">
+                  </div>
+                  <div class="col-lg-4 mb-4">
+                    <label class="form-label">Post Target</label>
+                    <input type="number" class="form-control" id="postTarget" placeholder="Enter post target">
+                  </div>
+                  <div class="col-lg-4 mb-4">
+                    <label class="form-label">Reviews and Ratings Target</label>
+                    <input type="number" class="form-control" id="reviewAndRatingTarget"
+                      placeholder="Enter reviews and ratings target">
+                  </div>
+                </div>
+
                 <!-- Total Days + Duration -->
                 <div class="row">
                   <div class="col-lg-6 mb-4">
@@ -560,6 +576,9 @@
           $("#certificateCount").val(selected.certificateCount || "");
           $("#totalDays").val(selected.totalDays || "");
           $("#duration").val(selected.duration || "");
+          $("#followerTarget").val(selected.followerTarget || "");
+          $("#postTarget").val(selected.postTarget || "");
+          $("#reviewAndRatingTarget").val(selected.reviewAndRatingTarget || "");
 
           $("#courseSelect").data("domainId", selected.domainId);
 
@@ -613,6 +632,9 @@
         formData.append("certificateCount", $("#certificateCount").val() ? parseInt($("#certificateCount").val()) : '');
         formData.append("totalDays", $("#totalDays").val() ? parseInt($("#totalDays").val()) : '');
         formData.append("duration", $("#duration").val());
+        formData.append("followerTarget", $("#followerTarget").val() ? parseInt($("#followerTarget").val()) : null);
+        formData.append("postTarget", $("#postTarget").val() ? parseInt($("#postTarget").val()) : null);
+        formData.append("reviewAndRatingTarget", $("#reviewAndRatingTarget").val() ? parseInt($("#reviewAndRatingTarget").val()) : null);
 
         console.log("FormData contents:");
         for (let pair of formData.entries()) {
@@ -720,6 +742,9 @@
                           $("#duration").val("");
                           $("#previewBox").hide();
                           $("#uploadBox").show();
+                          $("#followerTarget").val("");
+                          $("#postTarget").val("");
+                          $("#reviewAndRatingTarget").val("");
                         } else {
                           Swal.fire("❌ Failed!", res.error || `Delete failed for course ${courseId}`, "error");
                         }
