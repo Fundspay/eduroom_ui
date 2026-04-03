@@ -766,6 +766,118 @@
                     .marketing-row--pending > td:first-child {
                         padding-left: 0.85rem;
                     }
+
+                    /* Marketing table: match dashboard leads table responsive pattern */
+                    .marketing-table-responsive {
+                        overflow-x: auto;
+                        position: relative;
+                    }
+
+                    #marketingTable {
+                        border-collapse: collapse;
+                        width: max-content;
+                        min-width: 100%;
+                    }
+
+                    #marketingTable th,
+                    #marketingTable td {
+                        white-space: nowrap;
+                        vertical-align: middle;
+                    }
+
+                    #marketingTable thead th {
+                        position: sticky;
+                        top: 0;
+                        z-index: 10;
+                        background: #fff;
+                    }
+
+                    #marketingTable tbody tr.marketing-row--verified {
+                        --mkt-row-bg: #dcfce7;
+                    }
+
+                    #marketingTable tbody tr.marketing-row--pending {
+                        --mkt-row-bg: #fee2e2;
+                    }
+
+                    #marketingTable tbody tr.marketing-row td {
+                        background-color: var(--mkt-row-bg, transparent);
+                    }
+
+                    #marketingTable.table-hover tbody tr.marketing-row:hover td {
+                        background-color: var(--mkt-row-bg, var(--bs-table-hover-bg, rgba(0, 0, 0, 0.075)));
+                    }
+
+                    /* Extra breathing room so last-row buttons don't look clipped */
+                    #marketingTable tbody tr:last-child td {
+                        padding-bottom: 0.85rem;
+                    }
+
+                    /* Sticky first 3 columns (left offsets computed via JS variables on the table) */
+                    #marketingTable th:nth-child(1),
+                    #marketingTable td:nth-child(1) {
+                        position: sticky;
+                        left: var(--mkt-sticky-left-1, 0px);
+                        z-index: 12;
+                        background-color: var(--mkt-row-bg, #fff);
+                    }
+
+                    #marketingTable th:nth-child(2),
+                    #marketingTable td:nth-child(2) {
+                        position: sticky;
+                        left: var(--mkt-sticky-left-2, 0px);
+                        z-index: 12;
+                        background-color: var(--mkt-row-bg, #fff);
+                    }
+
+                    #marketingTable th:nth-child(3),
+                    #marketingTable td:nth-child(3) {
+                        position: sticky;
+                        left: var(--mkt-sticky-left-3, 0px);
+                        z-index: 12;
+                        background-color: var(--mkt-row-bg, #fff);
+                        border-right: 1px solid #dee2e6;
+                    }
+
+                    #marketingTable.table-hover tbody tr:hover td:nth-child(-n+3) {
+                        background-color: var(--mkt-row-bg, var(--bs-table-hover-bg, rgba(0, 0, 0, 0.075)));
+                    }
+
+                    #marketingTable td.marketing-edit-cell {
+                        cursor: pointer;
+                    }
+
+                    #marketingTable td.marketing-edit-cell .marketing-cell-display {
+                        display: block;
+                        min-height: 1.25rem;
+                    }
+
+                    #marketingTable .marketing-remove-row {
+                        padding: 0.25rem 0.5rem;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.35rem;
+                        line-height: 1.2;
+                    }
+
+                    #marketingTable .marketing-save-row,
+                    #marketingTable .marketing-remove-row {
+                        margin-bottom: 0.35rem;
+                    }
+
+                    #marketingTable input.form-control,
+                    #marketingTable select.form-control,
+                    #marketingTable .marketing-ms-toggle {
+                        min-width: 160px;
+                    }
+
+                    @media (max-width: 576px) {
+                        #marketingTable input.form-control,
+                        #marketingTable select.form-control,
+                        #marketingTable .marketing-ms-toggle {
+                            min-width: 140px;
+                        }
+                    }
                 </style>
 
                 <div class="row">
@@ -927,12 +1039,12 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="table-responsive" style="padding-bottom: 1rem;">
+                                <div class="table-responsive marketing-table-responsive" style="padding-bottom: 1.5rem;">
                                     <table class="table table-hover mb-0" id="marketingTable">
                                         <thead>
                                             <tr class="border-b">
                                                 <th scope="row">S. No.</th>
-                                                 <th>Name <span class="text-danger">*</span></th>
+                                                  <th>Name <span class="text-danger">*</span></th>
                                                  <th>Email</th>
                                                  <th>Mobile Number</th>
                                                  <th>Rating / Review</th>
@@ -4623,7 +4735,7 @@
                 facebook: { icon: "bi-facebook", title: "Facebook", color: "#1877F2" },
                 youtube: { icon: "bi-youtube", title: "YouTube", color: "#FF0000" },
                 linkedin: { icon: "bi-linkedin", title: "LinkedIn", color: "#0A66C2" },
-                x: { icon: "bi-twitter-x", title: "X", color: "#111827" }
+                x: { icon: "bi-twitter", title: "X", color: "#111827" }
             };
             let marketingRowSeq = 0;
             const marketingSubmitUrl = "https://eduroom.in/api/v1/marketing/marketing/submit";
@@ -4683,10 +4795,12 @@
                 $tbody.html(`
                     <tr class="marketing-empty">
                         <td colspan="9" class="text-center text-muted py-3">
-                            No marketing rows yet. Click <b>Add Row</b> to start.
-                        </td>
-                    </tr>
-                `);
+                             No marketing rows yet. Click <b>Add Row</b> to start.
+                         </td>
+                     </tr>
+                 `);
+
+                updateMarketingStickyOffsets();
             }
 
             function showMarketingLoadingState() {
@@ -4695,10 +4809,36 @@
                 $tbody.html(`
                     <tr class="marketing-empty">
                         <td colspan="9" class="text-center text-muted py-3">
-                            Loading marketing rows...
-                        </td>
-                    </tr>
-                `);
+                             Loading marketing rows...
+                         </td>
+                     </tr>
+                 `);
+
+                updateMarketingStickyOffsets();
+            }
+
+            function updateMarketingStickyOffsets() {
+                const table = document.getElementById("marketingTable");
+                if (!table) return;
+
+                const tbody = table.tBodies && table.tBodies[0] ? table.tBodies[0] : null;
+                const firstBodyRow = tbody && tbody.rows && tbody.rows.length > 0 ? tbody.rows[0] : null;
+
+                let cells = null;
+                if (firstBodyRow && firstBodyRow.cells && firstBodyRow.cells.length >= 3 && firstBodyRow.cells[0].colSpan === 1) {
+                    cells = firstBodyRow.cells;
+                } else if (table.tHead && table.tHead.rows && table.tHead.rows.length > 0) {
+                    cells = table.tHead.rows[0].cells;
+                }
+
+                if (!cells || cells.length < 3) return;
+
+                const w1 = Math.ceil(cells[0].getBoundingClientRect().width || 0);
+                const w2 = Math.ceil(cells[1].getBoundingClientRect().width || 0);
+
+                table.style.setProperty("--mkt-sticky-left-1", "0px");
+                table.style.setProperty("--mkt-sticky-left-2", `${w1}px`);
+                table.style.setProperty("--mkt-sticky-left-3", `${w1 + w2}px`);
             }
 
             function escAttr(str) {
@@ -4745,7 +4885,7 @@
                 const key = String(value || "").toLowerCase();
                 const def = marketingPlatformIconMap[key];
                 if (!def) return `<span class="text-muted">${escAttr(displayPlatform(value))}</span>`;
-                return `<i class="bi ${def.icon} fs-5" title="${escAttr(def.title)}" aria-label="${escAttr(def.title)}" style="color:${def.color};"></i>`;
+                return `<i class="bi ${def.icon} fs-18" title="${escAttr(def.title)}" aria-label="${escAttr(def.title)}" style="color:${def.color};"></i>`;
             }
 
             function marketingSelectedPlatformsHtml(selectedValues, placeholder) {
@@ -4789,13 +4929,13 @@
                       <div class="marketing-ms" data-kind="${kind}" data-placeholder="${placeholder}" style="position: relative;">
                           <div class="input-group">
                               <button class="btn btn-outline-secondary marketing-ms-toggle" type="button"
-                                  style="border-color: #ced4da; min-width: 250px;">
+                                  style="border-color: #ced4da;">
                                   <span class="marketing-ms-text">${displayHtml}</span>
                                   <i class="fas fa-caret-down ms-1"></i>
                               </button>
                           </div>
                           <div class="dropdown-menu p-3 marketing-ms-menu"
-                             style="display: none; position: fixed; top: 0; left: 0; width: 300px; max-height: 300px; overflow-y: auto; z-index: 2000;">
+                             style="display: none; position: fixed; top: 0; left: 0; width: min(300px, calc(100vw - 16px)); max-height: 300px; overflow-y: auto; z-index: 2000;">
                              <div class="marketing-ms-checkboxes" style="max-height: 180px; overflow-y: auto;">
                                  ${checkboxes}
                              </div>
@@ -4893,6 +5033,92 @@
                 `;
             }
 
+            function marketingTextDisplay(value, emptyText) {
+                const t = (value ?? "").toString().trim();
+                if (t) return escAttr(t);
+                return `<span class="text-muted">${escAttr(emptyText || "--")}</span>`;
+            }
+
+            function marketingCompletionBadge(value) {
+                const v = (value ?? "").toString().trim().toLowerCase();
+                if (!v) return `<span class="text-muted">--</span>`;
+                if (v === "completed") return `<span class="badge bg-soft-success text-success">Completed</span>`;
+                if (v === "not_completed") return `<span class="badge bg-soft-danger text-danger">Not Completed</span>`;
+                return `<span class="badge bg-soft-secondary text-muted">${escAttr(value)}</span>`;
+            }
+
+            function marketingEditableCellHtml(displayHtml, editHtml) {
+                return `
+                    <div class="marketing-cell-display">${displayHtml}</div>
+                    <div class="marketing-cell-edit" style="display:none;">${editHtml}</div>
+                `;
+            }
+
+            function syncMarketingCellDisplay($cell) {
+                if (!$cell || $cell.length === 0) return;
+                const $display = $cell.find(".marketing-cell-display").first();
+                if ($display.length === 0) return;
+
+                const $input = $cell.find("input.form-control").first();
+                if ($input.length) {
+                    const placeholder = $input.attr("placeholder") || "--";
+                    $display.html(marketingTextDisplay($input.val(), placeholder));
+                    return;
+                }
+
+                const $rating = $cell.find("select.marketing-rating").first();
+                if ($rating.length) {
+                    $display.html(marketingCompletionBadge($rating.val()));
+                    return;
+                }
+
+                const $google = $cell.find("select.marketing-google-reviews").first();
+                if ($google.length) {
+                    $display.html(marketingCompletionBadge($google.val()));
+                    return;
+                }
+
+                const $ms = $cell.find(".marketing-ms").first();
+                if ($ms.length) {
+                    const placeholder = $ms.data("placeholder") || "Select";
+                    const selected = $ms
+                        .find(".marketing-ms-checkbox")
+                        .filter(":checked")
+                        .map(function () { return $(this).val(); })
+                        .get();
+                    $display.html(marketingSelectedPlatformsHtml(selected, placeholder));
+                }
+            }
+
+            function closeAllMarketingCellEdits(exceptCell) {
+                $("#marketingTable td.marketing-edit-cell").each(function () {
+                    if (exceptCell && this === exceptCell) return;
+                    const $cell = $(this);
+                    const $edit = $cell.find(".marketing-cell-edit").first();
+                    const $display = $cell.find(".marketing-cell-display").first();
+                    if ($edit.length && $edit.is(":visible")) {
+                        syncMarketingCellDisplay($cell);
+                        $edit.hide();
+                        $display.show();
+                    }
+                });
+            }
+
+            function openMarketingCellEdit($cell) {
+                if (!$cell || $cell.length === 0) return;
+                closeAllMarketingCellEdits($cell.get(0));
+                $cell.find(".marketing-cell-display").first().hide();
+                $cell.find(".marketing-cell-edit").first().show();
+
+                const $focus = $cell.find("input.form-control, select.form-control, button.marketing-ms-toggle").first();
+                if ($focus.length) {
+                    $focus.focus();
+                    if ($focus.is("input")) $focus.select();
+                }
+
+                updateMarketingStickyOffsets();
+            }
+
             function makeMarketingRow(rowId, rowData) {
                 const data = rowData || {};
                 const followersMs = makeMarketingMultiSelect("followers", "Select Followers", rowId, data.followers);
@@ -4900,39 +5126,48 @@
                 const backendId = data.id !== null && data.id !== undefined && `${data.id}` !== "" ? `${data.id}` : "";
                 const verifyState = normalizeMarketingVerifyState(data.isVerified) || "pending";
                 const statusClass = verifyState === "verified" ? "marketing-row--verified" : "marketing-row--pending";
+                const nameInput = `<input type="text" class="form-control form-control-sm marketing-name" placeholder="Enter name" value="${escAttr(data.name || "")}" required>`;
+                const emailInput = `<input type="email" class="form-control form-control-sm marketing-email" placeholder="Enter email" value="${escAttr(data.email || "")}">`;
+                const mobileInput = `<input type="tel" class="form-control form-control-sm marketing-mobile" placeholder="Enter mobile number" value="${escAttr(data.mobileNumber || "")}">`;
+                const ratingSelect = makeRatingSelect(data.ratingReviewStatus);
+                const googleSelect = makeGoogleReviewsSelect(data.googleReviews);
 
                 return `
                     <tr class="marketing-row ${statusClass}" data-rowid="${rowId}" data-id="${escAttr(backendId)}" data-verify="${escAttr(verifyState)}">
                         <td class="marketing-sno text-muted">${rowId}</td>
-                        <td>
-                            <input type="text" class="form-control form-control-sm marketing-name" placeholder="Enter name" value="${escAttr(data.name || "")}" required>
+                        <td class="marketing-edit-cell" data-field="name">
+                            ${marketingEditableCellHtml(marketingTextDisplay(data.name, "Enter name"), nameInput)}
                         </td>
-                        <td>
-                            <input type="email" class="form-control form-control-sm marketing-email" placeholder="Enter email" value="${escAttr(data.email || "")}">
+                        <td class="marketing-edit-cell" data-field="email">
+                            ${marketingEditableCellHtml(marketingTextDisplay(data.email, "Enter email"), emailInput)}
                         </td>
-                        <td>
-                            <input type="tel" class="form-control form-control-sm marketing-mobile" placeholder="Enter mobile number" value="${escAttr(data.mobileNumber || "")}">
+                        <td class="marketing-edit-cell" data-field="mobileNumber">
+                            ${marketingEditableCellHtml(marketingTextDisplay(data.mobileNumber, "Enter mobile number"), mobileInput)}
                         </td>
-                        <td>
-                            ${makeRatingSelect(data.ratingReviewStatus)}
+                        <td class="marketing-edit-cell" data-field="ratingReviewStatus">
+                            ${marketingEditableCellHtml(marketingCompletionBadge(data.ratingReviewStatus), ratingSelect)}
                         </td>
-                         <td>${followersMs}</td>
-                         <td>${postMs}</td>
-                         <td>
-                            ${makeGoogleReviewsSelect(data.googleReviews)}
-                         </td>
-                          <td>
-                              <div class="d-flex align-items-center gap-2">
-                                  <button class="btn btn-sm btn-success marketing-save-row" type="button" title="Save row">
-                                      <i class="bi bi-check2-circle"></i> Save
+                        <td class="marketing-edit-cell" data-field="followers">
+                            ${marketingEditableCellHtml(marketingSelectedPlatformsHtml(data.followers, "Select Followers"), followersMs)}
+                        </td>
+                        <td class="marketing-edit-cell" data-field="posts">
+                            ${marketingEditableCellHtml(marketingSelectedPlatformsHtml(data.posts, "Select Post"), postMs)}
+                        </td>
+                        <td class="marketing-edit-cell" data-field="googleReviews">
+                            ${marketingEditableCellHtml(marketingCompletionBadge(data.googleReviews), googleSelect)}
+                        </td>
+                           <td>
+                               <div class="d-flex align-items-center gap-2">
+                                   <button class="btn btn-sm btn-success marketing-save-row" type="button" title="Save row">
+                                       <i class="bi bi-check2-circle"></i> Save
                                  </button>
                                  <span class="marketing-save-feedback d-inline-flex align-items-center justify-content-center"
                                      style="min-width: 1.25rem;" aria-live="polite"></span>
-                                 <button class="btn btn-sm btn-outline-danger marketing-remove-row" type="button" title="Remove row">
-                                     <i class="fas fa-trash"></i>
-                                 </button>
-                             </div>
-                         </td>
+                                  <button class="btn btn-sm btn-outline-danger marketing-remove-row" type="button" title="Remove row">
+                                      <i class="fas fa-trash"></i> Delete
+                                  </button>
+                              </div>
+                          </td>
                     </tr>
                 `;
             }
@@ -4946,6 +5181,7 @@
                 marketingRowSeq += 1;
                 $tbody.append(makeMarketingRow(marketingRowSeq, null));
                 updateMarketingSerialNumbers();
+                updateMarketingStickyOffsets();
             }
 
             function normalizeArray(arr) {
@@ -4988,6 +5224,7 @@
 
                 $tbody.html(html);
                 updateMarketingSerialNumbers();
+                updateMarketingStickyOffsets();
 
                 // Ensure status indicator is applied even if backend field mapping varies
                 $tbody.find("tr.marketing-row").each(function () {
@@ -5009,6 +5246,8 @@
                     if (exceptMenu && this === exceptMenu) return;
                     const $menu = $(this);
                     updateMarketingMultiSelectDisplay($menu.closest(".marketing-ms"));
+                    const $cell = $menu.closest("td.marketing-edit-cell");
+                    if ($cell.length) syncMarketingCellDisplay($cell);
                     $menu.hide();
                 });
             }
@@ -5017,9 +5256,45 @@
                 addMarketingRow();
             });
 
+            $(document).on("dblclick", "#marketingTable td.marketing-edit-cell", function (e) {
+                const $target = $(e.target);
+                if ($target.closest("input,select,button,label,a,.marketing-ms-menu").length) return;
+
+                const $cell = $(this);
+                openMarketingCellEdit($cell);
+
+                const $msToggle = $cell.find("button.marketing-ms-toggle").first();
+                if ($msToggle.length) {
+                    $msToggle.trigger("click");
+                }
+            });
+
+            $(document).on("focusout", "#marketingTable td.marketing-edit-cell input.form-control", function () {
+                const $cell = $(this).closest("td.marketing-edit-cell");
+                syncMarketingCellDisplay($cell);
+                $cell.find(".marketing-cell-edit").first().hide();
+                $cell.find(".marketing-cell-display").first().show();
+                updateMarketingStickyOffsets();
+            });
+
+            $(document).on("keydown", "#marketingTable td.marketing-edit-cell input.form-control", function (e) {
+                if (e.which !== 13) return;
+                e.preventDefault();
+                $(this).trigger("blur");
+            });
+
+            $(document).on("change", "#marketingTable td.marketing-edit-cell select.form-control", function () {
+                const $cell = $(this).closest("td.marketing-edit-cell");
+                syncMarketingCellDisplay($cell);
+                $cell.find(".marketing-cell-edit").first().hide();
+                $cell.find(".marketing-cell-display").first().show();
+                updateMarketingStickyOffsets();
+            });
+
             $(document).on("click", ".marketing-remove-row", function (e) {
                 e.stopPropagation();
                 closeAllMarketingMultiSelect();
+                closeAllMarketingCellEdits();
                 const btn = $(this);
                 const $row = btn.closest("tr.marketing-row");
                 if ($row.length === 0) return;
@@ -5084,12 +5359,16 @@
                 e.stopPropagation();
             });
 
-            $(document).on("click", function () {
+            $(document).on("click", function (e) {
+                const $t = $(e.target);
+                if ($t.closest(".marketing-cell-edit, .marketing-ms-menu").length) return;
                 closeAllMarketingMultiSelect();
+                closeAllMarketingCellEdits();
             });
 
             $(window).on("scroll resize", function () {
                 scheduleMarketingMenuReposition();
+                updateMarketingStickyOffsets();
             });
             document.addEventListener("scroll", scheduleMarketingMenuReposition, true);
 
@@ -5097,6 +5376,8 @@
                 e.stopPropagation();
                 const $ms = $(this).closest(".marketing-ms");
                 updateMarketingMultiSelectDisplay($ms);
+                const $cell = $ms.closest("td.marketing-edit-cell");
+                if ($cell.length) syncMarketingCellDisplay($cell);
             });
 
             function getMarketingUserId() {
@@ -5177,6 +5458,8 @@
                     contentType: "application/json",
                     data: JSON.stringify(payload),
                     success: function (res) {
+                        window.marketingSubmitResponse = res;
+                        console.log("Marketing Submit response:", res);
                         const returnedId =
                             res?.data?.id ??
                             res?.id ??
@@ -5222,7 +5505,10 @@
                     url: `${marketingFetchUrlBase}/${userId}`,
                     method: "GET",
                     success: function (res) {
+                        window.marketingFetchResponse = res;
+                        console.log("Marketing Fetch response:", res);
                         const rows = (res && res.success && Array.isArray(res.data)) ? res.data : [];
+                        console.log("Marketing Fetch rows:", rows);
                         updateMarketingSummaryCards(rows);
                         if (rows.length > 0) {
                             renderMarketingRows(rows);
