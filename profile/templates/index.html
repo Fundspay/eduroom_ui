@@ -2152,7 +2152,7 @@
     <script>
         $(document).ready(function () {
             const container = $("#internshipCardsContainer");
-            const userId = 3389;
+            const userId = sessionStorage.getItem("user_id");
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
