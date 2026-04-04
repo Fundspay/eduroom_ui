@@ -333,70 +333,122 @@
 
                 <div class="row mb-4">
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card bg-soft-primary text-dark border-primary border-dashed shadow-none">
                             <div class="card-header">
-                                <h3 class="card-title" style="font-size: 25px;">Business Target Overview</h3>
+                                <h3 class="card-title" style="font-size: 25px;">Marketing Target Overview</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="course-info-card">
                                             <div class="row">
-                                                <div class="col-md-3 mb-3">
+                                                <div class="col-6 col-md-3 mb-3">
                                                     <div class="info-box">
-                                                        <span class="info-label text-center">Current Category</span>
-                                                        <span class="info-value badge" id="currentCategory"
-                                                            style="font-size: 19px;">--</span>
+                                                        <span class="info-label text-center">SMM Followers <br>
+                                                            (Linkedin/Insta/YT/Other)</span>
+                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                            id="followersGrowth" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 mb-3">
+                                                <div class="col-6 col-md-3 mb-3">
                                                     <div class="info-box">
-                                                        <span class="info-label text-center">Start Date (For Business
-                                                            Task)</span>
-                                                        <span
-                                                            class="info-value editable-display text-center d-block w-100"
-                                                            id="startDate" style="font-size: 20px;">--</span>
+                                                        <span class="info-label text-center">Reviews & Ratings<br>
+                                                            (All Platforms)</span>
+                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                            id="ratings" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box editable-field" data-field="end_date"
-                                                        id="endDateContainer">
-                                                        <span class="info-label text-center">End Date (For Business
-                                                            Task)</span>
-                                                        <span
-                                                            class="info-value editable-display text-center d-block w-100"
-                                                            id="endDateDisplay" style="font-size: 20px;">--</span>
+                                                <div class="col-6 col-md-3 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label text-center">Qualified Leads<br>
+                                                            (Posts/Mails/Other)</span>
+                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                            id="qualifiedLeads" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box" id="daysLeft2">
-                                                        <span class="info-label text-center"
-                                                            style="color: rgb(78, 76, 76);">Days
-                                                            Left</span>
-                                                        <span class="info-value badge" id="daysLeft"
-                                                            style="font-size: 20px;">--</span>
+                                                <div class="col-6 col-md-3 mb-3">
+                                                    <div class="info-box">
+                                                        <span class="info-label text-center">App Reviews <br>
+                                                            (Play Store/App store)</span>
+                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                            id="reviews" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                    <div class="col-md-12">
-                                        <div class="business-status-card">
-                                            <div class="row">
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="progress-box">
-                                                        <div class="d-flex justify-content-between mb-2">
-                                                            <span class="progress-label">Business Task Status</span>
-                                                            <span class="progress-percentage"
-                                                                id="workStatusPercentage">0%</span>
-                                                        </div>
-                                                        <div class="progress" style="height: 20px;">
-                                                            <div class="progress-bar" id="workStatusProgress"
-                                                                role="progressbar" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size: 25px;">Business Target Overview</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                     <div class="col-md-12">
+                                          <div class="course-info-card">
+                                              <div class="row">
+                                                 <div class="col-md-3 mb-3">
+                                                     <div class="info-box">
+                                                         <span class="info-label text-center">Current Category</span>
+                                                         <span class="info-value badge" id="currentCategory"
+                                                             style="font-size: 19px;">--</span>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-3 mb-3">
+                                                     <div class="info-box">
+                                                         <span class="info-label text-center">Start Date (For Business
+                                                             Task)</span>
+                                                         <span
+                                                             class="info-value editable-display text-center d-block w-100"
+                                                             id="startDate" style="font-size: 20px;">--</span>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-3 mb-3">
+                                                     <div class="info-box editable-field" data-field="end_date"
+                                                         id="endDateContainer">
+                                                         <span class="info-label text-center">End Date (For Business
+                                                             Task)</span>
+                                                         <span
+                                                             class="info-value editable-display text-center d-block w-100"
+                                                             id="endDateDisplay" style="font-size: 20px;">--</span>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-3 mb-3">
+                                                     <div class="info-box" id="daysLeft2">
+                                                         <span class="info-label text-center"
+                                                             style="color: rgb(78, 76, 76);">Days
+                                                             Left</span>
+                                                         <span class="info-value badge" id="daysLeft"
+                                                             style="font-size: 20px;">--</span>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div class="col-md-12">
+                                         <div class="business-status-card">
+                                             <div class="row">
+                                                 <div class="col-md-6 mb-4">
+                                                     <div class="progress-box">
+                                                         <div class="d-flex justify-content-between mb-2">
+                                                             <span class="progress-label">Business Task Status</span>
+                                                             <span class="progress-percentage"
+                                                                 id="workStatusPercentage">0%</span>
+                                                         </div>
+                                                         <div class="progress" style="height: 20px;">
+                                                             <div class="progress-bar" id="workStatusProgress"
+                                                                 role="progressbar" style="width: 0%"></div>
+                                                         </div>
+                                                     </div>
+                                                 </div>
                                                 <div class="col-md-6 mb-4">
                                                     <div class="progress-box">
                                                         <div class="d-flex justify-content-between mb-2">
@@ -1903,6 +1955,49 @@
                 });
             }
 
+            function safeInt(val) {
+                if (val === null || val === undefined || val === "") return 0;
+                const n = parseInt(val, 10);
+                return Number.isFinite(n) ? n : 0;
+            }
+
+            function arrayLen(val) {
+                return Array.isArray(val) ? val.length : 0;
+            }
+
+            function updateMarketingSummaryCards(rows) {
+                const list = Array.isArray(rows) ? rows : [];
+
+                let totalFollowersCount = 0;
+                let totalPostsCount = 0;
+                let totalReviewsCompletedCount = 0;
+                let totalGoogleReviewsCount = 0;
+
+                list.forEach((r) => {
+                    const followersCount = safeInt(r?.followersCount) || arrayLen(r?.followers);
+                    const postsCount = safeInt(r?.postsCount) || arrayLen(r?.posts);
+                    const status = String(r?.ratingReviewStatus || "").toLowerCase();
+                    const googleReviewsStatus = String(r?.googleReviews || "").toLowerCase();
+
+                    totalFollowersCount += followersCount;
+                    totalPostsCount += postsCount;
+                    if (status === "completed") totalReviewsCompletedCount += 1;
+                    if (googleReviewsStatus === "completed") totalGoogleReviewsCount += 1;
+                });
+
+                function setSummaryValue(id, value) {
+                    const $el = $(`#${id}`);
+                    if (!$el.length) return;
+                    if ($el.is("input,textarea,select")) $el.val(value);
+                    else $el.text(value);
+                }
+
+                setSummaryValue("followersGrowth", totalFollowersCount);
+                setSummaryValue("ratings", totalReviewsCompletedCount);
+                setSummaryValue("qualifiedLeads", totalPostsCount);
+                setSummaryValue("reviews", totalGoogleReviewsCount);
+            }
+
             // Marketing (read-only) fetch
             const marketingUserId = urlUserId;
             console.log("Marketing userId:", urlUserId);
@@ -1916,6 +2011,7 @@
                         console.log("Marketing API response:", response);
                         console.log("Marketing data:", response?.data);
                         renderMarketingTable(response?.data);
+                        updateMarketingSummaryCards(response?.data);
                     },
                     error: function (err) {
                         console.error("Failed to fetch marketing data:", err);
