@@ -4127,9 +4127,9 @@
             const attachmentPayload = attachments.map(att => ({ filename: att.filename, content: att.content }));
 
             Swal.fire({
-                title: "Send JD Mail?",
+                title: "Send Mail?",
                 html: `<div class="text-start">
-                    <p>Send internship JD to ${record.studentName || record.coordinatorName || 'user'} at ${record.emailId || ''}?</p>
+                    <p>Send mail to ${record.studentName || record.coordinatorName || 'user'} at ${record.emailId || ''}?</p>
                     ${attachments.length > 0 ? `
                     <p><strong>Attachments (${attachments.length}):</strong></p>
                     <ul class="small mb-0">
