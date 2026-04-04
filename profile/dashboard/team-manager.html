@@ -4177,7 +4177,7 @@
                                 title: "Mail Sent!",
                                 text: attachments.length > 0 ?
                                     `Email with ${attachments.length} attachment(s) sent successfully.` :
-                                    "The JD mail was sent successfully."
+                                    "The mail was sent successfully."
                             });
                             attachments = [];
                             $('#attachmentContainer').empty();
@@ -4186,7 +4186,7 @@
                         },
                         error: function (err) {
                             console.error("Error sending email:", err);
-                            Swal.fire({ icon: "error", title: "Error", text: "Failed to send the JD mail. Please try again." });
+                            Swal.fire({ icon: "error", title: "Error", text: "Failed to send the mail. Please try again." });
                         }
                     });
                 }
