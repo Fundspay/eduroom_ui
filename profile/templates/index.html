@@ -2152,7 +2152,7 @@
     <script>
         $(document).ready(function () {
             const container = $("#internshipCardsContainer");
-            const userId = sessionStorage.getItem("user_id");
+            const userId = 3389;
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
@@ -2403,7 +2403,7 @@
                                         }
                                     });
                                 }
-                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
+                                else if (status === "in progress") {
                                     Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
                                 }
                                 else if (status === "on hold") {
@@ -2497,7 +2497,7 @@
                                         }
                                     });
                                 }
-                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
+                                else if (status === "in progress") {
                                     Swal.fire("Incomplete Target", "Please complete your business target before requesting Report.", "info");
                                 }
                                 else if (status === "on hold") {
