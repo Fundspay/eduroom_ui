@@ -1271,8 +1271,8 @@
                                             <th>REGISTRATION DATE</th>
                                             <th>COLLEGE NAME</th>
                                             <th>MOBILE NUMBER</th>
-                                            <th>OFFER MESSAGE</th>
-                                            <th>SELECTION STATUS</th>
+                                            <!-- <th>OFFER MESSAGE</th>
+                                            <th>SELECTION STATUS</th> -->
                                             <th>EMAIL</th>
                                             <th>DOMAIN</th>
                                             <th>COURSE</th>
@@ -1285,10 +1285,10 @@
                                             <th>TOTAL SUBSCRIPTIONS</th>
                                             <th>PROJECT TASK</th>
                                             <th>PERCENTAGE OF WORK DONE</th>
-                                            <th>CERTIFICATE STATUS</th>
+                                            <!-- <th>CERTIFICATE STATUS</th>
                                             <th>LIVE PROJECT CERTIFCATE STATUS</th>
                                             <th>SUBSCRIPTIONS LEFT IN WALLET</th>
-                                            <th>QUERY STATUS</th>
+                                            <th>QUERY STATUS</th> -->
                                             <th>LIVE PROJECT ACTION</th>
                                             <th>TEAM MANAGER ALLOTTED</th>
                                             <th>PUSH</th>
@@ -1546,27 +1546,27 @@
             2: "registeredAt",
             3: "collegeName",
             4: "phoneNumber",
-            5: "offerMessageExists",
-            6: "selected",
-            7: "email",
-            8: "courses",
-            9: "course",
-            10: "duration",
-            11: "startDate",
-            12: "estEndDate",
-            13: "courseStatus",
-            14: "referralCode",
-            15: "subscriptionWallet",
-            16: "businessStatus",
-            17: "workPercentage",
-            18: "certificateStatus",
-            19: "internshipCertificateStatus",
-            20: "subscriptionLeft",
-            21: "queryStatus",
-            22: "internshipAction",
-            23: "teamManager",
-            24: "pushto",
-            25: "pushComment"
+            // 5: "offerMessageExists",
+            // 6: "selected",
+            5: "email",
+            6: "courses",
+            7: "course",
+            8: "duration",
+            9: "startDate",
+            10: "estEndDate",
+            11: "courseStatus",
+            12: "referralCode",
+            13: "subscriptionWallet",
+            14: "businessStatus",
+            15: "workPercentage",
+            // 18: "certificateStatus",
+            // 19: "internshipCertificateStatus",
+            // 20: "subscriptionLeft",
+            // 21: "queryStatus",
+            16: "internshipAction",
+            17: "teamManager",
+            18: "pushto",
+            19: "pushComment"
         };
 
         let tableData = [];
@@ -3060,8 +3060,8 @@
                             ${escapeHtml(row.phoneNumber || '')}
                         </a>
                     </td>
-                    <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                    <td>${escapeHtml(row.selected || 'No')}</td>
+                    <!-- <td>${escapeHtml(row.offerMessageExists || '')}</td> -->
+                    <!-- <td>${escapeHtml(row.selected || 'No')}</td> -->
                     <td>${escapeHtml(row.email || '')}</td>
                     <td>${escapeHtml(row.courses || '')}</td>
                     <td>${escapeHtml(row.course || '')}</td>
@@ -3073,15 +3073,15 @@
                     <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
                     ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
                     <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                    <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                    <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                    <!-- ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)} -->
+                    <!-- ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)} -->
+                    <!-- <td>${escapeHtml(row.subscriptionLeft || '')}</td> -->
+                    <!-- <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
                             class="text-primary fw-bold" 
                             style="cursor:pointer; text-decoration:underline;"
                             target="_top">
                             ${escapeHtml(row.queryStatus || '')}    
-                        </a></td>
+                        </a></td> -->
                     ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
                     ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
                     ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
@@ -3636,8 +3636,8 @@
                 "Registration Date",
                 "College Name",
                 "Phone Number",
-                "Offer Message",
-                "Selected",
+                // "Offer Message",
+                // "Selected",
                 "Email",
                 "Courses",
                 "Course",
@@ -3649,10 +3649,10 @@
                 "Referral Code",
                 "Total Subscriptions",
                 "Work % Completed",
-                "Certificate Status",
-                "Internship Certificate Status",
-                "Subscription Left",
-                "Query Status",
+                // "Certificate Status",
+                // "Internship Certificate Status",
+                // "Subscription Left",
+                // "Query Status",
                 "Internship Action",
                 "Team Manager",
                 "Push To",
@@ -3669,8 +3669,8 @@
                     <td>${row.registeredAt}</td>
                     <td>${row.collegeName}</td>
                     <td>${row.phoneNumber}</td>
-                    <td>${row.offerMessageExists}</td>
-                    <td>${row.selected || 'No'}</td>
+                    <!-- <td>${row.offerMessageExists}</td> -->
+                    <!-- <td>${row.selected || 'No'}</td> -->
                     <td>${row.email}</td>
                     <td>${row.courses}</td>
                     <td>${row.course}</td>
@@ -3682,10 +3682,10 @@
                     <td>${row.referralCode || ''}</td>
                     <td>${row.subscriptionWallet}</td>
                     <td>${row.workPercentage}</td>
-                    <td>${row.certificateStatus}</td>
-                    <td>${row.internshipCertificateStatus}</td>
-                    <td>${row.subscriptionLeft}</td>
-                    <td>${row.queryStatus}</td>
+                    <!-- <td>${row.certificateStatus}</td> -->
+                    <!-- <td>${row.internshipCertificateStatus}</td> -->
+                    <!-- <td>${row.subscriptionLeft}</td> -->
+                    <!-- <td>${row.queryStatus}</td> -->
                     <td>${row.internshipAction}</td>
                     <td>${row.teamManager || ""}</td>
                     <td>${row.pushto || ""}</td>
@@ -3753,8 +3753,8 @@
                 "Registration Date",
                 "College Name",
                 "Phone Number",
-                "Offer Message",
-                "Selected",
+                // "Offer Message",
+                // "Selected",
                 "Email",
                 "Courses",
                 "Course",
@@ -3766,10 +3766,10 @@
                 "Referral Code",
                 "Total Subscriptions",
                 "Work % Completed",
-                "Certificate Status",
-                "Internship Certificate Status",
-                "Subscription Left",
-                "Query Status",
+                // "Certificate Status",
+                // "Internship Certificate Status",
+                // "Subscription Left",
+                // "Query Status",
                 "Internship Action",
                 "Team Manager",
                 "Push To",
@@ -3785,8 +3785,8 @@
                     row.registeredAt,
                     row.collegeName,
                     row.phoneNumber,
-                    row.offerMessageExists,
-                    row.selected || 'No',
+                    // row.offerMessageExists,
+                    // row.selected || 'No',
                     row.email,
                     row.courses,
                     row.course,
@@ -3798,10 +3798,10 @@
                     row.referralCode || "",
                     row.subscriptionWallet,
                     row.workPercentage,
-                    row.certificateStatus,
-                    row.internshipCertificateStatus,
-                    row.subscriptionLeft,
-                    row.queryStatus,
+                    // row.certificateStatus,
+                    // row.internshipCertificateStatus,
+                    // row.subscriptionLeft,
+                    // row.queryStatus,
                     row.internshipAction,
                     row.teamManager || "",
                     row.pushto || "",
