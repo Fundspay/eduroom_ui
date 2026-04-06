@@ -2777,12 +2777,15 @@
         }
 
         function makeDateCell(field, value) {
-            let displayValue = formatDate(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker" value="${rawValue}">
+            </td>`;
         }
 
         function makeColoredScoreCell(field, value) {
@@ -4066,12 +4069,15 @@
         }
 
         function makeDateCell2(field, value) {
-            let displayValue = formatDate2(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate2(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker2" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker2" value="${rawValue}">
+            </td>`;
         }
 
         function makeColoredScoreCell2(field, value) {
@@ -5020,12 +5026,15 @@
         }
 
         function makeDateCell3(field, value) {
-            let displayValue = formatDate3(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate3(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker3" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker3" value="${rawValue}">
+            </td>`;
         }
 
         function makeColoredScoreCell3(field, value) {
