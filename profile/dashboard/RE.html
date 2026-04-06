@@ -2277,24 +2277,24 @@
                         tableData = res.data.map((row, index) => ({
                             sno: index + 1,
                             id: row.id,
-                            collegeName: row.collegeName || "",
-                            coordinatorName: row.coordinatorName || "",
-                            mobileNumber: row.mobileNumber || "",
-                            emailId: row.emailId || "",
-                            state: row.state || "",
-                            city: row.city || "",
-                            course: row.course || "",
-                            connectedBy: row.connectedBy || "",
-                            dateOfConnect: row.dateOfConnect || "",
-                            callResponse: row.callResponse || "",
-                            internshipType: row.internshipType || "",
-                            detailedResponse: row.detailedResponse || "",
-                            followUpBy: row.followUpBy || "",
-                            followUpDate: row.followUpDate || "",
-                            followUpResponse: row.followUpResponse || "",
-                            resumeCount: row.resumeCount || "",
-                            expectedResponseDate: row.expectedResponseDate || "",
-                            resumeDate: row.resumeDate || ""
+                            collegeName: row.collegeName || "Blank",
+                            coordinatorName: row.coordinatorName || "Blank",
+                            mobileNumber: row.mobileNumber || "Blank",
+                            emailId: row.emailId || "Blank",
+                            state: row.state || "Blank",
+                            city: row.city || "Blank",
+                            course: row.course || "Blank",
+                            connectedBy: row.connectedBy || "Blank",
+                            dateOfConnect: row.dateOfConnect || "Blank",
+                            callResponse: row.callResponse || "Blank",
+                            internshipType: row.internshipType || "Blank",
+                            detailedResponse: row.detailedResponse || "Blank",
+                            followUpBy: row.followUpBy || "Blank",
+                            followUpDate: row.followUpDate || "Blank",
+                            followUpResponse: row.followUpResponse || "Blank",
+                            resumeCount: row.resumeCount || "Blank",
+                            expectedResponseDate: row.expectedResponseDate || "Blank",
+                            resumeDate: row.resumeDate || "Blank"
                         }));
 
                         dropdowns.connectedBy = res.managers.map(u => u.name);
@@ -2723,8 +2723,11 @@
         }
 
         function makeDateCell(field, value) {
-            let displayValue = formatDate(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
                 <span>${displayValue}</span>
                 <input type="text" class="date-picker" value="${rawValue}">
@@ -3155,24 +3158,24 @@
                         tableData2 = res.data.map((row, index) => ({
                             sno: index + 1,
                             id: row.id,
-                            collegeName: row.collegeName || "",
-                            coordinatorName: row.coordinatorName || "",
-                            mobileNumber: row.mobileNumber || "",
-                            emailId: row.emailId || "",
-                            state: row.state || "",
-                            city: row.city || "",
-                            course: row.course || "",
-                            connectedBy: row.connectedBy || "",
-                            dateOfConnect: row.dateOfConnect || "",
-                            callResponse: row.callResponse || "",
-                            internshipType: row.internshipType || "",
-                            detailedResponse: row.detailedResponse || "",
-                            followUpBy: row.followUpBy || "",
-                            followUpDate: row.followUpDate || "",
-                            followUpResponse: row.followUpResponse || "",
-                            resumeCount: row.resumeCount || "",
-                            expectedResponseDate: row.expectedResponseDate || "",
-                            resumeDate: row.resumeDate || ""
+                            collegeName: row.collegeName || "Blank",
+                            coordinatorName: row.coordinatorName || "Blank",
+                            mobileNumber: row.mobileNumber || "Blank",
+                            emailId: row.emailId || "Blank",
+                            state: row.state || "Blank",
+                            city: row.city || "Blank",
+                            course: row.course || "Blank",
+                            connectedBy: row.connectedBy || "Blank",
+                            dateOfConnect: row.dateOfConnect || "Blank",
+                            callResponse: row.callResponse || "Blank",
+                            internshipType: row.internshipType || "Blank",
+                            detailedResponse: row.detailedResponse || "Blank",
+                            followUpBy: row.followUpBy || "Blank",
+                            followUpDate: row.followUpDate || "Blank",
+                            followUpResponse: row.followUpResponse || "Blank",
+                            resumeCount: row.resumeCount || "Blank",
+                            expectedResponseDate: row.expectedResponseDate || "Blank",
+                            resumeDate: row.resumeDate || "Blank"
                         }));
 
                         dropdowns2.connectedBy = res.managers.map(u => u.name);
@@ -3389,9 +3392,12 @@
             </td>`;
         }
 
-        function makeDateCell2(field, value) {
-            let displayValue = formatDate2(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+       function makeDateCell2(field, value) {
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate2(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
                 <span>${displayValue}</span>
                 <input type="text" class="date-picker2" value="${rawValue}">
@@ -3873,24 +3879,24 @@
                         tableData3 = res.data.map((row, index) => ({
                             sno: index + 1,
                             id: row.id,
-                            collegeName: row.collegeName || "",
-                            coordinatorName: row.coordinatorName || "",
-                            mobileNumber: row.mobileNumber || "",
-                            emailId: row.emailId || "",
-                            state: row.state || "",
-                            city: row.city || "",
-                            course: row.course || "",
-                            connectedBy: row.connectedBy || "",
-                            dateOfConnect: row.dateOfConnect || "",
-                            callResponse: row.callResponse || "",
-                            internshipType: row.internshipType || "",
-                            detailedResponse: row.detailedResponse || "",
-                            followUpBy: row.followUpBy || "",
-                            followUpDate: row.followUpDate || "",
-                            followUpResponse: row.followUpResponse || "",
-                            resumeCount: row.resumeCount || "",
-                            expectedResponseDate: row.expectedResponseDate || "",
-                            resumeDate: row.resumeDate || ""
+                            collegeName: row.collegeName || "Blank",
+                            coordinatorName: row.coordinatorName || "Blank",
+                            mobileNumber: row.mobileNumber || "Blank",
+                            emailId: row.emailId || "Blank",
+                            state: row.state || "Blank",
+                            city: row.city || "Blank",
+                            course: row.course || "Blank",
+                            connectedBy: row.connectedBy || "Blank",
+                            dateOfConnect: row.dateOfConnect || "Blank",
+                            callResponse: row.callResponse || "Blank",
+                            internshipType: row.internshipType || "Blank",
+                            detailedResponse: row.detailedResponse || "Blank",
+                            followUpBy: row.followUpBy || "Blank",
+                            followUpDate: row.followUpDate || "Blank",
+                            followUpResponse: row.followUpResponse || "Blank",
+                            resumeCount: row.resumeCount || "Blank",
+                            expectedResponseDate: row.expectedResponseDate || "Blank",
+                            resumeDate: row.resumeDate || "Blank"
                         }));
 
                         dropdowns3.connectedBy = res.managers.map(u => u.name);
@@ -4105,12 +4111,15 @@
         }
 
         function makeDateCell3(field, value) {
-            let displayValue = formatDate3(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate3(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker3" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker3" value="${rawValue}">
+            </td>`;
         }
 
         function makeDropdownCell3(field, selectedValue, stateFilter = null, optionsList = null) {
