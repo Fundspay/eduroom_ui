@@ -3144,36 +3144,36 @@
         }
 
         function attachEmailStatusEvents() {
-            $(".check-status-btn").off("click").on("click", function() {
+            $(".check-status-btn").off("click").on("click", function () {
                 const rowId = $(this).data("id");
                 const email = $(this).data("email");
                 const btn = $(this);
                 const originalIcon = btn.html();
                 btn.html('<i class="fas fa-spinner fa-spin"></i>');
                 btn.prop("disabled", true);
-                
+
                 $.ajax({
                     url: `${apiBase}/cosheet/email-status?rowId=${rowId}&email=${encodeURIComponent(email)}`,
                     method: "GET",
-                    success: function(response) {
+                    success: function (response) {
                         console.log("Email status response:", response);
                         if (response && typeof response.jdEmailIsOpened !== 'undefined') {
                             const isOpened = response.jdEmailIsOpened;
                             const row = $(`tr[data-id="${rowId}"]`);
                             const statusCell = row.find(".email-status-col");
                             const statusBadge = statusCell.find(".email-status-badge");
-                            
+
                             if (isOpened) {
                                 statusBadge.html('<span class="badge bg-success">Opened</span>');
                             } else {
                                 statusBadge.html('<span class="badge bg-secondary">Not Opened</span>');
                             }
-                            
+
                             const rowData = tableData.find(r => r.id == rowId);
                             if (rowData) {
                                 rowData.jdEmailIsOpened = isOpened;
                             }
-                            
+
                             Swal.fire({
                                 icon: "success",
                                 title: "Status Updated",
@@ -3193,7 +3193,7 @@
                         btn.html(originalIcon);
                         btn.prop("disabled", false);
                     },
-                    error: function(err) {
+                    error: function (err) {
                         console.error("Error checking email status:", err);
                         Swal.fire({
                             icon: "error",
@@ -3342,11 +3342,14 @@
         }
 
         function makeDateCell(field, value) {
-            let displayValue = formatDate(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker" value="${rawValue}">
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker" value="${rawValue}">
             </td>`;
         }
 
@@ -4042,12 +4045,15 @@
         }
 
         function makeDateCell2(field, value) {
-            let displayValue = formatDate2(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate2(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-        <span>${displayValue}</span>
-        <input type="text" class="date-picker2" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker2" value="${rawValue}">
+            </td>`;
         }
 
         function formatDate2(dateStr) {
