@@ -1751,6 +1751,7 @@
                                 <!-- Dropdown -->
                                 <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
                                     <option value="default" style="text-align: center;">Default</option>
+                                    <option value="interview" style="text-align: center;">Interview</option>
                                     <option value="promotional" style="text-align: center;">Promotional</option>
                                     <option value="followup" style="text-align: center;">Follow-Up</option>
                                     <option value="connect" style="text-align: center;">Connect</option>
@@ -2129,7 +2130,51 @@
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || record.studentName || "Sir/Madam"}</span>,</p>
                     <p>Warm greetings from FundsAudit!</p>
                     <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
-                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance, Marketing, Business Analyst and HR.</p>`,
+                editableMiddle: `
+                    <p><b>Collaboration Proposal:</b></p>
+                    <ul>
+                        <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                        <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                        <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-Bi & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                        <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                    </ul>
+                    <p>Next Steps: JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+                    <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
+                    <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                    <b>Eligibility:</b> Management Students</p>
+                    <p>Following the live project, students may also be considered for:</p>
+                    <ul>
+                        <li>Summer/Winter Internships</li>
+                        <li>Pre-placement offers (PPOs)</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+                    <p>Perks of the collaboration:</p>
+                    <ul>
+                        <li>Exposure to real-time fintech operations</li>
+                        <li>Skill development aligned with industry expectations</li>
+                        <li>Improved employability and practical insight alongside academics</li>
+                        <li>Final placement opportunities</li>
+                    </ul>`,
+                fixedBottom: `
+                    <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                    <p>Pooja M. Shedge<br/>
+                    Branch Manager - Pune<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
+            interview: {
+                label: "Interview",
+                subject: (record) => `Internship Collaboration Opportunity – FundsAudit × ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || record.studentName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from FundsAudit!</p>
+                    <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
+                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance, Marketing, Business Analyst and HR.</p>
+                    <p>We have scheduled your interview as per the details mentioned below.</p>`,
                 editableMiddle: `
                     <p><b>Collaboration Proposal:</b></p>
                     <ul>
