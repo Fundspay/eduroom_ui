@@ -1294,10 +1294,10 @@
                                             <th>PUSH</th>
                                             <th>PUSH COMMENT (Mailed)</th>
                                             <th>MAIL</th>
-                                            <th>SMT1</th>
+                                            <!-- <th>SMT1</th>
                                             <th>SMT2</th>
                                             <th>SMT3</th>
-                                            <th>SMT4</th>
+                                            <th>SMT4</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1543,10 +1543,10 @@
             internshipAction: ["Terminated", "On hold", "Resume"],
             internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"],
             pushComment: ["Interested (Mailed)", "Not Interested (Mailed)", "Connected (Mailed)", "CNA", "Will do"],
-            smt1: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
-            smt2: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
-            smt3: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
-            smt4: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"]
+            // smt1: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
+            // smt2: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
+            // smt3: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
+            // smt4: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"]
         };
 
         const columnMap = {
@@ -1576,10 +1576,10 @@
             18: "pushto",
             19: "pushComment",
             20: "mail",
-            21: "smt1",
-            22: "smt2",
-            23: "smt3",
-            24: "smt4"
+            // 21: "smt1",
+            // 22: "smt2",
+            // 23: "smt3",
+            // 24: "smt4"
         };
 
         let tableData = [];
@@ -3366,10 +3366,10 @@
                                 offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
                                 pushto: row.pushto || "",
                                 pushComment: row.pushComment || "",
-                                smt1: row.smt1 || "",
-                                smt2: row.smt2 || "",
-                                smt3: row.smt3 || "",
-                                smt4: row.smt4 || ""
+                                // smt1: row.smt1 || "",
+                                // smt2: row.smt2 || "",
+                                // smt3: row.smt3 || "",
+                                // smt4: row.smt4 || ""
                             }));
 
                         $("#collegeCount").text(tableData.length);
@@ -3564,10 +3564,6 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </td>
-                    ${makeDropdownCell("smt1", row.smt1, dropdowns.smt1, true, true)}
-                    ${makeDropdownCell("smt2", row.smt2, dropdowns.smt2, true, true)}
-                    ${makeDropdownCell("smt3", row.smt3, dropdowns.smt3, true, true)}
-                    ${makeDropdownCell("smt4", row.smt4, dropdowns.smt4, true, true)}
                 </tr>`;
                 tbody.append(tr);
             });
@@ -3988,10 +3984,10 @@
             let pushtoName = tr.find('td[data-field="pushto"] select').val();
             let collegeName = tr.find('td[data-field="collegeName"] input').val();
             let pushComment = tr.find('td[data-field="pushComment"] select').val();
-            let smt1 = tr.find('td[data-field="smt1"] select').val();
-            let smt2 = tr.find('td[data-field="smt2"] select').val();
-            let smt3 = tr.find('td[data-field="smt3"] select').val();
-            let smt4 = tr.find('td[data-field="smt4"] select').val();
+            // let smt1 = tr.find('td[data-field="smt1"] select').val();
+            // let smt2 = tr.find('td[data-field="smt2"] select').val();
+            // let smt3 = tr.find('td[data-field="smt3"] select').val();
+            // let smt4 = tr.find('td[data-field="smt4"] select').val();
 
             let payload = {
                 internshipStatus: internshipStatus || "",
@@ -3999,10 +3995,10 @@
                 pushto: pushtoName || "",
                 collegeName: collegeName || "",
                 pushComment: pushComment || "",
-                smt1: smt1 || "",
-                smt2: smt2 || "",
-                smt3: smt3 || "",
-                smt4: smt4 || ""
+                // smt1: smt1 || "",
+                // smt2: smt2 || "",
+                // smt3: smt3 || "",
+                // smt4: smt4 || ""
             };
 
             console.log("payload:", payload);
@@ -4143,10 +4139,10 @@
                 "Push To",
                 "Push Comment",
                 "Action",
-                "SMT1",
-                "SMT2",
-                "SMT3",
-                "SMT4"
+                // "SMT1",
+                // "SMT2",
+                // "SMT3",
+                // "SMT4"
             ];
             headers.forEach(h => html += `<th>${h}</th>`);
             html += "</tr></thead><tbody>";
@@ -4180,10 +4176,10 @@
                     <td>${row.pushto || ""}</td>
                     <td>${row.pushComment || ""}</td>
                     <td><button class="btn btn-sm btn-success">Send Mail</button></td>
-                    <td>${row.smt1 || ""}</td>
-                    <td>${row.smt2 || ""}</td>
-                    <td>${row.smt3 || ""}</td>
-                    <td>${row.smt4 || ""}</td>
+                    <!-- <td>${row.smt1 || ""}</td> -->
+                    <!-- <td>${row.smt2 || ""}</td> -->
+                    <!-- <td>${row.smt3 || ""}</td> -->
+                    <!-- <td>${row.smt4 || ""}</td> -->
                 </tr>`;
             });
 
@@ -4267,10 +4263,10 @@
                 "Team Manager",
                 "Push To",
                 "Push Comment",
-                "SMT1",
-                "SMT2",
-                "SMT3",
-                "SMT4"
+                // "SMT1",
+                // "SMT2",
+                // "SMT3",
+                // "SMT4"
             ];
 
             const data = [headers];
@@ -4303,10 +4299,10 @@
                     row.teamManager || "",
                     row.pushto || "",
                     row.pushComment || "",
-                    row.smt1 || "",
-                    row.smt2 || "",
-                    row.smt3 || "",
-                    row.smt4 || ""
+                    // row.smt1 || "",
+                    // row.smt2 || "",
+                    // row.smt3 || "",
+                    // row.smt4 || ""
                 ]);
             });
 
