@@ -2576,54 +2576,54 @@
                                 sno: index + 1,
                                 id: row.id,
                                 userId: row.userId,
-                                studentName: row.studentName || "",
-                                mobileNumber: row.mobileNumber || "",
-                                collegeName: row.collegeName || "",
-                                emailId: row.emailId || "",
-                                activeStatus: bdSheet.activeStatus || "",
+                                studentName: row.studentName || "Blank",
+                                mobileNumber: row.mobileNumber || "Blank",
+                                collegeName: row.collegeName || "Blank",
+                                emailId: row.emailId || "Blank",
+                                activeStatus: bdSheet.activeStatus || "Blank",
                                 businessTask: row.businessTask || 0,
                                 category: row.category || "not working",
-                                domain: row.domain || "",
+                                domain: row.domain || "Blank",
 
-                                startDate: bdSheet.startDate || "",
-                                endDate: bdSheet.endDate || "",
-                                connectDate: bdSheet.connectDate || "",
-                                callStatus: bdSheet.callStatus || "",
-                                registration: bdSheet.registration || "",
-                                selectionTest: bdSheet.registration || "",
-                                whatsappGroup: bdSheet.whatsappGroup || "",
+                                startDate: bdSheet.startDate || "Blank",
+                                endDate: bdSheet.endDate || "Blank",
+                                connectDate: bdSheet.connectDate || "Blank",
+                                callStatus: bdSheet.callStatus || "Blank",
+                                registration: bdSheet.registration || "Blank",
+                                selectionTest: bdSheet.registration || "Blank",
+                                whatsappGroup: bdSheet.whatsappGroup || "Blank",
                                 // Day 1
-                                day1Date: day1.date || "",
-                                day1SessionAttendance: day1.sessionAttendance || "",
-                                day1DomainTask: day1.domainTask || "",
+                                day1Date: day1.date || "Blank",
+                                day1SessionAttendance: day1.sessionAttendance || "Blank",
+                                day1DomainTask: day1.domainTask || "Blank",
                                 // Day 2
-                                day2Date: day2.date || "",
-                                day2SessionAttendance: day2.sessionAttendance || "",
-                                day2DomainTask: day2.domainTask || "",
+                                day2Date: day2.date || "Blank",
+                                day2SessionAttendance: day2.sessionAttendance || "Blank",
+                                day2DomainTask: day2.domainTask || "Blank",
                                 // Day 3
-                                day3Date: day3.date || "",
-                                day3SessionAttendance: day3.sessionAttendance || "",
-                                day3DomainTask: day3.domainTask || "",
+                                day3Date: day3.date || "Blank",
+                                day3SessionAttendance: day3.sessionAttendance || "Blank",
+                                day3DomainTask: day3.domainTask || "Blank",
                                 // Day 4
-                                day4Date: day4.date || "",
-                                day4SessionAttendance: day4.sessionAttendance || "",
-                                day4DomainTask: day4.domainTask || "",
+                                day4Date: day4.date || "Blank",
+                                day4SessionAttendance: day4.sessionAttendance || "Blank",
+                                day4DomainTask: day4.domainTask || "Blank",
                                 // Day 5
-                                day5Date: day5.date || "",
-                                day5SessionAttendance: day5.sessionAttendance || "",
-                                day5DomainTask: day5.domainTask || "",
+                                day5Date: day5.date || "Blank",
+                                day5SessionAttendance: day5.sessionAttendance || "Blank",
+                                day5DomainTask: day5.domainTask || "Blank",
                                 // Day 6
-                                day6Date: day6.date || "",
-                                day6SessionAttendance: day6.sessionAttendance || "",
-                                day6DomainTask: day6.domainTask || "",
+                                day6Date: day6.date || "Blank",
+                                day6SessionAttendance: day6.sessionAttendance || "Blank",
+                                day6DomainTask: day6.domainTask || "Blank",
                                 // Day 7
-                                day7Date: day7.date || "",
-                                day7SessionAttendance: day7.sessionAttendance || "",
-                                day7DomainTask: day7.domainTask || "",
+                                day7Date: day7.date || "Blank",
+                                day7SessionAttendance: day7.sessionAttendance || "Blank",
+                                day7DomainTask: day7.domainTask || "Blank",
 
-                                module2Status: bdSheet.module2Status || "",
-                                tlAllocated: bdSheet.tlAllocated || "",
-                                pushto: bdSheet.pushto || "",
+                                module2Status: bdSheet.module2Status || "Blank",
+                                tlAllocated: bdSheet.tlAllocated || "Blank",
+                                pushto: bdSheet.pushto || "Blank",
 
                                 bdSheetId: bdSheet.id
                             };
@@ -2962,9 +2962,13 @@
         }
 
         function makeDateCell(field, value, bgColor = "") {
-            let displayValue = formatDate(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             const style = bgColor ? `style="background-color: ${bgColor};"` : "";
+
             return `<td data-field="${field}" ${style}>
                 <span>${displayValue}</span>
                 <input type="text" class="date-picker" value="${rawValue}">

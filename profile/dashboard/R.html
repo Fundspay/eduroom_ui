@@ -1751,6 +1751,8 @@
                                 <!-- Dropdown -->
                                 <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
                                     <option value="default" style="text-align: center;">Default</option>
+                                    <option value="interview" style="text-align: center;">Interview</option>
+                                    <option value="selected" style="text-align: center;">Selected</option>
                                     <option value="promotional" style="text-align: center;">Promotional</option>
                                     <option value="followup" style="text-align: center;">Follow-Up</option>
                                     <option value="connect" style="text-align: center;">Connect</option>
@@ -2129,7 +2131,7 @@
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || record.studentName || "Sir/Madam"}</span>,</p>
                     <p>Warm greetings from FundsAudit!</p>
                     <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
-                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance, Marketing, Business Analyst and HR.</p>`,
                 editableMiddle: `
                     <p><b>Collaboration Proposal:</b></p>
                     <ul>
@@ -2157,6 +2159,133 @@
                     </ul>`,
                 fixedBottom: `
                     <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                    <p>Pooja M. Shedge<br/>
+                    Branch Manager - Pune<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
+            interview: {
+                label: "Interview",
+                subject: (record) => `Interview Schedule – FundsAudit × ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || record.studentName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from FundsAudit!</p>
+                    <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
+                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance, Marketing, Business Analyst and HR.</p>
+                    <p>We have scheduled your interview as per the details mentioned below.</p>`,
+                editableMiddle: `
+                    <p><b>Collaboration Proposal:</b></p>
+                    <ul>
+                        <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                        <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                        <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-Bi & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                        <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                    </ul>
+                    <p>Next Steps: JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+                    <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
+                    <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                    <b>Eligibility:</b> Management Students</p>
+                    <p>Following the live project, students may also be considered for:</p>
+                    <ul>
+                        <li>Summer/Winter Internships</li>
+                        <li>Pre-placement offers (PPOs)</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+                    <p>Perks of the collaboration:</p>
+                    <ul>
+                        <li>Exposure to real-time fintech operations</li>
+                        <li>Skill development aligned with industry expectations</li>
+                        <li>Improved employability and practical insight alongside academics</li>
+                        <li>Final placement opportunities</li>
+                    </ul>`,
+                fixedBottom: `
+                    <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                    <p>Pooja M. Shedge<br/>
+                    Branch Manager - Pune<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                    </p>`
+            },
+            selected: {
+                label: "Selected",
+                subject: (record) => `Selected for Internship – FundsAudit × ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.coordinatorName || record.studentName || "Intern"}</span>,</p>
+                    <p>Warm greetings from FundsAudit!</p>
+                    <p>We are pleased to confirm your selection for the Internship at Fundsaudit. We appreciate your interest in contributing to our organisation and are confident that this internship will provide you with valuable professional experience.</p>
+                    `,
+                editableMiddle: `
+                    <p><b>Collaboration Proposal:</b></p>
+                    <ul>
+                        <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                        <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                        <li><b>Value-Added Certifications:</b> Specialized certificates + POWER-BI & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                        <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                    </ul>
+
+                    <p><b>Internship Details:</b></p>
+                    <ul>
+                        <li><b>Role:</b> Marketing Analyst / Financial Analyst / Business Analyst</li>
+                        <li><b>Location:</b> Remote</li>
+                        <li><b>Starting Date:</b> To be announced</li>
+                        <li><b>Duration:</b> 30–60 Days</li>
+                        <li><b>Stipend:</b> Up to INR 5,000 (Performance-Based)</li>
+                    </ul>
+
+                    <p><b>Roles and Responsibilities:</b></p>
+                    <ul>
+                        <li>Assist in lead generation and client coordination for the app – Fundsaudit of the company</li>
+                        <li>Support marketing campaigns and outreach efforts for onboarding new clients</li>
+                        <li>Develop understanding of the stock market and investment markets</li>
+                        <li>Participate in daily meetings and complete reporting tasks within deadlines</li>
+                        <li>Prepare research reports based on real-time data using Power BI</li>
+                    </ul>
+
+                    <p><b>Terms and Conditions:</b></p>
+                    <ul>
+                        <li><b>Offer Letter:</b> Issued on the 3rd day</li>
+                        <li><b>Offer Letter Criteria:</b> Day 1 to Day 3 attendance is compulsory</li>
+                        <li><b>Working Hours:</b> Monday to Saturday; compulsory one-hour training session between 10:00 AM to 4:00 PM (as per team preference)</li>
+                        <li><b>Confidentiality:</b> Interns must maintain confidentiality of all company-related information</li>
+                        <li><b>Performance:</b> Continuous assessment based on task completion, discipline, attendance, and initiative</li>
+                        <li><b>Termination:</b> Internship may be terminated with a prior notice of 3 days if there is no scope of development</li>
+                        <li><b>Certificate:</b> Provided upon successful completion of Module 1 and Module 2</li>
+                        <li><b>Code of Conduct:</b> Interns must adhere to professional behavior, punctuality, and organizational policies</li>
+                    </ul>
+
+                    <p><b>Next Steps:</b> JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+
+                    <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Pre-placement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>
+
+                    <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                    <b>Eligibility:</b> Management Students</p>
+
+                    <p>Following the live project, students may also be considered for:</p>
+                    <ul>
+                        <li>Summer/Winter Internships</li>
+                        <li>Pre-placement offers (PPOs)</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+
+                    <p><b>Perks of the Collaboration:</b></p>
+                    <ul>
+                        <li>Exposure to real-time fintech operations</li>
+                        <li>Skill development aligned with industry expectations</li>
+                        <li>Improved employability and practical insight alongside academics</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+
+                    <p>We request that you confirm your acceptance by replying to this email with the subject line <b>“Internship Acceptance - [Your Name]”</b> by EOD.</p>
+
+                    <p>Do you have any queries? Feel free to get in touch.</p>
+
+                    <p>We look forward to having you on board and hope this internship proves to be mutually beneficial.</p>`,
+                fixedBottom: `
                     <p>Pooja M. Shedge<br/>
                     Branch Manager - Pune<br/>
                     +91 7385234536 | +91 9322509539<br/>
@@ -2411,35 +2540,35 @@
                                 }
                             }
 
-                            const knowledgeScore = row.knowledgeScore ?? "";
-                            const approachScore = row.approachScore ?? "";
-                            const skillsScore = row.skillsScore ?? "";
-                            const otherScore = row.otherScore ?? "";
-                            const totalAverageScore = row.totalAverageScore ?? "";
-                            const finalSelectionStatus = row.finalSelectionStatus ?? "";
-                            const comment = row.comment ?? "";
-                            const Dateofonboarding = row.Dateofonboarding ?? "";
-                            const callStatus = row.callStatus ?? "";
-                            const alloted = row.alloted ?? "";
+                            const knowledgeScore = row.knowledgeScore ?? "Blank";
+                            const approachScore = row.approachScore ?? "Blank";
+                            const skillsScore = row.skillsScore ?? "Blank";
+                            const otherScore = row.otherScore ?? "Blank";
+                            const totalAverageScore = row.totalAverageScore ?? "Blank";
+                            const finalSelectionStatus = row.finalSelectionStatus ?? "Blank";
+                            const comment = row.comment ?? "Blank";
+                            const Dateofonboarding = row.Dateofonboarding ?? "Blank";
+                            const callStatus = row.callStatus ?? "Blank";
+                            const alloted = row.alloted ?? "Blank";
 
                             return {
                                 sno: index + 1,
                                 id: row.id,
-                                resumeDate: row.resumeDate || "",
-                                collegeName: row.collegeName || "",
-                                course: row.course || "",
-                                internshipType: row.internshipType || "",
-                                followupBy: row.followupBy || "",
-                                studentName: row.studentName || "",
-                                mobileNumber: row.mobileNumber || "",
-                                emailId: row.emailId || "",
-                                domain: row.domain || "",
+                                resumeDate: row.resumeDate || "Blank",
+                                collegeName: row.collegeName || "Blank",
+                                course: row.course || "Blank",
+                                internshipType: row.internshipType || "Blank",
+                                followupBy: row.followupBy || "Blank",
+                                studentName: row.studentName || "Blank",
+                                mobileNumber: row.mobileNumber || "Blank",
+                                emailId: row.emailId || "Blank",
+                                domain: row.domain || "Blank",
                                 isRegistered: row.isRegistered,
-                                dateOfRegistration: row.dateOfRegistration || "",
+                                dateOfRegistration: row.dateOfRegistration || "Blank",
                                 dateOfRegistrationDate: dateOnly,
                                 dateOfRegistrationTime: timeOnly,
-                                mailSentAt: row.mailSentAt || "",
-                                interviewedBy: row.interviewedBy || "",
+                                mailSentAt: row.mailSentAt || "Blank",
+                                interviewedBy: row.interviewedBy || "Blank",
                                 knowledgeScore,
                                 approachScore,
                                 skillsScore,
@@ -2777,12 +2906,15 @@
         }
 
         function makeDateCell(field, value) {
-            let displayValue = formatDate(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker" value="${rawValue}">
+            </td>`;
         }
 
         function makeColoredScoreCell(field, value) {
@@ -3670,36 +3802,36 @@
                             // if (payments2.length > maxPayments2) maxPayments2 = payments2.length;
 
                             // NEW fields: safely read from row or default
-                            const knowledgeScore2 = row.knowledgeScore ?? "";
-                            const approachScore2 = row.approachScore ?? "";
-                            const skillsScore2 = row.skillsScore ?? "";
-                            const otherScore2 = row.otherScore ?? "";
-                            const totalAverageScore2 = row.totalAverageScore ?? "";
-                            const finalSelectionStatus2 = row.finalSelectionStatus ?? "";
-                            const comment2 = row.comment ?? "";
+                            const knowledgeScore2 = row.knowledgeScore ?? "Blank";
+                            const approachScore2 = row.approachScore ?? "Blank";
+                            const skillsScore2 = row.skillsScore ?? "Blank";
+                            const otherScore2 = row.otherScore ?? "Blank";
+                            const totalAverageScore2 = row.totalAverageScore ?? "Blank";
+                            const finalSelectionStatus2 = row.finalSelectionStatus ?? "Blank";
+                            const comment2 = row.comment ?? "Blank";
                             const Dateofonboarding2 = row.Dateofonboarding ?? "";
-                            const callStatus2 = row.callStatus ?? "";
-                            const alloted2 = row.alloted ?? "";
+                            const callStatus2 = row.callStatus ?? "Blank";
+                            const alloted2 = row.alloted ?? "Blank";
 
                             return {
                                 sno: index + 1,
                                 id: row.id,
-                                resumeDate: row.resumeDate || "",
-                                collegeName: row.collegeName || "",
-                                course: row.course || "",
-                                internshipType: row.internshipType || "",
-                                followupBy: row.followupBy || "",
-                                studentName: row.studentName || "",
-                                mobileNumber: row.mobileNumber || "",
-                                emailId: row.emailId || "",
-                                domain: row.domain || "",
+                                resumeDate: row.resumeDate || "Blank",
+                                collegeName: row.collegeName || "Blank",
+                                course: row.course || "Blank",
+                                internshipType: row.internshipType || "Blank",
+                                followupBy: row.followupBy || "Blank",
+                                studentName: row.studentName || "Blank",
+                                mobileNumber: row.mobileNumber || "Blank",
+                                emailId: row.emailId || "Blank",
+                                domain: row.domain || "Blank",
                                 isRegistered: row.isRegistered,
-                                dateOfRegistration: row.dateOfRegistration || "",
+                                dateOfRegistration: row.dateOfRegistration || "Blank",
                                 dateOfRegistrationDate: dateOnly2,
                                 dateOfRegistrationTime: timeOnly2,
-                                mailSentAt: row.mailSentAt || "",
+                                mailSentAt: row.mailSentAt || "Blank",
                                 // payments: payments2,
-                                interviewedBy: row.interviewedBy || "",
+                                interviewedBy: row.interviewedBy || "Blank",
                                 knowledgeScore: knowledgeScore2,
                                 approachScore: approachScore2,
                                 skillsScore: skillsScore2,
@@ -4066,12 +4198,15 @@
         }
 
         function makeDateCell2(field, value) {
-            let displayValue = formatDate2(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate2(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker2" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker2" value="${rawValue}">
+            </td>`;
         }
 
         function makeColoredScoreCell2(field, value) {
@@ -4625,36 +4760,36 @@
 
                             // if (payments3.length > maxPayments3) maxPayments3 = payments3.length;
 
-                            const knowledgeScore3 = row.knowledgeScore ?? "";
-                            const approachScore3 = row.approachScore ?? "";
-                            const skillsScore3 = row.skillsScore ?? "";
-                            const otherScore3 = row.otherScore ?? "";
-                            const totalAverageScore3 = row.totalAverageScore ?? "";
-                            const finalSelectionStatus3 = row.finalSelectionStatus ?? "";
-                            const comment3 = row.comment ?? "";
+                            const knowledgeScore3 = row.knowledgeScore ?? "Blank";
+                            const approachScore3 = row.approachScore ?? "Blank";
+                            const skillsScore3 = row.skillsScore ?? "Blank";
+                            const otherScore3 = row.otherScore ?? "Blank";
+                            const totalAverageScore3 = row.totalAverageScore ?? "Blank";
+                            const finalSelectionStatus3 = row.finalSelectionStatus ?? "Blank";
+                            const comment3 = row.comment ?? "Blank";
                             const Dateofonboarding3 = row.Dateofonboarding ?? "";
-                            const callStatus3 = row.callStatus ?? "";
-                            const alloted3 = row.alloted ?? "";
+                            const callStatus3 = row.callStatus ?? "Blank";
+                            const alloted3 = row.alloted ?? "Blank";
 
                             return {
                                 sno: index + 1,
                                 id: row.id,
-                                resumeDate: row.resumeDate || "",
-                                collegeName: row.collegeName || "",
-                                course: row.course || "",
-                                internshipType: row.internshipType || "",
-                                followupBy: row.followupBy || "",
-                                studentName: row.studentName || "",
-                                mobileNumber: row.mobileNumber || "",
-                                emailId: row.emailId || "",
-                                domain: row.domain || "",
+                                resumeDate: row.resumeDate || "Blank",
+                                collegeName: row.collegeName || "Blank",
+                                course: row.course || "Blank",
+                                internshipType: row.internshipType || "Blank",
+                                followupBy: row.followupBy || "Blank",
+                                studentName: row.studentName || "Blank",
+                                mobileNumber: row.mobileNumber || "Blank",
+                                emailId: row.emailId || "Blank",
+                                domain: row.domain || "Blank",
                                 isRegistered: row.isRegistered,
                                 dateOfRegistration: row.dateOfRegistration || "",
                                 dateOfRegistrationDate: dateOnly3,
                                 dateOfRegistrationTime: timeOnly3,
-                                mailSentAt: row.mailSentAt || "",
+                                mailSentAt: row.mailSentAt || "Blank",
                                 // payments: payments3,
-                                interviewedBy: row.interviewedBy || "",
+                                interviewedBy: row.interviewedBy || "Blank",
                                 Dateofonboarding: Dateofonboarding3,
                                 knowledgeScore: knowledgeScore3,
                                 approachScore: approachScore3,
@@ -5020,12 +5155,15 @@
         }
 
         function makeDateCell3(field, value) {
-            let displayValue = formatDate3(value);
-            let rawValue = value ? new Date(value).toISOString().split("T")[0] : "";
+            let isBlank = !value || value === "Blank";
+
+            let displayValue = isBlank ? "Blank" : formatDate3(value);
+            let rawValue = isBlank ? "" : new Date(value).toISOString().split("T")[0];
+
             return `<td data-field="${field}">
-            <span>${displayValue}</span>
-            <input type="text" class="date-picker3" value="${rawValue}">
-        </td>`;
+                <span>${displayValue}</span>
+                <input type="text" class="date-picker3" value="${rawValue}">
+            </td>`;
         }
 
         function makeColoredScoreCell3(field, value) {

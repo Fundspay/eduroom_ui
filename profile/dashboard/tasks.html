@@ -1281,8 +1281,10 @@
 
             function getRowColorClass(resultValue) {
                 const result = parseInt(resultValue) || 0;
-
-                if (result >= 91 && result <= 100) {
+                if (result >= 100) {
+                    return 'row-blue';
+                }
+                else if (result >= 91 && result <= 100) {
                     return 'row-blue';
                 } else if (result >= 76 && result <= 90) {
                     return 'row-green';

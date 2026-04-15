@@ -2511,8 +2511,8 @@
                                         }
                                     });
                                 }
-                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
-                                    Swal.fire("Incomplete Target", "Please complete your business target before requesting certificate.", "info");
+                                else if (status === "in progress") {
+                                    Swal.fire("Incomplete Target", "Please complete your course and business target before requesting certificate.", "info");
                                 }
                                 else if (status === "on hold") {
                                     Swal.fire("On Hold", "Your live project has been put on hold. Please contact your team manager", "warning");
@@ -2605,8 +2605,8 @@
                                         }
                                     });
                                 }
-                                else if (status === "in progress" && subscriptionLeft < businessTarget) {
-                                    Swal.fire("Incomplete Target", "Please complete your business target before requesting Report.", "info");
+                                else if (status === "in progress") {
+                                    Swal.fire("Incomplete Target", "Please complete your course and business target before requesting Report.", "info");
                                 }
                                 else if (status === "on hold") {
                                     Swal.fire("On Hold", "Your live project has been put on hold. Please contact your team manager", "warning");
