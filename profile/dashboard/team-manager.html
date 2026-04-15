@@ -1618,7 +1618,7 @@
             },
             diy: {
                 label: "diy",
-                subject: (record) => `Opportunity | FundsAudit x ${record.studentName || "Student"}`,
+                subject: (record) => `Opportunity - Complete Your Internship`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>Greetings from FundsAudit.</p>
@@ -2908,7 +2908,7 @@
                                 selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
                                 offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
                                 pushto: row.pushto || "",
-                                pushComment: row.pushComment || "",
+                                pushComment: row.pushComment || ""
                             }));
 
                         $("#collegeCount").text(tableData.length);
