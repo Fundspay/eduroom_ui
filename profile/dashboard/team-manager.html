@@ -1588,7 +1588,7 @@
             
             default: {
                 label: "Default",
-                subject: (record) => `Opportunity – Complete Your Internship Target | FundsAudit × ${record.studentName || "Student"}`,
+                subject: (record) => `Opportunity - Complete Your Internship Target | FundsAudit × ${record.studentName || "Student"}`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>Greetings from FundsAudit.</p>
@@ -1615,6 +1615,18 @@
                     <p>Looking forward to your participation and completion.</p>
                     <p>Best Regards,<br/>
                     Team FundsAudit</p>`
+            },
+            diy: {
+                label: "diy",
+                subject: (record) => `Opportunity | FundsAudit x ${record.studentName || "Student"}`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Greetings from FundsAudit.</p>
+                    `,
+                editableMiddle: `
+                    <p></p>`,
+                fixedBottom: `
+                    <p></p>`
             },
 
             promotional: {
@@ -4537,6 +4549,7 @@
                                     <option value="followup" style="text-align: center;">Follow-Up</option>
                                     <option value="connect" style="text-align: center;">Connect</option>
                                     <option value="marketing" style="text-align: center;">Marketing</option>
+                                    <option value="diy" style="text-align: center;">DIY</option>
                                 </select>
 
                             </div>
