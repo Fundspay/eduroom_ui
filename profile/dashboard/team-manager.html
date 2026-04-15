@@ -1598,7 +1598,7 @@
         const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
 
         const emailTemplates = {
-            
+
             default: {
                 label: "Default",
                 subject: (record) => `Opportunity - Complete Your Internship Target | FundsAudit × ${record.studentName || "Student"}`,
@@ -1641,7 +1641,451 @@
                 fixedBottom: `
                     <p></p>`
             },
+            iegpush: {
+                label: "iegpush",
+                subject: (record) => `Quick Update on Your Internship Progress & Next Step`,
+                fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We reviewed your progress in the FundsAudit internship, and it’s good to see that you have already started working towards your targets.</p>
+                `,
+                            editableMiddle:`
+                    <p>At this stage, most interns usually face a small challenge in terms of direction — mainly around how to complete the remaining targets efficiently.</p>
 
+                    <p>We would like to guide you on:</p>
+                    <ul>
+                        <li>How to complete your targets faster</li>
+                        <li>How to approach the right set of people</li>
+                        <li>How to maximize your internship outcome</li>
+                    </ul>
+
+                    <p>I will be connecting with you shortly to discuss a simple execution plan and help you move forward effectively.</p>
+
+                    <p>Additionally, we will introduce you to FundsPortfolio via FundsWeb, where you can build your own professional portfolio and showcase your work:</p>
+
+                    <p>🌐 FundsPortfolio (Website): https://fundsweb.in/index</p>
+                    <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
+                    <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
+                `,
+                            fixedBottom: `
+                                <p>Please be available for a quick discussion.</p>
+                    <p>Regards,<br/>
+                    Team FundsAudit</p>`
+                        },
+                        iegforce: {
+                            label: "iegforce",
+                            subject: (record) => `Important: Internship Progress & Immediate Action Required`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>This is regarding your ongoing FundsAudit internship.</p>
+                    <p>We observed that your progress is currently below the expected level, and the targets are still pending.</p>
+                `,
+                            editableMiddle:`
+                    <p>Please note that completion of the assigned targets is mandatory for:</p>
+                    <ul>
+                        <li>Internship completion</li>
+                        <li>Certificate issuance</li>
+                        <li>Final evaluation</li>
+                    </ul>
+
+                    <p>In case the targets are not completed within the expected timeline, your internship may be marked as incomplete, and the same may be communicated to your college.</p>
+
+                    <p>We would like to understand your current challenges and help you with a structured plan for completion.</p>
+
+                    <p>I will be connecting with you shortly to discuss this and align on immediate next steps.</p>
+
+                    <p>Additionally, we will also introduce you to FundsPortfolio via FundsWeb, which can help you build a stronger professional profile:</p>
+
+                    <p>🌐 FundsPortfolio (Website): https://fundsweb.in/index</p>
+                    <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
+                    <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
+                `,
+                            fixedBottom: `
+                                <p>It is important that you are available for this discussion.</p>
+                    <p>Regards,<br/>
+                    Team FundsAudit</p>`
+                        },
+                        iegdeal: {
+                            label: "iegdeal",
+                            subject: (record) => `Opportunity to Complete Your Internship (Reactivation Support)`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We noticed that you had previously started your FundsAudit internship but could not complete it.</p>
+                    <p>We understand that many interns face challenges during execution, and that’s completely fine.</p>
+                `,
+                            editableMiddle:`
+                    <p>The good news is — you still have the opportunity to complete your internship with a more flexible and structured approach.</p>
+
+                    <p>We would like to help you:</p>
+                    <ul>
+                        <li>Restart your progress</li>
+                        <li>Complete your remaining targets</li>
+                        <li>Successfully receive your internship certification</li>
+                    </ul>
+
+                    <p>Along with this, we will also introduce you to FundsPortfolio via FundsWeb, where you can build your own professional portfolio and showcase your work:</p>
+
+                    <p>🌐 FundsPortfolio (Website): https://fundsweb.in/index</p>
+                    <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
+                    <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
+                `,
+                            fixedBottom: `
+                                <p>I will be connecting with you shortly to guide you through the updated plan and help you complete your internship smoothly.</p>
+                    <p>Looking forward to speaking with you.</p>
+                    <p>Regards,<br/>
+                    Team FundsAudit</p>`
+                        },
+                        fpcompush: {
+                            label: "fpcompush",
+                            subject: (record) => `Upgrade Your Internship Work into a Professional Portfolio`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We reviewed your performance in the FundsAudit internship, and it’s great to see that you have already completed/actively worked on your targets.</p>
+                    <p>At this stage, the next logical step is not just completing work — but showing your work professionally.</p>
+                    <p>This is where FundsPortfolio (via FundsWeb) comes in.</p>
+                `,
+                            editableMiddle:`
+                    <p>🔹 With FundsPortfolio, you can convert your internship work into a live portfolio website, where you can showcase:</p>
+                    <ul>
+                        <li>Your profile and resume</li>
+                        <li>Skills you have learned</li>
+                        <li>Actual work (data, reports, content, links, etc.)</li>
+                    </ul>
+
+                    <p>📊 Why This Matters (Market Reality)</p>
+                    <ul>
+                        <li>90% of candidates only have resumes</li>
+                        <li>Less than 10% candidates have portfolios</li>
+                    </ul>
+
+                    <p>Candidates with portfolios have:</p>
+                    <ul>
+                        <li>2x–3x higher shortlisting chances</li>
+                        <li>Better interview conversion</li>
+                    </ul>
+
+                    <p>💡 Example</p>
+                    <p>If two candidates apply:</p>
+                    <ul>
+                        <li>One has only a resume</li>
+                        <li>One has a portfolio website</li>
+                    </ul>
+
+                    <p>Recruiters will always prefer the one who can show real work.</p>
+
+                    <p>💰 Cost vs Value</p>
+                    <ul>
+                        <li>Portfolio with us: ₹500–₹1000</li>
+                        <li>Market cost: ₹10,000+</li>
+                    </ul>
+
+                    <p>You are getting a professional portfolio at a significantly lower cost.</p>
+
+                    <p>🌐 Explore Portfolios</p>
+                    <p>👉 https://fundsweb.in/index</p>
+                    <p>You can check real portfolios and understand how candidates are showcasing their work.</p>
+                `,
+                            fixedBottom: `
+                                <p>🎯 Final Thought</p>
+                    <p>FundsAudit shows that you worked.</p>
+                    <p>FundsPortfolio shows what you worked.</p>
+                    <p>I will connect with you shortly to guide you on how you can upgrade your work into a portfolio.</p>
+                    <p>Regards,<br/>
+                    Team Fundsroom</p>`
+                        },
+                        fpcommix: {
+                            label: "fpcommix",
+                            subject: (record) => `👉 Smart Internship Approach: Combine Work + Portfolio for Better Results`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We understand that completing the full FundsAudit target can sometimes feel challenging.</p>
+                    <p>Instead of delaying or stopping, we recommend a smarter approach — the Mix Model.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 What is the Mix Model?</p>
+                    <p>Instead of focusing only on FundsAudit, you can combine:</p>
+                    <ul>
+                        <li>Partial FundsAudit targets</li>
+                        <li>FundsPortfolio creation</li>
+                    </ul>
+
+                    <p>Example:</p>
+                    <ul>
+                        <li>8 FundsAudit + 1 Portfolio</li>
+                        <li>5 FundsAudit + 2 Portfolio</li>
+                    </ul>
+                    <p>(Flexible combinations based on your capacity)</p>
+
+                    <p>📊 Why This Works</p>
+                    <ul>
+                        <li>FundsAudit → Execution experience</li>
+                        <li>FundsPortfolio → Proof of work</li>
+                    </ul>
+
+                    <p>Together:</p>
+                    <p>👉 You gain both experience + visibility</p>
+
+                    <p>💡 Example</p>
+                    <ul>
+                        <li>Only Audit → You complete targets</li>
+                        <li>Mix Model → You complete + showcase</li>
+                    </ul>
+
+                    <p>This increases your overall value.</p>
+
+                    <p>📈 Career Advantage</p>
+                    <ul>
+                        <li>Candidates with portfolios have 2x–3x better chances</li>
+                        <li>Portfolio helps in job applications and interviews</li>
+                    </ul>
+
+                    <p>🌐 Explore Portfolios</p>
+                    <p>👉 https://fundsweb.in/index</p>
+                    <p>You can check how others are building and showcasing their work.</p>
+                `,
+                            fixedBottom: `
+                                <p>🎯 Positioning</p>
+                    <p>Mix model is not reducing your work —</p>
+                    <p>it is increasing your career value.</p>
+                    <p>I will connect with you shortly to help you choose the right mix and complete your internship efficiently.</p>
+                    <p>Regards,<br/>
+                    Team Fundsroom</p>`
+                        },
+                        fpcomdirect: {
+                            label: "fpcomdirect",
+                            subject: (record) => `👉 Build Your Own Portfolio Website & Stand Out Professionally`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>I wanted to introduce you to FundsPortfolio (via FundsWeb) — a platform where you can build your own personal portfolio website.</p>
+                    <p>This is not something you need to sell to others —</p>
+                    <p>this is something you build for yourself.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 What You Get</p>
+                    <p>You can create a website where you showcase:</p>
+                    <ul>
+                        <li>Your resume and profile</li>
+                        <li>Skills you have learned</li>
+                        <li>Real work (data, reports, content, links, videos)</li>
+                    </ul>
+
+                    <p>📊 Market Reality</p>
+                    <ul>
+                        <li>90% students → only resumes</li>
+                        <li>Less than 5% → portfolio</li>
+                    </ul>
+
+                    <p>That’s why most candidates don’t stand out.</p>
+
+                    <p>💡 Example</p>
+                    <p>Imagine:</p>
+                    <p>Your name is searched on Google →</p>
+                    <p>Your personal website appears →</p>
+                    <p>Your complete work is visible</p>
+
+                    <p>That creates instant professional credibility.</p>
+
+                    <p>💰 Cost Justification</p>
+                    <ul>
+                        <li>With us: ₹500–₹1000</li>
+                        <li>Market: ₹10,000+</li>
+                    </ul>
+
+                    <p>This is a low-cost investment with high long-term value.</p>
+
+                    <p>📈 Career Impact</p>
+                    <ul>
+                        <li>2x–3x better job shortlisting chances</li>
+                        <li>Stronger professional profile</li>
+                        <li>Better visibility to recruiters</li>
+                    </ul>
+
+                    <p>🌐 Explore Portfolios</p>
+                    <p>👉 https://fundsweb.in/index</p>
+                    <p>You can explore live portfolios and understand the value.</p>
+                `,
+                            fixedBottom: `
+                                <p>🎯 Final Thought</p>
+                    <p>Resume tells your skills.</p>
+                    <p>Portfolio proves your skills.</p>
+                    <p>I will connect with you shortly to guide you on how to get started.</p>
+                    <p>Regards,<br/>
+                    Team Fundsroom</p>`
+                        },
+                        marcompost: {
+                            label: "marcompost",
+                            subject: (record) => `👉 Build Your Professional Presence – Start Posting on LinkedIn`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>As part of your internship, one of the most important activities is to start building your professional presence on LinkedIn.</p>
+                    <p>Today’s market works on visibility:</p>
+                    <ul>
+                        <li>90% candidates are learning skills</li>
+                        <li>Only 10% are actually showcasing their work</li>
+                    </ul>
+                    <p>This is where you can stand out.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 What You Need to Do</p>
+                    <p>You need to post about:</p>
+                    <ul>
+                        <li>What you are learning (Finance, Marketing, Analytics, etc.)</li>
+                        <li>Tasks you have completed</li>
+                        <li>Your portfolio progress</li>
+                        <li>Skills you are developing</li>
+                    </ul>
+
+                    <p>💡 Example Post</p>
+                    <p>“Started my journey as a Financial Analyst Intern. Learned portfolio management, data analysis, and built my own portfolio website.”</p>
+
+                    <p>⚡ Important Guidelines</p>
+                    <ul>
+                        <li>Use the provided content template</li>
+                        <li>Tag:
+                            <ul>
+                                <li>Company page</li>
+                                <li>Team Leader</li>
+                                <li>Manager</li>
+                                <li>Team members</li>
+                            </ul>
+                        </li>
+                        <li>Use hashtags:
+                            <ul>
+                                <li>#FundsPortfolio #FundsAudit #[YourCollegeName]</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>This helps in:</p>
+                    <ul>
+                        <li>Increasing reach</li>
+                        <li>Getting reposted</li>
+                        <li>Building your professional visibility</li>
+                    </ul>
+
+                    <p>📊 Impact</p>
+                    <ul>
+                        <li>1 post can reach 200–1000 people</li>
+                        <li>Regular posting increases profile strength</li>
+                        <li>Helps recruiters understand your work</li>
+                    </ul>
+                `,
+                            fixedBottom: `
+                                <p>🎓 Certification Benefit</p>
+                    <p>Your posts will be counted towards your Marketing Certification.</p>
+                    <p>Please start posting regularly and maintain consistency.</p>
+                    <p>Regards,<br/>
+                    Team Fundsaudit</p>`
+                        },
+                        marcomfollowers: {
+                            label: "marcomfollowers",
+                            subject: (record) => `👉 Increase Your Network & Build Your Professional Reach`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>Along with posting, it is equally important to build your professional network and followers.</p>
+                    <p>Visibility comes from both:</p>
+                    <ul>
+                        <li>Content (Posts)</li>
+                        <li>Audience (Followers)</li>
+                    </ul>
+                `,
+                            editableMiddle:`
+                    <p>📊 Target Logic</p>
+                    <p>If your target is 15 accounts,</p>
+                    <p>your expected follower growth is around 7–8 followers daily (50%).</p>
+
+                    <p>🎯 What You Should Do</p>
+                    <ul>
+                        <li>Send connection requests daily</li>
+                        <li>Connect with:
+                            <ul>
+                                <li>Friends</li>
+                                <li>College students</li>
+                                <li>Working professionals</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>💡 Example</p>
+                    <ul>
+                        <li>Send 20 requests → 5–8 accepted</li>
+                        <li>That becomes your daily growth</li>
+                    </ul>
+
+                    <p>⚡ Platform Strategy</p>
+                    <ul>
+                        <li>LinkedIn → Professional connections</li>
+                        <li>Instagram → Story tagging + visibility</li>
+                    </ul>
+
+                    <p>Make sure to:</p>
+                    <ul>
+                        <li>Tag company page</li>
+                        <li>Tag team members</li>
+                    </ul>
+
+                    <p>📊 Benefits</p>
+                    <ul>
+                        <li>Higher reach on your posts</li>
+                        <li>Stronger network</li>
+                        <li>Better job visibility</li>
+                    </ul>
+                `,
+                            fixedBottom: `
+                                <p>🎓 Certification Benefit</p>
+                    <p>Followers growth will be counted towards your Marketing Certification.</p>
+                    <p>Please focus on building a consistent and relevant network.</p>
+                    <p>Regards,<br/>
+                    Team Fundsaudit</p>`
+                        },
+                        marcomreviews: {
+                            label: "marcomreviews",
+                            subject: (record) => `👉 Build Trust & Visibility – Submit Your Reviews & Ratings`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>Reviews and ratings play a very important role in building credibility and trust for any platform.</p>
+                    <p>As part of your internship, you are required to contribute to this process.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 Where to Submit Reviews</p>
+                    <ul>
+                        <li>Play Store</li>
+                        <li>App Store</li>
+                        <li>Google Reviews</li>
+                        <li>Job platforms (Glassdoor, Internshala, etc.)</li>
+                    </ul>
+
+                    <p>💡 Example Review</p>
+                    <p>“Great experience working on FundsPortfolio. It helped me build a real portfolio and improve my practical skills.”</p>
+
+                    <p>⚡ Strategy</p>
+                    <ul>
+                        <li>Submit 2–3 reviews daily</li>
+                        <li>Use different platforms</li>
+                        <li>Keep reviews simple and genuine</li>
+                    </ul>
+
+                    <p>📊 Impact</p>
+                    <ul>
+                        <li>More reviews = more trust</li>
+                        <li>More trust = more users</li>
+                        <li>Strong brand = stronger association for you</li>
+                    </ul>
+                `,
+                            fixedBottom: `
+                                <p>🎓 Certification Benefit</p>
+                    <p>Reviews and ratings will be counted towards your Marketing Certification.</p>
+                    <p>Please ensure consistent contribution across platforms.</p>
+                    <p>Regards,<br/>
+                    Team Fundsaudit</p>`
+            },
             promotional: {
                 label: "Promotional",
                 subject: (record) => `Opportunity – Complete Your Target & Get Certified! | FundsAudit`,
@@ -2943,7 +3387,7 @@
                         }
                         updateManagerPerformanceChart();
                         updateFilteredCount();
-                        
+
 
                         initEmailModalEvents();
                     } else {
@@ -3975,13 +4419,13 @@
                 const name = button.data('name');
 
                 const rowData = tableData.find(row => row.id == rowId);
-                
+
                 if (rowData) {
 
-                    const requiredTarget = parseInt(rowData.businessStatus) || 0; 
+                    const requiredTarget = parseInt(rowData.businessStatus) || 0;
                     const currentSubs = parseInt(rowData.subscriptionWallet) || 0;
                     const remainingTarget = Math.max(0, requiredTarget - currentSubs);
-                    
+
                     currentRecord = {
                         id: rowData.id,
                         studentName: rowData.name || name,
@@ -4019,7 +4463,7 @@
                     $('#editableRequiredTarget').val(currentRecord.requiredTarget);
                     $('#editableProjectTask').val(currentRecord.projectTask);
                     $('#editableTeamManager').val(currentRecord.teamManager);
-                    
+
                     const editableDiv = document.getElementById('mailEditorModal');
                     if (editableDiv) {
                         editableDiv.focus();
@@ -4034,7 +4478,7 @@
             });
 
             // Update record when editable fields change
-            $(document).on('input change', '#editableSubscriptionWallet, #editableRequiredTarget, #editableProjectTask, #editableTeamManager', function() {
+            $(document).on('input change', '#editableSubscriptionWallet, #editableRequiredTarget, #editableProjectTask, #editableTeamManager', function () {
                 if (currentRecord) {
                     currentRecord.subscriptionWallet = parseInt($('#editableSubscriptionWallet').val()) || 0;
                     currentRecord.requiredTarget = parseInt($('#editableRequiredTarget').val()) || 25;
@@ -4114,7 +4558,7 @@
                 $('#subject-input').val(tpl.subject(record));
             }
             $('#email-fixed-top').html(tpl.fixedTop(record));
-            
+
             // Build editable middle with dynamic fields
             let editableMiddle = tpl.editableMiddle;
             // Replace the template variables with current values
@@ -4127,7 +4571,7 @@
             editableMiddle = editableMiddle.replace(/\${currentRecord?.remainingTarget}/g, record.remainingTarget || "0");
             editableMiddle = editableMiddle.replace(/\${currentRecord?.projectTask}/g, record.projectTask || "Complete pending subscriptions");
             editableMiddle = editableMiddle.replace(/\${currentRecord?.teamManager}/g, record.teamManager || "Not Assigned");
-            
+
             $('#mailEditorModal').html(editableMiddle);
             $('#email-fixed-bottom').html(tpl.fixedBottom);
             updateEmailPreview();
@@ -4138,7 +4582,7 @@
             if (!record) return;
             const tpl = emailTemplates[activeTemplateKey];
             let editableContent = $('#mailEditorModal').html();
-            
+
             // Replace variables in preview as well
             editableContent = editableContent.replace(/\${currentRecord?.studentName}/g, record.studentName || "");
             editableContent = editableContent.replace(/\${currentRecord?.email}/g, record.emailId || "");
@@ -4149,7 +4593,7 @@
             editableContent = editableContent.replace(/\${currentRecord?.remainingTarget}/g, record.remainingTarget || "0");
             editableContent = editableContent.replace(/\${currentRecord?.projectTask}/g, record.projectTask || "Complete pending subscriptions");
             editableContent = editableContent.replace(/\${currentRecord?.teamManager}/g, record.teamManager || "Not Assigned");
-            
+
             $('#emailPreview').html(`${tpl.fixedTop(record)}${editableContent}${tpl.fixedBottom}`);
         }
 
@@ -4595,6 +5039,15 @@
                                     <option value="connect" style="text-align: center;">Connect</option>
                                     <option value="marketing" style="text-align: center;">Marketing</option>
                                     <option value="diy" style="text-align: center;">DIY</option>
+                                    <option value="iegpush" style="text-align: center;">IEG:PUSH</option>
+                                    <option value="iegforce" style="text-align: center;">IEG:FORCE</option>
+                                    <option value="iegdeal" style="text-align: center;">IEG:DEAL</option>
+                                    <option value="fpcompush" style="text-align: center;">FPCOM:PUSH</option>
+                                    <option value="fpcommix" style="text-align: center;">FPCOM:MIX</option>
+                                    <option value="fpcomdirect" style="text-align: center;">FPCOM:DIRECT</option>
+                                    <option value="marcompost" style="text-align: center;">MARCOM:POST</option>
+                                    <option value="marcomfollowers" style="text-align: center;">MARCOM:FLW</option>
+                                    <option value="marcomreviews" style="text-align: center;">MARCOM:REV</option>
                                 </select>
 
                             </div>
