@@ -232,6 +232,14 @@
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager-fundsweb.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-globe"></i></span>
+                            <span class="nxl-mtext">FUNDSWEB SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-file-text"></i></span>
                             <span class="nxl-mtext">COLLEGE SHEET</span>
@@ -1649,7 +1657,7 @@
                     <p>I hope you’re doing well.</p>
                     <p>We reviewed your progress in the FundsAudit internship, and it’s good to see that you have already started working towards your targets.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>At this stage, most interns usually face a small challenge in terms of direction — mainly around how to complete the remaining targets efficiently.</p>
 
                     <p>We would like to guide you on:</p>
@@ -1667,20 +1675,20 @@
                     <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
                     <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>Please be available for a quick discussion.</p>
                     <p>Regards,<br/>
                     Team FundsAudit</p>`
-                        },
-                        iegforce: {
-                            label: "iegforce",
-                            subject: (record) => `Important: Internship Progress & Immediate Action Required`,
-                            fixedTop: (record) => `
+            },
+            iegforce: {
+                label: "iegforce",
+                subject: (record) => `Important: Internship Progress & Immediate Action Required`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>This is regarding your ongoing FundsAudit internship.</p>
                     <p>We observed that your progress is currently below the expected level, and the targets are still pending.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>Please note that completion of the assigned targets is mandatory for:</p>
                     <ul>
                         <li>Internship completion</li>
@@ -1700,21 +1708,21 @@
                     <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
                     <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>It is important that you are available for this discussion.</p>
                     <p>Regards,<br/>
                     Team FundsAudit</p>`
-                        },
-                        iegdeal: {
-                            label: "iegdeal",
-                            subject: (record) => `Opportunity to Complete Your Internship (Reactivation Support)`,
-                            fixedTop: (record) => `
+            },
+            iegdeal: {
+                label: "iegdeal",
+                subject: (record) => `Opportunity to Complete Your Internship (Reactivation Support)`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>We noticed that you had previously started your FundsAudit internship but could not complete it.</p>
                     <p>We understand that many interns face challenges during execution, and that’s completely fine.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>The good news is — you still have the opportunity to complete your internship with a more flexible and structured approach.</p>
 
                     <p>We would like to help you:</p>
@@ -1730,23 +1738,23 @@
                     <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
                     <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>I will be connecting with you shortly to guide you through the updated plan and help you complete your internship smoothly.</p>
                     <p>Looking forward to speaking with you.</p>
                     <p>Regards,<br/>
                     Team FundsAudit</p>`
-                        },
-                        fpcompush: {
-                            label: "fpcompush",
-                            subject: (record) => `Upgrade Your Internship Work into a Professional Portfolio`,
-                            fixedTop: (record) => `
+            },
+            fpcompush: {
+                label: "fpcompush",
+                subject: (record) => `Upgrade Your Internship Work into a Professional Portfolio`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>We reviewed your performance in the FundsAudit internship, and it’s great to see that you have already completed/actively worked on your targets.</p>
                     <p>At this stage, the next logical step is not just completing work — but showing your work professionally.</p>
                     <p>This is where FundsPortfolio (via FundsWeb) comes in.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>🔹 With FundsPortfolio, you can convert your internship work into a live portfolio website, where you can showcase:</p>
                     <ul>
                         <li>Your profile and resume</li>
@@ -1787,24 +1795,24 @@
                     <p>👉 https://fundsweb.in/index</p>
                     <p>You can check real portfolios and understand how candidates are showcasing their work.</p>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>🎯 Final Thought</p>
                     <p>FundsAudit shows that you worked.</p>
                     <p>FundsPortfolio shows what you worked.</p>
                     <p>I will connect with you shortly to guide you on how you can upgrade your work into a portfolio.</p>
                     <p>Regards,<br/>
                     Team Fundsroom</p>`
-                        },
-                        fpcommix: {
-                            label: "fpcommix",
-                            subject: (record) => `👉 Smart Internship Approach: Combine Work + Portfolio for Better Results`,
-                            fixedTop: (record) => `
+            },
+            fpcommix: {
+                label: "fpcommix",
+                subject: (record) => `👉 Smart Internship Approach: Combine Work + Portfolio for Better Results`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>We understand that completing the full FundsAudit target can sometimes feel challenging.</p>
                     <p>Instead of delaying or stopping, we recommend a smarter approach — the Mix Model.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>🎯 What is the Mix Model?</p>
                     <p>Instead of focusing only on FundsAudit, you can combine:</p>
                     <ul>
@@ -1846,25 +1854,25 @@
                     <p>👉 https://fundsweb.in/index</p>
                     <p>You can check how others are building and showcasing their work.</p>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>🎯 Positioning</p>
                     <p>Mix model is not reducing your work —</p>
                     <p>it is increasing your career value.</p>
                     <p>I will connect with you shortly to help you choose the right mix and complete your internship efficiently.</p>
                     <p>Regards,<br/>
                     Team Fundsroom</p>`
-                        },
-                        fpcomdirect: {
-                            label: "fpcomdirect",
-                            subject: (record) => `👉 Build Your Own Portfolio Website & Stand Out Professionally`,
-                            fixedTop: (record) => `
+            },
+            fpcomdirect: {
+                label: "fpcomdirect",
+                subject: (record) => `👉 Build Your Own Portfolio Website & Stand Out Professionally`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>I wanted to introduce you to FundsPortfolio (via FundsWeb) — a platform where you can build your own personal portfolio website.</p>
                     <p>This is not something you need to sell to others —</p>
                     <p>this is something you build for yourself.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>🎯 What You Get</p>
                     <p>You can create a website where you showcase:</p>
                     <ul>
@@ -1908,18 +1916,18 @@
                     <p>👉 https://fundsweb.in/index</p>
                     <p>You can explore live portfolios and understand the value.</p>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>🎯 Final Thought</p>
                     <p>Resume tells your skills.</p>
                     <p>Portfolio proves your skills.</p>
                     <p>I will connect with you shortly to guide you on how to get started.</p>
                     <p>Regards,<br/>
                     Team Fundsroom</p>`
-                        },
-                        marcompost: {
-                            label: "marcompost",
-                            subject: (record) => `👉 Build Your Professional Presence – Start Posting on LinkedIn`,
-                            fixedTop: (record) => `
+            },
+            marcompost: {
+                label: "marcompost",
+                subject: (record) => `👉 Build Your Professional Presence – Start Posting on LinkedIn`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>As part of your internship, one of the most important activities is to start building your professional presence on LinkedIn.</p>
@@ -1930,7 +1938,7 @@
                     </ul>
                     <p>This is where you can stand out.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>🎯 What You Need to Do</p>
                     <p>You need to post about:</p>
                     <ul>
@@ -1975,17 +1983,17 @@
                         <li>Helps recruiters understand your work</li>
                     </ul>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>🎓 Certification Benefit</p>
                     <p>Your posts will be counted towards your Marketing Certification.</p>
                     <p>Please start posting regularly and maintain consistency.</p>
                     <p>Regards,<br/>
                     Team Fundsaudit</p>`
-                        },
-                        marcomfollowers: {
-                            label: "marcomfollowers",
-                            subject: (record) => `👉 Increase Your Network & Build Your Professional Reach`,
-                            fixedTop: (record) => `
+            },
+            marcomfollowers: {
+                label: "marcomfollowers",
+                subject: (record) => `👉 Increase Your Network & Build Your Professional Reach`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>Along with posting, it is equally important to build your professional network and followers.</p>
@@ -1995,7 +2003,7 @@
                         <li>Audience (Followers)</li>
                     </ul>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>📊 Target Logic</p>
                     <p>If your target is 15 accounts,</p>
                     <p>your expected follower growth is around 7–8 followers daily (50%).</p>
@@ -2037,23 +2045,23 @@
                         <li>Better job visibility</li>
                     </ul>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>🎓 Certification Benefit</p>
                     <p>Followers growth will be counted towards your Marketing Certification.</p>
                     <p>Please focus on building a consistent and relevant network.</p>
                     <p>Regards,<br/>
                     Team Fundsaudit</p>`
-                        },
-                        marcomreviews: {
-                            label: "marcomreviews",
-                            subject: (record) => `👉 Build Trust & Visibility – Submit Your Reviews & Ratings`,
-                            fixedTop: (record) => `
+            },
+            marcomreviews: {
+                label: "marcomreviews",
+                subject: (record) => `👉 Build Trust & Visibility – Submit Your Reviews & Ratings`,
+                fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
                     <p>Reviews and ratings play a very important role in building credibility and trust for any platform.</p>
                     <p>As part of your internship, you are required to contribute to this process.</p>
                 `,
-                            editableMiddle:`
+                editableMiddle: `
                     <p>🎯 Where to Submit Reviews</p>
                     <ul>
                         <li>Play Store</li>
@@ -2079,7 +2087,7 @@
                         <li>Strong brand = stronger association for you</li>
                     </ul>
                 `,
-                            fixedBottom: `
+                fixedBottom: `
                                 <p>🎓 Certification Benefit</p>
                     <p>Reviews and ratings will be counted towards your Marketing Certification.</p>
                     <p>Please ensure consistent contribution across platforms.</p>

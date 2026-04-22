@@ -395,10 +395,10 @@
                             </a>
                         </div>
                     </div> -->
-                    <div id="collegeSelectWrapper" style="width: 30%; min-width: 250px; margin-right: 4%;"></div>
+                    <div id="managerSelectWrapper" style="width: 30%; min-width: 250px; margin-right: 4%;"></div>
 
-                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter"
-                        placeholder="Select date or range" class="form-control" />
+                    <input type="text" style="width: 40%; min-width: 250px;" id="dateFilter" placeholder="This Month"
+                        class="form-control" />
 
                     <!-- Dark/Light Theme Toggle -->
                     <div class="nxl-h-item dark-light-theme" style="margin-right: 3%;">
@@ -529,16 +529,30 @@
                 </div>
 
                 <!-- Connected -->
-                <div class="col-xxl-4 col-lg-2 col-md-6">
+                <div class="col-xxl-2 col-lg-2 col-md-6">
                     <div class="card stretch stretch-full">
                         <div class="card-body">
                             <div class="fs-12 fw-medium text-muted mb-3">Total Accounts</div>
                             <div class="hstack justify-content-between lh-base">
-                                <h3><span id="totalAccounts" style="color:#47b947">0</span>/<span id="targetAccounts"
-                                        style="color:#dc3545">0</span></h3>
+                                <h3><span id="totalAccounts" style="color:#47b947;">0</span>/<span id="targetAccounts"
+                                        style="color:#dc3545;">0</span></h3>
                                 <div class="hstack gap-2 fs-11">
                                     <span id="accountsPercent">0%</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-2 col-lg-2 col-md-6">
+                    <div class="card stretch stretch-full">
+                        <div class="card-body">
+                            <div class="fs-12 fw-medium text-muted mb-3">Today's Accounts</div>
+                            <div class="hstack justify-content-between lh-base">
+                                <h3><span id="todayAccounts">0</span></h3>
+                                <!-- <div class="hstack gap-2 fs-11">
+                                    <span id="accountsPercent">0%</span>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -800,20 +814,30 @@
                 </div>
             </div>
 
-            <!-- <div class="bg-white text-black p-3 rounded-3"
+            <div class="bg-white text-black p-3 rounded-3"
                 style="position: relative; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); margin-left: 15px; margin-right: 15px; margin-bottom: 25px; margin-top: 25px;">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="m-0">TEAM MANAGER ACCOUNTS</h5>
                 </div>
 
+                <!-- Legend will be inserted here by JavaScript -->
                 <div id="manager-chart-legend" class="manager-chart-legend"></div>
 
+                <!-- Chart container with scroll wrapper -->
                 <div id="manager-chart-scroll-wrapper" class="chart-scroll-wrapper">
                     <div id="manager-chart-inner" class="chart-inner">
                         <div id="manager-performance-bar-chart"></div>
                     </div>
                 </div>
-            </div> -->
+
+                <!-- Scroll buttons -->
+                <!-- <button class="chart-scroll-btn" id="manager-scroll-left-btn">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="chart-scroll-btn" id="manager-scroll-right-btn">
+                    <i class="bi bi-chevron-right"></i>
+                </button> -->
+            </div>
 
             <div class="card mt-4">
                 <div class="card-header text-white">
@@ -1252,12 +1276,12 @@
                                         <tr class="border-b">
                                             <th>SR</th>
                                             <th>NAME</th>
-                                            <th>MOBILE NUMBER</th>
                                             <th>REGISTRATION DATE</th>
-                                            <th>OFFER MESSAGE</th>
-                                            <th>SELECTION STATUS</th>
-                                            <th>EMAIL</th>
                                             <th>COLLEGE NAME</th>
+                                            <th>MOBILE NUMBER</th>
+                                            <!-- <th>OFFER MESSAGE</th>
+                                            <th>SELECTION STATUS</th> -->
+                                            <th>EMAIL</th>
                                             <th>DOMAIN</th>
                                             <th>COURSE</th>
                                             <th>DURATION</th>
@@ -1269,14 +1293,19 @@
                                             <th>TOTAL SUBSCRIPTIONS</th>
                                             <th>PROJECT TASK</th>
                                             <th>PERCENTAGE OF WORK DONE</th>
-                                            <th>CERTIFICATE STATUS</th>
+                                            <!-- <th>CERTIFICATE STATUS</th>
                                             <th>LIVE PROJECT CERTIFCATE STATUS</th>
                                             <th>SUBSCRIPTIONS LEFT IN WALLET</th>
-                                            <th>QUERY STATUS</th>
+                                            <th>QUERY STATUS</th> -->
                                             <th>LIVE PROJECT ACTION</th>
                                             <th>TEAM MANAGER ALLOTTED</th>
                                             <th>PUSH</th>
-                                            <th>PUSH COMMENT</th>
+                                            <th>PUSH COMMENT (Mailed)</th>
+                                            <th>MAIL</th>
+                                            <!-- <th>SMT1</th>
+                                            <th>SMT2</th>
+                                            <th>SMT3</th>
+                                            <th>SMT4</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1521,47 +1550,665 @@
             internshipCertificateStatus: ["Pending", "Issued"],
             internshipAction: ["Terminated", "On hold", "Resume"],
             internshipStatus: ["Pending", "In Progress", "Completed", "Rejected"],
-            pushComment: ["Interested", "Not Interested", "Connected", "CNA", "Will do"]
+            pushComment: ["Interested (Mailed)", "Not Interested (Mailed)", "Connected (Mailed)", "CNA", "Will do"],
+            // smt1: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
+            // smt2: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
+            // smt3: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"],
+            // smt4: ["Default", "Promotional", "Follow-up", "Connect", "Marketing", "DIY"]
         };
 
         const columnMap = {
             1: "name",
-            2: "phoneNumber",
-            3: "registeredAt",
-            4: "offerMessageExists",
-            5: "selected",
-            6: "email",
-            7: "collegeName",
-            8: "courses",
-            9: "course",
-            10: "duration",
-            11: "startDate",
-            12: "estEndDate",
-            13: "courseStatus",
-            14: "referralCode",
-            15: "subscriptionWallet",
-            16: "businessStatus",
-            17: "workPercentage",
-            18: "certificateStatus",
-            19: "internshipCertificateStatus",
-            20: "subscriptionLeft",
-            21: "queryStatus",
-            22: "internshipAction",
-            23: "teamManager",
-            24: "pushto",
-            25: "pushComment"
+            2: "registeredAt",
+            3: "collegeName",
+            4: "phoneNumber",
+            // 5: "offerMessageExists",
+            // 6: "selected",
+            5: "email",
+            6: "courses",
+            7: "course",
+            8: "duration",
+            9: "startDate",
+            10: "estEndDate",
+            11: "courseStatus",
+            12: "referralCode",
+            13: "subscriptionWallet",
+            14: "businessStatus",
+            15: "workPercentage",
+            // 18: "certificateStatus",
+            // 19: "internshipCertificateStatus",
+            // 20: "subscriptionLeft",
+            // 21: "queryStatus",
+            16: "internshipAction",
+            17: "teamManager",
+            18: "pushto",
+            19: "pushComment",
+            20: "mail",
+            // 21: "smt1",
+            // 22: "smt2",
+            // 23: "smt3",
+            // 24: "smt4"
         };
 
         let tableData = [];
         let filteredData = [];
         const rowsPerPage = 100;
         let currentPage = 1;
-        let collegeList = [];
-        let selectedColleges = [];
-        let selectedDateRange = null;
         let managerList = [];
+        let selectedManagers = [];
+        let selectedDateRange = null;
         let columnFilters = {};
         let activeFilterDropdown = null;
+
+        let activeTemplateKey = "default";
+        let currentRecord = null;
+        let attachments = [];
+        const MAX_TOTAL_ATTACHMENT_SIZE = 750 * 1024;
+
+        const emailTemplates = {
+
+            default: {
+                label: "Default",
+                subject: (record) => `Opportunity - Complete Your Internship Target | FundsAudit × ${record.studentName || "Student"}`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Greetings from FundsAudit.</p>
+                    <p>We are excited to introduce a <b>Special Offer</b> for our internship participants.</p>
+                    <p>As per our records, here are your details:</p>
+                    <ul>
+                        <li><b>Student Name:</b> <span class="email-template-variable">${record.studentName || ""}</span></li>
+                        <li><b>Email:</b> <span class="email-template-variable">${record.emailId || ""}</span></li>
+                        <li><b>College Name:</b> <span class="email-template-variable">${record.collegeName || ""}</span></li>
+                        <li><b>Registration Date:</b> <span class="email-template-variable">${record.registeredAt || ""}</span></li>
+                        <li><b>Team Manager Name:</b> <span class="email-template-variable">${record.teamManager || "Not Assigned"}</span></li>
+                    </ul>
+                    <br>
+                    <p><b>Project Task:</b> <span class="email-template-variable">${record.projectTask || "Complete pending subscriptions"}</span></p>
+                    <p>✅ <b>Current Completion:</b> <span class="email-template-variable">${record.subscriptionWallet || "0"}</span><br/>
+                    🎯 <b>Required Target:</b> <span class="email-template-variable">${record.requiredTarget || "0"}</span><br/>
+                    📈 <b>Remaining to Complete:</b> <span class="email-template-variable">${record.remainingTarget || "0"}</span></p>`,
+                editableMiddle: `
+                    <p>To become eligible for the Internship Completion Certificate, you need to complete your remaining Subscriptions as mentioned above.</p>
+                    <p>To support you in completing your target, we are giving you a <b>2-day Opportunity</b> where you can focus on completing your remaining Subscriptions during this period.</p>
+                    <p>This is a great opportunity for you to finish your target quickly and secure your internship certificate. Our team will also be available during this period to guide and support you if required.</p>
+                    <p>We encourage you to make the most of this limited-time offer and complete your pending target.</p>`,
+                fixedBottom: `
+                    <p>Looking forward to your participation and completion.</p>
+                    <p>Best Regards,<br/>
+                    Team FundsAudit</p>`
+            },
+            diy: {
+                label: "diy",
+                subject: (record) => `Opportunity - Complete Your Internship`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Greetings from FundsAudit.</p>
+                    `,
+                editableMiddle: `
+                    <p></p>`,
+                fixedBottom: `
+                    <p></p>`
+            },
+            iegpush: {
+                label: "iegpush",
+                subject: (record) => `Quick Update on Your Internship Progress & Next Step`,
+                fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We reviewed your progress in the FundsAudit internship, and it’s good to see that you have already started working towards your targets.</p>
+                `,
+                            editableMiddle:`
+                    <p>At this stage, most interns usually face a small challenge in terms of direction — mainly around how to complete the remaining targets efficiently.</p>
+
+                    <p>We would like to guide you on:</p>
+                    <ul>
+                        <li>How to complete your targets faster</li>
+                        <li>How to approach the right set of people</li>
+                        <li>How to maximize your internship outcome</li>
+                    </ul>
+
+                    <p>I will be connecting with you shortly to discuss a simple execution plan and help you move forward effectively.</p>
+
+                    <p>Additionally, we will introduce you to FundsPortfolio via FundsWeb, where you can build your own professional portfolio and showcase your work:</p>
+
+                    <p>🌐 FundsPortfolio (Website): https://fundsweb.in/index</p>
+                    <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
+                    <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
+                `,
+                            fixedBottom: `
+                                <p>Please be available for a quick discussion.</p>
+                    <p>Regards,<br/>
+                    Team FundsAudit</p>`
+                        },
+                        iegforce: {
+                            label: "iegforce",
+                            subject: (record) => `Important: Internship Progress & Immediate Action Required`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>This is regarding your ongoing FundsAudit internship.</p>
+                    <p>We observed that your progress is currently below the expected level, and the targets are still pending.</p>
+                `,
+                            editableMiddle:`
+                    <p>Please note that completion of the assigned targets is mandatory for:</p>
+                    <ul>
+                        <li>Internship completion</li>
+                        <li>Certificate issuance</li>
+                        <li>Final evaluation</li>
+                    </ul>
+
+                    <p>In case the targets are not completed within the expected timeline, your internship may be marked as incomplete, and the same may be communicated to your college.</p>
+
+                    <p>We would like to understand your current challenges and help you with a structured plan for completion.</p>
+
+                    <p>I will be connecting with you shortly to discuss this and align on immediate next steps.</p>
+
+                    <p>Additionally, we will also introduce you to FundsPortfolio via FundsWeb, which can help you build a stronger professional profile:</p>
+
+                    <p>🌐 FundsPortfolio (Website): https://fundsweb.in/index</p>
+                    <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
+                    <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
+                `,
+                            fixedBottom: `
+                                <p>It is important that you are available for this discussion.</p>
+                    <p>Regards,<br/>
+                    Team FundsAudit</p>`
+                        },
+                        iegdeal: {
+                            label: "iegdeal",
+                            subject: (record) => `Opportunity to Complete Your Internship (Reactivation Support)`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We noticed that you had previously started your FundsAudit internship but could not complete it.</p>
+                    <p>We understand that many interns face challenges during execution, and that’s completely fine.</p>
+                `,
+                            editableMiddle:`
+                    <p>The good news is — you still have the opportunity to complete your internship with a more flexible and structured approach.</p>
+
+                    <p>We would like to help you:</p>
+                    <ul>
+                        <li>Restart your progress</li>
+                        <li>Complete your remaining targets</li>
+                        <li>Successfully receive your internship certification</li>
+                    </ul>
+
+                    <p>Along with this, we will also introduce you to FundsPortfolio via FundsWeb, where you can build your own professional portfolio and showcase your work:</p>
+
+                    <p>🌐 FundsPortfolio (Website): https://fundsweb.in/index</p>
+                    <p>📱 FundsAudit (Play Store): https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&pcampaignid=web_share</p>
+                    <p>🍎 FundsAudit (App Store): https://apps.apple.com/in/app/fundsaudit/id6575365188</p>
+                `,
+                            fixedBottom: `
+                                <p>I will be connecting with you shortly to guide you through the updated plan and help you complete your internship smoothly.</p>
+                    <p>Looking forward to speaking with you.</p>
+                    <p>Regards,<br/>
+                    Team FundsAudit</p>`
+                        },
+                        fpcompush: {
+                            label: "fpcompush",
+                            subject: (record) => `Upgrade Your Internship Work into a Professional Portfolio`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We reviewed your performance in the FundsAudit internship, and it’s great to see that you have already completed/actively worked on your targets.</p>
+                    <p>At this stage, the next logical step is not just completing work — but showing your work professionally.</p>
+                    <p>This is where FundsPortfolio (via FundsWeb) comes in.</p>
+                `,
+                            editableMiddle:`
+                    <p>🔹 With FundsPortfolio, you can convert your internship work into a live portfolio website, where you can showcase:</p>
+                    <ul>
+                        <li>Your profile and resume</li>
+                        <li>Skills you have learned</li>
+                        <li>Actual work (data, reports, content, links, etc.)</li>
+                    </ul>
+
+                    <p>📊 Why This Matters (Market Reality)</p>
+                    <ul>
+                        <li>90% of candidates only have resumes</li>
+                        <li>Less than 10% candidates have portfolios</li>
+                    </ul>
+
+                    <p>Candidates with portfolios have:</p>
+                    <ul>
+                        <li>2x–3x higher shortlisting chances</li>
+                        <li>Better interview conversion</li>
+                    </ul>
+
+                    <p>💡 Example</p>
+                    <p>If two candidates apply:</p>
+                    <ul>
+                        <li>One has only a resume</li>
+                        <li>One has a portfolio website</li>
+                    </ul>
+
+                    <p>Recruiters will always prefer the one who can show real work.</p>
+
+                    <p>💰 Cost vs Value</p>
+                    <ul>
+                        <li>Portfolio with us: ₹500–₹1000</li>
+                        <li>Market cost: ₹10,000+</li>
+                    </ul>
+
+                    <p>You are getting a professional portfolio at a significantly lower cost.</p>
+
+                    <p>🌐 Explore Portfolios</p>
+                    <p>👉 https://fundsweb.in/index</p>
+                    <p>You can check real portfolios and understand how candidates are showcasing their work.</p>
+                `,
+                            fixedBottom: `
+                                <p>🎯 Final Thought</p>
+                    <p>FundsAudit shows that you worked.</p>
+                    <p>FundsPortfolio shows what you worked.</p>
+                    <p>I will connect with you shortly to guide you on how you can upgrade your work into a portfolio.</p>
+                    <p>Regards,<br/>
+                    Team Fundsroom</p>`
+                        },
+                        fpcommix: {
+                            label: "fpcommix",
+                            subject: (record) => `👉 Smart Internship Approach: Combine Work + Portfolio for Better Results`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>We understand that completing the full FundsAudit target can sometimes feel challenging.</p>
+                    <p>Instead of delaying or stopping, we recommend a smarter approach — the Mix Model.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 What is the Mix Model?</p>
+                    <p>Instead of focusing only on FundsAudit, you can combine:</p>
+                    <ul>
+                        <li>Partial FundsAudit targets</li>
+                        <li>FundsPortfolio creation</li>
+                    </ul>
+
+                    <p>Example:</p>
+                    <ul>
+                        <li>8 FundsAudit + 1 Portfolio</li>
+                        <li>5 FundsAudit + 2 Portfolio</li>
+                    </ul>
+                    <p>(Flexible combinations based on your capacity)</p>
+
+                    <p>📊 Why This Works</p>
+                    <ul>
+                        <li>FundsAudit → Execution experience</li>
+                        <li>FundsPortfolio → Proof of work</li>
+                    </ul>
+
+                    <p>Together:</p>
+                    <p>👉 You gain both experience + visibility</p>
+
+                    <p>💡 Example</p>
+                    <ul>
+                        <li>Only Audit → You complete targets</li>
+                        <li>Mix Model → You complete + showcase</li>
+                    </ul>
+
+                    <p>This increases your overall value.</p>
+
+                    <p>📈 Career Advantage</p>
+                    <ul>
+                        <li>Candidates with portfolios have 2x–3x better chances</li>
+                        <li>Portfolio helps in job applications and interviews</li>
+                    </ul>
+
+                    <p>🌐 Explore Portfolios</p>
+                    <p>👉 https://fundsweb.in/index</p>
+                    <p>You can check how others are building and showcasing their work.</p>
+                `,
+                            fixedBottom: `
+                                <p>🎯 Positioning</p>
+                    <p>Mix model is not reducing your work —</p>
+                    <p>it is increasing your career value.</p>
+                    <p>I will connect with you shortly to help you choose the right mix and complete your internship efficiently.</p>
+                    <p>Regards,<br/>
+                    Team Fundsroom</p>`
+                        },
+                        fpcomdirect: {
+                            label: "fpcomdirect",
+                            subject: (record) => `👉 Build Your Own Portfolio Website & Stand Out Professionally`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>I wanted to introduce you to FundsPortfolio (via FundsWeb) — a platform where you can build your own personal portfolio website.</p>
+                    <p>This is not something you need to sell to others —</p>
+                    <p>this is something you build for yourself.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 What You Get</p>
+                    <p>You can create a website where you showcase:</p>
+                    <ul>
+                        <li>Your resume and profile</li>
+                        <li>Skills you have learned</li>
+                        <li>Real work (data, reports, content, links, videos)</li>
+                    </ul>
+
+                    <p>📊 Market Reality</p>
+                    <ul>
+                        <li>90% students → only resumes</li>
+                        <li>Less than 5% → portfolio</li>
+                    </ul>
+
+                    <p>That’s why most candidates don’t stand out.</p>
+
+                    <p>💡 Example</p>
+                    <p>Imagine:</p>
+                    <p>Your name is searched on Google →</p>
+                    <p>Your personal website appears →</p>
+                    <p>Your complete work is visible</p>
+
+                    <p>That creates instant professional credibility.</p>
+
+                    <p>💰 Cost Justification</p>
+                    <ul>
+                        <li>With us: ₹500–₹1000</li>
+                        <li>Market: ₹10,000+</li>
+                    </ul>
+
+                    <p>This is a low-cost investment with high long-term value.</p>
+
+                    <p>📈 Career Impact</p>
+                    <ul>
+                        <li>2x–3x better job shortlisting chances</li>
+                        <li>Stronger professional profile</li>
+                        <li>Better visibility to recruiters</li>
+                    </ul>
+
+                    <p>🌐 Explore Portfolios</p>
+                    <p>👉 https://fundsweb.in/index</p>
+                    <p>You can explore live portfolios and understand the value.</p>
+                `,
+                            fixedBottom: `
+                                <p>🎯 Final Thought</p>
+                    <p>Resume tells your skills.</p>
+                    <p>Portfolio proves your skills.</p>
+                    <p>I will connect with you shortly to guide you on how to get started.</p>
+                    <p>Regards,<br/>
+                    Team Fundsroom</p>`
+                        },
+                        marcompost: {
+                            label: "marcompost",
+                            subject: (record) => `👉 Build Your Professional Presence – Start Posting on LinkedIn`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>As part of your internship, one of the most important activities is to start building your professional presence on LinkedIn.</p>
+                    <p>Today’s market works on visibility:</p>
+                    <ul>
+                        <li>90% candidates are learning skills</li>
+                        <li>Only 10% are actually showcasing their work</li>
+                    </ul>
+                    <p>This is where you can stand out.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 What You Need to Do</p>
+                    <p>You need to post about:</p>
+                    <ul>
+                        <li>What you are learning (Finance, Marketing, Analytics, etc.)</li>
+                        <li>Tasks you have completed</li>
+                        <li>Your portfolio progress</li>
+                        <li>Skills you are developing</li>
+                    </ul>
+
+                    <p>💡 Example Post</p>
+                    <p>“Started my journey as a Financial Analyst Intern. Learned portfolio management, data analysis, and built my own portfolio website.”</p>
+
+                    <p>⚡ Important Guidelines</p>
+                    <ul>
+                        <li>Use the provided content template</li>
+                        <li>Tag:
+                            <ul>
+                                <li>Company page</li>
+                                <li>Team Leader</li>
+                                <li>Manager</li>
+                                <li>Team members</li>
+                            </ul>
+                        </li>
+                        <li>Use hashtags:
+                            <ul>
+                                <li>#FundsPortfolio #FundsAudit #[YourCollegeName]</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>This helps in:</p>
+                    <ul>
+                        <li>Increasing reach</li>
+                        <li>Getting reposted</li>
+                        <li>Building your professional visibility</li>
+                    </ul>
+
+                    <p>📊 Impact</p>
+                    <ul>
+                        <li>1 post can reach 200–1000 people</li>
+                        <li>Regular posting increases profile strength</li>
+                        <li>Helps recruiters understand your work</li>
+                    </ul>
+                `,
+                            fixedBottom: `
+                                <p>🎓 Certification Benefit</p>
+                    <p>Your posts will be counted towards your Marketing Certification.</p>
+                    <p>Please start posting regularly and maintain consistency.</p>
+                    <p>Regards,<br/>
+                    Team Fundsaudit</p>`
+                        },
+                        marcomfollowers: {
+                            label: "marcomfollowers",
+                            subject: (record) => `👉 Increase Your Network & Build Your Professional Reach`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>Along with posting, it is equally important to build your professional network and followers.</p>
+                    <p>Visibility comes from both:</p>
+                    <ul>
+                        <li>Content (Posts)</li>
+                        <li>Audience (Followers)</li>
+                    </ul>
+                `,
+                            editableMiddle:`
+                    <p>📊 Target Logic</p>
+                    <p>If your target is 15 accounts,</p>
+                    <p>your expected follower growth is around 7–8 followers daily (50%).</p>
+
+                    <p>🎯 What You Should Do</p>
+                    <ul>
+                        <li>Send connection requests daily</li>
+                        <li>Connect with:
+                            <ul>
+                                <li>Friends</li>
+                                <li>College students</li>
+                                <li>Working professionals</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>💡 Example</p>
+                    <ul>
+                        <li>Send 20 requests → 5–8 accepted</li>
+                        <li>That becomes your daily growth</li>
+                    </ul>
+
+                    <p>⚡ Platform Strategy</p>
+                    <ul>
+                        <li>LinkedIn → Professional connections</li>
+                        <li>Instagram → Story tagging + visibility</li>
+                    </ul>
+
+                    <p>Make sure to:</p>
+                    <ul>
+                        <li>Tag company page</li>
+                        <li>Tag team members</li>
+                    </ul>
+
+                    <p>📊 Benefits</p>
+                    <ul>
+                        <li>Higher reach on your posts</li>
+                        <li>Stronger network</li>
+                        <li>Better job visibility</li>
+                    </ul>
+                `,
+                            fixedBottom: `
+                                <p>🎓 Certification Benefit</p>
+                    <p>Followers growth will be counted towards your Marketing Certification.</p>
+                    <p>Please focus on building a consistent and relevant network.</p>
+                    <p>Regards,<br/>
+                    Team Fundsaudit</p>`
+                        },
+                        marcomreviews: {
+                            label: "marcomreviews",
+                            subject: (record) => `👉 Build Trust & Visibility – Submit Your Reviews & Ratings`,
+                            fixedTop: (record) => `
+                    <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>I hope you’re doing well.</p>
+                    <p>Reviews and ratings play a very important role in building credibility and trust for any platform.</p>
+                    <p>As part of your internship, you are required to contribute to this process.</p>
+                `,
+                            editableMiddle:`
+                    <p>🎯 Where to Submit Reviews</p>
+                    <ul>
+                        <li>Play Store</li>
+                        <li>App Store</li>
+                        <li>Google Reviews</li>
+                        <li>Job platforms (Glassdoor, Internshala, etc.)</li>
+                    </ul>
+
+                    <p>💡 Example Review</p>
+                    <p>“Great experience working on FundsPortfolio. It helped me build a real portfolio and improve my practical skills.”</p>
+
+                    <p>⚡ Strategy</p>
+                    <ul>
+                        <li>Submit 2–3 reviews daily</li>
+                        <li>Use different platforms</li>
+                        <li>Keep reviews simple and genuine</li>
+                    </ul>
+
+                    <p>📊 Impact</p>
+                    <ul>
+                        <li>More reviews = more trust</li>
+                        <li>More trust = more users</li>
+                        <li>Strong brand = stronger association for you</li>
+                    </ul>
+                `,
+                            fixedBottom: `
+                                <p>🎓 Certification Benefit</p>
+                    <p>Reviews and ratings will be counted towards your Marketing Certification.</p>
+                    <p>Please ensure consistent contribution across platforms.</p>
+                    <p>Regards,<br/>
+                    Team Fundsaudit</p>`
+            },
+            promotional: {
+                label: "Promotional",
+                subject: (record) => `Opportunity – Complete Your Target & Get Certified! | FundsAudit`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Warm greetings from FundsAudit!</p>
+                    <p><b>🎉 Special Weekend Offer (Saturday & Sunday Only) 🎉</b></p>
+                    <p>Here's your current progress summary:</p>
+                    <ul>
+                        <li><b>Student Name:</b> <span class="email-template-variable">${record.studentName || ""}</span></li>
+                        <li><b>Email:</b> <span class="email-template-variable">${record.emailId || ""}</span></li>
+                        <li><b>College Name:</b> <span class="email-template-variable">${record.collegeName || ""}</span></li>
+                        <li><b>Registration Date:</b> <span class="email-template-variable">${record.registeredAt || ""}</span></li>
+                        <li><b>Team Manager:</b> <span class="email-template-variable">${record.teamManager || "Not Assigned"}</span></li>
+                    </ul>
+                    <p>You have completed <b><span class="email-template-variable">${record.subscriptionWallet || "0"}</span> subscriptions</b> out of the required <b><span class="email-template-variable">${record.requiredTarget || "25"}</span></b>.</p>
+                    <p>🎯 <b>Remaining:</b> <span class="email-template-variable">${record.remainingTarget || "0"}</span> subscriptions</p>
+                    <p><b>📋 Project Task:</b> <span class="email-template-variable">${record.projectTask || "Complete pending subscriptions"}</span></p>`,
+                editableMiddle: `
+                    <p>This weekend, focus on completing your remaining target. Our support team will be available to assist you.</p>
+                    <p>Don't miss this chance to earn your Internship Completion Certificate!</p>`,
+                fixedBottom: `
+                    <p>Let's achieve your target this weekend!</p>
+                    <p>Best Regards,<br/>
+                    Team FundsAudit</p>`
+            },
+
+            followup: {
+                label: "Follow-Up",
+                subject: (record) => `Reminder: Opportunity to Complete Your Internship Target`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Hope you're doing well!</p>
+                    <p>This is a gentle reminder about our <b>Special Weekend Offer</b> to help you complete your internship target.</p>
+                    <p><b>Your Current Status:</b></p>
+                    <ul>
+                        <li><b>Student Name:</b> <span class="email-template-variable">${record.studentName || ""}</span></li>
+                        <li><b>Email:</b> <span class="email-template-variable">${record.emailId || ""}</span></li>
+                        <li><b>College Name:</b> <span class="email-template-variable">${record.collegeName || ""}</span></li>
+                        <li><b>Registration Date:</b> <span class="email-template-variable">${record.registeredAt || ""}</span></li>
+                        <li><b>Team Manager:</b> <span class="email-template-variable">${record.teamManager || "Not Assigned"}</span></li>
+                    </ul>
+                    <p>📊 <b>Progress Update:</b></p>
+                    <p>✅ Current Completion: <span class="email-template-variable">${record.subscriptionWallet || "0"}</span><br/>
+                    🎯 Required Target: <span class="email-template-variable">${record.requiredTarget || "0"}</span><br/>
+                    📈 Remaining: <span class="email-template-variable">${record.remainingTarget || "0"}</span></p>
+                    <p><b>Project Task:</b> <span class="email-template-variable">${record.projectTask || "Complete pending subscriptions"}</span></p>`,
+                editableMiddle: `
+                    <p>The weekend is the perfect time to catch up! Please utilize Saturday and Sunday to complete your pending subscriptions.</p>
+                    <p>Reach out to your team manager if you need any assistance.</p>`,
+                fixedBottom: `
+                    <p>We believe in you! Complete your target this weekend.</p>
+                    <p>Best Regards,<br/>
+                    Team FundsAudit</p>`
+            },
+
+            connect: {
+                label: "Connect",
+                subject: (record) => `Let's Connect – Support for Your Internship Completion`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Greetings from the FundsAudit Support Team!</p>
+                    <p>We noticed your progress on the internship program and wanted to reach out personally.</p>
+                    <p><b>Your Details:</b></p>
+                    <ul>
+                        <li><b>Student Name:</b> <span class="email-template-variable">${record.studentName || ""}</span></li>
+                        <li><b>Email:</b> <span class="email-template-variable">${record.emailId || ""}</span></li>
+                        <li><b>College Name:</b> <span class="email-template-variable">${record.collegeName || ""}</span></li>
+                        <li><b>Registration Date:</b> <span class="email-template-variable">${record.registeredAt || ""}</span></li>
+                        <li><b>Team Manager:</b> <span class="email-template-variable">${record.teamManager || "Not Assigned"}</span></li>
+                    </ul>
+                    <p>📊 <b>Current Progress:</b> <span class="email-template-variable">${record.subscriptionWallet || "0"}</span> / <span class="email-template-variable">${record.requiredTarget || "25"}</span> subscriptions completed</p>
+                    <p><b>Project Task:</b> <span class="email-template-variable">${record.projectTask || "Complete pending subscriptions"}</span></p>`,
+                editableMiddle: `
+                    <p>We're introducing a <b>Weekend Support Program</b> where our team will be available to guide you through completing your remaining target.</p>
+                    <p>Please connect with your team manager or reply to this email to schedule a quick call.</p>`,
+                fixedBottom: `
+                    <p>Let's work together to help you achieve your internship certificate!</p>
+                    <p>Best Regards,<br/>
+                    Team FundsAudit</p>`
+            },
+
+            marketing: {
+                label: "Marketing",
+                subject: (record) => `Complete Your Internship – Special Drive | FundsAudit`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Congratulations on being part of the FundsAudit Internship Program!</p>
+                    <p><b>Your Achievement So Far:</b></p>
+                    <ul>
+                        <li><b>Student Name:</b> <span class="email-template-variable">${record.studentName || ""}</span></li>
+                        <li><b>Email:</b> <span class="email-template-variable">${record.emailId || ""}</span></li>
+                        <li><b>College Name:</b> <span class="email-template-variable">${record.collegeName || ""}</span></li>
+                        <li><b>Registration Date:</b> <span class="email-template-variable">${record.registeredAt || ""}</span></li>
+                        <li><b>Team Manager:</b> <span class="email-template-variable">${record.teamManager || "Not Assigned"}</span></li>
+                    </ul>
+                    <p>📈 <b>Progress Report:</b></p>
+                    <p>✅ Completed: <span class="email-template-variable">${record.subscriptionWallet || "0"}</span> subscriptions<br/>
+                    🎯 Target: <span class="email-template-variable">${record.requiredTarget || "0"}</span> subscriptions<br/>
+                    ⚡ Remaining: <span class="email-template-variable">${record.remainingTarget || "0"}</span> subscriptions</p>
+                    <p><b>Project Task:</b> <span class="email-template-variable">${record.projectTask || "Complete pending subscriptions"}</span></p>`,
+                editableMiddle: `
+                    <p>This <b>Weekend (Saturday & Sunday)</b>, we're running a special completion drive. Complete your remaining subscriptions and earn your Internship Completion Certificate!</p>
+                    <p><b>Perks of Completing This Weekend:</b></p>
+                    <ul>
+                        <li>Priority certificate issuance</li>
+                        <li>Recognition in our top performer list</li>
+                        <li>Recommendation letter for future opportunities</li>
+                    </ul>`,
+                fixedBottom: `
+                    <p>Make this weekend count! Complete your target and get certified.</p>
+                    <p>Best Regards,<br/>
+                    Team FundsAudit</p>`
+            }
+        };
 
         $.ajax({
             url: `https://eduroom.in/api/v1/offerletter/users/all`,
@@ -1802,14 +2449,14 @@
                         formatter: function (val, { seriesIndex, dataPointIndex, w }) {
                             const manager = performanceData[dataPointIndex];
                             return `
-                                <div style="padding: 5px;">
-                                    <strong>${manager.name}</strong><br/>
-                                    <span style="color: ${manager.color}">Rank ${manager.rank} (${manager.status})</span><br/>
-                                    Accounts: ${val}<br/>
-                                    Interns: ${manager.internCount}<br/>
-                                    Avg/Intern: ${(manager.accounts / manager.internCount).toFixed(2)}
-                                </div>
-                            `;
+                            <div style="padding: 5px;">
+                                <strong>${manager.name}</strong><br/>
+                                <span style="color: ${manager.color}">Rank ${manager.rank} (${manager.status})</span><br/>
+                                Accounts: ${val}<br/>
+                                Interns: ${manager.internCount}<br/>
+                                Avg/Intern: ${(manager.accounts / manager.internCount).toFixed(2)}
+                            </div>
+                        `;
                         }
                     }
                 }
@@ -1991,14 +2638,14 @@
             }
         }
 
-        function calculateCollegeMetrics(collegeNames) {
-            if (!collegeNames || collegeNames.length === 0) {
+        function calculateManagerMetrics(managerNames) {
+            if (!managerNames || managerNames.length === 0) {
                 calculateAllMetrics();
                 return;
             }
 
-            const collegeData = tableData.filter(row => collegeNames.includes(row.collegeName));
-            const totalStudents = collegeData.length;
+            const managerData = tableData.filter(row => managerNames.includes(row.teamManager));
+            const totalStudents = managerData.length;
 
             let totalSubscriptionWallet = 0;
             let totalBusinessTarget = 0;
@@ -2013,7 +2660,7 @@
                 blue: { count: 0, total: 0, activeCount: 0 }
             };
 
-            collegeData.forEach(row => {
+            managerData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
                 const businessTarget = parseInt(row.businessStatus) || 0;
                 const internshipStatus = row.internshipAction || "";
@@ -2135,7 +2782,7 @@
                     accountsPercentElement.text(accountsPercent);
                 }
             });
-            calculateCollegeForecasting(collegeNames);
+            calculateManagerForecasting(managerNames);
         }
 
         function calculateAllMetrics() {
@@ -2376,14 +3023,14 @@
             $("#totalForecastWorstAverage").text(totalForecastWorstAverage);
         }
 
-        function calculateCollegeForecasting(collegeNames) {
-            if (!collegeNames || collegeNames.length === 0) {
+        function calculateManagerForecasting(managerNames) {
+            if (!managerNames || managerNames.length === 0) {
                 calculateAllForecasting();
                 return;
             }
 
-            const collegeData = tableData.filter(row => collegeNames.includes(row.collegeName));
-            const totalStudents = collegeData.length;
+            const managerData = tableData.filter(row => managerNames.includes(row.teamManager));
+            const totalStudents = managerData.length;
 
             let totalSubscriptionWallet = 0;
 
@@ -2396,7 +3043,7 @@
                 blue: { count: 0, total: 0, activeCount: 0 }
             };
 
-            collegeData.forEach(row => {
+            managerData.forEach(row => {
                 const subscriptionWallet = parseInt(row.subscriptionWallet) || 0;
                 const internshipStatus = row.internshipAction || "";
                 const isActive = internshipStatus.toLowerCase() === "resume";
@@ -2487,165 +3134,167 @@
             calculateAllMetrics();
         }
 
-        function createCollegeMultiSelect(colleges) {
-            if ($("#collegeSelectContainer").length > 0) {
-                updateCollegeCheckboxes(colleges);
+        function createManagerMultiSelect(managers) {
+            // Check if dropdown already exists
+            if ($("#managerSelectContainer").length > 0) {
+                // Just update the checkboxes, don't recreate the entire dropdown
+                updateManagerCheckboxes(managers);
                 return;
             }
 
             const containerHtml = `
-                <div id="collegeSelectContainer" style="width: 30%; min-width: 200px; margin-left: 2%;">
+                <div id="managerSelectContainer" style="width: 30%; min-width: 200px; margin-left: 2%;">
                     <div class="input-group">
-                        <button class="btn btn-outline-secondary" type="button" id="collegeDropdownToggle" style="border-color: #ced4da; min-width: 250px;">
-                            Select Colleges <i class="fas fa-caret-down ms-1"></i>
+                        <button class="btn btn-outline-secondary" type="button" id="managerDropdownToggle" style="border-color: #ced4da; min-width: 250px;">
+                            Select Managers <i class="fas fa-caret-down ms-1"></i>
                         </button>
                         
                     </div>
-                    <div class="dropdown-menu p-3" id="collegeDropdown" style="display: none; width: 350px; max-height: 300px; overflow-y: auto; z-index: 1000;">
+                    <div class="dropdown-menu p-3" id="managerDropdown" style="display: none; width: 300px; max-height: 300px; overflow-y: auto; z-index: 1000;">
                         <div class="mb-2">
-                            <input type="text" class="form-control form-control-sm" id="collegeSearch" placeholder="Search colleges..." style="height: 30px;">
+                            <input type="text" class="form-control form-control-sm" id="managerSearch" placeholder="Search managers..." style="height: 30px;">
                         </div>
-                        <div id="collegeCheckboxes" style="max-height: 180px; overflow-y: auto;">
-                            ${colleges.map(college => `
+                        <div id="managerCheckboxes" style="max-height: 180px; overflow-y: auto;">
+                            ${managers.map(manager => `
                                 <div class="form-check">
-                                    <input class="form-check-input college-checkbox" type="checkbox" value="${college}" id="college_${college.replace(/\s+/g, '_')}">
-                                    <label class="form-check-label" for="college_${college.replace(/\s+/g, '_')}" style="cursor: pointer;">
-                                        ${college}
+                                    <input class="form-check-input manager-checkbox" type="checkbox" value="${manager.name}" id="manager_${manager.name.replace(/\s+/g, '_')}">
+                                    <label class="form-check-label" for="manager_${manager.name.replace(/\s+/g, '_')}" style="cursor: pointer;">
+                                        ${manager.name}
                                     </label>
                                 </div>
                             `).join('')}
                         </div>
                         <div class="d-flex justify-content-between mt-3">
-                            <button class="btn btn-sm btn-outline-primary" id="selectAllColleges">Select All</button>
-                            <button class="btn btn-sm btn-outline-secondary" id="deselectAllColleges">Deselect All</button>
-                            <button class="btn btn-sm btn-success" id="applyCollegeFilter">Apply</button>
+                            <button class="btn btn-sm btn-outline-primary" id="selectAllManagers">Select All</button>
+                            <button class="btn btn-sm btn-outline-secondary" id="deselectAllManagers">Deselect All</button>
+                            <button class="btn btn-sm btn-success" id="applyManagerFilter">Apply</button>
                         </div>
                     </div>
                 </div>
                 <style>
-                    #collegeCheckboxes .form-check {
-                        align-items: flex-start;
-                    }
+                #managerCheckboxes .form-check {
+                    align-items: flex-start;
+                }
 
-                    #collegeCheckboxes .form-check-label {
-                        white-space: normal;
-                        word-break: break-word;
-                        overflow-wrap: anywhere;
-                        line-height: 1.3;
-                        max-width: calc(100% - 22px);
-                        display: inline-block;
-                    }
-                </style>
+                #managerCheckboxes .form-check-label {
+                    white-space: normal;
+                    word-break: break-word;
+                    overflow-wrap: anywhere;
+                    line-height: 1.3;
+                    max-width: calc(100% - 22px);
+                    display: inline-block;
+                }
+            </style>
             `;
 
-            $("#collegeSelectWrapper").html(containerHtml);
+            $("#managerSelectWrapper").html(containerHtml);
 
-            initCollegeMultiSelect();
+            initManagerMultiSelect();
         }
 
-        function updateCollegeCheckboxes(colleges) {
-            const collegeCheckboxes = $("#collegeCheckboxes");
-            if (collegeCheckboxes.length === 0) return;
+        function updateManagerCheckboxes(managers) {
+            const managerCheckboxes = $("#managerCheckboxes");
+            if (managerCheckboxes.length === 0) return;
 
-            const selectedCollegesCopy = [...selectedColleges];
+            const selectedManagersCopy = [...selectedManagers];
 
-            collegeCheckboxes.empty();
+            managerCheckboxes.empty();
 
-            colleges.forEach(college => {
-                const isChecked = selectedCollegesCopy.includes(college);
-                collegeCheckboxes.append(`
+            managers.forEach(manager => {
+                const isChecked = selectedManagersCopy.includes(manager.name);
+                managerCheckboxes.append(`
                     <div class="form-check">
-                        <input class="form-check-input college-checkbox" type="checkbox" 
-                            value="${college}" id="college_${college.replace(/\s+/g, '_')}"
+                        <input class="form-check-input manager-checkbox" type="checkbox" 
+                            value="${manager.name}" id="manager_${manager.name.replace(/\s+/g, '_')}"
                             ${isChecked ? 'checked' : ''}>
-                        <label class="form-check-label" for="college_${college.replace(/\s+/g, '_')}" style="cursor: pointer;">
-                            ${college}
+                        <label class="form-check-label" for="manager_${manager.name.replace(/\s+/g, '_')}" style="cursor: pointer;">
+                            ${manager.name}
                         </label>
                     </div>
                 `);
             });
 
-            selectedColleges = selectedCollegesCopy.filter(college =>
-                colleges.includes(college)
+            selectedManagers = selectedManagersCopy.filter(manager =>
+                managers.some(m => m.name === manager)
             );
-            if (selectedColleges.length > 0) {
-                const displayText = selectedColleges.length === 1
-                    ? selectedColleges[0]
-                    : `${selectedColleges.length} colleges selected`;
-                $("#collegeDisplay").val(displayText).attr("placeholder", displayText);
+            if (selectedManagers.length > 0) {
+                const displayText = selectedManagers.length === 1
+                    ? selectedManagers[0]
+                    : `${selectedManagers.length} managers selected`;
+                $("#managerDisplay").val(displayText).attr("placeholder", displayText);
             } else {
-                $("#collegeDisplay").val("").attr("placeholder", "All Colleges");
+                $("#managerDisplay").val("").attr("placeholder", "All Managers");
             }
         }
 
-        function initCollegeMultiSelect() {
-            const dropdownToggle = $("#collegeDropdownToggle");
-            const dropdown = $("#collegeDropdown");
-            const collegeDisplay = $("#collegeDisplay");
-            const clearBtn = $("#clearCollegesBtn");
-            const collegeSearch = $("#collegeSearch");
-            const collegeCheckboxes = $("#collegeCheckboxes");
-            const selectAllBtn = $("#selectAllColleges");
-            const deselectAllBtn = $("#deselectAllColleges");
-            const applyBtn = $("#applyCollegeFilter");
+        function initManagerMultiSelect() {
+            const dropdownToggle = $("#managerDropdownToggle");
+            const dropdown = $("#managerDropdown");
+            const managerDisplay = $("#managerDisplay");
+            const clearBtn = $("#clearManagersBtn");
+            const managerSearch = $("#managerSearch");
+            const managerCheckboxes = $("#managerCheckboxes");
+            const selectAllBtn = $("#selectAllManagers");
+            const deselectAllBtn = $("#deselectAllManagers");
+            const applyBtn = $("#applyManagerFilter");
 
             dropdownToggle.on("click", function (e) {
                 e.stopPropagation();
                 dropdown.toggle();
                 if (dropdown.is(":visible")) {
-                    collegeSearch.focus();
+                    managerSearch.focus();
                 }
             });
 
             clearBtn.on("click", function () {
-                selectedColleges = [];
-                $(".college-checkbox").prop("checked", false);
-                collegeDisplay.val("");
-                collegeDisplay.attr("placeholder", "All Colleges");
+                selectedManagers = [];
+                $(".manager-checkbox").prop("checked", false);
+                managerDisplay.val("");
+                managerDisplay.attr("placeholder", "All Managers");
                 calculateAllMetrics();
                 applyFilters();
             });
 
-            collegeSearch.on("input", function () {
+            managerSearch.on("input", function () {
                 const searchTerm = $(this).val().toLowerCase();
-                collegeCheckboxes.find(".form-check").each(function () {
+                managerCheckboxes.find(".form-check").each(function () {
                     const label = $(this).find("label").text().toLowerCase();
                     $(this).toggle(label.includes(searchTerm));
                 });
             });
 
             selectAllBtn.on("click", function () {
-                collegeCheckboxes.find(".college-checkbox").prop("checked", true);
+                managerCheckboxes.find(".manager-checkbox").prop("checked", true);
             });
 
             deselectAllBtn.on("click", function () {
-                collegeCheckboxes.find(".college-checkbox").prop("checked", false);
+                managerCheckboxes.find(".manager-checkbox").prop("checked", false);
             });
 
             applyBtn.on("click", function () {
-                selectedColleges = [];
-                collegeCheckboxes.find(".college-checkbox:checked").each(function () {
-                    selectedColleges.push($(this).val());
+                selectedManagers = [];
+                managerCheckboxes.find(".manager-checkbox:checked").each(function () {
+                    selectedManagers.push($(this).val());
                 });
 
-                if (selectedColleges.length > 0) {
-                    const displayText = selectedColleges.length === 1
-                        ? selectedColleges[0]
-                        : `${selectedColleges.length} colleges selected`;
-                    collegeDisplay.val(displayText);
-                    collegeDisplay.attr("placeholder", displayText);
+                if (selectedManagers.length > 0) {
+                    const displayText = selectedManagers.length === 1
+                        ? selectedManagers[0]
+                        : `${selectedManagers.length} managers selected`;
+                    managerDisplay.val(displayText);
+                    managerDisplay.attr("placeholder", displayText);
                 } else {
-                    collegeDisplay.val("");
-                    collegeDisplay.attr("placeholder", "All Colleges");
+                    managerDisplay.val("");
+                    managerDisplay.attr("placeholder", "All Managers");
                 }
 
-                calculateCollegeMetrics(selectedColleges);
+                calculateManagerMetrics(selectedManagers);
                 applyFilters();
                 dropdown.hide();
             });
 
             $(document).on("click", function (e) {
-                if (!$(e.target).closest("#collegeSelectContainer").length) {
+                if (!$(e.target).closest("#managerSelectContainer").length) {
                     dropdown.hide();
                 }
             });
@@ -2663,7 +3312,7 @@
         }
 
         function loadTableData() {
-            let url = `https://eduroom.in/api/v1/status/listall`;
+            let url = `https://eduroom.in/api/v1/status/fundsweb`;
 
             if (selectedDateRange && selectedDateRange.startDate && selectedDateRange.endDate) {
                 const startDateStr = formatDateForAPI(selectedDateRange.startDate);
@@ -2689,49 +3338,47 @@
                                 id: m.managerId,
                                 name: m.name
                             }));
+
+                            createManagerMultiSelect(managerList);
                         }
 
-                        const uniqueColleges = [...new Set(res.data
-                            .filter(row => row.collegeName && row.collegeName.trim() !== "")
-                            .map(row => row.collegeName)
-                            .sort((a, b) => a.localeCompare(b))
-                        )];
-
-                        collegeList = uniqueColleges;
-                        createCollegeMultiSelect(collegeList);
-
-                        tableData = res.data.map((row, index) => ({
-                            id: row.id,
-                            sno: index + 1,
-                            userId: row.userId,
-                            name: row.userName || "",
-                            phoneNumber: row.phoneNumber || "",
-                            registeredAt: formatDate(row.registeredAt) || "",
-                            email: row.email || "",
-                            collegeName: row.collegeName || "",
-                            courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
-                            domain: row.domainName || "",
-                            course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
-                            duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
-                            startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
-                            estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
-                            courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
-                            subscriptionWallet: row.subscriptionWallet,
-                            businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
-                            workPercentage: (row.courses && row.courses.length > 0 && row.courses[0].businessTarget > 0) ? ((row.subscriptionWallet / row.courses[0].businessTarget) * 100).toFixed(2) + "%" : "0.00%",
-                            certificateStatus: row.internshipIssued || "",
-                            internshipCertificateStatus: row.internshipCertificateStatus || "",
-                            subscriptionLeft: row.subscriptionLeft,
-                            queryStatus: row.queryStatus || "",
-                            internshipAction: row.internshipStatus || "",
-                            teamManager: row.teamManager || "",
-                            createdAt: row.createdAt,
-                            referralCode: row.referralCode || "",
-                            selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
-                            offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
-                            pushto: row.pushto || "",
-                            pushComment: row.pushComment || "",
-                        }));
+                        tableData = res.data
+                            .map((row, index) => ({
+                                id: row.id,
+                                sno: index + 1,
+                                userId: row.userId,
+                                name: row.userName || "",
+                                registeredAt: formatDate(row.registeredAt) || "",
+                                collegeName: row.collegeName || "",
+                                phoneNumber: row.phoneNumber || "",
+                                email: row.email || "",
+                                courses: row.courses ? row.courses.map(c => c.domainName).join(", ") : "",
+                                domain: row.domainName || "",
+                                course: row.courses && row.courses.length > 0 ? row.courses[0].courseName : "",
+                                duration: row.courses && row.courses.length > 0 ? row.courses[0].duration : "",
+                                startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
+                                estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
+                                courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
+                                subscriptionWallet: row.subscriptionWallet,
+                                businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
+                                workPercentage: (row.courses && row.courses.length > 0 && row.courses[0].businessTarget > 0) ? ((row.subscriptionWallet / row.courses[0].businessTarget) * 100).toFixed(2) + "%" : "0.00%",
+                                certificateStatus: row.internshipIssued || "",
+                                internshipCertificateStatus: row.internshipCertificateStatus || "",
+                                subscriptionLeft: row.subscriptionLeft,
+                                queryStatus: row.queryStatus || "",
+                                internshipAction: row.internshipStatus || "",
+                                teamManager: row.teamManager || "",
+                                createdAt: row.createdAt,
+                                referralCode: row.fundswebReferralCode || "",
+                                selected: (row.selected !== null && row.selected !== undefined && row.selected !== "") ? "Yes" : "No",
+                                offerMessageExists: (row.courses && row.courses.some(c => c.offerMessage !== null && c.offerMessage !== "")) ? "Yes" : "No",
+                                pushto: row.pushto || "",
+                                pushComment: row.pushComment || "",
+                                // smt1: row.smt1 || "",
+                                // smt2: row.smt2 || "",
+                                // smt3: row.smt3 || "",
+                                // smt4: row.smt4 || ""
+                            }));
 
                         $("#collegeCount").text(tableData.length);
 
@@ -2741,8 +3388,16 @@
                         renderPagination();
                         renderColumnFilters();
 
-                        calculateAllMetrics();
+                        if (selectedManagers && selectedManagers.length > 0) {
+                            calculateManagerMetrics(selectedManagers);
+                        } else {
+                            calculateAllMetrics();
+                        }
                         updateManagerPerformanceChart();
+                        updateFilteredCount();
+
+
+                        initEmailModalEvents();
                     } else {
                         tableData = [];
                         filteredData = [];
@@ -2751,6 +3406,7 @@
                         renderPagination();
                         renderColumnFilters();
                         resetMetrics();
+                        updateFilteredCount();
                     }
                 },
                 error: function (xhr, status, err) {
@@ -2792,6 +3448,22 @@
             initDatePicker();
             loadTableData();
         });
+
+        function updateFilteredCount() {
+            const totalCount = tableData.length;
+            const filteredCount = filteredData.length;
+            const collegeCountElement = document.getElementById("collegeCount");
+
+            if (filteredCount === totalCount) {
+                collegeCountElement.textContent = totalCount;
+                collegeCountElement.style.color = "";
+                collegeCountElement.style.fontWeight = "";
+            } else {
+                collegeCountElement.textContent = `${filteredCount} / ${totalCount}`;
+                collegeCountElement.style.color = "#dc3545";
+                collegeCountElement.style.fontWeight = "bold";
+            }
+        }
 
         function initDatePicker() {
             flatpickr("#dateFilter", {
@@ -2846,11 +3518,6 @@
             let tbody = $("#leadsTable tbody");
             tbody.empty();
 
-            if (filteredData.length === 0) {
-                tbody.append('<tr><td colspan="26" class="text-center">No data available</td></tr>');
-                return;
-            }
-
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
             const rows = filteredData.slice(start, end);
@@ -2867,16 +3534,16 @@
                 let tr = `<tr data-id="${row.id}" style="${rowBgStyle}"> 
                     <td>${start + index + 1}</td>
                     <td>${nameCell}</td>
+                    <td>${escapeHtml(row.registeredAt || '')}</td>
+                    <td>${escapeHtml(row.collegeName || '')}</td>
                     <td>
-                        <a href="tel:${row.phoneNumber}" class="text-primary" style="text-decoration:underline;">
+                        <a href="tel:${row.phoneNumber}" class="text-dark" style="text-decoration:underline;">
                             ${escapeHtml(row.phoneNumber || '')}
                         </a>
                     </td>
-                    <td>${escapeHtml(row.registeredAt || '')}</td>
-                    <td>${escapeHtml(row.offerMessageExists || '')}</td>
-                    <td>${escapeHtml(row.selected || 'No')}</td>
+                    <!-- <td>${escapeHtml(row.offerMessageExists || '')}</td> -->
+                    <!-- <td>${escapeHtml(row.selected || 'No')}</td> -->
                     <td>${escapeHtml(row.email || '')}</td>
-                    <td>${escapeHtml(row.collegeName || '')}</td>
                     <td>${escapeHtml(row.courses || '')}</td>
                     <td>${escapeHtml(row.course || '')}</td>
                     <td>${escapeHtml(row.duration || '')}</td>
@@ -2887,19 +3554,24 @@
                     <td>${escapeHtml(row.subscriptionWallet || 0)}</td>
                     ${makeDropdownCell("businessStatus", row.businessStatus, dropdowns.businessStatus, true)}
                     <td>${escapeHtml(row.workPercentage || '0.00%')}</td>
-                    ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)}
-                    ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)}
-                    <td>${escapeHtml(row.subscriptionLeft || '')}</td>
-                    <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
+                    <!-- ${makeDropdownCell("certificateStatus", row.certificateStatus, dropdowns.certificateStatus, true)} -->
+                    <!-- ${makeDropdownCell("internshipCertificateStatus", row.internshipCertificateStatus, dropdowns.internshipCertificateStatus, true)} -->
+                    <!-- <td>${escapeHtml(row.subscriptionLeft || '')}</td> -->
+                    <!-- <td><a href="/profile/dashboard/team-manager2.html?userId=${encodeURIComponent(row.userId || '')}" 
                             class="text-primary fw-bold" 
                             style="cursor:pointer; text-decoration:underline;"
                             target="_top">
                             ${escapeHtml(row.queryStatus || '')}    
-                        </a></td>
+                        </a></td> -->
                     ${makeDropdownCell("internshipAction", row.internshipAction, dropdowns.internshipAction, true, true)}
                     ${makeDropdownCell("teamManager", row.teamManager, managerList.map(m => m.name), false, true)}
                     ${makeDropdownCell("pushto", row.pushto, managerList.map(m => m.name), false, true)}
                     ${makeDropdownCell("pushComment", row.pushComment, dropdowns.pushComment, true, true)}
+                    <td>
+                        <button class="btn btn-sm btn-success send-mail-btn" data-id="${row.id}" data-email="${row.email}" data-name="${row.name}" data-bs-toggle="modal" data-bs-target="#composeMail" title="Send JD">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </td>
                 </tr>`;
                 tbody.append(tr);
             });
@@ -2912,8 +3584,6 @@
             const totalPages = Math.ceil(filteredData.length / rowsPerPage);
             const pagination = $("#pagination");
             pagination.empty();
-
-            if (totalPages <= 1) return;
 
             const visiblePageCount = 3;
             let startPage = Math.max(currentPage - 1, 1);
@@ -2958,7 +3628,7 @@
                     overflow-y: auto;
                     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
                     min-width: 200px;
-                    max-width: 350px; /* Added max-width for better control */
+                    max-width: 350px;
                 }
                 .filter-options {
                     max-height: 200px;
@@ -2977,34 +3647,34 @@
                     transform: translateY(-50%);
                 }
                 .form-check {
-                    margin-bottom: 8px; /* Increased margin for better separation */
+                    margin-bottom: 8px;
                     display: flex;
-                    align-items: flex-start; /* Align items at the top */
+                    align-items: flex-start;
                 }
                 .form-check-input {
-                    margin-top: 0.25rem; /* Adjust checkbox vertical alignment */
-                    flex-shrink: 0; /* Prevent checkbox from shrinking */
+                    margin-top: 0.25rem;
+                    flex-shrink: 0;
                 }
                 .form-check-label {
                     cursor: pointer;
                     display: block;
-                    white-space: normal; /* Changed from nowrap to normal */
-                    word-break: break-word; /* Break long words */
-                    overflow-wrap: break-word; /* Alternative for better word breaking */
-                    max-height: 5.6em; /* Allow up to 4 lines (4 * 1.4em line-height) */
-                    line-height: 1.4em; /* Set line height */
-                    overflow: hidden; /* Hide excess beyond 4 lines */
+                    white-space: normal;
+                    word-break: break-word;
+                    overflow-wrap: break-word;
+                    max-height: 5.6em;
+                    line-height: 1.4em;
+                    overflow: hidden;
                     text-overflow: ellipsis;
-                    -webkit-line-clamp: 4; /* Limit to 4 lines */
+                    -webkit-line-clamp: 4;
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
-                    padding-left: 5px; /* Add some space between checkbox and text */
+                    padding-left: 5px;
                 }
                 .form-check-label:hover {
                     overflow: visible;
-                    max-height: none; /* Show full text on hover */
+                    max-height: none;
                     -webkit-line-clamp: unset;
-                    background-color: #f8f9fa; /* Light background on hover */
+                    background-color: #f8f9fa;
                     position: relative;
                     z-index: 1;
                 }
@@ -3019,6 +3689,10 @@
                     flex: 1;
                     font-size: 12px;
                     padding: 3px 8px;
+                }
+                .filter-search {
+                    height: 30px;
+                    margin-bottom: 8px;
                 }
             `;
             document.head.appendChild(style);
@@ -3037,7 +3711,7 @@
                     </th>`;
                 }
             });
-            filterRow += "</tr>";
+            filterRow += "<tr>";
             $("#leadsTable thead").append(filterRow);
 
             columnFilters = {};
@@ -3083,7 +3757,7 @@
                 let dropdownHtml = `
                     <div class="filter-dropdown" data-index="${index}" data-header="${headerText}">
                         <input type="text" class="form-control form-control-sm filter-search mb-2"
-                            placeholder="Search..." autocomplete="off" style="height: 30px;">
+                            placeholder="Search..." autocomplete="off">
                     <div class="filter-options">
                 `;
 
@@ -3154,10 +3828,10 @@
                 });
 
                 $dropdown.find('.filter-search').on('keyup', function () {
-                    const searchVal = $(this).val().toLowerCase();
+                    const val = $(this).val().toLowerCase();
                     $dropdown.find('.form-check').each(function () {
                         const text = $(this).text().toLowerCase();
-                        $(this).toggle(text.includes(searchVal));
+                        $(this).toggle(text.includes(val));
                     });
                 });
 
@@ -3219,17 +3893,18 @@
         function applyFilters() {
             filteredData = [...tableData];
 
-            if (selectedColleges && selectedColleges.length > 0) {
-                filteredData = filteredData.filter(row => selectedColleges.includes(row.collegeName));
+            if (selectedManagers && selectedManagers.length > 0) {
+                filteredData = filteredData.filter(row => selectedManagers.includes(row.teamManager));
             }
 
             if (Object.keys(columnFilters).length === 0) {
                 currentPage = 1;
                 renderTable();
                 renderPagination();
-                if (selectedColleges && selectedColleges.length > 0) {
-                    calculateCollegeMetrics(selectedColleges);
-                    calculateCollegeForecasting(selectedColleges);
+                updateFilteredCount();
+                if (selectedManagers && selectedManagers.length > 0) {
+                    calculateManagerMetrics(selectedManagers);
+                    calculateManagerForecasting(selectedManagers);
                 } else {
                     calculateAllMetrics();
                     calculateAllForecasting();
@@ -3258,10 +3933,11 @@
             $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
+            updateFilteredCount();
 
-            if (selectedColleges && selectedColleges.length > 0) {
-                calculateCollegeMetrics(selectedColleges);
-                calculateCollegeForecasting(selectedColleges);
+            if (selectedManagers && selectedManagers.length > 0) {
+                calculateManagerMetrics(selectedManagers);
+                calculateManagerForecasting(selectedManagers);
             } else {
                 calculateAllMetrics();
                 calculateAllForecasting();
@@ -3316,13 +3992,21 @@
             let pushtoName = tr.find('td[data-field="pushto"] select').val();
             let collegeName = tr.find('td[data-field="collegeName"] input').val();
             let pushComment = tr.find('td[data-field="pushComment"] select').val();
+            // let smt1 = tr.find('td[data-field="smt1"] select').val();
+            // let smt2 = tr.find('td[data-field="smt2"] select').val();
+            // let smt3 = tr.find('td[data-field="smt3"] select').val();
+            // let smt4 = tr.find('td[data-field="smt4"] select').val();
 
             let payload = {
                 internshipStatus: internshipStatus || "",
                 teamManager: managerName || "",
                 pushto: pushtoName || "",
                 collegeName: collegeName || "",
-                pushComment: pushComment || ""
+                pushComment: pushComment || "",
+                // smt1: smt1 || "",
+                // smt2: smt2 || "",
+                // smt3: smt3 || "",
+                // smt4: smt4 || ""
             };
 
             console.log("payload:", payload);
@@ -3335,7 +4019,12 @@
                 success: function (res) {
                     console.log("Updated:", res);
 
-                    // loadTableData();
+                    if (selectedManagers && selectedManagers.length > 0) {
+                        calculateManagerMetrics(selectedManagers);
+                    } else {
+                        calculateAllMetrics();
+                    }
+                    updateManagerPerformanceChart();
                 },
                 error: function (err) {
                     console.error("Update failed", err);
@@ -3391,9 +4080,10 @@
                 filteredData = [...tableData];
                 renderTable();
                 renderPagination();
-                if (selectedColleges && selectedColleges.length > 0) {
-                    calculateCollegeMetrics(selectedColleges);
-                    calculateCollegeForecasting(selectedColleges);
+                updateFilteredCount();
+                if (selectedManagers && selectedManagers.length > 0) {
+                    calculateManagerMetrics(selectedManagers);
+                    calculateManagerForecasting(selectedManagers);
                 } else {
                     calculateAllMetrics();
                     calculateAllForecasting();
@@ -3412,10 +4102,11 @@
             $("#collegeCount").text(filteredData.length);
             renderTable();
             renderPagination();
+            updateFilteredCount();
 
-            if (selectedColleges && selectedColleges.length > 0) {
-                calculateCollegeMetrics(selectedColleges);
-                calculateCollegeForecasting(selectedColleges);
+            if (selectedManagers && selectedManagers.length > 0) {
+                calculateManagerMetrics(selectedManagers);
+                calculateManagerForecasting(selectedManagers);
             } else {
                 calculateAllMetrics();
                 calculateAllForecasting();
@@ -3431,12 +4122,12 @@
             const headers = [
                 "SR",
                 "Name",
-                "Phone Number",
                 "Registration Date",
-                "Offer Message",
-                "Selected",
-                "Email",
                 "College Name",
+                "Phone Number",
+                // "Offer Message",
+                // "Selected",
+                "Email",
                 "Courses",
                 "Course",
                 "Duration",
@@ -3447,14 +4138,19 @@
                 "Referral Code",
                 "Total Subscriptions",
                 "Work % Completed",
-                "Certificate Status",
-                "Internship Certificate Status",
-                "Subscription Left",
-                "Query Status",
+                // "Certificate Status",
+                // "Internship Certificate Status",
+                // "Subscription Left",
+                // "Query Status",
                 "Internship Action",
                 "Team Manager",
                 "Push To",
-                "Push Comment"
+                "Push Comment",
+                "Action",
+                // "SMT1",
+                // "SMT2",
+                // "SMT3",
+                // "SMT4"
             ];
             headers.forEach(h => html += `<th>${h}</th>`);
             html += "</tr></thead><tbody>";
@@ -3463,12 +4159,12 @@
                 html += `<tr>
                     <td>${row.sno}</td>
                     <td>${row.name}</td>
-                    <td>${row.phoneNumber}</td>
                     <td>${row.registeredAt}</td>
-                    <td>${row.offerMessageExists}</td>
-                    <td>${row.selected || 'No'}</td>
-                    <td>${row.email}</td>
                     <td>${row.collegeName}</td>
+                    <td>${row.phoneNumber}</td>
+                    <!-- <td>${row.offerMessageExists}</td> -->
+                    <!-- <td>${row.selected || 'No'}</td> -->
+                    <td>${row.email}</td>
                     <td>${row.courses}</td>
                     <td>${row.course}</td>
                     <td>${row.duration}</td>
@@ -3479,14 +4175,19 @@
                     <td>${row.referralCode || ''}</td>
                     <td>${row.subscriptionWallet}</td>
                     <td>${row.workPercentage}</td>
-                    <td>${row.certificateStatus}</td>
-                    <td>${row.internshipCertificateStatus}</td>
-                    <td>${row.subscriptionLeft}</td>
-                    <td>${row.queryStatus}</td>
+                    <!-- <td>${row.certificateStatus}</td> -->
+                    <!-- <td>${row.internshipCertificateStatus}</td> -->
+                    <!-- <td>${row.subscriptionLeft}</td> -->
+                    <!-- <td>${row.queryStatus}</td> -->
                     <td>${row.internshipAction}</td>
                     <td>${row.teamManager || ""}</td>
                     <td>${row.pushto || ""}</td>
                     <td>${row.pushComment || ""}</td>
+                    <td><button class="btn btn-sm btn-success">Send Mail</button></td>
+                    <!-- <td>${row.smt1 || ""}</td> -->
+                    <!-- <td>${row.smt2 || ""}</td> -->
+                    <!-- <td>${row.smt3 || ""}</td> -->
+                    <!-- <td>${row.smt4 || ""}</td> -->
                 </tr>`;
             });
 
@@ -3546,12 +4247,12 @@
             const headers = [
                 "SR",
                 "Name",
-                "Phone Number",
                 "Registration Date",
-                "Offer Message",
-                "Selected",
-                "Email",
                 "College Name",
+                "Phone Number",
+                // "Offer Message",
+                // "Selected",
+                "Email",
                 "Courses",
                 "Course",
                 "Duration",
@@ -3562,14 +4263,18 @@
                 "Referral Code",
                 "Total Subscriptions",
                 "Work % Completed",
-                "Certificate Status",
-                "Internship Certificate Status",
-                "Subscription Left",
-                "Query Status",
+                // "Certificate Status",
+                // "Internship Certificate Status",
+                // "Subscription Left",
+                // "Query Status",
                 "Internship Action",
                 "Team Manager",
                 "Push To",
-                "Push Comment"
+                "Push Comment",
+                // "SMT1",
+                // "SMT2",
+                // "SMT3",
+                // "SMT4"
             ];
 
             const data = [headers];
@@ -3578,12 +4283,12 @@
                 data.push([
                     row.sno,
                     row.name,
-                    row.phoneNumber,
-                    row.offerMessageExists,
                     row.registeredAt,
-                    row.selected || 'No',
-                    row.email,
                     row.collegeName,
+                    row.phoneNumber,
+                    // row.offerMessageExists,
+                    // row.selected || 'No',
+                    row.email,
                     row.courses,
                     row.course,
                     row.duration,
@@ -3594,14 +4299,18 @@
                     row.referralCode || "",
                     row.subscriptionWallet,
                     row.workPercentage,
-                    row.certificateStatus,
-                    row.internshipCertificateStatus,
-                    row.subscriptionLeft,
-                    row.queryStatus,
+                    // row.certificateStatus,
+                    // row.internshipCertificateStatus,
+                    // row.subscriptionLeft,
+                    // row.queryStatus,
                     row.internshipAction,
                     row.teamManager || "",
                     row.pushto || "",
-                    row.pushComment || ""
+                    row.pushComment || "",
+                    // row.smt1 || "",
+                    // row.smt2 || "",
+                    // row.smt3 || "",
+                    // row.smt4 || ""
                 ]);
             });
 
@@ -3610,6 +4319,430 @@
             XLSX.utils.book_append_sheet(workbook, worksheet, "OfferletterUsers");
             XLSX.writeFile(workbook, "OfferletterUsers_All.xlsx");
         };
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const base64String = reader.result.split(',')[1];
+                    resolve(base64String);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function updateAttachmentSizeInfo() {
+            const totalSize = getTotalAttachmentSize();
+            const sizeInfo = `Total: ${formatFileSize(totalSize)} / ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}`;
+
+            let sizeInfoElement = $('#attachmentSizeInfo');
+            if (sizeInfoElement.length === 0) {
+                $('#attachmentContainer').before(`
+                    <div id="attachmentSizeInfo" class="small text-muted mb-2 px-1">
+                        ${sizeInfo}
+                    </div>
+                `);
+            } else {
+                sizeInfoElement.text(sizeInfo);
+            }
+        }
+
+        function getTotalAttachmentSize() {
+            return attachments.reduce((total, att) => total + att.size, 0);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        async function addAttachment(file) {
+            try {
+                const fileId = Date.now() + Math.random().toString(36).substr(2, 9);
+                const base64Content = await fileToBase64(file);
+                attachments.push({
+                    id: fileId,
+                    filename: file.name,
+                    size: file.size,
+                    type: file.type,
+                    content: base64Content,
+                    file: file
+                });
+
+                const attachmentElement = `
+                    <div class="attachment-item d-flex align-items-center justify-content-between p-2 mb-1 border rounded" data-id="${fileId}">
+                        <div class="d-flex align-items-center">
+                            <i class="feather-file-text me-2 text-primary"></i>
+                            <div>
+                                <div class="small fw-semibold">${file.name}</div>
+                                <div class="text-muted small">${formatFileSize(file.size)}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-link text-danger remove-attachment" data-id="${fileId}">
+                            <i class="feather-x"></i>
+                        </button>
+                    </div>`;
+
+                $('#attachmentContainer').append(attachmentElement);
+
+                $(`.remove-attachment[data-id="${fileId}"]`).off('click').on('click', function () {
+                    removeAttachment($(this).data('id'));
+                });
+
+                updateAttachmentSizeInfo();
+            } catch (error) {
+                console.error('Error adding attachment:', error);
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Failed to add attachment. Please try again.' });
+            }
+        }
+
+        function removeAttachment(fileId) {
+            attachments = attachments.filter(att => att.id !== fileId);
+            $(`.attachment-item[data-id="${fileId}"]`).remove();
+            updateAttachmentSizeInfo();
+        }
+
+        function initEmailModalEvents() {
+            $('#composeMail').on('show.bs.modal', function (e) {
+                attachments = [];
+                $('#attachmentContainer').empty();
+
+                activeTemplateKey = "default";
+                $('#emailTemplateSelect').val("default");
+                $('#selectedTemplateName').text('Default');
+                $('.template-option').removeClass('active');
+                $('.template-option[data-value="default"]').addClass('active');
+
+                const button = $(e.relatedTarget);
+                const rowId = button.data('id');
+                const email = button.data('email');
+                const name = button.data('name');
+
+                const rowData = tableData.find(row => row.id == rowId);
+
+                if (rowData) {
+
+                    const requiredTarget = parseInt(rowData.businessStatus) || 0;
+                    const currentSubs = parseInt(rowData.subscriptionWallet) || 0;
+                    const remainingTarget = Math.max(0, requiredTarget - currentSubs);
+
+                    currentRecord = {
+                        id: rowData.id,
+                        studentName: rowData.name || name,
+                        emailId: rowData.email || email,
+                        collegeName: rowData.collegeName || "",
+                        registeredAt: rowData.registeredAt || "",
+                        subscriptionWallet: currentSubs,
+                        requiredTarget: requiredTarget,
+                        remainingTarget: remainingTarget,
+                        projectTask: "Complete pending subscriptions",
+                        teamManager: rowData.teamManager || "Not Assigned"
+                    };
+                } else {
+                    // Fallback if row not found in tableData
+                    currentRecord = {
+                        id: rowId,
+                        studentName: name,
+                        emailId: email,
+                        collegeName: "",
+                        registeredAt: "",
+                        subscriptionWallet: 0,
+                        requiredTarget: 25,
+                        remainingTarget: 25,
+                        projectTask: "Complete pending subscriptions",
+                        teamManager: "Not Assigned"
+                    };
+                }
+
+                window.toMail = currentRecord.emailId;
+                loadEmailModal(currentRecord);
+
+                // Set the editable fields in the modal
+                setTimeout(() => {
+                    $('#editableSubscriptionWallet').val(currentRecord.subscriptionWallet);
+                    $('#editableRequiredTarget').val(currentRecord.requiredTarget);
+                    $('#editableProjectTask').val(currentRecord.projectTask);
+                    $('#editableTeamManager').val(currentRecord.teamManager);
+
+                    const editableDiv = document.getElementById('mailEditorModal');
+                    if (editableDiv) {
+                        editableDiv.focus();
+                        const range = document.createRange();
+                        range.selectNodeContents(editableDiv);
+                        range.collapse(true);
+                        const selection = window.getSelection();
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                }, 100);
+            });
+
+            // Update record when editable fields change
+            $(document).on('input change', '#editableSubscriptionWallet, #editableRequiredTarget, #editableProjectTask, #editableTeamManager', function () {
+                if (currentRecord) {
+                    currentRecord.subscriptionWallet = parseInt($('#editableSubscriptionWallet').val()) || 0;
+                    currentRecord.requiredTarget = parseInt($('#editableRequiredTarget').val()) || 25;
+                    currentRecord.remainingTarget = Math.max(0, currentRecord.requiredTarget - currentRecord.subscriptionWallet);
+                    currentRecord.projectTask = $('#editableProjectTask').val();
+                    currentRecord.teamManager = $('#editableTeamManager').val();
+                    loadEmailModal(currentRecord);
+                }
+            });
+
+            $('#emailTemplateSelect').off('change').on('change', function () {
+                activeTemplateKey = $(this).val();
+                if (currentRecord) {
+                    loadEmailModal(currentRecord);
+                }
+            });
+
+            $(document).off('click', '.template-option').on('click', '.template-option', function (e) {
+                e.preventDefault();
+                var val = $(this).data('value');
+                var label = $(this).data('label');
+                $('#selectedTemplateName').text(label);
+                $('.template-option').removeClass('active');
+                $(this).addClass('active');
+                $('#emailTemplateSelect').val(val).trigger('change');
+            });
+
+            $('#addAttachmentBtn').off('click').on('click', function () {
+                $('#fileInput').click();
+            });
+
+            $('#fileInput').off('change').on('change', function (e) {
+                const files = Array.from(e.target.files);
+                if (files.length === 0) return;
+
+                const totalCurrentSize = attachments.reduce((sum, att) => sum + att.size, 0);
+                const newFilesTotalSize = files.reduce((sum, file) => sum + file.size, 0);
+                const projectedTotalSize = totalCurrentSize + newFilesTotalSize;
+
+                if (projectedTotalSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'File Size Limit Exceeded',
+                        html: `Cannot add these files. Total size would be ${formatFileSize(projectedTotalSize)}, which exceeds the limit of ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}.<br><br>
+                           Current attachments: ${formatFileSize(totalCurrentSize)}<br>
+                           New files: ${formatFileSize(newFilesTotalSize)}<br>
+                           Please reduce file sizes or select fewer files.`,
+                        confirmButtonText: 'OK'
+                    });
+                    $(this).val('');
+                    return;
+                }
+
+                files.forEach(file => { addAttachment(file); });
+                $(this).val('');
+            });
+
+            $('#mailEditorModal').on('input', function () {
+                updateEmailPreview();
+            });
+
+            $('#sendEmailBtn').off('click').on('click', function () {
+                sendJDEmail();
+            });
+
+            $('#copyEmailBtn').off('click').on('click', function () {
+                copyEmailBody();
+            });
+        }
+
+        function loadEmailModal(record) {
+            const tpl = emailTemplates[activeTemplateKey];
+            $('#currentRecordId').val(record.id);
+            $('#email-input').val(record.emailId || '');
+            window.toMail = record.emailId;
+            if ($('#subject-input').length) {
+                $('#subject-input').val(tpl.subject(record));
+            }
+            $('#email-fixed-top').html(tpl.fixedTop(record));
+
+            // Build editable middle with dynamic fields
+            let editableMiddle = tpl.editableMiddle;
+            // Replace the template variables with current values
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.studentName}/g, record.studentName || "");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.email}/g, record.emailId || "");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.collegeName}/g, record.collegeName || "");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.registeredAt}/g, record.registeredAt || "");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.subscriptionWallet}/g, record.subscriptionWallet || "0");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.requiredTarget}/g, record.requiredTarget || "25");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.remainingTarget}/g, record.remainingTarget || "0");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.projectTask}/g, record.projectTask || "Complete pending subscriptions");
+            editableMiddle = editableMiddle.replace(/\${currentRecord?.teamManager}/g, record.teamManager || "Not Assigned");
+
+            $('#mailEditorModal').html(editableMiddle);
+            $('#email-fixed-bottom').html(tpl.fixedBottom);
+            updateEmailPreview();
+        }
+
+        function updateEmailPreview() {
+            const record = currentRecord;
+            if (!record) return;
+            const tpl = emailTemplates[activeTemplateKey];
+            let editableContent = $('#mailEditorModal').html();
+
+            // Replace variables in preview as well
+            editableContent = editableContent.replace(/\${currentRecord?.studentName}/g, record.studentName || "");
+            editableContent = editableContent.replace(/\${currentRecord?.email}/g, record.emailId || "");
+            editableContent = editableContent.replace(/\${currentRecord?.collegeName}/g, record.collegeName || "");
+            editableContent = editableContent.replace(/\${currentRecord?.registeredAt}/g, record.registeredAt || "");
+            editableContent = editableContent.replace(/\${currentRecord?.subscriptionWallet}/g, record.subscriptionWallet || "0");
+            editableContent = editableContent.replace(/\${currentRecord?.requiredTarget}/g, record.requiredTarget || "25");
+            editableContent = editableContent.replace(/\${currentRecord?.remainingTarget}/g, record.remainingTarget || "0");
+            editableContent = editableContent.replace(/\${currentRecord?.projectTask}/g, record.projectTask || "Complete pending subscriptions");
+            editableContent = editableContent.replace(/\${currentRecord?.teamManager}/g, record.teamManager || "Not Assigned");
+
+            $('#emailPreview').html(`${tpl.fixedTop(record)}${editableContent}${tpl.fixedBottom}`);
+        }
+
+        function getFullEmailBody() {
+            if (!currentRecord) return '';
+            return `${$('#emailPreview').html()}`;
+        }
+
+        async function sendJDEmail() {
+            const record = currentRecord;
+
+            if (!record) {
+                Swal.fire({ icon: "error", title: "Error", text: "Record not found!" });
+                return;
+            }
+
+            const cc = $('[name="ccmailmodal"]').val() ? [$('[name="ccmailmodal"]').val()] : [];
+            const bcc = $('[name="bccmailmodal"]').val() ? [$('[name="bccmailmodal"]').val()] : [];
+            const emailBody = getFullEmailBody();
+            const subject = $('#subject-input').val();
+
+            const totalAttachmentSize = getTotalAttachmentSize();
+            if (totalAttachmentSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Attachment Size Limit Exceeded",
+                    html: `Total attachment size (${formatFileSize(totalAttachmentSize)}) exceeds the limit of ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}.<br><br>Please remove some attachments to proceed.`,
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+
+            const attachmentPayload = attachments.map(att => ({ filename: att.filename, content: att.content }));
+
+            Swal.fire({
+                title: "Send Mail?",
+                html: `<div class="text-start">
+                    <p>Send mail to ${record.studentName || record.coordinatorName || 'user'} at ${record.emailId || ''}?</p>
+                    ${attachments.length > 0 ? `
+                    <p><strong>Attachments (${attachments.length}):</strong></p>
+                    <ul class="small mb-0">
+                        ${attachments.map(att => `<li>${att.filename} (${formatFileSize(att.size)})</li>`).join('')}
+                    </ul>
+                    <p class="small text-muted mt-2">Total size: ${formatFileSize(totalAttachmentSize)} / ${formatFileSize(MAX_TOTAL_ATTACHMENT_SIZE)}</p>
+                    ` : ''}
+                </div>`,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Send",
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Sending...",
+                        text: attachments.length > 0 ? "Sending email with attachments..." : "Sending email...",
+                        allowOutsideClick: false,
+                        didOpen: () => { Swal.showLoading(); }
+                    });
+
+                    const payload = {
+                        userId: 2577,
+                        fromAddress: "internship@fundsaudit.com",
+                        toAddress: window.toMail,
+                        cc: cc,
+                        bcc: bcc,
+                        subject: subject,
+                        body: emailBody,
+                        attachment: attachmentPayload
+                    };
+
+                    console.log("payload:", payload);
+
+                    $.ajax({
+                        url: "https://eduroom.in/api/v1/bdsheet/send-generic",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(payload),
+                        success: function (res) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Mail Sent!",
+                                text: attachments.length > 0 ?
+                                    `Email with ${attachments.length} attachment(s) sent successfully.` :
+                                    "The mail was sent successfully."
+                            });
+                            attachments = [];
+                            $('#attachmentContainer').empty();
+                            $('#attachmentSizeInfo').remove();
+                            $('#composeMail').modal('hide');
+                        },
+                        error: function (err) {
+                            console.error("Error sending email:", err);
+                            Swal.fire({ icon: "error", title: "Error", text: "Failed to send the mail. Please try again." });
+                        }
+                    });
+                }
+            });
+        }
+
+        function copyEmailBody() {
+            const plainText = getFullEmailBody()
+                .replace(/<[^>]*>/g, '')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .trim();
+
+            navigator.clipboard.writeText(plainText).then(() => {
+                Swal.fire({ icon: "success", title: "Copied!", text: "Email body copied to clipboard", timer: 2000, showConfirmButton: false });
+            }).catch(err => {
+                console.error("Failed to copy:", err);
+                Swal.fire({ icon: "error", title: "Error", text: "Failed to copy to clipboard" });
+            });
+        }
+    </script>
+
+    <script>
+        function loadTodayAccounts(fromDate, toDate) {
+
+            const url = `https://eduroom.in/api/v1/bdsheet/payments-vs-target?from=${fromDate}&to=${toDate}`;
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    if (res.success && res.totals && res.totals.totalAccountsAchieved !== undefined) {
+                        $("#todayAccounts").text(res.totals.totalAccountsAchieved);
+                    } else {
+                        $("#todayAccounts").text(0);
+                    }
+                },
+                error: function () {
+                    $("#todayAccounts").text(0);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            const today = new Date().toISOString().split("T")[0];
+            loadTodayAccounts(today, today);
+        });
     </script>
 
     <script>
@@ -3846,6 +4979,265 @@
             });
         }
     </script>
+
+    <div class="modal fade-scale" id="composeMail" tabindex="-1" aria-labelledby="composeMail" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="d-flex flex-column mb-0">
+                        <span class="fs-18 fw-bold mb-1">Compose JD Mail</span>
+                        <!-- <small class="d-block fs-11 fw-normal text-muted">Send Internship JD to College
+                            Coordinator</small> -->
+                    </h2>
+                    <a href="javascript:void(0)" class="avatar-text avatar-md bg-soft-danger close-icon"
+                        data-bs-dismiss="modal">
+                        <i class="feather-x text-danger"></i>
+                    </a>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="position-relative border-bottom">
+                        <div class="col-lg-12 mb-4">
+                            <input id="from" class="form-control border-0 text-dark flex-grow-1" name="from"
+                                placeholder="From: internship@fundsaudit.com" style="min-width: 150px;" readonly>
+                        </div>
+                        <div class="px-2 d-flex align-items-center">
+                            <div class="p-0 w-100 d-flex flex-wrap align-items-center gap-1" id="email-chip-wrapper">
+                                <input id="email-input" class="form-control border-0 text-dark flex-grow-1"
+                                    name="tomailmodal" placeholder="To" style="min-width: 150px;" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom mail-cc-bcc-fields" id="ccbccToggleModalFileds" style="display: none">
+                        <div class="px-2 w-100 d-flex align-items-center border-bottom">
+                            <input class="form-control border-0 text-dark" name="ccmailmodal" placeholder="CC">
+                        </div>
+                        <div class="px-2 w-100 d-flex align-items-center">
+                            <input class="form-control border-0 text-dark" name="bccmailmodal" placeholder="BCC">
+                        </div>
+                    </div>
+
+                    <div class="px-2 w-100 d-flex align-items-center">
+                        <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
+                            placeholder="Subject"
+                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit">
+                    </div>
+
+                    <!-- Attachment Section -->
+                    <div class="px-3 py-2 border-bottom">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <label class="fw-semibold text-dark mb-0">Attachments:</label>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <!-- Button -->
+                                <button type="button" id="addAttachmentBtn" class="btn btn-sm btn-outline-primary"
+                                    style="font-size: 12px; border-radius: 6px; white-space: nowrap;"> <i
+                                        class="feather-paperclip me-1"></i> Add Attachment </button>
+
+                                <!-- Dropdown -->
+                                <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
+                                    <option value="default" style="text-align: center;">Default</option>
+                                    <option value="promotional" style="text-align: center;">Promotional</option>
+                                    <option value="followup" style="text-align: center;">Follow-Up</option>
+                                    <option value="connect" style="text-align: center;">Connect</option>
+                                    <option value="marketing" style="text-align: center;">Marketing</option>
+                                    <option value="diy" style="text-align: center;">DIY</option>
+                                    <option value="iegpush" style="text-align: center;">IEG:PUSH</option>
+                                    <option value="iegforce" style="text-align: center;">IEG:FORCE</option>
+                                    <option value="iegdeal" style="text-align: center;">IEG:DEAL</option>
+                                    <option value="fpcompush" style="text-align: center;">FPCOM:PUSH</option>
+                                    <option value="fpcommix" style="text-align: center;">FPCOM:MIX</option>
+                                    <option value="fpcomdirect" style="text-align: center;">FPCOM:DIRECT</option>
+                                    <option value="marcompost" style="text-align: center;">MARCOM:POST</option>
+                                    <option value="marcomfollowers" style="text-align: center;">MARCOM:FLW</option>
+                                    <option value="marcomreviews" style="text-align: center;">MARCOM:REV</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div id="attachmentContainer" class="mt-2"></div>
+
+                        <input type="file" id="fileInput" multiple style="display: none;"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                    </div>
+
+                    <style>
+                        .custom-btn {
+                            height: 38px;
+                            font-size: 13px;
+                            border-radius: 6px;
+                            padding: 0 12px;
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .custom-select {
+                            height: 38px;
+                            font-size: 13px;
+                            border-radius: 6px;
+                            padding: 0 10px;
+                            width: 150px;
+                        }
+
+                        /* Fix vertical alignment issue */
+                        .custom-select,
+                        .custom-btn {
+                            line-height: 1.2;
+                        }
+                    </style>
+
+                    <!-- Email Body Container -->
+                    <div class="email-body-container p-3">
+                        <!-- Fixed Top Part -->
+                        <div id="email-fixed-top" class="email-fixed-part mb-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+
+                        <!-- Editable Middle Part -->
+                        <div class="email-editable-part mb-3">
+                            <label class="fw-semibold text-dark mb-2 d-block">Customize Email:</label>
+                            <div id="mailEditorModal" class="ht-200 border rounded p-3 bg-white" contenteditable="true">
+                                <!-- Editable content will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Fixed Bottom Part -->
+                        <div id="email-fixed-bottom" class="email-fixed-part mt-3 p-3 border rounded bg-light">
+                            <!-- This will be filled dynamically with JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="mt-4 px-3" id="emailPreviewContainer">
+                        <label class="fw-semibold text-dark mb-2 d-block">Email Preview:</label>
+                        <div id="emailPreview" class="border rounded p-3 bg-light"
+                            style="max-height: 400px; overflow-y: auto;">
+                            <!-- Live preview will be injected here -->
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="currentRecordId" value="">
+                    <input type="hidden" id="currentRecordData" value="">
+                </div>
+
+                <div class="modal-footer d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <button id="sendEmailBtn" class="btn btn-primary me-2" data-bs-toggle="tooltip"
+                            data-bs-trigger="hover" title="Send Message with Attachments">
+                            <i class="feather-send me-1"></i> Send Mail
+                        </button>
+
+                        <button type="button" id="copyEmailBtn" class="btn btn-outline-secondary me-2">
+                            <i class="feather-copy me-1"></i> Copy Body
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-outline-danger">
+                            <i class="feather-x me-1"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .email-body-container {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px;
+        }
+
+        .email-fixed-part {
+            font-size: 14px;
+            line-height: 1.6;
+            user-select: none;
+            cursor: default;
+        }
+
+        .email-editable-part {
+            border-left: 3px solid #0d6efd;
+            padding-left: 15px;
+        }
+
+        #mailEditorModal {
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ced4da !important;
+            background-color: #fff !important;
+        }
+
+        #mailEditorModal:focus {
+            outline: none;
+            border-color: #86b7fe !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+        }
+
+        #emailPreview {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #emailPreview h4 {
+            color: #59595d;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        #emailPreview ul {
+            padding-left: 20px;
+        }
+
+        #emailPreview li {
+            margin-bottom: 5px;
+        }
+
+        .email-template-variable {
+            background-color: #e7f1ff;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+    <!--! ================================================================ !-->
+    <!--! [End] Main Content !-->
+    <!--! ================================================================ !-->
+
+    <style>
+        .email-chip {
+            display: flex;
+            align-items: center;
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .email-chip .remove-btn {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .email-chip .remove-btn:hover {
+            color: red;
+        }
+
+        .email-chip .avatar {
+            width: 22px;
+            height: 22px;
+            background-color: #9cc1f9;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+
 
 </body>
 

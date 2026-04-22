@@ -356,6 +356,14 @@
                     </li>
 
                     <li class="nxl-item">
+                        <a href="/profile/dashboard/team-manager-fundsweb.html" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-globe"></i></span>
+                            <span class="nxl-mtext">FUNDSWEB SHEET</span>
+                            <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                    </li>
+
+                    <li class="nxl-item">
                         <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-file-text"></i></span>
                             <span class="nxl-mtext">COLLEGE SHEET</span>
@@ -2713,14 +2721,13 @@
                 tr += `
                     <td style="background-color: ${rowColor};">${start + index + 1}</td>
                     <td style="background-color: ${rowColor};">
-                        ${
-                            row.userId
-                            ? `<a class="text-primary fw-bold" target="_blank"
+                        ${row.userId
+                        ? `<a class="text-primary fw-bold" target="_blank"
                                 href="/intern-profile.html?userId=${encodeURIComponent(row.userId)}">
                                 ${row.studentName || ""}
                             </a>`
-                            : `<span>${row.studentName || ""}</span>`
-                        }
+                        : `<span>${row.studentName || ""}</span>`
+                    }
                     </td>
                     <td style="background-color: ${rowColor};">${row.mobileNumber || ""}</td>
                     <td style="background-color: ${rowColor};">${row.collegeName || ""}</td>
