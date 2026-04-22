@@ -2015,6 +2015,7 @@
                                     <option value="followup" style="text-align: center;">Follow-Up</option>
                                     <option value="connect" style="text-align: center;">Connect</option>
                                     <option value="marketing" style="text-align: center;">Marketing</option>
+                                    <option value="diy" style="text-align: center;">DIY</option>
                                 </select>
 
                             </div>
@@ -2554,6 +2555,18 @@
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
                     <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
                     </p>`
+            },
+            diy: {
+                label: "diy",
+                subject: (record) => `Opportunity - Complete Your Internship`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    <p>Greetings from FundsAudit.</p>
+                    `,
+                editableMiddle: `
+                    <p></p>`,
+                fixedBottom: `
+                    <p></p>`
             }
         };
         // END MAILER: variables
