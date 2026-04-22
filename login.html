@@ -684,15 +684,50 @@
                             sessionStorage.setItem("userName", userName.trim());
                         }
 
-                        Swal.close();
-                        Swal.fire({
-                            icon: "success",
-                            title: "Login Successful",
-                            timer: 3000,
-                            showConfirmButton: false
-                        }).then(() => {
-                            window.location.href = redirectUrl;
-                        });
+                        if (res.user && res.user.user_id) {
+                            $.ajax({
+                                url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
+                                method: "GET",
+                                success: function (courseRes) {
+                                    if (courseRes && courseRes.data && Array.isArray(courseRes.data.courses) && courseRes.data.courses.length === 0) {
+                                        redirectUrl = "/domain-list-register.html";
+                                    } else {
+                                        redirectUrl = "/profile.html";
+                                    }
+
+                                    Swal.close();
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Login Successful",
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        window.location.href = redirectUrl;
+                                    });
+                                },
+                                error: function () {
+                                    Swal.close();
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Login Successful",
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        window.location.href = "/profile.html";
+                                    });
+                                }
+                            });
+                        } else {
+                            Swal.close();
+                            Swal.fire({
+                                icon: "success",
+                                title: "Login Successful",
+                                timer: 3000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.href = redirectUrl;
+                            });
+                        }
                     },
                     error: function (xhr) {
                         Swal.close();
@@ -778,16 +813,53 @@
                             sessionStorage.setItem("userName", userName.trim());
                         }
 
-                        Swal.close();
-                        Swal.fire({
-                            icon: "success",
-                            title: "Login Successful",
-                            text: "Redirecting you to the site...",
-                            timer: 2000,
-                            showConfirmButton: false
-                        }).then(() => {
-                            window.location.href = redirectUrl;
-                        });
+                        if (response.user && response.user.user_id) {
+                            $.ajax({
+                                url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
+                                method: "GET",
+                                success: function (courseRes) {
+                                    if (courseRes && courseRes.data && Array.isArray(courseRes.data.courses) && courseRes.data.courses.length === 0) {
+                                        redirectUrl = "/domain-list-register.html";
+                                    } else {
+                                        redirectUrl = "/profile.html";
+                                    }
+
+                                    Swal.close();
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Login Successful",
+                                        text: "Redirecting you to the site...",
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        window.location.href = redirectUrl;
+                                    });
+                                },
+                                error: function () {
+                                    Swal.close();
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Login Successful",
+                                        text: "Redirecting you to the site...",
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        window.location.href = "/profile.html";
+                                    });
+                                }
+                            });
+                        } else {
+                            Swal.close();
+                            Swal.fire({
+                                icon: "success",
+                                title: "Login Successful",
+                                text: "Redirecting you to the site...",
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.href = redirectUrl;
+                            });
+                        }
                     })
                     .catch(error => {
                         Swal.close();
