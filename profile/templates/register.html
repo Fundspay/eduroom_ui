@@ -611,7 +611,7 @@
                 const phoneNumber = $('#phoneNumber').val().trim();
                 const email = $('#email').val().trim();
                 const collegeName = $('#college').val();
-                const userType = $('#userType').val();
+                // const userType = $('#userType').val();
                 const password = $('#password-field').val();
                 const confirmPassword = $('#confirm-password-field').val();
 
@@ -620,7 +620,7 @@
                 if (!phoneRegex.test(phoneNumber)) return showSwalError('Phone number must be 10 digits.');
                 if (!emailRegex.test(email)) return showSwalError('Valid Email required.');
                 if (!collegeName) return showSwalError('Please select a college.');
-                if (!userType) return showSwalError('Please select a user type.');
+                // if (!userType) return showSwalError('Please select a user type.');
                 if (!password) return showSwalError('Password is required.');
                 if (password !== confirmPassword) return showSwalError('Passwords do not match.');
 
@@ -631,7 +631,7 @@
                     email,
                     password,
                     collegeName,
-                    userType
+                    // userType
                 };
 
                 Swal.fire({
@@ -777,12 +777,12 @@
                                         <option value="">Select College</option>
                                     </select>
 
-                                    <label for="swal-userType" style="font-weight:600;">User Type:</label>
+                                    <!-- <label for="swal-userType" style="font-weight:600;">User Type:</label>
                                     <select id="swal-userType" class="swal2-input" style="margin-bottom:15px; width:100%; height:38px; padding:8px;">
                                         <option value="">Select User Type</option>
                                         <option value="fundsweb">FundsWeb User</option>
                                         <option value="fundsaudit">FundsAudit User</option>
-                                    </select>
+                                    </select> -->
 
                                     <label for="swal-phone" style="font-weight:600;">Phone Number:</label>
                                     <input id="swal-phone" class="swal2-input" style="margin-bottom:5px;" 
@@ -848,7 +848,7 @@
                                 const state = document.getElementById("swal-state").value;
                                 const city = document.getElementById("swal-city").value;
                                 const collegeName = document.getElementById("swal-college").value;
-                                const userType = document.getElementById("swal-userType").value;
+                                // const userType = document.getElementById("swal-userType").value;
                                 const phoneNumber = document.getElementById("swal-phone").value.trim();
 
                                 if (!firstName) return Swal.showValidationMessage("⚠️ First name is required!");
@@ -856,7 +856,7 @@
                                 if (!state) return Swal.showValidationMessage("⚠️ Please select a state!");
                                 if (!city) return Swal.showValidationMessage("⚠️ Please select a city!");
                                 if (!collegeName) return Swal.showValidationMessage("⚠️ Please select a college!");
-                                if (!userType) return Swal.showValidationMessage("⚠️ Please select a user type!");
+                                // if (!userType) return Swal.showValidationMessage("⚠️ Please select a user type!");
                                 if (!/^[0-9]{10}$/.test(phoneNumber)) {
                                     return Swal.showValidationMessage("⚠️ Enter a valid 10-digit phone number!");
                                 }
@@ -870,7 +870,7 @@
                                 firstName: res.value.firstName,
                                 lastName: res.value.lastName,
                                 collegeName: res.value.collegeName,
-                                userType: res.value.userType,
+                                // userType: res.value.userType,
                                 email,
                                 phoneNumber: res.value.phoneNumber,
                                 password
