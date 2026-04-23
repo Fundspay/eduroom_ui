@@ -2261,6 +2261,8 @@
         $(document).ready(function () {
             const container = $("#internshipCardsContainer");
             const userId = sessionStorage.getItem("user_id");
+            const userType = sessionStorage.getItem("userType");
+            console.log("userType:", userType);
 
             $.ajax({
                 url: `https://eduroom.in/api/v1/coursedetail/${userId}`,
@@ -2293,7 +2295,9 @@
                                 followerTarget = 0,
                                 achievedFollowers = 0,
                                 achievedPosts = 0,
-                                achievedReviewAndRating = 0
+                                achievedReviewAndRating = 0,
+                                fundswebAchieved = 0,
+                                fundswebTarget = 0
                             } = course;
 
                             const subscriptionLeft = globalSubscriptionLeft;
@@ -2379,6 +2383,28 @@
                                             <p class="text-white mb-3 fw-bold">${displayStatus}</p>
 
                                             <!-- Key Values -->
+                                            ${userType === 'fundsweb' ? `
+                                            <div class="d-flex justify-content-between text-white mb-3">
+                                                <div class="text-start">
+                                                    <p class="mb-1">Course Completion Status:</p>
+                                                    <p class="mb-0">Fundsweb Target:</p>
+                                                    ${postsHtml ? `<p class="mb-0">${postsHtml.split('</p>')[0]}</p>` : ''}
+                                                    ${reviewsHtml ? `<p class="mb-0">${reviewsHtml.split('</p>')[0]}</p>` : ''}
+                                                    ${followersHtml ? `<p class="mb-0">${followersHtml.split('</p>')[0]}</p>` : ''}
+                                                    <p class="mb-0">Start Date:</p>
+                                                    <p class="mb-0">End Date:</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <p class="mb-1">${overallCompletionRate || "0"}%</p>
+                                                    <p class="mb-0">${fundswebAchieved || "0"}/${fundswebTarget || "0"}</p>
+                                                    ${postsHtml ? `<p class="mb-0">${postsHtml.split('</p>')[1]}</p>` : ''}
+                                                    ${reviewsHtml ? `<p class="mb-0">${reviewsHtml.split('</p>')[1]}</p>` : ''}
+                                                    ${followersHtml ? `<p class="mb-0">${followersHtml.split('</p>')[1]}</p>` : ''}
+                                                    <p class="mb-0">${formatDate(new Date(startDate))}</p>
+                                                    <p class="mb-0">${formatDate(new Date(endDate))}</p>
+                                                </div>
+                                            </div>
+                                            ` : `
                                             <div class="d-flex justify-content-between text-white mb-3">
                                                 <div class="text-start">
                                                     <p class="mb-1">Course Completion Status:</p>
@@ -2398,7 +2424,8 @@
                                                     <p class="mb-0">${formatDate(new Date(startDate))}</p>
                                                     <p class="mb-0">${formatDate(new Date(endDate))}</p>
                                                 </div>
-                                            </div>  
+                                            </div>
+                                            `}  
 
                                             <!-- Action Buttons -->
                                             <div class="d-flex justify-content-center gap-2 mt-2 flex-wrap">
