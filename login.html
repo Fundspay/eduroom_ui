@@ -653,6 +653,11 @@
                             userId = res.user.user_id;
                             userName = res.user.fullName || "User";
                             redirectUrl = "/profile.html";
+                            userType = res.user.userType;
+
+                            if (userType) {
+                                sessionStorage.setItem("userType", userType);
+                            }
                         }
 
                         if (res.user) {
@@ -783,6 +788,11 @@
                             userId = response.user.user_id;
                             userName = response.user.fullName || "User";
                             redirectUrl = "/profile.html";
+                            userType = response.user.userType;
+
+                            if (userType) {
+                                sessionStorage.setItem("userType", userType);
+                            }
                         }
 
                         if (response.user) {
