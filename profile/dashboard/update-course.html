@@ -421,11 +421,15 @@
 
                 <!-- Business Target + Certificate Count -->
                 <div class="row">
-                  <div class="col-lg-6 mb-4">
+                  <div class="col-lg-4 mb-4">
                     <label class="form-label">Business Target</label>
                     <input type="number" class="form-control" id="businessTarget" placeholder="Enter business target">
                   </div>
-                  <div class="col-lg-6 mb-4">
+                  <div class="col-lg-4 mb-4">
+                    <label class="form-label">Fundsweb Target</label>
+                    <input type="number" class="form-control" id="fundswebTarget" placeholder="Enter fundsweb target">
+                  </div>
+                  <div class="col-lg-4 mb-4">
                     <label class="form-label">Certificate Count</label>
                     <input type="number" class="form-control" id="certificateCount"
                       placeholder="Enter certificate count">
@@ -581,6 +585,7 @@
           $("#courseName").val((selected.name || "").replace(/^"(.*)"$/, "$1"));
           $("#description").val((selected.description || "").replace(/^"(.*)"$/, "$1"));
           $("#businessTarget").val(selected.businessTarget || "");
+          $("#fundswebTarget").val(selected.fundswebTarget || "");
           $("#certificateCount").val(selected.certificateCount || "");
           $("#totalDays").val(selected.totalDays || "");
           $("#duration").val(selected.duration || "");
@@ -637,6 +642,7 @@
         formData.append("description", $("#description").val());
         formData.append("domainId", $("#courseSelect").data("domainId") || null);
         formData.append("businessTarget", $("#businessTarget").val() ? parseInt($("#businessTarget").val()) : '');
+        formData.append("fundswebTarget", $("#fundswebTarget").val() ? parseInt($("#fundswebTarget").val()) : '');
         formData.append("certificateCount", $("#certificateCount").val() ? parseInt($("#certificateCount").val()) : '');
         formData.append("totalDays", $("#totalDays").val() ? parseInt($("#totalDays").val()) : '');
         formData.append("duration", $("#duration").val());
@@ -745,6 +751,7 @@
                           $("#courseName").val("");
                           $("#description").val("");
                           $("#businessTarget").val("");
+                          $("#fundswebTarget").val("");
                           $("#certificateCount").val("");
                           $("#totalDays").val("");
                           $("#duration").val("");
