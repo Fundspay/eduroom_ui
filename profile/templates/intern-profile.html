@@ -329,6 +329,19 @@
                     </div>
                 </div>
 
+                <div class="row mb-4" id="portfolioIframeContainerNav1" style="display: none;">
+                    <div class="col-12">
+                        <div class="card mb-0">
+                            <div class="card-header d-flex justify-content-end align-items-center">
+                                <a id="viewPortfolioBtnNav1" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <iframe id="portfolioIframeNav1" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
                 <div class="row mb-4">
@@ -1149,6 +1162,20 @@
 
                     </div>
                 </div>
+
+                <div class="row mb-4" id="portfolioIframeContainerNav2" style="display: none; margin-top: 30px;">
+                    <div class="col-12">
+                        <div class="card mb-0">
+                            <div class="card-header d-flex justify-content-end align-items-center">
+                                <a id="viewPortfolioBtnNav2" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <iframe id="portfolioIframeNav2" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
 
                 <!-- <div class="row mb-4">
@@ -4633,6 +4660,33 @@
             };
 
             fetchData3();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var userPhoneNumber = sessionStorage.getItem("number");
+            console.log("number:", userPhoneNumber);
+
+            $.ajax({
+                url: `https://api.fundsweb.in/api/v1/user/portfolio/${userPhoneNumber}`,
+                method: 'GET',
+                contentType: "application/json",
+                success: function (response) {
+                    console.log('response:', response);
+                    if (response && response.success && response.pfLink) {
+                        $('#portfolioIframeNav1').attr('src', response.pfLink);
+                        $('#viewPortfolioBtnNav1').attr('href', response.pfLink);
+                        $('#portfolioIframeContainerNav1').show();
+                        $('#portfolioIframeNav2').attr('src', response.pfLink);
+                        $('#viewPortfolioBtnNav2').attr('href', response.pfLink);
+                        $('#portfolioIframeContainerNav2').show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX GET failed:', status, error);
+                }
+            });
         });
     </script>
 
