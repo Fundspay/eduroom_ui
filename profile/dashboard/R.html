@@ -1765,6 +1765,7 @@
                                     <option value="followup" style="text-align: center;">Follow-Up</option>
                                     <option value="connect" style="text-align: center;">Connect</option>
                                     <option value="marketing" style="text-align: center;">Marketing</option>
+                                    <option value="diy" style="text-align: center;">DIY</option>
                                 </select>
 
                             </div>
@@ -2167,8 +2168,8 @@
                     </ul>`,
                 fixedBottom: `
                     <p>Looking forward to a meaningful and mutually beneficial association.</p>
-                    <p>Pooja M. Shedge<br/>
-                    Branch Manager - Pune<br/>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2211,8 +2212,8 @@
                     </ul>`,
                 fixedBottom: `
                     <p>Looking forward to a meaningful and mutually beneficial association.</p>
-                    <p>Pooja M. Shedge<br/>
-                    Branch Manager - Pune<br/>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2294,8 +2295,8 @@
 
                     <p>We look forward to having you on board and hope this internship proves to be mutually beneficial.</p>`,
                 fixedBottom: `
-                    <p>Pooja M. Shedge<br/>
-                    Branch Manager - Pune<br/>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2327,8 +2328,7 @@
                 fixedBottom: `
                     <p>Don't miss this opportunity to give your students a competitive edge!</p>
                     <p>Warm regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2357,9 +2357,8 @@
                     <p>Could you kindly share your feedback or preferred time to connect?</p>`,
                 fixedBottom: `
                     <p>Looking forward to hearing from you soon.</p>
-                    <p>Best regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2372,7 +2371,7 @@
                 fixedTop: (record) => `
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || record.studentName || "Sir/Madam"}</span>,</p>
                     <p>Greetings from FundsAudit!</p>
-                    <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsAudit, Pune. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
+                    <p>I hope this message finds you in great health and spirits. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
                 editableMiddle: `
                     <p>At FundsAudit, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
                     <p>We would love to explore how we can work together to benefit your students through our <b>Student Development Program (SDP)</b>:</p>
@@ -2389,8 +2388,7 @@
                 fixedBottom: `
                     <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
                     <p>Warm regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2424,15 +2422,25 @@
                     <p>We are currently onboarding partner institutes for the upcoming batch. Your institute fits our ideal partner profile and we are keen to collaborate.</p>
                     <p>Detailed JD is attached. We would appreciate a quick confirmation of interest so we can proceed with formalizing the MoU.</p>`,
                 fixedBottom: `
-                    <p>Let's build future-ready finance and marketing professionals — together.</p>
-                    <p>Best regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    <p>Let's build future-ready finance and marketing professionals - together.</p>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
                     <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
                     </p>`
+            },
+            diy: {
+                label: "diy",
+                subject: (record) => `Complete Your Internship - FundsAudit`,
+                fixedTop: (record) => `
+                    <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
+                    `,
+                editableMiddle: `
+                    <p></p>`,
+                fixedBottom: `
+                    <p></p>`
             }
         };
         // ─── END MAILER: variables ────────────────────────────────────────────────

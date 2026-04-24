@@ -1747,11 +1747,13 @@
 
                                 <!-- Dropdown -->
                                 <select id="emailTemplateSelect" class="form-select form-select-sm custom-select">
-                                    <option value="default" style="text-align: center;">Default</option>
+                                    <option value="default" style="text-align: center;">Default (FundsAudit)</option>
+                                    <option value="default2" style="text-align: center;">Default (Fundsweb)</option>
                                     <option value="promotional" style="text-align: center;">Promotional</option>
                                     <option value="followup" style="text-align: center;">Follow-Up</option>
                                     <option value="connect" style="text-align: center;">Connect</option>
                                     <option value="marketing" style="text-align: center;">Marketing</option>
+                                    <option value="diy" style="text-align: center;">DIY</option>
                                 </select>
 
                             </div>
@@ -2480,8 +2482,106 @@
                     </ul>`,
                 fixedBottom: `
                     <p>Looking forward to a meaningful and mutually beneficial association.</p>
-                    <p>Pooja M. Shedge<br/>
-                    Branch Manager - Pune<br/>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
+                    +91 7385234536 | +91 9322509539<br/>
+                    Pune, Maharashtra<br/>
+                    <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
+                    <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
+                </p>`
+            },
+
+            default2: {
+                label: "Default2",
+                subject: (record) => `Internship Collaboration Opportunity – FundsWeb × ${record.collegeName || "Your Institute"}`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
+                    <p>Warm greetings from FundsWeb!</p>
+                    <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>.</p>
+                    <p>We would like to share an updated internship opportunity with FundsPortfolio (by Fundsroom Infotech Pvt. Ltd.), a technology-driven platform focused on digital portfolio designing and personal branding solutions.</p>`,
+                editableMiddle: `
+                    <p><b>Collaboration Proposal:</b></p>
+
+                    <p>As an enhancement over our previous internship structure, we have introduced new modules, certifications, and AI-based learning exposure, making the program more aligned with current industry requirements.</p>
+
+                    <p>We are inviting applications from MBA / PGDM / BBA students (All Specializations) for our Digital Portfolio Strategy & Business Development Internship Program.</p>
+
+                    <p><b>Internship Details:</b></p>
+                    <ul>
+                        <li><b>Profile:</b> Digital Portfolio Strategy & Business Development Intern</li>
+                        <li><b>Duration:</b> 45–60 Days</li>
+                        <li><b>Mode:</b> Work From Home / Hybrid</li>
+                        <li><b>Stipend:</b> Performance-Based (₹1,000 – ₹7,000)</li>
+                        <li><b>Eligibility:</b> MBA / PGDM / BBA (1st & 2nd Year)</li>
+                    </ul>
+
+                    <p><b>What’s New / Key Enhancements in the JD:</b></p>
+                    <ul>
+                        <li>Introduction of a tech-product based learning approach</li>
+                        <li>Focus on digital portfolio creation, personal branding & career positioning</li>
+                        <li>Exposure to AI tools including ChatGPT for business, marketing, and productivity use-cases</li>
+                        <li>Enhanced learning in user acquisition, product growth, and analytics</li>
+                        <li>Structured modules combining business development + marketing + data insights</li>
+                    </ul>
+
+                    <p><b>Key Learning & Certifications:</b></p>
+                    <ul>
+                        <li>Certification in Power BI</li>
+                        <li>Certification in Financial Modelling / Marketing Modelling</li>
+                        <li>Exposure to AI Learning (ChatGPT-based practical usage)</li>
+                        <li>Live Project Experience Certificate</li>
+                        <li>Internship Completion Certificate</li>
+                        <li>Letter of Recommendation (for top performers)</li>
+                        <li>Pre-Placement Opportunity (PPO) based on performance</li>
+                    </ul>
+
+                    <p><b>Key Responsibilities:</b></p>
+                    <ul>
+                        <li>Promoting and onboarding users onto the FundsPortfolio platform</li>
+                        <li>Executing digital outreach, branding, and engagement strategies</li>
+                        <li>Utilizing AI tools like ChatGPT for content, research, and productivity</li>
+                        <li>Conducting market research and competitor analysis</li>
+                        <li>Working on business development and partnership opportunities</li>
+                        <li>Analyzing user behavior and contributing to product improvements</li>
+                    </ul>
+
+                    <p>This internship is designed to provide students with hands-on exposure to a real-time tech product environment, integrating AI tools, digital platforms, and business growth strategies.</p>
+
+                    <ul>
+                        <li><b>Flexible Participation:</b> 2-hour/day commitment (1 hour training + 1 hour individual work)</li>
+                        <li><b>Performance-Based Stipend:</b> INR 1,000 to INR 7,000 based on quality, innovation, and project delivery</li>
+                        <li><b>Value-Added Certifications:</b> Specialized certificates + Power BI & Financial/Marketing Modelling certificate; recognition for top performers</li>
+                        <li><b>Open to:</b> MBA 1st & 2nd year students (Finance & Marketing)</li>
+                    </ul>
+
+                    <p><b>Role:</b> Marketing Analyst & Financial Analyst<br/>
+                    <b>Eligibility:</b> Management Students</p>
+
+                    <p>Following the live project, students may also be considered for:</p>
+                    <ul>
+                        <li>Summer/Winter Internships</li>
+                        <li>Pre-placement offers (PPOs)</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+
+                    <p><b>Perks of the collaboration:</b></p>
+                    <ul>
+                        <li>Exposure to real-time fintech operations</li>
+                        <li>Skill development aligned with industry expectations</li>
+                        <li>Improved employability and practical insight alongside academics</li>
+                        <li>Final placement opportunities</li>
+                    </ul>
+
+                    <p>We would be glad to collaborate with your institution and conduct the hiring process. Kindly let us know a convenient time to discuss this further.</p>
+
+                    <p><b>Next Steps:</b> JD for the Internship is attached. If your institution is interested, we can formalize this collaboration by signing a Memorandum of Understanding (MoU). Upon signing, eligible students will be onboarded with orientation and training to commence the live project.</p>
+
+                    <p>As discussed on the call, kindly share your response by <b>23rd August 2025, 11 AM</b>. Preplacement interviews will be conducted on the same day, with joining on <b>25th August 2025</b>.</p>`,
+
+                fixedBottom: `
+                    <p>Looking forward to a meaningful and mutually beneficial association.</p>
+                    <p>Warm regards,<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2515,8 +2615,7 @@
                 fixedBottom: `
                     <p>Don't miss this opportunity to give your students a competitive edge!</p>
                     <p>Warm regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    HR Team<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2548,8 +2647,7 @@
                 fixedBottom: `
                     <p>Looking forward to hearing from you soon.</p>
                     <p>Best regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    <b>HR Team</b><br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2581,8 +2679,7 @@
                 fixedBottom: `
                     <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
                     <p>Warm regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    <b>HR Team</b><br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -2620,13 +2717,24 @@
                 fixedBottom: `
                     <p>Let's build future-ready finance and marketing professionals — together.</p>
                     <p>Best regards,<br/>
-                    <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    <b>HR Team</b><br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
                     <a href="https://www.fundsweb.in/sub_sectors/subsector">https://www.fundsweb.in/sub_sectors/subsector</a>
                 </p>`
+            },
+
+            diy: {
+                label: "diy",
+                subject: (record) => `Let's Connect`,
+                fixedTop: (record) => `
+                    <p>Respected <span class="email-template-variable">${record.coordinatorName || "Student"}</span>,</p>
+                    `,
+                editableMiddle: `
+                    <p></p>`,
+                fixedBottom: `
+                    <p></p>`
             }
         };
 
