@@ -338,42 +338,61 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                                        <div class="course-info-card">
-                                            <div class="row">
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label text-center">SMM Followers <br> (Linkedin/Insta/YT/Other)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
-                                                            id="followersGrowth" style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label text-center">Reviews & Ratings<br> (All Platforms)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
-                                                            id="ratings" style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label text-center">Qualified Leads<br> (Posts/Mails/Other)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
-                                                            id="qualifiedLeads" style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label text-center">App Reviews <br> (Play Store/App store)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
-                                                            id="reviews" style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <div class="course-info-card">
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <div class="info-box">
+                                            <span class="info-label text-center">SMM Followers <br>
+                                                (Linkedin/Insta/YT/Other)</span>
+                                            <span class="info-value editable-display text-center d-block w-100"
+                                                id="followersGrowth" style="font-size: 20px;">--</span>
                                         </div>
                                     </div>
+                                    <div class="col-md-3 mb-3">
+                                        <div class="info-box">
+                                            <span class="info-label text-center">Reviews & Ratings<br> (All
+                                                Platforms)</span>
+                                            <span class="info-value editable-display text-center d-block w-100"
+                                                id="ratings" style="font-size: 20px;">--</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <div class="info-box">
+                                            <span class="info-label text-center">Qualified Leads<br>
+                                                (Posts/Mails/Other)</span>
+                                            <span class="info-value editable-display text-center d-block w-100"
+                                                id="qualifiedLeads" style="font-size: 20px;">--</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <div class="info-box">
+                                            <span class="info-label text-center">App Reviews <br> (Play Store/App
+                                                store)</span>
+                                            <span class="info-value editable-display text-center d-block w-100"
+                                                id="reviews" style="font-size: 20px;">--</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
+
+                <div class="row mb-4" id="portfolioIframeContainerNav1" style="display: none;">
+                    <div class="col-12">
+                        <div class="card mb-0">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h3 class="card-title mb-0" style="font-size: 25px;">My Portfolio</h3>
+                                <a id="viewPortfolioBtnNav1" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <iframe id="portfolioIframeNav1" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
 
                 <div class="row mb-4">
@@ -754,16 +773,16 @@
                     }
 
                     /* Marketing row status indicator (thin left border, no layout shift) */
-                    .marketing-row--verified > td:first-child {
+                    .marketing-row--verified>td:first-child {
                         box-shadow: inset 4px 0 0 #16a34a;
                     }
 
-                    .marketing-row--pending > td:first-child {
+                    .marketing-row--pending>td:first-child {
                         box-shadow: inset 4px 0 0 #dc2626;
                     }
 
-                    .marketing-row--verified > td:first-child,
-                    .marketing-row--pending > td:first-child {
+                    .marketing-row--verified>td:first-child,
+                    .marketing-row--pending>td:first-child {
                         padding-left: 0.85rem;
                     }
 
@@ -872,6 +891,7 @@
                     }
 
                     @media (max-width: 576px) {
+
                         #marketingTable input.form-control,
                         #marketingTable select.form-control,
                         #marketingTable .marketing-ms-toggle {
@@ -1006,178 +1026,191 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- [Marketing] start -->
-                    <div class="col-12 mb-4">
-                        <div class="card stretch stretch-full" style="height: auto;">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">Marketing</h5>
+                        <!-- [Marketing] start -->
+                        <div class="col-12 mb-4">
+                            <div class="card stretch stretch-full" style="height: auto;">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title">Marketing</h5>
+                                    </div>
+                                    <div class="px-3 pt-2 pb-2">
+                                        <div class="fr-share-strip d-flex flex-wrap gap-2">
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="linkedin"
+                                                style="--fr-color:#0A66C2;" title="LinkedIn">
+                                                <i class="bi bi-linkedin"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="instagram"
+                                                style="--fr-color:#E1306C;" title="Instagram">
+                                                <i class="bi bi-instagram"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="youtube"
+                                                style="--fr-color:#FF0000;" title="YouTube">
+                                                <i class="bi bi-youtube"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="facebook"
+                                                style="--fr-color:#1877F2;" title="Facebook">
+                                                <i class="bi bi-facebook"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="x"
+                                                style="--fr-color:#111827;" title="X">
+                                                <i class="bi bi-twitter"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="google_play"
+                                                style="--fr-color:#34A853;" title="Play Store">
+                                                <i class="bi bi-google-play"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="app_store"
+                                                style="--fr-color:#111827;" title="App Store">
+                                                <i class="bi bi-apple"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon"
+                                                data-fr-platform="google_reviews" style="--fr-color:#F59E0B;"
+                                                title="Google Reviews">
+                                                <i class="bi bi-star-fill"></i>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="glassdoor"
+                                                style="--fr-color:#0CAA41;" title="Glassdoor">
+                                                <span class="fr-social-text">GD</span>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="indeed"
+                                                style="--fr-color:#003A9B;" title="Indeed">
+                                                <span class="fr-social-text">IN</span>
+                                            </button>
+
+                                            <button type="button" class="fr-social-icon" data-fr-platform="internshala"
+                                                style="--fr-color:#0A66C2;" title="Internshala">
+                                                <span class="fr-social-text">IS</span>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-header-action">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-primary" type="button" id="addMarketingRowBtn">
+                                                <i class="bi bi-plus-lg"></i> Add Row
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="px-3 pt-2 pb-2">
-    <div class="fr-share-strip d-flex flex-wrap gap-2">
-
-        <button type="button" class="fr-social-icon" data-fr-platform="linkedin" style="--fr-color:#0A66C2;" title="LinkedIn">
-            <i class="bi bi-linkedin"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="instagram" style="--fr-color:#E1306C;" title="Instagram">
-            <i class="bi bi-instagram"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="youtube" style="--fr-color:#FF0000;" title="YouTube">
-            <i class="bi bi-youtube"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="facebook" style="--fr-color:#1877F2;" title="Facebook">
-            <i class="bi bi-facebook"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="x" style="--fr-color:#111827;" title="X">
-            <i class="bi bi-twitter"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="google_play" style="--fr-color:#34A853;" title="Play Store">
-            <i class="bi bi-google-play"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="app_store" style="--fr-color:#111827;" title="App Store">
-            <i class="bi bi-apple"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="google_reviews" style="--fr-color:#F59E0B;" title="Google Reviews">
-            <i class="bi bi-star-fill"></i>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="glassdoor" style="--fr-color:#0CAA41;" title="Glassdoor">
-            <span class="fr-social-text">GD</span>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="indeed" style="--fr-color:#003A9B;" title="Indeed">
-            <span class="fr-social-text">IN</span>
-        </button>
-
-        <button type="button" class="fr-social-icon" data-fr-platform="internshala" style="--fr-color:#0A66C2;" title="Internshala">
-            <span class="fr-social-text">IS</span>
-        </button>
-
-    </div>
-</div>
-                                <div class="card-header-action">
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-primary" type="button" id="addMarketingRowBtn">
-                                            <i class="bi bi-plus-lg"></i> Add Row
-                                        </button>
+                                <div class="card-body custom-card-action p-0">
+                                    <div class="px-3 pt-2">
+                                        <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
+                                            <span class="d-inline-flex align-items-center gap-2">
+                                                <span aria-hidden="true"
+                                                    style="display:inline-block;width:14px;height:14px;border-left:4px solid #16a34a;border-radius:2px;background:transparent;"></span>
+                                                Green = Verified
+                                            </span>
+                                            <span class="d-inline-flex align-items-center gap-2">
+                                                <span aria-hidden="true"
+                                                    style="display:inline-block;width:14px;height:14px;border-left:4px solid #dc2626;border-radius:2px;background:transparent;"></span>
+                                                Red = Not Verified
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive marketing-table-responsive"
+                                        style="padding-bottom: 1.5rem;">
+                                        <table class="table table-hover mb-0" id="marketingTable">
+                                            <thead>
+                                                <tr class="border-b">
+                                                    <th scope="row">S. No.</th>
+                                                    <th>Name <span class="text-danger">*</span></th>
+                                                    <th>Email</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Rating / Review</th>
+                                                    <th>Followers</th>
+                                                    <th>Post</th>
+                                                    <th>Google Reviews</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="marketingTableBody">
+                                                <tr class="marketing-empty">
+                                                    <td colspan="9" class="text-center text-muted py-3">
+                                                        No marketing rows yet. Click <b>Add Row</b> to start.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body custom-card-action p-0">
-                                 <div class="px-3 pt-2">
-                                     <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
-                                         <span class="d-inline-flex align-items-center gap-2">
-                                             <span aria-hidden="true"
-                                                 style="display:inline-block;width:14px;height:14px;border-left:4px solid #16a34a;border-radius:2px;background:transparent;"></span>
-                                             Green = Verified
-                                         </span>
-                                         <span class="d-inline-flex align-items-center gap-2">
-                                             <span aria-hidden="true"
-                                                 style="display:inline-block;width:14px;height:14px;border-left:4px solid #dc2626;border-radius:2px;background:transparent;"></span>
-                                             Red = Not Verified
-                                         </span>
-                                     </div>
-                                 </div>
-                                 <div class="table-responsive marketing-table-responsive" style="padding-bottom: 1.5rem;">
-                                     <table class="table table-hover mb-0" id="marketingTable">
-                                         <thead>
-                                             <tr class="border-b">
-                                                 <th scope="row">S. No.</th>
-                                                  <th>Name <span class="text-danger">*</span></th>
-                                                 <th>Email</th>
-                                                 <th>Mobile Number</th>
-                                                 <th>Rating / Review</th>
-                                                <th>Followers</th>
-                                                <th>Post</th>
-                                                <th>Google Reviews</th>
-                                                <th>Action</th>
-                                            </tr>
-                                         </thead>
-                                         <tbody id="marketingTableBody">
-                                             <tr class="marketing-empty">
-                                                <td colspan="9" class="text-center text-muted py-3">
-                                                    No marketing rows yet. Click <b>Add Row</b> to start.
-                                                </td>
-                                             </tr>
-                                         </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
+                        <!-- [Marketing] end -->
                     </div>
-                    <!-- [Marketing] end -->
                 </div>
-            </div>
-            <!-- [Leads] end -->
-             <style>
-/* Share strip container */
-.fr-share-strip {
-    background: #f8fafc;
-    border-radius: 10px;
-    padding: 8px;
-}
+                <!-- [Leads] end -->
+                <style>
+                    /* Share strip container */
+                    .fr-share-strip {
+                        background: #f8fafc;
+                        border-radius: 10px;
+                        padding: 8px;
+                    }
 
-/* Social buttons */
-.fr-social-icon {
-    border: none;
-    background: white;
-    color: var(--fr-color);
-    padding: 6px 8px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+                    /* Social buttons */
+                    .fr-social-icon {
+                        border: none;
+                        background: white;
+                        color: var(--fr-color);
+                        padding: 6px 8px;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        transition: all 0.25s ease;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
 
-/* Hover effect (premium feel) */
-.fr-social-icon:hover {
-    background: var(--fr-color);
-    color: white;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+                    /* Hover effect (premium feel) */
+                    .fr-social-icon:hover {
+                        background: var(--fr-color);
+                        color: white;
+                        transform: translateY(-2px) scale(1.05);
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    }
 
-/* Text icons (GD, IN, IS) */
-.fr-social-text {
-    font-weight: 600;
-    font-size: 12px;
-}
+                    /* Text icons (GD, IN, IS) */
+                    .fr-social-text {
+                        font-weight: 600;
+                        font-size: 12px;
+                    }
 
-/* Header polish */
-.card-header {
-    border-bottom: 1px solid #f1f5f9;
-}
+                    /* Header polish */
+                    .card-header {
+                        border-bottom: 1px solid #f1f5f9;
+                    }
 
-/* Table polish */
-.table thead th {
-    font-weight: 600;
-    font-size: 13px;
-    color: #475569;
-}
+                    /* Table polish */
+                    .table thead th {
+                        font-weight: 600;
+                        font-size: 13px;
+                        color: #475569;
+                    }
 
-.table tbody tr:hover {
-    background-color: #f9fafb;
-}
+                    .table tbody tr:hover {
+                        background-color: #f9fafb;
+                    }
 
-/* Add button slight enhancement (no position change) */
-#addMarketingRowBtn {
-    border-radius: 10px;
-    padding: 6px 14px;
-}
-</style>
+                    /* Add button slight enhancement (no position change) */
+                    #addMarketingRowBtn {
+                        border-radius: 10px;
+                        padding: 6px 14px;
+                    }
+                </style>
 
                 <script>
                     window.viewDetails = function () {
@@ -1409,6 +1442,21 @@
 
                     </div>
                 </div>
+                
+                <div class="row mb-4" id="portfolioIframeContainerNav2" style="display: none; margin-top: 30px;">
+                    <div class="col-12">
+                        <div class="card mb-0">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h3 class="card-title mb-0" style="font-size: 25px;">My Portfolio</h3>
+                                <a id="viewPortfolioBtnNav2" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <iframe id="portfolioIframeNav2" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
 
                 <!-- <div class="row mb-4">
@@ -5086,7 +5134,7 @@
                 const selectedArr = Array.isArray(selectedValues) ? selectedValues : [];
                 const displayHtml = marketingSelectedPlatformsHtml(selectedArr, placeholder);
 
-                 return `
+                return `
                       <div class="marketing-ms" data-kind="${kind}" data-placeholder="${placeholder}" style="position: relative;">
                           <div class="input-group">
                               <button class="btn btn-outline-secondary marketing-ms-toggle" type="button"
@@ -5104,7 +5152,7 @@
                          <input type="hidden" class="marketing-ms-value" value="${escAttr(selectedArr.join(','))}">
                      </div>
                   `;
-               }
+            }
 
             function updateMarketingMultiSelectDisplay($ms) {
                 if (!$ms || $ms.length === 0) return;
@@ -5685,632 +5733,670 @@
                 });
             }
 
-             fetchMarketingRows();
-         });
-     </script>
+            fetchMarketingRows();
+        });
+    </script>
 
-     <style>
-         .fr-share-strip {
-             display: flex;
-             align-items: center;
-             gap: 0.75rem;
-             flex-wrap: wrap;
-             justify-content: flex-start;
-         }
+    <style>
+        .fr-share-strip {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
 
-         .fr-share-label {
-             font-size: 0.875rem;
-             color: #6b7280;
-             margin-right: 0.5rem;
-             font-weight: 500;
-         }
+        .fr-share-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
 
-         .fr-social-icon {
-             width: 44px;
-             height: 44px;
-             display: inline-flex;
-             align-items: center;
-             justify-content: center;
-             border-radius: 12px;
-             border: 2px solid #e2e8f0;
-             background: #ffffff;
-             color: var(--fr-color, #111827);
-             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-             cursor: pointer;
-             padding: 0;
-             line-height: 1;
-             position: relative;
-             overflow: hidden;
-         }
+        .fr-social-icon {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            color: var(--fr-color, #111827);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            position: relative;
+            overflow: hidden;
+        }
 
-         .fr-social-icon::before {
-             content: '';
-             position: absolute;
-             inset: 0;
-             background: var(--fr-color, #111827);
-             opacity: 0;
-             transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-             border-radius: inherit;
-         }
+        .fr-social-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--fr-color, #111827);
+            opacity: 0;
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: inherit;
+        }
 
-         .fr-social-icon:hover {
-             transform: translateY(-2px) scale(1.05);
-             border-color: var(--fr-color, #111827);
-             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-         }
+        .fr-social-icon:hover {
+            transform: translateY(-2px) scale(1.05);
+            border-color: var(--fr-color, #111827);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
 
-         .fr-social-icon:hover::before {
-             opacity: 1;
-         }
+        .fr-social-icon:hover::before {
+            opacity: 1;
+        }
 
-         .fr-social-icon:hover i,
-         .fr-social-icon:hover .fr-social-text {
-             color: #ffffff;
-             z-index: 1;
-             position: relative;
-         }
+        .fr-social-icon:hover i,
+        .fr-social-icon:hover .fr-social-text {
+            color: #ffffff;
+            z-index: 1;
+            position: relative;
+        }
 
-         .fr-social-icon:active {
-             transform: translateY(0) scale(1);
-             transition-duration: 0.1s;
-         }
+        .fr-social-icon:active {
+            transform: translateY(0) scale(1);
+            transition-duration: 0.1s;
+        }
 
-         .fr-social-icon i {
-             font-size: 1.125rem;
-             position: relative;
-             z-index: 1;
-             transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-         }
+        .fr-social-icon i {
+            font-size: 1.125rem;
+            position: relative;
+            z-index: 1;
+            transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-         .fr-social-text {
-             font-weight: 700;
-             font-size: 0.75rem;
-             letter-spacing: 0.05em;
-             position: relative;
-             z-index: 1;
-             transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-         }
+        .fr-social-text {
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 1;
+            transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-         /* Responsive adjustments */
-         @media (max-width: 576px) {
-             .fr-share-strip {
-                 gap: 0.5rem;
-                 justify-content: center;
-             }
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .fr-share-strip {
+                gap: 0.5rem;
+                justify-content: center;
+            }
 
-             .fr-social-icon {
-                 width: 40px;
-                 height: 40px;
-             }
+            .fr-social-icon {
+                width: 40px;
+                height: 40px;
+            }
 
-             .fr-social-icon i {
-                 font-size: 1rem;
-             }
+            .fr-social-icon i {
+                font-size: 1rem;
+            }
 
-             .fr-social-text {
-                 font-size: 0.7rem;
-             }
-         }
+            .fr-social-text {
+                font-size: 0.7rem;
+            }
+        }
 
-         @media (max-width: 480px) {
-             .fr-share-strip {
-                 gap: 0.375rem;
-             }
+        @media (max-width: 480px) {
+            .fr-share-strip {
+                gap: 0.375rem;
+            }
 
-             .fr-social-icon {
-                 width: 36px;
-                 height: 36px;
-             }
+            .fr-social-icon {
+                width: 36px;
+                height: 36px;
+            }
 
-             .fr-social-icon i {
-                 font-size: 0.95rem;
-             }
+            .fr-social-icon i {
+                font-size: 0.95rem;
+            }
 
-             .fr-social-text {
-                 font-size: 0.65rem;
-             }
-         }
-     </style>
+            .fr-social-text {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
 
 
 
-     <!-- ===================== SHARE MODAL ===================== -->
-<div id="frShareOverlay" class="fr-overlay" hidden>
-    <div class="fr-modal">
-        <!-- HEADER -->
-        <div class="fr-modal-header">
-            <div class="fr-platform-icon">
-                <i id="frPlatformIcon" class="bi"></i>
+    <!-- ===================== SHARE MODAL ===================== -->
+    <div id="frShareOverlay" class="fr-overlay" hidden>
+        <div class="fr-modal">
+            <!-- HEADER -->
+            <div class="fr-modal-header">
+                <div class="fr-platform-icon">
+                    <i id="frPlatformIcon" class="bi"></i>
+                </div>
+                <h5 id="frShareTitle">Platform</h5>
+                <button id="frShareCloseBtn" class="fr-close-btn" aria-label="Close">&times;</button>
             </div>
-            <h5 id="frShareTitle">Platform</h5>
-            <button id="frShareCloseBtn" class="fr-close-btn" aria-label="Close">&times;</button>
-        </div>
 
-        <!-- BODY -->
-        <div class="fr-modal-body">
-            <div class="fr-message-container">
-                <p id="frShareMessage"></p>
-                <button id="frCopyBtn" class="fr-copy-icon-btn" title="Copy to clipboard">
-                    <i class="bi bi-clipboard"></i>
+            <!-- BODY -->
+            <div class="fr-modal-body">
+                <div class="fr-message-container">
+                    <p id="frShareMessage"></p>
+                    <button id="frCopyBtn" class="fr-copy-icon-btn" title="Copy to clipboard">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="fr-modal-footer">
+                <button id="frShareBtn" class="fr-btn fr-share-btn">
+                    <i class="bi bi-share"></i>
+                    <span id="frShareLabel">Share</span>
                 </button>
+                <a id="frShareVisitBtn" href="#" target="_blank" rel="noopener noreferrer" class="fr-btn fr-visit-btn">
+                    <i class="bi bi-box-arrow-up-right"></i>
+                    Visit
+                </a>
             </div>
-        </div>
-
-        <!-- FOOTER -->
-        <div class="fr-modal-footer">
-            <button id="frShareBtn" class="fr-btn fr-share-btn">
-                <i class="bi bi-share"></i>
-                <span id="frShareLabel">Share</span>
-            </button>
-            <a id="frShareVisitBtn" href="#" target="_blank" rel="noopener noreferrer" class="fr-btn fr-visit-btn">
-                <i class="bi bi-box-arrow-up-right"></i>
-                Visit
-            </a>
         </div>
     </div>
-</div>
 
-<!-- ===================== STYLES ===================== -->
-<style>
-/* Overlay */
-.fr-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.fr-overlay:not([hidden]) {
-    opacity: 1;
-}
-
-/* Modal */
-.fr-modal {
-    width: 100%;
-    max-width: 450px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-    animation: frFadeIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    overflow: hidden;
-    transform: scale(0.9) translateY(20px);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.fr-overlay:not([hidden]) .fr-modal {
-    transform: scale(1) translateY(0);
-}
-
-/* Animation */
-@keyframes frFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* Header */
-.fr-modal-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 24px;
-    border-bottom: 1px solid #f1f5f9;
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-}
-
-.fr-platform-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.fr-modal-header h5 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #0f172a;
-    flex: 1;
-}
-
-/* Close */
-.fr-close-btn {
-    border: none;
-    background: transparent;
-    font-size: 24px;
-    cursor: pointer;
-    color: #64748b;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.fr-close-btn:hover {
-    background: #f1f5f9;
-    color: #334155;
-}
-
-/* Body */
-.fr-modal-body {
-    padding: 24px;
-    font-size: 15px;
-    color: #334155;
-    line-height: 1.6;
-}
-
-.fr-message-container {
-    position: relative;
-}
-
-.fr-copy-icon-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: transparent;
-    border: none;
-    color: #64748b;
-    padding: 4px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s ease;
-    opacity: 0.7;
-}
-
-.fr-copy-icon-btn:hover {
-    background: #f1f5f9;
-    color: #334155;
-    opacity: 1;
-}
-
-/* Footer */
-.fr-modal-footer {
-    display: flex;
-    gap: 12px;
-    padding: 20px 24px;
-    border-top: 1px solid #f1f5f9;
-    background: #f8fafc;
-}
-
-/* Buttons */
-.fr-btn {
-    flex: 1;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-decoration: none;
-}
-
-/* Share */
-.fr-share-btn {
-    background: #e2e8f0;
-    color: #475569;
-}
-
-.fr-share-btn:hover {
-    background: #cbd5e1;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.fr-share-btn.shared {
-    background: #8b5cf6;
-    color: white;
-}
-
-.fr-share-btn.shared:hover {
-    background: #7c3aed;
-}
-
-.fr-share-btn:active {
-    transform: translateY(0);
-}
-
-/* Visit */
-.fr-visit-btn {
-    background: #2563eb;
-    color: white !important;
-}
-
-.fr-visit-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    color: white !important;
-}
-
-.fr-visit-btn:active {
-    transform: translateY(0);
-}
-
-/* Platform-specific styling */
-.fr-modal[data-platform="linkedin"] .fr-platform-icon {
-    background: #0A66C2;
-}
-.fr-modal[data-platform="instagram"] .fr-platform-icon {
-    background: #E1306C;
-}
-.fr-modal[data-platform="youtube"] .fr-platform-icon {
-    background: #FF0000;
-}
-.fr-modal[data-platform="facebook"] .fr-platform-icon {
-    background: #1877F2;
-}
-.fr-modal[data-platform="x"] .fr-platform-icon {
-    background: #111827;
-}
-.fr-modal[data-platform="google_play"] .fr-platform-icon {
-    background: #34A853;
-}
-.fr-modal[data-platform="app_store"] .fr-platform-icon {
-    background: #111827;
-}
-.fr-modal[data-platform="google_reviews"] .fr-platform-icon {
-    background: #F59E0B;
-}
-.fr-modal[data-platform="glassdoor"] .fr-platform-icon {
-    background: #0CAA41;
-}
-.fr-modal[data-platform="indeed"] .fr-platform-icon {
-    background: #003A9B;
-}
-.fr-modal[data-platform="internshala"] .fr-platform-icon {
-    background: #0A66C2;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .fr-modal {
-        margin: 16px;
-        max-width: none;
-    }
-    
-    .fr-modal-header {
-        padding: 16px 20px;
-    }
-    
-    .fr-modal-body {
-        padding: 20px;
-    }
-    
-    .fr-modal-footer {
-        padding: 16px 20px;
-    }
-    
-    .fr-platform-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 16px;
-    }
-    
-    .fr-modal-header h5 {
-        font-size: 16px;
-    }
-}
-</style>
-
-<!-- ===================== SCRIPT ===================== -->
-<script>
-(function () {
-    const shareData = {
-        linkedin: {
-            name: "LinkedIn",
-            text: "Hi, I’m currently associated with Fundsroom. Please follow our LinkedIn page for professional insights, internship updates, and career opportunities. Your support will help us reach more aspiring professionals.",
-            link: "https://www.linkedin.com/company/fundsroom/"
-        },
-        instagram: {
-            name: "Instagram",
-            text: "Hi, I’m working with Fundsroom. Please follow our Instagram page for regular updates, insights, and engaging content related to our platform. Your support will help us grow our community.",
-            link: "https://www.instagram.com/fundsroom/"
-        },
-        youtube: {
-            name: "YouTube",
-            text: "Hi, I’m associated with Fundsroom. Please subscribe to our YouTube channel to access learning content, tutorials, and career-related insights. Your support helps us create more valuable content.",
-            link: "https://www.youtube.com/@fundsroom-youtube"
-        },
-        facebook: {
-            name: "Facebook",
-            text: "Hi, I’m working with Fundsroom. Please follow our Facebook page to stay updated with our latest announcements, content, and opportunities. Your support helps us expand our reach.",
-            link: "https://www.facebook.com/fundsroom/"
-        },
-        x: {
-            name: "X (Twitter)",
-            text: "Hi, I’m associated with Fundsroom. Please follow us on X for quick updates, insights, and important announcements. Your support helps us stay connected with a wider audience.",
-            link: "https://x.com/fundsroom"
-        },
-        google_play: {
-            name: "Google Play Store",
-            text: "Hi, I’m working with Fundsroom. Please rate and review our app on the Play Store based on your experience. Your feedback helps us improve and reach more users.",
-            link: "https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&hl=en-"
-        },
-        app_store: {
-            name: "App Store (iOS)",
-            text: "Hi, I’m associated with Fundsroom. Kindly rate and review our app on the App Store. Your feedback helps us enhance user experience and grow further.",
-            link: "https://apps.apple.com/in/app/fundsaudit/id6575365188"
-        },
-        google_reviews: {
-            name: "Google Reviews",
-            text: "Hi, I’m working with Fundsroom. Please share your review on Google about your experience. Your feedback helps build trust and credibility for our platform.",
-            link: "https://www.google.com/search?q=fundsroom"
-        },
-        glassdoor: {
-            name: "Glassdoor",
-            text: "Hi, I’m associated with Fundsroom. Please share your experience on Glassdoor.",
-            link: "https://in.indeed.com/cmp/Fundsroom"
-        },
-        indeed: {
-            name: "Indeed",
-            text: "Hi, I’m working with Fundsroom. Kindly share your feedback on Indeed.",
-            link: "https://in.indeed.com/cmp/Fundsroom"
-        },
-        internshala: {
-            name: "Internshala",
-            text: "Hi, I’m associated with Fundsroom. Please rate and review us on Internshala.",
-            link: "https://internshala.com/company/fundsroom-investment-services-1613977643/"
+    <!-- ===================== STYLES ===================== -->
+    <style>
+        /* Overlay */
+        .fr-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-    };
 
-    const overlay = document.getElementById("frShareOverlay");
-    const titleEl = document.getElementById("frShareTitle");
-    const msgEl = document.getElementById("frShareMessage");
-    const shareBtn = document.getElementById("frShareBtn");
-    const shareLabel = document.getElementById("frShareLabel");
-    const visitBtn = document.getElementById("frShareVisitBtn");
-    const closeBtn = document.getElementById("frShareCloseBtn");
-    const copyBtn = document.getElementById("frCopyBtn");
+        .fr-overlay:not([hidden]) {
+            opacity: 1;
+        }
 
-    let activeKey = null;
-    let shareTimer = null;
-    let copyTimer = null;
+        /* Modal */
+        .fr-modal {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            animation: frFadeIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-    function setShareStateShared() {
-        shareLabel.textContent = "Shared!";
-        shareBtn.classList.add("shared");
-        if (shareTimer) clearTimeout(shareTimer);
-        shareTimer = setTimeout(() => {
-            shareLabel.textContent = "Share";
-            shareBtn.classList.remove("shared");
-        }, 1400);
-    }
+        .fr-overlay:not([hidden]) .fr-modal {
+            transform: scale(1) translateY(0);
+        }
 
-    function setCopyStateCopied() {
-        const icon = document.querySelector("#frCopyBtn i");
-        icon.className = "bi bi-check";
-        if (copyTimer) clearTimeout(copyTimer);
-        copyTimer = setTimeout(() => {
-            icon.className = "bi bi-clipboard";
-        }, 1400);
-    }
+        /* Animation */
+        @keyframes frFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
 
-    function copyToClipboard(text) {
-        return navigator.clipboard.writeText(text);
-    }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
-    function shareContent() {
-        if (!activeKey) return;
-        const data = shareData[activeKey];
-        if (navigator.share) {
-            navigator.share({
-                title: data.name,
-                text: data.text,
-                url: data.link
-            }).then(() => {
-                setShareStateShared();
-            }).catch(() => {
-                // Fallback to copy
-                copyToClipboard(data.text).then(setShareStateShared);
+        /* Header */
+        .fr-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .fr-platform-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .fr-modal-header h5 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            flex: 1;
+        }
+
+        /* Close */
+        .fr-close-btn {
+            border: none;
+            background: transparent;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .fr-close-btn:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        /* Body */
+        .fr-modal-body {
+            padding: 24px;
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .fr-message-container {
+            position: relative;
+        }
+
+        .fr-copy-icon-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: #64748b;
+            padding: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .fr-copy-icon-btn:hover {
+            background: #f1f5f9;
+            color: #334155;
+            opacity: 1;
+        }
+
+        /* Footer */
+        .fr-modal-footer {
+            display: flex;
+            gap: 12px;
+            padding: 20px 24px;
+            border-top: 1px solid #f1f5f9;
+            background: #f8fafc;
+        }
+
+        /* Buttons */
+        .fr-btn {
+            flex: 1;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        /* Share */
+        .fr-share-btn {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .fr-share-btn:hover {
+            background: #cbd5e1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .fr-share-btn.shared {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .fr-share-btn.shared:hover {
+            background: #7c3aed;
+        }
+
+        .fr-share-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Visit */
+        .fr-visit-btn {
+            background: #2563eb;
+            color: white !important;
+        }
+
+        .fr-visit-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            color: white !important;
+        }
+
+        .fr-visit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Platform-specific styling */
+        .fr-modal[data-platform="linkedin"] .fr-platform-icon {
+            background: #0A66C2;
+        }
+
+        .fr-modal[data-platform="instagram"] .fr-platform-icon {
+            background: #E1306C;
+        }
+
+        .fr-modal[data-platform="youtube"] .fr-platform-icon {
+            background: #FF0000;
+        }
+
+        .fr-modal[data-platform="facebook"] .fr-platform-icon {
+            background: #1877F2;
+        }
+
+        .fr-modal[data-platform="x"] .fr-platform-icon {
+            background: #111827;
+        }
+
+        .fr-modal[data-platform="google_play"] .fr-platform-icon {
+            background: #34A853;
+        }
+
+        .fr-modal[data-platform="app_store"] .fr-platform-icon {
+            background: #111827;
+        }
+
+        .fr-modal[data-platform="google_reviews"] .fr-platform-icon {
+            background: #F59E0B;
+        }
+
+        .fr-modal[data-platform="glassdoor"] .fr-platform-icon {
+            background: #0CAA41;
+        }
+
+        .fr-modal[data-platform="indeed"] .fr-platform-icon {
+            background: #003A9B;
+        }
+
+        .fr-modal[data-platform="internshala"] .fr-platform-icon {
+            background: #0A66C2;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .fr-modal {
+                margin: 16px;
+                max-width: none;
+            }
+
+            .fr-modal-header {
+                padding: 16px 20px;
+            }
+
+            .fr-modal-body {
+                padding: 20px;
+            }
+
+            .fr-modal-footer {
+                padding: 16px 20px;
+            }
+
+            .fr-platform-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .fr-modal-header h5 {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <!-- ===================== SCRIPT ===================== -->
+    <script>
+        (function () {
+            const shareData = {
+                linkedin: {
+                    name: "LinkedIn",
+                    text: "Hi, I’m currently associated with Fundsroom. Please follow our LinkedIn page for professional insights, internship updates, and career opportunities. Your support will help us reach more aspiring professionals.",
+                    link: "https://www.linkedin.com/company/fundsroom/"
+                },
+                instagram: {
+                    name: "Instagram",
+                    text: "Hi, I’m working with Fundsroom. Please follow our Instagram page for regular updates, insights, and engaging content related to our platform. Your support will help us grow our community.",
+                    link: "https://www.instagram.com/fundsroom/"
+                },
+                youtube: {
+                    name: "YouTube",
+                    text: "Hi, I’m associated with Fundsroom. Please subscribe to our YouTube channel to access learning content, tutorials, and career-related insights. Your support helps us create more valuable content.",
+                    link: "https://www.youtube.com/@fundsroom-youtube"
+                },
+                facebook: {
+                    name: "Facebook",
+                    text: "Hi, I’m working with Fundsroom. Please follow our Facebook page to stay updated with our latest announcements, content, and opportunities. Your support helps us expand our reach.",
+                    link: "https://www.facebook.com/fundsroom/"
+                },
+                x: {
+                    name: "X (Twitter)",
+                    text: "Hi, I’m associated with Fundsroom. Please follow us on X for quick updates, insights, and important announcements. Your support helps us stay connected with a wider audience.",
+                    link: "https://x.com/fundsroom"
+                },
+                google_play: {
+                    name: "Google Play Store",
+                    text: "Hi, I’m working with Fundsroom. Please rate and review our app on the Play Store based on your experience. Your feedback helps us improve and reach more users.",
+                    link: "https://play.google.com/store/apps/details?id=com.fundsroom.fundsaudit&hl=en-"
+                },
+                app_store: {
+                    name: "App Store (iOS)",
+                    text: "Hi, I’m associated with Fundsroom. Kindly rate and review our app on the App Store. Your feedback helps us enhance user experience and grow further.",
+                    link: "https://apps.apple.com/in/app/fundsaudit/id6575365188"
+                },
+                google_reviews: {
+                    name: "Google Reviews",
+                    text: "Hi, I’m working with Fundsroom. Please share your review on Google about your experience. Your feedback helps build trust and credibility for our platform.",
+                    link: "https://www.google.com/search?q=fundsroom"
+                },
+                glassdoor: {
+                    name: "Glassdoor",
+                    text: "Hi, I’m associated with Fundsroom. Please share your experience on Glassdoor.",
+                    link: "https://in.indeed.com/cmp/Fundsroom"
+                },
+                indeed: {
+                    name: "Indeed",
+                    text: "Hi, I’m working with Fundsroom. Kindly share your feedback on Indeed.",
+                    link: "https://in.indeed.com/cmp/Fundsroom"
+                },
+                internshala: {
+                    name: "Internshala",
+                    text: "Hi, I’m associated with Fundsroom. Please rate and review us on Internshala.",
+                    link: "https://internshala.com/company/fundsroom-investment-services-1613977643/"
+                }
+            };
+
+            const overlay = document.getElementById("frShareOverlay");
+            const titleEl = document.getElementById("frShareTitle");
+            const msgEl = document.getElementById("frShareMessage");
+            const shareBtn = document.getElementById("frShareBtn");
+            const shareLabel = document.getElementById("frShareLabel");
+            const visitBtn = document.getElementById("frShareVisitBtn");
+            const closeBtn = document.getElementById("frShareCloseBtn");
+            const copyBtn = document.getElementById("frCopyBtn");
+
+            let activeKey = null;
+            let shareTimer = null;
+            let copyTimer = null;
+
+            function setShareStateShared() {
+                shareLabel.textContent = "Shared!";
+                shareBtn.classList.add("shared");
+                if (shareTimer) clearTimeout(shareTimer);
+                shareTimer = setTimeout(() => {
+                    shareLabel.textContent = "Share";
+                    shareBtn.classList.remove("shared");
+                }, 1400);
+            }
+
+            function setCopyStateCopied() {
+                const icon = document.querySelector("#frCopyBtn i");
+                icon.className = "bi bi-check";
+                if (copyTimer) clearTimeout(copyTimer);
+                copyTimer = setTimeout(() => {
+                    icon.className = "bi bi-clipboard";
+                }, 1400);
+            }
+
+            function copyToClipboard(text) {
+                return navigator.clipboard.writeText(text);
+            }
+
+            function shareContent() {
+                if (!activeKey) return;
+                const data = shareData[activeKey];
+                if (navigator.share) {
+                    navigator.share({
+                        title: data.name,
+                        text: data.text,
+                        url: data.link
+                    }).then(() => {
+                        setShareStateShared();
+                    }).catch(() => {
+                        // Fallback to copy
+                        copyToClipboard(data.text).then(setShareStateShared);
+                    });
+                } else {
+                    // Fallback to copy
+                    copyToClipboard(data.text).then(setShareStateShared);
+                }
+            }
+
+            function openModal(key) {
+                const data = shareData[key];
+                if (!data) return;
+
+                activeKey = key;
+                titleEl.textContent = data.name;
+                msgEl.textContent = data.text;
+                visitBtn.href = data.link;
+                visitBtn.textContent = "Visit " + data.name;
+                shareLabel.textContent = "Share";
+
+                // Set platform icon
+                const iconMap = {
+                    linkedin: "bi-linkedin",
+                    instagram: "bi-instagram",
+                    youtube: "bi-youtube",
+                    facebook: "bi-facebook",
+                    x: "bi-twitter",
+                    google_play: "bi-google-play",
+                    app_store: "bi-apple",
+                    google_reviews: "bi-star-fill",
+                    glassdoor: "bi-building",
+                    indeed: "bi-search",
+                    internshala: "bi-briefcase"
+                };
+                const iconEl = document.getElementById("frPlatformIcon");
+                if (iconEl) {
+                    iconEl.className = "bi " + (iconMap[key] || "bi-share");
+                }
+
+                // Set platform data attribute for styling
+                const modal = document.querySelector(".fr-modal");
+                if (modal) {
+                    modal.setAttribute("data-platform", key);
+                }
+
+                overlay.hidden = false;
+            }
+
+            function closeModal() {
+                overlay.hidden = true;
+                activeKey = null;
+                shareLabel.textContent = "Share";
+                document.querySelector("#frCopyBtn i").className = "bi bi-clipboard";
+                // Remove platform styling
+                const modal = document.querySelector(".fr-modal");
+                if (modal) {
+                    modal.removeAttribute("data-platform");
+                }
+            }
+
+            document.addEventListener("click", function (e) {
+                const btn = e.target.closest(".fr-social-icon");
+                if (!btn) return;
+                const key = btn.getAttribute("data-fr-platform");
+                if (!key) return;
+                openModal(key);
             });
-        } else {
-            // Fallback to copy
-            copyToClipboard(data.text).then(setShareStateShared);
-        }
-    }
 
-    function openModal(key) {
-        const data = shareData[key];
-        if (!data) return;
+            shareBtn.addEventListener("click", shareContent);
 
-        activeKey = key;
-        titleEl.textContent = data.name;
-        msgEl.textContent = data.text;
-        visitBtn.href = data.link;
-        visitBtn.textContent = "Visit " + data.name;
-        shareLabel.textContent = "Share";
+            copyBtn.addEventListener("click", function () {
+                if (!activeKey) return;
+                copyToClipboard(shareData[activeKey].text).then(setCopyStateCopied);
+            });
 
-        // Set platform icon
-        const iconMap = {
-            linkedin: "bi-linkedin",
-            instagram: "bi-instagram",
-            youtube: "bi-youtube",
-            facebook: "bi-facebook",
-            x: "bi-twitter",
-            google_play: "bi-google-play",
-            app_store: "bi-apple",
-            google_reviews: "bi-star-fill",
-            glassdoor: "bi-building",
-            indeed: "bi-search",
-            internshala: "bi-briefcase"
-        };
-        const iconEl = document.getElementById("frPlatformIcon");
-        if (iconEl) {
-            iconEl.className = "bi " + (iconMap[key] || "bi-share");
-        }
+            closeBtn.addEventListener("click", closeModal);
 
-        // Set platform data attribute for styling
-        const modal = document.querySelector(".fr-modal");
-        if (modal) {
-            modal.setAttribute("data-platform", key);
-        }
+            overlay.addEventListener("click", function (e) {
+                if (e.target === overlay) closeModal();
+            });
 
-        overlay.hidden = false;
-    }
+            document.addEventListener("keydown", function (e) {
+                if (!overlay.hidden && e.key === "Escape") closeModal();
+            });
+        })();
+    </script>
 
-    function closeModal() {
-        overlay.hidden = true;
-        activeKey = null;
-        shareLabel.textContent = "Share";
-        document.querySelector("#frCopyBtn i").className = "bi bi-clipboard";
-        // Remove platform styling
-        const modal = document.querySelector(".fr-modal");
-        if (modal) {
-            modal.removeAttribute("data-platform");
-        }
-    }
+    <script>
+        $(document).ready(function () {
+            var userPhoneNumber = sessionStorage.getItem("number");
+            console.log("number:", userPhoneNumber);
 
-    document.addEventListener("click", function (e) {
-        const btn = e.target.closest(".fr-social-icon");
-        if (!btn) return;
-        const key = btn.getAttribute("data-fr-platform");
-        if (!key) return;
-        openModal(key);
-    });
-
-    shareBtn.addEventListener("click", shareContent);
-
-    copyBtn.addEventListener("click", function () {
-        if (!activeKey) return;
-        copyToClipboard(shareData[activeKey].text).then(setCopyStateCopied);
-    });
-
-    closeBtn.addEventListener("click", closeModal);
-
-    overlay.addEventListener("click", function (e) {
-        if (e.target === overlay) closeModal();
-    });
-
-    document.addEventListener("keydown", function (e) {
-        if (!overlay.hidden && e.key === "Escape") closeModal();
-    });
-})();
-</script>
+            $.ajax({
+                url: `https://api.fundsweb.in/api/v1/user/portfolio/${userPhoneNumber}`,
+                method: 'GET',
+                contentType: "application/json",
+                success: function (response) {
+                    console.log('response:', response);
+                    if (response && response.success && response.pfLink) {
+                        $('#portfolioIframeNav1').attr('src', response.pfLink);
+                        $('#viewPortfolioBtnNav1').attr('href', response.pfLink);
+                        $('#portfolioIframeContainerNav1').show();
+                        $('#portfolioIframeNav2').attr('src', response.pfLink);
+                        $('#viewPortfolioBtnNav2').attr('href', response.pfLink);
+                        $('#portfolioIframeContainerNav2').show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX GET failed:', status, error);
+                }
+            });
+        });
+    </script>
 
 </body>
 
