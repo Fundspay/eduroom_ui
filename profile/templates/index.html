@@ -32,7 +32,7 @@
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
     <main class="nxl-container apps-container apps-email bg-white">
-        <div class="top-switch-nav" style="margin-bottom: 10px;">
+        <!-- <div class="top-switch-nav" style="margin-bottom: 10px;">
             <button class="switch-btn active" data-target="nav1">
                 <img src="/images/fundsaudit2.png" alt="View 1"
                     style="border-radius: 10px; width: 400px; height: 50px;">
@@ -40,7 +40,7 @@
             <button class="switch-btn" data-target="nav2">
                 <img src="/images/Fundsweb1.png" alt="View 2" style="border-radius: 10px; width: 400px; height: 50px;">
             </button>
-        </div>
+        </div> -->
 
         <style>
             .top-switch-nav {
@@ -110,43 +110,43 @@
                             <div class="profile-details">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Name:</span>
-                                    <span class="fw-normal profile-name small">--</span>
+                                    <span class="fw-normal profile-name2 small">--</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Email:</span>
-                                    <span class="fw-normal profile-email small">--</span>
+                                    <span class="fw-normal profile-email2 small">--</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Phone Number:</span>
-                                    <span class="fw-normal profile-phone small">--</span>
+                                    <span class="fw-normal profile-phone2 small">--</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">College Name:</span>
-                                    <span class="fw-normal profile-college small">--</span>
+                                    <span class="fw-normal profile-college2 small">--</span>
                                 </div>
 
                                 <!-- Manager Details -->
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Manager Name:</span>
-                                    <span class="fw-normal profile-manager-name small">--</span>
+                                    <span class="fw-normal profile-manager-name2 small">--</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Manager Email:</span>
                                     <a href="mailto:"
-                                        class="fw-normal profile-manager-email small text-decoration-none text-primary">--</a>
+                                        class="fw-normal profile-manager-email2 small text-decoration-none text-primary">--</a>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Manager Mobile:</span>
                                     <a href="tel:"
-                                        class="fw-normal profile-manager-mobile small text-decoration-none text-primary">--</a>
+                                        class="fw-normal profile-manager-mobile2 small text-decoration-none text-primary">--</a>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span class="fw-semibold text-muted small">Referral Code:</span>
                                     <div class="d-flex align-items-center">
-                                        <span class="fw-normal me-2 small" id="referralCode">--</span>
+                                        <span class="fw-normal me-2 small" id="referralCode2">--</span>
                                         <i class="bi bi-clipboard fs-5 text-primary" role="button"
-                                            onclick="copyReferralCode()" title="Copy"></i>
+                                            onclick="copyReferralCode2()" title="Copy"></i>
                                     </div>
                                 </div>
 
@@ -158,88 +158,61 @@
                                                 style="padding-bottom: 1%;">Referral Link:</span>
                                             <!-- Referral Link -->
                                             <a href="#" target="_blank" class="fs-9 fw-bold text-reset d-block mb-2"
-                                                id="referralLink">--</a>
+                                                id="referralLink2">--</a>
 
                                             <!-- Copy Button -->
                                             <button class="btn btn-primary btn-outline-primary w-100"
-                                                onclick="copyReferral()">
+                                                onclick="copyReferral2()">
                                                 Copy Link
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card bg-soft-danger text-danger border-danger border-dashed h-70"
-                                    style="margin-top: -2%;">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <a href="/profile/profile-update/profile1.html" target="_top"
-                                                class="fw-bold d-block text-reset me-2">
-                                                <span class="d-block" style="font-size: 13px;">Profile Completion</span>
-                                            </a>
-                                            <a href="/profile/profile-update/profile1.html" target="_top"
-                                                class="btn btn-sm btn-outline-danger">
-                                                Edit
-                                            </a>
-                                        </div>
-                                        <div class="pt-3">
+
+                                <div class="col-md-12" style="margin-top: 20px;">
+                                    <div class="card bg-soft-danger text-danger border-danger border-dashed h-70"
+                                        style="margin-top: -2%;">
+                                        <div class="card-body">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div>
-                                                    <span
-                                                        class="fs-12 fw-bold text-reset profile-completion-percent">(0%)</span>
-                                                </div>
+                                                <a href="/profile/profile-update/profile1.html" target="_top"
+                                                    class="fw-bold d-block text-reset me-2">
+                                                    <span class="d-block" style="font-size: 13px;">Profile
+                                                        Completion</span>
+                                                </a>
+                                                <a href="/profile/profile-update/profile1.html" target="_top"
+                                                    class="btn btn-sm btn-outline-danger">
+                                                    Edit
+                                                </a>
                                             </div>
-                                            <div class="progress mt-2 ht-4">
-                                                <div class="progress-bar bg-danger profile-completion-bar"
-                                                    role="progressbar" style="width: 0%">
+                                            <div class="pt-3">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <span
+                                                            class="fs-12 fw-bold text-reset profile-completion-percent">(0%)</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card bg-soft-success text-success border-success border-dashed h-70"
-                                    style="margin-top: -2%;">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="flex-grow-1 me-2">
-                                                <span class="fw-bold d-block text-reset"
-                                                    style="font-size: 14px;">Portfolio Link:</span>
-
-                                                <div id="portfolioDisplay" style="display: block;">
-                                                    <a target="_blank" href="#" id="portfolioLink"
-                                                        class="text-success text-decoration-underline"
-                                                        style="font-size: 12px;">
-                                                        <span id="PfLink">--</span>
-                                                    </a>
-                                                </div>
-
-                                                <div id="portfolioEdit" style="display: none;">
-                                                    <div class="input-group input-group-sm">
-                                                        <input type="text" id="portfolioInput"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="Enter portfolio link" style="font-size: 12px;">
-                                                        <!-- <button class="btn btn-sm btn-danger" id="savePortfolio">Save</button>
-                                                        <button class="btn btn-sm btn-outline-danger" id="cancelEdit">Cancel</button> -->
+                                                <div class="progress mt-2 ht-4">
+                                                    <div class="progress-bar bg-danger profile-completion-bar"
+                                                        role="progressbar" style="width: 0%">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-sm btn-outline-success" id="editPortfolioBtn">
-                                                Edit
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <script>
-                    let registeredEmail = "--";
+                    let registeredEmail2 = "--";
                 </script>
 
                 <script>
-                    function copyReferralCode() {
-                        const code = document.getElementById("referralCode").innerText;
+                    function copyReferralCode2() {
+                        const code = document.getElementById("referralCode2").innerText;
                         navigator.clipboard.writeText(code).then(() => {
                             alert("Referral Code copied!");
                         }).catch(err => {
@@ -249,9 +222,9 @@
                 </script>
 
                 <script>
-                    function copyReferral() {
-                        const link = document.getElementById("referralLink").innerText;
-                        navigator.clipboard.writeText(link).then(() => {
+                    function copyReferral2() {
+                        const link2 = document.getElementById("referralLink2").innerText;
+                        navigator.clipboard.writeText(link2).then(() => {
                             alert("Referral link copied!");
                         }).catch(err => {
                             console.error("Failed to copy: ", err);
@@ -279,7 +252,7 @@
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Total Subscriptions</span>
-                                        <span id="walletRemainingDisplay" class="fw-bolder d-block"
+                                        <span id="walletRemainingDisplay2" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
@@ -290,9 +263,8 @@
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Subscription left in
-                                            wallet</span>
-                                        <span id="leftSubscriptions" class="fw-bolder d-block"
+                                        <span class="d-block" style="font-size: 14px;">Total Referrals</span>
+                                        <span id="totalReferralsDisplay2" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
@@ -303,7 +275,7 @@
                             <div class="col-md-12 mb-3">
                                 <div>
                                     <div class="card-body">
-                                        <!-- Conditional Message -->
+
                                         <div id="subscriptionMessageBox"
                                             class="mt-4 p-4 rounded text-center fw-semibold"
                                             style="display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
@@ -317,26 +289,30 @@
                         <div class="col-md-12" style="margin-top: 20px;">
                             <div class="card bg-soft-warning text-dark border-warning border-dashed h-70">
                                 <div class="card-body d-flex justify-content-center align-items-center text-center">
-                                    <span style="font-size: 12px; text-align: left; line-height: 1.6;">📌 <b>Note 1:</b>
+                                    <span style="font-size: 12px; text-align: left; line-height: 1.6;">
+
+                                        📌 <b>Note 1:</b>
                                         Your referral code and referral link are linked to the
                                         <b>phone number</b> you used during
-                                        <b>registration on the Fundsaudit application</b>.
-                                        If you entered an <b>incorrect number</b>, you can update it in the
-                                        <b>Profile Completion section</b>.
-                                        <br>
-                                        <br>
-                                        📌 <b>Note 2: </b>Stipend eligibility will be evaluated at the end of the live
-                                        project based on overall performance parameters, including task completion,
-                                        professional behaviour, active participation, and a benchmark of above <b>25
-                                            subscriptions.</b>
-                                        <br>
-                                        <br>
-                                        For iOS <b>users</b>, you can download the application from <b>AppStore</b>, but
-                                        you wont be able to use the <b>auto-fetching feature</b>.
+                                        <b>registration on the Fundsweb platform</b>.
+                                        If you entered an <b>incorrect number</b>, you can update it from the
+                                        <b>Profile section</b>.
+
+                                        <br><br>
+
+                                        📌 <b>Note 2:</b>
+                                        Your performance and rewards on Fundsweb are calculated based on
+                                        <b>active participation, genuine referrals, and overall engagement</b>
+                                        on the platform.
+
+                                        <br><br>
                                     </span>
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="col-md-12">
                             <div class="course-info-card">
                                 <div class="row">
@@ -379,15 +355,17 @@
                     </div>
                 </div>
 
-                <div class="row mb-4" id="portfolioIframeContainerNav1" style="display: none;">
+                <div class="row mb-4" id="portfolioIframeContainerNav2" style="display: none; margin-top: 30px;">
                     <div class="col-12">
                         <div class="card mb-0">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h3 class="card-title mb-0" style="font-size: 25px;">My Portfolio</h3>
-                                <a id="viewPortfolioBtnNav1" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                                <a id="viewPortfolioBtnNav2" href="#" target="_blank"
+                                    class="btn btn-primary btn-sm">View Portfolio</a>
                             </div>
                             <div class="card-body p-0">
-                                <iframe id="portfolioIframeNav1" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                                <iframe id="portfolioIframeNav2" src=""
+                                    style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
                             </div>
                         </div>
                     </div>
@@ -395,134 +373,7 @@
 
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
 
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title" style="font-size: 25px;">Business Target Overview</h3>
-                                <!-- <button type="button" class="btn btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" 
-                                        title=" 1. Track your daily business targets
-                                                2. Monitor progress with color-coded indicators
-                                                3. Update your work status regularly">
-                                    <i class="bi bi-info-circle" style="font-size: 16px;"></i>
-                                </button> -->
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="course-info-card">
-                                            <div class="row">
-                                                <div class="col-md-2 mb-2">
-                                                    <div class="info-box">
-                                                        <span class="info-label text-center">Current Category</span>
-                                                        <span class="info-value badge" id="currentCategory"
-                                                            style="font-size: 19px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box">
-                                                        <span class="info-label text-center">Start Date (For Business
-                                                            Task)</span>
-                                                        <span
-                                                            class="info-value editable-display text-center d-block w-100"
-                                                            id="startDate" style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div class="info-box editable-field" data-field="end_date"
-                                                        id="endDateContainer">
-                                                        <span class="info-label text-center">End Date (For Business
-                                                            Task)</span>
-                                                        <span
-                                                            class="info-value editable-display text-center d-block w-100"
-                                                            id="endDateDisplay" style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 mb-2">
-                                                    <div class="info-box" id="daysLeft2">
-                                                        <span class="info-label text-center"
-                                                            style="color: rgb(78, 76, 76);">Days
-                                                            Left</span>
-                                                        <span class="info-value badge" id="daysLeft"
-                                                            style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 mb-2">
-                                                    <div class="info-box" id="managerRatingBox">
-                                                        <span class="info-label text-center"
-                                                            style="color: rgb(78, 76, 76);">Manager Rating</span>
-                                                        <span class="info-value badge" id="managerRatingAvg"
-                                                            style="font-size: 20px;">--</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-12">
-                                        <div class="business-status-card">
-                                            <div class="row">
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="progress-box">
-                                                        <div class="d-flex justify-content-between mb-2">
-                                                            <span class="progress-label">Business Task Status</span>
-                                                            <span class="progress-percentage"
-                                                                id="workStatusPercentage">0%</span>
-                                                        </div>
-                                                        <div class="progress" style="height: 20px;">
-                                                            <div class="progress-bar" id="workStatusProgress"
-                                                                role="progressbar" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="progress-box">
-                                                        <div class="d-flex justify-content-between mb-2">
-                                                            <span class="progress-label">Work Status</span>
-                                                            <span class="progress-percentage"
-                                                                id="workStatusPercentage2">0%</span>
-                                                        </div>
-                                                        <div class="progress" style="height: 20px;">
-                                                            <div class="progress-bar" id="workStatusProgress2"
-                                                                role="progressbar" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="business-task-box">
-                                                        <div class="row">
-                                                            <div class="col-md-6 mb-3">
-                                                                <div class="task-box text-center">
-                                                                    <span class="task-label">Achieved Task</span>
-                                                                    <span class="task-value text-success"
-                                                                        id="achievedTask"
-                                                                        style="font-size: 30px;">--</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <div class="task-box text-center">
-                                                                    <span class="task-label">Business Target</span>
-                                                                    <div class="editable-field"
-                                                                        data-field="business_task"
-                                                                        id="businessTaskContainer">
-                                                                        <span class="task-value text-danger"
-                                                                            id="businessTaskDisplay"
-                                                                            style="font-size: 30px;">--</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <style>
                     #PfLink {
@@ -900,7 +751,7 @@
                     }
                 </style>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header flex-wrap" style="gap: 10px;">
@@ -929,7 +780,6 @@
                                                 <th style="font-size: 15px;">Percentage of work</th>
                                                 <th style="font-size: 15px;">Manager Rating</th>
                                                 <th style="font-size: 15px;">Manager Comment</th>
-                                                <!-- <th style="font-size: 15px;">Category</th> -->
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -954,7 +804,7 @@
                         </div>
                     </div>
                 </div>
-                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
+                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;"> -->
 
                 <!-- [Mini Card] start -->
                 <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;">My Live Projects</h3>
@@ -967,7 +817,7 @@
                 <!-- [Leads] start -->
                 <div class="main-content" style="margin-top: 2%;">
                     <div class="row">
-                        <!-- [Referral Users] start -->
+                        <!-- [Business Sales Overview] start -->
                         <div class="col-12">
                             <div class="card stretch stretch-full">
                                 <div class="card-header">
@@ -976,33 +826,33 @@
                                     </div>
                                     <div class="card-header-action">
                                         <div class="search-bar">
-                                            <input type="text" id="searchInput" class="form-control"
-                                                placeholder="Search..." oninput="filterTable()">
+                                            <input type="text" id="searchInput3" class="form-control"
+                                                placeholder="Search..." oninput="filterTable3()">
                                         </div>
-                                        <button class="btn btn-primary ms-2" onclick="viewDetails()">
+                                        <!-- <button class="btn btn-primary ms-2" onclick="viewDetails3()">
                                             View All Details
-                                        </button>
+                                        </button> -->
                                     </div>
-
                                 </div>
                                 <div class="card-body custom-card-action p-0">
                                     <div class="table-responsive">
-                                        <table class="table table-hover mb-0" id="leadsTable">
+                                        <table class="table table-hover mb-0" id="leadsTable3">
                                             <thead>
                                                 <tr class="border-b">
                                                     <th scope="row">S No.</th>
                                                     <th>Name</th>
                                                     <th>Mobile No.</th>
                                                     <th>Email</th>
-                                                    <th>Downloaded</th>
-                                                    <th>Date of Download</th>
-                                                    <th>UTR</th>
+                                                    <!-- <th>Downloaded</th> -->
+                                                    <th>Date of Registration</th>
+                                                    <!-- <th>UTR</th> -->
                                                     <th>Subscribed</th>
                                                     <th>Date of Payment</th>
-                                                    <th>Raise A Query</th>
+                                                    <th>Amount</th>
+                                                    <!-- <th>Raise A Query</th>
                                                     <th>Query Status</th>
                                                     <th>User Review</th>
-                                                    <th>Manager Review</th>
+                                                    <th>Manager Review</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1014,14 +864,14 @@
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                            id="pagination">
+                                            id="pagination3">
                                             <!-- Pagination links will be dynamically populated here -->
                                         </ul>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-primary" onclick="printTable()">
+                                            <button class="btn btn-primary" onclick="printTable3()">
                                                 <i class="bi bi-printer"></i> Print
                                             </button>
-                                            <button class="btn btn-success" onclick="exportToExcel()">
+                                            <button class="btn btn-success" onclick="exportToExcel3()">
                                                 <i class="bi bi-file-earmark-excel"></i> Excel
                                             </button>
                                         </div>
@@ -1029,129 +879,125 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- [Marketing] start -->
-                        <div class="col-12 mb-4">
-                            <div class="card stretch stretch-full" style="height: auto;">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Marketing</h5>
-                                    </div>
-                                    <div class="px-3 pt-2 pb-2">
-                                        <div class="fr-share-strip d-flex flex-wrap gap-2">
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="linkedin"
-                                                style="--fr-color:#0A66C2;" title="LinkedIn">
-                                                <i class="bi bi-linkedin"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="instagram"
-                                                style="--fr-color:#E1306C;" title="Instagram">
-                                                <i class="bi bi-instagram"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="youtube"
-                                                style="--fr-color:#FF0000;" title="YouTube">
-                                                <i class="bi bi-youtube"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="facebook"
-                                                style="--fr-color:#1877F2;" title="Facebook">
-                                                <i class="bi bi-facebook"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="x"
-                                                style="--fr-color:#111827;" title="X">
-                                                <i class="bi bi-twitter"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="google_play"
-                                                style="--fr-color:#34A853;" title="Play Store">
-                                                <i class="bi bi-google-play"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="app_store"
-                                                style="--fr-color:#111827;" title="App Store">
-                                                <i class="bi bi-apple"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon"
-                                                data-fr-platform="google_reviews" style="--fr-color:#F59E0B;"
-                                                title="Google Reviews">
-                                                <i class="bi bi-star-fill"></i>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="glassdoor"
-                                                style="--fr-color:#0CAA41;" title="Glassdoor">
-                                                <span class="fr-social-text">GD</span>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="indeed"
-                                                style="--fr-color:#003A9B;" title="Indeed">
-                                                <span class="fr-social-text">IN</span>
-                                            </button>
-
-                                            <button type="button" class="fr-social-icon" data-fr-platform="internshala"
-                                                style="--fr-color:#0A66C2;" title="Internshala">
-                                                <span class="fr-social-text">IS</span>
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                    <div class="card-header-action">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-primary" type="button" id="addMarketingRowBtn">
-                                                <i class="bi bi-plus-lg"></i> Add Row
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body custom-card-action p-0">
-                                    <div class="px-3 pt-2">
-                                        <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
-                                            <span class="d-inline-flex align-items-center gap-2">
-                                                <span aria-hidden="true"
-                                                    style="display:inline-block;width:14px;height:14px;border-left:4px solid #16a34a;border-radius:2px;background:transparent;"></span>
-                                                Green = Verified
-                                            </span>
-                                            <span class="d-inline-flex align-items-center gap-2">
-                                                <span aria-hidden="true"
-                                                    style="display:inline-block;width:14px;height:14px;border-left:4px solid #dc2626;border-radius:2px;background:transparent;"></span>
-                                                Red = Not Verified
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive marketing-table-responsive"
-                                        style="padding-bottom: 1.5rem;">
-                                        <table class="table table-hover mb-0" id="marketingTable">
-                                            <thead>
-                                                <tr class="border-b">
-                                                    <th scope="row">S. No.</th>
-                                                    <th>Name <span class="text-danger">*</span></th>
-                                                    <th>Email</th>
-                                                    <th>Mobile Number</th>
-                                                    <th>Rating / Review</th>
-                                                    <th>Followers</th>
-                                                    <th>Post</th>
-                                                    <th>Google Reviews</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="marketingTableBody">
-                                                <tr class="marketing-empty">
-                                                    <td colspan="9" class="text-center text-muted py-3">
-                                                        No marketing rows yet. Click <b>Add Row</b> to start.
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- [Marketing] end -->
                     </div>
                 </div>
                 <!-- [Leads] end -->
+                <div class="col-12 mb-4">
+                    <div class="card stretch stretch-full" style="height: auto;">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">Marketing</h5>
+                            </div>
+                            <div class="px-3 pt-2 pb-2">
+                                <div class="fr-share-strip d-flex flex-wrap gap-2">
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="linkedin"
+                                        style="--fr-color:#0A66C2;" title="LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="instagram"
+                                        style="--fr-color:#E1306C;" title="Instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="youtube"
+                                        style="--fr-color:#FF0000;" title="YouTube">
+                                        <i class="bi bi-youtube"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="facebook"
+                                        style="--fr-color:#1877F2;" title="Facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="x"
+                                        style="--fr-color:#111827;" title="X">
+                                        <i class="bi bi-twitter"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="google_play"
+                                        style="--fr-color:#34A853;" title="Play Store">
+                                        <i class="bi bi-google-play"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="app_store"
+                                        style="--fr-color:#111827;" title="App Store">
+                                        <i class="bi bi-apple"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="google_reviews"
+                                        style="--fr-color:#F59E0B;" title="Google Reviews">
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="glassdoor"
+                                        style="--fr-color:#0CAA41;" title="Glassdoor">
+                                        <span class="fr-social-text">GD</span>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="indeed"
+                                        style="--fr-color:#003A9B;" title="Indeed">
+                                        <span class="fr-social-text">IN</span>
+                                    </button>
+
+                                    <button type="button" class="fr-social-icon" data-fr-platform="internshala"
+                                        style="--fr-color:#0A66C2;" title="Internshala">
+                                        <span class="fr-social-text">IS</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="card-header-action">
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary" type="button" id="addMarketingRowBtn">
+                                        <i class="bi bi-plus-lg"></i> Add Row
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body custom-card-action p-0">
+                            <div class="px-3 pt-2">
+                                <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
+                                    <span class="d-inline-flex align-items-center gap-2">
+                                        <span aria-hidden="true"
+                                            style="display:inline-block;width:14px;height:14px;border-left:4px solid #16a34a;border-radius:2px;background:transparent;"></span>
+                                        Green = Verified
+                                    </span>
+                                    <span class="d-inline-flex align-items-center gap-2">
+                                        <span aria-hidden="true"
+                                            style="display:inline-block;width:14px;height:14px;border-left:4px solid #dc2626;border-radius:2px;background:transparent;"></span>
+                                        Red = Not Verified
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="table-responsive marketing-table-responsive" style="padding-bottom: 1.5rem;">
+                                <table class="table table-hover mb-0" id="marketingTable">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th scope="row">S. No.</th>
+                                            <th>Name <span class="text-danger">*</span></th>
+                                            <th>Email</th>
+                                            <th>Mobile Number</th>
+                                            <th>Rating / Review</th>
+                                            <th>Followers</th>
+                                            <th>Post</th>
+                                            <th>Google Reviews</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="marketingTableBody">
+                                        <tr class="marketing-empty">
+                                            <td colspan="9" class="text-center text-muted py-3">
+                                                No marketing rows yet. Click <b>Add Row</b> to start.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <style>
                     /* Share strip container */
                     .fr-share-strip {
@@ -1228,234 +1074,7 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- First container (main card) -->
-                <div class="col-md-4">
-                    <div class="card stretch shadow-none" style="margin-right: 1%;">
-                        <div class="card-body">
-                            <div class="mb-2 text-center">
-                                <div class="mb-2">
-                                    <span class="fs-24">USER DETAILS</span>
-                                </div>
-                            </div>
 
-                            <div class="profile-details">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Name:</span>
-                                    <span class="fw-normal profile-name2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Email:</span>
-                                    <span class="fw-normal profile-email2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Phone Number:</span>
-                                    <span class="fw-normal profile-phone2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">College Name:</span>
-                                    <span class="fw-normal profile-college2 small">--</span>
-                                </div>
-
-                                <!-- Manager Details -->
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Manager Name:</span>
-                                    <span class="fw-normal profile-manager-name2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Manager Email:</span>
-                                    <a href="mailto:"
-                                        class="fw-normal profile-manager-email2 small text-decoration-none text-primary">--</a>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Manager Mobile:</span>
-                                    <a href="tel:"
-                                        class="fw-normal profile-manager-mobile2 small text-decoration-none text-primary">--</a>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-semibold text-muted small">Referral Code:</span>
-                                    <div class="d-flex align-items-center">
-                                        <span class="fw-normal me-2 small" id="referralCode2">--</span>
-                                        <i class="bi bi-clipboard fs-5 text-primary" role="button"
-                                            onclick="copyReferralCode2()" title="Copy"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12" style="margin-top: 3%;">
-                                    <div
-                                        class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
-                                        <div class="card-body">
-                                            <span class="fw-semibold text-muted small"
-                                                style="padding-bottom: 1%;">Referral Link:</span>
-                                            <!-- Referral Link -->
-                                            <a href="#" target="_blank" class="fs-9 fw-bold text-reset d-block mb-2"
-                                                id="referralLink2">--</a>
-
-                                            <!-- Copy Button -->
-                                            <button class="btn btn-primary btn-outline-primary w-100"
-                                                onclick="copyReferral2()">
-                                                Copy Link
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let registeredEmail2 = "--";
-                </script>
-
-                <script>
-                    function copyReferralCode2() {
-                        const code = document.getElementById("referralCode2").innerText;
-                        navigator.clipboard.writeText(code).then(() => {
-                            alert("Referral Code copied!");
-                        }).catch(err => {
-                            console.error("Failed to copy: ", err);
-                        });
-                    }
-                </script>
-
-                <script>
-                    function copyReferral2() {
-                        const link2 = document.getElementById("referralLink2").innerText;
-                        navigator.clipboard.writeText(link2).then(() => {
-                            alert("Referral link copied!");
-                        }).catch(err => {
-                            console.error("Failed to copy: ", err);
-                        });
-                    }
-                </script>
-
-                <div class="col-md-8">
-                    <div class="row">
-
-                        <!-- <div class="col-md-4 mb-3">
-                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Number of Live Projects</span>
-                                        <span id="courseCountDisplay2" class="fw-bolder d-block"
-                                            style="font-size: 65px;">0</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <div class="col-md-6 mb-3">
-                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Total Subscriptions</span>
-                                        <span id="walletRemainingDisplay2" class="fw-bolder d-block"
-                                            style="font-size: 65px;">0</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Total Referrals</span>
-                                        <span id="totalReferralsDisplay2" class="fw-bolder d-block"
-                                            style="font-size: 65px;">0</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 mb-0">
-                            <div class="col-md-12 mb-3">
-                                <div>
-                                    <div class="card-body">
-                                        <!-- Conditional Message -->
-                                        <div id="subscriptionMessageBox"
-                                            class="mt-4 p-4 rounded text-center fw-semibold"
-                                            style="display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" style="margin-top: 20px;">
-                            <div class="card bg-soft-warning text-dark border-warning border-dashed h-70">
-                                <div class="card-body d-flex justify-content-center align-items-center text-center">
-                                    <span style="font-size: 12px; text-align: left; line-height: 1.6;">
-
-                                        📌 <b>Note 1:</b>
-                                        Your referral code and referral link are linked to the
-                                        <b>phone number</b> you used during
-                                        <b>registration on the Fundsweb platform</b>.
-                                        If you entered an <b>incorrect number</b>, you can update it from the
-                                        <b>Profile section</b>.
-
-                                        <br><br>
-
-                                        📌 <b>Note 2:</b>
-                                        Your performance and rewards on Fundsweb are calculated based on
-                                        <b>active participation, genuine referrals, and overall engagement</b>
-                                        on the platform.
-
-                                        <br><br>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" style="margin-top: 20px;">
-                            <div class="card bg-soft-danger text-danger border-danger border-dashed h-70"
-                                style="margin-top: -2%;">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <a href="/profile/profile-update/profile1.html" target="_top"
-                                            class="fw-bold d-block text-reset me-2">
-                                            <span class="d-block" style="font-size: 13px;">Profile Completion</span>
-                                        </a>
-                                        <a href="/profile/profile-update/profile1.html" target="_top"
-                                            class="btn btn-sm btn-outline-danger">
-                                            Edit
-                                        </a>
-                                    </div>
-                                    <div class="pt-3">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <span
-                                                    class="fs-12 fw-bold text-reset profile-completion-percent">(0%)</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress mt-2 ht-4">
-                                            <div class="progress-bar bg-danger profile-completion-bar"
-                                                role="progressbar" style="width: 0%">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                
-                <div class="row mb-4" id="portfolioIframeContainerNav2" style="display: none; margin-top: 30px;">
-                    <div class="col-12">
-                        <div class="card mb-0">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h3 class="card-title mb-0" style="font-size: 25px;">My Portfolio</h3>
-                                <a id="viewPortfolioBtnNav2" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
-                            </div>
-                            <div class="card-body p-0">
-                                <iframe id="portfolioIframeNav2" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 30px;">
 
@@ -1881,73 +1500,7 @@
 
                 <!-- [Leads] start -->
                 <!-- [Leads] start -->
-                <div class="main-content" style="margin-top: 2%;">
-                    <div class="row">
-                        <!-- [Business Sales Overview] start -->
-                        <div class="col-12">
-                            <div class="card stretch stretch-full">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Business Sales Overview</h5>
-                                    </div>
-                                    <div class="card-header-action">
-                                        <div class="search-bar">
-                                            <input type="text" id="searchInput3" class="form-control"
-                                                placeholder="Search..." oninput="filterTable3()">
-                                        </div>
-                                        <!-- <button class="btn btn-primary ms-2" onclick="viewDetails3()">
-                                            View All Details
-                                        </button> -->
-                                    </div>
-                                </div>
-                                <div class="card-body custom-card-action p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover mb-0" id="leadsTable3">
-                                            <thead>
-                                                <tr class="border-b">
-                                                    <th scope="row">S No.</th>
-                                                    <th>Name</th>
-                                                    <th>Mobile No.</th>
-                                                    <th>Email</th>
-                                                    <!-- <th>Downloaded</th> -->
-                                                    <th>Date of Registration</th>
-                                                    <!-- <th>UTR</th> -->
-                                                    <th>Subscribed</th>
-                                                    <th>Date of Payment</th>
-                                                    <th>Amount</th>
-                                                    <!-- <th>Raise A Query</th>
-                                                    <th>Query Status</th>
-                                                    <th>User Review</th>
-                                                    <th>Manager Review</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Rows will be dynamically populated here -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                            id="pagination3">
-                                            <!-- Pagination links will be dynamically populated here -->
-                                        </ul>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-primary" onclick="printTable3()">
-                                                <i class="bi bi-printer"></i> Print
-                                            </button>
-                                            <button class="btn btn-success" onclick="exportToExcel3()">
-                                                <i class="bi bi-file-earmark-excel"></i> Excel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- [Leads] end -->
+
 
                 <script>
                     window.viewDetails = function () {

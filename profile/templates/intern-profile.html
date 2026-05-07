@@ -32,7 +32,7 @@
     <!--! [Start] Main Content !-->
     <!--! ================================================================ !-->
     <main class="nxl-container apps-container apps-email bg-white" style="margin-left: 10%;">
-        <div class="top-switch-nav" style="margin-bottom: 10px;">
+        <!-- <div class="top-switch-nav" style="margin-bottom: 10px;">
             <button class="switch-btn active" data-target="nav1">
                 <img src="/images/fundsaudit2.png" alt="View 1"
                     style="border-radius: 10px; width: 400px; height: 50px;">
@@ -40,7 +40,7 @@
             <button class="switch-btn" data-target="nav2">
                 <img src="/images/Fundsweb1.png" alt="View 2" style="border-radius: 10px; width: 400px; height: 50px;">
             </button>
-        </div>
+        </div> -->
 
         <style>
             .top-switch-nav {
@@ -101,63 +101,64 @@
                 <div class="col-md-4">
                     <div class="card stretch shadow-none" style="margin-right: 1%;">
                         <div class="card-body">
-                            <div class="mb-4 text-center">
+                            <div class="mb-2 text-center">
                                 <div class="mb-2">
-                                    <span class="fs-24 fw-normal profile-name small">--</span><span class="fs-24">'s
-                                        Details</span>
+                                    <span class="fs-24">USER DETAILS</span>
                                 </div>
                             </div>
 
                             <div class="profile-details">
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Name:</span>
-                                    <span class="fw-normal profile-name small">--</span>
+                                    <span class="fw-normal profile-name2 small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Email:</span>
-                                    <span class="fw-normal profile-email small">--</span>
+                                    <span class="fw-normal profile-email2 small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Phone Number:</span>
-                                    <span class="fw-normal profile-phone small">--</span>
+                                    <span class="fw-normal profile-phone2 small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">College Name:</span>
-                                    <span class="fw-normal profile-college small">--</span>
+                                    <span class="fw-normal profile-college2 small">--</span>
                                 </div>
 
                                 <!-- Manager Details -->
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Manager Name:</span>
-                                    <span class="fw-normal profile-manager-name small">--</span>
+                                    <span class="fw-normal profile-manager-name2 small">--</span>
                                 </div>
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Manager Email:</span>
                                     <a href="mailto:"
-                                        class="fw-normal profile-manager-email small text-decoration-none text-primary">--</a>
+                                        class="fw-normal profile-manager-email2 small text-decoration-none text-primary">--</a>
                                 </div>
-                                <div class="d-flex justify-content-between mb-1">
+                                <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-semibold text-muted small">Manager Mobile:</span>
                                     <a href="tel:"
-                                        class="fw-normal profile-manager-mobile small text-decoration-none text-primary">--</a>
+                                        class="fw-normal profile-manager-mobile2 small text-decoration-none text-primary">--</a>
                                 </div>
 
-                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span class="fw-semibold text-muted small">Referral Code:</span>
                                     <div class="d-flex align-items-center">
-                                        <span class="fw-normal me-2 small" id="referralCode">--</span>
+                                        <span class="fw-normal me-2 small" id="referralCode2">--</span>
                                         <!-- <i class="bi bi-clipboard fs-5 text-primary" role="button"
                                             onclick="copyReferralCode()" title="Copy"></i> -->
                                     </div>
                                 </div>
 
-                                <div class="col-md-12" style="margin-top: 7%;">
+                                <div class="col-md-12" style="margin-top: 3%;">
                                     <div
                                         class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
                                         <div class="card-body">
+                                            <span class="fw-semibold text-muted small"
+                                                style="padding-bottom: 1%;">Referral Link:</span>
                                             <!-- Referral Link -->
                                             <a href="#" target="_blank" class="fs-9 fw-bold text-reset d-block mb-2"
-                                                id="referralLink">--</a>
+                                                id="referralLink2">--</a>
 
                                             <!-- Copy Button -->
                                             <!-- <button class="btn btn-primary btn-outline-primary w-100"
@@ -167,50 +168,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card bg-soft-success text-success border-success border-dashed h-70"
-                                    style="margin-top: -2%;">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="flex-grow-1 me-2">
-                                                <span class="fw-bold d-block text-reset"
-                                                    style="font-size: 14px;">Portfolio Link:</span>
 
-                                                <div id="portfolioDisplay" style="display: block;">
-                                                    <a target="_blank" href="#" id="portfolioLink"
-                                                        class="text-success text-decoration-underline"
-                                                        style="font-size: 12px;">
-                                                        <span id="PfLink">--</span>
-                                                    </a>
-                                                </div>
-
-                                                <div id="portfolioEdit" style="display: none;">
-                                                    <div class="input-group input-group-sm">
-                                                        <input type="text" id="portfolioInput"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="Enter portfolio link" style="font-size: 12px;">
-                                                        <!-- <button class="btn btn-sm btn-danger" id="savePortfolio">Save</button>
-                                                        <button class="btn btn-sm btn-outline-danger" id="cancelEdit">Cancel</button> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <button class="btn btn-sm btn-outline-success" id="editPortfolioBtn">
-                                                Edit
-                                            </button> -->
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <script>
-                    let registeredEmail = "--";
+                    let registeredEmail2 = "--";
                 </script>
 
                 <script>
-                    function copyReferralCode() {
-                        const code = document.getElementById("referralCode").innerText;
+                    function copyReferralCode2() {
+                        const code = document.getElementById("referralCode2").innerText;
                         navigator.clipboard.writeText(code).then(() => {
                             alert("Referral Code copied!");
                         }).catch(err => {
@@ -220,8 +190,8 @@
                 </script>
 
                 <script>
-                    function copyReferral() {
-                        const link = document.getElementById("referralLink").innerText;
+                    function copyReferral2() {
+                        const link = document.getElementById("referralLink2").innerText;
                         navigator.clipboard.writeText(link).then(() => {
                             alert("Referral link copied!");
                         }).catch(err => {
@@ -233,65 +203,69 @@
                 <div class="col-md-8">
                     <div class="row">
 
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Number of Live Projects</span>
-                                        <span id="courseCountDisplay" class="fw-bolder d-block"
+                                        <span id="courseCountDisplay2" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Total Subscriptions</span>
-                                        <span id="walletRemainingDisplay" class="fw-bolder d-block"
+                                        <span id="walletRemainingDisplay2" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Subscription left in
-                                            wallet</span>
-                                        <span id="leftSubscriptions" class="fw-bolder d-block"
+                                        <span class="d-block" style="font-size: 14px;">Total Referrals</span>
+                                        <span id="totalReferralsDisplay2" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <div>
-                                <div class="card-body">
-                                    <!-- Conditional Message -->
-                                    <div id="subscriptionMessageBox" class="mt-4 p-4 rounded text-center fw-semibold"
-                                        style="display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
-                                    </div>
 
+                        <div class="col-md-12 mb-0">
+                            <div class="col-md-12 mb-3">
+                                <div>
+                                    <div class="card-body">
+                                        <!-- Conditional Message -->
+                                        <div id="subscriptionMessageBox"
+                                            class="mt-4 p-4 rounded text-center fw-semibold"
+                                            style="display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12" style="margin-top: 1%;">
-                            <div class="card bg-soft-danger text-danger border-danger border-dashed h-100">
+                        <div class="col-md-12" style="margin-top: 20px;">
+                            <div class="card bg-soft-danger text-danger border-danger border-dashed h-70"
+                                style="margin-top: -2%;">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <a target="_top" class="fw-bold d-block text-reset me-2">
                                             <span class="d-block" style="font-size: 13px;">Profile Completion</span>
                                         </a>
-                                        <!-- <a target="_top"
-                                            class="btn btn-sm btn-outline-danger">
-                                            Edit
-                                        </a> -->
+                                        <!-- <a href="/profile/profile-update/profile1.html" target="_top"
+                                                class="btn btn-sm btn-outline-danger">
+                                                Edit
+                                            </a> -->
                                     </div>
                                     <div class="pt-3">
                                         <div class="d-flex align-items-center justify-content-between">
@@ -309,22 +283,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <div class="col-md-12">
-                            <div class="card bg-soft-warning text-dark border-warning border-dashed h-70">
-                                <div class="card-body d-flex justify-content-center align-items-center text-center">
-                                    <span style="font-size: 12px; text-align: left; line-height: 1.6;">📌 Note:
-                                        Your referral code and referral link are linked to the
-                                        <b>phone number</b> you used during
-                                        <b>registration on the Fundsaudit application</b>.
-                                        If you entered an <b>incorrect number</b>, you can update it in the
-                                        <b>Profile Completion section</b>.<br><br>
-                                        For iOS <b>users</b>, please <b>download and register the application</b>
-                                        on an <b>Android device</b> to obtain your referral code.
-                                    </span>
-                                </div>
-                            </div>
-                        </div> -->
 
                     </div>
                 </div>
@@ -396,7 +354,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <!-- <div class="row mb-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -516,7 +474,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <style>
                     #PfLink {
@@ -778,7 +736,7 @@
                     }
                 </style>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
@@ -825,7 +783,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
 
                 <!-- [Mini Card] start -->
@@ -840,43 +798,42 @@
                 <!-- [Leads] start -->
                 <div class="main-content" style="margin-top: 2%;">
                     <div class="row">
-                        <!-- [Referral Users] start -->
+                        <!-- [Business Sales Overview] start -->
                         <div class="col-12">
                             <div class="card stretch stretch-full">
                                 <div class="card-header">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Business Sales Overview of <span
-                                                class="card-title profile-name small">--</span></h5>
+                                        <h5 class="card-title">Business Sales Overview</h5>
                                     </div>
                                     <div class="card-header-action">
                                         <div class="search-bar">
-                                            <input type="text" id="searchInput" class="form-control"
-                                                placeholder="Search..." oninput="filterTable()">
+                                            <input type="text" id="searchInput3" class="form-control"
+                                                placeholder="Search..." oninput="filterTable3()">
                                         </div>
-                                        <!-- <button class="btn btn-primary ms-2" onclick="viewDetails()">
+                                        <!-- <button class="btn btn-primary ms-2" onclick="viewDetails3()">
                                             View All Details
                                         </button> -->
                                     </div>
-
                                 </div>
                                 <div class="card-body custom-card-action p-0">
                                     <div class="table-responsive">
-                                        <table class="table table-hover mb-0" id="leadsTable">
+                                        <table class="table table-hover mb-0" id="leadsTable3">
                                             <thead>
                                                 <tr class="border-b">
                                                     <th scope="row">S No.</th>
                                                     <th>Name</th>
                                                     <th>Mobile No.</th>
                                                     <th>Email</th>
-                                                    <th>Downloaded</th>
-                                                    <th>Date of Download</th>
-                                                    <th>UTR</th>
+                                                    <!-- <th>Downloaded</th> -->
+                                                    <th>Date of Registration</th>
+                                                    <!-- <th>UTR</th> -->
                                                     <th>Subscribed</th>
                                                     <th>Date of Payment</th>
-                                                    <!-- <th>Raise Query</th> -->
-                                                    <th>Status</th>
+                                                    <th>Amount</th>
+                                                    <!-- <th>Raise A Query</th>
+                                                    <th>Query Status</th>
                                                     <th>User Review</th>
-                                                    <th>Manager Review</th>
+                                                    <th>Manager Review</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -888,14 +845,14 @@
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                            id="pagination">
+                                            id="pagination3">
                                             <!-- Pagination links will be dynamically populated here -->
                                         </ul>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-primary" onclick="printTable()">
+                                            <button class="btn btn-primary" onclick="printTable3()">
                                                 <i class="bi bi-printer"></i> Print
                                             </button>
-                                            <button class="btn btn-success" onclick="exportToExcel()">
+                                            <button class="btn btn-success" onclick="exportToExcel3()">
                                                 <i class="bi bi-file-earmark-excel"></i> Excel
                                             </button>
                                         </div>
@@ -974,194 +931,6 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- First container (main card) -->
-                <div class="col-md-4">
-                    <div class="card stretch shadow-none" style="margin-right: 1%;">
-                        <div class="card-body">
-                            <div class="mb-2 text-center">
-                                <div class="mb-2">
-                                    <span class="fs-24">USER DETAILS</span>
-                                </div>
-                            </div>
-
-                            <div class="profile-details">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Name:</span>
-                                    <span class="fw-normal profile-name2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Email:</span>
-                                    <span class="fw-normal profile-email2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Phone Number:</span>
-                                    <span class="fw-normal profile-phone2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">College Name:</span>
-                                    <span class="fw-normal profile-college2 small">--</span>
-                                </div>
-
-                                <!-- Manager Details -->
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Manager Name:</span>
-                                    <span class="fw-normal profile-manager-name2 small">--</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Manager Email:</span>
-                                    <a href="mailto:"
-                                        class="fw-normal profile-manager-email2 small text-decoration-none text-primary">--</a>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="fw-semibold text-muted small">Manager Mobile:</span>
-                                    <a href="tel:"
-                                        class="fw-normal profile-manager-mobile2 small text-decoration-none text-primary">--</a>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-semibold text-muted small">Referral Code:</span>
-                                    <div class="d-flex align-items-center">
-                                        <span class="fw-normal me-2 small" id="referralCode2">--</span>
-                                        <!-- <i class="bi bi-clipboard fs-5 text-primary" role="button"
-                                            onclick="copyReferralCode()" title="Copy"></i> -->
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12" style="margin-top: 3%;">
-                                    <div
-                                        class="card bg-soft-primary text-primary border-primary border-dashed shadow-none">
-                                        <div class="card-body">
-                                            <span class="fw-semibold text-muted small"
-                                                style="padding-bottom: 1%;">Referral Link:</span>
-                                            <!-- Referral Link -->
-                                            <a href="#" target="_blank" class="fs-9 fw-bold text-reset d-block mb-2"
-                                                id="referralLink2">--</a>
-
-                                            <!-- Copy Button -->
-                                            <!-- <button class="btn btn-primary btn-outline-primary w-100"
-                                                onclick="copyReferral()">
-                                                Copy Link
-                                            </button> -->
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    let registeredEmail2 = "--";
-                </script>
-
-                <script>
-                    function copyReferralCode2() {
-                        const code = document.getElementById("referralCode2").innerText;
-                        navigator.clipboard.writeText(code).then(() => {
-                            alert("Referral Code copied!");
-                        }).catch(err => {
-                            console.error("Failed to copy: ", err);
-                        });
-                    }
-                </script>
-
-                <script>
-                    function copyReferral2() {
-                        const link = document.getElementById("referralLink2").innerText;
-                        navigator.clipboard.writeText(link).then(() => {
-                            alert("Referral link copied!");
-                        }).catch(err => {
-                            console.error("Failed to copy: ", err);
-                        });
-                    }
-                </script>
-
-                <div class="col-md-8">
-                    <div class="row">
-
-                        <!-- <div class="col-md-4 mb-3">
-                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Number of Live Projects</span>
-                                        <span id="courseCountDisplay2" class="fw-bolder d-block"
-                                            style="font-size: 65px;">0</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <div class="col-md-6 mb-3">
-                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Total Subscriptions</span>
-                                        <span id="walletRemainingDisplay2" class="fw-bolder d-block"
-                                            style="font-size: 65px;">0</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
-                                        <span class="d-block" style="font-size: 14px;">Total Referrals</span>
-                                        <span id="totalReferralsDisplay2" class="fw-bolder d-block"
-                                            style="font-size: 65px;">0</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 mb-0">
-                            <div class="col-md-12 mb-3">
-                                <div>
-                                    <div class="card-body">
-                                        <!-- Conditional Message -->
-                                        <div id="subscriptionMessageBox"
-                                            class="mt-4 p-4 rounded text-center fw-semibold"
-                                            style="display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" style="margin-top: 20px;">
-                            <div class="card bg-soft-danger text-danger border-danger border-dashed h-70"
-                                style="margin-top: -2%;">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <a target="_top" class="fw-bold d-block text-reset me-2">
-                                            <span class="d-block" style="font-size: 13px;">Profile Completion</span>
-                                        </a>
-                                        <!-- <a href="/profile/profile-update/profile1.html" target="_top"
-                                                class="btn btn-sm btn-outline-danger">
-                                                Edit
-                                            </a> -->
-                                    </div>
-                                    <div class="pt-3">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <span
-                                                    class="fs-12 fw-bold text-reset profile-completion-percent">(0%)</span>
-                                            </div>
-                                        </div>
-                                        <div class="progress mt-2 ht-4">
-                                            <div class="progress-bar bg-danger profile-completion-bar"
-                                                role="progressbar" style="width: 0%">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
 
                 <div class="row mb-4" id="portfolioIframeContainerNav2" style="display: none; margin-top: 30px;">
                     <div class="col-12">
@@ -1600,72 +1369,7 @@
 
                 <!-- [Leads] start -->
                 <!-- [Leads] start -->
-                <div class="main-content" style="margin-top: 2%;">
-                    <div class="row">
-                        <!-- [Business Sales Overview] start -->
-                        <div class="col-12">
-                            <div class="card stretch stretch-full">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Business Sales Overview</h5>
-                                    </div>
-                                    <div class="card-header-action">
-                                        <div class="search-bar">
-                                            <input type="text" id="searchInput3" class="form-control"
-                                                placeholder="Search..." oninput="filterTable3()">
-                                        </div>
-                                        <!-- <button class="btn btn-primary ms-2" onclick="viewDetails3()">
-                                            View All Details
-                                        </button> -->
-                                    </div>
-                                </div>
-                                <div class="card-body custom-card-action p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover mb-0" id="leadsTable3">
-                                            <thead>
-                                                <tr class="border-b">
-                                                    <th scope="row">S No.</th>
-                                                    <th>Name</th>
-                                                    <th>Mobile No.</th>
-                                                    <th>Email</th>
-                                                    <!-- <th>Downloaded</th> -->
-                                                    <th>Date of Registration</th>
-                                                    <!-- <th>UTR</th> -->
-                                                    <th>Subscribed</th>
-                                                    <th>Date of Payment</th>
-                                                    <th>Amount</th>
-                                                    <!-- <th>Raise A Query</th>
-                                                    <th>Query Status</th>
-                                                    <th>User Review</th>
-                                                    <th>Manager Review</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Rows will be dynamically populated here -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                            id="pagination3">
-                                            <!-- Pagination links will be dynamically populated here -->
-                                        </ul>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-primary" onclick="printTable3()">
-                                                <i class="bi bi-printer"></i> Print
-                                            </button>
-                                            <button class="btn btn-success" onclick="exportToExcel3()">
-                                                <i class="bi bi-file-earmark-excel"></i> Excel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- [Leads] end -->
 
                 <script>
@@ -3427,8 +3131,11 @@
                         fetchTableData();
                     },
                     error: function (err) {
-                        fetchCourseData();
-                        fetchTableData();
+                        // COMMENTED OUT: Removed continuous retry to give endpoint breathing time
+                        // Only retry on timeout, not on all errors
+                        // fetchCourseData();
+                        // fetchTableData();
+                        console.error("Error updating dashboard:", err);
                     }
                 });
             }
@@ -3881,8 +3588,10 @@
                     },
                     error: function (err) {
                         console.error(`Error updating ${fieldName}:`, err);
-                        fetchCourseData();
-                        fetchTableData();
+                        // COMMENTED OUT: Removed continuous retry to give endpoint breathing time
+                        // Only retry on timeout, not on all errors
+                        // fetchCourseData();
+                        // fetchTableData();
                     }
                 });
             }
@@ -4080,7 +3789,7 @@
         if (userPhoneNumber == null || userPhoneNumber == undefined || userPhoneNumber == "") {
             setTimeout(function () {
                 window.location.reload();
-            }, 2000);
+            }, 10000);
         }
 
         $(document).ready(function () {
