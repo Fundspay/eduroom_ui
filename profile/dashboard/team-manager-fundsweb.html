@@ -3359,7 +3359,7 @@
                                 startDate: row.courses && row.courses.length > 0 && row.courses[0].startDate ? row.courses[0].startDate : "",
                                 estEndDate: row.courses && row.courses.length > 0 && row.courses[0].endDate ? row.courses[0].endDate : "",
                                 courseStatus: row.courses && row.courses.length > 0 ? row.courses[0].status : "",
-                                subscriptionWallet: row.subscriptionWallet,
+                                subscriptionWallet: row.fundswebAchieved || 0,
                                 businessStatus: row.courses && row.courses.length > 0 ? row.courses[0].businessTarget : "",
                                 workPercentage: (row.courses && row.courses.length > 0 && row.courses[0].businessTarget > 0) ? ((row.subscriptionWallet / row.courses[0].businessTarget) * 100).toFixed(2) + "%" : "0.00%",
                                 certificateStatus: row.internshipIssued || "",
