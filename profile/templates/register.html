@@ -656,7 +656,7 @@
                         data: JSON.stringify(payload),
                         success: function () {
                             Swal.fire("Success", "Registration done successfully, Please login to proceed.", "success")
-                                .then(() => window.location.href = "/login.html");
+                                .then(() => window.top.location.href = "/login.html");
                         },
                         error: function () {
                             Swal.fire("Error", "Email or Phone number already exists", "error");
