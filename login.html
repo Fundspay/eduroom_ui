@@ -648,7 +648,7 @@
                             userId = res.account.managerId;
                             userName = res.account.name || "Manager";
                             fundConfigId = res.account.fundConfigId;
-                            redirectUrl = "/profile/dashboard/team-manager.html";
+                            redirectUrl = "/profile/dashboard/team-manager-fundsweb.html";
                         } else if (res.user && res.user.user_id) {
                             userId = res.user.user_id;
                             userName = res.user.fullName || "User";
@@ -783,7 +783,7 @@
                         if (response.account && response.account.managerId) {
                             userId = response.account.managerId;
                             userName = response.account.name || "Manager";
-                            redirectUrl = "/profile/dashboard/team-manager.html";
+                            redirectUrl = "/profile/dashboard/team-manager-fundsweb.html";
                         } else if (response.user && response.user.user_id) {
                             userId = response.user.user_id;
                             userName = response.user.fullName || "User";
