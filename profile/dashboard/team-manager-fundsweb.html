@@ -1243,27 +1243,27 @@
                             <span style="display:inline-flex;align-items:center;margin-right:12px;">
                                 <span
                                     style="display:inline-block;width:16px;height:16px;background:#ffa500;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
-                                1 - 5 (Orange)
+                                1 (Orange)
                             </span>
                             <span style="display:inline-flex;align-items:center;margin-right:12px;">
                                 <span
                                     style="display:inline-block;width:16px;height:16px;background:#ffff80;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
-                                6 - 12 (Yellow)
+                                2 (Yellow)
                             </span>
                             <span style="display:inline-flex;align-items:center;margin-right:12px;">
                                 <span
                                     style="display:inline-block;width:16px;height:16px;background:#b3ffb3;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
-                                13 - 18 (Light Green)
+                                3 (Light Green)
                             </span>
                             <span style="display:inline-flex;align-items:center;margin-right:12px;">
                                 <span
                                     style="display:inline-block;width:16px;height:16px;background:#5cdb5c;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
-                                19 - 25 (Green)
+                                4 (Green)
                             </span>
                             <span style="display:inline-flex;align-items:center;margin-right:12px;">
                                 <span
                                     style="display:inline-block;width:16px;height:16px;background:#4da6ff;border-radius:3px;margin-right:6px;border:1px solid #ccc;"></span>
-                                25+ (Blue)
+                                5+ (Blue)
                             </span>
                         </div>
 
@@ -2219,22 +2219,22 @@
         function getRowBgColor(subscriptionWallet) {
             const val = parseInt(subscriptionWallet, 10) || 0;
             if (val === 0) return 'background-color: #ff4d4d;';
-            if (val >= 1 && val <= 5) return 'background-color: #ffa500;';
-            if (val >= 6 && val <= 12) return 'background-color: #ffff80;';
-            if (val >= 13 && val <= 18) return 'background-color: #b3ffb3;';
-            if (val >= 19 && val <= 25) return 'background-color: #5cdb5c;';
-            if (val > 25) return 'background-color: #4da6ff;';
+            if (val === 1) return 'background-color: #ffa500;';
+            if (val === 2) return 'background-color: #ffff80;';
+            if (val === 3) return 'background-color: #b3ffb3;';
+            if (val === 4) return 'background-color: #5cdb5c;';
+            if (val >= 5) return 'background-color: #4da6ff;';
             return '';
         }
 
         function getColorCategory(subscriptionWallet) {
             const val = parseInt(subscriptionWallet, 10) || 0;
             if (val === 0) return 'red';
-            if (val >= 1 && val <= 5) return 'orange';
-            if (val >= 6 && val <= 12) return 'yellow';
-            if (val >= 13 && val <= 18) return 'lightGreen';
-            if (val >= 19 && val <= 25) return 'green';
-            if (val > 25) return 'blue';
+            if (val === 1) return 'orange';
+            if (val === 2) return 'yellow';
+            if (val === 3) return 'lightGreen';
+            if (val === 4) return 'green';
+            if (val >= 5) return 'blue';
             return '';
         }
 
