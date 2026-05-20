@@ -239,13 +239,13 @@
                         </a>
                     </li>
 
-                    <li class="nxl-item">
+                    <!-- <li class="nxl-item">
                         <a href="/profile/dashboard/team-manager-college.html" class="nxl-link">
                             <span class="nxl-micon"><i class="feather-file-text"></i></span>
                             <span class="nxl-mtext">COLLEGE SHEET</span>
                             <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="nxl-item">
                         <a href="/profile/dashboard/tasks.html" class="nxl-link">
@@ -2240,23 +2240,23 @@
 
         function getAAPIColorCategory(aapiValue) {
             const val = parseFloat(aapiValue) || 0;
-            if (val >= 0 && val <= 2.99) return '#ff4d4d';
-            if (val >= 3 && val <= 4.99) return '#ffa500';
-            if (val >= 5 && val <= 6.99) return '#ffff80';
-            if (val >= 7 && val <= 9.99) return '#b3ffb3';
-            if (val >= 10 && val <= 11.99) return '#5cdb5c';
-            if (val >= 12) return '#4da6ff';
+            if (val >= 0 && val <= 0.99) return '#ff4d4d';
+            // if (val >= 1 && val <= 1.99) return '#ffa500';
+            if (val >= 1 && val <= 1.99) return '#ffff80';
+            if (val >= 2 && val <= 2.99) return '#b3ffb3';
+            if (val >= 3 && val <= 3.99) return '#5cdb5c';
+            if (val >= 4) return '#4da6ff';
             return '';
         }
 
         function getAAPDColorCategory(aapdValue) {
             const val = parseFloat(aapdValue) || 0;
-            if (val >= 0 && val <= 70) return '#ff4d4d';
-            if (val >= 71 && val <= 150) return '#ffa500';
-            if (val >= 151 && val <= 200) return '#ffff80';
-            if (val >= 201 && val <= 250) return '#b3ffb3';
-            if (val >= 251 && val <= 300) return '#5cdb5c';
-            if (val >= 301) return '#4da6ff';
+            if (val >= 0 && val <= 19) return '#ff4d4d';
+            if (val >= 20 && val <= 24) return '#ffa500';
+            if (val >= 25 && val <= 29) return '#ffff80';
+            if (val >= 30 && val <= 34) return '#b3ffb3';
+            if (val >= 35 && val <= 39) return '#5cdb5c';
+            if (val >= 40) return '#4da6ff';
             return '';
         }
 
