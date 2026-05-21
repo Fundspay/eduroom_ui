@@ -235,7 +235,7 @@
                 <div class="col-md-8">
                     <div class="row">
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
@@ -247,7 +247,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
@@ -259,12 +259,24 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
                                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                     <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
                                         <span class="d-block" style="font-size: 14px;">Total Referrals</span>
                                         <span id="totalReferralsDisplay2" class="fw-bolder d-block"
+                                            style="font-size: 65px;">0</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <div class="card bg-soft-primary text-primary border-primary border-dashed h-100">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                    <a href="javascript:void(0);" class="fw-bold d-block text-reset text-center">
+                                        <span class="d-block" style="font-size: 14px;">Subscriptions Left</span>
+                                        <span id="subscriptionLeft" class="fw-bolder d-block"
                                             style="font-size: 65px;">0</span>
                                     </a>
                                 </div>
@@ -1660,6 +1672,7 @@
 
     <script>
         function handleSubscriptionUI(totalSubs, email) {
+            console.log("Handling subscription UI with totalSubs:", totalSubs, "and email:", email);
             const box = $("#subscriptionMessageBox");
 
             box.hide()
@@ -1750,10 +1763,7 @@
                         $(".profile-college").text(user.CollegeName || "--");
                         $(".profile-college2").text(user.CollegeName || "--");
                         registeredEmail = user.Email || "--";
-                        handleSubscriptionUI(
-                            Number($("#walletRemainingDisplay").text()) || 0,
-                            registeredEmail
-                        );
+                        
                         sessionStorage.setItem("referralCode", user.ReferralCode || "--");
                         // $("#referralCode").text(user.ReferralCode || "--");
                         $("#referralLink").text(user.ReferralLink || "--");
@@ -3960,9 +3970,16 @@
                     // $(".btn-outline-primary").attr("onclick", `copyReferral3('${data.referrer.referralLink || ""}')`);
                 }
 
-                if (data.statistics) {
+                if (data.statistics && data.referrer) {
+                    var totalSubs = data.statistics.totalPaidSubscriptions || 0;
+                    var email = data.referrer.email || "";
                     $("#totalReferralsDisplay2").text(data.statistics.totalReferrals || "0");
-                    $("#walletRemainingDisplay2").text(data.statistics.totalPaidSubscriptions || "0");
+                    $("#walletRemainingDisplay2").text(totalSubs);
+                    $("#subscriptionLeft").text(totalSubs);
+                    handleSubscriptionUI(
+                            totalSubs,
+                            email
+                        );
                 }
             }
 
