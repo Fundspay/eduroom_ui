@@ -1987,6 +1987,7 @@
                                 courseName,
                                 courseDuration,
                                 businessTarget,
+                                fundswebAchieved,
                                 overallStatus,
                                 offerMessage,
                                 overallCompletionRate,
@@ -2036,7 +2037,7 @@
                             const subscriptionText =
                                 displayStatus === "Completed"
                                     ? `${businessTarget || "0"} (Completed)`
-                                    : `${subscriptionLeft || "0"}/${businessTarget || "0"}`;
+                                    : `${fundswebAchieved || "0"}/${businessTarget || "0"}`;
 
                             // Helper function to generate HTML for additional targets
                             const getAdditionalTargetHtml = (label, achieved, target) => {

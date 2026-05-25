@@ -1907,7 +1907,7 @@
                                 achievedFollowers = 0,
                                 achievedPosts = 0,
                                 achievedReviewAndRating = 0,
-                                fundswebAchieved = 0,
+                                fundswebAchieved,
                                 fundswebTarget = 0
                             } = course;
 
@@ -1952,7 +1952,7 @@
                             const subscriptionText =
                                 displayStatus === "Completed"
                                     ? `${businessTarget || "0"} (Completed)`
-                                    : `${subscriptionLeft || "0"}/${businessTarget || "0"}`;
+                                    : `${fundswebAchieved || "0"}/${businessTarget || "0"}`;
 
                             // Helper function to generate HTML for additional targets
                             const getAdditionalTargetHtml = (label, achieved, target) => {
@@ -2007,7 +2007,7 @@
                                                 </div>
                                                 <div class="text-end">
                                                     <p class="mb-1">${overallCompletionRate || "0"}%</p>
-                                                    <p class="mb-0">${fundswebAchieved || "0"}/${fundswebTarget || "0"}</p>
+                                                    <p class="mb-0">${subscriptionText}</p>
                                                     ${postsHtml ? `<p class="mb-0">${postsHtml.split('</p>')[1]}</p>` : ''}
                                                     ${reviewsHtml ? `<p class="mb-0">${reviewsHtml.split('</p>')[1]}</p>` : ''}
                                                     ${followersHtml ? `<p class="mb-0">${followersHtml.split('</p>')[1]}</p>` : ''}
