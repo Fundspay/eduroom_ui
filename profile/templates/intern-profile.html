@@ -303,10 +303,12 @@
                     <div class="col-12">
                         <div class="card mb-0">
                             <div class="card-header d-flex justify-content-end align-items-center">
-                                <a id="viewPortfolioBtnNav1" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                                <a id="viewPortfolioBtnNav1" href="#" target="_blank"
+                                    class="btn btn-primary btn-sm">View Portfolio</a>
                             </div>
                             <div class="card-body p-0">
-                                <iframe id="portfolioIframeNav1" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                                <iframe id="portfolioIframeNav1" src=""
+                                    style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
                             </div>
                         </div>
                     </div>
@@ -329,7 +331,8 @@
                                                     <div class="info-box">
                                                         <span class="info-label text-center">SMM Followers <br>
                                                             (Linkedin/Insta/YT/Other)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                        <span
+                                                            class="info-value editable-display text-center d-block w-100"
                                                             id="followersGrowth" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
@@ -337,7 +340,8 @@
                                                     <div class="info-box">
                                                         <span class="info-label text-center">Reviews & Ratings<br>
                                                             (All Platforms)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                        <span
+                                                            class="info-value editable-display text-center d-block w-100"
                                                             id="ratings" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
@@ -345,7 +349,8 @@
                                                     <div class="info-box">
                                                         <span class="info-label text-center">Qualified Leads<br>
                                                             (Posts/Mails/Other)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                        <span
+                                                            class="info-value editable-display text-center d-block w-100"
                                                             id="qualifiedLeads" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
@@ -353,7 +358,8 @@
                                                     <div class="info-box">
                                                         <span class="info-label text-center">App Reviews <br>
                                                             (Play Store/App store)</span>
-                                                        <span class="info-value editable-display text-center d-block w-100"
+                                                        <span
+                                                            class="info-value editable-display text-center d-block w-100"
                                                             id="reviews" style="font-size: 20px;">--</span>
                                                     </div>
                                                 </div>
@@ -772,171 +778,173 @@
                                                 <th style="font-size: 15px;">Manager Rating</th>
                                                 <th style="font-size: 15px;">Manager Comment</th>
                                                 <!-- <th style="font-size: 15px;">Category</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div id="taskCountdownContainer"></div>
+                </tr>
+                </thead>
+                <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+                <div id="taskCountdownContainer"></div>
 
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-primary" onclick="printTable2()">
-                                            <i class="bi bi-printer"></i> Print
-                                        </button>
-                                        <button class="btn btn-success" onclick="exportToExcel2()">
-                                            <i class="bi bi-file-earmark-excel"></i> Excel
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
-
-                <!-- [Mini Card] start -->
-                <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;"><span
-                        class="card-title profile-name">--</span>'s Live Projects</h3>
-                <div class="row" id="internshipCardsContainer">
-                    <!-- Cards will be injected here -->
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" onclick="printTable2()">
+                        <i class="bi bi-printer"></i> Print
+                    </button>
+                    <button class="btn btn-success" onclick="exportToExcel2()">
+                        <i class="bi bi-file-earmark-excel"></i> Excel
+                    </button>
                 </div>
-                <!-- [Mini Card] end -->
+            </div>
 
-                <!-- [Leads] start -->
-                <!-- [Leads] start -->
-                <div class="main-content" style="margin-top: 2%;">
-                    <div class="row">
-                        <!-- [Business Sales Overview] start -->
-                        <div class="col-12">
-                            <div class="card stretch stretch-full">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Business Sales Overview</h5>
-                                    </div>
-                                    <div class="card-header-action">
-                                        <div class="search-bar">
-                                            <input type="text" id="searchInput3" class="form-control"
-                                                placeholder="Search..." oninput="filterTable3()">
-                                        </div>
-                                        <!-- <button class="btn btn-primary ms-2" onclick="viewDetails3()">
+        </div>
+        </div>
+        </div>
+        </div> -->
+        <hr style="border: none; border-top: 10px dotted #000000; margin-top: 10px;">
+
+        <!-- [Mini Card] start -->
+        <h3 class="card-title" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;"><span
+                class="card-title profile-name">--</span>'s Live Projects</h3>
+        <div class="row" id="internshipCardsContainer">
+            <!-- Cards will be injected here -->
+        </div>
+        <!-- [Mini Card] end -->
+
+        <!-- [Leads] start -->
+        <!-- [Leads] start -->
+        <div class="main-content" style="margin-top: 2%;">
+            <div class="row">
+                <!-- [Business Sales Overview] start -->
+                <div class="col-12">
+                    <div class="card stretch stretch-full">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">Business Sales Overview</h5>
+                            </div>
+                            <div class="card-header-action">
+                                <div class="search-bar">
+                                    <input type="text" id="searchInput3" class="form-control" placeholder="Search..."
+                                        oninput="filterTable3()">
+                                </div>
+                                <!-- <button class="btn btn-primary ms-2" onclick="viewDetails3()">
                                             View All Details
                                         </button> -->
-                                    </div>
-                                </div>
-                                <div class="card-body custom-card-action p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover mb-0" id="leadsTable3">
-                                            <thead>
-                                                <tr class="border-b">
-                                                    <th scope="row">S No.</th>
-                                                    <th>Name</th>
-                                                    <th>Mobile No.</th>
-                                                    <th>Email</th>
-                                                    <!-- <th>Downloaded</th> -->
-                                                    <th>Date of Registration</th>
-                                                    <!-- <th>UTR</th> -->
-                                                    <th>Subscribed</th>
-                                                    <th>Date of Payment</th>
-                                                    <th>Amount</th>
-                                                    <!-- <th>Raise A Query</th>
+                            </div>
+                        </div>
+                        <div class="card-body custom-card-action p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0" id="leadsTable3">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th scope="row">S No.</th>
+                                            <th>Name</th>
+                                            <th>Mobile No.</th>
+                                            <th>Email</th>
+                                            <!-- <th>Downloaded</th> -->
+                                            <th>Date of Registration</th>
+                                            <!-- <th>UTR</th> -->
+                                            <th>Subscribed</th>
+                                            <th>Date of Payment</th>
+                                            <th>Amount</th>
+                                            <th>Portfolio Link</th>
+                                            <!-- <th>Raise A Query</th>
                                                     <th>Query Status</th>
                                                     <th>User Review</th>
                                                     <th>Manager Review</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Rows will be dynamically populated here -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
-                                            id="pagination3">
-                                            <!-- Pagination links will be dynamically populated here -->
-                                        </ul>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-primary" onclick="printTable3()">
-                                                <i class="bi bi-printer"></i> Print
-                                            </button>
-                                            <button class="btn btn-success" onclick="exportToExcel3()">
-                                                <i class="bi bi-file-earmark-excel"></i> Excel
-                                            </button>
-                                        </div>
-                                    </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Rows will be dynamically populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <ul class="list-unstyled d-flex align-items-center gap-2 mb-0 pagination-common-style"
+                                    id="pagination3">
+                                    <!-- Pagination links will be dynamically populated here -->
+                                </ul>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary" onclick="printTable3()">
+                                        <i class="bi bi-printer"></i> Print
+                                    </button>
+                                    <button class="btn btn-success" onclick="exportToExcel3()">
+                                        <i class="bi bi-file-earmark-excel"></i> Excel
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- [Leads] end -->
-
-                <!-- [Marketing] start -->
-                <div class="main-content" style="margin-top: 2%; margin-bottom: 2%;">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card stretch stretch-full">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">Marketing</h5>
-                                    </div>
-                                </div>
-                                <div class="card-body custom-card-action p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover mb-0" id="marketingTable">
-                                            <thead>
-                                                <tr class="border-b">
-                                                    <th scope="row">S. No.</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Mobile No.</th>
-                                                    <th>Rating / Review</th>
-                                                    <th>Followers</th>
-                                                    <th>Post</th>
-                                                    <th>Google Reviews</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Read-only UI placeholder row (no API/AJAX yet in this step) -->
-                                                <tr>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>--</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm marketing-verified-btn"
-                                                            data-marketing-id="" disabled>Verify</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- [Marketing] end -->
-
-                <script>
-                    window.viewDetails = function () {
-                        window.top.location.href = "business-sales-overview.html";
-                    };
-                </script>
-
             </div>
+        </div>
+        <!-- [Leads] end -->
 
-            <!-- [ Content Area ] end -->
+        <!-- [Marketing] start -->
+        <div class="main-content" style="margin-top: 2%; margin-bottom: 2%;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card stretch stretch-full">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">Marketing</h5>
+                            </div>
+                        </div>
+                        <div class="card-body custom-card-action p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0" id="marketingTable">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th scope="row">S. No.</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Mobile No.</th>
+                                            <th>Rating / Review</th>
+                                            <th>Followers</th>
+                                            <th>Post</th>
+                                            <th>Google Reviews</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Read-only UI placeholder row (no API/AJAX yet in this step) -->
+                                        <tr>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>
+                                                <button type="button"
+                                                    class="btn btn-success btn-sm marketing-verified-btn"
+                                                    data-marketing-id="" disabled>Verify</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [Marketing] end -->
+
+        <script>
+            window.viewDetails = function () {
+                window.top.location.href = "business-sales-overview.html";
+            };
+        </script>
+
+        </div>
+
+        <!-- [ Content Area ] end -->
         </div>
 
         <div id="nav2" class="nxl-content without-header nxl-full-content tab-content">
@@ -948,10 +956,12 @@
                     <div class="col-12">
                         <div class="card mb-0">
                             <div class="card-header d-flex justify-content-end align-items-center">
-                                <a id="viewPortfolioBtnNav2" href="#" target="_blank" class="btn btn-primary btn-sm">View Portfolio</a>
+                                <a id="viewPortfolioBtnNav2" href="#" target="_blank"
+                                    class="btn btn-primary btn-sm">View Portfolio</a>
                             </div>
                             <div class="card-body p-0">
-                                <iframe id="portfolioIframeNav2" src="" style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                                <iframe id="portfolioIframeNav2" src=""
+                                    style="width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
                             </div>
                         </div>
                     </div>
@@ -1381,7 +1391,7 @@
 
                 <!-- [Leads] start -->
                 <!-- [Leads] start -->
-                
+
                 <!-- [Leads] end -->
 
                 <script>
@@ -1596,11 +1606,11 @@
 
             // console.log("user_id:", userId);
 
-                function renderMarketingTable(rows) {
-                    const $tbody = $("#marketingTable tbody");
-                    if (!$tbody.length) return;
+            function renderMarketingTable(rows) {
+                const $tbody = $("#marketingTable tbody");
+                if (!$tbody.length) return;
 
-                    $tbody.empty();
+                $tbody.empty();
 
                 const platformIconMap = {
                     instagram: { icon: "bi-instagram", title: "Instagram", color: "#E1306C" },
@@ -1662,8 +1672,8 @@
                     $td.append($wrap);
                 }
 
-                    if (!Array.isArray(rows) || rows.length === 0) {
-                        const $tr = $("<tr>");
+                if (!Array.isArray(rows) || rows.length === 0) {
+                    const $tr = $("<tr>");
                     for (let i = 0; i < 8; i++) {
                         $("<td>").text("--").appendTo($tr);
                     }
@@ -3787,7 +3797,7 @@
                         $("#walletRemainingDisplay").text(total);
                         $("#leftSubscriptions").text(left);
 
-                        
+
                     }
                 },
                 error: function (xhr, status, error) {
@@ -3889,6 +3899,7 @@
                                 const paymentDateRaw = user.dateOfPayment || null;
                                 const utr = "--";
                                 const hasPaidSubscription = user.hasPaidSubscription || false;
+                                const portfolioLink = user.portfolioLink || "";
                                 const amount = user.amount || "--";
                                 const userReview = "";
                                 const managerReview = "";
@@ -3953,6 +3964,9 @@
                                     hasPaid,
                                     paymentDateDisplay,
                                     amount,
+                                    portfolioLink: portfolioLink
+                                        ? `<a href="${portfolioLink}" target="_blank" class="btn btn-sm btn-primary">Visit</a>`
+                                        : "--",
                                     // status: statusBadge,
                                     // statusText: statusText,
                                     // userReview: userReviewBadge,
@@ -4051,6 +4065,7 @@
                         <td>${row.hasPaid}</td>
                         <td>${row.paymentDateDisplay}</td>
                         <td>${row.amount}</td>
+                        <td>${row.portfolioLink}</td>
                         <!-- <td>
                             <button class="btn btn-sm btn-danger" onclick="raiseQuery3('${escJS3(row.id)}', '${escJS3(row.firstName)}', '${escJS3(row.lastName)}', '${escJS3(row.phone)}', '${escJS3(row.statusText)}', '${escJS3(row.email)}')">
                                 Raise Query

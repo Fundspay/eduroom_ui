@@ -861,6 +861,7 @@
                                                     <th>Subscribed</th>
                                                     <th>Date of Payment</th>
                                                     <th>Amount</th>
+                                                    <th>Portfolio Link</th>
                                                     <!-- <th>Raise A Query</th>
                                                     <th>Query Status</th>
                                                     <th>User Review</th>
@@ -4008,6 +4009,7 @@
                                 const utr = "--";
                                 const hasPaidSubscription = user.hasPaidSubscription || false;
                                 const amount = user.amount || "--";
+                                const portfolioLink = user.portfolioLink || "--";
                                 const userReview = "";
                                 const managerReview = "";
 
@@ -4071,6 +4073,9 @@
                                     hasPaid,
                                     paymentDateDisplay,
                                     amount,
+                                    portfolioLink: portfolioLink
+                                        ? `<a href="${portfolioLink}" target="_blank" class="btn btn-sm btn-primary">Visit</a>`
+                                        : "--",
                                     // status: statusBadge,
                                     // statusText: statusText,
                                     // userReview: userReviewBadge,
@@ -4169,6 +4174,7 @@
                         <td>${row.hasPaid}</td>
                         <td>${row.paymentDateDisplay}</td>
                         <td>${row.amount}</td>
+                        <td>${row.portfolioLink}</td>
                         <!-- <td>
                             <button class="btn btn-sm btn-danger" onclick="raiseQuery3('${escJS3(row.id)}', '${escJS3(row.firstName)}', '${escJS3(row.lastName)}', '${escJS3(row.phone)}', '${escJS3(row.statusText)}', '${escJS3(row.email)}')">
                                 Raise Query
