@@ -1618,10 +1618,10 @@
 
             default: {
                 label: "Default",
-                subject: (record) => `Opportunity - Complete Your Internship Target | FundsAudit × ${record.studentName || "Student"}`,
+                subject: (record) => `Opportunity - Complete Your Internship Target | FundsWeb × ${record.studentName || "Student"}`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
-                    <p>Greetings from FundsAudit.</p>
+                    <p>Greetings from FundsWeb.</p>
                     <p>We are excited to introduce a <b>Special Offer</b> for our internship participants.</p>
                     <p>As per our records, here are your details:</p>
                     <ul>
@@ -1644,14 +1644,14 @@
                 fixedBottom: `
                     <p>Looking forward to your participation and completion.</p>
                     <p>Best Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
             diy: {
                 label: "diy",
                 subject: (record) => `Opportunity - Complete Your Internship`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
-                    <p>Greetings from FundsAudit.</p>
+                    <p>Greetings from FundsWeb.</p>
                     `,
                 editableMiddle: `
                     <p></p>`,
@@ -1664,7 +1664,7 @@
                 fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
-                    <p>We reviewed your progress in the FundsAudit internship, and it’s good to see that you have already started working towards your targets.</p>
+                    <p>We reviewed your progress in the FundsWeb internship, and it’s good to see that you have already started working towards your targets.</p>
                 `,
                 editableMiddle: `
                     <p>At this stage, most interns usually face a small challenge in terms of direction — mainly around how to complete the remaining targets efficiently.</p>
@@ -1687,14 +1687,14 @@
                 fixedBottom: `
                                 <p>Please be available for a quick discussion.</p>
                     <p>Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
             iegforce: {
                 label: "iegforce",
                 subject: (record) => `Important: Internship Progress & Immediate Action Required`,
                 fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
-                    <p>This is regarding your ongoing FundsAudit internship.</p>
+                    <p>This is regarding your ongoing FundsWeb internship.</p>
                     <p>We observed that your progress is currently below the expected level, and the targets are still pending.</p>
                 `,
                 editableMiddle: `
@@ -1720,7 +1720,7 @@
                 fixedBottom: `
                                 <p>It is important that you are available for this discussion.</p>
                     <p>Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
             iegdeal: {
                 label: "iegdeal",
@@ -1728,7 +1728,7 @@
                 fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
-                    <p>We noticed that you had previously started your FundsAudit internship but could not complete it.</p>
+                    <p>We noticed that you had previously started your FundsWeb internship but could not complete it.</p>
                     <p>We understand that many interns face challenges during execution, and that’s completely fine.</p>
                 `,
                 editableMiddle: `
@@ -1751,7 +1751,7 @@
                                 <p>I will be connecting with you shortly to guide you through the updated plan and help you complete your internship smoothly.</p>
                     <p>Looking forward to speaking with you.</p>
                     <p>Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
             fpcompush: {
                 label: "fpcompush",
@@ -1759,7 +1759,7 @@
                 fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
-                    <p>We reviewed your performance in the FundsAudit internship, and it’s great to see that you have already completed/actively worked on your targets.</p>
+                    <p>We reviewed your performance in the FundsWeb internship, and it’s great to see that you have already completed/actively worked on your targets.</p>
                     <p>At this stage, the next logical step is not just completing work — but showing your work professionally.</p>
                     <p>This is where FundsPortfolio (via FundsWeb) comes in.</p>
                 `,
@@ -1806,7 +1806,7 @@
                 `,
                 fixedBottom: `
                                 <p>🎯 Final Thought</p>
-                    <p>FundsAudit shows that you worked.</p>
+                    <p>FundsWeb shows that you worked.</p>
                     <p>FundsPortfolio shows what you worked.</p>
                     <p>I will connect with you shortly to guide you on how you can upgrade your work into a portfolio.</p>
                     <p>Regards,<br/>
@@ -1818,27 +1818,27 @@
                 fixedTop: (record) => `
                     <p>Hi <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
                     <p>I hope you’re doing well.</p>
-                    <p>We understand that completing the full FundsAudit target can sometimes feel challenging.</p>
+                    <p>We understand that completing the full FundsWeb target can sometimes feel challenging.</p>
                     <p>Instead of delaying or stopping, we recommend a smarter approach — the Mix Model.</p>
                 `,
                 editableMiddle: `
                     <p>🎯 What is the Mix Model?</p>
-                    <p>Instead of focusing only on FundsAudit, you can combine:</p>
+                    <p>Instead of focusing only on FundsWeb, you can combine:</p>
                     <ul>
-                        <li>Partial FundsAudit targets</li>
+                        <li>Partial FundsWeb targets</li>
                         <li>FundsPortfolio creation</li>
                     </ul>
 
                     <p>Example:</p>
                     <ul>
-                        <li>8 FundsAudit + 1 Portfolio</li>
-                        <li>5 FundsAudit + 2 Portfolio</li>
+                        <li>8 FundsWeb + 1 Portfolio</li>
+                        <li>5 FundsWeb + 2 Portfolio</li>
                     </ul>
                     <p>(Flexible combinations based on your capacity)</p>
 
                     <p>📊 Why This Works</p>
                     <ul>
-                        <li>FundsAudit → Execution experience</li>
+                        <li>FundsWeb → Execution experience</li>
                         <li>FundsPortfolio → Proof of work</li>
                     </ul>
 
@@ -1973,7 +1973,7 @@
                         </li>
                         <li>Use hashtags:
                             <ul>
-                                <li>#FundsPortfolio #FundsAudit #[YourCollegeName]</li>
+                                <li>#FundsPortfolio #FundsWeb #[YourCollegeName]</li>
                             </ul>
                         </li>
                     </ul>
@@ -2105,10 +2105,10 @@
             },
             promotional: {
                 label: "Promotional",
-                subject: (record) => `Opportunity – Complete Your Target & Get Certified! | FundsAudit`,
+                subject: (record) => `Opportunity – Complete Your Target & Get Certified! | FundsWeb`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
-                    <p>Warm greetings from FundsAudit!</p>
+                    <p>Warm greetings from FundsWeb!</p>
                     <p><b>🎉 Special Weekend Offer (Saturday & Sunday Only) 🎉</b></p>
                     <p>Here's your current progress summary:</p>
                     <ul>
@@ -2127,7 +2127,7 @@
                 fixedBottom: `
                     <p>Let's achieve your target this weekend!</p>
                     <p>Best Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
 
             followup: {
@@ -2156,7 +2156,7 @@
                 fixedBottom: `
                     <p>We believe in you! Complete your target this weekend.</p>
                     <p>Best Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
 
             connect: {
@@ -2164,7 +2164,7 @@
                 subject: (record) => `Let's Connect – Support for Your Internship Completion`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
-                    <p>Greetings from the FundsAudit Support Team!</p>
+                    <p>Greetings from the FundsWeb Support Team!</p>
                     <p>We noticed your progress on the internship program and wanted to reach out personally.</p>
                     <p><b>Your Details:</b></p>
                     <ul>
@@ -2182,15 +2182,15 @@
                 fixedBottom: `
                     <p>Let's work together to help you achieve your internship certificate!</p>
                     <p>Best Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             },
 
             marketing: {
                 label: "Marketing",
-                subject: (record) => `Complete Your Internship – Special Drive | FundsAudit`,
+                subject: (record) => `Complete Your Internship – Special Drive | FundsWeb`,
                 fixedTop: (record) => `
                     <p>Dear <span class="email-template-variable">${record.studentName || "Student"}</span>,</p>
-                    <p>Congratulations on being part of the FundsAudit Internship Program!</p>
+                    <p>Congratulations on being part of the FundsWeb Internship Program!</p>
                     <p><b>Your Achievement So Far:</b></p>
                     <ul>
                         <li><b>Student Name:</b> <span class="email-template-variable">${record.studentName || ""}</span></li>
@@ -2215,7 +2215,7 @@
                 fixedBottom: `
                     <p>Make this weekend count! Complete your target and get certified.</p>
                     <p>Best Regards,<br/>
-                    Team FundsAudit</p>`
+                    Team FundsWeb</p>`
             }
         };
 
@@ -5054,7 +5054,7 @@
                     <div class="px-2 w-100 d-flex align-items-center">
                         <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
                             placeholder="Subject"
-                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit">
+                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsWeb">
                     </div>
 
                     <!-- Attachment Section -->

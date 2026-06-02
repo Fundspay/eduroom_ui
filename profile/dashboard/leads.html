@@ -1077,7 +1077,7 @@
                     <div class="px-2 w-100 d-flex align-items-center">
                         <input id="subject-input" class="form-control border-0 my-1 w-100 shadow-none" type="text"
                             placeholder="Subject"
-                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsAudit">
+                            value="Collaboration Proposal for Live Projects, Internships & Placements - FundsWeb">
                     </div>
 
                     <!-- Attachment Section -->
@@ -1358,12 +1358,12 @@
         const emailTemplates = {
             default: {
                 label: "Default",
-                subject: (record) => `Internship Collaboration Opportunity – FundsAudit × ${record.collegeName || "Your Institute"}`,
+                subject: (record) => `Internship Collaboration Opportunity – FundsWeb × ${record.collegeName || "Your Institute"}`,
                 fixedTop: (record) => `
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
-                    <p>Warm greetings from FundsAudit!</p>
+                    <p>Warm greetings from FundsWeb!</p>
                     <p>We are reaching out with an exciting collaboration opportunity for your institute <span class="email-template-variable">${record.collegeName || ""}</span>, aimed at enhancing student development through real-time industry exposure in the fintech space.</p>
-                    <p>Founded in 2020, FundsAudit is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
+                    <p>Founded in 2020, FundsWeb is an ISO-certified, innovation-driven fintech startup, registered under the Startup India initiative with 400,000 active customers. We are members of AMFI, SEBI, BSE, and NSE. As part of our commitment to bridging the gap between academic learning and practical application, we propose a Student Development Program (SDP) for your MBA students (1st & 2nd year) specializing in Finance and Marketing.</p>`,
                 editableMiddle: `
                     <p><b>Collaboration Proposal:</b></p>
                     <ul>
@@ -1401,10 +1401,10 @@
             },
             promotional: {
                 label: "Promotional",
-                subject: (record) => `Exclusive Student Internship Program | FundsAudit x ${record.collegeName || "Your Institute"}`,
+                subject: (record) => `Exclusive Student Internship Program | FundsWeb x ${record.collegeName || "Your Institute"}`,
                 fixedTop: (record) => `
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
-                    <p>Greetings from <b>FundsAudit</b> – India's fastest-growing ISO-certified Fintech Startup!</p>
+                    <p>Greetings from <b>FundsWeb</b> – India's fastest-growing ISO-certified Fintech Startup!</p>
                     <p>We are thrilled to present an <b>exclusive, limited-seat Student Development Program (SDP)</b> for the talented students of <span class="email-template-variable">${record.collegeName || "your esteemed institute"}</span>. This is a golden opportunity for your MBA/PGDM students to gain real-world fintech experience while still in college.</p>`,
                 editableMiddle: `
                     <p><b>Why This Program Stands Out:</b></p>
@@ -1425,7 +1425,7 @@
                     <p>Don't miss this opportunity to give your students a competitive edge!</p>
                     <p>Warm regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    Branch Manager - Pune | FundsWeb<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -1434,11 +1434,11 @@
             },
             followup: {
                 label: "Follow-Up",
-                subject: (record) => `Follow-Up: Internship Collaboration Proposal – FundsAudit x ${record.collegeName || "Your Institute"}`,
+                subject: (record) => `Follow-Up: Internship Collaboration Proposal – FundsWeb x ${record.collegeName || "Your Institute"}`,
                 fixedTop: (record) => `
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
                     <p>Hope this email finds you well!</p>
-                    <p>I am writing to follow up on the internship collaboration proposal we shared earlier regarding <span class="email-template-variable">${record.collegeName || "your institute"}</span>. We reached out previously with details about our <b>Student Development Program (SDP)</b> at FundsAudit and wanted to check if you had a chance to review the information.</p>`,
+                    <p>I am writing to follow up on the internship collaboration proposal we shared earlier regarding <span class="email-template-variable">${record.collegeName || "your institute"}</span>. We reached out previously with details about our <b>Student Development Program (SDP)</b> at FundsWeb and wanted to check if you had a chance to review the information.</p>`,
                 editableMiddle: `
                     <p>As a quick recap, here's what we proposed:</p>
                     <ul>
@@ -1456,7 +1456,7 @@
                     <p>Looking forward to hearing from you soon.</p>
                     <p>Best regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    Branch Manager - Pune | FundsWeb<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -1465,13 +1465,13 @@
             },
             connect: {
                 label: "Connect",
-                subject: (record) => `Let's Connect – FundsAudit x ${record.collegeName || "Your Institute"} | Student Internship Initiative`,
+                subject: (record) => `Let's Connect – FundsWeb x ${record.collegeName || "Your Institute"} | Student Internship Initiative`,
                 fixedTop: (record) => `
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
-                    <p>Greetings from FundsAudit!</p>
-                    <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsAudit, Pune. I am reaching out to initiate a meaningful connect between FundsAudit and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
+                    <p>Greetings from FundsWeb!</p>
+                    <p>I hope this message finds you in great health and spirits. My name is Pooja M. Shedge, Branch Manager at FundsWeb, Pune. I am reaching out to initiate a meaningful connect between FundsWeb and <span class="email-template-variable">${record.collegeName || "your esteemed institution"}</span>.</p>`,
                 editableMiddle: `
-                    <p>At FundsAudit, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
+                    <p>At FundsWeb, we strongly believe that industry–academia collaboration is the key to producing job-ready graduates. We are an ISO-certified Fintech Startup founded in 2020, registered under Startup India, with 4,00,000+ active customers. We are AMFI, SEBI, BSE, and NSE members.</p>
                     <p>We would love to explore how we can work together to benefit your students through our <b>Student Development Program (SDP)</b>:</p>
                     <ul>
                         <li>Real-time live fintech projects — not simulations</li>
@@ -1487,7 +1487,7 @@
                     <p>Excited about the possibility of partnering with your institute and making a difference in your students' careers!</p>
                     <p>Warm regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    Branch Manager - Pune | FundsWeb<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
@@ -1496,13 +1496,13 @@
             },
             marketing: {
                 label: "Marketing",
-                subject: (record) => `Boost Your Students' Employability | FundsAudit SDP for ${record.collegeName || "Your Institute"}`,
+                subject: (record) => `Boost Your Students' Employability | FundsWeb SDP for ${record.collegeName || "Your Institute"}`,
                 fixedTop: (record) => `
                     <p>Respected <span class="email-template-variable">${record.coordinatorName || "Sir/Madam"}</span>,</p>
-                    <p>Warm greetings from <b>FundsAudit</b>!</p>
-                    <p>In today's competitive job market, academic knowledge alone is no longer enough. Students of <span class="email-template-variable">${record.collegeName || "your institution"}</span> deserve an edge — and that's exactly what FundsAudit's <b>Student Development Program (SDP)</b> delivers.</p>`,
+                    <p>Warm greetings from <b>FundsWeb</b>!</p>
+                    <p>In today's competitive job market, academic knowledge alone is no longer enough. Students of <span class="email-template-variable">${record.collegeName || "your institution"}</span> deserve an edge — and that's exactly what FundsWeb's <b>Student Development Program (SDP)</b> delivers.</p>`,
                 editableMiddle: `
-                    <p><b>What Makes FundsAudit Different?</b></p>
+                    <p><b>What Makes FundsWeb Different?</b></p>
                     <ul>
                         <li><b>ISO-Certified</b> Fintech Startup | Startup India Registered</li>
                         <li><b>4,00,000+ Active Customers</b> | AMFI, SEBI, BSE & NSE Member</li>
@@ -1524,7 +1524,7 @@
                     <p>Let's build future-ready finance and marketing professionals — together.</p>
                     <p>Best regards,<br/>
                     <b>Pooja M. Shedge</b><br/>
-                    Branch Manager - Pune | FundsAudit<br/>
+                    Branch Manager - Pune | FundsWeb<br/>
                     +91 7385234536 | +91 9322509539<br/>
                     Pune, Maharashtra<br/>
                     <a href="https://www.fundsaudit.in/">https://www.fundsaudit.in/</a><br/>
