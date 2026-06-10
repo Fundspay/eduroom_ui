@@ -724,6 +724,8 @@
                                         <th style="width: 35%; font-size: 14px;">COMMENT</th>
                                         <th style="width: 15%; font-size: 14px;">PROGRESS</th>
                                         <th style="width: 15%; font-size: 14px;">RESULT</th>
+                                        <th style="width: 15%; font-size: 14px;">SESSION LINK</th>
+                                        <th style="width: 15%; font-size: 14px;">SESSION RECORDING</th>
                                     </tr>
                                 </thead>
                                 <tbody id="taskCalendarBody1">
@@ -744,6 +746,8 @@
                                         <th style="width: 35%; font-size: 14px;">COMMENT</th>
                                         <th style="width: 15%; font-size: 14px;">PROGRESS</th>
                                         <th style="width: 15%; font-size: 14px;">RESULT</th>
+                                        <th style="width: 15%; font-size: 14px;">SESSION LINK</th>
+                                        <th style="width: 15%; font-size: 14px;">SESSION RECORDING</th>
                                     </tr>
                                 </thead>
                                 <tbody id="taskCalendarBody2">
@@ -1307,6 +1311,12 @@
                 }
             }
 
+            function truncateUrl(url, maxLength = 30) {
+                if (!url || url === '') return 'Click to add';
+                if (url.length <= maxLength) return url;
+                return url.substring(0, maxLength) + '...';
+            }
+
             function renderTasks(tasks) {
                 const tbody1 = $("#taskCalendarBody1");
                 const tbody2 = $("#taskCalendarBody2");
@@ -1345,7 +1355,11 @@
                 const resultValue = task.result || "0";
                 const taskTypeValue = task.taskType || "";
                 const commentValue = task.comment || "";
+                const sessionLinkValue = task.sessionLink || "";
+                const sessionRecordingValue = task.sessionRecording || "";
                 const rowColorClass = getRowColorClass(resultValue);
+                const truncatedLink = truncateUrl(sessionLinkValue, 25);
+                const truncatedRecording = truncateUrl(sessionRecordingValue, 25);
 
                 let progressDisplay = "";
                 if (isSystem) {
@@ -1367,7 +1381,7 @@
                             <td>
                                 <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
                             </td>
-                            <td>
+                            <td class="comment-cell" style="min-width: 150px; cursor: pointer;">
                                 <span class="comment-display">${commentValue}</span>
                                 <input type="text" class="form-control form-control-sm comment-input d-none" 
                                     value="${commentValue}" 
@@ -1378,6 +1392,18 @@
                             </td>
                             <td class="text-center">
                                 <span class="result-display">${resultValue}%</span>
+                            </td>
+                            <td class="session-link-cell" style="min-width: 180px; max-width: 200px; cursor: pointer;">
+                                <a href="${sessionLinkValue}" class="session-link-display" target="_blank" data-full-url="${sessionLinkValue}" style="color: #007bff; text-decoration: underline;">${truncatedLink}</a>
+                                <input type="text" class="form-control form-control-sm session-link-input d-none" 
+                                    value="${sessionLinkValue}" 
+                                    placeholder="Enter session link...">
+                            </td>
+                            <td class="session-recording-cell" style="min-width: 180px; max-width: 200px; cursor: pointer;">
+                                <a href="${sessionRecordingValue}" class="session-recording-display" target="_blank" data-full-url="${sessionRecordingValue}" style="color: #007bff; text-decoration: underline;">${truncatedRecording}</a>
+                                <input type="text" class="form-control form-control-sm session-recording-input d-none" 
+                                    value="${sessionRecordingValue}" 
+                                    placeholder="Enter session recording link...">
                             </td>
                         </tr>
                     `;
@@ -1389,7 +1415,7 @@
                             <td>
                                 <span class="task-title-display" data-current-value="${taskTypeValue}">${taskTypeValue}</span>
                             </td>
-                            <td>
+                            <td class="comment-cell" style="min-width: 150px; cursor: pointer;">
                                 <span class="comment-display">${commentValue}</span>
                                 <input type="text" class="form-control form-control-sm comment-input d-none" 
                                     value="${commentValue}" 
@@ -1400,6 +1426,18 @@
                             </td>
                             <td class="text-center">
                                 <span class="result-display">${resultValue}%</span>
+                            </td>
+                            <td class="session-link-cell" style="min-width: 180px; max-width: 200px; cursor: pointer;">
+                                <a href="${sessionLinkValue}" class="session-link-display" target="_blank" data-full-url="${sessionLinkValue}" style="color: #007bff; text-decoration: underline;">${truncatedLink}</a>
+                                <input type="text" class="form-control form-control-sm session-link-input d-none" 
+                                    value="${sessionLinkValue}" 
+                                    placeholder="Enter session link...">
+                            </td>
+                            <td class="session-recording-cell" style="min-width: 180px; max-width: 200px; cursor: pointer;">
+                                <a href="${sessionRecordingValue}" class="session-recording-display" target="_blank" data-full-url="${sessionRecordingValue}" style="color: #007bff; text-decoration: underline;">${truncatedRecording}</a>
+                                <input type="text" class="form-control form-control-sm session-recording-input d-none" 
+                                    value="${sessionRecordingValue}" 
+                                    placeholder="Enter session recording link...">
                             </td>
                         </tr>
                     `;
@@ -1418,7 +1456,7 @@
                             <td>
                                 <span class="task-title-display text-muted">No task assigned</span>
                             </td>
-                            <td>
+                            <td class="comment-cell" style="min-width: 150px;">
                                 <span class="comment-display text-muted">-</span>
                             </td>
                             <td class="text-center">
@@ -1426,6 +1464,12 @@
                             </td>
                             <td class="text-center">
                                 <span class="result-display text-muted">-</span>
+                            </td>
+                            <td class="session-link-cell" style="min-width: 180px; max-width: 200px;">
+                                <span class="session-link-display text-muted">-</span>
+                            </td>
+                            <td class="session-recording-cell" style="min-width: 180px; max-width: 200px;">
+                                <span class="session-recording-display text-muted">-</span>
                             </td>
                         </tr>
                     `;
@@ -1438,7 +1482,7 @@
                             <td>
                                 <span class="task-title-display text-muted">No task assigned</span>
                             </td>
-                            <td>
+                            <td class="comment-cell" style="min-width: 150px;">
                                 <span class="comment-display text-muted">-</span>
                             </td>
                             <td class="text-center">
@@ -1446,6 +1490,12 @@
                             </td>
                             <td class="text-center">
                                 <span class="result-display text-muted">-</span>
+                            </td>
+                            <td class="session-link-cell" style="min-width: 180px; max-width: 200px;">
+                                <span class="session-link-display text-muted">-</span>
+                            </td>
+                            <td class="session-recording-cell" style="min-width: 180px; max-width: 200px;">
+                                <span class="session-recording-display text-muted">-</span>
                             </td>
                         </tr>
                     `;
@@ -1582,22 +1632,25 @@
                     }
                 });
 
-                $(".comment-display").off("dblclick").on("dblclick", function () {
-                    $(this).addClass("d-none");
-                    $(this).closest("td").find(".comment-input").removeClass("d-none").focus();
+                // Comment Events - Double click anywhere in the cell
+                $(".comment-cell").off("dblclick").on("dblclick", function (e) {
+                    e.stopPropagation();
+                    const displaySpan = $(this).find(".comment-display");
+                    const inputField = $(this).find(".comment-input");
+                    displaySpan.addClass("d-none");
+                    inputField.removeClass("d-none").focus();
                 });
 
                 $(".comment-input").off("blur").on("blur", function () {
                     const row = $(this).closest("tr");
                     const taskId = row.data("task-id");
                     const taskType = row.data("task-type");
-                    const isSystem = row.data("mode") === "SYSTEM";
                     const newComment = $(this).val();
+                    const cell = $(this).closest(".comment-cell");
 
-                    row.find(".comment-display").text(newComment);
-
+                    cell.find(".comment-display").text(newComment);
+                    cell.find(".comment-display").removeClass("d-none");
                     $(this).addClass("d-none");
-                    row.find(".comment-display").removeClass("d-none");
 
                     const payload = {
                         managerId: managerId,
@@ -1609,14 +1662,110 @@
                             comment: newComment
                         }
                     };
-                    console.log("payload:", payload);
-
+                    console.log("comment payload:", payload);
                     updateTask(payload);
                 });
 
                 $(".comment-input").off("keypress").on("keypress", function (e) {
                     if (e.which === 13) {
                         $(this).blur();
+                    }
+                });
+
+                // Session Link Events - Double click anywhere in the cell
+                $(".session-link-cell").off("dblclick").on("dblclick", function (e) {
+                    e.stopPropagation();
+                    const displayLink = $(this).find(".session-link-display");
+                    const inputField = $(this).find(".session-link-input");
+                    displayLink.addClass("d-none");
+                    inputField.removeClass("d-none").focus();
+                });
+
+                $(".session-link-input").off("blur").on("blur", function () {
+                    const row = $(this).closest("tr");
+                    const taskId = row.data("task-id");
+                    const taskType = row.data("task-type");
+                    const newSessionLink = $(this).val();
+                    const cell = $(this).closest(".session-link-cell");
+
+                    const displayLink = cell.find(".session-link-display");
+                    const truncatedText = truncateUrl(newSessionLink, 25);
+                    displayLink.text(truncatedText);
+                    displayLink.attr("href", newSessionLink);
+                    displayLink.attr("data-full-url", newSessionLink);
+                    displayLink.removeClass("d-none");
+                    $(this).addClass("d-none");
+
+                    const payload = {
+                        managerId: managerId,
+                        date: currentDate,
+                        task: {
+                            taskId: taskId,
+                            taskType: taskType,
+                            title: taskType,
+                            sessionLink: newSessionLink
+                        }
+                    };
+                    console.log("session link payload:", payload);
+                    updateTask(payload);
+                });
+
+                $(".session-link-input").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        $(this).blur();
+                    }
+                });
+
+                // Session Recording Events - Double click anywhere in the cell
+                $(".session-recording-cell").off("dblclick").on("dblclick", function (e) {
+                    e.stopPropagation();
+                    const displayRecording = $(this).find(".session-recording-display");
+                    const inputField = $(this).find(".session-recording-input");
+                    displayRecording.addClass("d-none");
+                    inputField.removeClass("d-none").focus();
+                });
+
+                $(".session-recording-input").off("blur").on("blur", function () {
+                    const row = $(this).closest("tr");
+                    const taskId = row.data("task-id");
+                    const taskType = row.data("task-type");
+                    const newSessionRecording = $(this).val();
+                    const cell = $(this).closest(".session-recording-cell");
+
+                    const displayRecording = cell.find(".session-recording-display");
+                    const truncatedText = truncateUrl(newSessionRecording, 25);
+                    displayRecording.text(truncatedText);
+                    displayRecording.attr("href", newSessionRecording);
+                    displayRecording.attr("data-full-url", newSessionRecording);
+                    displayRecording.removeClass("d-none");
+                    $(this).addClass("d-none");
+
+                    const payload = {
+                        managerId: managerId,
+                        date: currentDate,
+                        task: {
+                            taskId: taskId,
+                            taskType: taskType,
+                            title: taskType,
+                            sessionRecording: newSessionRecording
+                        }
+                    };
+                    console.log("session recording payload:", payload);
+                    updateTask(payload);
+                });
+
+                $(".session-recording-input").off("keypress").on("keypress", function (e) {
+                    if (e.which === 13) {
+                        $(this).blur();
+                    }
+                });
+
+                // Single click to redirect - Only for anchor tags
+                $(".session-link-display, .session-recording-display").off("click").on("click", function (e) {
+                    e.stopPropagation();
+                    const url = $(this).attr("data-full-url");
+                    if (url && url !== "" && url !== "Click to add") {
+                        window.open(url, '_blank');
                     }
                 });
             }
@@ -1767,6 +1916,277 @@
             $(window).on('beforeunload', function () {
                 $(".floating-task-dropdown").remove();
                 $(".floating-progress-dropdown").remove();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            const API_BASE_URL = "https://eduroom.in/api/v1/bdsheet";
+
+            function getManagerId() {
+                const userId = sessionStorage.getItem("user_id");
+                if (!userId) {
+                    console.warn("No user_id found in sessionStorage");
+                    return null;
+                }
+                return userId;
+            }
+
+            const statsContainer = $('<div class="card mt-4" id="teamStatsCard" style="margin-bottom: 20px;">' +
+                '<div class="card-body">' +
+                '<div class="row">' +
+                '<div class="col-md-3 mb-3">' +
+                '<label class="form-label fw-bold">Team Allotted</label>' +
+                '<input type="text" class="form-control" id="teamAllotted" readonly disabled>' +
+                '</div>' +
+                '<div class="col-md-3 mb-3">' +
+                '<label class="form-label fw-bold">Team Active</label>' +
+                '<input type="text" class="form-control" id="teamActive" readonly disabled>' +
+                '</div>' +
+                '<div class="col-md-3 mb-3">' +
+                '<label class="form-label fw-bold">Team Attendance (%)</label>' +
+                '<input type="number" step="0.1" class="form-control" id="teamAttendance" placeholder="">' +
+                '</div>' +
+                '<div class="col-md-3 mb-3">' +
+                '<label class="form-label fw-bold">Team Review</label>' +
+                '<input type="number" step="0.1" class="form-control" id="teamReview" placeholder="">' +
+                '</div>' +
+                '</div>' +
+                '<div class="row mt-2">' +
+                '<div class="col-12 text-end">' +
+                '<button class="btn btn-primary" id="updateTeamStatsBtn">Update Stats</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>');
+
+            const overallProgressDiv = $('#overallProgress').closest('.text-center.py-2.bg-light.border');
+            if (overallProgressDiv.length) {
+                overallProgressDiv.after(statsContainer);
+            } else {
+                $('.nxl-content .card.mt-4:last').after(statsContainer);
+            }
+
+            function getCurrentSelectedDate() {
+                if (typeof currentDate !== 'undefined' && currentDate) {
+                    return currentDate;
+                }
+
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            function getStartAndEndDateForMonth(selectedDate) {
+
+                const dateObj = new Date(selectedDate);
+                const year = dateObj.getFullYear();
+                const month = dateObj.getMonth();
+                const startDate = new Date(year, month, 1);
+                const endDate = new Date(year, month + 1, 0);
+
+                const format = (d) => {
+                    const y = d.getFullYear();
+                    const m = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${y}-${m}-${day}`;
+                };
+                return { startDate: format(startDate), endDate: format(endDate) };
+            }
+
+            function fetchTeamStats(selectedDate, managerId) {
+                if (!managerId) {
+                    console.warn("Manager ID not available for fetching team stats");
+                    $('#teamAllotted').val('No manager ID');
+                    $('#teamActive').val('No manager ID');
+                    return;
+                }
+
+                const { startDate, endDate } = getStartAndEndDateForMonth(selectedDate);
+                const url = `${API_BASE_URL}/manager-intern-stats?managerId=${managerId}&startDate=${startDate}&endDate=${endDate}`;
+
+                console.log("Fetching team stats from:", url);
+                $('#teamAllotted').val('Loading...');
+                $('#teamActive').val('Loading...');
+                $('#teamAttendance').val('');
+                $('#teamReview').val('');
+
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (response) {
+                        console.log("Team stats response:", response);
+                        if (response && response.success) {
+
+                            const allotted = response.internsAllocated !== undefined ? response.internsAllocated :
+                                (response.totalInterns !== undefined ? response.totalInterns : 'N/A');
+                            const active = response.internsActive !== undefined ? response.internsActive :
+                                (response.totalActiveInterns !== undefined ? response.totalActiveInterns : 'N/A');
+                            const attendance = response.teamAttendance !== undefined ? response.teamAttendance : '';
+                            const review = response.teamReview !== undefined ? response.teamReview : '';
+
+                            $('#teamAllotted').val(allotted);
+                            $('#teamActive').val(active);
+                            if (attendance !== '') $('#teamAttendance').val(attendance);
+                            if (review !== '') $('#teamReview').val(review);
+                        } else {
+                            console.error("API returned success=false or invalid data");
+                            $('#teamAllotted').val('No data');
+                            $('#teamActive').val('No data');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Failed to fetch team stats:", error);
+                        $('#teamAllotted').val('Failed to load');
+                        $('#teamActive').val('Failed to load');
+                    }
+                });
+            }
+
+            function updateTeamStats(managerId, selectedDate, attendance, review) {
+                if (!managerId) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Manager ID not found in session. Please login again."
+                    });
+                    return;
+                }
+
+                const payload = {
+                    managerId: parseInt(managerId),
+                    date: selectedDate,
+                    teamAttendance: parseFloat(attendance),
+                    teamReview: parseFloat(review)
+                };
+
+                console.log("Updating team stats with payload:", payload);
+
+                $.ajax({
+                    url: `${API_BASE_URL}/manager-team-stats`,
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(payload),
+                    success: function (response) {
+                        console.log("Update response:", response);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Updated!",
+                            text: `Stats for ${selectedDate} have been updated.`,
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+
+                        fetchTeamStats(selectedDate, managerId);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Update failed:", error);
+                        let errorMsg = "Could not update team stats. Please try again.";
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        }
+                        Swal.fire({
+                            icon: "error",
+                            title: "Update Failed",
+                            text: errorMsg
+                        });
+                    }
+                });
+            }
+
+            let originalUpdateDate = null;
+            if (typeof updateDateFromCalendar === 'function') {
+                originalUpdateDate = updateDateFromCalendar;
+                window.updateDateFromCalendar = function (dateStr) {
+                    if (originalUpdateDate) originalUpdateDate(dateStr);
+
+                    const managerId = getManagerId();
+                    if (managerId) {
+                        setTimeout(() => {
+                            fetchTeamStats(dateStr, managerId);
+                        }, 100);
+                    }
+                };
+            }
+
+            $(document).on('click', '.fc-daygrid-day', function () {
+                const dateAttr = $(this).attr('data-date');
+                if (dateAttr) {
+                    const managerId = getManagerId();
+                    if (managerId) {
+                        setTimeout(() => {
+                            fetchTeamStats(dateAttr, managerId);
+                        }, 200);
+                    }
+                }
+            });
+
+            let lastManagerId = null;
+            let lastDate = null;
+
+            setInterval(() => {
+                const managerId = getManagerId();
+                const currentDateVal = getCurrentSelectedDate();
+
+                if (managerId && (managerId !== lastManagerId || currentDateVal !== lastDate)) {
+                    lastManagerId = managerId;
+                    lastDate = currentDateVal;
+                    console.log("Fetching stats for manager:", managerId, "date:", currentDateVal);
+                    fetchTeamStats(currentDateVal, managerId);
+                }
+            }, 2000);
+
+            setTimeout(() => {
+                const managerId = getManagerId();
+                if (managerId) {
+                    const selectedDate = getCurrentSelectedDate();
+                    console.log("Initial load - Manager:", managerId, "Date:", selectedDate);
+                    fetchTeamStats(selectedDate, managerId);
+                } else {
+                    console.warn("No manager ID found in sessionStorage on initial load");
+                    $('#teamAllotted').val('Login required');
+                    $('#teamActive').val('Login required');
+                }
+            }, 1500);
+
+            $(document).on('click', '#updateTeamStatsBtn', function () {
+                const attendance = $('#teamAttendance').val();
+                const review = $('#teamReview').val();
+                const selectedDate = getCurrentSelectedDate();
+                const managerId = getManagerId();
+
+                if (!managerId) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Session Error",
+                        text: "Manager ID not found. Please login again."
+                    });
+                    return;
+                }
+
+                if (!attendance || !review) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Missing Fields",
+                        text: "Please enter both Team Attendance and Team Review percentages."
+                    });
+                    return;
+                }
+
+                if (isNaN(parseFloat(attendance)) || isNaN(parseFloat(review))) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Input",
+                        text: "Please enter valid numbers for Attendance and Review."
+                    });
+                    return;
+                }
+
+                updateTeamStats(managerId, selectedDate, attendance, review);
             });
         });
     </script>
