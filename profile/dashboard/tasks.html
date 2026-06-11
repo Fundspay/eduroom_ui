@@ -572,9 +572,9 @@
                             position: relative;
                         }
 
-                        .fc-day-today {
-                            background-color: #e8f0fe !important;
-                        }
+                        /* .fc-day-today {
+                            background-color: #d0dcf1 !important;
+                        } */
 
                         .fc-day-today .fc-daygrid-day-number {
                             color: #1967d2 !important;
@@ -1312,7 +1312,7 @@
             }
 
             function truncateUrl(url, maxLength = 30) {
-                if (!url || url === '') return 'Click to add';
+                if (!url || url === '') return '';
                 if (url.length <= maxLength) return url;
                 return url.substring(0, maxLength) + '...';
             }
@@ -1764,7 +1764,7 @@
                 $(".session-link-display, .session-recording-display").off("click").on("click", function (e) {
                     e.stopPropagation();
                     const url = $(this).attr("data-full-url");
-                    if (url && url !== "" && url !== "Click to add") {
+                    if (url && url !== "" && url !== "") {
                         window.open(url, '_blank');
                     }
                 });
@@ -1956,7 +1956,7 @@
                 '</div>' +
                 '<div class="row mt-2">' +
                 '<div class="col-12 text-end">' +
-                '<button class="btn btn-primary" id="updateTeamStatsBtn">Update Stats</button>' +
+                '<button class="btn btn-primary" id="updateTeamStatsBtn">Save</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -2193,6 +2193,80 @@
 
     <script>
         $(document).ready(function () {
+            // Add CSS styles for calendar cells
+            if (!$('#calendar-custom-styles').length) {
+                $('head').append(`
+                    <style id="calendar-custom-styles">
+                        .fc-daygrid-day {
+                            position: relative;
+                            min-height: 100px !important;
+                        }
+                        .fc-daygrid-day-frame {
+                            display: flex;
+                            flex-direction: column;
+                            height: 100%;
+                            min-height: 100px;
+                            background-color: inherit;
+                        }
+                        .fc-daygrid-day-top {
+                            justify-content: center;
+                            margin-bottom: 4px;
+                            position: relative;
+                            z-index: 2;
+                        }
+                        .fc-daygrid-day-number {
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            float: none !important;
+                            text-align: center;
+                            width: 100%;
+                            padding: 4px 0;
+                            background: transparent;
+                            position: relative;
+                            z-index: 2;
+                        }
+                        .progress-indicator {
+                            display: none;
+                        }
+                        .calendar-status-display {
+                            text-align: center;
+                            padding: 4px 4px;
+                            font-size: 0.7rem;
+                            line-height: 1.3;
+                            position: relative;
+                            z-index: 2;
+                            background: transparent;
+                            font-weight: 500;
+                        }
+                        .fc-daygrid-day-events {
+                            min-height: 0 !important;
+                        }
+                        .fc-daygrid-day-bottom {
+                            font-size: 0.7rem;
+                        }
+                        .fc-daygrid-body {
+                            width: 100% !important;
+                        }
+                        .fc-daygrid-day-bg {
+                            z-index: 0;
+                        }
+                        .fc-daygrid-day-number {
+                            color: #333 !important;
+                        }
+                        .calendar-status-display div {
+                            font-weight: 500;
+                        }
+                        /* Make the whole day cell colored with background */
+                        .fc-daygrid-day.colored-cell {
+                            background-color: var(--cell-color) !important;
+                        }
+                        .fc-daygrid-day.colored-cell .fc-daygrid-day-frame {
+                            background-color: inherit !important;
+                        }
+                    </style>
+                `);
+            }
+
             const apiBaseUrl = "https://eduroom.in/api/v1/taskcalendar/calendar";
             let currentManagerId = null;
             let calendarInstance = null;
@@ -2226,7 +2300,6 @@
                     },
                     dateClick: function (info) {
                         showDateDetails(info.dateStr);
-                        // Call the function from first script to update tasks
                         if (typeof updateDateFromCalendar !== 'undefined') {
                             updateDateFromCalendar(info.dateStr);
                         }
@@ -2274,50 +2347,69 @@
                 }
             }
 
-            function getProgressColor(val) {
+            function getCellBackgroundColor(val) {
                 if (val === null || val === undefined) return '#ffffff';
-                if (val >= 0 && val <= 30) return '#ff7f7f';
-                if (val >= 31 && val <= 45) return '#ffa500';
-                if (val >= 46 && val <= 60) return '#ffff80';
-                if (val >= 61 && val <= 75) return '#b3ffb3';
-                if (val >= 76 && val <= 90) return '#5cdb5c';
-                if (val >= 91) return '#4da6ff';
+                if (val === 0) return '#ff7f7f';
+                if (val > 0 && val <= 35) return '#ffa500';
+                if (val > 35 && val <= 75) return '#ffff80';
+                if (val > 75 && val <= 90) return '#5cdb5c';
+                if (val > 90) return '#4da6ff';
                 return '#ffffff';
+            }
+
+            function getTextColorForBackground(val) {
+                if (val === null || val === undefined) return '#333';
+                if (val === 0) return '#fff';
+                if (val > 0 && val <= 35) return '#fff';
+                if (val > 35 && val <= 75) return '#333';
+                if (val > 75 && val <= 90) return '#fff';
+                if (val > 90) return '#fff';
+                return '#333';
+            }
+
+            function getFormattedDisplay(progressValue) {
+                if (progressValue === null || progressValue === undefined || progressValue === 'null') {
+                    return '<div style="font-size: 0.7rem; line-height: 1.3; text-align: center;">-</div>';
+                }
+                
+                const percent = parseFloat(progressValue);
+                
+                if (isNaN(percent)) {
+                    return '<div style="font-size: 0.7rem; line-height: 1.3; text-align: center;">-</div>';
+                }
+                
+                if (percent === 0) {
+                    return '<div style="font-size: 1rem; line-height: 1.3; text-align: center; font-weight: 600;">Absent<br><span style="font-size: 0.8rem; font-weight: normal;">(0%)</span></div>';
+                } else if (percent > 0 && percent <= 35) {
+                    return '<div style="font-size: 1rem; line-height: 1.3; text-align: center; font-weight: 600;">Half day<br><span style="font-size: 0.8rem; font-weight: normal;">(' + percent + '%)</span></div>';
+                } else if (percent > 35 && percent <= 75) {
+                    return '<div style="font-size: 1rem; line-height: 1.3; text-align: center; font-weight: 600;">Present<br><span style="font-size: 0.8rem; font-weight: normal;">(' + percent + '%)</span></div>';
+                } else if (percent > 75 && percent <= 90) {
+                    return '<div style="font-size: 1rem; line-height: 1.3; text-align: center; font-weight: 600;">Good day<br><span style="font-size: 0.8rem; font-weight: normal;">(' + percent + '%)</span></div>';
+                } else if (percent > 90 && percent <= 100) {
+                    return '<div style="font-size: 1rem; line-height: 1.3; text-align: center; font-weight: 600;">Rocked!<br><span style="font-size: 0.8rem; font-weight: normal;">(' + percent + '%)</span></div>';
+                }
+                
+                return '<div style="font-size: 1 rem; line-height: 1.3; text-align: center;">' + percent + '%</div>';
             }
 
             function getStatusText(progressValue) {
                 if (progressValue === null || progressValue === undefined) return 'Not Started';
-                if (progressValue >= 0 && progressValue <= 30) return 'Just Started';
-                if (progressValue >= 31 && progressValue <= 45) return 'In Progress';
-                if (progressValue >= 46 && progressValue <= 60) return 'In Progress';
-                if (progressValue >= 61 && progressValue <= 75) return 'In Progress';
-                if (progressValue >= 76 && progressValue <= 90) return 'Almost Done';
-                if (progressValue >= 91) return 'Completed';
+                if (progressValue === 0) return 'Absent';
+                if (progressValue > 0 && progressValue <= 35) return 'Half day';
+                if (progressValue > 35 && progressValue <= 75) return 'Present';
+                if (progressValue > 75 && progressValue <= 90) return 'Good day';
+                if (progressValue > 90 && progressValue <= 100) return 'Rocked!';
                 return 'Completed';
             }
 
             function getStatusClass(val) {
-                if (val === null || val === undefined)
-                    return 'status-0';
-
-                if (val >= 0 && val <= 30)
-                    return 'status-30';
-
-                if (val >= 31 && val <= 45)
-                    return 'status-45';
-
-                if (val >= 46 && val <= 60)
-                    return 'status-60';
-
-                if (val >= 61 && val <= 75)
-                    return 'status-75';
-
-                if (val >= 76 && val <= 90)
-                    return 'status-90';
-
-                if (val >= 91)
-                    return 'status-100';
-
+                if (val === null || val === undefined) return 'status-0';
+                if (val === 0) return 'status-0';
+                if (val > 0 && val <= 35) return 'status-30';
+                if (val > 35 && val <= 75) return 'status-60';
+                if (val > 75 && val <= 90) return 'status-90';
+                if (val > 90) return 'status-100';
                 return 'status-0';
             }
 
@@ -2333,27 +2425,6 @@
                 } else {
                     console.log("Cannot trigger load - Calendar:", calendarInstance, "Manager ID:", currentManagerId);
                 }
-            }
-
-            function clearCalendar() {
-                $('.fc-daygrid-day').each(function () {
-                    $(this).find('.progress-indicator, .progress-indicator-text').remove();
-                    $(this).removeAttr('data-progress');
-                    $(this).removeAttr('data-day-name');
-                    $(this).removeAttr('data-has-data');
-
-                    const indicator = $('<div class="progress-indicator"></div>');
-                    const indicatorText = $('<div class="progress-indicator-text"></div>');
-
-                    indicator.css('background-color', '#ffffff');
-                    indicatorText.text('-');
-                    indicatorText.css('color', '#999');
-
-                    $(this).append(indicator);
-                    $(this).append(indicatorText);
-                });
-
-                $('#dateDetailsContainer').hide();
             }
 
             function loadCalendarData(month) {
@@ -2388,10 +2459,6 @@
             }
 
             function renderProgressOnCalendar(calendarData) {
-                $('.fc-daygrid-day').each(function () {
-                    $(this).find('.progress-indicator, .progress-indicator-text').remove();
-                });
-
                 const progressByDate = {};
                 calendarData.forEach(day => {
                     progressByDate[day.date] = {
@@ -2403,68 +2470,49 @@
                 $('.fc-daygrid-day').each(function () {
                     const dayElement = $(this);
                     const dateStr = dayElement.attr('data-date');
+                    
+                    // Remove existing status display if any
+                    dayElement.find('.calendar-status-display').remove();
+                    
+                    // Create status display element
+                    let statusDisplay = $('<div class="calendar-status-display"></div>');
+                    dayElement.find('.fc-daygrid-day-frame').append(statusDisplay);
 
-                    if (dateStr && progressByDate[dateStr]) {
+                    if (dateStr && progressByDate[dateStr] && progressByDate[dateStr].progress !== null && progressByDate[dateStr].progress !== undefined) {
                         const progress = progressByDate[dateStr].progress;
                         const dayName = progressByDate[dateStr].dayName;
+                        const bgColor = getCellBackgroundColor(progress);
+                        const textColor = getTextColorForBackground(progress);
+                        const formattedHtml = getFormattedDisplay(progress);
+                        
+                        // Apply background color to the entire cell
+                        dayElement.css('background-color', bgColor);
+                        dayElement.css('border-radius', '4px');
+                        
+                        // Style the status display with appropriate text color
+                        statusDisplay.html(formattedHtml);
+                        statusDisplay.css('color', textColor);
+                        
+                        // Also style the day number
+                        const dayNumber = dayElement.find('.fc-daygrid-day-number');
+                        dayNumber.css('color', textColor);
+                        dayNumber.css('font-weight', '600');
 
-                        const indicator = $('<div class="progress-indicator"></div>');
-                        const indicatorText = $('<div class="progress-indicator-text"></div>');
-
-                        const bgColor = getProgressColor(progress);
-
-                        if (progress !== null) {
-                            indicatorText.text(`${progress}%`);
-                            if (progress <= 30) {
-                                indicatorText.css('color', '#000000');
-                            } else if (progress <= 45) {
-                                indicatorText.css('color', '#000000');
-                            } else if (progress <= 60) {
-                                indicatorText.css('color', '#000000');
-                            } else if (progress <= 75) {
-                                indicatorText.css('color', '#000000');
-                            } else if (progress <= 90) {
-                                indicatorText.css('color', '#000000');
-                            } else {
-                                indicatorText.css('color', '#000000');
-                            }
-                        } else {
-                            indicatorText.text('-');
-                            indicatorText.css('color', '#666');
-                            indicator.css('border', '1px solid #dee2e6');
-                        }
-
-                        indicator.css('background-color', bgColor);
-                        dayElement.append(indicator);
-                        dayElement.append(indicatorText);
-
-                        dayElement.attr('data-progress', progress !== null ? progress : 'null');
+                        dayElement.attr('data-progress', progress);
                         dayElement.attr('data-day-name', dayName);
                         dayElement.attr('data-has-data', 'true');
-                        dayElement.off('click').on('click', function (e) {
-                            e.stopPropagation();
-                            showDateDetails(dateStr);
-                        });
                     } else {
-                        const indicator = $('<div class="progress-indicator"></div>');
-                        const indicatorText = $('<div class="progress-indicator-text"></div>');
-
-                        indicator.css('background-color', '#ffffff');
-                        indicator.css('border', '1px solid #dee2e6');
-                        indicatorText.text('-');
-                        indicatorText.css('color', '#666');
-
-                        dayElement.append(indicator);
-                        dayElement.append(indicatorText);
+                        // Reset to default for days with no data
+                        dayElement.css('background-color', '#ffffff');
+                        statusDisplay.html('<div style="font-size: 0.7rem; line-height: 1.3; text-align: center; color: #999;">-</div>');
+                        
+                        const dayNumber = dayElement.find('.fc-daygrid-day-number');
+                        dayNumber.css('color', '#333');
+                        dayNumber.css('font-weight', 'normal');
 
                         dayElement.attr('data-progress', 'null');
                         dayElement.attr('data-day-name', '-');
                         dayElement.attr('data-has-data', 'false');
-
-                        dayElement.off('click').on('click', function (e) {
-                            e.stopPropagation();
-                            showDateDetails(dateStr);
-                        });
                     }
                 });
             }
@@ -2524,7 +2572,7 @@
                 circle.css('stroke-dashoffset', offset);
                 text.text(`${progress}%`);
 
-                const color = getProgressColor(progress);
+                const color = getCellBackgroundColor(progress);
                 circle.css('stroke', color);
             }
 
