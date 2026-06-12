@@ -1053,18 +1053,18 @@
                                                 </tr>
                                                 <tr class="border-b">
                                                     <!-- Interns Allotted sub-headers -->
-                                                    <th>Achieved</th>
                                                     <th>Target</th>
+                                                    <th>Achieved</th>
                                                     <th>%</th>
 
                                                     <!-- Active Interns sub-headers -->
-                                                    <th>Achieved</th>
                                                     <th>Target</th>
+                                                    <th>Achieved</th>
                                                     <th>%</th>
 
                                                     <!-- Accounts sub-headers -->
-                                                    <th>Achieved</th>
                                                     <th>Target</th>
+                                                    <th>Achieved</th>
                                                     <th>%</th>
                                                 </tr>
                                             </thead>
@@ -2090,14 +2090,14 @@
                             ${row.mobileNumber}
                         </a>
                     </td>
-                    ${makePerformanceCell(row.internsAllocated, "internsAllocated")}
                     ${makeTargetCell(row.totalInterns, "internsAllocated")}
+                    ${makePerformanceCell(row.internsAllocated, "internsAllocated")}
                     ${makePercentageCell(row.internsAllocatedPercentage, "internsAllocated")}
-                    ${makePerformanceCell(row.activeInterns, "activeInterns")}
                     ${makeTargetCell(row.internsActive, "activeInterns")}
+                    ${makePerformanceCell(row.activeInterns, "activeInterns")}
                     ${makePercentageCell(row.activeInternsPercentage, "activeInterns")}
-                    ${makePerformanceCell(row.accounts, "accounts")}
                     ${makeTargetCell(row.accountsTarget, "accounts")}
+                    ${makePerformanceCell(row.accounts, "accounts")}
                     ${makePercentageCell(row.accountsPercentage, "accounts")}
                     <td>${row.rank}</td>
                 `;
